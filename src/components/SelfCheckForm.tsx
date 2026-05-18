@@ -355,7 +355,7 @@ export default function SelfCheckForm() {
             Setting up the challenge…
           </>
         ) : (
-          'Lock In My Prediction →'
+          'Get My Child\'s Report →'
         )}
       </Button>
 

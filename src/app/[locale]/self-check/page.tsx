@@ -187,7 +187,7 @@ export default async function SelfCheckPage({
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F396D]/10 ring-1 ring-[#F16112]/25 text-xs font-bold uppercase tracking-widest text-[#1F396D]">
                 <BarChart3 className="w-3.5 h-3.5 text-[#F16112]" aria-hidden />
-                Free · 5 Minutes · No Sign-Up Form
+                Free Math Diagnostic · Grades 3–8 · Report In Your Inbox
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-[#1F396D] leading-[1.18]">
@@ -195,8 +195,9 @@ export default async function SelfCheckPage({
               </h1>
 
               <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-                Your child takes a free 8-question quiz. GrowWise identifies the exact mistake
-                pattern and emails you a full report — in minutes.
+                Most parents see the symptoms — wrong answers, lost marks, test anxiety. Few know
+                the actual cause. In 5 minutes, GrowWise identifies the exact mistake pattern and
+                emails you a personalized report. Not a score. A diagnosis.
               </p>
 
               {/* Mini loop */}
@@ -216,6 +217,7 @@ export default async function SelfCheckPage({
                 {[
                   { Icon: CheckCircle, text: 'Free — no credit card' },
                   { Icon: Clock,       text: 'Under 5 minutes' },
+                  { Icon: ShieldCheck, text: 'Report emailed to you' },
                   { Icon: ShieldCheck, text: 'No password needed' },
                 ].map(({ Icon, text }) => (
                   <div key={text} className="flex items-center gap-1.5 text-xs text-gray-500">
@@ -225,14 +227,20 @@ export default async function SelfCheckPage({
                 ))}
               </div>
 
+              {/* Social proof */}
+              <p className="text-xs text-gray-400 text-center leading-relaxed">
+                Parents from Dublin, Pleasanton and San Ramon have used this to finally
+                understand what their child&apos;s teacher couldn&apos;t explain.
+              </p>
+
               {/* Form card */}
               <div
                 id="self-check-form"
                 className="bg-white rounded-2xl shadow-[0_8px_40px_-8px_rgba(31,57,109,0.2)] ring-1 ring-[#1F396D]/10 overflow-hidden"
               >
                 <div className="bg-gradient-to-r from-[#1F396D] to-[#29335C] px-5 py-3.5">
-                  <p className="text-white font-bold text-sm">Start Free Math Self-Check</p>
-                  <p className="text-white/60 text-xs mt-0.5">Pattern result ready in under 5 minutes</p>
+                  <p className="text-white font-bold text-sm">Find My Child&apos;s Mistake Pattern</p>
+                  <p className="text-white/60 text-xs mt-0.5">Personalized report emailed in minutes after the quiz</p>
                 </div>
                 <div className="p-5">
                   <SelfCheckFormClient />
@@ -244,7 +252,7 @@ export default async function SelfCheckPage({
                 href="#gap-loop"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1F396D] hover:text-[#F16112] transition-colors"
               >
-                See How the Self-Check Works
+                How the Mistake Pattern Report works →
                 <ArrowRight className="w-3.5 h-3.5" aria-hidden />
               </a>
             </div>
