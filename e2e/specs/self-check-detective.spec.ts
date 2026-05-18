@@ -100,7 +100,7 @@ async function fillAndSubmitForm(page: Page, grade = 'Grade 3') {
   await expect(page.locator('label', { hasText: /Detective Challenge/i })).toBeVisible({ timeout: 5000 });
   await page.getByText(/Addition, Subtraction/i).click();
 
-  await page.getByRole('button', { name: /Lock In My Prediction/i }).click();
+  await page.getByRole('button', { name: /Get My Child.*Report/i }).click();
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
@@ -119,7 +119,7 @@ test.describe('Self-Check funnel', () => {
   // ── 2. Validation fires before submit ─────────────────────────────────────
   test('shows validation errors when submitting empty form', async ({ page }) => {
     await goto(page, localePath('/self-check'));
-    await page.getByRole('button', { name: /Lock In My Prediction/i }).click();
+    await page.getByRole('button', { name: /Get My Child.*Report/i }).click();
     await expect(page.getByText(/Your first name is required/i)).toBeVisible();
     await expect(page.getByText(/Email is required/i)).toBeVisible();
   });

@@ -278,6 +278,100 @@ export default function HomeClient({ initialData }: HomeClientProps) {
         onRetry={() => dispatch(fetchHomeStart())}
       />
 
+      {/* ── Self-Check Banner ─────────────────────────────────────────── */}
+      <section style={{
+        background: '#1F396D',
+        padding: '48px 24px',
+        margin: '0',
+      }}>
+        <style>{`
+          @media (max-width: 767px) {
+            .sc-banner-inner { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+            .sc-banner-cta { align-items: center !important; width: 100% !important; }
+            .sc-banner-btn { display: block !important; width: 100% !important; box-sizing: border-box !important; }
+          }
+        `}</style>
+        <div className="sc-banner-inner" style={{
+          maxWidth: '1100px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '32px',
+          flexWrap: 'wrap',
+        }}>
+          {/* Left — JTBD copy */}
+          <div style={{ flex: '1', minWidth: '280px' }}>
+            <p style={{
+              color: '#a8c4e8',
+              fontSize: '12px',
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+              fontWeight: '700',
+              margin: '0 0 12px',
+            }}>
+              FREE DIAGNOSTIC · GRADES 3–8
+            </p>
+            <h2 style={{
+              color: '#ffffff',
+              fontSize: '26px',
+              fontWeight: '700',
+              lineHeight: '1.3',
+              margin: '0 0 12px',
+            }}>
+              Find out why your child keeps making the same math mistakes — before choosing anything.
+            </h2>
+            <p style={{
+              color: '#a8c4e8',
+              fontSize: '16px',
+              lineHeight: '1.6',
+              margin: '0',
+            }}>
+              Find the exact mistake pattern holding them back —
+              before choosing any program. Free. 5 minutes.
+              Personalized report in your inbox.
+            </p>
+          </div>
+
+          {/* Right — CTA */}
+          <div className="sc-banner-cta" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px',
+            minWidth: '240px',
+          }}>
+            <a
+              href="/self-check"
+              className="sc-banner-btn"
+              style={{
+                display: 'inline-block',
+                background: '#E87722',
+                color: '#ffffff',
+                padding: '16px 32px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '700',
+                textDecoration: 'none',
+                textAlign: 'center',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Get My Child&apos;s Report →
+            </a>
+            <p style={{
+              color: '#6b8ab8',
+              fontSize: '12px',
+              margin: '0',
+              textAlign: 'center',
+            }}>
+              Free · No sign-up · Report emailed in minutes
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* ─────────────────────────────────────────────────────────────── */}
+
       <StatisticsSection
         title={
           <span>

@@ -41,8 +41,16 @@ export default function SelfCheckCampaignHeader() {
           </Link>
 
           <Link
+            href="/self-check"
+            className="text-sm font-bold bg-[#E87722] hover:bg-[#cf6419] text-white px-5 py-2.5 rounded-md transition-colors whitespace-nowrap block w-full text-center md:w-auto md:inline-block md:py-[10px] md:px-5"
+            style={{ lineHeight: '1' }}
+          >
+            Free Self-Check →
+          </Link>
+
+          <Link
             href="/enroll"
-            className="text-sm font-bold bg-[#1F396D] hover:bg-[#162d57] text-white px-4 py-1.5 rounded-lg transition-colors"
+            className="text-sm font-bold bg-[#1F396D] hover:bg-[#162d57] text-white px-4 py-1.5 rounded-lg transition-colors hidden sm:block"
           >
             Enroll
           </Link>
