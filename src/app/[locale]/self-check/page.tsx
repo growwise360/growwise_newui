@@ -216,7 +216,7 @@ export default async function SelfCheckPage({
               <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                 {[
                   { Icon: CheckCircle, text: 'Free — no credit card' },
-                  { Icon: Clock,       text: 'Under 5 minutes' },
+                  { Icon: Clock,       text: 'Under 10 minutes' },
                   { Icon: ShieldCheck, text: 'Report emailed to you' },
                   { Icon: ShieldCheck, text: 'No password needed' },
                 ].map(({ Icon, text }) => (
@@ -546,7 +546,7 @@ export default async function SelfCheckPage({
               },
               {
                 q: 'How long does the quiz take?',
-                a: '8 questions — most students finish in under 5 minutes.',
+                a: '8 questions — most students finish in under 10 minutes.',
               },
               {
                 q: 'Is the Teacher Workshop also free?',
@@ -570,7 +570,7 @@ export default async function SelfCheckPage({
               Find out what&apos;s really holding your child back
             </h2>
             <p className="text-white/70 leading-relaxed">
-              Free · No password needed · Takes under 5 minutes · Grades 3–8
+              Free · No password needed · Takes under 10 minutes · Grades 3–8
             </p>
             <a
               href="#self-check-form"

@@ -126,7 +126,7 @@ export default async function SelfCheckLayout({
             name: 'How long does the math self-check take?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The self-check takes under 5 minutes. Your child answers 8 diagnostic math questions and GrowWise emails a full pattern report within minutes of completion.',
+              text: 'The self-check takes under 10 minutes. Your child answers 8 diagnostic math questions and GrowWise emails a full pattern report within minutes of completion.',
             },
           },
           {
