@@ -319,7 +319,7 @@ export default function HomeClient({ initialData }: HomeClientProps) {
               lineHeight: '1.3',
               margin: '0 0 12px',
             }}>
-              Not sure which program is right for your child?
+              Find out why your child keeps making the same math mistakes — before choosing anything.
             </h2>
             <p style={{
               color: '#a8c4e8',
