@@ -187,19 +187,17 @@ export default async function SelfCheckPage({
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F396D]/10 ring-1 ring-[#F16112]/25 text-xs font-bold uppercase tracking-widest text-[#1F396D]">
                 <BarChart3 className="w-3.5 h-3.5 text-[#F16112]" aria-hidden />
-                Free · 5 Minutes · No Sign-Up Form
+                Free Math Diagnostic · Grades 3–8 · Report In Your Inbox
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-[#1F396D] leading-[1.18]">
-                The GrowWise{' '}
-                <span className="text-gradient-coding">Mistake Detective Challenge</span>
+                Find Out Why Your Child Keeps Making the Same Math Mistakes
               </h1>
 
               <p className="text-base text-gray-600 leading-relaxed max-w-lg">
-                Can you and your child identify their real math gaps — before we reveal them?
-                Predict the pattern. Your child takes the quiz. See who was right — and earn
-                your{' '}
-                <strong className="text-gray-800 font-semibold">Detective badge</strong>.
+                Most parents see the symptoms — wrong answers, lost marks, test anxiety. Few know
+                the actual cause. In 5 minutes, GrowWise identifies the exact mistake pattern and
+                emails you a personalized report. Not a score. A diagnosis.
               </p>
 
               {/* Mini loop */}
@@ -218,7 +216,8 @@ export default async function SelfCheckPage({
               <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                 {[
                   { Icon: CheckCircle, text: 'Free — no credit card' },
-                  { Icon: Clock,       text: 'Under 5 minutes' },
+                  { Icon: Clock,       text: 'Under 10 minutes' },
+                  { Icon: ShieldCheck, text: 'Report emailed to you' },
                   { Icon: ShieldCheck, text: 'No password needed' },
                 ].map(({ Icon, text }) => (
                   <div key={text} className="flex items-center gap-1.5 text-xs text-gray-500">
@@ -228,14 +227,20 @@ export default async function SelfCheckPage({
                 ))}
               </div>
 
+              {/* Social proof */}
+              <p className="text-xs text-gray-400 text-center leading-relaxed">
+                Parents from Dublin, Pleasanton and San Ramon have used this to finally
+                understand what their child&apos;s teacher couldn&apos;t explain.
+              </p>
+
               {/* Form card */}
               <div
                 id="self-check-form"
                 className="bg-white rounded-2xl shadow-[0_8px_40px_-8px_rgba(31,57,109,0.2)] ring-1 ring-[#1F396D]/10 overflow-hidden"
               >
                 <div className="bg-gradient-to-r from-[#1F396D] to-[#29335C] px-5 py-3.5">
-                  <p className="text-white font-bold text-sm">Start Free Math Self-Check</p>
-                  <p className="text-white/60 text-xs mt-0.5">Pattern result ready in under 5 minutes</p>
+                  <p className="text-white font-bold text-sm">Find My Child&apos;s Mistake Pattern</p>
+                  <p className="text-white/60 text-xs mt-0.5">Personalized report emailed in minutes after the quiz</p>
                 </div>
                 <div className="p-5">
                   <SelfCheckFormClient />
@@ -247,88 +252,92 @@ export default async function SelfCheckPage({
                 href="#gap-loop"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1F396D] hover:text-[#F16112] transition-colors"
               >
-                See How the Gap Loop Works
+                How the Mistake Pattern Report works →
                 <ArrowRight className="w-3.5 h-3.5" aria-hidden />
               </a>
             </div>
 
-            {/* Right — Sample Gap Snapshot */}
-            <div className="lg:pt-4">
-              <div className="bg-white rounded-2xl shadow-[0_8px_40px_-8px_rgba(31,57,109,0.15)] ring-1 ring-[#1F396D]/10 overflow-hidden">
-                <div className="bg-gradient-to-r from-[#F16112] to-[#d54f0a] px-5 py-3.5 flex items-center justify-between">
-                  <p className="text-white font-bold text-sm uppercase tracking-wide">Sample Gap Snapshot</p>
-                  <Badge className="bg-white/20 text-white border-white/30 border text-xs font-semibold">
-                    Grade 5 · Math
-                  </Badge>
+            {/* Right — Sample Report Email Preview */}
+            <div className="lg:pt-4 hidden md:block">
+              <p className="text-[11px] font-bold text-[#E87722] uppercase tracking-[2px] mb-2 text-center">
+                Sample Report Email
+              </p>
+              <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden w-full">
+
+                {/* A) Header strip */}
+                <div className="bg-[#1F396D] px-5 py-4">
+                  <p className="text-white font-bold text-base">Mistake Detective Report</p>
+                  <p className="text-white/80 text-[13px] mt-0.5">Analysis for Alex · Grade 5</p>
                 </div>
 
-                <div className="p-5 space-y-3.5">
-                  {/* Accuracy bar */}
-                  <div className="flex items-center justify-between py-2.5 border-b border-gray-100">
-                    <span className="text-xs text-gray-500 font-medium">Accuracy</span>
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-0.5">
-                        {Array.from({ length: 8 }).map((_, i) => (
-                          <div key={i} className={`w-3 h-3 rounded-sm ${i < 6 ? 'bg-[#1F396D]' : 'bg-gray-200'}`} aria-hidden />
-                        ))}
-                      </div>
-                      <span className="text-xs font-bold text-[#1F396D]">6 / 8</span>
+                {/* B) Score block */}
+                <div className="px-5 py-4">
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    <div className="text-center">
+                      <p className="text-[#1F396D] font-bold text-[28px] leading-none">8</p>
+                      <p className="text-gray-400 text-[11px] uppercase tracking-wide mt-1">Questions</p>
+                    </div>
+                    <div className="text-center bg-[#f0faf4] rounded-lg py-1.5">
+                      <p className="text-[#22863a] font-bold text-[28px] leading-none">5</p>
+                      <p className="text-gray-400 text-[11px] uppercase tracking-wide mt-1">Correct</p>
+                    </div>
+                    <div className="text-center bg-[#fff5f5] rounded-lg py-1.5">
+                      <p className="text-[#c0392b] font-bold text-[28px] leading-none">3</p>
+                      <p className="text-gray-400 text-[11px] uppercase tracking-wide mt-1">To Review</p>
                     </div>
                   </div>
+                  <div className="w-full bg-[#eee] rounded h-1.5">
+                    <div className="bg-[#1F396D] rounded h-1.5" style={{ width: '62%' }} />
+                  </div>
+                  <p className="text-right text-[11px] text-gray-400 mt-1">
+                    62% score ·{' '}
+                    <span className="text-[#c0392b]">Below 80% threshold</span>
+                  </p>
+                </div>
 
-                  {/* Top pattern */}
-                  <div className="flex items-start justify-between gap-3 py-2.5 border-b border-gray-100">
+                {/* C) Pattern card */}
+                <div className="px-5 pb-4">
+                  <p className="text-[10px] text-[#1F396D] uppercase tracking-[1.5px] font-semibold">
+                    Pattern Identified
+                  </p>
+                  <div className="mt-2 bg-[#FFF8F3] border-l-[3px] border-[#E87722] rounded-md px-3.5 py-2.5 flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide mb-0.5">Top Pattern</p>
-                      <p className="text-sm font-bold text-gray-900">Skipped Steps</p>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        Jumps from problem to answer — correct answers are luck, not method.
+                      <p className="font-bold text-[14px] text-gray-900">Skipped Steps</p>
+                      <p className="text-[12px] text-gray-500 mt-0.5 leading-snug">
+                        Jumps to answer without showing full working.
                       </p>
                     </div>
-                    <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold border border-amber-200 mt-0.5">
+                    <span className="flex-shrink-0 bg-[#E87722] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
                       CONFIRMED
                     </span>
                   </div>
+                </div>
 
-                  {/* Secondary pattern */}
-                  <div className="flex items-start justify-between gap-3 py-2.5 border-b border-gray-100">
-                    <div>
-                      <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide mb-0.5">Secondary Pattern</p>
-                      <p className="text-sm font-bold text-gray-900">Question Misread</p>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        Reads the problem too fast and answers the wrong question.
-                      </p>
-                    </div>
-                    <span className="flex-shrink-0 px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold border border-blue-200 mt-0.5">
-                      POSSIBLE
-                    </span>
+                {/* D) Instructor note */}
+                <div className="px-5 pb-4">
+                  <div className="relative bg-[#fffbf0] border-l-[3px] border-[#1F396D] rounded-md px-3.5 py-3 overflow-hidden">
+                    <p className="italic text-[13px] text-[#555] leading-relaxed">
+                      Alex&apos;s score suggests the gap is in how she approaches
+                      multi-step problems. I&apos;d like to understand...
+                    </p>
+                    <div
+                      className="absolute bottom-0 left-0 right-0 h-[60px]"
+                      style={{ background: 'linear-gradient(transparent, white)' }}
+                    />
                   </div>
+                </div>
 
-                  {/* Risk */}
-                  <div className="flex items-center justify-between py-2.5 border-b border-gray-100">
-                    <span className="text-xs text-gray-500 font-medium">Risk Before Fall</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200 uppercase tracking-wide">
-                      Medium
-                    </span>
+                {/* E) CTA preview */}
+                <div className="bg-[#1F396D] px-5 py-5 text-center">
+                  <div className="inline-block bg-[#E87722] text-white font-bold text-[14px] px-6 py-3 rounded-lg">
+                    Get Alex&apos;s Personalized Plan →
                   </div>
-
-                  {/* Next step */}
-                  <div className="rounded-xl bg-[#1F396D]/[0.05] border border-[#1F396D]/10 p-3 flex items-start gap-2.5">
-                    <Users className="w-4 h-4 text-[#1F396D] flex-shrink-0 mt-0.5" aria-hidden />
-                    <div>
-                      <p className="text-[10px] font-bold text-[#1F396D] uppercase tracking-wide mb-0.5">Next Step</p>
-                      <p className="text-sm font-semibold text-gray-800">Teacher Workshop Validation</p>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        A GrowWise teacher confirms the pattern and builds the fix plan.
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="text-center text-[11px] text-gray-400">
-                    Your child&#39;s actual snapshot is generated in minutes after the quiz.
-                  </p>
                 </div>
               </div>
+
+              <p className="text-center text-[12px] text-[#999] mt-2">
+                Your child&apos;s actual report is generated minutes after completing the quiz.
+              </p>
             </div>
 
           </div>
@@ -537,7 +546,7 @@ export default async function SelfCheckPage({
               },
               {
                 q: 'How long does the quiz take?',
-                a: '8 questions — most students finish in under 5 minutes.',
+                a: '8 questions — most students finish in under 10 minutes.',
               },
               {
                 q: 'Is the Teacher Workshop also free?',
@@ -561,7 +570,7 @@ export default async function SelfCheckPage({
               Find out what&apos;s really holding your child back
             </h2>
             <p className="text-white/70 leading-relaxed">
-              Free · No password needed · Takes under 5 minutes · Grades 3–8
+              Free · No password needed · Takes under 10 minutes · Grades 3–8
             </p>
             <a
               href="#self-check-form"
