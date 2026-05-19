@@ -55,6 +55,28 @@ export default function SelfCheckDonePage() {
           </CardContent>
         </Card>
 
+        {/* 6-week plan CTA */}
+        <Card className="border-[#1F396D]/30 bg-[#1F396D]/[0.04]">
+          <CardContent className="p-6 space-y-3 text-center">
+            <p className="font-bold text-[#1F396D] text-lg">
+              We&#39;ve identified the pattern. Now let&#39;s fix it.
+            </p>
+            <p className="text-sm text-gray-600">
+              Based on your results, a GrowWise instructor will put together a
+              6-week personalized plan targeting exactly what&#39;s holding your child back.
+            </p>
+            <a
+              href={process.env.NEXT_PUBLIC_WORKSHOP_CALENDLY_URL ?? process.env.NEXT_PUBLIC_WORKSHOP_BOOKING_URL ?? 'https://calendly.com/growwise/workshop'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-[#1F396D] hover:bg-[#183056] text-white font-bold px-8 py-3 rounded-xl text-sm transition-colors shadow-md w-full sm:w-auto"
+            >
+              Get Your 6-Week Personalized Plan →
+            </a>
+            <p className="text-xs text-gray-500">Free. Pick a time that works for you.</p>
+          </CardContent>
+        </Card>
+
         {/* Footer links */}
         <div className="flex flex-col items-center gap-3 pt-2">
           <a

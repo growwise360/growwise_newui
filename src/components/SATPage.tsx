@@ -293,6 +293,20 @@ const SATPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Assessment CTA Banner */}
+      <div className="bg-amber-50 border-y border-amber-200 py-4 px-4 lg:px-8">
+        <p className="text-center text-sm sm:text-base text-amber-900 max-w-3xl mx-auto">
+          Not sure which program fits your child?{' '}
+          <Link
+            href={publicPath('/book-assessment', locale)}
+            className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+          >
+            Get a free academic assessment
+          </Link>
+          {' '}— we'll identify the right level and track before your first session.
+        </p>
+      </div>
+
       {/* SAT Courses Section - Matching English Courses Style */}
       <section className="py-16 px-4 lg:px-8" style={{
         background: `

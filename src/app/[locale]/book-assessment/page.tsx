@@ -875,6 +875,33 @@ export default function BookAssessmentPage() {
         </div>
       </section>
 
+      {/* Browse programs — visible before and after form submission */}
+      <section className="py-12 px-4 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-lg sm:text-xl font-bold text-[#1F396D] mb-5 text-center">
+            Want to explore programs first?
+          </h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { href: publicPath('/courses/math', locale), label: 'K–12 Math Tutoring' },
+              { href: publicPath('/courses/high-school-math', locale), label: 'High School Math Tutoring' },
+              { href: publicPath('/courses/sat-prep', locale), label: 'SAT Prep Tutoring' },
+              { href: publicPath('/camps/summer', locale), label: 'Summer STEAM Camps 2026' },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="flex items-center gap-2 p-4 rounded-xl border-2 border-[#1F396D]/20 bg-white hover:border-[#F16112] hover:shadow-md transition-all text-[#1F396D] font-semibold text-sm sm:text-base"
+                >
+                  <span className="text-[#F16112]">→</span>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
