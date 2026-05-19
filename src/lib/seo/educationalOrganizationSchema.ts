@@ -36,36 +36,42 @@ function courseOfferEntry(base: string, c: CatalogCourse) {
 
 const OFFER_CATALOG_COURSES: CatalogCourse[] = [
   {
-    name: 'Summer STEAM Camps',
-    description:
-      'AI Studio, Game Development, Robotics, Math Olympiad, Young Authors summer camps for grades 3–12 in Dublin, CA',
-    path: '/camps/summer',
-    typicalAgeRange: '8-18',
-    educationalLevel: 'Grades 3-12',
-  },
-  {
-    name: 'Math Tutoring',
+    name: 'Math Tutoring Grades 1-12',
     description: 'Grades 1–12 math tutoring including high school math and SAT prep in Dublin, CA',
     path: '/courses/math',
     typicalAgeRange: '6-18',
     educationalLevel: 'Grades 1-12',
   },
   {
-    name: 'English & Reading Classes',
+    name: 'English & ELA Tutoring',
     description: 'Grades 1–12 English, reading and writing classes in Dublin, CA',
     path: '/courses/english',
     typicalAgeRange: '6-18',
     educationalLevel: 'Grades 1-12',
   },
   {
-    name: 'ML & AI Coding Classes',
+    name: 'SAT Prep',
+    description: 'Comprehensive SAT test preparation for high school students in Dublin, CA',
+    path: '/courses/sat-prep',
+    typicalAgeRange: '14-18',
+    educationalLevel: 'High School',
+  },
+  {
+    name: 'Python Coding',
+    description: 'Python programming classes for kids and teens in Dublin, CA',
+    path: '/steam/ml-ai-coding',
+    typicalAgeRange: '10-18',
+    educationalLevel: 'Grades 5-12',
+  },
+  {
+    name: 'ML/AI Coding',
     description: 'Machine learning and AI coding classes for kids in Dublin, CA',
     path: '/steam/ml-ai-coding',
     typicalAgeRange: '10-18',
     educationalLevel: 'Grades 5-12',
   },
   {
-    name: 'Game Development Classes',
+    name: 'Game Development',
     description: 'Game development and coding classes for kids in Dublin, CA',
     path: '/steam/game-development',
     typicalAgeRange: '10-18',
@@ -86,13 +92,13 @@ export function buildEducationalOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': ['EducationalOrganization', 'LocalBusiness'],
-    name: 'GrowWise School',
-    alternateName: 'GrowWise',
+    name: 'GrowWise',
+    alternateName: 'GrowWise School',
     url: base,
-    logo: `${base}/logo.png`,
-    image: `${base}/logo.png`,
+    logo: `${base}/assets/growwise-logo.png`,
+    image: `${base}/og-image.jpg`,
     description:
-      'K–12 STEAM enrichment and academic tutoring in Dublin, CA. Small-group, project-based programs in coding, robotics, AI, math, and writing for grades 1–12.',
+      'Grades 1-12 tutoring and STEAM programs in Dublin, CA. Math, English, coding, and SAT prep. Small groups, personalized lessons.',
     telephone: CONTACT_INFO.phone,
     email: CONTACT_INFO.email,
     address: {
@@ -105,8 +111,8 @@ export function buildEducationalOrganizationSchema() {
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 37.7059,
-      longitude: -121.8985,
+      latitude: 37.7022,
+      longitude: -121.9358,
     },
     hasMap: `https://maps.google.com/?q=${mapQuery}`,
     openingHoursSpecification: [
@@ -143,17 +149,16 @@ export function buildEducationalOrganizationSchema() {
       'Summer Camps Dublin CA Tri-Valley',
     ],
     areaServed: [
-      { '@type': 'City', name: 'Dublin', containedInPlace: { '@type': 'State', name: 'California' } },
-      { '@type': 'City', name: 'Pleasanton', containedInPlace: { '@type': 'State', name: 'California' } },
-      { '@type': 'City', name: 'San Ramon', containedInPlace: { '@type': 'State', name: 'California' } },
-      { '@type': 'City', name: 'Livermore', containedInPlace: { '@type': 'State', name: 'California' } },
+      { '@type': 'City', name: 'Dublin, CA' },
+      { '@type': 'City', name: 'Pleasanton, CA' },
+      { '@type': 'City', name: 'San Ramon, CA' },
+      { '@type': 'City', name: 'Danville, CA' },
+      { '@type': 'City', name: 'Livermore, CA' },
     ],
     sameAs: [
-      'https://www.youtube.com/@growwise.dublin',
-      'https://www.google.com/maps/place/GrowWise+School/@37.7059,-121.8985',
-      'https://www.facebook.com/growwiseschool',
-      'https://www.yelp.com/biz/growwise-school-dublin',
-      'https://www.instagram.com/growwiseschool',
+      'https://www.facebook.com/people/GrowWise/61561059687164/',
+      'https://www.instagram.com/growwise.dublin/',
+      'https://www.linkedin.com/company/thegrowwise/',
     ],
     subOrganization: [
       { '@type': 'EducationalOrganization', name: 'GrowWise STEAM Programs' },
@@ -161,7 +166,7 @@ export function buildEducationalOrganizationSchema() {
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'GrowWise Programs',
+      name: 'Academic & STEAM Programs',
       itemListElement: OFFER_CATALOG_COURSES.map((c) => courseOfferEntry(base, c)),
     },
   }

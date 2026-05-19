@@ -44,6 +44,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: "How to Identify Learning Gaps in Your Child's Education at Home",
     description: 'Spot learning gaps early with simple checks at home—then align support with school expectations in the Tri-Valley.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-05-16',
+    dateModified: '2025-05-16',
   })
 
   return (
@@ -478,6 +481,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Found a gap? Close it fast.{' '}
+                <Link href={publicPath('/courses/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Math tutoring for Grades 1–12
+                </Link>{' '}
+                and{' '}
+                <Link href={publicPath('/courses/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  English &amp; ELA tutoring
+                </Link>{' '}
+                — personalized, small-group sessions at GrowWise in Dublin, CA.{' '}
+                <Link href={publicPath('/book-assessment', locale)} className="text-[#F16112] font-semibold underline hover:text-[#F1894F]">
+                  Book a free diagnostic assessment &rarr;
+                </Link>
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

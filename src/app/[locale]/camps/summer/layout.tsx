@@ -59,15 +59,15 @@ export default async function SummerCampLayout({
   const baseUrl = getCanonicalSiteUrl();
   const minCampPriceUsd = getMinimumPublishedSummerCampPriceUsd();
   const summerEventDescription =
-    'Enrollment open for GrowWise Summer Camp 2026! Accredited courses in Math, Coding, Robotics, and more. Half-day and full-day camps. Small cohorts. Dublin, CA.';
+    'Accredited summer STEAM camps in Dublin, CA for Grades K-12. Weekly sessions in Math, Coding, Robotics, and AI. June through August 2026.';
 
   const eventSchema = generateEventSchema({
-    name: 'Summer Camp 2026 - Math, Coding & Robotics',
+    name: 'Summer STEAM Camp 2026 — Dublin, CA',
     description: summerEventDescription,
     startDate: SUMMER_CAMP_EVENT_START_ISO,
     endDate: SUMMER_CAMP_EVENT_END_ISO,
     location: {
-      name: 'GrowWise School',
+      name: 'GrowWise',
       address: {
         streetAddress: CONTACT_INFO.street,
         addressLocality: 'Dublin',
@@ -80,13 +80,11 @@ export default async function SummerCampLayout({
       name: 'GrowWise',
       url: baseUrl,
     },
-    image: `${baseUrl}/assets/growwise-logo.png`,
-    // price = lowest published option; program/week/format prices vary on the page.
+    image: `${baseUrl}/og-image.jpg`,
     offers: {
-      price: String(minCampPriceUsd),
-      priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       url: absoluteSiteUrl('/camps/summer', locale, baseUrl),
+      validFrom: '2026-01-01',
     },
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',

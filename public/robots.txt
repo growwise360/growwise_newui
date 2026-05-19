@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /en/
+Disallow: /hi/
+Disallow: /*?*
+Disallow: /favicon.ico
+Disallow: /cart
+Disallow: /student-login
+
+Sitemap: https://www.growwiseschool.org/sitemap.xml

@@ -37,7 +37,7 @@
             "title": "Courses",
             "description": "Browse our academic courses",
             "icon": "BookOpen",
-            "href": "/courses",
+            "href": "/academic",
             "gradient": "from-[#1F396D] to-[#F16112]",
             "hasSubmenu": true,
             "submenuItems": [
@@ -182,7 +182,7 @@
     {
       "key": "resources",
       "label": "Resources",
-      "href": "#",
+      "href": "/growwise-blogs",
       "type": "simple",
       "variant": "orange",
       "visible": false

@@ -28,7 +28,7 @@
         { "label": "ML/AI कोडिंग", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "गेम डेवलपमेंट", "href": "/steam/game-development", "active": true },
         { "label": "STEAM अवलोकन", "href": "/steam", "active": true },
-        { "label": "पायथन प्रोग्रामिंग", "href": "#", "active": false }
+        { "label": "पायथन प्रोग्रामिंग", "href": "/steam/ml-ai-coding", "active": true }
       ]
     },
     {

@@ -339,8 +339,9 @@ function EnglishCoursesContent() {
         <SearchParamsHandler onTypeFound={handleTypeFound} />
       </Suspense>
 
-      {/* Breadcrumbs */}
+      {/* Breadcrumbs — noSchema: layout already emits server-rendered BreadcrumbList JSON-LD */}
       <Breadcrumbs 
+        noSchema
         items={[
           { name: 'Programs', url: absoluteSiteUrl('/programs', locale) },
           { name: 'Academic', url: absoluteSiteUrl('/academic', locale) },
@@ -902,6 +903,35 @@ function EnglishCoursesContent() {
           </div>
         </div>
       </section>
+
+      {/* Success Stories Section */}
+      {(englishCoursesData?.successStories ?? []).length > 0 && (
+        <section className="py-16 px-4 lg:px-8 bg-orange-50">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Student Success Stories</h2>
+            <p className="text-gray-600 text-center mb-10">Real results from GrowWise English students</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {englishCoursesData.successStories.map((story: { name: string; grade: string; improvement: string; quote: string; course: string }, index: number) => (
+                <Card key={index} className="bg-white border border-orange-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <CardContent className="p-6 flex flex-col gap-4">
+                    <div className="flex items-center gap-1 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 italic leading-relaxed">&ldquo;{story.quote}&rdquo;</p>
+                    <div className="mt-auto pt-2 border-t border-gray-100">
+                      <p className="font-semibold text-gray-900">{story.name}</p>
+                      <p className="text-sm text-gray-500">{story.grade} &mdash; {story.course}</p>
+                      <p className="text-sm font-medium text-[#F16112] mt-1">{story.improvement}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-16 px-4 lg:px-8 bg-[#1F396D]">

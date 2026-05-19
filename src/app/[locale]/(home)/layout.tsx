@@ -7,16 +7,29 @@ import { generateFAQPageSchema } from '@/lib/seo/structuredData';
 
 const HOME_FAQS = [
   {
-    question:
-      'How do I know whether my child needs academic tutoring or something like coding or a summer camp?',
+    question: 'What grades does GrowWise serve?',
     answer:
-      'GrowWise offers three distinct tracks. Academic support covers Math and English for Grades 1 through 12. STEAM programs cover coding, AI, and game development. Summer camps run week-long sessions in coding, robotics, math, and writing. The right starting point depends on whether your child is behind in school, wants to explore a new skill, or needs a structured summer program. A free assessment helps identify which track fits.',
+      'GrowWise serves students in Grades 1 through 12, offering personalized academic tutoring and STEAM programs for all levels.',
   },
   {
-    question:
-      'My child struggles with homework every night and I cannot keep up with helping them \u2014 when is it time to get outside support?',
+    question: 'Where is GrowWise located?',
     answer:
-      'If you are spending more than 30 minutes each night helping your child and it is still not clicking, that is a reliable signal that structured support would help more than parental re-teaching. GrowWise offers a free assessment that identifies exactly where the gap is and what format of support fits your child\u2019s learning style.',
+      'GrowWise is located at 4564 Dublin Blvd, Dublin, CA 94568, serving families across Dublin, Pleasanton, San Ramon, Danville, and Livermore.',
+  },
+  {
+    question: 'What subjects does GrowWise tutor?',
+    answer:
+      'GrowWise offers tutoring in Math (Grades 1-12), English Language Arts, SAT/ACT Prep, Python coding, ML/AI, and Game Development.',
+  },
+  {
+    question: 'How do I get started at GrowWise?',
+    answer:
+      'Book a free diagnostic assessment at growwiseschool.org/book-assessment. We assess your child\u2019s level and create a personalized learning plan.',
+  },
+  {
+    question: 'Does GrowWise offer summer camps?',
+    answer:
+      'Yes. GrowWise runs accredited summer camps in Math, Coding, Robotics, and STEAM for Grades K-12 in Dublin, CA. Sessions run June through August.',
   },
 ];
 
