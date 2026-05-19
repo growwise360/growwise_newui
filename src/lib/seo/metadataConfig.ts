@@ -67,11 +67,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/courses/math': {
-    title: 'Math Tutoring Dublin CA | Grades 1-12 | GrowWise',
+    title: 'K-12 Math Tutoring in Dublin, CA | GrowWise',
     description:
-      'Math tutoring for grades 1–12 in Dublin, CA. Common Core aligned, small groups, and placement support. Book a free assessment.',
+      'Expert math tutoring for Grades 1-12 in Dublin, CA. Elementary to AP-level. DUSD-aligned, small groups, personalized plans. Book your free assessment.',
     keywords:
-      'math tutoring Dublin CA, math tutor Dublin, Grades 1-12 math courses, grade-level math, accelerated math, integrated math, DUSD math, PUSD math, algebra tutoring, geometry tutoring, pre-calculus, elementary math, middle school math, high school math, math classes Dublin CA, math help Dublin, math tutoring near me',
+      'math tutoring Dublin CA, math tutor Dublin, Grades 1-12 math courses, grade-level math, accelerated math, integrated math, DUSD math, PUSD math, algebra tutoring, geometry tutoring, pre-calculus, elementary math, middle school math, high school math, math classes Dublin CA, math enrichment Dublin CA, DUSD accelerated math, math help Dublin, math tutoring near me',
     path: '/courses/math',
   },
 
@@ -85,20 +85,20 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/courses/sat-prep': {
-    title: 'SAT Prep Dublin CA | GrowWise School',
+    title: 'SAT Prep Tutoring in Dublin, CA | GrowWise',
     description:
-      'SAT prep for Tri-Valley high schoolers in Dublin, CA. Expert coaches, timed practice, and proven strategies. Book a free assessment today.',
+      'Score higher on the SAT with personalized prep in Dublin, CA. Practice tests, proven strategies & expert tutors. Small groups. Book a free assessment today.',
     keywords:
       'SAT prep Dublin CA, SAT preparation, SAT course, SAT tutoring Dublin, SAT test prep, SAT strategies, SAT practice tests, SAT classes Dublin CA, SAT help, SAT tutor near me, SAT prep course, SAT score improvement, college entrance exam prep',
     path: '/courses/sat-prep',
   },
 
   '/courses/high-school-math': {
-    title: 'High School Math Tutoring | Dublin CA | GrowWise',
+    title: 'High School Math Tutoring Dublin CA | GrowWise',
     description:
-      'High school math in Dublin, CA: algebra through calculus. DUSD aligned, small groups, and clear pacing. Book a free assessment.',
+      'Algebra, Geometry, Pre-Calculus & AP Math tutoring in Dublin, CA. DUSD-aligned lessons, expert tutors, small groups. Book a free assessment at GrowWise.',
     keywords:
-      'high school math, algebra tutoring, geometry tutoring, pre-calculus, high school math courses Dublin CA, advanced math',
+      'high school math tutoring Dublin CA, algebra tutoring, algebra 1, algebra 2, geometry tutoring, pre-calculus, AP precalculus, integrated math, integrated math 1, integrated math 2, DUSD accelerated math placement, high school math courses Dublin CA, advanced math tutoring',
     path: '/courses/high-school-math',
   },
 
@@ -157,11 +157,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/enroll-academic': {
-    title: 'Academic Enrollment | Math & English | GrowWise',
+    title: 'Enroll in Tutoring Programs | GrowWise Dublin, CA',
     description:
-      'Enroll in GrowWise math and English programs in Dublin, CA. DUSD & PUSD aligned curriculum, small groups, and personalized pacing. Get started today.',
+      'Enroll your child in Math, English, SAT prep or STEAM programs at GrowWise Dublin, CA. Personalized lessons for Grades 1-12. Get started today.',
     keywords:
-      'enroll academic programs, math enrollment, English enrollment, academic tutoring enrollment Dublin CA, Grades 1-12 enrollment',
+      'enroll academic programs, math enrollment, English enrollment, academic tutoring enrollment Dublin CA, Grades 1-12 enrollment, SAT prep enrollment',
     path: '/enroll-academic',
   },
 
@@ -175,9 +175,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/book-assessment': {
-    title: 'Free Academic Assessment in Dublin, CA | GrowWise',
+    title: 'Free Math & English Assessment for Kids | GrowWise Dublin',
     description:
-      'Book a free academic assessment for your child at GrowWise in Dublin, CA. Get expert evaluation in math or English and a personalized learning plan.',
+      'Book a free diagnostic assessment at GrowWise in Dublin, CA. We identify exactly where your child needs support and build a personalized learning plan.',
     keywords:
       'free academic assessment Dublin CA, free assessment, placement assessment, math English evaluation, personalized learning plan, book assessment',
     path: '/book-assessment',
@@ -249,11 +249,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer': {
-    title: 'Summer STEAM Camps Dublin CA | GrowWise',
+    title: 'Summer STEAM Camps 2026 in Dublin, CA | GrowWise',
     description:
-      'Small-group summer STEAM camps in Dublin, CA for grades 3–12. Students build real projects — games, robots, apps. Enroll at GrowWise School.',
+      'Top-rated summer STEAM camps in Dublin, CA for Grades 3–12. Math, Coding, Robotics & AI. Weekly sessions June–August. Limited spots — enroll now.',
     keywords:
-      'summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon, coding camp Livermore, kids coding camp Danville, machine learning camp for kids, Python coding camp kids',
+      'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',
     image: 'https://growwiseschool.org/assets/camps/summer-camp-banner.png',
   },

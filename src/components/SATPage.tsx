@@ -215,7 +215,7 @@ const SATPage: React.FC = () => {
           {/* Main Header Content */}
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
-              <span className="text-gray-800">SAT Prep Courses </span>
+              <span className="text-gray-800">SAT Prep Tutoring </span>
               <span className="bg-gradient-to-r from-[#1F396D] to-[#F16112] bg-clip-text text-transparent">
                 in Dublin, CA
               </span>
@@ -567,6 +567,14 @@ const SATPage: React.FC = () => {
               {
                 q: 'How small are the SAT prep classes at GrowWise?',
                 a: 'All SAT prep sessions run in small groups of 4–8 students maximum, ensuring every student gets personalized attention and can ask questions freely. This is very different from large test-prep chains where classes can have 20–30 students. Sessions are held at our Dublin, CA center with flexible evening and weekend scheduling.',
+              },
+              {
+                q: 'When should my child start SAT prep?',
+                a: 'We recommend starting at least 4–6 months before the target test date — typically early 11th grade for the SAT, or 9th–10th grade for the PSAT. Starting earlier allows time to close foundational gaps in math and reading/writing before drilling test-specific strategy.',
+              },
+              {
+                q: 'Does GrowWise offer ACT prep as well?',
+                a: 'Our primary focus is SAT and PSAT preparation, which aligns with the current testing landscape in the Tri-Valley. If your student is specifically preparing for the ACT, contact us to discuss options — many of the core skills and strategies overlap significantly between the two tests.',
               },
             ].map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-xl shadow-sm">
