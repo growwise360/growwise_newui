@@ -43,6 +43,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Why Learning Python is Your Fast Track to In-Demand Job Offers',
     description: 'Why Python opens doors: versatile skills, strong hiring demand, and a clear path from first scripts to real projects.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-10-18',
+    dateModified: '2024-10-18',
   })
 
   return (
@@ -194,6 +197,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Want to put Python skills into practice?{' '}
+                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise ML/AI &amp; Python coding classes
+                </Link>{' '}
+                — hands-on projects, small groups, Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

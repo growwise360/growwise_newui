@@ -28,7 +28,7 @@
         { "label": "Codificación ML/IA", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "Desarrollo de Juegos", "href": "/steam/game-development", "active": true },
         { "label": "Resumen STEAM", "href": "/steam", "active": true },
-        { "label": "Programación Python", "href": "#", "active": false }
+        { "label": "Programación Python", "href": "/steam/ml-ai-coding", "active": true }
       ]
     },
     {

@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Technical Schools in 2025: A Smart Investment for Your Career',
     description: 'Explore why technical education and coding skills are becoming essential investments for career success in 2025.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-03-12',
+    dateModified: '2025-03-12',
   })
 
   return (

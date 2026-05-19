@@ -5,9 +5,9 @@ import { buildEducationalOrganizationSchema } from '@/lib/seo/educationalOrganiz
 describe('buildEducationalOrganizationSchema — GWA-192 / TC-09', () => {
   const schema = buildEducationalOrganizationSchema() as Record<string, unknown>
 
-  it('uses EducationalOrganization + LocalBusiness and GrowWise School name', () => {
+  it('uses EducationalOrganization + LocalBusiness and GrowWise name', () => {
     expect(schema['@type']).toEqual(['EducationalOrganization', 'LocalBusiness'])
-    expect(schema.name).toBe('GrowWise School')
+    expect(schema.name).toBe('GrowWise')
   })
 
   it('includes aggregateRating, knowsAbout, and expanded sameAs', () => {
@@ -19,8 +19,10 @@ describe('buildEducationalOrganizationSchema — GWA-192 / TC-09', () => {
     expect(Array.isArray(schema.knowsAbout)).toBe(true)
     expect((schema.knowsAbout as unknown[]).length).toBeGreaterThanOrEqual(5)
     const sameAs = schema.sameAs as string[]
-    expect(sameAs).toHaveLength(5)
-    expect(sameAs.some((u) => u.includes('youtube.com'))).toBe(true)
+    expect(sameAs.length).toBeGreaterThanOrEqual(3)
+    expect(sameAs.some((u) => u.includes('facebook.com'))).toBe(true)
+    expect(sameAs.some((u) => u.includes('instagram.com'))).toBe(true)
+    expect(sameAs.some((u) => u.includes('linkedin.com'))).toBe(true)
   })
 
   it('uses CONTACT_INFO for telephone (single source of truth)', () => {

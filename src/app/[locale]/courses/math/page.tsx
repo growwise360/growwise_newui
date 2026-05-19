@@ -362,8 +362,9 @@ const MathCoursesPage: React.FC = () => {
           />
         </Suspense>
 
-      {/* Breadcrumbs */}
+      {/* Breadcrumbs — noSchema: layout already emits server-rendered BreadcrumbList JSON-LD */}
       <Breadcrumbs 
+        noSchema
         items={[
           { name: 'Programs', url: absoluteSiteUrl('/programs', locale) },
           { name: 'Academic', url: absoluteSiteUrl('/academic', locale) },

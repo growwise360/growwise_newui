@@ -21,9 +21,9 @@ export default async function MLAICodingLayout({
   const baseUrl = getCanonicalSiteUrl()
   
   const courseSchema = generateCourseSchema({
-    name: "ML/AI Coding Course Dublin CA | Machine Learning & AI for Kids | GrowWise",
+    name: "ML/AI Coding Classes for Kids — Dublin, CA",
     description:
-      "ML and AI coding in Dublin, CA. Hands-on projects for students. Small classes. Book a free STEAM trial.",
+      "Hands-on Machine Learning and AI coding classes for Grades 1-12 in Dublin, CA. Python programming, AI agents, and ML fundamentals taught in small groups.",
     provider: "GrowWise",
     courseCode: "ML-AI-K12",
     educationalLevel: "Grades 1-12",
@@ -38,12 +38,10 @@ export default async function MLAICodingLayout({
     ],
     coursePrerequisites: "Basic programming knowledge recommended but not required",
     url: absoluteSiteUrl('/steam/ml-ai-coding', locale, baseUrl),
-    image: `${baseUrl}/assets/growwise-logo.png`,
+    image: `${baseUrl}/og-image.jpg`,
     offers: {
-      price: "35",
-      priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/enroll', locale, baseUrl),
+      url: absoluteSiteUrl('/workshop-calendar', locale, baseUrl),
     }
   })
 

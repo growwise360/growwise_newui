@@ -44,6 +44,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'US Kids & Core Skills — How Parents Can Help',
     description: 'Why math and English gaps widen—and how Tri-Valley families use assessments and routines to rebuild skills and confidence.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-08-05',
+    dateModified: '2024-08-05',
   })
 
   return (
@@ -516,6 +519,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Don&apos;t let your child fall further behind.{' '}
+                <Link href={publicPath('/courses/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Math tutoring for Grades 1–12
+                </Link>{' '}
+                and{' '}
+                <Link href={publicPath('/courses/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  English &amp; ELA tutoring
+                </Link>{' '}
+                — small groups, proven results at GrowWise in Dublin, CA.{' '}
+                <Link href={publicPath('/book-assessment', locale)} className="text-[#F16112] font-semibold underline hover:text-[#F1894F]">
+                  Start with a free assessment &rarr;
+                </Link>
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

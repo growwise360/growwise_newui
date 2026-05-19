@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'The Advantage in Choosing the Right Coding Class for Your Child',
     description: 'Learn how selecting the right coding class can set your child up for success in technology and future career opportunities.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-01-28',
+    dateModified: '2025-01-28',
   })
 
   return (

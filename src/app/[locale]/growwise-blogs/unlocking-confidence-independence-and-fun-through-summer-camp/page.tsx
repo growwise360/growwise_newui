@@ -43,6 +43,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Unlocking Confidence, Independence, and Fun Through Summer Camp',
     description: 'How structured summer camps build confidence, independence, and social skills—while kids learn through projects they enjoy.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-02-14',
+    dateModified: '2025-02-14',
   })
 
   return (
