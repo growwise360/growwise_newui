@@ -35,7 +35,7 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
     await page.goto(localePath('/courses/math'));
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('main h1')).toHaveText(
-      'Math Tutoring Classes in Dublin, CA — Grades 1–12',
+      'K-12 Math Tutoring in Dublin, CA',
     );
 
     await page.goto(localePath('/courses/english'));
@@ -53,7 +53,7 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
     await page.goto(localePath('/courses/sat-prep'));
     const text = await page.locator('main h1').innerText();
     const normalized = text.replace(/\s+/g, ' ').trim();
-    expect(normalized).toBe('SAT Prep Courses in Dublin, CA');
+    expect(normalized).toBe('SAT Prep Tutoring in Dublin, CA');
   });
 });
 
