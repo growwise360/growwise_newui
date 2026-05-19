@@ -129,4 +129,55 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
     answer:
       "After submitting the form, a GrowWise team member will contact you within 24 hours to schedule your child's free in-person assessment at our Dublin, CA center.",
   },
+  {
+    question: 'How long does the free GrowWise assessment take?',
+    answer:
+      "The free academic assessment at GrowWise typically takes 60 minutes. Your child completes a grade-level diagnostic in math or English, and our team reviews the results with you right after.",
+  },
+  {
+    question: 'What subjects does the GrowWise assessment cover?',
+    answer:
+      "The assessment covers Math and/or English depending on your child's needs. For math we evaluate grade-level competency and identify specific skill gaps. For English we assess reading comprehension and writing skills.",
+  },
+]
+
+export const SAT_PREP_FAQ_JSONLD: FAQItem[] = [
+  {
+    question: 'When should my child start SAT prep?',
+    answer:
+      'We recommend starting SAT prep at least 4–6 months before your target test date — typically early 11th grade. Starting earlier allows time to close foundational gaps before focusing on test-specific strategy.',
+  },
+  {
+    question: 'How long is the SAT prep course at GrowWise?',
+    answer:
+      'GrowWise offers three SAT prep levels: Level 1 (foundation, ~3 months), Level 2 (score acceleration, ~3 months), and Level 3 (elite readiness, ~2 months). Most students complete 3–5 months of prep before their target test date.',
+  },
+  {
+    question: 'Does GrowWise offer ACT prep as well?',
+    answer:
+      'Our primary focus is SAT and PSAT preparation. If your student is specifically preparing for the ACT, contact us to discuss options — many of the skills and strategies overlap significantly between the two tests.',
+  },
+  {
+    question: 'What SAT score improvements do students typically see?',
+    answer:
+      'Students who complete a full GrowWise SAT prep cycle and practice consistently at home typically improve 100–250 points. We track progress with regular mock tests so you always know exactly where your child stands.',
+  },
+]
+
+export const HIGH_SCHOOL_MATH_FAQ_JSONLD: FAQItem[] = [
+  {
+    question: 'What high school math courses does GrowWise tutor?',
+    answer:
+      'GrowWise tutors Algebra 1, Algebra 2, Geometry, Pre-Calculus, AP Precalculus, Integrated Math 1, and Integrated Math 2 for high school students in Dublin, CA.',
+  },
+  {
+    question: 'Can GrowWise help with DUSD accelerated math placement?',
+    answer:
+      'Yes. GrowWise offers targeted tutoring to help students prepare for DUSD accelerated math placement assessments. Our instructors are familiar with the Dublin Unified curriculum and build the exact skills needed to qualify.',
+  },
+  {
+    question: 'Do you offer AP math tutoring?',
+    answer:
+      'Yes. GrowWise tutors AP Precalculus and supports students in AP-level math courses aligned with California Common Core Standards and the DUSD curriculum.',
+  },
 ]
