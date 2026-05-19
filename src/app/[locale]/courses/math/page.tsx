@@ -54,13 +54,7 @@ const FreeAssessmentModal = dynamic(
   }
 );
 
-const RelatedContent = dynamic(
-  () => import('@/components/seo/RelatedContent').then((m) => m.RelatedContent),
-  {
-    ssr: false,
-    loading: () => null,
-  }
-);
+import { RelatedContent } from '@/components/seo/RelatedContent';
 
 const CourseFAQ = dynamic(
   () => import('@/components/seo/CourseFAQ').then((m) => m.CourseFAQ),
