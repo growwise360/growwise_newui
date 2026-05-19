@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Unlock Your Future: The Best Programming Languages for Career Advancement',
     description: 'Discover which programming languages offer the best career opportunities and how to choose the right one for your goals.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-12-10',
+    dateModified: '2024-12-10',
   })
 
   return (

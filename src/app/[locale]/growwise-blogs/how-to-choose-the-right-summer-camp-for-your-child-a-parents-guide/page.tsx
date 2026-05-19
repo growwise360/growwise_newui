@@ -38,6 +38,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'How to Choose the Right Summer Camp for Your Child',
     description: 'Pick a summer camp that fits your child: interests, schedule, safety, and learning outcomes—before you pay a deposit.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2026-02-10',
+    dateModified: '2026-02-10',
   })
 
   const breadcrumbItems = [

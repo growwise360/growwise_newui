@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Harnessing the Power of Code: A Skill for the Modern Era',
     description: "Explore why coding has become an essential skill in today's digital world and how it opens doors to innovation and opportunity.",
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-10-03',
+    dateModified: '2024-10-03',
   })
 
   return (
@@ -200,6 +203,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Put the power of code in your child&apos;s hands.{' '}
+                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise ML/AI &amp; Python coding classes
+                </Link>{' '}
+                — real projects, small groups, Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

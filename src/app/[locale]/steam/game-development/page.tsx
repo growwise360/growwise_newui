@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Gamepad2, Code, Monitor, Joystick, Clock, Users, Star, Filter, ShoppingCart, CheckCircle, Award, BookOpen, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, Smartphone, Zap, Lightbulb, Rocket, Palette, Music, Bot, Brain, Cpu, Database, Network } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useCart } from '@/components/gw/CartContext';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import ImageWithFallback from '@/components/gw/ImageWithFallback';
@@ -866,6 +867,47 @@ const GameDevelopmentPage: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-4 lg:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Frequently Asked Questions</h2>
+          <p className="text-gray-600 text-center mb-10">Common questions from parents about our game development courses</p>
+          <Accordion type="single" collapsible className="space-y-4">
+            {[
+              {
+                q: 'What platforms and tools do you teach for game development?',
+                a: 'We teach game development across four platforms based on student level: Scratch (beginners, Grades 1–5), Roblox Studio with Lua (Grades 3–8), Minecraft Education Edition with Python (Grades 5–9), and Unity with C# for advanced students (Grades 8–12). Students start where they are and progress through each platform naturally.',
+              },
+              {
+                q: 'Does my child need prior coding experience to join game development classes?',
+                a: 'No prior experience is needed. Our Scratch beginner track starts with visual block-based programming — no typing required. Students who already have coding experience can join our Roblox or Minecraft track, which introduces real scripting languages in a game context they already know and love.',
+              },
+              {
+                q: 'What age group is game development suitable for at GrowWise?',
+                a: 'We welcome students from Grades 1 through 12 (ages 6–18). Younger students (Grades 1–5) work with Scratch and Roblox; older students (Grades 6–12) tackle Minecraft modding, Unity, and Python game projects. Classes are always grouped by level and platform, not just age.',
+              },
+              {
+                q: 'Can students publish or share the games they build?',
+                a: 'Yes. Roblox games built in our courses can be published to the Roblox platform and shared with friends. Scratch projects are shareable on the Scratch community. Advanced Unity students build standalone apps. By the end of each course, every student leaves with at least one complete, playable game in their portfolio.',
+              },
+              {
+                q: 'What real skills do kids gain from game development classes — beyond just having fun?',
+                a: 'Game development builds computational thinking, logic, problem-solving, and creativity in a context students are motivated by. Students learn to break complex problems into steps (decomposition), design systems (game mechanics), debug code, and ship a finished product. These are the same skills college CS programs and tech employers value.',
+              },
+            ].map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-xl shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline font-semibold text-gray-900">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600 leading-relaxed">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 

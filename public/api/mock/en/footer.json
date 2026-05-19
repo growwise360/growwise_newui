@@ -28,7 +28,7 @@
         { "label": "ML/AI Coding", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "Game Development", "href": "/steam/game-development", "active": true },
         { "label": "STEAM Overview", "href": "/steam", "active": true },
-        { "label": "Python Programming", "href": "#", "active": false }
+        { "label": "Python Programming", "href": "/steam/ml-ai-coding", "active": true }
       ]
     },
     {

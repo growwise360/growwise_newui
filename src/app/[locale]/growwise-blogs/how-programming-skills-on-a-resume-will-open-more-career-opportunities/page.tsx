@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'How Programming Skills on a Resume Will Open More Career Opportunities',
     description: 'Programming skills are increasingly valuable across industries. Learn how they can enhance your resume and career prospects.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-11-25',
+    dateModified: '2024-11-25',
   })
 
   return (
@@ -193,6 +196,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Give your child the coding skills that make any resume stand out.{' '}
+                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise ML/AI &amp; Python coding classes
+                </Link>{' '}
+                — from first lines of code to AI projects, for Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

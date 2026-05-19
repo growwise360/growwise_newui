@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'The Importance of Coding for Kids: Building Future-Ready Skills',
     description: 'Understand why coding education for children is crucial for developing problem-solving skills and preparing them for the future.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-07-22',
+    dateModified: '2024-07-22',
   })
 
   return (
@@ -238,6 +241,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Give your child future-ready coding skills now.{' '}
+                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise ML/AI &amp; Python coding classes
+                </Link>{' '}
+                — beginner to advanced, Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

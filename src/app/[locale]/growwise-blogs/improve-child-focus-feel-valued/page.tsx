@@ -44,6 +44,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: "12 Smart & Simple Ways to Improve Your Child's Focus",
     description: 'Twelve practical ways to build focus: routines, connection, and small wins—without fighting your child every night.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-04-21',
+    dateModified: '2025-04-21',
   })
 
   return (

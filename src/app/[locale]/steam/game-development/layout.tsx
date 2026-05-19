@@ -21,9 +21,9 @@ export default async function GameDevelopmentLayout({
   const baseUrl = getCanonicalSiteUrl()
   
   const courseSchema = generateCourseSchema({
-    name: "Game Development Course Dublin CA | Learn to Build Games | Coding Classes | GrowWise",
+    name: "Game Development Classes for Kids — Dublin, CA",
     description:
-      "Game development in Dublin, CA. Roblox, Scratch, and Python projects for Grades 1–12. Book a free STEAM trial.",
+      "Game development courses for kids in Dublin, CA. Learn to build games using Roblox Studio, Scratch, Minecraft, and Unity. For Grades 1-12.",
     provider: "GrowWise",
     courseCode: "GAME-DEV-K12",
     educationalLevel: "Grades 1-12",
@@ -38,12 +38,10 @@ export default async function GameDevelopmentLayout({
     ],
     coursePrerequisites: "No prior experience required - perfect for beginners",
     url: absoluteSiteUrl('/steam/game-development', locale, baseUrl),
-    image: `${baseUrl}/assets/growwise-logo.png`,
+    image: `${baseUrl}/og-image.jpg`,
     offers: {
-      price: "35",
-      priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/enroll', locale, baseUrl),
+      url: absoluteSiteUrl('/workshop-calendar', locale, baseUrl),
     }
   })
 

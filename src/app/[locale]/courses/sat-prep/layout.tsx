@@ -22,9 +22,9 @@ export default async function SATPrepLayout({
   const baseUrl = getCanonicalSiteUrl()
   
   const courseSchema = generateCourseSchema({
-    name: "SAT Prep Course Dublin CA | SAT Test Preparation & Strategies | SAT Tutoring",
+    name: "SAT Prep Course — Dublin, CA",
     description:
-      "SAT prep in Dublin, CA with practice tests and strategy. Small classes and expert coaches. Book your SAT readiness check.",
+      "Comprehensive SAT test preparation in Dublin, CA. Includes practice tests, proven strategies, personalized instruction, and math and reading/writing sections.",
     provider: "GrowWise",
     courseCode: "SAT-PREP",
     educationalLevel: "High School",
@@ -39,12 +39,10 @@ export default async function SATPrepLayout({
     ],
     coursePrerequisites: "High school student preparing for SAT exam",
     url: absoluteSiteUrl('/courses/sat-prep', locale, baseUrl),
-    image: `${baseUrl}/assets/growwise-logo.png`,
+    image: `${baseUrl}/og-image.jpg`,
     offers: {
-      price: "35",
-      priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/enroll', locale, baseUrl),
+      url: absoluteSiteUrl('/enroll-academic', locale, baseUrl),
     }
   })
 

@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: "How Coding Skills Empower You to Shape Tomorrow's AI Innovations",
     description: "Learn how mastering coding today positions you to be at the forefront of tomorrow's AI-driven innovations. Discover the connection between coding and AI development.",
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-08-07',
+    dateModified: '2025-08-07',
   })
 
   return (
@@ -209,6 +212,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Help your child shape tomorrow&apos;s AI — starting today.{' '}
+                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise ML/AI &amp; Python coding classes
+                </Link>{' '}
+                — hands-on machine learning projects for Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

@@ -43,6 +43,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Embrace the Future of Technology: Elevate Your Coding Skills with GrowWise',
     description: 'Level up coding with structured paths in Dublin—projects, mentorship, and skills that map to real tech roles.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-09-12',
+    dateModified: '2024-09-12',
   })
 
   return (
@@ -306,6 +309,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Advance your child&apos;s coding expertise today.{' '}
+                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise ML/AI &amp; Python coding classes
+                </Link>{' '}
+                — Python, AI, and machine learning for Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}

@@ -4,6 +4,7 @@ import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Target, GraduationCap, BookOpen, Calculator, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, PenTool, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, BookMarked, Star, Shield, ArrowRight, ShoppingCart } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { useCart } from './gw/CartContext';
 import FreeAssessmentModal from './FreeAssessmentModal';
 import { RelatedContent } from './seo/RelatedContent';
@@ -537,6 +538,47 @@ const SATPage: React.FC = () => {
           <p className="text-gray-600 leading-relaxed">
             Offering SAT tutoring in Dublin CA and serving students from San Ramon, Pleasanton, and Livermore. Located at 4564 Dublin Blvd, Dublin CA 94568.
           </p>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-4 lg:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">SAT Prep — Frequently Asked Questions</h2>
+          <p className="text-gray-600 text-center mb-10">What parents and students ask most about GrowWise SAT prep</p>
+          <Accordion type="single" collapsible className="space-y-4">
+            {[
+              {
+                q: 'What does GrowWise SAT prep include?',
+                a: "Our SAT prep program covers both sections of the current SAT: Math (Algebra, Advanced Math, Problem Solving) and Evidence-Based Reading & Writing. Every student receives a personalized study plan based on their diagnostic assessment, so we target your child's specific gaps — not a generic syllabus.",
+              },
+              {
+                q: 'How long does the SAT prep program take?',
+                a: 'We offer three levels: Level 1 (3 months, foundation building), Level 2 (3 months, score acceleration), and Level 3 (2 months, elite exam readiness). Most students complete 3–5 months of prep to see a meaningful score increase. We recommend starting at least 4–6 months before your target test date.',
+              },
+              {
+                q: 'What score improvement can my student expect?',
+                a: 'Results vary by starting point and effort, but our students typically improve 100–250 points over a full prep cycle. Students who complete our Level 1 + Level 2 combination and practice consistently at home see the strongest gains. We track progress with regular mock tests so you always know where you stand.',
+              },
+              {
+                q: 'Do you cover both SAT Math and Reading/Writing, or just one section?',
+                a: 'We cover both. Math instruction focuses on the content most heavily tested on the SAT (linear equations, functions, ratios, geometry) along with time-management strategies. Reading/Writing prep builds vocabulary in context, grammar, and evidence-based analysis skills. You can enroll in focused single-section prep if needed.',
+              },
+              {
+                q: 'How small are the SAT prep classes at GrowWise?',
+                a: 'All SAT prep sessions run in small groups of 4–8 students maximum, ensuring every student gets personalized attention and can ask questions freely. This is very different from large test-prep chains where classes can have 20–30 students. Sessions are held at our Dublin, CA center with flexible evening and weekend scheduling.',
+              },
+            ].map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-xl shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline font-semibold text-gray-900">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600 leading-relaxed">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 

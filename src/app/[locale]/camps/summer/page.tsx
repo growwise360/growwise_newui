@@ -29,7 +29,10 @@ import {
   SUMMER_CAMP_PROGRAM_GROUP_SEO_LINKS,
   summerCampProgramGroupMessagePath,
 } from '@/lib/summer-camp-seo-links';
-import { SummerCampGuideLeadDialog } from './SummerCampGuideLeadDialog';
+const SummerCampGuideLeadDialog = dynamic(
+  () => import('./SummerCampGuideLeadDialog').then((m) => ({ default: m.SummerCampGuideLeadDialog })),
+  { ssr: false },
+);
 
 /**
  * Slim English-only hero + conversion copy (~4KB) for this page.

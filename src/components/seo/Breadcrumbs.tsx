@@ -22,9 +22,11 @@ interface BreadcrumbItem {
 interface BreadcrumbsProps {
   items?: BreadcrumbItem[] // Optional - if not provided, will be auto-generated from pathname
   className?: string
+  /** Set true when the parent layout already emits a server-rendered BreadcrumbList JSON-LD. */
+  noSchema?: boolean
 }
 
-export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
+export function Breadcrumbs({ items, className = '', noSchema = false }: BreadcrumbsProps) {
   const pathname = usePathname()
   const locale = useLocale()
   const baseUrl = getCanonicalSiteUrl()
@@ -68,7 +70,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
 
   return (
     <>
-      <StructuredDataScript data={structuredData} id="breadcrumb-structured-data" />
+      {!noSchema && <StructuredDataScript data={structuredData} id="breadcrumb-structured-data" />}
       <nav
         aria-label="Breadcrumb"
         className={`py-4 px-4 lg:px-8 bg-gray-50 ${className}`}

@@ -25,9 +25,9 @@ export default async function MathCoursesLayout({
   
   // Generate Course structured data with enhanced details
   const courseSchema = generateCourseSchema({
-    name: "Grades 1-12 Math Courses - Grade-Level, Accelerated & Integrated Math | Math Tutoring Dublin CA",
+    name: "K-12 Math Tutoring — Dublin, CA",
     description:
-      "Math tutoring for grades 1–12 in Dublin, CA. Common Core aligned, small groups, placement support. Book a free assessment.",
+      "Personalized math tutoring for Grades 1-12 in Dublin, CA. Covers elementary math, algebra, geometry, pre-calculus, and DUSD accelerated math. Aligned with California Common Core.",
     provider: "GrowWise",
     courseCode: "MATH-K12",
     educationalLevel: "Grades 1-12",
@@ -45,12 +45,10 @@ export default async function MathCoursesLayout({
     ],
     coursePrerequisites: "Placement assessment recommended to determine appropriate level",
     url: absoluteSiteUrl('/courses/math', locale, baseUrl),
-    image: `${baseUrl}/assets/growwise-logo.png`,
+    image: `${baseUrl}/og-image.jpg`,
     offers: {
-      price: "35",
-      priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/enroll', locale, baseUrl),
+      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
     }
   })
 

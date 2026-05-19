@@ -42,6 +42,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'How to Go from Roblox Player to Game Developer',
     description: "Transform your child's gaming passion into valuable coding and development skills. Learn Roblox game development and turn screen time into productive skill time.",
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-06-24',
+    dateModified: '2025-06-24',
   })
 
   return (
@@ -323,6 +326,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Ready to build your first game?{' '}
+                <Link href={publicPath('/steam/game-development', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise Game Development classes
+                </Link>{' '}
+                — Roblox, Scratch, Minecraft, and Unity for Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}
