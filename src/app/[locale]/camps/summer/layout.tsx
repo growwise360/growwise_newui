@@ -98,7 +98,7 @@ export default async function SummerCampLayout({
 
   const pageUrl = absoluteSiteUrl('/camps/summer', locale, baseUrl);
   const webPageSchema = generateWebPageJsonLd({
-    name: 'Summer Camp 2026 - Math, Coding & Robotics | GrowWise',
+    name: 'Summer STEAM Camps 2026 in Dublin, CA | GrowWise',
     description: summerEventDescription,
     url: pageUrl,
   });

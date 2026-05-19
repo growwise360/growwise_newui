@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { SAT_PREP_FAQ_JSONLD } from '@/lib/schema/course-hub-jsonld-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
@@ -65,6 +67,7 @@ export default async function SATPrepLayout({
           },
         ]}
       />
+      <FAQSchema faqs={SAT_PREP_FAQ_JSONLD} />
       {children}
     </>
   )
