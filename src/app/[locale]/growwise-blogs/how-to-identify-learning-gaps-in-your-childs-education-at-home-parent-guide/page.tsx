@@ -489,8 +489,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Found a gap? Close it fast.{' '}
                 <Link href={publicPath('/courses/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Math tutoring for Grades 1–12
+                </Link>
+                {', '}
+                <Link href={publicPath('/courses/high-school-math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  our High School Math Tutoring program
                 </Link>{' '}
-                and{' '}
+                (Algebra 1/2, AP Precalculus, and Integrated Math), and{' '}
                 <Link href={publicPath('/courses/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   English &amp; ELA tutoring
                 </Link>{' '}

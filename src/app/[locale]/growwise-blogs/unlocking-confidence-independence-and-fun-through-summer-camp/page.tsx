@@ -321,9 +321,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <p className="mb-6">
                   Explore GrowWise Summer Camp programs designed to build confidence, independence, and essential life skills while having fun!
                 </p>
-                <Link href="/camps/winter">
+                <Link href={publicPath('/camps/summer', locale)}>
                   <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Explore Summer Camps
+                    Summer STEAM Camps 2026
                   </Button>
                 </Link>
               </div>

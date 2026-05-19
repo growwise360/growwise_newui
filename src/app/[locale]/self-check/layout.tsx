@@ -14,9 +14,9 @@ export async function generateMetadata({
   const meta = generateMetadataFromPath('/self-check', locale);
   return (
     meta ?? {
-      title: 'Free Math Self-Check for Kids Grades 3–8 | GrowWise School',
+      title: 'Academic Self-Check for Students | GrowWise Dublin CA',
       description:
-        'Find out why your child keeps making the same math mistakes. Free 8-question quiz identifies the exact mistake pattern. Report emailed in minutes. No sign-up. Grades 3–8. Dublin, CA.',
+        'Answer 8 questions to find out where you stand in math or English. Get a clear picture of your strengths and the gaps holding you back — in under 10 minutes.',
       keywords: [
         'math self-check',
         'free math diagnostic',
@@ -60,7 +60,7 @@ export default async function SelfCheckLayout({
         '@type': 'WebPage',
         '@id': `${pageUrl}`,
         url: pageUrl,
-        name: 'Free Math Self-Check for Kids Grades 3–8 | GrowWise School',
+        name: 'Academic Self-Check for Students | GrowWise Dublin CA',
         description:
           'Find out why your child keeps making the same math mistakes. Free 8-question self-check identifies the exact mistake pattern. Report emailed in minutes. No sign-up required.',
         inLanguage: 'en-US',
