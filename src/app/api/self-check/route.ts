@@ -8,9 +8,11 @@ export const maxDuration = 30;
 
 const MAX_BODY_BYTES = 8 * 1024;
 const VALID_SUBJECTS = new Set(['math', 'english', 'both']);
+// Symptom-based (current form) + legacy domain-based (backward compat)
 const VALID_PREDICTIONS = new Set([
   'negative_signs', 'number_alignment', 'order_of_operations',
   'decimal_placement', 'fraction_comparison', 'fraction_addition', 'test_vs_class',
+  'place_value', 'fractions', 'operations', 'integers', 'algebra', 'word_problems', 'not_sure',
 ]);
 
 function normaliseParentPrediction(raw: unknown): string[] | null {
@@ -149,29 +151,10 @@ export async function POST(request: Request) {
       // Non-fatal — continue so email is still sent; quizUrl will be empty on frontend
     }
 
-    // Deduplication: check if parent already received Email 1 within 24h
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
-    let shouldSendEmail = true;
-    if (supabaseUrl && supabaseKey) {
-      try {
-        const supabase = createClient(supabaseUrl, supabaseKey);
-        const { data: existing } = await supabase
-          .from('leads')
-          .select('id')
-          .eq('parent_email', parentEmail)
-          .eq('email_1_sent', true)
-          .gt('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
-          .limit(1);
-        if (existing && existing.length > 0) {
-          shouldSendEmail = false;
-          console.log('[self-check] Duplicate submission within 24h, skipping email for:', parentEmail);
-        }
-      } catch (dedupeErr) {
-        console.error('[self-check] Dedup check error:', dedupeErr);
-        // Continue with send if dedup check fails
-      }
-    }
+    // Always send quiz-link email when we have a login URL — parents rely on it even on re-submit.
+    const shouldSendEmail = Boolean(wpData.login_url);
 
     // Insert form submission into Supabase (best-effort, don't block on failure)
     if (supabaseUrl && supabaseKey) {
@@ -318,7 +301,11 @@ export async function POST(request: Request) {
       console.error('[self-check] Admin notification error:', adminEmailErr);
     }
 
-    return NextResponse.json({ success: true, quizUrl: wpData.login_url });
+    return NextResponse.json({
+      success: true,
+      quizUrl: wpData.login_url ?? '',
+      emailSent: shouldSendEmail,
+    });
   } catch (error) {
     console.error('[self-check] POST failed:', error);
     return NextResponse.json(
