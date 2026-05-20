@@ -4,14 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Loader2 } from 'lucide-react';
+import { Loader2, CheckCircle2 } from 'lucide-react';
 import { PREDICTION_OPTIONS } from '@/lib/award';
 import { CONTACT_INFO } from '@/lib/constants';
 
@@ -32,6 +25,13 @@ interface FormErrors {
   general?: string;
 }
 
+interface MagicLinkData {
+  childName: string;
+  childGrade: string;
+  parentEmail: string;
+  quizUrl: string;
+}
+
 const GRADES = [
   { value: '3', label: 'Grade 3' },
   { value: '4', label: 'Grade 4' },
@@ -42,7 +42,7 @@ const GRADES = [
 ];
 
 const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,24}$/;
-const SUBMISSION_COOLDOWN_MS = 30 * 60 * 1000; // 30 minutes
+const SUBMISSION_COOLDOWN_MS = 30 * 60 * 1000;
 const STORAGE_KEY_PREFIX = 'growwise_self_check_submit_';
 
 function getLastSubmissionTime(email: string): number | null {
@@ -79,9 +79,131 @@ function validateField(field: keyof FormState, value: string): string | undefine
     case 'grade':
       return !value ? 'Please select a grade.' : undefined;
     case 'parentPredictions':
-      return undefined; // validated separately (array)
+      return undefined;
   }
 }
+
+/* ─── Magic Link Card ──────────────────────────────────────────────── */
+
+function MagicLinkCard({ data }: { data: MagicLinkData }) {
+  const [copied, setCopied] = useState(false);
+
+  const shareMessage = `Hi ${data.childName}! GrowWise sent you a short math quiz. It takes less than 10 minutes. Here's your link: ${data.quizUrl}`;
+
+  function handleCopy() {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(data.quizUrl).then(() => triggerCopied()).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  function fallbackCopy() {
+    const el = document.createElement('textarea');
+    el.value = data.quizUrl;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    triggerCopied();
+  }
+
+  function triggerCopied() {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  function handleWhatsApp() {
+    window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank');
+  }
+
+  function handleSMS() {
+    window.open(`sms:?body=${encodeURIComponent(shareMessage)}`, '_blank');
+  }
+
+  function handleEmail() {
+    window.open(
+      `mailto:?subject=${encodeURIComponent("Your GrowWise math quiz is ready")}&body=${encodeURIComponent(shareMessage)}`,
+      '_blank',
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Green confirmation header */}
+      <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl px-4 py-3">
+        <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" aria-hidden />
+        <div>
+          <p className="font-bold text-sm text-green-800">Your child&apos;s quiz link is ready</p>
+          <p className="text-xs text-green-700 mt-0.5">
+            Ready for {data.childName} &middot; Grade {data.childGrade}
+          </p>
+        </div>
+      </div>
+
+      {/* Step 1: Copy link */}
+      <div>
+        <p className="text-[10px] font-bold text-[#F16112] uppercase tracking-widest mb-1.5">
+          Step 1 &mdash; Copy the quiz link
+        </p>
+        <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+          <span className="font-mono text-[11px] text-gray-600 flex-1 truncate">{data.quizUrl}</span>
+          <button
+            onClick={handleCopy}
+            className={`flex-shrink-0 text-xs font-bold px-3 py-1.5 rounded-md transition-colors ${
+              copied
+                ? 'bg-green-600 text-white'
+                : 'bg-[#1F396D] text-white hover:bg-[#162d57]'
+            }`}
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
+        </div>
+      </div>
+
+      {/* Step 2: Share */}
+      <div>
+        <p className="text-[10px] font-bold text-[#F16112] uppercase tracking-widest mb-1.5">
+          Step 2 &mdash; Send it to your child now
+        </p>
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            onClick={handleWhatsApp}
+            className="flex items-center justify-center gap-1.5 bg-[#25D366] hover:opacity-90 text-white text-xs font-bold py-2.5 rounded-lg transition-opacity"
+          >
+            💬 WhatsApp
+          </button>
+          <button
+            onClick={handleSMS}
+            className="flex items-center justify-center gap-1.5 bg-[#1F396D] hover:bg-[#162d57] text-white text-xs font-bold py-2.5 rounded-lg border border-[#1F396D]/30 transition-colors"
+          >
+            📱 Text
+          </button>
+          <button
+            onClick={handleEmail}
+            className="flex items-center justify-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-2.5 rounded-lg border border-gray-200 transition-colors"
+          >
+            ✉️ Email
+          </button>
+        </div>
+      </div>
+
+      {/* Reminder */}
+      <p className="text-[11px] text-gray-400 text-center leading-relaxed">
+        Link works on any device &middot; Expires in 48 hours &middot; No login needed for your child
+      </p>
+
+      {/* Email confirmation */}
+      <div className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2.5 text-center">
+        <p className="text-xs text-gray-500">
+          📧 We&apos;ve also emailed you this link at <strong className="text-gray-700">{data.parentEmail}</strong>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main Form ─────────────────────────────────────────────────────── */
 
 export default function SelfCheckForm() {
   const [form, setForm] = useState<FormState>({
@@ -94,7 +216,7 @@ export default function SelfCheckForm() {
   const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
   const [submitErrors, setSubmitErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [magicLink, setMagicLink] = useState<MagicLinkData | null>(null);
 
   function getError(field: keyof FormState): string | undefined {
     return submitErrors[field] ?? (touched[field] ? validateField(field, typeof form[field] === 'string' ? form[field] : '') : undefined);
@@ -137,12 +259,11 @@ export default function SelfCheckForm() {
       return;
     }
 
-    // Check email-based cooldown to prevent duplicate submissions
     const remainingMs = getTimeUntilCanSubmit(form.parentEmail.trim().toLowerCase());
     if (remainingMs > 0) {
       const minutes = Math.ceil(remainingMs / 60000);
       setSubmitErrors({
-        general: `You already submitted this email. Please wait ${minutes} minute${minutes !== 1 ? 's' : ''} before trying again.`
+        general: `You already submitted this email. Please wait ${minutes} minute${minutes !== 1 ? 's' : ''} before trying again.`,
       });
       return;
     }
@@ -162,7 +283,7 @@ export default function SelfCheckForm() {
           parentPrediction: form.parentPredictions,
         }),
       });
-      const data = await res.json();
+      const data = await res.json() as { success?: boolean; error?: string; quizUrl?: string };
       if (data.error === 'grade_unavailable') {
         setSubmitErrors({ grade: `This grade is coming soon. Call us at ${CONTACT_INFO.phone} to schedule directly.` });
         return;
@@ -171,9 +292,13 @@ export default function SelfCheckForm() {
         setSubmitErrors({ general: data.error || 'Something went wrong. Please try again.' });
         return;
       }
-      // Record successful submission to enforce cooldown
       setLastSubmissionTime(form.parentEmail.trim().toLowerCase());
-      setSubmitted(true);
+      setMagicLink({
+        childName: form.studentName.trim(),
+        childGrade: form.grade,
+        parentEmail: form.parentEmail.trim().toLowerCase(),
+        quizUrl: data.quizUrl ?? '',
+      });
     } catch {
       setSubmitErrors({ general: 'Network error. Please check your connection and try again.' });
     } finally {
@@ -181,26 +306,8 @@ export default function SelfCheckForm() {
     }
   }
 
-  if (submitted) {
-    return (
-      <div className="space-y-4 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h2 className="text-2xl font-bold text-[#1F396D]">Check your email!</h2>
-        <p className="text-gray-600 text-sm leading-relaxed">
-          We've sent a link to <strong>{form.parentEmail}</strong> to start the quiz.
-          <br />It should arrive in a few minutes.
-        </p>
-        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
-          <p className="text-xs text-amber-800">
-            <strong>Spam tip:</strong> If you don't see it, check your spam folder and add contact@growwiseschool.org to your contacts.
-          </p>
-        </div>
-      </div>
-    );
+  if (magicLink) {
+    return <MagicLinkCard data={magicLink} />;
   }
 
   return (
@@ -258,7 +365,7 @@ export default function SelfCheckForm() {
           <Input
             id="sc-studentName"
             type="text"
-            placeholder="Alex"
+            placeholder="Arjun"
             maxLength={100}
             value={form.studentName}
             onChange={(e) => setForm({ ...form, studentName: e.target.value })}
@@ -271,27 +378,28 @@ export default function SelfCheckForm() {
           )}
         </div>
 
-        {/* Grade */}
+        {/* Grade — pill buttons */}
         <div className="space-y-1">
-          <Label htmlFor="sc-grade" className="text-xs font-medium text-gray-600">
+          <Label className="text-xs font-medium text-gray-600">
             Child&#39;s Grade
           </Label>
-          <Select
-            value={form.grade}
-            onValueChange={(val) => {
-              setForm({ ...form, grade: val });
-              touch('grade');
-            }}
-          >
-            <SelectTrigger id="sc-grade" aria-invalid={!!getError('grade')} className="h-10 text-sm">
-              <SelectValue placeholder="Select grade" />
-            </SelectTrigger>
-            <SelectContent>
-              {GRADES.map(({ value, label }) => (
-                <SelectItem key={value} value={value}>{label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex flex-wrap gap-1.5" role="group" aria-label="Select grade">
+            {GRADES.map(({ value, label }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => { setForm({ ...form, grade: value }); touch('grade'); }}
+                aria-pressed={form.grade === value}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
+                  form.grade === value
+                    ? 'bg-[#F16112] text-white border-[#F16112]'
+                    : 'bg-white text-gray-600 border-gray-200 hover:border-[#F16112]/50'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           {getError('grade') && (
             <p className="text-xs text-red-600" role="alert">{getError('grade')}</p>
           )}
@@ -355,7 +463,7 @@ export default function SelfCheckForm() {
             Setting up the challenge…
           </>
         ) : (
-          'Get My Child\'s Report →'
+          'Find What\'s Blocking My Child →'
         )}
       </Button>
 

@@ -123,42 +123,82 @@ export default async function SelfCheckLayout({
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'How long does the math self-check take?',
+            name: "What exactly is a 'gap pattern' in math?",
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The self-check takes under 10 minutes. Your child answers 8 diagnostic math questions and GrowWise emails a full pattern report within minutes of completion.',
+              text: 'A gap pattern is a specific, repeating mistake a student makes because of a missing foundational skill. It is not a random careless error. If a student gets five fraction problems wrong in a row for the exact same reason, they have a gap pattern.',
             },
           },
           {
             '@type': 'Question',
-            name: 'Is the math self-check really free?',
+            name: 'How can I tell the difference between a silly mistake and a gap pattern?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. The GrowWise Math Self-Check is completely free. No credit card, no password, and no sign-up form required.',
+              text: 'Look at the data over a week. A silly mistake is a one-off brain fart (like 2+3=6 on one problem, but 2+3=5 on the next). A gap pattern happens consistently across multiple worksheets, quizzes, and homework assignments.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What grades is the self-check for?',
+            name: "Why do students constantly make the 'Column Drift' (place value) mistake?",
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The self-check is calibrated for students in Grades 3 through 8.',
+              text: 'This pattern usually happens due to poor fine motor skills or rushing. Students try to write quickly, their handwriting gets messy, and they accidentally add a number in the ones column to a number in the tens column.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What does the report show?',
+            name: "How can I quickly fix 'Column Drift' without buying new materials?",
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The report identifies your child\'s confirmed mistake patterns — such as skipped steps, place value confusion, or word problem misreading — along with a risk level and a recommended next step.',
+              text: 'Turn a standard piece of lined notebook paper sideways (90 degrees). The horizontal blue lines will now become vertical columns. Have the student write one digit per column to keep their math perfectly aligned.',
             },
           },
           {
             '@type': 'Question',
-            name: 'Where is GrowWise School located?',
+            name: 'Why does my student keep solving equations strictly from left to right?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `GrowWise School is located at ${CONTACT_INFO.street}, Dublin, CA ${CONTACT_INFO.zipCode}. We serve students from Dublin, Pleasanton, and San Ramon.`,
+              text: "This is the 'Left-to-Right Rush.' Students are trained to read books from left to right, so they naturally try to read math the same way. They forget that the order of operations (PEMDAS/BODMAS) overrides reading rules.",
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What is the easiest trick to get kids to remember PEMDAS?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Have them preview the problem like a detective. Before they solve anything, they must use a yellow highlighter to find and highlight all multiplication and division symbols. This forces them to pause and do those parts first.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: "Why do fractions cause the 'Numerator/Denominator Flip' pattern?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Kids treat fractions like two separate whole numbers sitting on top of each other rather than one single value. Because 8 is greater than 2, their brain instantly tells them that 1/8 is greater than 1/2, ignoring the reality of how fractions work.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How do I correct the fraction gap pattern using real-world items?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Stop using abstract numbers and use money or food. Ask them: 'Would you rather have 1 out of 2 slices of a pizza, or 1 out of 8 slices?' Visualizing the actual size of the pieces instantly corrects the misconception.",
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'My student keeps dropping negative signs in algebra. How do I stop this?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "This is the 'Sign Flip' pattern. Have them draw a physical wall or use an explicit multiplier. Change a problem like -(x + 4) to -1 * (x + 4), and force them to draw arrows from the -1 to both terms inside the parentheses before multiplying.",
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How long does it take to break one of these 5 gap patterns?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'It usually takes 2 to 3 weeks of targeted daily practice. You cannot just tell them the rule once; you must enforce the visual habit (like using graph paper or highlighters) until their brain builds a new pathway.',
             },
           },
         ],

@@ -3,32 +3,32 @@ import type { ErrorPattern } from './patterns';
 export type AwardTier = 'double_detective' | 'parent_detective' | 'self_aware' | 'keep_digging';
 
 export type ParentPrediction =
-  | 'place_value'
-  | 'fractions'
-  | 'operations'
-  | 'integers'
-  | 'algebra'
-  | 'word_problems'
-  | 'not_sure';
+  | 'negative_signs'
+  | 'number_alignment'
+  | 'order_of_operations'
+  | 'decimal_placement'
+  | 'fraction_comparison'
+  | 'fraction_addition'
+  | 'test_vs_class';
 
 export const PREDICTION_OPTIONS: { value: ParentPrediction; label: string }[] = [
-  { value: 'place_value',   label: 'Place Value or Number Sense' },
-  { value: 'fractions',     label: 'Fractions' },
-  { value: 'operations',    label: 'Addition, Subtraction, Multiplication, or Division' },
-  { value: 'integers',      label: 'Negative Numbers or Integers' },
-  { value: 'algebra',       label: 'Algebra or Equations' },
-  { value: 'word_problems', label: 'Word Problems' },
-  { value: 'not_sure',      label: "Not sure — that's why I'm here" },
+  { value: 'negative_signs',       label: 'Forgets negative signs' },
+  { value: 'number_alignment',     label: 'Lines up numbers incorrectly' },
+  { value: 'order_of_operations',  label: 'Solves left to right instead of following the correct order' },
+  { value: 'decimal_placement',    label: 'Puts the decimal point in the wrong place' },
+  { value: 'fraction_comparison',  label: 'Gets confused when comparing fractions' },
+  { value: 'fraction_addition',    label: 'Adds fractions the wrong way' },
+  { value: 'test_vs_class',        label: 'Understands in class but makes mistakes on tests' },
 ];
 
 const PREDICTION_TO_DOMAINS: Record<string, string[]> = {
-  place_value:   ['place_value', 'number_sense'],
-  fractions:     ['fractions'],
-  operations:    ['addition', 'subtraction', 'multiplication', 'division'],
-  integers:      ['integers', 'negative_numbers'],
-  algebra:       ['algebra', 'equations', 'distributive', 'exponents'],
-  word_problems: ['word_problems', 'proportional_reasoning'],
-  not_sure:      [],
+  negative_signs:      ['integers', 'negative_numbers'],
+  number_alignment:    ['place_value', 'number_sense'],
+  order_of_operations: ['algebra', 'operations'],
+  decimal_placement:   ['place_value', 'number_sense'],
+  fraction_comparison: ['fractions'],
+  fraction_addition:   ['fractions'],
+  test_vs_class:       [],
 };
 
 function predictionMatchesPatterns(prediction: string | string[], patterns: ErrorPattern[]): boolean {
@@ -56,11 +56,11 @@ export function computeAward(
 }
 
 export const PREDICTION_LABELS: Record<string, string> = {
-  place_value:   'Place Value or Number Sense',
-  fractions:     'Fractions',
-  operations:    'Addition, Subtraction, Multiplication, or Division',
-  integers:      'Negative Numbers or Integers',
-  algebra:       'Algebra or Equations',
-  word_problems: 'Word Problems',
-  not_sure:      "Wasn't sure",
+  negative_signs:      'Forgets negative signs',
+  number_alignment:    'Lines up numbers incorrectly',
+  order_of_operations: 'Solves left to right instead of following the correct order',
+  decimal_placement:   'Puts the decimal point in the wrong place',
+  fraction_comparison: 'Gets confused when comparing fractions',
+  fraction_addition:   'Adds fractions the wrong way',
+  test_vs_class:       'Understands in class but makes mistakes on tests',
 };
