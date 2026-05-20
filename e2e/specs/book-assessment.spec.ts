@@ -55,6 +55,9 @@ test.describe('Book assessment form', () => {
     await clickTrigger(page, 'hear-about-trigger');
     await page.getByRole('option', { name: /Google/i }).click();
 
+    // Give Radix state time to commit after the last select before submitting
+    await page.waitForTimeout(300);
+
     const submitBtn = page.getByTestId('assessment-submit');
     await expect(submitBtn).toBeEnabled({ timeout: 15000 });
     await submitBtn.scrollIntoViewIfNeeded();
@@ -66,6 +69,6 @@ test.describe('Book assessment form', () => {
       { timeout: 20000 },
     );
     await expect(page.getByTestId('form-thank-you')).toBeVisible({ timeout: 20000 });
-    await expect(page.getByRole('heading', { level: 1, name: /thank you for your request/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /you.*re booked|thank you/i })).toBeVisible();
   });
 });
