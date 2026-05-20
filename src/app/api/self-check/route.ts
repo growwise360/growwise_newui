@@ -136,12 +136,17 @@ export async function POST(request: Request) {
 
     const wpData = await wpRes.json() as { success?: boolean; login_url?: string };
 
-    if (!wpData.success || !wpData.login_url) {
+    if (!wpData.success) {
       console.error('[self-check] WordPress returned unexpected payload', wpData);
       return NextResponse.json(
         { success: false, error: 'Could not set up the quiz. Please try again.' },
         { status: 502 },
       );
+    }
+
+    if (!wpData.login_url) {
+      console.error('[self-check] WordPress did not return login_url', wpData);
+      // Non-fatal — continue so email is still sent; quizUrl will be empty on frontend
     }
 
     // Deduplication: check if parent already received Email 1 within 24h
