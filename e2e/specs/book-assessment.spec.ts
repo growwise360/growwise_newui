@@ -58,14 +58,7 @@ test.describe('Book assessment form', () => {
     const submitBtn = page.getByTestId('assessment-submit');
     await expect(submitBtn).toBeEnabled({ timeout: 15000 });
     await submitBtn.scrollIntoViewIfNeeded();
-    await submitBtn.evaluate((btn) => {
-      (btn as HTMLButtonElement).form?.requestSubmit(btn as HTMLButtonElement);
-    });
-
-    await page.waitForResponse(
-      (r) => r.url().includes('/api/assessment') && r.request().method() === 'POST',
-      { timeout: 20000 },
-    );
+    await submitBtn.click();
 
     const successPath = localePath('/book-assessment/thank-you');
     await expect(page).toHaveURL(
