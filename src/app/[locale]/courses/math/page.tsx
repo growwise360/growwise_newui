@@ -54,13 +54,7 @@ const FreeAssessmentModal = dynamic(
   }
 );
 
-const RelatedContent = dynamic(
-  () => import('@/components/seo/RelatedContent').then((m) => m.RelatedContent),
-  {
-    ssr: false,
-    loading: () => null,
-  }
-);
+import { RelatedContent } from '@/components/seo/RelatedContent';
 
 const CourseFAQ = dynamic(
   () => import('@/components/seo/CourseFAQ').then((m) => m.CourseFAQ),
@@ -472,6 +466,20 @@ const MathCoursesPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Assessment CTA Banner */}
+      <div className="bg-amber-50 border-y border-amber-200 py-4 px-4 lg:px-8">
+        <p className="text-center text-sm sm:text-base text-amber-900 max-w-3xl mx-auto">
+          Not sure which program fits your child?{' '}
+          <Link
+            href={publicPath('/book-assessment', locale)}
+            className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+          >
+            Get a free academic assessment
+          </Link>
+          {' '}— we'll identify the right level and track before your first session.
+        </p>
+      </div>
 
       {/* Math Courses Section with New Chip Filters */}
       <section id="courses" className="py-16 px-4 lg:px-8" style={{

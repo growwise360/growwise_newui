@@ -9,8 +9,8 @@ export const maxDuration = 30;
 const MAX_BODY_BYTES = 8 * 1024;
 const VALID_SUBJECTS = new Set(['math', 'english', 'both']);
 const VALID_PREDICTIONS = new Set([
-  'place_value', 'fractions', 'operations', 'integers',
-  'algebra', 'word_problems', 'not_sure',
+  'negative_signs', 'number_alignment', 'order_of_operations',
+  'decimal_placement', 'fraction_comparison', 'fraction_addition', 'test_vs_class',
 ]);
 
 function normaliseParentPrediction(raw: unknown): string[] | null {
@@ -191,7 +191,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const adminEmail = process.env.GROWWISE_ADMIN_EMAIL || 'connect@thegrowwise.com';
+    const adminEmail = process.env.GROWWISE_ADMIN_EMAIL || 'contact@growwiseschool.org';
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
     const emailSubject = 'Your Mistake Detective Quiz Link';
@@ -211,7 +211,7 @@ export async function POST(request: Request) {
 
         <div style="padding:2rem">
             <p>Hi ${studentName}'s parent,</p>
-            <p>Your child's Mistake Detective quiz is ready! Click the button below to start the 8-question challenge.</p>
+            <p>Your child's Mistake Detective quiz is ready! Click the button below to start the 10-question challenge.</p>
 
             <div style="text-align:center;margin:2rem 0">
                 <a href="${wpData.login_url}" style="display:inline-block;background:#F16112;color:#fff;text-decoration:none;padding:12px 32px;border-radius:6px;font-weight:600;font-size:1rem">
@@ -220,10 +220,10 @@ export async function POST(request: Request) {
             </div>
 
             <p style="margin:2rem 0 0;color:#666;font-size:0.9rem">
-                <strong>The quiz:</strong> 8 questions, takes about 10–15 minutes. We'll analyze the results for learning gaps and patterns.
+                <strong>The quiz:</strong> 10 questions, takes under 10 minutes. We'll analyze the results to identify your child's exact mistake pattern.
             </p>
             <p style="margin:1rem 0 0;color:#666;font-size:0.9rem">
-                <strong>What's next:</strong> After completion, you'll get an instant diagnostic report with specific learning gaps. Book a free workshop to dive deeper.
+                <strong>What's next:</strong> After completion, you'll receive a personalized diagnosis. You can then book your free <strong>1:1 Personalized Plan Preparation</strong> session with a GrowWise teacher to walk through the exact fix — at no cost.
             </p>
 
             <p style="margin-top:2rem;color:#666;font-size:0.9rem">Questions? Reply to this email or contact ${adminEmail}</p>
@@ -231,6 +231,30 @@ export async function POST(request: Request) {
 
         <div style="background:#f5f5f5;padding:1.5rem;text-align:center;font-size:0.85rem;color:#999;border-top:1px solid #ddd">
             <p style="margin:0">© 2026 GrowWise School. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+    `;
+
+    const adminNotificationBody = `
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"></head>
+<body style="font-family:Arial,sans-serif;line-height:1.6;color:#333;background:#f5f5f5;margin:0;padding:20px">
+    <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);overflow:hidden">
+        <div style="background:#1F396D;padding:1.5rem 2rem;color:#fff">
+            <h2 style="margin:0;font-size:1.2rem">New Self-Check Submission</h2>
+        </div>
+        <div style="padding:1.5rem 2rem">
+            <table style="width:100%;border-collapse:collapse;font-size:0.9rem">
+                <tr><td style="padding:6px 0;color:#666;width:140px">Parent name</td><td style="padding:6px 0;font-weight:600">${parentName}</td></tr>
+                <tr><td style="padding:6px 0;color:#666">Parent email</td><td style="padding:6px 0;font-weight:600">${parentEmail}</td></tr>
+                <tr><td style="padding:6px 0;color:#666">Child name</td><td style="padding:6px 0;font-weight:600">${studentName}</td></tr>
+                <tr><td style="padding:6px 0;color:#666">Grade</td><td style="padding:6px 0;font-weight:600">${grade}</td></tr>
+                <tr><td style="padding:6px 0;color:#666">Subject</td><td style="padding:6px 0;font-weight:600">${subject}</td></tr>
+                <tr><td style="padding:6px 0;color:#666">Quiz link</td><td style="padding:6px 0"><a href="${wpData.login_url}" style="color:#F16112">${wpData.login_url}</a></td></tr>
+            </table>
         </div>
     </div>
 </body>
@@ -265,7 +289,31 @@ export async function POST(request: Request) {
       }
     }
 
-    return NextResponse.json({ success: true });
+    // Admin notification — always send regardless of dedup
+    try {
+      const adminRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'api-key': process.env.BREVO_API_KEY || '',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sender: { email: process.env.BREVO_SENDER_EMAIL || 'contact@growwiseschool.org', name: 'GrowWise School' },
+          to: [{ email: 'contact@growwiseschool.org', name: 'GrowWise Admin' }],
+          subject: `New Self-Check: ${studentName} (Grade ${grade}) — ${parentName}`,
+          htmlContent: adminNotificationBody,
+          tags: ['admin_notification'],
+        }),
+      });
+      if (!adminRes.ok) {
+        console.error('[self-check] Admin notification email failed', adminRes.status);
+      }
+    } catch (adminEmailErr) {
+      console.error('[self-check] Admin notification error:', adminEmailErr);
+    }
+
+    return NextResponse.json({ success: true, quizUrl: wpData.login_url });
   } catch (error) {
     console.error('[self-check] POST failed:', error);
     return NextResponse.json(

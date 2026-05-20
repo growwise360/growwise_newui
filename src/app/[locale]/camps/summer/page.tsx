@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import type { SummerCampFaqItem } from './SummerCampPageFaq';
 import { fetchSummerCampData, getDefaultSummerCampData, type Program, type OlympiadTierConfig } from '@/lib/summer-camp-data';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
+import { publicPath } from '@/lib/publicPath';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -963,6 +964,66 @@ export default function SummerCampPage() {
         {faqMount ? (
           <SummerCampPageFaq faqs={faqs} loading={faqsLoading} />
         ) : null}
+
+        {/* Year-round programs — internal linking */}
+        <section className="py-14 px-4 bg-slate-50 border-t border-slate-200">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#1F396D] mb-3">
+              Keep the momentum going after summer
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Summer camps run June–August. For year-round support, GrowWise offers
+              small-group tutoring and test prep throughout the school year.
+            </p>
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-start gap-2">
+                <span className="text-[#F16112] font-bold mt-0.5">→</span>
+                <span>
+                  <Link
+                    href={publicPath('/courses/math', locale)}
+                    className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                  >
+                    K–12 Math Tutoring
+                  </Link>
+                  {' '}— Grades 1–12, ongoing enrollment
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#F16112] font-bold mt-0.5">→</span>
+                <span>
+                  <Link
+                    href={publicPath('/courses/sat-prep', locale)}
+                    className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                  >
+                    SAT Prep Tutoring
+                  </Link>
+                  {' '}— Start 3–6 months before test date
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#F16112] font-bold mt-0.5">→</span>
+                <span>
+                  <Link
+                    href={publicPath('/courses/high-school-math', locale)}
+                    className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                  >
+                    High School Math Tutoring
+                  </Link>
+                  {' '}— Algebra through AP
+                </span>
+              </li>
+            </ul>
+            <p className="text-gray-600">
+              <Link
+                href={publicPath('/book-assessment', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                Book a free assessment
+              </Link>
+              {' '}to find the right program.
+            </p>
+          </div>
+        </section>
       </main>
 
       <SummerCampGuideLeadDialog

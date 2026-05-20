@@ -166,9 +166,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/self-check': {
-    title: 'Free Math Self-Check for Kids Grades 3–8 | GrowWise School',
+    title: 'Academic Self-Check for Students | GrowWise Dublin CA',
     description:
-      'Find out why your child keeps making the same math mistakes. Free 8-question quiz identifies the exact mistake pattern. Report emailed in minutes. No sign-up. Grades 3–8. Dublin, CA.',
+      'Answer 8 questions to find out where you stand in math or English. Get a clear picture of your strengths and the gaps holding you back — in under 10 minutes.',
     keywords:
       'math self-check, free math diagnostic, math mistake patterns, math tutoring Dublin CA, child math assessment, math gap finder, GrowWise School',
     path: '/self-check',
