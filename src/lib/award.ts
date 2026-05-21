@@ -63,4 +63,12 @@ export const PREDICTION_LABELS: Record<string, string> = {
   fraction_comparison: 'Gets confused when comparing fractions',
   fraction_addition:   'Adds fractions the wrong way',
   test_vs_class:       'Understands in class but makes mistakes on tests',
+  // Legacy domain-based keys (stored on older leads)
+  place_value:   'Place Value or Number Sense',
+  fractions:     'Fractions',
+  operations:    'Addition, Subtraction, Multiplication, or Division',
+  integers:      'Negative Numbers or Integers',
+  algebra:       'Algebra or Equations',
+  word_problems: 'Word Problems',
+  not_sure:      'Not sure',
 };

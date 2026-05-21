@@ -30,6 +30,7 @@ interface MagicLinkData {
   childGrade: string;
   parentEmail: string;
   quizUrl: string;
+  emailSent: boolean;
 }
 
 const GRADES = [
@@ -143,8 +144,11 @@ function MagicLinkCard({ data }: { data: MagicLinkData }) {
 
       {/* Step 1: Copy link */}
       <div>
-        <p className="text-[10px] font-bold text-[#F16112] uppercase tracking-widest mb-1.5">
+        <p className="text-[10px] font-bold text-[#F16112] uppercase tracking-widest mb-1">
           Step 1 &mdash; Copy the quiz link
+        </p>
+        <p className="text-[11px] text-gray-500 mb-1.5">
+          Copy this link and send it to <strong className="text-[#1F396D]">{data.childName}</strong> — they open it on their device to start the quiz.
         </p>
         <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
           <span className="font-mono text-[11px] text-gray-600 flex-1 truncate">{data.quizUrl}</span>
@@ -193,12 +197,20 @@ function MagicLinkCard({ data }: { data: MagicLinkData }) {
         Link works on any device &middot; Expires in 48 hours &middot; No login needed for your child
       </p>
 
-      {/* Email confirmation */}
-      <div className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2.5 text-center">
-        <p className="text-xs text-gray-500">
-          📧 We&apos;ve also emailed you this link at <strong className="text-gray-700">{data.parentEmail}</strong>
-        </p>
-      </div>
+      {/* Email confirmation — only when API actually sent the email */}
+      {data.emailSent ? (
+        <div className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2.5 text-center">
+          <p className="text-xs text-gray-500">
+            📧 We&apos;ve also emailed you this link at <strong className="text-gray-700">{data.parentEmail}</strong>
+          </p>
+        </div>
+      ) : (
+        <div className="bg-amber-50 border border-amber-100 rounded-lg px-3 py-2.5 text-center">
+          <p className="text-xs text-amber-800">
+            Copy the link above and send it to your child — that&apos;s the fastest way to start the quiz.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
@@ -283,7 +295,7 @@ export default function SelfCheckForm() {
           parentPrediction: form.parentPredictions,
         }),
       });
-      const data = await res.json() as { success?: boolean; error?: string; quizUrl?: string };
+      const data = await res.json() as { success?: boolean; error?: string; quizUrl?: string; emailSent?: boolean };
       if (data.error === 'grade_unavailable') {
         setSubmitErrors({ grade: `This grade is coming soon. Call us at ${CONTACT_INFO.phone} to schedule directly.` });
         return;
@@ -298,6 +310,7 @@ export default function SelfCheckForm() {
         childGrade: form.grade,
         parentEmail: form.parentEmail.trim().toLowerCase(),
         quizUrl: data.quizUrl ?? '',
+        emailSent: data.emailSent ?? false,
       });
     } catch {
       setSubmitErrors({ general: 'Network error. Please check your connection and try again.' });

@@ -12,7 +12,7 @@ async function mockSelfCheckSuccess(page: Page) {
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: JSON.stringify({ success: true, quizUrl: MOCK_QUIZ_URL }),
+      body: JSON.stringify({ success: true, quizUrl: MOCK_QUIZ_URL, emailSent: true }),
     });
   });
 }
