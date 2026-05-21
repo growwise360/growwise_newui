@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/components/ui/utils';
@@ -137,19 +138,27 @@ export default function Dropdown({
               const isSubmenuOpen = openSubmenus[dropdownItem.key];
               
               return (
-                <DropdownItem
-                  key={dropdownItem.title}
-                  item={dropdownItem}
-                  isActive={isDropdownItemActive || false}
-                  hasSubmenu={hasSubmenu || false}
-                  isSubmenuOpen={isSubmenuOpen || false}
-                  onItemClick={onItemClick}
-                  onSubmenuToggle={() => onSubmenuToggle(dropdownItem.key)}
-                  onSubmenuEnter={() => onSubmenuEnter(dropdownItem.key)}
-                  onSubmenuLeave={() => onSubmenuLeave(dropdownItem.key)}
-                  createLocaleUrl={createLocaleUrl}
-                  variant={(item.variant as 'blue' | 'orange') || 'blue'}
-                />
+                <Fragment key={dropdownItem.key}>
+                  {index > 0 ? (
+                    <div
+                      className="mx-4 border-t border-gray-200"
+                      style={{ borderTopWidth: '0.5px' }}
+                      aria-hidden
+                    />
+                  ) : null}
+                  <DropdownItem
+                    item={dropdownItem}
+                    isActive={isDropdownItemActive || false}
+                    hasSubmenu={hasSubmenu || false}
+                    isSubmenuOpen={isSubmenuOpen || false}
+                    onItemClick={onItemClick}
+                    onSubmenuToggle={() => onSubmenuToggle(dropdownItem.key)}
+                    onSubmenuEnter={() => onSubmenuEnter(dropdownItem.key)}
+                    onSubmenuLeave={() => onSubmenuLeave(dropdownItem.key)}
+                    createLocaleUrl={createLocaleUrl}
+                    variant={(item.variant as 'blue' | 'orange') || 'blue'}
+                  />
+                </Fragment>
               );
             })}
           </div>

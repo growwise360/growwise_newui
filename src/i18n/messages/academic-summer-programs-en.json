@@ -1,0 +1,241 @@
+{
+  "hero": {
+    "bannerAlt": "Students in reading, writing, and math academic summer programs at GrowWise, Dublin, California",
+    "h1": "Daily 90-Minute Academic Summer Programs in Dublin, CA",
+    "subhead": "Small-group reading, writing, and math support in Dublin, CA. Each session includes 60 minutes of focused instruction plus a complimentary 30-minute guided practice lab.",
+    "primaryCta": "View Programs",
+    "secondaryCta": "Ask About Schedule",
+    "trustPills": [
+      "Everyday structure",
+      "60 min instruction",
+      "30 min practice included",
+      "Small groups",
+      "DUSD & PUSD aligned",
+      "Grades 1–10"
+    ]
+  },
+  "problem": {
+    "heading": "Summer is short. Academic gaps need focus.",
+    "copy": "Across the country, students are falling behind in reading and math — and summer is when gaps quietly widen. GrowWise academic summer programs in Dublin, CA give students the structured, small-group support they need before school starts again.",
+    "statsAriaLabel": "National research on student learning gaps",
+    "transition": "In Dublin, CA, GrowWise offers a focused academic summer program — small-group reading, writing, and math support without a full-day camp schedule.",
+    "stats": [
+      {
+        "value": "4.8",
+        "label": "extra months of schooling students need in reading to return to pre-pandemic levels",
+        "source": "NWEA · 2024 · 13.8M students",
+        "linkText": "nwea.org",
+        "linkHref": "https://www.nwea.org"
+      },
+      {
+        "value": "½",
+        "label": "grade level behind — where the average student stands in math and reading vs. pre-pandemic",
+        "source": "Education Recovery Scorecard · Harvard & Stanford · 2025",
+        "linkText": "educationrecoveryscorecard.org",
+        "linkHref": "https://educationrecoveryscorecard.org"
+      },
+      {
+        "value": "2019",
+        "label": "reading scores have declined every year on the Nation's Report Card since",
+        "source": "NAEP 2024 · National Center for Education Statistics",
+        "linkText": "nationsreportcard.gov",
+        "linkHref": "https://www.nationsreportcard.gov"
+      }
+    ]
+  },
+  "booking": {
+    "sectionTitle": "Choose your program",
+    "sectionSub": "Tap a program on the left, then pick grade band or duration in the panel and add to cart.",
+    "july4HolidayNote": "July 4th — reserved holiday. No camp.",
+    "panelScrollHint": "Scroll for more options ↓",
+    "mobileSwitcherLabel": "Switch program",
+    "mobileBackToTop": "Back to top",
+    "filter": {
+      "ariaLabel": "Filter academic programs",
+      "all": "All Programs",
+      "readingWriting": "Reading & Writing",
+      "bridgeTheGap": "Bridge the Gap",
+      "getReadyMath": "Get Ready Math"
+    }
+  },
+  "programs": {
+    "ariaLabel": "Academic summer programs",
+    "activeLabel": "Active",
+    "inquireLink": "Not sure? Ask us first",
+    "groups": {
+      "junePrograms": {
+        "heading": "Academic Summer Sprint · Grades 1–8",
+        "subtext": "Reading, writing, and math foundations · Starts June 15"
+      },
+      "julyPrograms": {
+        "heading": "Math Get Ready programs",
+        "subtext": "IM1, Algebra, and Geometry prep · Mon/Wed/Fri evenings · Starts July 20 · From $249"
+      }
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "90-minute sessions · In-person · Dublin, CA",
+    "heading": "What your child's summer session actually looks like",
+    "subheading": "GrowWise academic summer programs are structured academic sprints — not full-day camps. Each visit gives your child teacher-led instruction, guided practice, and a clear path toward fall readiness in reading, writing, or math.",
+    "stepsAriaLabel": "Four steps in every GrowWise academic summer session",
+    "highlightsAriaLabel": "Program highlights for Dublin families",
+    "steps": [
+      {
+        "stepLabel": "Step 1 · 60 min",
+        "title": "Focused instruction with a teacher",
+        "parentLine": "Your child learns the concept—not just receives a worksheet.",
+        "detail": "A subject-trained instructor reviews the skill, models examples, and works through problems with the group so gaps surface while support is still available."
+      },
+      {
+        "stepLabel": "Step 2 · 30 min",
+        "title": "Guided practice lab included",
+        "parentLine": "Practice happens before they leave—not at the kitchen table alone.",
+        "detail": "Students apply what they just learned while the teacher is still in the room. That means fewer \"I didn't understand the homework\" moments at home."
+      },
+      {
+        "stepLabel": "Step 3",
+        "title": "Small-group support (max 8)",
+        "parentLine": "Small enough to ask questions. Structured enough to stay on task.",
+        "detail": "Up to 8 students per class—more attention than a crowded classroom, more engagement than one-on-one tutoring marathons."
+      },
+      {
+        "stepLabel": "Step 4",
+        "title": "DUSD & PUSD-aligned skill targets",
+        "parentLine": "Summer work connects to what DUSD and PUSD classrooms expect in fall.",
+        "detail": "Sessions build toward Dublin Unified and Pleasanton Unified standards in reading, writing, and math—so your child's summer practice matches the skills they'll see when school starts again."
+      }
+    ],
+    "highlights": [
+      {
+        "label": "Grades 1–10",
+        "detail": "Reading, writing & math foundations plus IM1, Algebra & Geometry prep"
+      },
+      {
+        "label": "Max 8 students",
+        "detail": "Small groups with room to participate and get help"
+      },
+      {
+        "label": "Dublin Blvd location",
+        "detail": "In-person sessions for Dublin, Pleasanton & Tri-Valley families"
+      },
+      {
+        "label": "From $249",
+        "detail": "Focused academic support without full-day camp pricing"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Summer reading, writing, and math programs in Dublin, CA."
+  },
+  "internalLinks": {
+    "heading": "Looking for something else this summer?",
+    "body": "Academic sprints run June–August. GrowWise also offers full-day STEAM camps and year-round tutoring at our Dublin campus.",
+    "items": [
+      {
+        "href": "/camps/summer",
+        "label": "Summer STEAM Camps 2026",
+        "description": "Coding, robotics, AI, and math camps — June through August"
+      },
+      {
+        "href": "/courses/math",
+        "label": "K–12 Math Tutoring",
+        "description": "Year-round small-group math support, Grades 1–12"
+      },
+      {
+        "href": "/courses/english",
+        "label": "English & Writing Tutoring",
+        "description": "Reading, writing, and ELA support throughout the school year"
+      },
+      {
+        "href": "/academic",
+        "label": "Year-Round Academic Programs",
+        "description": "Ongoing math and English tutoring beyond summer"
+      }
+    ],
+    "footerPrefix": "",
+    "footerLink": {
+      "href": "/book-assessment",
+      "label": "Book a free assessment"
+    },
+    "footerSuffix": "to find the right program for your child."
+  },
+  "finalCta": {
+    "heading": "Not sure which program fits?",
+    "body": "Tell us your child's grade, subject, and what you want to strengthen this summer. We'll help you choose the right option.",
+    "primaryCta": "Help Me Choose",
+    "secondaryCta": "Choose a Program →",
+    "phonePrompt": "Or call {phone}",
+    "footerNote": "Questions about grade level, subject fit, or schedule? We're happy to help before you checkout."
+  },
+  "stickyCta": {
+    "primaryButton": "Choose a Program →",
+    "secondaryButton": "Ask About Schedule"
+  },
+  "trust": {
+    "heading": "Real Results Parents Trust",
+    "googleRatingLine": "Rated 4.9⭐ on Google · 40+ reviews",
+    "proofStrip": "325+ students enrolled · 98% parent satisfaction · Reading, writing & math families across the Tri-Valley",
+    "bullets": [
+      "60 minutes instruction + 30 minutes guided practice every session",
+      "Subject-trained instructors in reading, writing, and math",
+      "Reading and math specialists serving Dublin CA families",
+      "Serving Dublin, Pleasanton, San Ramon & Tri-Valley families"
+    ],
+    "reviews": [
+      {
+        "quote": "We've had a great experience with GrowWise so far. My son attends both English and Math tuition here, and we've seen noticeable progress, especially in his writing skills. The Math program has really helped him focus—the tutor works through problems patiently, assigns homework, and reviews it thoroughly. For English, they've been following the 3rd grade curriculum, and I've seen real improvement in his writing and expression. We recommend GrowWise for anyone looking for quality academic support in a caring environment!",
+        "byline": "— Vivek Chaturvedi · 5★ Google review"
+      },
+      {
+        "quote": "My son has been enrolled in English tutoring for the past four months, and we've seen tremendous improvement in his skills! His confidence in writing has grown, and his comprehension has improved significantly. The tutors are patient, knowledgeable, and truly dedicated to helping students succeed. The personalized approach and engaging lessons have made a huge difference. Highly recommend GrowWise for any parent looking to support their child's academic growth!",
+        "byline": "— Sindhu Jayaraman · 5★ Google review"
+      },
+      {
+        "quote": "The GrowWise team engaged the kids in a great way. I enrolled my daughter in reading club for spring break—she had a great time and learnt so many new words through word search activities she loved. The kids were enjoying the session. Thank you GrowWise team for this opportunity given to all the small ones!",
+        "byline": "— Saranya Bosch · 5★ Google review · Local Guide"
+      }
+    ],
+    "projectsCta": "",
+    "projectsUrl": ""
+  },
+  "inquiryModal": {
+    "title": "Tell us what your child needs help with",
+    "subtitle": "Share your child's grade, subject area, and preferred schedule. Our team will confirm the best-fit option before payment.",
+    "parentNameLabel": "Parent name",
+    "phoneLabel": "Phone number",
+    "emailLabel": "Email",
+    "gradeLabel": "Student grade",
+    "gradePlaceholder": "Select grade",
+    "programLabel": "Program interest",
+    "programOptions": {
+      "read-to-prove": "Read to Prove",
+      "write-to-explain": "Write to Explain",
+      "bridge-the-gap-math": "Bridge the Gap Math",
+      "im1": "IM1 Get Ready",
+      "algebra-1": "Algebra Get Ready",
+      "geometry": "Geometry Get Ready",
+      "not-sure": "Not sure yet"
+    },
+    "monthLabel": "Preferred month",
+    "monthOptions": {
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "flexible": "Flexible"
+    },
+    "timeLabel": "Preferred time",
+    "timeOptions": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "flexible": "Flexible"
+    },
+    "needsLabel": "What does your child need help with?",
+    "needsPlaceholder": "Describe goals, gaps, or anything that helps us recommend the right program.",
+    "submitCta": "Submit Inquiry",
+    "submittingCta": "Sending…",
+    "successMessage": "Thank you. Our team will review your child's grade, subject, and schedule preference, then contact you with the best-fit option.",
+    "errorMessage": "We could not send your inquiry. Please try again or call (925) 456-4606."
+  }
+}

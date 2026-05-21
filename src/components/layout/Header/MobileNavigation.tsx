@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, ShoppingCart, ChevronDown, ChevronRight } from 'lucide-react';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
+import { HeaderChatbotTrigger } from '@/components/chatbot/HeaderChatbotTrigger';
 import { MenuItem } from './types';
 import { getVisibleDropdownItems, isMenuItemActive } from './utils';
 
@@ -74,7 +75,8 @@ export default function MobileNavigation({
   return (
     <>
       {/* Mobile menu button & cart icon */}
-      <div className="lg:hidden flex items-center space-x-4 z-[55] relative">
+      <div className="lg:hidden flex items-center gap-2 z-[55] relative">
+        <HeaderChatbotTrigger variant="compact" />
         {showCart && (
           <Link
             href={createLocaleUrl('/cart')}
@@ -265,14 +267,17 @@ export default function MobileNavigation({
                 <LocaleSwitcher />
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 flex flex-row items-stretch gap-2">
                 <Link
                   href={createLocaleUrl('/student-login')}
-                  className="block w-full px-6 py-3 rounded-full font-medium text-center transition-all duration-300 border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white"
+                  className="inline-flex min-w-0 flex-1 items-center justify-center px-4 py-3 rounded-full font-medium text-center transition-all duration-300 border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white"
                   onClick={onCloseMobileMenu}
                 >
                   Student Login
                 </Link>
+                <div className="flex shrink-0 items-center">
+                  <HeaderChatbotTrigger variant="compact" />
+                </div>
               </div>
             </div>
           </div>

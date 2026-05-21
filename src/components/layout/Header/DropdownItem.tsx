@@ -37,6 +37,7 @@ export default function DropdownItem({
   }[variant];
 
   const isHighlighted = isActive || (hasSubmenu && isSubmenuOpen) || isHovered;
+  const isAcademicSummer = item.emphasis === 'academicSummer';
 
   const handleClick = (e: React.MouseEvent) => {
     if (hasSubmenu) {
@@ -47,58 +48,82 @@ export default function DropdownItem({
     }
   };
 
+  const linkClassName = isAcademicSummer
+    ? `group mx-2 my-0.5 rounded-md transition-all duration-300 cursor-pointer outline-none w-full block border border-[#F16112]/30 bg-gradient-to-br from-[#fff7ed] to-white ${
+        isHighlighted ? 'shadow-sm ring-1 ring-[#F16112]/20' : 'hover:bg-[#fff7ed]'
+      }`
+    : `group mx-2 my-0.5 rounded-xl transition-all duration-300 cursor-pointer border-0 outline-none w-full ${
+        isHighlighted
+          ? 'bg-gradient-to-r from-[#1F396D]/10 to-[#F16112]/10 text-[#1F396D] shadow-inner'
+          : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 text-gray-700'
+      }`;
+
   return (
     <div className="relative">
       <Link
         href={hasSubmenu ? '#' : createLocaleUrl(item.href)}
-        onMouseEnter={(e) => {
+        onMouseEnter={() => {
           setIsHovered(true);
           if (hasSubmenu) {
             onSubmenuEnter();
           }
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={() => {
           setIsHovered(false);
           if (hasSubmenu) {
             onSubmenuLeave();
           }
         }}
         onClick={handleClick}
-        className={`group mx-2 my-0.5 rounded-xl transition-all duration-300 cursor-pointer border-0 outline-none w-full ${
-          isHighlighted
-            ? 'bg-gradient-to-r from-[#1F396D]/10 to-[#F16112]/10 text-[#1F396D] shadow-inner' 
-            : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 text-gray-700'
-        }`}
+        className={linkClassName}
       >
         <div className="flex items-center gap-4 px-4 py-2 w-full">
           {/* Icon */}
           <div className={`relative p-2.5 rounded-xl transition-all duration-300 ${
             isHighlighted
-              ? `bg-gradient-to-r ${item.gradient} shadow-lg` 
-              : 'bg-gray-100 group-hover:bg-gradient-to-r group-hover:from-gray-200 group-hover:to-gray-100'
+              ? `bg-gradient-to-r ${item.gradient} shadow-lg`
+              : isAcademicSummer
+                ? 'bg-[#F16112]/10 group-hover:bg-[#F16112]/15'
+                : 'bg-gray-100 group-hover:bg-gradient-to-r group-hover:from-gray-200 group-hover:to-gray-100'
           }`}>
             <IconComponent className={`w-5 h-5 transition-colors duration-300 ${
-              isHighlighted ? 'text-white' : 'text-gray-600 group-hover:text-gray-700'
+              isHighlighted ? 'text-white' : isAcademicSummer ? 'text-[#1F396D]' : 'text-gray-600 group-hover:text-gray-700'
             }`} />
             {isHighlighted && (
               <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${item.gradient} opacity-20 blur-sm`}></div>
             )}
           </div>
-          
+
           {/* Text Content */}
           <div className="flex-1 text-left">
-            <div className="flex items-center justify-between">
-              <span className={`font-semibold text-base transition-colors duration-300 ${
-                isActive ? `text-[${colors.primary}]` : 'text-gray-900 group-hover:text-gray-900'
+            <div className="flex items-center justify-between gap-2">
+              <span className={`font-semibold text-base transition-colors duration-300 flex items-center flex-wrap gap-1.5 ${
+                isAcademicSummer
+                  ? 'text-[#1F396D]'
+                  : isActive
+                    ? `text-[${colors.primary}]`
+                    : 'text-gray-900 group-hover:text-gray-900'
               }`}>
                 {item.title}
+                {item.badge ? (
+                  <span className="inline-flex items-center rounded-full bg-[#F16112] px-1.5 py-0.5 text-[9px] font-semibold leading-none text-white">
+                    {item.badge}
+                  </span>
+                ) : null}
               </span>
-              {isActive && (
-                <div className={`w-2 h-2 bg-[${colors.secondary}] rounded-full animate-pulse`}></div>
+              {isActive && !isAcademicSummer && (
+                <div className={`w-2 h-2 bg-[${colors.secondary}] rounded-full animate-pulse shrink-0`}></div>
+              )}
+              {isActive && isAcademicSummer && (
+                <div className="w-2 h-2 bg-[#F16112] rounded-full animate-pulse shrink-0" />
               )}
             </div>
             <p className={`text-sm mt-1 transition-colors duration-300 ${
-              isActive ? `text-[${colors.primary}]/70` : 'text-gray-500 group-hover:text-gray-600'
+              isAcademicSummer
+                ? 'text-slate-600'
+                : isActive
+                  ? `text-[${colors.primary}]/70`
+                  : 'text-gray-500 group-hover:text-gray-600'
             }`}>
               {item.description}
             </p>
