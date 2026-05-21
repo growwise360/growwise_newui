@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 const COPY = hubCopy.enrollmentPanel;
 
 const panelShellClass =
-  'bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col h-auto max-h-[calc(100vh-7rem)]';
+  'bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col h-full';
 
 function panelProgramForDisplay(program: Program): Program {
   if (program.id === 'algebra-1') {

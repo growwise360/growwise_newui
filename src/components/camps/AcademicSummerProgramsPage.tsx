@@ -66,14 +66,6 @@ function filterChipStyle(active: boolean) {
   return active ? FILTER_CHIP_STYLE.active : FILTER_CHIP_STYLE.inactive;
 }
 
-function scrollPanelToTop() {
-  const panel = document.getElementById('slots-panel');
-  const scrollRegion = panel?.querySelector('[data-academic-panel-scroll]');
-  if (scrollRegion instanceof HTMLElement) {
-    scrollRegion.scrollTop = 0;
-  }
-}
-
 function resolveProgramFromHash(hash: string): Program | null {
   const normalized = hash.replace(/^#/, '');
   if (!normalized.startsWith('track-')) return null;
@@ -124,6 +116,11 @@ export function AcademicSummerProgramsPage() {
       if (fromHash) {
         setProgramFilter('all');
         setSelectedProgram(fromHash);
+        if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+          requestAnimationFrame(() => {
+            document.getElementById('slots-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
       }
     };
 
@@ -150,7 +147,6 @@ export function AcademicSummerProgramsPage() {
     setSelectedProgram(program);
     if (typeof window !== 'undefined') {
       window.history.replaceState(null, '', `#track-${program.id}`);
-      requestAnimationFrame(() => scrollPanelToTop());
       if (window.innerWidth < 1024) {
         document.getElementById('slots-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -177,7 +173,7 @@ export function AcademicSummerProgramsPage() {
         <section
           id="slots-section"
           ref={slotsSectionRef}
-          className="scroll-mt-24 relative box-border max-w-full overflow-x-hidden border-y border-slate-100 py-20"
+          className="scroll-mt-24 relative border-y border-slate-100 py-20"
           style={{
             background:
               'linear-gradient(135deg, #dbeafe 0%, #eff6ff 30%, #fff7ed 70%, #fed7aa 100%)',
@@ -193,8 +189,8 @@ export function AcademicSummerProgramsPage() {
           </div>
 
           <div className="container mx-auto px-4 md:px-6" style={{ position: 'relative', zIndex: 1 }}>
-            <div className="relative box-border grid w-full max-w-full items-start gap-8 max-sm:grid-cols-1 lg:grid-cols-12">
-              <div className="lg:col-span-7">
+            <div className="relative grid items-start gap-8 lg:grid-cols-12">
+              <div className="max-[768px]:overflow-x-hidden lg:col-span-7">
                 <div
                   className="mb-4 flex items-center justify-between gap-3 px-4 py-3 min-[769px]:hidden"
                   style={{
@@ -274,8 +270,15 @@ export function AcademicSummerProgramsPage() {
                 />
               </div>
 
-              {/* Right column: slots panel (sticky) — matches /camps/summer */}
-              <div className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-7rem)] max-[768px]:min-h-0">
+              {/* top/height: 13rem clears measured site header (172px @ 14px root); subtract bottom CTA when visible */}
+              <div
+                className={cn(
+                  'lg:col-span-5 lg:sticky lg:top-[13rem] max-[768px]:min-h-0',
+                  showStickyCta
+                    ? 'lg:h-[calc(100vh-13rem-5.5rem)]'
+                    : 'lg:h-[calc(100vh-13rem-1rem)]',
+                )}
+              >
                 <AcademicEnrollmentPanel
                   program={selectedProgram}
                   programs={PROGRAMS}
