@@ -2,8 +2,8 @@ import { ArrowLeft, CheckCircle2, Mail, Phone } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { CONTACT_INFO } from '@/lib/constants';
 
-// Same URL as report email CTA in quiz-completion.php
-const BOOKING_URL = 'https://calendly.com/growwiseschool/workshop';
+// Live Calendly account (growwiseschool/workshop and growwise/workshop are 404)
+const BOOKING_URL = 'https://calendly.com/thegrowwise';
 
 export default function SelfCheckDonePage() {
   const phoneHref = `tel:+1${CONTACT_INFO.phone.replace(/\D/g, '')}`;
