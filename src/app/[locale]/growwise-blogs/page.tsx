@@ -50,6 +50,15 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'b-plus-math-understanding',
+    category: 'academic',
+    title: "Your Child Got a B+. That Doesn't Mean They Understand the Math.",
+    excerpt:
+      'Good grades can mask gaps in real math understanding. Here\'s how Tri-Valley parents tell the difference—and what to do next.',
+    href: '/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math',
+    readMore: 'Read article »',
+  },
+  {
     id: 'math-finals-2026',
     category: 'academic',
     title: 'High School Math Finals Prep in Dublin, CA: Algebra 1–AP Precalculus',
