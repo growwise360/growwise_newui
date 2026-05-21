@@ -531,7 +531,11 @@ export default function BookAssessmentPage() {
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="grade" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Grade / Level <span className="text-red-500">*</span></Label>
-                          <Select onValueChange={(value) => handleInputChange('grade', value)} required>
+                          <Select
+                            onValueChange={(value) => handleInputChange('grade', value)}
+                            value={formData.grade || undefined}
+                            required
+                          >
                             <SelectTrigger
                               data-testid="assessment-grade-trigger"
                               className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl hover:border-gray-400 transition-all h-12 md:h-14 text-sm sm:text-base"
