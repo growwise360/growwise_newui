@@ -94,7 +94,7 @@ export async function GET(request: Request) {
           awardTier,
           parentPrediction,
           studentPrediction,
-          calendlyUrl: process.env.NEXT_PUBLIC_WORKSHOP_CALENDLY_URL ?? process.env.NEXT_PUBLIC_WORKSHOP_BOOKING_URL ?? 'https://calendly.com/growwise/workshop',
+          calendlyUrl: process.env.NEXT_PUBLIC_WORKSHOP_CALENDLY_URL ?? process.env.NEXT_PUBLIC_WORKSHOP_BOOKING_URL ?? 'https://calendly.com/growwiseschool/workshop',
         });
         if (markSentUrl && wpSecret) {
           await fetch(markSentUrl, {

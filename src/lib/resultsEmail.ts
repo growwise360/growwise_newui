@@ -90,8 +90,8 @@ export async function sendResultsEmail(opts: {
 
       <div style="margin:28px 0 0;padding:24px;background:#fff7ed;border-radius:8px;border:1px solid #fed7aa;text-align:center">
         <p style="font-weight:700;color:#1F396D;font-size:16px;margin:0 0 8px">Ready to close these gaps?</p>
-        <p style="color:#64748b;font-size:14px;margin:0 0 16px">Book a free 30-min Mistake Busting Workshop to fix the exact patterns we found.</p>
-        <a href="${escHtml(opts.calendlyUrl)}" style="background:#F16112;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:15px">Book Free Workshop →</a>
+        <p style="color:#64748b;font-size:14px;margin:0 0 16px">Book your free 1:1 Personalized Plan Preparation session to fix the exact patterns we found.</p>
+        <a href="${escHtml(opts.calendlyUrl)}" style="background:#F16112;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;font-size:15px">Book Free 1:1 Plan Preparation →</a>
       </div>
     </div>
     <div style="padding:16px 32px;background:#f8fafc;text-align:center;font-size:12px;color:#94a3b8">
@@ -112,7 +112,7 @@ Badge: ${tier.emoji} ${tier.title}
 ${confirmedText}
 ${opts.possiblePatterns.length > 0 ? `\nPossible Patterns:\n${patternListText(opts.possiblePatterns)}` : ''}
 
-Book a free Mistake Busting Workshop: ${opts.calendlyUrl}
+Book your free 1:1 Personalized Plan Preparation: ${opts.calendlyUrl}
 
 GrowWise School — growwiseschool.org`;
 
