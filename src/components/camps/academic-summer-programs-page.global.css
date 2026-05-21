@@ -1,0 +1,5 @@
+html:has([data-academic-summer-page]),
+body:has([data-academic-summer-page]) {
+  overflow-x: hidden;
+  max-width: 100%;
+}

@@ -64,6 +64,19 @@
     "finalReserveCta": "Reserve a Spot →",
     "finalGuidePdfCta": "Get camp guide by email →",
     "bookingSectionTitle": "Choose your camp & reserve a week",
-    "bookingSectionSub": "Pick a program, then select your week and checkout."
+    "bookingSectionSub": "Pick a program, then select your week and checkout.",
+    "academicTeaserBadge": "New · June 15",
+    "academicTeaserEyebrow": "Academic Summer Programs",
+    "academicTeaserHeading": "Looking for daily reading, writing, or math support?",
+    "academicTeaserSubhead": "Not a camp. A focused academic sprint — 90 min/day, small groups, DUSD aligned.",
+    "academicTeaserPills": [
+      "Read to Prove",
+      "Write to Explain",
+      "Bridge the Gap Math",
+      "IM1 · Algebra · Geometry"
+    ],
+    "academicTeaserFooter": "Grades 1–10 · From $249 · Starts June 15",
+    "academicTeaserCta": "View academic programs →",
+    "academicTeaserHref": "/camps/academic-summer-programs-dublin-ca"
   }
 }

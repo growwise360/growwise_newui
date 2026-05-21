@@ -8,6 +8,7 @@ const BODY = `# GrowWise School
 - [Academic (Math & English)](https://www.growwiseschool.org/academic)
 - [STEAM (Coding, AI, Game Dev)](https://www.growwiseschool.org/steam)
 - [Summer Camps](https://www.growwiseschool.org/camps/summer)
+- [Academic Summer Programs](https://www.growwiseschool.org/camps/academic-summer-programs-dublin-ca)
 - [SAT Prep](https://www.growwiseschool.org/courses/sat-prep)
 - [Workshops](https://www.growwiseschool.org/workshop-calendar)
 

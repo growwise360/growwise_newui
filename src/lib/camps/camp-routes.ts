@@ -12,6 +12,8 @@ import { getCampSlugs } from "./get-camp-page";
 export const CAMPS_STATIC_PATH_SEGMENTS: ReadonlySet<string> = new Set([
   "summer",
   "winter",
+  "academic-summer-programs-dublin-ca",
+  "academic-summer-sprint-dublin-ca",
 ]);
 
 /** Params for `src/app/[locale]/camps/[slug]/page.tsx` — excludes static camp hubs. */

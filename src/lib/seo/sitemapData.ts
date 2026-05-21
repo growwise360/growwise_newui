@@ -77,6 +77,7 @@ const legalPages: SitemapEntry[] = [
 
 const campPages: SitemapEntry[] = [
   { path: '/camps/summer', priority: 1.0, changefreq: 'weekly' },
+  { path: '/camps/academic-summer-programs-dublin-ca', priority: 0.95, changefreq: 'weekly' },
   { path: '/camps/winter', priority: 0.7, changefreq: 'weekly' },
   { path: '/camps/winter/calendar', priority: 0.6, changefreq: 'weekly' },
 ]
