@@ -2,8 +2,7 @@ import { ArrowLeft, CheckCircle2, Mail, Phone } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { CONTACT_INFO } from '@/lib/constants';
 
-// Live Calendly account (growwiseschool/workshop and growwise/workshop are 404)
-const BOOKING_URL = 'https://calendly.com/thegrowwise';
+const BOOKING_URL = 'https://calendly.com/connect-thegrowwise/new-meeting';
 
 export default function SelfCheckDonePage() {
   const phoneHref = `tel:+1${CONTACT_INFO.phone.replace(/\D/g, '')}`;
