@@ -61,6 +61,14 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       assertTitle('/growwise-blogs/improve-child-focus-feel-valued', title)
       assertDesc('/growwise-blogs/improve-child-focus-feel-valued', description)
     })
+
+    it('your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', () => {
+      const title = "B+ Doesn't Mean Math Understanding | GrowWise"
+      const description =
+        'Why a B+ can hide math gaps in Tri-Valley schools—and how Dublin parents spot real understanding vs. memorization before algebra.'
+      assertTitle('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', title)
+      assertDesc('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', description)
+    })
   })
 
   it('en locale enroll metaDescription from messages matches length cap (used by enroll layout)', () => {
