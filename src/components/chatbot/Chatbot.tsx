@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { X, Send, Bot, User } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -8,6 +8,7 @@ import { useChatbot } from '../../contexts/ChatbotContext';
 import ContactForm, { ContactFormData } from './ContactForm';
 import { contactService } from '../../lib/contactService';
 import { ChatMessageSkeleton } from '../ui/loading-skeletons';
+import { ChatbotAiSparkIcon } from './ChatbotAiSparkIcon';
 import {
   buildChatbotContactReplyBody,
   CHATBOT_BRAND_NAME,
@@ -18,12 +19,9 @@ import {
   chatbotSchedulingContactIntent,
 } from '@/lib/chatbotScope';
 
-/** SSOT: default offset (px) and storage key for floating chat position. */
-const FLOATING_CHAT_CONFIG = {
-  defaultBottom: 24,
-  defaultRight: 24,
-  buttonSizePx: 64,
-  storageKey: 'growwise_chat_floating_position',
+const CHAT_PANEL_CONFIG = {
+  horizontalInset: 16,
+  bottomInset: 24,
 } as const;
 
 interface Message {
@@ -34,36 +32,9 @@ interface Message {
   showContactForm?: boolean;
 }
 
-type FloatingPosition = { left: number; bottom: number };
-
-function loadStoredPosition(): FloatingPosition | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const raw = window.localStorage.getItem(FLOATING_CHAT_CONFIG.storageKey);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    const left = parsed.left;
-    const bottom = parsed.bottom;
-    if (typeof left !== 'number' || typeof bottom !== 'number') return null;
-    return { left, bottom };
-  } catch {
-    return null;
-  }
-}
-
-function clampPosition(pos: FloatingPosition): FloatingPosition {
-  const { buttonSizePx } = FLOATING_CHAT_CONFIG;
-  const maxLeft = typeof window !== 'undefined' ? window.innerWidth - buttonSizePx : 0;
-  const maxBottom = typeof window !== 'undefined' ? window.innerHeight - buttonSizePx : 0;
-  return {
-    left: Math.max(0, Math.min(pos.left, maxLeft)),
-    bottom: Math.max(0, Math.min(pos.bottom, maxBottom)),
-  };
-}
-
 export default function Chatbot() {
   const t = useTranslations();
-  const { isOpen, openChatbot, closeChatbot } = useChatbot();
+  const { isOpen, pendingUserMessage, openChatbot, closeChatbot, clearPendingUserMessage } = useChatbot();
   const [messages, setMessages] = useState<Message[]>(() => [
     {
       id: '1',
@@ -82,14 +53,7 @@ export default function Chatbot() {
   const [contactError, setContactError] = useState('');
   const [contactFieldErrors, setContactFieldErrors] = useState<Record<string, string>>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const [floatPosition, setFloatPosition] = useState<FloatingPosition | null>(null);
-  const isDraggingRef = useRef(false);
-  const didDragRef = useRef(false);
-  const dragStartRef = useRef({ x: 0, y: 0, left: 0, bottom: 0 });
-  const floatButtonWrapRef = useRef<HTMLDivElement>(null);
-  const openChatbotRef = useRef(openChatbot);
-  openChatbotRef.current = openChatbot;
+  const processedPendingIdRef = useRef(0);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
@@ -98,94 +62,6 @@ export default function Chatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  useEffect(() => {
-    const stored = loadStoredPosition();
-    if (stored) {
-      setFloatPosition(clampPosition(stored));
-      return;
-    }
-    const { defaultRight, defaultBottom, buttonSizePx } = FLOATING_CHAT_CONFIG;
-    setFloatPosition({
-      left: window.innerWidth - defaultRight - buttonSizePx,
-      bottom: defaultBottom,
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!floatPosition || typeof window === 'undefined') return;
-    try {
-      window.localStorage.setItem(
-        FLOATING_CHAT_CONFIG.storageKey,
-        JSON.stringify(floatPosition)
-      );
-    } catch {
-      /* ignore */
-    }
-  }, [floatPosition]);
-
-  useEffect(() => {
-    if (!floatPosition) return;
-    const onResize = () => setFloatPosition((prev) => (prev ? clampPosition(prev) : prev));
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [floatPosition]);
-
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      e.preventDefault();
-      didDragRef.current = false;
-      isDraggingRef.current = true;
-      const pos = floatPosition ?? {
-        left: window.innerWidth - FLOATING_CHAT_CONFIG.defaultRight - FLOATING_CHAT_CONFIG.buttonSizePx,
-        bottom: FLOATING_CHAT_CONFIG.defaultBottom,
-      };
-      dragStartRef.current = {
-        x: e.clientX,
-        y: e.clientY,
-        left: pos.left,
-        bottom: pos.bottom,
-      };
-      floatButtonWrapRef.current?.setPointerCapture(e.pointerId);
-    },
-    [floatPosition]
-  );
-
-  useEffect(() => {
-    const onPointerMove = (e: PointerEvent) => {
-      if (!isDraggingRef.current) return;
-      didDragRef.current = true;
-      const { x, y, left, bottom } = dragStartRef.current;
-      const next = clampPosition({
-        left: left + (e.clientX - x),
-        bottom: bottom - (e.clientY - y),
-      });
-      setFloatPosition(next);
-    };
-    const onPointerUp = () => {
-      if (!isDraggingRef.current) return;
-      const wasDrag = didDragRef.current;
-      isDraggingRef.current = false;
-      if (!wasDrag) openChatbotRef.current();
-    };
-    const capture = true;
-    window.addEventListener('pointermove', onPointerMove, capture);
-    window.addEventListener('pointerup', onPointerUp, capture);
-    window.addEventListener('pointercancel', onPointerUp, capture);
-    return () => {
-      window.removeEventListener('pointermove', onPointerMove, capture);
-      window.removeEventListener('pointerup', onPointerUp, capture);
-      window.removeEventListener('pointercancel', onPointerUp, capture);
-    };
-  }, []);
-
-  const handleStartChat = () => {
-    if (didDragRef.current) {
-      didDragRef.current = false;
-      return;
-    }
-    openChatbot();
-  };
 
   const handleCloseChat = () => {
     closeChatbot();
@@ -244,26 +120,30 @@ export default function Chatbot() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
+    const currentInput = inputValue;
+    setInputValue('');
+    await processUserMessage(currentInput);
+  };
+
+  const processUserMessage = async (rawText: string) => {
+    const trimmed = rawText.trim();
+    if (!trimmed) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: inputValue,
+      text: trimmed,
       sender: 'user',
       timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
-    const currentInput = inputValue;
-    setInputValue('');
     setIsTyping(true);
     setIsError(false);
     setErrorMessage('');
 
-    // First check if this should trigger a contact form
-    const botResponse = getBotResponse(currentInput);
+    const botResponse = getBotResponse(trimmed);
     
     if (botResponse.showContactForm) {
-      // Use rule-based response with contact form
       const response: Message = {
         id: (Date.now() + 1).toString(),
         text: botResponse.text,
@@ -277,13 +157,14 @@ export default function Chatbot() {
       return;
     }
 
-    // Otherwise, try LLM API
     try {
-      // Prepare conversation history for the API
-      const conversationHistory = messages.map(msg => ({
-        role: msg.sender === 'user' ? 'user' : 'assistant',
-        content: msg.text
-      }));
+      const conversationHistory = [
+        ...messages.map((msg) => ({
+          role: msg.sender === 'user' ? ('user' as const) : ('assistant' as const),
+          content: msg.text,
+        })),
+        { role: 'user' as const, content: trimmed },
+      ];
 
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -291,7 +172,7 @@ export default function Chatbot() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: currentInput,
+          message: trimmed,
           conversationHistory: conversationHistory
         }),
       });
@@ -315,7 +196,6 @@ export default function Chatbot() {
       setIsError(true);
       setErrorMessage('Failed to connect to AI service. Using fallback response.');
       
-      // Fallback to rule-based response
       const fallbackResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: botResponse.text,
@@ -329,6 +209,21 @@ export default function Chatbot() {
       setIsTyping(false);
     }
   };
+
+  useEffect(() => {
+    if (!isOpen || !pendingUserMessage) return;
+    if (pendingUserMessage.id <= processedPendingIdRef.current) return;
+    processedPendingIdRef.current = pendingUserMessage.id;
+    const text = pendingUserMessage.text;
+    clearPendingUserMessage();
+    void processUserMessage(text);
+  }, [isOpen, pendingUserMessage, clearPendingUserMessage]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      processedPendingIdRef.current = 0;
+    }
+  }, [isOpen]);
 
   const getBotResponse = (userInput: string): { text: string; showContactForm?: boolean } => {
     const input = userInput.toLowerCase();
@@ -456,41 +351,21 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Floating Chat Button — draggable; position persisted */}
-      {!isOpen && (
-        <div
-          ref={floatButtonWrapRef}
-          className="fixed z-50 cursor-grab active:cursor-grabbing touch-none"
-          style={
-            floatPosition
-              ? { left: floatPosition.left, bottom: floatPosition.bottom }
-              : { right: FLOATING_CHAT_CONFIG.defaultRight, bottom: FLOATING_CHAT_CONFIG.defaultBottom }
-          }
-          onPointerDown={handlePointerDown}
-        >
-          <Button
-            onClick={handleStartChat}
-            aria-label={t('chatbot.openChat')}
-            className="h-12 rounded-full border-0 bg-gradient-to-br from-[#1F396D] to-[#29335C] px-4 shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl focus-visible:ring-2 focus-visible:ring-[#F16112] focus-visible:ring-offset-2 flex items-center gap-2"
-          >
-            <Bot className="h-5 w-5 text-white shrink-0" aria-hidden />
-            <span className="text-white text-sm font-semibold">{t('chatbot.title')}</span>
-          </Button>
-        </div>
-      )}
-
-      {/* Chat Window — anchored bottom-right so it stays on-screen */}
       {isOpen && (
         <div
-          className="fixed z-50 w-[min(420px,calc(100vw-2rem))] h-[min(600px,calc(100vh-6rem))]"
-          style={{ right: FLOATING_CHAT_CONFIG.defaultRight, bottom: FLOATING_CHAT_CONFIG.defaultBottom }}
+          className="fixed z-[46] w-[min(420px,calc(100vw-2rem))]"
+          style={{
+            right: CHAT_PANEL_CONFIG.horizontalInset,
+            bottom: CHAT_PANEL_CONFIG.bottomInset,
+            height: `min(600px, calc(100vh - ${CHAT_PANEL_CONFIG.bottomInset + 16}px))`,
+          }}
         >
           <Card className="bg-white/95 backdrop-blur-3xl rounded-2xl shadow-2xl border-2 border-white/50 ring-1 ring-white/30 h-full flex flex-col">
             {/* Header */}
             <div className="bg-gradient-to-r from-[#1F396D] to-[#29335C] text-white p-4 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <Bot className="w-6 h-6" />
+                  <ChatbotAiSparkIcon className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg">{t('chatbot.title')}</h3>

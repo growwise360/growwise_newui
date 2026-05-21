@@ -268,6 +268,26 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     image: 'https://growwiseschool.org/assets/camps/summer-camp-banner.png',
   },
 
+  '/camps/academic-summer-programs-dublin-ca': {
+    title: 'Academic Summer Programs Dublin CA | GrowWise',
+    description:
+      'Affordable small-group reading, writing, and math summer programs in Dublin, CA. Daily focused instruction plus guided practice. Grades 1–10.',
+    keywords:
+      'academic summer programs Dublin CA, summer reading program Dublin, summer math program Dublin CA, DUSD PUSD IM1 summer prep, affordable summer academic support, algebra summer prep, geometry summer prep Dublin',
+    path: '/camps/academic-summer-programs-dublin-ca',
+    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+  },
+
+  '/camps/academic-summer-sprint-dublin-ca': {
+    title: 'Academic Summer Sprint Dublin CA | GrowWise',
+    description:
+      'Read to Prove, Write with Structure & Mistake-Proof Math sprints in Dublin, CA. Starts June 15. DUSD aligned. Small groups — enroll online.',
+    keywords:
+      'academic summer sprint Dublin CA, Read to Prove summer program, Write with Structure summer writing, Mistake-Proof Math Dublin, summer reading comprehension Dublin, DUSD summer academic program',
+    path: '/camps/academic-summer-sprint-dublin-ca',
+    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+  },
+
   '/growwise-blogs': {
     title: 'GrowWise Blog | Math, English & Coding Tips',
     description:

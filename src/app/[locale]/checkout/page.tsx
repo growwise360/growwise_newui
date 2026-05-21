@@ -11,6 +11,7 @@ import { Loader2, CreditCard, ArrowLeft, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { publicPath } from '@/lib/publicPath';
+import { AcademicSprintCohort2Upsell } from '@/components/camps/AcademicSprintCohort2Upsell';
 
 const CheckoutPage: React.FC = () => {
   const { state } = useCart();
@@ -159,6 +160,7 @@ const CheckoutPage: React.FC = () => {
 
           {/* Payment Section */}
           <div className="lg:col-span-1">
+            <AcademicSprintCohort2Upsell />
             <Card className="sticky top-8">
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-6">Payment</h2>

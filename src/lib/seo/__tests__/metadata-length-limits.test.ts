@@ -20,6 +20,7 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
   describe('metadataConfig static paths', () => {
     it.each([
       ['/camps/summer'],
+      ['/camps/academic-summer-programs-dublin-ca'],
       ['/enroll'],
     ] as const)('title + description for %s', (path) => {
       const config = getMetadataConfig(path)

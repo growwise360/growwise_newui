@@ -892,6 +892,7 @@ export default function BookAssessmentPage() {
               { href: publicPath('/courses/high-school-math', locale), label: 'High School Math Tutoring' },
               { href: publicPath('/courses/sat-prep', locale), label: 'SAT Prep Tutoring' },
               { href: publicPath('/camps/summer', locale), label: 'Summer STEAM Camps 2026' },
+              { href: publicPath('/camps/academic-summer-programs-dublin-ca', locale), label: 'Academic Summer Programs' },
             ].map(({ href, label }) => (
               <li key={href}>
                 <Link

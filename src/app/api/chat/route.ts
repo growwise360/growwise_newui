@@ -12,6 +12,7 @@ const ALLOWED_PAGE_CONTEXT_IDS = new Set([
   'default',
   'campsHub',
   'campsSummer',
+  'campsAcademicSummer',
   'campsWinter',
   'campSlug',
   'assessment',

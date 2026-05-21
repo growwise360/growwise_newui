@@ -141,7 +141,8 @@
     }
   },
   "chatbot": {
-    "title": "GrowWise School Assistant",
+    "title": "GrowWise AI Assistant",
+    "triggerLabel": "Ask AI",
     "openChat": "Open chat",
     "closeChat": "Close chat",
     "sendMessage": "Send message",

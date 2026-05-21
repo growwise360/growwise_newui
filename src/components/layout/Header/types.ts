@@ -31,6 +31,10 @@ export interface DropdownItem {
   submenuHeaderTitle?: string;
   /** Optional submenu panel subtitle; defaults to "Select your subject". */
   submenuHeaderSubtitle?: string;
+  /** Optional pill label (e.g. "New") shown beside the title. */
+  badge?: string;
+  /** Visual emphasis preset for special dropdown entries. */
+  emphasis?: 'academicSummer';
 }
 
 export interface SubmenuItem {

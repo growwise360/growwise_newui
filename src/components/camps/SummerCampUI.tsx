@@ -199,13 +199,14 @@ function InfoModal({
   return createPortal(modalContent, document.body);
 }
 
-function SlotRow({
+export function SlotRow({
   slot,
   level,
   program,
   cartItemIds,
   onAdd,
   onRemove,
+  compact = false,
 }: {
   slot: Slot;
   level: Level;
@@ -213,6 +214,7 @@ function SlotRow({
   cartItemIds: Set<string>;
   onAdd: (level: Level, slot: Slot) => void;
   onRemove: (slotId: string) => void;
+  compact?: boolean;
 }) {
   const t = useTranslations('summerCamp');
   const inCart = cartItemIds.has(slot.id);
@@ -220,7 +222,8 @@ function SlotRow({
   return (
     <div
       className={`
-        relative flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-all duration-300
+        relative flex flex-col sm:flex-row sm:items-center justify-between rounded-xl border transition-all duration-300
+        ${compact ? 'p-2.5 sm:p-3' : 'p-4'}
         ${inCart
           ? 'bg-green-50/30 border-green-200'
           : 'bg-white border-slate-100 hover:border-slate-200 hover:shadow-sm'
@@ -228,7 +231,9 @@ function SlotRow({
       `}
     >
       <div className="space-y-0.5">
-        <div className="font-bold text-slate-800 text-sm leading-snug">{slot.label}</div>
+        <div className={`font-bold text-slate-800 leading-snug ${compact ? 'text-[13px]' : 'text-sm'}`}>
+          {slot.label}
+        </div>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-600">
           <span className="flex items-center gap-1">
             <span
@@ -242,26 +247,28 @@ function SlotRow({
           <span className="font-semibold normal-case tracking-normal text-slate-700">{slot.time}</span>
         </div>
       </div>
-      <div className="flex items-center gap-3 mt-3 sm:mt-0">
-        <span className="font-black text-slate-900 text-base">
+      <div className={`flex items-center gap-2 sm:gap-3 ${compact ? 'mt-2 sm:mt-0' : 'mt-3 sm:mt-0'}`}>
+        <span className={`font-black text-slate-900 ${compact ? 'text-sm' : 'text-base'}`}>
           ${slot.price}
         </span>
         {inCart ? (
           <Button
+            type="button"
             variant="ghost"
             size="sm"
             aria-label={`${t('slots.remove')} ${slot.label}`}
             onClick={() => onRemove(slot.id)}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50 font-bold h-10 min-w-10 px-4 text-[10px] rounded-full transition-colors"
+            className={`text-red-600 hover:text-red-700 hover:bg-red-50 font-bold min-w-10 px-3 text-[10px] rounded-full transition-colors relative z-20 ${compact ? 'h-8' : 'h-10 px-4'}`}
           >
             {t('slots.remove')}
           </Button>
         ) : (
           <Button
+            type="button"
             size="sm"
             aria-label={`${t('slots.add')} ${slot.label}`}
             onClick={() => onAdd(level, slot)}
-            className="bg-slate-900 text-white hover:bg-[#1F396D] h-10 min-w-10 px-4 text-[10px] font-bold rounded-full transition-colors"
+            className={`bg-slate-900 text-white hover:bg-[#1F396D] min-w-10 px-3 text-[10px] font-bold rounded-full transition-colors relative z-20 ${compact ? 'h-8' : 'h-10 px-4'}`}
           >
             {t('slots.add')}
           </Button>
@@ -287,9 +294,11 @@ function toGlobalCartItem(program: Program, level: Level, slot: Slot) {
 export function SlotsPanel({
   program,
   olympiadTierConfigs,
+  compact = false,
 }: {
   program: Program;
   olympiadTierConfigs: OlympiadTierConfig[];
+  compact?: boolean;
 }) {
   const t = useTranslations('summerCamp');
   const locale = useLocale();
@@ -470,12 +479,12 @@ export function SlotsPanel({
       id="slots-panel"
       role="region"
       aria-label={program.title}
-      className="bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden h-full flex flex-col"
+      className={`bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden flex flex-col ${compact ? 'h-auto' : 'h-full'}`}
     >
       {/* Info modal */}
       {showInfo && <InfoModal program={program} onClose={() => setShowInfo(false)} />}
 
-      <div className="p-6 border-b border-slate-50 bg-slate-50/30">
+      <div className={`border-b border-slate-50 bg-slate-50/30 ${compact ? 'p-4' : 'p-6'}`}>
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-heading font-extrabold text-xl text-slate-900 leading-tight">
             {program.title}
@@ -521,7 +530,13 @@ export function SlotsPanel({
         )}
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-8">
+      <div
+        className={
+          compact
+            ? 'overflow-y-auto p-4 space-y-4 lg:max-h-[calc(100vh-16rem)]'
+            : 'flex-1 overflow-y-auto p-6 space-y-8'
+        }
+      >
         {/* Scratch: In-Person $349 / Online $329 — render first so it's always visible when Scratch selected */}
         {isScratch && program.levels[0] && (
           <>
@@ -804,16 +819,16 @@ export function SlotsPanel({
 
         {!isAdvMath && !isMathOlympiad && !isAiEntrepreneur && !isScratch && !isRoblox &&
           program.levels.map((level) => (
-            <div key={level.id} className="space-y-4">
+            <div key={level.id} className={compact ? 'space-y-2' : 'space-y-4'}>
               <div className="flex flex-col gap-0.5 border-l-2 border-[#1F396D] pl-3">
-                <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight">
+                <h4 className={`font-bold text-slate-900 uppercase tracking-tight ${compact ? 'text-xs' : 'text-sm'}`}>
                   {level.name}
                 </h4>
-                <span className="text-[10px] text-slate-600">
-                  {level.description}
-                </span>
+                {level.description ? (
+                  <span className="text-[10px] text-slate-600">{level.description}</span>
+                ) : null}
               </div>
-              <div className="grid gap-2">
+              <div className={`grid ${compact ? 'gap-1.5' : 'gap-2'}`}>
                 {level.slots.map((slot) => (
                   <SlotRow
                     key={slot.id}
@@ -823,6 +838,7 @@ export function SlotsPanel({
                     cartItemIds={summerCampItemIds}
                     onAdd={handleAdd}
                     onRemove={handleRemove}
+                    compact={compact}
                   />
                 ))}
               </div>

@@ -42,6 +42,41 @@ export default function CampLandingIndexPage() {
         </div>
       </header>
 
+      <section className="container-7xl border-b border-slate-200/80 pb-12 sm:pb-16" aria-labelledby="camp-hubs-heading">
+        <h2 id="camp-hubs-heading" className="text-xl font-semibold text-slate-900 sm:text-2xl">
+          Season & program hubs
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
+          Browse by season or explore our academic summer sprints for reading, writing, and math.
+        </p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+          <li>
+            <Link
+              href="/camps/summer"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-[#1F396D] shadow-sm transition hover:border-[#1F396D]/25 hover:shadow-md"
+            >
+              Summer STEAM Camps 2026
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/camps/academic-summer-programs-dublin-ca"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-[#1F396D] shadow-sm transition hover:border-[#1F396D]/25 hover:shadow-md"
+            >
+              Academic Summer Programs
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/camps/winter"
+              className="block rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-[#1F396D] shadow-sm transition hover:border-[#1F396D]/25 hover:shadow-md"
+            >
+              Winter Camps
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       <section className="container-7xl py-12 sm:py-16 lg:py-20" aria-labelledby="camp-programs-heading">
         <h2 id="camp-programs-heading" className="text-xl font-semibold text-slate-900 sm:text-2xl">
           Program pages

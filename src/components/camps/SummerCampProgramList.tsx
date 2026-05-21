@@ -1,10 +1,11 @@
 'use client';
 
-import { memo, useCallback, useMemo } from 'react';
+import { Fragment, memo, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { Check } from 'lucide-react';
+import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSummerProgramsTeaserBand';
 import type { Program } from '@/lib/summer-camp-data';
 import {
   getSummerCampProgramTrack,
@@ -121,6 +122,7 @@ export const ProgramList = memo(function ProgramList({
   const list = programs ?? [];
   const ordered = useMemo(() => orderProgramsBySummerCampTrack(list), [list]);
   const groups = useMemo(() => groupProgramsByTrack(ordered), [ordered]);
+  const showAcademicTeaser = groups.some((g) => g.track === 'aiGameDev');
 
   const sectionHeading = (track: SummerCampProgramTrack | 'unknown') => {
     switch (track) {
@@ -139,39 +141,44 @@ export const ProgramList = memo(function ProgramList({
     <div className="space-y-8" role="group" aria-label={t('page.title')}>
       <div className="min-[769px]:hidden space-y-8">
         {groups.map((group) => (
-          <section key={group.track} className="space-y-3">
-            <h3 className="font-heading font-black text-base text-slate-800 uppercase tracking-tight">
-              {sectionHeading(group.track)}
-            </h3>
-            <ul className="grid grid-cols-1 gap-3 list-none p-0 m-0" aria-label={sectionHeading(group.track)}>
-              {group.programs.map((program) => {
-                const isSelected = selectedProgramId === program.id;
-                const seo = getSummerCampProgramSeoLink(program.id);
-                return (
-                  <li
-                    key={program.id}
-                    className="[content-visibility:auto] [contain-intrinsic-size:auto_300px] flex flex-col gap-2"
-                  >
-                    <SummerCampProgramPickCard
-                      program={program}
-                      isSelected={isSelected}
-                      onSelect={onSelectProgram}
-                      imageSizes="(max-width:768px) 96vw, 100vw"
-                      imageWrapperClassName="aspect-[650/450]"
-                    />
-                    {seo ? (
-                      <Link
-                        href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
-                        className="text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm px-0.5 -mt-0.5"
-                      >
-                        {t(summerCampSeoMessagePath(seo.labelKey))}
-                      </Link>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+          <Fragment key={group.track}>
+            <section className="space-y-3">
+              <h3 className="font-heading font-black text-base text-slate-800 uppercase tracking-tight">
+                {sectionHeading(group.track)}
+              </h3>
+              <ul className="grid grid-cols-1 gap-3 list-none p-0 m-0" aria-label={sectionHeading(group.track)}>
+                {group.programs.map((program) => {
+                  const isSelected = selectedProgramId === program.id;
+                  const seo = getSummerCampProgramSeoLink(program.id);
+                  return (
+                    <li
+                      key={program.id}
+                      className="[content-visibility:auto] [contain-intrinsic-size:auto_300px] flex flex-col gap-2"
+                    >
+                      <SummerCampProgramPickCard
+                        program={program}
+                        isSelected={isSelected}
+                        onSelect={onSelectProgram}
+                        imageSizes="(max-width:768px) 96vw, 100vw"
+                        imageWrapperClassName="aspect-[650/450]"
+                      />
+                      {seo ? (
+                        <Link
+                          href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
+                          className="text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm px-0.5 -mt-0.5"
+                        >
+                          {t(summerCampSeoMessagePath(seo.labelKey))}
+                        </Link>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+            {group.track === 'academic' && showAcademicTeaser ? (
+              <AcademicSummerProgramsTeaserBand locale={locale} />
+            ) : null}
+          </Fragment>
         ))}
         <p className="text-center">
           <a
@@ -185,44 +192,49 @@ export const ProgramList = memo(function ProgramList({
 
       <div className="hidden min-[769px]:block space-y-8">
         {groups.map((group) => (
-          <section key={`d-${group.track}`} className="space-y-3">
-            <h3 className="font-heading font-black text-base text-slate-800 uppercase tracking-tight">
-              {sectionHeading(group.track)}
-            </h3>
-            <ul
-              className="grid grid-cols-2 gap-3 list-none p-0 m-0"
-              aria-label={sectionHeading(group.track)}
-            >
-              {group.programs.map((program, idx) => {
-                const isSelected = selectedProgramId === program.id;
-                const hasOddCount = group.programs.length % 2 !== 0;
-                const isLastAndAlone = hasOddCount && idx === group.programs.length - 1;
-                const seo = getSummerCampProgramSeoLink(program.id);
-                return (
-                  <li
-                    key={program.id}
-                    className={`[content-visibility:auto] [contain-intrinsic-size:auto_300px] flex flex-col gap-2 ${isLastAndAlone ? 'col-span-2' : ''}`}
-                  >
-                    <SummerCampProgramPickCard
-                      program={program}
-                      isSelected={isSelected}
-                      onSelect={onSelectProgram}
-                      imageSizes="(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw"
-                      imageWrapperClassName={isLastAndAlone ? 'h-[200px]' : 'aspect-[650/450]'}
-                    />
-                    {seo ? (
-                      <Link
-                        href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
-                        className="text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm px-0.5 -mt-0.5"
-                      >
-                        {t(summerCampSeoMessagePath(seo.labelKey))}
-                      </Link>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+          <Fragment key={`d-${group.track}`}>
+            <section className="space-y-3">
+              <h3 className="font-heading font-black text-base text-slate-800 uppercase tracking-tight">
+                {sectionHeading(group.track)}
+              </h3>
+              <ul
+                className="grid grid-cols-2 gap-3 list-none p-0 m-0"
+                aria-label={sectionHeading(group.track)}
+              >
+                {group.programs.map((program, idx) => {
+                  const isSelected = selectedProgramId === program.id;
+                  const hasOddCount = group.programs.length % 2 !== 0;
+                  const isLastAndAlone = hasOddCount && idx === group.programs.length - 1;
+                  const seo = getSummerCampProgramSeoLink(program.id);
+                  return (
+                    <li
+                      key={program.id}
+                      className={`[content-visibility:auto] [contain-intrinsic-size:auto_300px] flex flex-col gap-2 ${isLastAndAlone ? 'col-span-2' : ''}`}
+                    >
+                      <SummerCampProgramPickCard
+                        program={program}
+                        isSelected={isSelected}
+                        onSelect={onSelectProgram}
+                        imageSizes="(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw"
+                        imageWrapperClassName={isLastAndAlone ? 'h-[200px]' : 'aspect-[650/450]'}
+                      />
+                      {seo ? (
+                        <Link
+                          href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
+                          className="text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm px-0.5 -mt-0.5"
+                        >
+                          {t(summerCampSeoMessagePath(seo.labelKey))}
+                        </Link>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+            {group.track === 'academic' && showAcademicTeaser ? (
+              <AcademicSummerProgramsTeaserBand locale={locale} />
+            ) : null}
+          </Fragment>
         ))}
       </div>
     </div>
