@@ -19,6 +19,7 @@ import { useChatbot } from '@/contexts/ChatbotContext';
 import copy from '@/i18n/messages/academic-summer-programs-en.json';
 import {
   buildAllAcademicSummerPrograms,
+  getDefaultAcademicHubProgram,
 } from '@/lib/academic-summer-programs-hub-data';
 import {
   ACADEMIC_PROGRAM_FILTER_ORDER,
@@ -29,6 +30,7 @@ import { ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS } from '@/lib/schema/academic-summer-
 import type { Program } from '@/lib/summer-camp-data';
 import { CONTACT_INFO } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import pageStyles from '@/components/camps/academic-summer-programs-page.module.css';
 
 const PAGE = copy;
 const TRUST = copy.trust;
@@ -84,7 +86,9 @@ export function AcademicSummerProgramsPage() {
   const locale = typeof params?.locale === 'string' ? params.locale : 'en';
   const { openChatbot } = useChatbot();
   const slotsSectionRef = useRef<HTMLElement>(null);
-  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(() =>
+    getDefaultAcademicHubProgram(),
+  );
   const [programFilter, setProgramFilter] = useState<AcademicProgramFilterId>('all');
   const [showStickyCta, setShowStickyCta] = useState(false);
 
@@ -95,7 +99,8 @@ export function AcademicSummerProgramsPage() {
 
   const handleFilterChange = useCallback((filter: AcademicProgramFilterId) => {
     setProgramFilter(filter);
-    setSelectedProgram(null);
+    const nextPrograms = filterAcademicProgramsByChip(PROGRAMS, filter);
+    setSelectedProgram(nextPrograms[0] ?? getDefaultAcademicHubProgram());
     if (typeof window !== 'undefined') {
       const base = window.location.pathname + window.location.search;
       window.history.replaceState(null, '', base);
@@ -159,14 +164,20 @@ export function AcademicSummerProgramsPage() {
   const phoneHref = `tel:${CONTACT_INFO.phone.replace(/\D/g, '')}`;
 
   return (
-    <div className="min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]">
+    <div
+      data-academic-summer-page
+      className={cn(
+        pageStyles.pageRoot,
+        'min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]',
+      )}
+    >
       <main className={cn(showStickyCta ? 'pb-28 md:pb-24' : 'max-[768px]:pb-[60px]')}>
         <AcademicProgramsHero onInquireClick={() => openAcademicAssistant('schedule')} />
 
         <section
           id="slots-section"
           ref={slotsSectionRef}
-          className="scroll-mt-24 relative border-y border-slate-100 py-20"
+          className="scroll-mt-24 relative box-border max-w-full overflow-x-hidden border-y border-slate-100 py-20"
           style={{
             background:
               'linear-gradient(135deg, #dbeafe 0%, #eff6ff 30%, #fff7ed 70%, #fed7aa 100%)',
@@ -182,7 +193,7 @@ export function AcademicSummerProgramsPage() {
           </div>
 
           <div className="container mx-auto px-4 md:px-6" style={{ position: 'relative', zIndex: 1 }}>
-            <div className="relative grid items-start gap-8 lg:grid-cols-12">
+            <div className="relative box-border grid w-full max-w-full items-start gap-8 max-sm:grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-7">
                 <div
                   className="mb-4 flex items-center justify-between gap-3 px-4 py-3 min-[769px]:hidden"

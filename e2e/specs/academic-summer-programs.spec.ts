@@ -23,4 +23,18 @@ test.describe('Academic summer programs hub', () => {
     await page.goto(localePath('/camps/academic-summer-sprint-dublin-ca'));
     await expect(page).toHaveURL(/\/camps\/academic-summer-programs-dublin-ca/);
   });
+
+  for (const width of [375, 430] as const) {
+    test(`has no horizontal overflow at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 812 });
+      await page.goto(localePath('/camps/academic-summer-programs-dublin-ca'));
+      await expect(page.locator('main h1')).toBeVisible();
+
+      const hasOverflow = await page.evaluate(() => {
+        const doc = document.documentElement;
+        return doc.scrollWidth > doc.clientWidth;
+      });
+      expect(hasOverflow).toBe(false);
+    });
+  }
 });

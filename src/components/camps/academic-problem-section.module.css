@@ -94,13 +94,26 @@
 }
 
 @media (max-width: 639px) {
+  .bannerBreakout {
+    width: calc(100% + 2rem);
+    max-width: calc(100% + 2rem);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    left: 0;
+    transform: none;
+  }
+
   .banner {
-    padding: 24px 20px;
+    padding: 24px 16px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .statsRow {
     grid-template-columns: 1fr;
     gap: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .statItem {

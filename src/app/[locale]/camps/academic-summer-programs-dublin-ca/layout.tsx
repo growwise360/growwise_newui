@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import '@/components/camps/academic-summer-programs-page.global.css';
 import FAQSchema from '@/components/schema/FAQSchema';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 import { ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS } from '@/lib/schema/academic-summer-programs-hub-jsonld-faqs';

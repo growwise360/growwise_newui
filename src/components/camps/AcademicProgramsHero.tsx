@@ -45,7 +45,7 @@ export function AcademicProgramsHero({ onInquireClick }: AcademicProgramsHeroPro
           {HERO.subhead}
         </p>
         <ul
-          className="mt-4 flex max-w-2xl flex-wrap gap-2 sm:mt-5"
+          className="mt-4 flex max-w-full flex-wrap gap-2 overflow-hidden sm:mt-5 sm:max-w-2xl"
           aria-label="Program highlights"
         >
           {HERO.trustPills.map((pill) => (
