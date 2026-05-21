@@ -2,8 +2,9 @@ import { ArrowLeft, CheckCircle2, Mail, Phone } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { CONTACT_INFO } from '@/lib/constants';
 
+const BOOKING_URL = 'https://calendly.com/connect-thegrowwise/new-meeting';
+
 export default function SelfCheckDonePage() {
-  const workshopUrl = process.env.NEXT_PUBLIC_WORKSHOP_BOOKING_URL ?? 'https://calendly.com/growwise/workshop';
   const phoneHref = `tel:+1${CONTACT_INFO.phone.replace(/\D/g, '')}`;
 
   return (
@@ -42,15 +43,15 @@ export default function SelfCheckDonePage() {
           <CardContent className="p-6 space-y-3 text-center">
             <p className="font-bold text-[#1F396D] text-lg">Want to fix the pattern?</p>
             <p className="text-sm text-gray-600">
-              Book a free 30-minute workshop with a GrowWise teacher.
+              Book your free 1:1 Personalized Plan Preparation with a GrowWise teacher.
             </p>
             <a
-              href={workshopUrl}
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-[#F16112] hover:bg-[#d54f0a] text-white font-bold px-8 py-3 rounded-xl text-sm transition-colors shadow-md w-full sm:w-auto"
             >
-              Book My Free Workshop →
+              Book Free 1:1 Plan Preparation →
             </a>
           </CardContent>
         </Card>
@@ -66,7 +67,7 @@ export default function SelfCheckDonePage() {
               6-week personalized plan targeting exactly what&#39;s holding your child back.
             </p>
             <a
-              href={process.env.NEXT_PUBLIC_WORKSHOP_CALENDLY_URL ?? process.env.NEXT_PUBLIC_WORKSHOP_BOOKING_URL ?? 'https://calendly.com/growwise/workshop'}
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-[#1F396D] hover:bg-[#183056] text-white font-bold px-8 py-3 rounded-xl text-sm transition-colors shadow-md w-full sm:w-auto"

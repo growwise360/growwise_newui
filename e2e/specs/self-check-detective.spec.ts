@@ -274,7 +274,11 @@ test.describe('Done page', () => {
     await goto(page, localePath('/self-check/done'));
     await expect(page.getByRole('heading', { level: 1, name: /You.*re all set/i })).toBeVisible();
     await expect(page.getByText(/sent to your email/i)).toBeVisible();
-    await expect(page.getByRole('link', { name: /Book My Free Workshop/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Book Free 1:1 Plan Preparation/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Book Free 1:1 Plan Preparation/i }).first()).toHaveAttribute(
+      'href',
+      'https://calendly.com/connect-thegrowwise/new-meeting',
+    );
   });
 
   // ── 16. Back to Self-Check link ───────────────────────────────────────────
