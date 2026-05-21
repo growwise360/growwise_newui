@@ -26,6 +26,9 @@ export function AcademicEnrollmentPanelScroll({
 
   useEffect(() => {
     hasScrolledRef.current = false;
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
     updateHint();
 
     const el = scrollRef.current;
