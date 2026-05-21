@@ -180,7 +180,7 @@ export function AcademicGetReadySlotsPanel({
       id="slots-panel"
       role="region"
       aria-label={program.title}
-      className="flex h-auto max-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-2xl"
+      className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-2xl"
     >
       <AcademicMobileProgramSwitcher
         programs={programs}

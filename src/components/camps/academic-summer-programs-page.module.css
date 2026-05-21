@@ -1,19 +1,22 @@
 .pageRoot {
-  overflow-x: hidden;
   max-width: 100%;
   box-sizing: border-box;
 }
 
 .pageRoot main {
-  overflow-x: hidden;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-.pageRoot main > section {
+/* :global(#slots-section) — CSS modules hash bare #ids in :not(), which would still apply overflow-x to #slots-section and break sticky panel + site header scroll */
+.pageRoot main > section:not(:global(#slots-section)) {
   max-width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
+}
+
+.pageRoot main > :global(#slots-section) {
+  overflow: visible;
 }
 
 @media (max-width: 639px) {
