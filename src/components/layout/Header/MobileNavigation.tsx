@@ -72,13 +72,14 @@ export default function MobileNavigation({
   const filteredMenuItems = usableMenuItems.filter(
     (item) => item.key !== 'enroll' && item.visible !== false
   );
-  const hideDrawerAskGrowy = isCampSeoLandingPath(pathname);
+  const isCampSeo = isCampSeoLandingPath(pathname);
+  const hideDrawerAskGrowy = isCampSeo;
 
   return (
     <>
       {/* Mobile menu button & cart icon */}
       <div className="lg:hidden flex items-center gap-2 z-[55] relative">
-        <HeaderChatbotTrigger variant="compact" />
+        {isCampSeo ? <HeaderChatbotTrigger variant="compact" /> : null}
         {showCart && (
           <Link
             href={createLocaleUrl('/cart')}
