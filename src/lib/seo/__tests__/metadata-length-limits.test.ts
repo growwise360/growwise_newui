@@ -25,6 +25,7 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       ['/camps/summer-math-foundations-dublin-ca'],
       ['/camps/summer-algebra-dublin-ca'],
       ['/camps/summer-geometry-precalculus-dublin-ca'],
+      ['/courses/integrated-math-1-dublin-ca'],
       ['/enroll'],
     ] as const)('title + description for %s', (path) => {
       const config = getMetadataConfig(path)

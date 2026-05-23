@@ -102,6 +102,15 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/courses/high-school-math',
   },
 
+  '/courses/integrated-math-1-dublin-ca': {
+    title: 'Integrated Math 1 Tutoring Dublin CA | GrowWise',
+    description:
+      'Integrated Math 1 tutoring in Dublin, CA. Algebra, functions, systems, and word problems. Small groups. Book a free assessment.',
+    keywords:
+      'integrated math 1 tutoring Dublin CA, IM1 tutor Dublin, integrated math tutor Tri-Valley, DUSD math tutoring, algebra functions graphs tutoring, systems of equations help Dublin CA',
+    path: '/courses/integrated-math-1-dublin-ca',
+  },
+
   '/coding': {
     title: 'Coding Classes Kids | Dublin CA | GrowWise',
     description:

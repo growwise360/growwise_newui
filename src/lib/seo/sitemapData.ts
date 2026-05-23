@@ -60,6 +60,7 @@ const coursePages: SitemapEntry[] = [
   { path: '/courses/english', priority: 0.95, changefreq: 'weekly' },
   { path: '/courses/sat-prep', priority: 0.9, changefreq: 'weekly' },
   { path: '/courses/high-school-math', priority: 0.85, changefreq: 'monthly' },
+  { path: '/courses/integrated-math-1-dublin-ca', priority: 0.85, changefreq: 'monthly' },
 ]
 
 const steamPages: SitemapEntry[] = [
