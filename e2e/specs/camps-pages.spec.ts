@@ -15,7 +15,7 @@ function visibleProgramTitleInGrid(page: Page, title: string) {
   return page.locator('#program-grid').getByText(title, { exact: false }).locator('visible=true');
 }
 
-test.describe('Camps pages — smoke (200, h1, main landmark)', () => {
+test.describe('Camps pages — smoke (200, h1, main landmark)', { tag: '@nightly' }, () => {
   for (const path of getAllCampsSmokePaths()) {
     test(`${path} loads with exactly one main h1`, async ({ page }) => {
       const response = await page.goto(localePath(path));
@@ -26,7 +26,7 @@ test.describe('Camps pages — smoke (200, h1, main landmark)', () => {
   }
 });
 
-test.describe('Camps pages — STEAM landing SEO content', () => {
+test.describe('Camps pages — STEAM landing SEO content', { tag: '@nightly' }, () => {
   for (const path of getCampLandingPaths()) {
     const slug = path.replace('/camps/', '');
     const campPage = getCampPage(slug);
@@ -38,7 +38,7 @@ test.describe('Camps pages — STEAM landing SEO content', () => {
   }
 });
 
-test.describe('Camps pages — legacy redirects', () => {
+test.describe('Camps pages — legacy redirects', { tag: '@nightly' }, () => {
   for (const { from, toPattern } of CAMP_REDIRECT_PATHS) {
     test(`${from} redirects`, async ({ page }) => {
       await page.goto(localePath(from));
@@ -47,7 +47,7 @@ test.describe('Camps pages — legacy redirects', () => {
   }
 });
 
-test.describe('Academic SEO landing pages', () => {
+test.describe('Academic SEO landing pages', { tag: '@nightly' }, () => {
   for (const seoPage of getAcademicSeoPageSmokeExpectations()) {
     test(`${seoPage.path} hero, FAQ, related links, no checkout panel`, async ({ page }) => {
       await page.goto(localePath(seoPage.path));
@@ -85,7 +85,7 @@ test.describe('Academic SEO landing pages', () => {
   }
 });
 
-test.describe('Academic hub — filter query params', () => {
+test.describe('Academic hub — filter query params', { tag: '@nightly' }, () => {
   for (const filterCase of ACADEMIC_HUB_FILTER_SMOKE_CASES) {
     const label = filterCase.query ?? 'default';
     test(`?filter=${label} shows expected programs`, async ({ page }) => {
@@ -112,7 +112,7 @@ test.describe('Academic hub — filter query params', () => {
   });
 });
 
-test.describe('Academic SEO pages — structured data', () => {
+test.describe('Academic SEO pages — structured data', { tag: '@nightly' }, () => {
   for (const seoPage of getAcademicSeoPageSmokeExpectations()) {
     test(`${seoPage.path} includes FAQPage JSON-LD`, async ({ page }) => {
       await page.goto(localePath(seoPage.path));
@@ -125,7 +125,7 @@ test.describe('Academic SEO pages — structured data', () => {
   }
 });
 
-test.describe('Camps pages — mobile layout', () => {
+test.describe('Camps pages — mobile layout', { tag: '@nightly' }, () => {
   for (const width of [375, 430] as const) {
     test(`no horizontal overflow on academic hub at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 812 });

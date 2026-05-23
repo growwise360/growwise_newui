@@ -191,6 +191,7 @@ Before final output, verify:
 - [ ] Primary CTA is visually dominant — no competing actions at equal weight
 - [ ] Only existing color palette, font scale, and component patterns used
 - [ ] Heading hierarchy is correct (`h1` → `h2` → `h3`, one `h1` per page)
+- [ ] Targeted E2E run when change touches conversion/enrollment/routes (see §17; not full suite unless requested)
 
 State **PASS** or **FAIL**. If FAIL: fix or refuse and explain.
 
@@ -204,3 +205,32 @@ State **PASS** or **FAIL**. If FAIL: fix or refuse and explain.
 2. Preparing changes locally, showing diffs, and **asking** whether to commit or push is acceptable.
 3. **Silence, implied consent, or approval of an unrelated step** does not authorize commit or push — the user must clearly approve that commit or push.
 4. If the user did not ask to commit or push, default to **no commit and no push**.
+
+---
+
+## 17. E2E TESTING (TARGETED ONLY)
+
+**Never run the full Playwright suite locally unless the user explicitly asks.**
+
+CI tiers:
+- **PR gate:** Jest + `@critical` smoke E2E only (`npm run test:e2e:smoke`)
+- **Morning schedule:** full Playwright suite + Lighthouse (do not duplicate locally)
+
+Before finishing a change:
+1. Always run `npm run test:ci` (or targeted Jest for touched modules).
+2. Run smoke E2E when the change touches conversion, enrollment, routing, cart/checkout, or navigation:
+   `npm run test:e2e:smoke`
+3. Run path-targeted E2E based on files changed — not the full suite:
+
+| If you changed… | Run locally |
+|-----------------|-------------|
+| `checkout/`, `cart/`, `payment/`, Stripe | `playwright test e2e/specs/cart-checkout-stripe.spec.ts e2e/specs/checkout-success.spec.ts --project=chromium` |
+| `enroll/`, enrollment forms | `playwright test e2e/specs/enrollment.spec.ts e2e/specs/enroll-academic.spec.ts --project=chromium` |
+| `camps/`, `camp-pages-registry`, academic SEO | `npm run test:camps` then `npm run test:e2e:camps` |
+| Home CTAs, ad landing routes | `playwright test e2e/specs/home-redirect-links.spec.ts --project=chromium` |
+| `layout/`, Header, navigation | `playwright test e2e/specs/navigation.spec.ts --project=chromium` |
+| `self-check/`, detective, results | `playwright test e2e/specs/self-check-detective.spec.ts --project=chromium` |
+| New routes / sitemap | defer to morning CI (`mobile-404-audit`); do not run unless user requests |
+
+4. Local E2E auto-starts the app: `next start` if `.next/BUILD_ID` exists, otherwise `next dev`. For CI-like runs: `npm run build && E2E_USE_PROD=1 npm run test:e2e:smoke`.
+5. Tag new E2E specs: `@critical` for enrollment/checkout/ad-route regressions; `@nightly` for bulk SEO, camps sweeps, or mobile audits.

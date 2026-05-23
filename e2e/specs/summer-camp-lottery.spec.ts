@@ -8,7 +8,7 @@ async function openSummerCampGuideModal(page: Page): Promise<void> {
   await expect(page.getByRole('dialog')).toBeVisible({ timeout: 15_000 });
 }
 
-test.describe('Summer camp lottery form (UI)', () => {
+test.describe('Summer camp lottery form (UI)', { tag: '@nightly' }, () => {
   test('submits lottery form and navigates to thank-you page with mocked API', async ({ page }) => {
     // The guide modal form posts to /api/summer-camp-summercamp (not /api/summer-camp-lottery).
     await page.route('**/api/summer-camp-summercamp', async (route) => {

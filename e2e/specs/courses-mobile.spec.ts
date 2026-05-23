@@ -2,7 +2,7 @@ import { test, expect, devices } from '@playwright/test';
 
 test.use({ ...devices['iPhone 14'] });
 
-test.describe('Courses pages (mobile)', () => {
+test.describe('Courses pages (mobile)', { tag: '@nightly' }, () => {
   const paths = [
     '/courses/math',
     '/courses/english',
@@ -20,7 +20,7 @@ test.describe('Courses pages (mobile)', () => {
   }
 });
 
-test.describe('Camps pages (mobile)', () => {
+test.describe('Camps pages (mobile)', { tag: '@nightly' }, () => {
   const paths = ['/camps/summer', '/camps/winter'];
 
   for (const path of paths) {

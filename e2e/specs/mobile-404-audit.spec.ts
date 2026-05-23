@@ -80,7 +80,7 @@ async function collectStaticAppPaths(): Promise<string[]> {
   return Array.from(new Set(results)).sort();
 }
 
-test('Audit: no sitemap pages 404 on mobile', async ({ request, baseURL }) => {
+test('Audit: no sitemap pages 404 on mobile', { tag: '@nightly' }, async ({ request, baseURL }) => {
   test.setTimeout(12 * 60 * 1000); // sitemap can be large; keep this generous
 
   const origin = baseURL ?? 'http://localhost:3000';
