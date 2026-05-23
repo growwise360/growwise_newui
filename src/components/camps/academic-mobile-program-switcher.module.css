@@ -1,5 +1,7 @@
 .switcher {
   flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
   padding: 10px 14px;
   border-bottom: 0.5px solid var(--color-border-tertiary, #e2e8f0);
   background: var(--color-background-secondary, #f8fafc);
@@ -16,6 +18,8 @@
 }
 
 .pillRow {
+  min-width: 0;
+  max-width: 100%;
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;

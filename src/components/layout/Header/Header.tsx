@@ -53,6 +53,18 @@ export default function Header() {
     if (!header) dispatch(fetchHeaderRequested());
   }, [dispatch, header]);
 
+  useEffect(() => {
+    const headerEl = document.querySelector('.header-root');
+    if (!headerEl) return;
+
+    const onScroll = () => {
+      headerEl.classList.toggle('header-scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   // Get header data with fallbacks
   const topPhone = header?.topBar.phone ?? DEFAULT_HEADER_DATA.topBar.phone;
   const topEmail = header?.topBar.email ?? DEFAULT_HEADER_DATA.topBar.email;
@@ -64,8 +76,8 @@ export default function Header() {
 
   return (
     <header className="header-root">
-      {/* Top Header Bar */}
-      <div>
+      {/* Top Header Bar — desktop/tablet only; reduces mobile header stack height */}
+      <div className="max-md:hidden">
         <TopBar
           phone={topPhone}
           email={topEmail}
@@ -77,7 +89,7 @@ export default function Header() {
 
       {/* Main Navigation */}
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="header-mainrow flex-wrap lg:flex-nowrap">
+        <div className="header-mainrow lg:flex-nowrap">
           {/* Logo — flex-shrink-0 keeps the logo visible when nav is long */}
           <div className="flex items-center flex-shrink-0">
             <Link href={createLocaleUrlHelper('/')} className="cursor-pointer" aria-label="GrowWise home">

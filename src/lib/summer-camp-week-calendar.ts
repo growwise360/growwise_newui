@@ -30,6 +30,41 @@ export const SUMMER_CAMP_WEEK_LABELS_2026 = [
 
 export const SUMMER_CAMP_WEEK_COUNT = SUMMER_CAMP_WEEK_LABELS_2026.length;
 
+/** Mon–Fri ISO date pairs for each camp week (Event JSON-LD). */
+export const SUMMER_CAMP_WEEK_ISO_RANGES_2026 = [
+  { startDate: '2026-06-08', endDate: '2026-06-12' },
+  { startDate: '2026-06-15', endDate: '2026-06-19' },
+  { startDate: '2026-06-22', endDate: '2026-06-26' },
+  { startDate: '2026-06-29', endDate: '2026-07-03' },
+  { startDate: '2026-07-06', endDate: '2026-07-10' },
+  { startDate: '2026-07-13', endDate: '2026-07-17' },
+  { startDate: '2026-07-20', endDate: '2026-07-24' },
+  { startDate: '2026-07-27', endDate: '2026-07-31' },
+] as const;
+
+/** Math Olympiad Tier 2: each slot spans two consecutive calendar weeks. */
+export const MATH_OLYMPIAD_TIER2_ISO_RANGES_2026 = [
+  { startDate: '2026-06-08', endDate: '2026-06-19' },
+  { startDate: '2026-06-22', endDate: '2026-07-03' },
+  { startDate: '2026-07-06', endDate: '2026-07-17' },
+  { startDate: '2026-07-20', endDate: '2026-07-31' },
+] as const;
+
+export type SummerCampWeekIsoRange = {
+  startDate: string;
+  endDate: string;
+};
+
+export function getSummerCampWeekIsoRange(weekIndex0: number): SummerCampWeekIsoRange | undefined {
+  return SUMMER_CAMP_WEEK_ISO_RANGES_2026[weekIndex0];
+}
+
+export function getMathOlympiadTier2IsoRange(
+  slotIndex0: number,
+): SummerCampWeekIsoRange | undefined {
+  return MATH_OLYMPIAD_TIER2_ISO_RANGES_2026[slotIndex0];
+}
+
 export function getSummerCampWeekLabel(weekIndex0: number): string {
   const label = SUMMER_CAMP_WEEK_LABELS_2026[weekIndex0];
   if (label) return label;
