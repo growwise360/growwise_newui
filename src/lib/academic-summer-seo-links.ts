@@ -1,5 +1,5 @@
 /**
- * Maps academic hub program ids to future `/camps/[slug]` detail pages.
+ * Maps academic hub program ids to `/camps/[slug]` SEO detail pages.
  * Set `slug` when a landing page is published; links stay hidden until then.
  */
 
@@ -17,14 +17,29 @@ export type AcademicProgramSeoLink = {
   labelKey: AcademicProgramSeoSlugKey;
 };
 
-/** Enable slugs here as program landing pages ship (same pattern as summer-camp-seo-links). */
+/** Published program landing pages (pillar → detail). */
 const PROGRAM_ID_TO_SEO: Partial<Record<string, AcademicProgramSeoLink | null>> = {
-  'read-to-prove': null,
-  'write-to-explain': null,
-  'bridge-the-gap-math': null,
+  'read-to-prove': {
+    slug: 'summer-reading-writing-dublin-ca',
+    labelKey: 'readToProve',
+  },
+  'write-to-explain': {
+    slug: 'summer-reading-writing-dublin-ca',
+    labelKey: 'writeWithStructure',
+  },
+  'bridge-the-gap-math': {
+    slug: 'summer-math-foundations-dublin-ca',
+    labelKey: 'mistakeProofMath',
+  },
   im1: null,
-  'algebra-1': null,
-  geometry: null,
+  'algebra-1': {
+    slug: 'summer-algebra-dublin-ca',
+    labelKey: 'algebra1GetReady',
+  },
+  geometry: {
+    slug: 'summer-geometry-precalculus-dublin-ca',
+    labelKey: 'geometryGetReady',
+  },
 };
 
 export function getAcademicProgramSeoLink(programId: string): AcademicProgramSeoLink | undefined {

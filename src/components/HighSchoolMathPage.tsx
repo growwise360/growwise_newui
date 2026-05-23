@@ -642,7 +642,13 @@ const HighSchoolMathPage: React.FC = () => {
 
           <div>
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Advanced Math Classes</h2>
-            <p className="text-gray-600 leading-relaxed">Our advanced math classes are designed for students working 1–2 grade levels ahead or targeting accelerated placement. We cover Integrated Math 1 &amp; 2, Geometry, and AP preparation.</p>
+            <p className="text-gray-600 leading-relaxed">
+              Our advanced math classes are designed for students working 1–2 grade levels ahead or targeting accelerated placement. We cover{' '}
+              <Link href={publicPath('/courses/integrated-math-1-dublin-ca', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:text-[#F16112] hover:underline">
+                Integrated Math 1
+              </Link>{' '}
+              &amp; 2, Geometry, and AP preparation.
+            </p>
           </div>
 
           <p className="text-gray-600 leading-relaxed">

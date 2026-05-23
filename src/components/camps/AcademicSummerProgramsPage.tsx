@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { HelpCircle } from 'lucide-react';
 import { AcademicEnrollmentPanel } from '@/components/camps/AcademicEnrollmentPanel';
 import { AcademicProgramList } from '@/components/camps/AcademicProgramList';
@@ -24,6 +24,7 @@ import {
 import {
   ACADEMIC_PROGRAM_FILTER_ORDER,
   filterAcademicProgramsByChip,
+  resolveAcademicHubFilterFromQuery,
   type AcademicProgramFilterId,
 } from '@/lib/academic-summer-program-filters';
 import { ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS } from '@/lib/schema/academic-summer-programs-hub-jsonld-faqs';
@@ -75,6 +76,8 @@ function resolveProgramFromHash(hash: string): Program | null {
 
 export function AcademicSummerProgramsPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
+  const filterParam = searchParams.get('filter');
   const locale = typeof params?.locale === 'string' ? params.locale : 'en';
   const { openChatbot } = useChatbot();
   const slotsSectionRef = useRef<HTMLElement>(null);
@@ -110,6 +113,18 @@ export function AcademicSummerProgramsPage() {
     },
     [openChatbot],
   );
+
+  useEffect(() => {
+    const resolved = resolveAcademicHubFilterFromQuery(filterParam);
+    if (!resolved) return;
+    setProgramFilter(resolved);
+    const nextPrograms = filterAcademicProgramsByChip(PROGRAMS, resolved);
+    setSelectedProgram(nextPrograms[0] ?? getDefaultAcademicHubProgram());
+    const scrollTimer = window.setTimeout(() => {
+      document.getElementById('program-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+    return () => window.clearTimeout(scrollTimer);
+  }, [filterParam]);
 
   useEffect(() => {
     const applyHash = () => {
@@ -255,7 +270,7 @@ export function AcademicSummerProgramsPage() {
             </div>
 
             <div className="relative grid items-start gap-8 lg:grid-cols-12">
-              <div className="max-[768px]:overflow-x-hidden lg:col-span-7">
+              <div id="program-grid" className="scroll-mt-24 max-[768px]:overflow-x-hidden lg:col-span-7">
                 <AcademicProgramList
                   programs={filteredPrograms}
                   selectedProgramId={selectedProgram?.id ?? null}

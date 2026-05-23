@@ -60,6 +60,7 @@ const coursePages: SitemapEntry[] = [
   { path: '/courses/english', priority: 0.95, changefreq: 'weekly' },
   { path: '/courses/sat-prep', priority: 0.9, changefreq: 'weekly' },
   { path: '/courses/high-school-math', priority: 0.85, changefreq: 'monthly' },
+  { path: '/courses/integrated-math-1-dublin-ca', priority: 0.85, changefreq: 'monthly' },
 ]
 
 const steamPages: SitemapEntry[] = [
@@ -78,6 +79,10 @@ const legalPages: SitemapEntry[] = [
 const campPages: SitemapEntry[] = [
   { path: '/camps/summer', priority: 1.0, changefreq: 'weekly' },
   { path: '/camps/academic-summer-programs-dublin-ca', priority: 0.95, changefreq: 'weekly' },
+  { path: '/camps/summer-reading-writing-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-math-foundations-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-algebra-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-geometry-precalculus-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/winter', priority: 0.7, changefreq: 'weekly' },
   { path: '/camps/winter/calendar', priority: 0.6, changefreq: 'weekly' },
 ]

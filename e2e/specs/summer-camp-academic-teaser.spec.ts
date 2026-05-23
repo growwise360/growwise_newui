@@ -15,21 +15,25 @@ test.describe('Summer camp academic teaser band', () => {
       /\/camps\/academic-summer-programs-dublin-ca/,
     );
 
-    const academicHeading = page.getByRole('heading', { name: 'Academic', exact: false }).first();
-    const aiHeading = page.getByRole('heading', { name: /AI & Game Development/i }).first();
+    const campChooser = page.getByRole('group', { name: 'Choose Your Camp' });
+    const academicHeading = campChooser.getByRole('heading', { level: 3, name: 'Academic', exact: true });
+    const aiHeading = campChooser.getByRole('heading', { level: 3, name: 'AI & Game Development', exact: true });
     await expect(academicHeading).toBeVisible();
     await expect(aiHeading).toBeVisible();
 
-    const academicBox = await academicHeading.boundingBox();
-    const teaserBox = await teaser.boundingBox();
-    const aiBox = await aiHeading.boundingBox();
-    expect(academicBox).not.toBeNull();
-    expect(teaserBox).not.toBeNull();
-    expect(aiBox).not.toBeNull();
-    if (academicBox && teaserBox && aiBox) {
-      expect(academicBox.y).toBeLessThan(teaserBox.y);
-      expect(teaserBox.y).toBeLessThan(aiBox.y);
-    }
+    const teaserBetweenSections = await campChooser.evaluate((campGroup) => {
+      const headings = Array.from(campGroup.querySelectorAll('h3'));
+      const academic = headings.find((heading) => heading.textContent?.trim() === 'Academic');
+      const ai = headings.find((heading) => heading.textContent?.trim() === 'AI & Game Development');
+      const teaserEl = campGroup.querySelector('aside[aria-labelledby="summer-academic-teaser-heading"]');
+      if (!academic || !ai || !teaserEl) return false;
+
+      const isBefore = (left: Element, right: Element) =>
+        Boolean(left.compareDocumentPosition(right) & Node.DOCUMENT_POSITION_FOLLOWING);
+
+      return isBefore(academic, teaserEl) && isBefore(teaserEl, ai);
+    });
+    expect(teaserBetweenSections).toBe(true);
   });
 
   test('does not show duplicate bottom-page academic teaser', async ({ page }) => {

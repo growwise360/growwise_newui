@@ -8,5 +8,15 @@ describe('sitemapData', () => {
       'https://www.growwiseschool.org/camps/academic-summer-programs-dublin-ca',
     );
     expect(locs).toContain('https://www.growwiseschool.org/camps/summer');
+    expect(locs).toContain(
+      'https://www.growwiseschool.org/camps/summer-reading-writing-dublin-ca',
+    );
+    expect(locs).toContain(
+      'https://www.growwiseschool.org/camps/summer-math-foundations-dublin-ca',
+    );
+    expect(locs).toContain('https://www.growwiseschool.org/camps/summer-algebra-dublin-ca');
+    expect(locs).toContain(
+      'https://www.growwiseschool.org/camps/summer-geometry-precalculus-dublin-ca',
+    );
   });
 });

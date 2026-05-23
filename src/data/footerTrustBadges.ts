@@ -4,6 +4,8 @@ export type TrustBadge = {
   imageSrc: string;
   imageAlt: string;
   showOnHome: boolean;
+  /** Remote SVG badges must bypass Next.js image optimization (returns 400 for SVG). */
+  unoptimized?: boolean;
 };
 
 export const FOOTER_TRUST_BADGES: TrustBadge[] = [
@@ -13,6 +15,7 @@ export const FOOTER_TRUST_BADGES: TrustBadge[] = [
     imageSrc: 'https://patch.com/api_v1/bizpost/526397/badge',
     imageAlt: 'GrowWise on Patch',
     showOnHome: true,
+    unoptimized: true,
   },
   {
     id: 'activityhero',

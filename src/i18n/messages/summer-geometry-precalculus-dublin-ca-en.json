@@ -1,0 +1,115 @@
+{
+  "hero": {
+    "eyebrow": "Summer 2026 · Dublin, CA · Grades 9–10",
+    "h1": "Summer Geometry Program in Dublin, CA",
+    "subtext": "Prepare for Geometry before school starts. Proofs, triangles, coordinate geometry — DUSD aligned, small groups, Mon/Wed/Fri evenings.",
+    "ctaLabel": "View schedule & pricing →"
+  },
+  "keyDetails": [
+    "Mon/Wed/Fri evenings",
+    "5:00–6:30 PM",
+    "Max 8 students",
+    "100% DUSD aligned",
+    "Starts June 15"
+  ],
+  "bodySections": {
+    "whatYourChildWillWorkOn": {
+      "heading": "What your child will work on",
+      "subsections": [
+        {
+          "h3": "Geometry Get Ready — Week by Week",
+          "weeks": [
+            {
+              "title": "Week 1 — Proof-based thinking:",
+              "body": "Geometry is the first course most students encounter that requires formal logical reasoning. Week 1 introduces the language and structure of geometric proof — definitions, postulates, and theorems — and how to use them to justify conclusions. Students work through triangle congruence and basic angle relationships, learning to write two-column proofs with the instructor modeling each step before students attempt independently."
+            },
+            {
+              "title": "Week 2 — Similarity, circles, and coordinate geometry:",
+              "body": "Week 2 expands into similarity, the Pythagorean theorem in coordinate contexts, and basic circle properties. These are the topics that appear most frequently in the first month of a DUSD Geometry course. By the end of Week 2, students understand the logical structure of Geometry and have practiced the core proof types they will encounter on their first assessments."
+            }
+          ]
+        }
+      ]
+    },
+    "whoTeaches": {
+      "heading": "Who teaches this program",
+      "body": "Geometry Get Ready is led by a math instructor trained specifically in DUSD's Geometry curriculum. The instructor understands the shift from algebraic to geometric thinking that trips up even strong Algebra students — and structures the sprint to close that gap before school starts. With a maximum of 8 students, every session includes direct feedback on each student's proof writing, not just whole-group instruction."
+    },
+    "whoIsRightFor": {
+      "heading": "Who this is right for",
+      "groups": [
+        {
+          "label": "Geometry Get Ready is right for your child if:",
+          "items": [
+            "They completed Algebra 1 and are starting Geometry in the fall at a DUSD or PUSD school",
+            "They are strong in algebra but have never encountered proof-based reasoning",
+            "They tend to understand math procedurally but struggle when asked to explain their reasoning",
+            "You want them to start Geometry without the disorientation most students feel in the first few weeks"
+          ]
+        }
+      ],
+      "notRightFor": {
+        "label": "Geometry Get Ready is not the right fit if:",
+        "items": [
+          "Your child still needs Algebra 1 support — see our Algebra 1 Get Ready program",
+          "They are looking for a credit-bearing course — this is a prep sprint only"
+        ]
+      }
+    },
+    "whyGrowWise": {
+      "heading": "Why GrowWise for Geometry",
+      "body": "Geometry is consistently one of the courses Tri-Valley parents ask us about most — because it is the first time many strong math students struggle. The shift to proof-based reasoning is genuinely different from everything they have done before in math. GrowWise Geometry Get Ready was built specifically to ease that transition — with a DUSD-aligned curriculum, a subject-trained instructor, and a small-group format that gives every student real feedback on their proof writing before the grade counts."
+    }
+  },
+  "summerCampCallout": {
+    "text": "Also at GrowWise: Advanced Math (Algebra II + Precalculus) — weekly camp format for Grades 8–11.",
+    "linkLabel": "View summer STEAM camps →",
+    "href": "/camps/summer"
+  },
+  "valueAnchorPrefix": "District summer Geometry programs often cost significantly more. GrowWise Get Ready Sprint starts from",
+  "mainCta": {
+    "headline": "Ready to reserve a spot?",
+    "subtext": "Select your cohort on the full program page.",
+    "button": "View full schedule & pricing →"
+  },
+  "relatedPrograms": {
+    "heading": "Related summer programs",
+    "hubLinkLabel": "View all programs & pricing →",
+    "items": {
+      "algebra": {
+        "label": "Algebra 1 Get Ready",
+        "description": "Algebra 1 support before Geometry"
+      },
+      "mathFoundations": {
+        "label": "Summer Math Foundations",
+        "description": "Foundational math gaps · Grades 1–8"
+      },
+      "readingWriting": {
+        "label": "Summer Reading & Writing",
+        "description": "Daily reading & writing · Grades 1–8"
+      }
+    }
+  },
+  "faq": [
+    {
+      "question": "What Geometry topics does this program cover?",
+      "answer": "Geometry Get Ready covers proof-based reasoning, triangle congruence and similarity, coordinate geometry, circles, and spatial thinking — all aligned to the DUSD Geometry curriculum sequence."
+    },
+    {
+      "question": "Is this a credit-bearing course?",
+      "answer": "No. Geometry Get Ready is a focused prep sprint — not a credit-bearing course. It prepares students to start Geometry with confidence, not to replace the course itself. For credit-bearing options, contact Dublin Unified School District directly."
+    },
+    {
+      "question": "My child finished Algebra 1. Are they ready for this program?",
+      "answer": "Yes. Geometry Get Ready is designed for students who have completed Algebra 1 and are starting Geometry in the fall. If your child needs Algebra 1 support first, see our Algebra 1 Get Ready program at /camps/summer-algebra-dublin-ca."
+    },
+    {
+      "question": "My child is strong in math — will this be too easy?",
+      "answer": "Geometry Get Ready is designed to be substantive, not remedial. Proof-based reasoning is genuinely challenging for most students regardless of how strong they are in algebra. Even high-performing math students benefit from an introduction to geometric proof before they encounter it in a graded class environment. The small group format (max 8 students) means the instructor can calibrate to the group's level and push further when the group is ready."
+    },
+    {
+      "question": "Does this program also cover Pre-Calculus?",
+      "answer": "Geometry Get Ready focuses specifically on Geometry content — proofs, triangle congruence and similarity, coordinate geometry, and circles. GrowWise also offers Advanced Math (Algebra II + Precalculus) as a separate weekly summer camp program. See the Advanced Math camp on our summer programs page for details."
+    }
+  ]
+}
