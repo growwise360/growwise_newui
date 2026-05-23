@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CONTACT_INFO } from '@/lib/constants';
 import { useTranslations, useLocale } from 'next-intl';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { HelpCircle } from "lucide-react";
 import { StructuredDataScript } from '@/components/seo/StructuredDataScript';
 import { generateFAQPageSchema } from '@/lib/seo/structuredData';
@@ -79,7 +80,11 @@ export default function ProgramsPage() {
               </p>
             </div>
 
-            <Accordion type="single" collapsible className="space-y-4">
+            <Accordion
+              type="multiple"
+              className="space-y-4"
+              defaultValue={getDefaultOpenFaqValues(faqs.length, (index) => `item-${index}`)}
+            >
               {faqs.map((faq, index) => (
                 <AccordionItem 
                   key={index} 

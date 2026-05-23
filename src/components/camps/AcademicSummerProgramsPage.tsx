@@ -13,6 +13,7 @@ import { SectionContainer } from '@/components/camps/SectionContainer';
 import { SummerCampTrustBlock } from '@/components/camps/SummerCampTrustBlock';
 import { enrollmentPanelStickyWrapClass } from '@/components/camps/EnrollmentPanelLayout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import copy from '@/i18n/messages/academic-summer-programs-en.json';
@@ -335,7 +336,14 @@ export function AcademicSummerProgramsPage() {
             <h2 className="text-center font-heading text-2xl font-bold text-slate-900 md:text-3xl">{PAGE.faq.title}</h2>
             <p className="mt-2 text-center text-slate-600">{PAGE.faq.subtitle}</p>
             <div className="mt-10 space-y-3">
-              <Accordion type="single" collapsible className="w-full">
+              <Accordion
+                type="multiple"
+                className="w-full"
+                defaultValue={getDefaultOpenFaqValues(
+                  ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS.length,
+                  (idx) => `faq-${idx}`,
+                )}
+              >
                 {ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS.map((item, idx) => (
                   <AccordionItem
                     key={item.question}
