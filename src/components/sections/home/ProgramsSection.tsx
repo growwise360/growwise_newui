@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 import { ChevronRight } from 'lucide-react';
+import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSummerProgramsTeaserBand';
 
 export interface ProgramVM {
   id: number;
@@ -195,6 +196,7 @@ export function ProgramsSection({
           </div>
           <ProgramGrid items={k12} accent="blue" />
         </div>
+        <AcademicSummerProgramsTeaserBand locale={locale} variant="homepage" />
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-12">
             <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">STEAM Programs</h3>

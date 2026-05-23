@@ -35,7 +35,7 @@ export function AcademicMobileProgramSwitcher({
   const programById = new Map(programs.map((program) => [program.id, program]));
 
   return (
-    <div className={cn(styles.switcher, 'min-[768px]:hidden')} aria-label={COPY.mobileSwitcherLabel}>
+    <div className={cn(styles.switcher, 'min-[769px]:hidden')} aria-label={COPY.mobileSwitcherLabel}>
       <span className={styles.label}>{COPY.mobileSwitcherLabel}</span>
       <div className={styles.pillRow} role="tablist" aria-label={COPY.mobileSwitcherLabel}>
         {ACADEMIC_MOBILE_SWITCHER_PROGRAM_IDS.map((programId, index) => {

@@ -9,7 +9,6 @@ import { SUMMER_HUB_PRIORITY_FAQS } from '@/lib/schema/summer-hub-jsonld-faqs';
 import {
   generateEventSchema,
   generateBreadcrumbSchema,
-  generateItemListSchema,
   generateWebPageJsonLd,
 } from '@/lib/seo/structuredData';
 import { CONTACT_INFO } from '@/lib/constants';
@@ -19,8 +18,7 @@ import {
   SUMMER_CAMP_EVENT_END_ISO,
   SUMMER_CAMP_EVENT_START_ISO,
 } from '@/lib/summer-camp-week-calendar';
-import { getDefaultSummerCampData, getMinimumPublishedSummerCampPriceUsd } from '@/lib/summer-camp-data';
-import { getSummerCampProgramSeoLink } from '@/lib/summer-camp-seo-links';
+import { buildSummerHubCampItemListSchema } from '@/lib/schema/camp-landing-jsonld';
 import summerCampFaqData from '../../../../../public/api/mock/en/summer-camp-faq.json';
 
 function mergeSummerHubJsonLdFaqs() {
@@ -57,7 +55,6 @@ export default async function SummerCampLayout({
 }) {
   const { locale } = await params;
   const baseUrl = getCanonicalSiteUrl();
-  const minCampPriceUsd = getMinimumPublishedSummerCampPriceUsd();
   const summerEventDescription =
     'Accredited summer STEAM camps in Dublin, CA for Grades K-12. Weekly sessions in Math, Coding, Robotics, and AI. June through August 2026.';
 
@@ -103,21 +100,7 @@ export default async function SummerCampLayout({
     url: pageUrl,
   });
 
-  const programLinks: Array<{ name: string; url: string }> = [];
-  const seenUrls = new Set<string>();
-  for (const p of getDefaultSummerCampData().programs) {
-    const link = getSummerCampProgramSeoLink(p.id);
-    if (!link) continue;
-    const itemUrl = absoluteSiteUrl(`/camps/${link.slug}`, locale, baseUrl);
-    if (seenUrls.has(itemUrl)) continue;
-    seenUrls.add(itemUrl);
-    programLinks.push({ name: p.title, url: itemUrl });
-  }
-  programLinks.sort((a, b) => a.name.localeCompare(b.name, 'en'));
-  const programItemListSchema =
-    programLinks.length > 0
-      ? generateItemListSchema('Summer camp programs (Dublin, CA)', programLinks)
-      : null;
+  const programItemListSchema = buildSummerHubCampItemListSchema(locale);
 
   return (
     <>

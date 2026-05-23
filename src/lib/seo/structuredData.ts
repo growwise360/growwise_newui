@@ -41,6 +41,7 @@ export function generateCourseSchema({
   url,
   image,
   offers,
+  location,
 }: {
   name: string
   description: string
@@ -57,6 +58,16 @@ export function generateCourseSchema({
     availability?: string
     url?: string
     validFrom?: string
+  }
+  location?: {
+    name: string
+    address: {
+      streetAddress: string
+      addressLocality: string
+      addressRegion: string
+      postalCode: string
+      addressCountry: string
+    }
   }
 }) {
   return {
@@ -87,6 +98,20 @@ export function generateCourseSchema({
     ...(image && { "image": image }),
     "inLanguage": "en-US",
     "isAccessibleForFree": false,
+    ...(location && {
+      "location": {
+        "@type": "Place",
+        "name": location.name,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": location.address.streetAddress,
+          "addressLocality": location.address.addressLocality,
+          "addressRegion": location.address.addressRegion,
+          "postalCode": location.address.postalCode,
+          "addressCountry": location.address.addressCountry,
+        },
+      },
+    }),
     ...(offers && {
       "offers": {
         "@type": "Offer",

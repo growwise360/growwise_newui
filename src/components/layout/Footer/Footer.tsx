@@ -11,6 +11,7 @@ import { createLocaleUrl } from './utils';
 import FooterLogo from './FooterLogo';
 import FooterSection from './FooterSection';
 import FooterCopyright from './FooterCopyright';
+import FooterSocialBar from './FooterSocialBar';
 
 export default function Footer() {
   const locale = useLocale();
@@ -87,6 +88,7 @@ export default function Footer() {
           ))}
         </div>
 
+        <FooterSocialBar />
         <FooterCopyright copyright={display.copyright} />
       </div>
     </footer>

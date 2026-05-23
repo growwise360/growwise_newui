@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
-import { ChatbotAiSparkIcon } from './ChatbotAiSparkIcon';
+import { GrowyAvatar } from './GrowyAvatar';
 
 type ChatbotTriggerProps = {
   onClick: () => void;
@@ -31,13 +31,8 @@ export function ChatbotTrigger({ onClick, variant = 'header' }: ChatbotTriggerPr
             : 'min-h-[36px] whitespace-nowrap px-3 py-2 text-sm lg:px-4',
         )}
       >
-        <ChatbotAiSparkIcon
-          className={cn(
-            'shrink-0 text-[#1F396D]',
-            isCompact ? 'h-4 w-4' : 'h-[18px] w-[18px]',
-          )}
-        />
-        <span>{isCompact ? t('chatbot.triggerLabel') : t('chatbot.title')}</span>
+        <GrowyAvatar size="sm" ringClassName="ring-1 ring-[#1F396D]/10" />
+        <span>{t('chatbot.triggerLabel')}</span>
       </button>
     </div>
   );

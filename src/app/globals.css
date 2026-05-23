@@ -251,7 +251,7 @@ html {
   .header-social-link { @apply text-white/90 hover:text-white transition-colors inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded; }
   .header-address { @apply text-white/90 text-xs hidden lg:block; }
 
-  .header-mainrow { @apply flex items-center justify-between h-32 flex-wrap gap-2; }
+  .header-mainrow { @apply flex items-center justify-between h-32 flex-nowrap gap-2; }
   .header-logo { @apply h-[110px] w-[280px] max-w-full object-contain object-center; }
   
   @media (max-width: 640px) {
