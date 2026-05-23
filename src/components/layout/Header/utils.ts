@@ -1,7 +1,8 @@
 import { MenuItem, VariantStyles } from './types';
-import { VARIANT_STYLES, ROUTE_PATH_PATTERNS_HIDE_CART } from './constants';
+import { VARIANT_STYLES, ROUTE_PATH_PATTERNS_HIDE_CART, FALLBACK_MENU_ITEMS } from './constants';
 import { ENABLED_LOCALES } from '@/i18n/localeConfig';
 import { publicPath } from '@/lib/publicPath';
+import { isRoboticsCampSeoPath } from '@/lib/camps/camp-seo-landing-slugs';
 
 /** True when the current path is one where the header cart should not be shown. */
 export function isCartHiddenOnPath(pathname: string | null): boolean {
@@ -71,4 +72,38 @@ export function getVisibleMenuItems(menuItems: MenuItem[]): MenuItem[] {
 
 export function getVisibleDropdownItems(dropdownItems: any[]): any[] {
   return dropdownItems.filter((item) => item.visible !== false);
+}
+
+/** Robotics SEO landing once shipped with a stale header API — restore Camps dropdown parity. */
+export function mergeRoboticsCampNavMenu(menuItems: MenuItem[], pathname: string | null): MenuItem[] {
+  if (!isRoboticsCampSeoPath(pathname)) return menuItems;
+
+  const fallbackCamps = FALLBACK_MENU_ITEMS.find((item) => item.key === 'camps');
+  const fallbackAcademic = fallbackCamps?.dropdown?.items.find(
+    (item) => item.key === 'academicSummerPrograms',
+  );
+  if (!fallbackAcademic) return menuItems;
+
+  return menuItems.map((item) => {
+    if (item.key !== 'camps' || !item.dropdown?.items) return item;
+
+    const items = item.dropdown.items;
+    const hasAcademic = items.some(
+      (entry) => entry.key === 'academicSummerPrograms' && entry.visible !== false,
+    );
+    if (hasAcademic) return item;
+
+    const summerIdx = items.findIndex((entry) => entry.key === 'summerCamp');
+    const insertAt = summerIdx >= 0 ? summerIdx + 1 : items.length;
+    const nextItems = [...items];
+    nextItems.splice(insertAt, 0, fallbackAcademic);
+
+    return {
+      ...item,
+      dropdown: {
+        ...item.dropdown,
+        items: nextItems,
+      },
+    };
+  });
 }

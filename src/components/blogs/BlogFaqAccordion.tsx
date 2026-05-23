@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion'
 import { GraduationCap } from 'lucide-react'
 
 export type BlogFaqItem = { question: string; answer: string }
@@ -33,7 +34,11 @@ export function BlogFaqAccordion({ id, heading, subheading, faqs }: Props) {
           </h2>
           {subheading ? <p className="mt-2 text-slate-600">{subheading}</p> : null}
         </div>
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion
+          type="multiple"
+          className="space-y-4"
+          defaultValue={getDefaultOpenFaqValues(faqs.length, (i) => `q-${i}`)}
+        >
           {faqs.map((faq, i) => (
             <AccordionItem
               value={`q-${i}`}

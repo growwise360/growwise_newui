@@ -181,3 +181,82 @@ export const HIGH_SCHOOL_MATH_FAQ_JSONLD: FAQItem[] = [
       'Yes. GrowWise tutors AP Precalculus and supports students in AP-level math courses aligned with California Common Core Standards and the DUSD curriculum.',
   },
 ]
+
+/** Visible accordion + JSON-LD on /courses/high-school-math — single source */
+export const HS_MATH_VISIBLE_FAQS: FAQItem[] = [
+  {
+    question:
+      'My child is lost in Algebra or Geometry — how is targeted tutoring different from just sitting with them and doing the homework?',
+    answer:
+      "Targeted tutoring addresses the concept your child does not understand, not just tonight's problem set. GrowWise high school math covers Algebra I, Geometry, Algebra II, and Precalculus for Grades 9 through 12. Sessions begin with a free assessment that identifies whether the issue is in the current unit, a gap from a previous course, or a missing prerequisite skill.",
+  },
+  {
+    question:
+      'My child is in an honours math class and still struggling — is that something tutoring can help with?',
+    answer:
+      'Struggling in an honours course does not mean the student is in the wrong class. It often means the pace is faster than the student can absorb independently. GrowWise high school math sessions provide focused time on specific concepts that large classroom settings cannot. The free assessment identifies which concepts need reinforcing.',
+  },
+  {
+    question: 'Can GrowWise help my child prepare for Precalculus before the next school year starts?',
+    answer:
+      'Yes. GrowWise Precalculus support is available through the high school math program. Students preparing for a harder course can use the period between school years to build the skills they will need. The free assessment sets the right starting point.',
+  },
+]
+
+/** Visible accordion + JSON-LD on /steam/ml-ai-coding — single source */
+export const ML_AI_CODING_FAQ_JSONLD: FAQItem[] = [
+  {
+    question: 'What age can students start ML/AI coding classes at GrowWise?',
+    answer:
+      'Our ML/AI and Python coding courses welcome students from Grades 1 through 12 (ages 6–18). We group students by level — not just age — so beginners and advanced learners each get the right challenge. Most students starting AI-specific projects are in Grades 5 and up.',
+  },
+  {
+    question: 'Do students need prior coding experience to join your AI courses?',
+    answer:
+      'No prior experience is required for our Python Kickstart and beginner tracks. We start from the very basics — variables, loops, and functions — before moving to machine learning concepts. Students who already know Python can join our intermediate ML/AI or advanced Data Science track directly.',
+  },
+  {
+    question: 'What programming language do you teach in ML/AI classes?',
+    answer:
+      'We teach Python — the most widely used language in AI, data science, and machine learning. Students learn real Python syntax, not block-based coding. By the end of our courses, students can write scripts, train simple ML models, and build AI projects they can add to a resume or college application.',
+  },
+  {
+    question: 'How are ML/AI classes structured at GrowWise?',
+    answer:
+      'Classes meet once or twice per week in small groups of 4–8 students at our Dublin, CA center. Each session combines direct instruction, live coding practice, and a mini-project. Courses run 10–12 weeks per level. We also offer flexible scheduling including evenings and Saturdays.',
+  },
+  {
+    question: 'How is GrowWise ML/AI different from a general coding class?',
+    answer:
+      "General coding classes teach programming fundamentals. Our ML/AI program goes further — students learn how to build models that learn from data, recognize patterns, and make predictions. Projects include building AI chatbots, image classifiers, and game-playing agents. It's the hands-on AI experience colleges and employers are looking for.",
+  },
+]
+
+/** Visible accordion + JSON-LD on /steam/game-development — single source */
+export const GAME_DEVELOPMENT_FAQ_JSONLD: FAQItem[] = [
+  {
+    question: 'What platforms and tools do you teach for game development?',
+    answer:
+      'We teach game development across four platforms based on student level: Scratch (beginners, Grades 1–5), Roblox Studio with Lua (Grades 3–8), Minecraft Education Edition with Python (Grades 5–9), and Unity with C# for advanced students (Grades 8–12). Students start where they are and progress through each platform naturally.',
+  },
+  {
+    question: 'Does my child need prior coding experience to join game development classes?',
+    answer:
+      'No prior experience is needed. Our Scratch beginner track starts with visual block-based programming — no typing required. Students who already have coding experience can join our Roblox or Minecraft track, which introduces real scripting languages in a game context they already know and love.',
+  },
+  {
+    question: 'What age group is game development suitable for at GrowWise?',
+    answer:
+      'We welcome students from Grades 1 through 12 (ages 6–18). Younger students (Grades 1–5) work with Scratch and Roblox; older students (Grades 6–12) tackle Minecraft modding, Unity, and Python game projects. Classes are always grouped by level and platform, not just age.',
+  },
+  {
+    question: 'Can students publish or share the games they build?',
+    answer:
+      'Yes. Roblox games built in our courses can be published to the Roblox platform and shared with friends. Scratch projects are shareable on the Scratch community. Advanced Unity students build standalone apps. By the end of each course, every student leaves with at least one complete, playable game in their portfolio.',
+  },
+  {
+    question: 'What real skills do kids gain from game development classes — beyond just having fun?',
+    answer:
+      'Game development builds computational thinking, logic, problem-solving, and creativity in a context students are motivated by. Students learn to break complex problems into steps (decomposition), design systems (game mechanics), debug code, and ship a finished product. These are the same skills college CS programs and tech employers value.',
+  },
+]

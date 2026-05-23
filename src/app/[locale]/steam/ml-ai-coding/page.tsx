@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Code, Bot, Clock, Users, Star, Filter, ShoppingCart, CheckCircle, Award, BookOpen, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, Smartphone, Cpu, Database, Network, Zap, Lightbulb, Gamepad2, Monitor, Rocket } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
+import { ML_AI_CODING_FAQ_JSONLD } from "@/lib/schema/course-hub-jsonld-faqs";
 import { useCart } from '@/components/gw/CartContext';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import CourseCustomizationModal from '@/components/gw/CourseCustomizationModal';
@@ -847,35 +849,18 @@ const MLAICoursesPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Frequently Asked Questions</h2>
           <p className="text-gray-600 text-center mb-10">Everything parents and students ask about our ML/AI coding classes</p>
-          <Accordion type="single" collapsible className="space-y-4">
-            {[
-              {
-                q: 'What age can students start ML/AI coding classes at GrowWise?',
-                a: 'Our ML/AI and Python coding courses welcome students from Grades 1 through 12 (ages 6–18). We group students by level — not just age — so beginners and advanced learners each get the right challenge. Most students starting AI-specific projects are in Grades 5 and up.',
-              },
-              {
-                q: 'Do students need prior coding experience to join your AI courses?',
-                a: 'No prior experience is required for our Python Kickstart and beginner tracks. We start from the very basics — variables, loops, and functions — before moving to machine learning concepts. Students who already know Python can join our intermediate ML/AI or advanced Data Science track directly.',
-              },
-              {
-                q: 'What programming language do you teach in ML/AI classes?',
-                a: 'We teach Python — the most widely used language in AI, data science, and machine learning. Students learn real Python syntax, not block-based coding. By the end of our courses, students can write scripts, train simple ML models, and build AI projects they can add to a resume or college application.',
-              },
-              {
-                q: 'How are ML/AI classes structured at GrowWise?',
-                a: 'Classes meet once or twice per week in small groups of 4–8 students at our Dublin, CA center. Each session combines direct instruction, live coding practice, and a mini-project. Courses run 10–12 weeks per level. We also offer flexible scheduling including evenings and Saturdays.',
-              },
-              {
-                q: 'How is GrowWise ML/AI different from a general coding class?',
-                a: "General coding classes teach programming fundamentals. Our ML/AI program goes further — students learn how to build models that learn from data, recognize patterns, and make predictions. Projects include building AI chatbots, image classifiers, and game-playing agents. It's the hands-on AI experience colleges and employers are looking for.",
-              },
-            ].map((faq, i) => (
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(ML_AI_CODING_FAQ_JSONLD.length, (i) => `faq-${i}`)}
+          >
+            {ML_AI_CODING_FAQ_JSONLD.map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-xl shadow-sm">
                 <AccordionTrigger className="px-6 py-4 text-left hover:no-underline font-semibold text-gray-900">
-                  {faq.q}
+                  {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4 text-gray-600 leading-relaxed">
-                  {faq.a}
+                  {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}

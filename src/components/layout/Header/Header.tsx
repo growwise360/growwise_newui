@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchHeaderRequested } from '@/store/slices/headerSlice';
 import { useCart } from '@/components/gw/CartContext';
 import { useDropdownState, useMobileMenu } from './hooks';
-import { createLocaleUrl, getVisibleMenuItems, isCartHiddenOnPath } from './utils';
+import { createLocaleUrl, getVisibleMenuItems, isCartHiddenOnPath, mergeRoboticsCampNavMenu } from './utils';
 import { DEFAULT_HEADER_DATA, FALLBACK_MENU_ITEMS } from './constants';
 import TopBar from './TopBar';
 import Navigation from './Navigation';
@@ -42,7 +42,7 @@ export default function Header() {
 
   // Get menu items from Redux store (backend); fallback to frontend when missing
   const allMenuItems = header?.menuItems?.length ? header.menuItems : FALLBACK_MENU_ITEMS;
-  const menuItems = getVisibleMenuItems(allMenuItems);
+  const menuItems = getVisibleMenuItems(mergeRoboticsCampNavMenu(allMenuItems, pathname));
 
   // Create locale-aware URL helper
   const createLocaleUrlHelper = (path: string) => createLocaleUrl(path, locale);

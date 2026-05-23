@@ -12,6 +12,7 @@ import FooterLogo from './FooterLogo';
 import FooterSection from './FooterSection';
 import FooterCopyright from './FooterCopyright';
 import FooterSocialBar from './FooterSocialBar';
+import { isRoboticsCampSeoPath } from '@/lib/camps/camp-seo-landing-slugs';
 
 export default function Footer() {
   const locale = useLocale();
@@ -60,6 +61,14 @@ export default function Footer() {
 
   const display: FooterData = footer ?? fallback;
 
+  const copyright = useMemo(() => {
+    let text = display.copyright;
+    if (isRoboticsCampSeoPath(pathname)) {
+      text = text.replace(/©\s*2025/g, '© 2026').replace(/2025 GrowWise/g, '2026 GrowWise');
+    }
+    return text;
+  }, [display.copyright, pathname]);
+
   return (
     <footer
       className={[
@@ -89,7 +98,7 @@ export default function Footer() {
         </div>
 
         <FooterSocialBar />
-        <FooterCopyright copyright={display.copyright} />
+        <FooterCopyright copyright={copyright} />
       </div>
     </footer>
   );

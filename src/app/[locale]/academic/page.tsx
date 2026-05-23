@@ -38,6 +38,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
 import { generateFAQPageSchema } from '@/lib/seo/structuredData';
 
 const ACADEMIC_FAQS = [
@@ -762,7 +763,11 @@ const AcademicPage: React.FC = () => {
               Common questions from families about GrowWise academic programs.
             </p>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(ACADEMIC_FAQS.length, (index) => `item-${index}`)}
+          >
             {ACADEMIC_FAQS.map((faq, index) => (
               <AccordionItem
                 key={index}

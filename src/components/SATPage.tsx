@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Target, GraduationCap, BookOpen, Calculator, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, PenTool, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, BookMarked, Star, Shield, ArrowRight, ShoppingCart } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { useCart } from './gw/CartContext';
 import FreeAssessmentModal from './FreeAssessmentModal';
 import { RelatedContent } from './seo/RelatedContent';
@@ -560,7 +561,11 @@ const SATPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">SAT Prep — Frequently Asked Questions</h2>
           <p className="text-gray-600 text-center mb-10">What parents and students ask most about GrowWise SAT prep</p>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(7, (i) => `faq-${i}`)}
+          >
             {[
               {
                 q: 'What does GrowWise SAT prep include?',

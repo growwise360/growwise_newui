@@ -12,6 +12,7 @@ import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { 
   Phone, 
   Mail, 
@@ -693,7 +694,11 @@ export default function Contact() {
             </p>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(faqs.length, (index) => `item-${index}`)}
+          >
             {faqs.map((faq, index) => (
               <AccordionItem 
                 key={index} 
