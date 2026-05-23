@@ -6,7 +6,7 @@ import { localePath } from '../localePath';
  * Manual: Screaming Frog, Lighthouse CLS, Google Rich Results, GSC (TC-11).
  */
 
-test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
+test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', { tag: '@nightly' }, () => {
   test('TC-01: no h2 in nav or footer on homepage', async ({ page }) => {
     await page.goto(localePath('/'));
     await expect(page.locator('nav h2')).toHaveCount(0);
@@ -57,7 +57,7 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
   });
 });
 
-test.describe('SEO — TC-02 partial (cart)', () => {
+test.describe('SEO — TC-02 partial (cart)', { tag: '@nightly' }, () => {
   test('shopping cart link in header has aria-label', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto(localePath('/'));

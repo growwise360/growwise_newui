@@ -12,7 +12,7 @@ const MARKETING_ROUTES = [
   '/workshop-calendar',
 ] as const;
 
-test.describe('Marketing route targets (home CTAs)', () => {
+test.describe('Marketing route targets (home CTAs)', { tag: '@critical' }, () => {
   for (const path of MARKETING_ROUTES) {
     test(`${path} responds without 404`, async ({ page }) => {
       const res = await page.goto(path, { waitUntil: 'domcontentloaded' });

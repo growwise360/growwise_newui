@@ -1,13 +1,13 @@
-name: Nightly Tests — Frontend
+name: Morning Tests — Frontend
 
 on:
   schedule:
-    - cron: '15 2 * * *'  # 02:15 UTC daily
+    - cron: '0 14 * * *'  # 07:00 Pacific (PDT); 06:00 during PST
   workflow_dispatch:
 
 jobs:
   test:
-    name: Jest + Playwright + Lighthouse against staging
+    name: Jest + Playwright (full) + Lighthouse
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +30,7 @@ jobs:
         run: npm run test:ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
       - name: Start Next.js server
         env:
@@ -40,19 +40,35 @@ jobs:
       - name: Wait for server
         run: npx wait-on http://localhost:3000 --timeout 60000
 
-      - name: Run Playwright E2E
+      - name: Run Playwright full E2E suite
         env:
           E2E_BASE_URL: http://localhost:3000
           PLAYWRIGHT_WORKERS: '2'
           CI: true
-        run: npx playwright test --project=chromium
+        run: npm run test:e2e:full
 
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-nightly
+          name: playwright-report-morning
           path: playwright-report/
+          retention-days: 7
+
+      - name: Install Chrome for Lighthouse
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run Lighthouse smoke
+        env:
+          LIGHTHOUSE_TARGET_URL: http://localhost:3000
+        run: npm run perf:ci
+
+      - name: Upload Lighthouse results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report-morning
+          path: performance-testing/results/
           retention-days: 7
 
       - name: Notify Slack — success
@@ -61,7 +77,7 @@ jobs:
           curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
             -H 'Content-type: application/json' \
             --data '{
-              "text": "✅ *Nightly tests passed* — branch `dev`\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
+              "text": "✅ *Morning tests passed* — branch `dev`\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
             }'
 
       - name: Notify Slack — failure
@@ -70,7 +86,7 @@ jobs:
           curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
             -H 'Content-type: application/json' \
             --data '{
-              "text": "❌ *Nightly tests failed* — branch `dev`\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
+              "text": "❌ *Morning tests failed* — branch `dev`\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
             }'
 
   open-issue-on-failure:
@@ -88,12 +104,12 @@ jobs:
           DATE=$(date -u '+%Y-%m-%d')
           RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           gh issue create \
-            --title "Nightly frontend tests failed — ${DATE}" \
-            --body "## Nightly frontend test failure
+            --title "Morning frontend tests failed — ${DATE}" \
+            --body "## Morning frontend test failure
 
           **Date:** ${DATE}
           **Run:** [View logs](${RUN_URL})
 
-          One or more of Jest / Playwright tests failed." \
+          One or more of Jest / Playwright (full suite) / Lighthouse smoke tests failed." \
             --label "bug,ci-failure" \
             --repo ${{ github.repository }}

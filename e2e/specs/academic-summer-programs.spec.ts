@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Academic summer programs hub', () => {
+test.describe('Academic summer programs hub', { tag: '@nightly' }, () => {
   test('shows hero, FAQ, and internal backlinks', async ({ page }) => {
     await page.goto(localePath('/camps/academic-summer-programs-dublin-ca'));
 

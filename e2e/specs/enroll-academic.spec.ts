@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Academic enrollment form', () => {
+test.describe('Academic enrollment form', { tag: '@critical' }, () => {
   test('submits academic enrollment successfully with mocked backend', async ({ page }) => {
     await page.route('**/api/enroll', async (route) => {
       const body = await route.request().postDataJSON();

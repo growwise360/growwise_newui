@@ -21,7 +21,7 @@ async function selectOption(
   await expect(page.getByTestId(triggerTestId)).toContainText(expectedTriggerText, { timeout: 8000 });
 }
 
-test.describe('Book assessment form', () => {
+test.describe('Book assessment form', { tag: '@nightly' }, () => {
   test('submits free assessment booking with mocked backend', async ({ page }) => {
     await page.route('**/api/assessment', async (route) => {
       if (route.request().method() === 'POST') {
