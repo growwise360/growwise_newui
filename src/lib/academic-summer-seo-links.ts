@@ -21,11 +21,11 @@ export type AcademicProgramSeoLink = {
 const PROGRAM_ID_TO_SEO: Partial<Record<string, AcademicProgramSeoLink | null>> = {
   'read-to-prove': {
     slug: 'summer-reading-writing-dublin-ca',
-    labelKey: 'readingWritingPrograms',
+    labelKey: 'readToProve',
   },
   'write-to-explain': {
     slug: 'summer-reading-writing-dublin-ca',
-    labelKey: 'readingWritingPrograms',
+    labelKey: 'writeWithStructure',
   },
   'bridge-the-gap-math': {
     slug: 'summer-math-foundations-dublin-ca',

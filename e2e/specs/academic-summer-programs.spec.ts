@@ -24,7 +24,12 @@ test.describe('Academic summer programs hub', () => {
 
     await expect(
       page.locator('#program-grid').getByRole('link', {
-        name: 'Summer reading & writing program in Dublin, CA',
+        name: 'Read to Prove program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-reading-writing-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Write to Explain program details →',
       }).first(),
     ).toHaveAttribute('href', /\/camps\/summer-reading-writing-dublin-ca/);
     await expect(
