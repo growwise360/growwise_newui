@@ -654,13 +654,6 @@ export default function SummerCampPage() {
                 {SUMMER_CAMP_HERO_EN.secondaryCta}
               </a>
             </div>
-            {/* Below CTAs: hidden on narrow phones so Reserve stays in first viewport; visible sm+ */}
-            <p className="mt-3 hidden max-w-2xl text-xs font-semibold leading-snug text-amber-200 sm:block sm:text-sm sm:leading-snug md:mt-4">
-              {SUMMER_CAMP_HERO_EN.urgencyLine}
-            </p>
-            <p className="mt-3 hidden max-w-2xl text-sm font-medium leading-relaxed text-zinc-100 sm:mt-4 sm:block md:text-base md:leading-relaxed">
-              {SUMMER_CAMP_HERO_EN.trustMicro}
-            </p>
           </div>
         </section>
 
