@@ -2,9 +2,12 @@
 
 import { memo, useCallback, useMemo } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useLocale } from 'next-intl';
 import { Check } from 'lucide-react';
 import type { Program } from '@/lib/summer-camp-data';
 import pageCopy from '@/i18n/messages/academic-summer-programs-en.json';
+import { createLocaleUrl } from '@/components/layout/Header/utils';
 import {
   getAcademicGetReadyPickCardMeta,
   getAcademicSprintPickCardMeta,
@@ -14,11 +17,19 @@ import {
   type AcademicSummerSprintTrackId,
 } from '@/lib/academic-summer-programs-hub-data';
 import {
+  getAcademicProgramSeoLink,
+  type AcademicProgramSeoSlugKey,
+} from '@/lib/academic-summer-seo-links';
+import {
   groupAcademicProgramsByWindow,
   type AcademicProgramGroup,
 } from '@/lib/academic-summer-program-groups';
 
 const COPY = pageCopy.programs;
+
+function academicSeoLinkLabel(labelKey: AcademicProgramSeoSlugKey): string | undefined {
+  return COPY.seoLinks[labelKey as keyof typeof COPY.seoLinks];
+}
 
 const CARD_BUTTON_CLASS = (isSelected: boolean) =>
   `group flex w-full flex-col overflow-hidden rounded-xl border-2 bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 ${
@@ -242,6 +253,7 @@ function renderProgramGrid(
   selectedProgramId: string | null,
   onSelectProgram: (program: Program) => void,
   layout: 'mobile' | 'desktop',
+  locale: string,
 ) {
   return programs.map((program, idx) => {
     const isSelected = selectedProgramId === program.id;
@@ -250,6 +262,8 @@ function renderProgramGrid(
     const isEnhancedCard = isSprint || isGetReady;
     const hasOddCount = programs.length % 2 !== 0;
     const isLastAndAlone = layout === 'desktop' && hasOddCount && idx === programs.length - 1;
+    const seo = getAcademicProgramSeoLink(program.id);
+    const seoLabel = seo ? academicSeoLinkLabel(seo.labelKey) : undefined;
 
     const imageSizes =
       layout === 'mobile'
@@ -278,7 +292,7 @@ function renderProgramGrid(
       <li
         key={program.id}
         id={`track-${program.id}`}
-        className={`scroll-mt-28 [content-visibility:auto] ${
+        className={`flex flex-col gap-2 scroll-mt-28 [content-visibility:auto] ${
           isEnhancedCard ? '[contain-intrinsic-size:auto_420px]' : '[contain-intrinsic-size:auto_300px]'
         } ${isLastAndAlone ? 'col-span-2' : ''}`}
       >
@@ -289,6 +303,14 @@ function renderProgramGrid(
           imageSizes={imageSizes}
           imageWrapperClassName={imageWrapperClassName}
         />
+        {seo && seoLabel ? (
+          <Link
+            href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
+            className="-mt-0.5 rounded-sm px-0.5 text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
+          >
+            {seoLabel}
+          </Link>
+        ) : null}
       </li>
     );
   });
@@ -305,6 +327,7 @@ export const AcademicProgramList = memo(function AcademicProgramList({
   selectedProgramId: string | null;
   onInquire?: () => void;
 }) {
+  const locale = useLocale();
   const groups = useMemo(() => groupAcademicProgramsByWindow(programs ?? []), [programs]);
 
   const sectionHeading = (group: AcademicProgramGroup) => COPY.groups[group].heading;
@@ -322,7 +345,7 @@ export const AcademicProgramList = memo(function AcademicProgramList({
               className="m-0 grid list-none grid-cols-1 gap-3 p-0"
               aria-label={sectionHeading(groupEntry.group)}
             >
-              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, 'mobile')}
+              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, 'mobile', locale)}
             </ul>
           </section>
         ))}
@@ -350,7 +373,7 @@ export const AcademicProgramList = memo(function AcademicProgramList({
               className="m-0 grid list-none grid-cols-2 gap-3 p-0"
               aria-label={sectionHeading(groupEntry.group)}
             >
-              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, 'desktop')}
+              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, 'desktop', locale)}
             </ul>
           </section>
         ))}
