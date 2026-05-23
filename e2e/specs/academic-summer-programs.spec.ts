@@ -34,17 +34,17 @@ test.describe('Academic summer programs hub', () => {
     ).toHaveAttribute('href', /\/camps\/summer-reading-writing-dublin-ca/);
     await expect(
       page.locator('#program-grid').getByRole('link', {
-        name: 'Summer math foundations program in Dublin, CA',
+        name: 'Bridge the Gap Math program details →',
       }).first(),
     ).toHaveAttribute('href', /\/camps\/summer-math-foundations-dublin-ca/);
     await expect(
       page.locator('#program-grid').getByRole('link', {
-        name: 'Summer algebra program in Dublin, CA',
+        name: 'Algebra Get Ready program details →',
       }).first(),
     ).toHaveAttribute('href', /\/camps\/summer-algebra-dublin-ca/);
     await expect(
       page.locator('#program-grid').getByRole('link', {
-        name: 'Summer geometry program in Dublin, CA',
+        name: 'Geometry Get Ready program details →',
       }).first(),
     ).toHaveAttribute('href', /\/camps\/summer-geometry-precalculus-dublin-ca/);
   });
