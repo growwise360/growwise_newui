@@ -14,6 +14,10 @@ export const CAMPS_STATIC_PATH_SEGMENTS: ReadonlySet<string> = new Set([
   "winter",
   "academic-summer-programs-dublin-ca",
   "academic-summer-sprint-dublin-ca",
+  "summer-reading-writing-dublin-ca",
+  "summer-math-foundations-dublin-ca",
+  "summer-algebra-dublin-ca",
+  "summer-geometry-precalculus-dublin-ca",
 ]);
 
 /** Params for `src/app/[locale]/camps/[slug]/page.tsx` — excludes static camp hubs. */

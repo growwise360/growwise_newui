@@ -288,6 +288,46 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
   },
 
+  '/camps/summer-reading-writing-dublin-ca': {
+    title: 'Summer Reading & Writing Programs Dublin CA | GrowWise',
+    description:
+      'Small-group summer reading comprehension and writing programs in Dublin, CA. Grades 1–8. 90 min/day. Starts June 15. Max 8 students. DUSD aligned.',
+    keywords:
+      'summer reading program Dublin CA, summer writing program Dublin, Read to Prove Dublin, Write to Explain summer, DUSD reading writing summer',
+    path: '/camps/summer-reading-writing-dublin-ca',
+    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+  },
+
+  '/camps/summer-math-foundations-dublin-ca': {
+    title: 'Summer Math Program Dublin CA | GrowWise',
+    description:
+      'Small-group summer math program in Dublin, CA. Fractions, word problems, grade readiness. Grades 1–8. 90 min/day. Starts June 15. Max 8 students.',
+    keywords:
+      'summer math program Dublin CA, Bridge the Gap Math, math foundations summer Dublin, DUSD math summer program',
+    path: '/camps/summer-math-foundations-dublin-ca',
+    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+  },
+
+  '/camps/summer-algebra-dublin-ca': {
+    title: 'Algebra 1 Summer Program Dublin CA | GrowWise',
+    description:
+      'Small-group Algebra 1 summer program in Dublin, CA. DUSD aligned. Grades 7–8. Mon/Wed/Fri evenings. Starts June 15. Max 8 students. From $249.',
+    keywords:
+      'summer algebra program Dublin CA, Algebra 1 Get Ready Dublin, DUSD algebra summer prep, algebra summer camp Tri-Valley',
+    path: '/camps/summer-algebra-dublin-ca',
+    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+  },
+
+  '/camps/summer-geometry-precalculus-dublin-ca': {
+    title: 'Summer Geometry Program Dublin CA | GrowWise',
+    description:
+      'Small-group Geometry summer program in Dublin, CA. Proofs, reasoning, DUSD aligned. Grades 9–10. Mon/Wed/Fri evenings. Starts June 15. From $279.',
+    keywords:
+      'summer geometry program Dublin CA, Geometry Get Ready Dublin, DUSD geometry summer prep, geometry summer Dublin CA',
+    path: '/camps/summer-geometry-precalculus-dublin-ca',
+    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+  },
+
   '/growwise-blogs': {
     title: 'GrowWise Blog | Math, English & Coding Tips',
     description:

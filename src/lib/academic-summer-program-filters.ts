@@ -30,3 +30,25 @@ export function filterAcademicProgramsByChip(
   const allowed = new Set(FILTER_PROGRAM_IDS[filter]);
   return programs.filter((program) => allowed.has(program.id));
 }
+
+/** URL query values for ?filter= on the academic summer programs hub (SEO deep links). */
+export const ACADEMIC_HUB_FILTER_QUERY_VALUES: Record<
+  Exclude<AcademicProgramFilterId, 'all'>,
+  string
+> = {
+  readingWriting: 'reading-writing',
+  bridgeTheGap: 'bridge-the-gap',
+  getReadyMath: 'get-ready-math',
+};
+
+export function resolveAcademicHubFilterFromQuery(
+  param: string | null,
+): Exclude<AcademicProgramFilterId, 'all'> | null {
+  if (!param) return null;
+  const entry = Object.entries(ACADEMIC_HUB_FILTER_QUERY_VALUES).find(([, value]) => value === param);
+  return entry ? (entry[0] as Exclude<AcademicProgramFilterId, 'all'>) : null;
+}
+
+export function academicHubUrlWithFilter(filter: Exclude<AcademicProgramFilterId, 'all'>): string {
+  return `/camps/academic-summer-programs-dublin-ca?filter=${ACADEMIC_HUB_FILTER_QUERY_VALUES[filter]}`;
+}

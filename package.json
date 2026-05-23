@@ -18,6 +18,8 @@
     "test:e2e:chromium": "playwright test --project=chromium",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --project=chromium --headed --workers=1",
+    "test:e2e:camps": "playwright test e2e/specs/camps-pages.spec.ts e2e/specs/academic-summer-programs.spec.ts e2e/specs/summer-camp-academic-teaser.spec.ts --project=chromium",
+    "test:camps": "jest --testPathPatterns='camp-pages-registry|camp-routes|sitemapData|academic-summer-program-filters|metadata-length|academic-seo-landing-copy|AcademicSeoBodySectionsBlock'",
     "lighthouse:summer": "node scripts/lighthouse-summer-camp.mjs",
     "perf:lighthouse": "node performance-testing/scripts/lighthouse-batch.mjs",
     "perf:lighthouse:smoke": "node performance-testing/scripts/lighthouse-batch.mjs --smoke",

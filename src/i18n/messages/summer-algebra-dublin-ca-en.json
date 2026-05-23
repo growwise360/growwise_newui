@@ -1,0 +1,103 @@
+{
+  "hero": {
+    "eyebrow": "Summer 2026 · Dublin, CA · Grades 7–8",
+    "h1": "Summer Algebra Program in Dublin, CA",
+    "subtext": "Build Algebra 1 foundations before school starts. DUSD aligned, small groups of max 8 students, Mon/Wed/Fri evenings so it doesn't take over their summer.",
+    "ctaLabel": "View schedule & pricing →"
+  },
+  "keyDetails": [
+    "Mon/Wed/Fri evenings",
+    "5:00–6:30 PM",
+    "Max 8 students",
+    "100% DUSD aligned",
+    "Starts June 15"
+  ],
+  "bodySections": {
+    "whatYourChildWillWorkOn": {
+      "heading": "What your child will work on",
+      "subsections": [
+        {
+          "h3": "Algebra 1 Get Ready — Week by Week",
+          "weeks": [
+            {
+              "title": "Week 1 — Foundations of Algebra:",
+              "body": "The first week covers the conceptual shift from arithmetic to algebraic thinking — variables, expressions, and what an equation actually means. Students work through linear equations with one variable, learning to isolate the unknown using inverse operations. The instructor checks for common misconceptions (sign errors, distribution mistakes) and addresses them directly before they become habits."
+            },
+            {
+              "title": "Week 2 — Functions, graphing, and word problems:",
+              "body": "Week 2 introduces functions — what they are, how to identify them, and how to represent them as tables, graphs, and equations. Students practice translating word problems into algebraic expressions and equations, which is consistently the hardest skill for students entering Algebra 1. By the end of Week 2, students have a working familiarity with the core topics that appear in the first month of Algebra 1 class."
+            }
+          ]
+        }
+      ]
+    },
+    "whoTeaches": {
+      "heading": "Who teaches this program",
+      "body": "Algebra 1 Get Ready is led by a math instructor specifically trained in DUSD's Algebra 1 curriculum sequence. The instructor knows what DUSD teachers expect on Day 1 of Algebra 1 and structures the sprint to give students a meaningful head start on those exact expectations. With a maximum of 8 students, the instructor can identify and correct each student's specific misconceptions — not just deliver content to a group."
+    },
+    "whoIsRightFor": {
+      "heading": "Who this is right for",
+      "groups": [
+        {
+          "label": "Algebra 1 Get Ready is right for your child if:",
+          "items": [
+            "They are entering Algebra 1 (Grade 7 or 8) in the Dublin Unified or Pleasanton Unified school system",
+            "They completed pre-Algebra but are not confident in their foundations",
+            "They tend to make consistent errors on equations (sign errors, order of operations)",
+            "You want them to start the year ahead — not catching up in September",
+            "Their teacher recommended strengthening math before the next school year"
+          ]
+        }
+      ]
+    },
+    "whyGrowWise": {
+      "heading": "Why GrowWise for Algebra",
+      "body": "Algebra 1 is the course that sets a student's math trajectory through high school. Students who start strong tend to stay strong. Students who start behind tend to fall further behind as the year progresses. Dublin and Pleasanton families know this — and the demand for focused Algebra 1 prep in the Tri-Valley is exactly why GrowWise built this program. Small group, subject-trained instructor, DUSD aligned, evening format. Designed for the reality of a Tri-Valley summer — not a full-day commitment."
+    }
+  },
+  "mainCta": {
+    "headline": "Ready to reserve a spot?",
+    "subtext": "Select your cohort on the full program page.",
+    "button": "View full schedule & pricing →"
+  },
+  "relatedPrograms": {
+    "heading": "Related summer programs",
+    "hubLinkLabel": "View all programs & pricing →",
+    "items": {
+      "mathFoundations": {
+        "label": "Summer Math Foundations",
+        "description": "Fractions or word-problem gaps first?"
+      },
+      "geometry": {
+        "label": "Geometry Get Ready",
+        "description": "Next step after Algebra 1"
+      },
+      "readingWriting": {
+        "label": "Summer Reading & Writing",
+        "description": "Daily reading & writing sprints · Grades 1–8"
+      }
+    }
+  },
+  "faq": [
+    {
+      "question": "Is this program 100% DUSD aligned?",
+      "answer": "Yes. Algebra 1 Get Ready follows the Dublin Unified School District Algebra 1 curriculum sequence — equations, functions, graphing, and inequalities — so students enter the school year already familiar with what their teacher will cover."
+    },
+    {
+      "question": "Why evenings instead of mornings?",
+      "answer": "Evening sessions (5:00–6:30 PM) mean students keep their daytime free for other activities — and parents can drop off after work. The format is identical to morning sessions: 60 minutes of instruction plus 30 minutes guided practice lab."
+    },
+    {
+      "question": "What is the difference between Cohort 1 and Cohort 2?",
+      "answer": "Both cohorts cover the same Algebra 1 curriculum. Cohort 1 runs June 15–26. Cohort 2 runs June 30–July 11. Parents choose whichever 2-week slot fits their schedule. Enrolling in both cohorts gives 11 sessions of total practice (July 4 holiday observed)."
+    },
+    {
+      "question": "My child is in Grade 8 taking Algebra 1 — is this too easy for them?",
+      "answer": "Algebra 1 Get Ready is paced for students who have not yet taken Algebra 1 and want to prepare for it. If your child is currently in Algebra 1 and needs support with specific topics mid-course, contact us at (925) 456-4606 to discuss whether Bridge the Gap Math or a year-round tutoring program would be a better fit."
+    },
+    {
+      "question": "How does the evening format affect the quality of instruction?",
+      "answer": "The evening format (5:00–6:30 PM, Mon/Wed/Fri) is identical in structure and quality to our morning programs — 60 minutes of focused instruction followed by 30 minutes of guided practice. The evening time was chosen specifically so it does not compete with daytime summer activities and allows working parents to drop off after work."
+    }
+  ]
+}

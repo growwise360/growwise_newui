@@ -1,4 +1,4 @@
-import { filterAcademicProgramsByChip } from '@/lib/academic-summer-program-filters';
+import { filterAcademicProgramsByChip, resolveAcademicHubFilterFromQuery } from '@/lib/academic-summer-program-filters';
 import { buildAllAcademicSummerPrograms } from '@/lib/academic-summer-programs-hub-data';
 
 describe('filterAcademicProgramsByChip', () => {
@@ -21,5 +21,15 @@ describe('filterAcademicProgramsByChip', () => {
   it('filters get-ready math tracks', () => {
     const filtered = filterAcademicProgramsByChip(programs, 'getReadyMath');
     expect(filtered.map((p) => p.id)).toEqual(['im1', 'algebra-1', 'geometry']);
+  });
+});
+
+describe('resolveAcademicHubFilterFromQuery', () => {
+  it('maps SEO query params to filter chip ids', () => {
+    expect(resolveAcademicHubFilterFromQuery('reading-writing')).toBe('readingWriting');
+    expect(resolveAcademicHubFilterFromQuery('bridge-the-gap')).toBe('bridgeTheGap');
+    expect(resolveAcademicHubFilterFromQuery('get-ready-math')).toBe('getReadyMath');
+    expect(resolveAcademicHubFilterFromQuery(null)).toBeNull();
+    expect(resolveAcademicHubFilterFromQuery('invalid')).toBeNull();
   });
 });

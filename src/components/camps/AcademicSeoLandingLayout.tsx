@@ -1,0 +1,78 @@
+import type { Metadata } from 'next';
+import FAQSchema from '@/components/schema/FAQSchema';
+import '@/components/camps/academic-summer-programs-page.global.css';
+import type { AcademicSeoLandingPageId } from '@/lib/academic-seo-landing-config';
+import {
+  ACADEMIC_SEO_LANDING_PAGES,
+  getAcademicSeoLandingPageConfig,
+} from '@/lib/academic-seo-landing-config';
+import { getAcademicSeoLandingCopy } from '@/lib/academic-seo-landing-copy';
+import { generateMetadataFromPath } from '@/lib/seo/metadata';
+import {
+  buildAcademicSeoLandingCourseSchema,
+  buildAcademicSeoLandingWebPageName,
+} from '@/lib/schema/academic-seo-landing-jsonld';
+import { generateBreadcrumbSchema, generateWebPageJsonLd } from '@/lib/seo/structuredData';
+import { absoluteSiteUrl } from '@/lib/publicPath';
+import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
+
+export function createAcademicSeoLandingGenerateMetadata(pageId: AcademicSeoLandingPageId) {
+  return async function generateMetadata({
+    params,
+  }: {
+    params: Promise<{ locale: string }>;
+  }): Promise<Metadata> {
+    const { locale } = await params;
+    const { path } = getAcademicSeoLandingPageConfig(pageId);
+    const metadata = generateMetadataFromPath(path, locale);
+    return metadata ?? {};
+  };
+}
+
+export function AcademicSeoLandingLayout({
+  pageId,
+  children,
+  locale,
+}: {
+  pageId: AcademicSeoLandingPageId;
+  children: React.ReactNode;
+  locale: string;
+}) {
+  const config = ACADEMIC_SEO_LANDING_PAGES[pageId];
+  const copy = getAcademicSeoLandingCopy(pageId);
+  const baseUrl = getCanonicalSiteUrl();
+  const pageUrl = absoluteSiteUrl(config.path, locale, baseUrl);
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
+    { name: 'Camps', url: absoluteSiteUrl('/camps', locale, baseUrl) },
+    { name: config.breadcrumbLabel, url: pageUrl },
+  ]);
+
+  const webPageSchema = generateWebPageJsonLd({
+    name: `${buildAcademicSeoLandingWebPageName(pageId)} | GrowWise`,
+    description: copy.hero.subtext,
+    url: pageUrl,
+  });
+
+  const courseSchema = buildAcademicSeoLandingCourseSchema(pageId);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <FAQSchema faqs={[...copy.faq]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+      {children}
+    </>
+  );
+}
