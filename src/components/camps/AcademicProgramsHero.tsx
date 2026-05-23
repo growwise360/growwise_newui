@@ -44,6 +44,9 @@ export function AcademicProgramsHero({ onInquireClick }: AcademicProgramsHeroPro
         <p className="mt-2 max-w-[650px] text-base leading-snug text-zinc-100 sm:mt-2.5 md:text-lg md:leading-snug">
           {HERO.subhead}
         </p>
+        <p className="mt-2 max-w-[650px] text-base leading-snug text-zinc-100 sm:mt-2.5 md:text-lg md:leading-snug">
+          {HERO.detailLine}
+        </p>
         <ul
           className="mt-4 flex max-w-full flex-wrap gap-2 overflow-hidden sm:mt-5 sm:max-w-2xl"
           aria-label="Program highlights"

@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Info } from 'lucide-react';
 import { useCart } from '@/components/gw/CartContext';
 import hubCopy from '@/i18n/messages/academic-summer-programs-hub-en.json';
 import { toAcademicSummerCartItem } from '@/lib/academic-cart-utils';
@@ -15,9 +14,16 @@ import type { Level, Program, Slot } from '@/lib/summer-camp-data';
 import {
   AcademicPricingSlotPrice,
   AcademicPricingSlotRowLayout,
+  EnrollmentCompactAddButton,
 } from '@/components/camps/AcademicPricingSlotRowLayout';
-import { AcademicEnrollmentPanelScroll } from '@/components/camps/AcademicEnrollmentPanelScroll';
 import { AcademicMobileProgramSwitcher } from '@/components/camps/AcademicMobileProgramSwitcher';
+import {
+  EnrollmentPanelHeader,
+  EnrollmentPanelScrollBody,
+  EnrollmentPanelSectionLabel,
+  EnrollmentPanelShell,
+  EnrollmentPanelSlotList,
+} from '@/components/camps/EnrollmentPanelLayout';
 
 const COPY = hubCopy.enrollmentPanel;
 
@@ -27,16 +33,12 @@ function AcademicPanelScarcityPill() {
       {/* TODO: Replace static "Max 8 students" with live enrollment count
           from booking system when API is available.
           Format: "X spots remaining" when < 4 spots left. */}
-      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#FAEEDA] px-2 py-0.5 text-[11px] font-medium text-[#633806]">
+      <span className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-[#FAEEDA] px-2 py-0.5 text-[11px] font-medium text-[#633806]">
         <span className="h-1.5 w-1.5 rounded-full bg-[#633806]" aria-hidden />
         Small group · Max 8 students per class
       </span>
     </>
   );
-}
-
-function SprintGradeBandDivider() {
-  return <div className="my-2 h-px bg-slate-200" aria-hidden />;
 }
 
 function buildSprintBothUpfrontNote(upfront: number, saveAmount: number): string {
@@ -82,31 +84,31 @@ function AcademicSprintSlotRow({
       inCart={inCart}
       cohort2Accent={isCohort2}
       info={
-        <div className="space-y-1.5">
+        <div>
           <p
-            className={`text-[13px] font-bold leading-snug ${isBothCohorts ? 'text-[#085041]' : 'text-slate-800'}`}
+            className={`truncate text-[12px] font-bold leading-tight max-[768px]:whitespace-normal max-[768px]:line-clamp-2 ${isBothCohorts ? 'text-[#085041]' : 'text-slate-800'}`}
           >
             {slot.label}
           </p>
           {isBothCohorts ? (
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="rounded-full bg-[#0F6E56] px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-white">
+            <div className="mt-0.5 flex flex-wrap items-center gap-1">
+              <span className="rounded-full bg-[#0F6E56] px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-white">
                 {saveLabel}
               </span>
-              <span className="rounded-full border border-emerald-300 bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#0F6E56]">
+              <span className="rounded-full border border-emerald-300 bg-white px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#0F6E56]">
                 {COPY.sprintBestValueBadge}
               </span>
             </div>
           ) : null}
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-600">
+          <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[11px] text-slate-600">
             <span className="flex items-center gap-1">
-              <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+              <span aria-hidden="true" className="h-[7px] w-[7px] shrink-0 rounded-full bg-amber-400" />
               {slot.format}
             </span>
-            <span className="font-semibold normal-case tracking-normal text-slate-700">{slot.time}</span>
+            <span className="text-slate-700">{slot.time}</span>
           </div>
           {upfrontNote ? (
-            <p className="text-[10px] leading-snug text-[#0F6E56]">{upfrontNote}</p>
+            <p className="mt-0.5 line-clamp-1 text-[10px] leading-snug text-[#0F6E56]">{upfrontNote}</p>
           ) : null}
         </div>
       }
@@ -119,27 +121,19 @@ function AcademicSprintSlotRow({
       }
       action={
         inCart ? (
-          <button
-            type="button"
-            aria-label={`Remove ${slot.label}`}
+          <EnrollmentCompactAddButton
+            label="Remove"
+            ariaLabel={`Remove ${slot.label}`}
             onClick={() => onRemove(slot.id)}
-            className="h-8 shrink-0 rounded-full px-3 text-[10px] font-bold text-red-600 hover:bg-red-50 hover:text-red-700"
-          >
-            Remove
-          </button>
+            variant="remove"
+          />
         ) : (
-          <button
-            type="button"
-            aria-label={`Add ${slot.label}`}
+          <EnrollmentCompactAddButton
+            label="Add"
+            ariaLabel={`Add ${slot.label}`}
             onClick={() => onAdd(level, slot)}
-            className={`h-8 shrink-0 rounded-full px-3.5 text-[10px] font-bold text-white ${
-              isBothCohorts
-                ? 'bg-[#0F6E56] hover:bg-[#0B5A46]'
-                : 'bg-[#1A2B4A] hover:bg-[#1F396D]'
-            }`}
-          >
-            Add
-          </button>
+            variant={isBothCohorts ? 'green' : 'default'}
+          />
         )
       }
     />
@@ -190,68 +184,55 @@ export function AcademicSprintSlotsPanel({
   if (!level) return null;
 
   return (
-    <div
-      id="slots-panel"
-      role="region"
-      aria-label={program.title}
-      className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-2xl"
-    >
+    <EnrollmentPanelShell ariaLabel={program.title}>
       <AcademicMobileProgramSwitcher
         programs={programs}
         selectedProgramId={program.id}
         onSelectProgram={onSelectProgram}
       />
-      <div className="border-b border-slate-50 bg-slate-50/30 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="font-heading text-lg font-extrabold leading-tight text-slate-900">
-            {program.title}
-          </h3>
-          <span
-            className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1F396D]/10 text-[#1F396D]"
-            aria-hidden
-          >
-            <Info className="h-4 w-4" />
-          </span>
-        </div>
-        <p className="mt-1.5 text-sm font-semibold leading-snug text-gray-800">{program.outcome}</p>
-        <AcademicPanelScarcityPill />
-        <ul className="mt-2 space-y-1" aria-label={`${program.title} highlights`}>
-          {program.bullets.map((bullet) => (
-            <li key={bullet} className="flex items-start gap-2 text-xs leading-relaxed text-slate-600">
-              <span className="mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#1F396D]" aria-hidden />
-              {bullet}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <EnrollmentPanelHeader
+        title={program.title}
+        subtitle={program.outcome}
+        footer={
+          <>
+            <AcademicPanelScarcityPill />
+            <ul className="mt-1 space-y-0.5" aria-label={`${program.title} highlights`}>
+              {program.bullets.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-1.5 text-[11px] leading-snug text-slate-600">
+                  <span className="mt-[4px] h-1 w-1 shrink-0 rounded-full bg-[#1F396D]" aria-hidden />
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </>
+        }
+      />
 
-      <AcademicEnrollmentPanelScroll>
-        <div className="space-y-3">
-          <h4 className="border-l-2 border-[#1F396D] pl-3 text-xs font-bold uppercase tracking-tight text-slate-900">
-            {COPY.sprintChooseCohortGradeHeader}
-          </h4>
-          {slotsByTier.map(({ tierId, tier, slots }, index) => (
-            <div key={tierId} className="space-y-2">
-              {index > 0 ? <SprintGradeBandDivider /> : null}
-              <div className="grid gap-2">
-                {slots.map((slot) => (
-                  <AcademicSprintSlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={level}
-                    program={program}
-                    tier={tier}
-                    saveAmount={saveAmount}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </AcademicEnrollmentPanelScroll>
-    </div>
+      <EnrollmentPanelSectionLabel>{COPY.sprintChooseCohortGradeHeader}</EnrollmentPanelSectionLabel>
+      <EnrollmentPanelScrollBody>
+        <EnrollmentPanelSlotList>
+          {slotsByTier.flatMap(({ tierId, tier, slots }, index) => [
+            ...(index > 0
+              ? [
+                  <div key={`divider-${tierId}`} className="h-px bg-slate-200" aria-hidden />,
+                ]
+              : []),
+            ...slots.map((slot) => (
+              <AcademicSprintSlotRow
+                key={slot.id}
+                slot={slot}
+                level={level}
+                program={program}
+                tier={tier}
+                saveAmount={saveAmount}
+                cartItemIds={summerCampItemIds}
+                onAdd={handleAdd}
+                onRemove={handleRemove}
+              />
+            )),
+          ])}
+        </EnrollmentPanelSlotList>
+      </EnrollmentPanelScrollBody>
+    </EnrollmentPanelShell>
   );
 }

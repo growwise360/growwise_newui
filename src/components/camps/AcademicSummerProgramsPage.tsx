@@ -1,8 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { HelpCircle } from 'lucide-react';
 import { AcademicEnrollmentPanel } from '@/components/camps/AcademicEnrollmentPanel';
@@ -13,6 +11,7 @@ import { AcademicInternalLinksSection } from '@/components/camps/AcademicInterna
 import { AcademicProblemSection } from '@/components/camps/AcademicProblemSection';
 import { SectionContainer } from '@/components/camps/SectionContainer';
 import { SummerCampTrustBlock } from '@/components/camps/SummerCampTrustBlock';
+import { enrollmentPanelStickyWrapClass } from '@/components/camps/EnrollmentPanelLayout';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
 import { useChatbot } from '@/contexts/ChatbotContext';
@@ -83,6 +82,7 @@ export function AcademicSummerProgramsPage() {
   );
   const [programFilter, setProgramFilter] = useState<AcademicProgramFilterId>('all');
   const [showStickyCta, setShowStickyCta] = useState(false);
+  const [enrollmentPanelInView, setEnrollmentPanelInView] = useState(false);
 
   const filteredPrograms = useMemo(
     () => filterAcademicProgramsByChip(PROGRAMS, programFilter),
@@ -139,6 +139,34 @@ export function AcademicSummerProgramsPage() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const panel = document.getElementById('slots-panel');
+    if (!panel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (window.innerWidth > 768) {
+          setEnrollmentPanelInView(false);
+          return;
+        }
+        setEnrollmentPanelInView(entry.isIntersecting);
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -80px 0px' },
+    );
+    observer.observe(panel);
+
+    const onResize = () => {
+      if (window.innerWidth > 768) setEnrollmentPanelInView(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', onResize);
+    };
+  }, [selectedProgram]);
+
+  const showBottomStickyBar = showStickyCta && !enrollmentPanelInView;
+
   const scrollToSlots = useCallback(() => {
     slotsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
@@ -167,7 +195,13 @@ export function AcademicSummerProgramsPage() {
         'min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]',
       )}
     >
-      <main className={cn(showStickyCta ? 'pb-28 md:pb-24' : 'max-[768px]:pb-[60px]')}>
+      <main
+        className={cn(
+          showBottomStickyBar
+            ? 'max-[768px]:pb-[calc(9rem+env(safe-area-inset-bottom,0px))] md:pb-24'
+            : 'max-[768px]:pb-[60px]',
+        )}
+      >
         <AcademicProgramsHero onInquireClick={() => openAcademicAssistant('schedule')} />
 
         <section
@@ -189,79 +223,38 @@ export function AcademicSummerProgramsPage() {
           </div>
 
           <div className="container mx-auto px-4 md:px-6" style={{ position: 'relative', zIndex: 1 }}>
+            <div className="mb-10">
+              <div
+                className="flex flex-wrap"
+                style={FILTER_CHIP_STYLE.bar}
+                role="group"
+                aria-label={PAGE.booking.filter.ariaLabel}
+              >
+                {ACADEMIC_PROGRAM_FILTER_ORDER.map((filterId) => (
+                  <button
+                    key={filterId}
+                    type="button"
+                    onClick={() => handleFilterChange(filterId)}
+                    className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium transition-colors duration-300"
+                    style={filterChipStyle(programFilter === filterId)}
+                  >
+                    {FILTER_LABELS[filterId]}
+                  </button>
+                ))}
+              </div>
+
+              <h2 className="font-heading mb-2 text-3xl font-black uppercase tracking-tight text-slate-900">
+                {PAGE.booking.sectionTitle}
+              </h2>
+              <p className="text-sm font-medium text-slate-500">{PAGE.booking.sectionSub}</p>
+              <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-950">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" aria-hidden />
+                {PAGE.booking.july4HolidayNote}
+              </p>
+            </div>
+
             <div className="relative grid items-start gap-8 lg:grid-cols-12">
               <div className="max-[768px]:overflow-x-hidden lg:col-span-7">
-                <div
-                  className="mb-4 flex items-center justify-between gap-3 px-4 py-3 min-[769px]:hidden"
-                  style={{
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 100,
-                    background: 'white',
-                    borderBottom: '1px solid rgba(0,0,0,0.08)',
-                    marginLeft: '-1rem',
-                    marginRight: '-1rem',
-                  }}
-                >
-                  <Link
-                    href={createLocaleUrl('/', locale)}
-                    className="relative h-8 w-[120px] shrink-0"
-                    aria-label="GrowWise home"
-                  >
-                    <Image
-                      src="/assets/growwise-logo.png"
-                      alt="GrowWise"
-                      fill
-                      sizes="120px"
-                      fetchPriority="low"
-                      decoding="async"
-                      className="object-contain object-left"
-                      draggable={false}
-                    />
-                  </Link>
-                  <button
-                    type="button"
-                    className="whitespace-nowrap text-sm font-semibold text-[#1F396D]"
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }
-                    }}
-                  >
-                    {PAGE.booking.mobileBackToTop}
-                  </button>
-                </div>
-
-                <div className="mb-10">
-                  <div
-                    className="flex flex-wrap"
-                    style={FILTER_CHIP_STYLE.bar}
-                    role="group"
-                    aria-label={PAGE.booking.filter.ariaLabel}
-                  >
-                    {ACADEMIC_PROGRAM_FILTER_ORDER.map((filterId) => (
-                      <button
-                        key={filterId}
-                        type="button"
-                        onClick={() => handleFilterChange(filterId)}
-                        className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium transition-colors duration-300"
-                        style={filterChipStyle(programFilter === filterId)}
-                      >
-                        {FILTER_LABELS[filterId]}
-                      </button>
-                    ))}
-                  </div>
-
-                  <h2 className="font-heading mb-2 text-3xl font-black uppercase tracking-tight text-slate-900">
-                    {PAGE.booking.sectionTitle}
-                  </h2>
-                  <p className="text-sm font-medium text-slate-500">{PAGE.booking.sectionSub}</p>
-                  <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-950">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" aria-hidden />
-                    {PAGE.booking.july4HolidayNote}
-                  </p>
-                </div>
-
                 <AcademicProgramList
                   programs={filteredPrograms}
                   selectedProgramId={selectedProgram?.id ?? null}
@@ -270,13 +263,13 @@ export function AcademicSummerProgramsPage() {
                 />
               </div>
 
-              {/* top/height: 13rem clears measured site header (172px @ 14px root); subtract bottom CTA when visible */}
               <div
                 className={cn(
-                  'lg:col-span-5 lg:sticky lg:top-[13rem] max-[768px]:min-h-0',
-                  showStickyCta
-                    ? 'lg:h-[calc(100vh-13rem-5.5rem)]'
-                    : 'lg:h-[calc(100vh-13rem-1rem)]',
+                  'min-w-0 lg:col-span-5 max-[768px]:min-h-0',
+                  enrollmentPanelStickyWrapClass,
+                  showBottomStickyBar
+                    ? 'lg:max-h-[calc(100vh-var(--header-height,10rem)-5.5rem)]'
+                    : undefined,
                 )}
               >
                 <AcademicEnrollmentPanel
@@ -383,7 +376,7 @@ export function AcademicSummerProgramsPage() {
         </SectionContainer>
       </main>
 
-      {showStickyCta ? (
+      {showBottomStickyBar ? (
         <div className="fixed bottom-0 left-0 right-0 z-[100] border-t border-slate-200/80 bg-white/95 p-3 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] backdrop-blur-sm md:px-6">
           <div className="mx-auto flex max-w-[1100px] flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
             <button

@@ -52,11 +52,11 @@ export function AcademicEnrollmentPanelScroll({
   }, [updateHint, children]);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex min-h-0 flex-col">
       <div
         ref={scrollRef}
         data-academic-panel-scroll
-        className={cn(styles.scrollRegion, 'p-6', className)}
+        className={cn(styles.scrollRegion, 'overflow-y-auto', className)}
       >
         {children}
       </div>

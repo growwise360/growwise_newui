@@ -141,8 +141,8 @@
     }
   },
   "chatbot": {
-    "title": "GrowWise AI Assistant",
-    "triggerLabel": "Ask AI",
+    "title": "Growy",
+    "triggerLabel": "Ask Growy",
     "openChat": "Open chat",
     "closeChat": "Close chat",
     "sendMessage": "Send message",
@@ -151,12 +151,39 @@
       "online": "Online now",
       "fallback": "Using fallback mode"
     },
+    "emailGate": {
+      "prompt": "Enter your email to continue the conversation.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "continueCta": "Continue",
+      "submitting": "Saving…",
+      "invalidEmail": "Please enter a valid email address.",
+      "consentRequired": "Please agree to be contacted so we can continue.",
+      "continueSuccess": "Thanks! You're all set — ask me anything about our programs.",
+      "submitError": "We couldn't save your email right now. Please try again."
+    },
     "suggestions": {
       "k12Programs": "What programs do you offer?",
       "steamCourses": "Tell me about STEM and coding",
       "bookAssessment": "How do I book a free assessment?",
       "pricing": "What are your prices?",
-      "getStarted": "I want to get started"
+      "getStarted": "I want to get started",
+      "campsSummer": "Tell me about summer camp tracks",
+      "campsWinter": "What winter camps do you offer?",
+      "campsCoding": "Which coding camps are available?",
+      "campsRobotics": "Do you have robotics camps?",
+      "openCampForm": "I'd like to inquire about camp"
+    },
+    "pageWelcome": {
+      "default": "Hello! Welcome to GrowWise School! 🎓 We serve Tri-Valley families with these program areas: {categories}. How can we help today?",
+      "campsHub": "Hi! You're browsing our camps hub. We run summer and winter programs in coding, robotics, AI, math, and more. Which season or subject interests you?",
+      "campsSummer": "Hi! You're looking at GrowWise Summer Camp in Dublin. I can help you pick a track—coding, robotics, AI, math, game dev, and more—or answer schedule and enrollment questions.",
+      "campsAcademicSummer": "Hi! You're on our Academic Summer Programs page. I can help with Read to Prove, Write to Explain, Bridge the Gap Math, or Get Ready tracks for grades 1–12.",
+      "campsWinter": "Hi! You're browsing GrowWise Winter Camp options. Tell me your child's grade and interests and I'll suggest a fit.",
+      "campSlug": "Hi! You're viewing {pageLabel}. Ask me about schedules, ages, pricing, or how to request a seat.",
+      "assessment": "Hi! Ready to book a free assessment? I can walk you through what to expect and help you submit a request.",
+      "enroll": "Hi! You're on an enrollment page. Tell me what program you're interested in and I can help you take the next step.",
+      "contact": "Hi! Need to reach our team? I can help you send a message or share our phone and email."
     },
     "responses": {
       "welcome": "Hello! Welcome to GrowWise School! 🎓 We serve Tri-Valley families with these program areas: {categories}. How can we help today?",
@@ -827,6 +854,11 @@
       "summercampLink": "Get camp guide instead",
       "enrollNow": "Enroll Now",
       "earlyBirdBadge": "Camp guide by email"
+    },
+    "enrollmentPanel": {
+      "emptyTitle": "Select a program",
+      "emptyPanel": "Tap a program above or select a pill to view weeks and pricing.",
+      "mobileSwitcherLabel": "Switch program"
     },
     "summercamp": {
       "title": "Win a free Summer Camp spot",
