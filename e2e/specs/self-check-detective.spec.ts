@@ -105,7 +105,7 @@ async function fillAndSubmitForm(page: Page, grade = 'Grade 3') {
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
-test.describe('Self-Check funnel', () => {
+test.describe('Self-Check funnel', { tag: '@nightly' }, () => {
 
   // ── 1. Self-check page renders ────────────────────────────────────────────
   test('self-check page loads with form', async ({ page }) => {
@@ -249,7 +249,7 @@ test.describe('Self-Check funnel', () => {
   });
 });
 
-test.describe('Detective page', () => {
+test.describe('Detective page', { tag: '@nightly' }, () => {
 
   // ── 13. Detective page redirects to self-check ────────────────────────────
   test('redirects to /self-check', async ({ page }) => {
@@ -258,7 +258,7 @@ test.describe('Detective page', () => {
   });
 });
 
-test.describe('Results page', () => {
+test.describe('Results page', { tag: '@nightly' }, () => {
 
   // ── 14. Results page redirects to self-check ──────────────────────────────
   test('redirects to /self-check', async ({ page }) => {
@@ -267,7 +267,7 @@ test.describe('Results page', () => {
   });
 });
 
-test.describe('Done page', () => {
+test.describe('Done page', { tag: '@nightly' }, () => {
 
   // ── 15. Done page renders ─────────────────────────────────────────────────
   test('done page renders confirmation content', async ({ page }) => {

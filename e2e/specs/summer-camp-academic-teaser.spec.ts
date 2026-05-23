@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Summer camp academic teaser band', () => {
+test.describe('Summer camp academic teaser band', { tag: '@nightly' }, () => {
   test('shows orange teaser between academic and AI sections on All filter', async ({ page }) => {
     await page.goto(localePath('/camps/summer'));
 
