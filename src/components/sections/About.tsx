@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchAboutRequested } from '@/store/slices/aboutSlice';
 import TestimonialsWithBackend from './TestimonialsWithBackend';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { HelpCircle } from "lucide-react";
 
 export default function About() {
@@ -414,7 +415,11 @@ export default function About() {
                   </p>
                 </div>
 
-                <Accordion type="single" collapsible className="space-y-4">
+                <Accordion
+                  type="multiple"
+                  className="space-y-4"
+                  defaultValue={getDefaultOpenFaqValues(faqs.length, (index) => `item-${index}`)}
+                >
                   {faqs.map((faq, index) => (
                     <AccordionItem 
                       key={index} 

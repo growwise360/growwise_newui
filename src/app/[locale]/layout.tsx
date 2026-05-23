@@ -5,6 +5,7 @@ import { getMessages } from 'next-intl/server';
 import ContentProvider from "@/components/providers/ContentProvider";
 import { ChatbotProvider } from "@/contexts/ChatbotContext";
 import LazyChatbot from "@/components/chatbot/LazyChatbot";
+import { WhatsAppFloatingButton } from '@/components/layout/WhatsAppFloatingButton';
 import { locales } from '@/i18n/config';
 import { PageTrackingWrapper } from '@/components/analytics/PageTrackingWrapper';
 import { websiteSchema } from '@/lib/seo/structuredData';
@@ -56,6 +57,7 @@ export default async function LocaleLayout({
             </main>
             <Footer />
             <LazyChatbot />
+            <WhatsAppFloatingButton />
           </PageTrackingWrapper>
         </ContentProvider>
       </ChatbotProvider>

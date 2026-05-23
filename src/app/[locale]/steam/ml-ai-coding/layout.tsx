@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { ML_AI_CODING_FAQ_JSONLD } from '@/lib/schema/course-hub-jsonld-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
@@ -62,6 +64,7 @@ export default async function MLAICodingLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <FAQSchema faqs={ML_AI_CODING_FAQ_JSONLD} />
       {children}
     </>
   )

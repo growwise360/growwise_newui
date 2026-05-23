@@ -5,6 +5,7 @@ import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { HeaderChatbotTrigger } from '@/components/chatbot/HeaderChatbotTrigger';
 import { MenuItem } from './types';
 import { getVisibleDropdownItems, isMenuItemActive } from './utils';
+import { isCampSeoLandingPath } from '@/lib/camps/camp-seo-landing-slugs';
 
 // Student login is now handled by our custom page
 
@@ -71,6 +72,7 @@ export default function MobileNavigation({
   const filteredMenuItems = usableMenuItems.filter(
     (item) => item.key !== 'enroll' && item.visible !== false
   );
+  const hideDrawerAskGrowy = isCampSeoLandingPath(pathname);
 
   return (
     <>
@@ -275,9 +277,11 @@ export default function MobileNavigation({
                 >
                   Student Login
                 </Link>
-                <div className="flex shrink-0 items-center">
-                  <HeaderChatbotTrigger variant="compact" />
-                </div>
+                {!hideDrawerAskGrowy ? (
+                  <div className="flex shrink-0 items-center">
+                    <HeaderChatbotTrigger variant="compact" />
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
