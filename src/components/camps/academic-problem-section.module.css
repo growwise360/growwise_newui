@@ -13,13 +13,10 @@
 }
 
 .bannerBreakout {
-  width: 100vw;
-  max-width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   box-sizing: border-box;
   margin-top: 2rem;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .banner {
@@ -28,7 +25,9 @@
   align-items: stretch;
   width: 100%;
   box-sizing: border-box;
-  background: #1f396d;
+  background: #fef3f0;
+  border: 1px solid #f5c4b8;
+  border-radius: 12px;
   padding: 32px 40px;
 }
 
@@ -39,13 +38,31 @@
   width: 100%;
 }
 
+.bannerMeta {
+  margin-top: 16px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #9a8a87;
+  text-align: center;
+}
+
+.bannerMetaLink {
+  color: #e86040;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.bannerMetaLink:hover {
+  color: #c94e32;
+}
+
 .bannerTransition {
-  padding-top: 20px;
+  padding-top: 16px;
   margin-top: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 0;
   font-size: 13px;
   line-height: 1.6;
-  color: #9fb3c8;
+  color: #5a4a47;
   text-align: center;
 }
 
@@ -59,48 +76,44 @@
   font-size: 38px;
   font-weight: 700;
   line-height: 1;
-  color: #ffffff;
+  color: #2d3480;
 }
 
 .statLabel {
   margin-bottom: 10px;
   font-size: 12px;
   line-height: 1.5;
-  color: #c5d4e8;
+  color: #5a4a47;
 }
 
 .statSource {
   margin-bottom: 2px;
   font-size: 10px;
   font-style: italic;
-  color: #8fa3bc;
+  color: #9a8a87;
 }
 
 .statLink {
   display: block;
   font-size: 10px;
-  color: #7dddb8;
+  color: #e86040;
   text-decoration: underline;
 }
 
 .statLink:hover {
-  color: #9ee8cc;
+  color: #c94e32;
 }
 
 .divider {
   width: 1px;
   height: 60px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #f5c4b8;
 }
 
 @media (max-width: 639px) {
   .bannerBreakout {
-    width: calc(100% + 2rem);
-    max-width: calc(100% + 2rem);
-    margin-left: -1rem;
-    margin-right: -1rem;
-    left: 0;
-    transform: none;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
   .banner {

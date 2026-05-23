@@ -19,6 +19,36 @@ test.describe('Academic summer programs hub', () => {
     await expect(page.getByRole('link', { name: 'Book a free assessment' })).toBeVisible();
   });
 
+  test('program cards link to related SEO landing pages', async ({ page }) => {
+    await page.goto(localePath('/camps/academic-summer-programs-dublin-ca'));
+
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Read to Prove program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-reading-writing-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Write to Explain program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-reading-writing-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Bridge the Gap Math program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-math-foundations-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Algebra Get Ready program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-algebra-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Geometry Get Ready program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-geometry-precalculus-dublin-ca/);
+  });
+
   test('legacy sprint URL redirects to the hub', async ({ page }) => {
     await page.goto(localePath('/camps/academic-summer-sprint-dublin-ca'));
     await expect(page).toHaveURL(/\/camps\/academic-summer-programs-dublin-ca/);

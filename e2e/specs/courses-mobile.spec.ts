@@ -8,6 +8,7 @@ test.describe('Courses pages (mobile)', () => {
     '/courses/english',
     '/courses/sat-prep',
     '/courses/high-school-math',
+    '/courses/integrated-math-1-dublin-ca',
   ];
 
   for (const path of paths) {

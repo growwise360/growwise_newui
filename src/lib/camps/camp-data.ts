@@ -48,7 +48,7 @@ const SUMMER_STEAM_HALF_DAY_SCHEDULE = [
   },
   {
     label: "Enrollment",
-    primary: "Select a week on the camps page and add to cart",
+    primary: "Select a week at /camps/summer and add to cart",
   },
 ] as const;
 
@@ -274,7 +274,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
     metaDescription:
       "Math Olympiad prep camp in Dublin, CA. AMC8-ready problem solving for grades 5–8. Small groups, expert instruction at GrowWise School.",
     metaKeywords:
-      "math olympiad camp Dublin CA, AMC8 prep Dublin, MOEMS camp Tri-Valley, math competition camp Dublin CA",
+      "math olympiad camp Dublin CA, AMC8 prep Dublin, MOEMS camp Tri-Valley, math competition camp Dublin CA 2026",
     scheduleIntro: null,
     h1: "Math Olympiad Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",

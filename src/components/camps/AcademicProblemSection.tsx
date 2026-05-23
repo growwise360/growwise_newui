@@ -1,8 +1,10 @@
 import copy from '@/i18n/messages/academic-summer-programs-en.json';
 import { SectionContainer } from '@/components/camps/SectionContainer';
 import styles from '@/components/camps/academic-problem-section.module.css';
+import { CONTACT_INFO } from '@/lib/constants';
 
 const SECTION = copy.problem;
+const phoneHref = `tel:${CONTACT_INFO.phone.replace(/\D/g, '')}`;
 
 function StatItem({
   value,
@@ -54,6 +56,20 @@ export function AcademicProblemSection() {
             <div className={styles.divider} aria-hidden="true" />
             <StatItem {...stat3} />
           </div>
+          <p className={styles.bannerMeta}>
+            <a
+              href="https://growwiseschool.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.bannerMetaLink}
+            >
+              growwiseschool.org
+            </a>
+            {' · '}
+            <a href={phoneHref} className={styles.bannerMetaLink}>
+              {CONTACT_INFO.phone}
+            </a>
+          </p>
           <p className={styles.bannerTransition}>{SECTION.transition}</p>
         </div>
       </div>
