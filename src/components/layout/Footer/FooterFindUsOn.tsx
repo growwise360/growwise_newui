@@ -34,6 +34,7 @@ export default function FooterFindUsOn() {
               alt={badge.imageAlt}
               width={120}
               height={60}
+              unoptimized={badge.unoptimized}
               sizes="(max-width: 768px) 33vw, 120px"
               className="h-[60px] w-auto max-w-full object-contain"
             />
