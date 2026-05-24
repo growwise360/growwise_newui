@@ -7,6 +7,7 @@ import { GTMHead, GTMNoScript } from '@/components/analytics/GTM';
 import MetaPixel from '@/components/analytics/MetaPixel';
 import HubSpotSpaTracker from '@/components/analytics/HubSpotSpaTracker';
 import { MicrosoftClarity } from '@/components/analytics/MicrosoftClarity';
+import { isClarityExcludedPath } from '@/lib/analytics/clarityPaths';
 import {
   getStoredCookieConsent,
   isAutomatedAuditEnvironment,
@@ -84,7 +85,7 @@ export function AnalyticsAfterConsent() {
           ) : null}
 
           {env.hubspotHubId ? <HubSpotSpaTracker hubId={env.hubspotHubId} /> : null}
-          {env.clarityProjectId ? (
+          {env.clarityProjectId && !isClarityExcludedPath(pathname) ? (
             <MicrosoftClarity projectId={env.clarityProjectId} pathname={pathname} />
           ) : null}
         </>

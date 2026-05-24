@@ -12,6 +12,12 @@ interface MicrosoftClarityProps {
 
 const PROJECT_ID_PATTERN = /^[a-z0-9]+$/i;
 
+function stopClarityRecording() {
+  if (typeof window !== 'undefined' && typeof window.clarity === 'function') {
+    window.clarity('stop');
+  }
+}
+
 /**
  * Microsoft Clarity — session replay / heatmaps.
  * Loads only on public pages after analytics cookie consent (parent gate).
@@ -27,12 +33,32 @@ export function MicrosoftClarity({ projectId, pathname }: MicrosoftClarityProps)
     isClarityExcludedPath(pathname);
 
   useEffect(() => {
-    if (shouldSkip || initializedRef.current) return;
+    if (shouldSkip) {
+      if (initializedRef.current) {
+        stopClarityRecording();
+        initializedRef.current = false;
+      }
+      return;
+    }
 
-    Clarity.consentV2({ ad_Storage: 'denied', analytics_Storage: 'granted' });
+    if (initializedRef.current) return;
+
+    // init() creates the window.clarity queue stub; consentV2 requires it.
     Clarity.init(id);
+    if (typeof window.clarity === 'function') {
+      Clarity.consentV2({ ad_Storage: 'denied', analytics_Storage: 'granted' });
+    }
     initializedRef.current = true;
   }, [id, shouldSkip]);
+
+  useEffect(() => {
+    return () => {
+      if (initializedRef.current) {
+        stopClarityRecording();
+        initializedRef.current = false;
+      }
+    };
+  }, []);
 
   return null;
 }
