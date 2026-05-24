@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 
 export const maxDuration = 30;
 
@@ -300,6 +301,29 @@ export async function POST(request: Request) {
     } catch (adminEmailErr) {
       console.error('[self-check] Admin notification error:', adminEmailErr);
     }
+
+    const { firstname, lastname } = splitFullName(parentName);
+    const hubspotMessage = [
+      `Student: ${studentName}`,
+      `Grade: ${grade}`,
+      `Subject: ${subject}`,
+      `Parent prediction: ${parentPrediction.join(', ')}`,
+      'Source: self-check-mistake-detective',
+    ].join('\n');
+
+    await syncHubSpotLeadIfConfigured(
+      [
+        { name: 'firstname', value: firstname },
+        { name: 'lastname', value: lastname },
+        { name: 'email', value: parentEmail },
+        { name: 'message', value: hubspotMessage },
+      ],
+      {
+        pageUri: request.headers.get('referer') ?? '',
+        pageName: 'Mistake Detective self-check',
+      },
+      'self-check',
+    );
 
     return NextResponse.json({
       success: true,

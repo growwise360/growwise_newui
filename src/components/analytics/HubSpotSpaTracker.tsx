@@ -9,7 +9,23 @@ const HUB_ID_PATTERN = /^\d{5,12}$/;
 /** HubSpot command queue — commands are string tuples consumed by the tracking script. */
 type HubSpotWindow = Window & {
   _hsq?: unknown[][];
+  hsConversationsSettings?: { loadImmediately?: boolean };
+  hsConversationsOnReady?: Array<() => void>;
+  HubSpotConversations?: {
+    widget?: { remove: () => void };
+  };
 };
+
+/** Ask Growy is the site chatbot — block HubSpot's duplicate launcher if the portal has chat enabled. */
+const HUBSPOT_CHAT_SUPPRESS_INLINE = `
+window.hsConversationsSettings = Object.assign({}, window.hsConversationsSettings, { loadImmediately: false });
+window.hsConversationsOnReady = window.hsConversationsOnReady || [];
+window.hsConversationsOnReady.push(function () {
+  try {
+    window.HubSpotConversations && window.HubSpotConversations.widget && window.HubSpotConversations.widget.remove();
+  } catch (e) {}
+});
+`.trim();
 
 function HubSpotSpaRouteSync() {
   const pathname = usePathname();
@@ -38,13 +54,33 @@ interface HubSpotSpaTrackerProps {
   hubId: string;
 }
 
-/** HubSpot — loads tracking once; fires setPath + trackPageView on client navigations (not the first render). */
+/** HubSpot page views + SPA navigation only — no chat widget (Ask Growy handles chat). */
 export default function HubSpotSpaTracker({ hubId }: HubSpotSpaTrackerProps) {
   const id = hubId.trim();
   if (!id || !HUB_ID_PATTERN.test(id)) return null;
 
+  useEffect(() => {
+    const w = window as HubSpotWindow;
+    w.hsConversationsSettings = { ...w.hsConversationsSettings, loadImmediately: false };
+    const removeWidget = () => {
+      try {
+        w.HubSpotConversations?.widget?.remove();
+      } catch {
+        // ignore
+      }
+    };
+    w.hsConversationsOnReady = w.hsConversationsOnReady || [];
+    w.hsConversationsOnReady.push(removeWidget);
+    removeWidget();
+  }, []);
+
   return (
     <>
+      <Script
+        id="hs-chat-suppress"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: HUBSPOT_CHAT_SUPPRESS_INLINE }}
+      />
       <Script
         id="hs-script-loader"
         strategy="afterInteractive"

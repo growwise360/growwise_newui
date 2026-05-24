@@ -233,4 +233,4 @@ Before finishing a change:
 | New routes / sitemap | defer to morning CI (`mobile-404-audit`); do not run unless user requests |
 
 4. Local E2E auto-starts the app: `next start` if `.next/BUILD_ID` exists, otherwise `next dev`. For CI-like runs: `npm run build && E2E_USE_PROD=1 npm run test:e2e:smoke`.
-5. Tag new E2E specs: `@critical` for enrollment/checkout/ad-route regressions; `@nightly` for bulk SEO, camps sweeps, or mobile audits.
+5. Tag new E2E specs: `@critical` for enrollment, checkout, **all lead-form submissions** (contact, assessment, summer camp guide, self-check, math finals), and ad-route regressions; `@nightly` for bulk SEO, camps sweeps, or mobile audits.

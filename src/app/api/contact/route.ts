@@ -4,11 +4,7 @@ import { CONTACT_INFO } from '@/lib/constants';
 import { isBrevoTransactionalReady, sendBrevoTransactionalEmail } from '@/lib/brevo';
 import { sendEmail, type SendEmailResult } from '@/lib/email';
 import { validatePhoneSimple } from '@/lib/phoneValidation';
-import {
-  isHubSpotFormsConfigured,
-  splitFullName,
-  submitHubSpotForm,
-} from '@/lib/hubspot/submitForm';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
@@ -193,33 +189,28 @@ export async function POST(request: Request) {
         messageId: emailResult.messageId,
       });
 
-      // HubSpot CRM (server-only Forms API — same env as /api/hubspot-submit; does not load chat widget)
-      if (isHubSpotFormsConfigured()) {
-        const { firstname, lastname } = splitFullName(contactData.name);
-        const messageBlock = [
-          contactData.message?.trim(),
-          `Source: ${contactData.source}`,
-        ]
-          .filter((s) => typeof s === 'string' && s.length > 0)
-          .join('\n\n');
+      const { firstname, lastname } = splitFullName(contactData.name);
+      const messageBlock = [
+        contactData.message?.trim(),
+        `Source: ${contactData.source}`,
+      ]
+        .filter((s) => typeof s === 'string' && s.length > 0)
+        .join('\n\n');
 
-        const hubResult = await submitHubSpotForm(
-          [
-            { name: 'firstname', value: firstname },
-            { name: 'lastname', value: lastname },
-            { name: 'email', value: contactData.email },
-            { name: 'phone', value: contactData.phone },
-            { name: 'message', value: messageBlock },
-          ],
-          {
-            pageUri: request.headers.get('referer') ?? '',
-            pageName: 'Website contact (chatbot)',
-          }
-        );
-        if (!hubResult.ok) {
-          console.error('[contact] HubSpot CRM sync failed:', hubResult.message);
-        }
-      }
+      await syncHubSpotLeadIfConfigured(
+        [
+          { name: 'firstname', value: firstname },
+          { name: 'lastname', value: lastname },
+          { name: 'email', value: contactData.email },
+          { name: 'phone', value: contactData.phone },
+          { name: 'message', value: messageBlock },
+        ],
+        {
+          pageUri: request.headers.get('referer') ?? '',
+          pageName: 'Website contact',
+        },
+        'contact',
+      );
 
       return NextResponse.json({
         success: true,
