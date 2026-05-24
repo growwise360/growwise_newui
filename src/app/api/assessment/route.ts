@@ -6,6 +6,7 @@ import {
   isBrevoTransactionalReady,
   sendBrevoTransactionalEmail,
 } from '@/lib/brevo';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
@@ -176,6 +177,38 @@ export async function POST(request: Request) {
         emailIds: emailResult.emailIds,
         userConfirmationSent: process.env.ENABLE_USER_CONFIRMATION_EMAIL === 'true',
       });
+
+      const { firstname, lastname } = splitFullName(assessmentData.parentName);
+      const messageBlock = [
+        `Student: ${assessmentData.studentName}`,
+        `Grade: ${assessmentData.grade}`,
+        `Assessment type: ${assessmentData.assessmentType}`,
+        `Mode: ${assessmentData.mode}`,
+        `Schedule: ${assessmentData.schedule}`,
+        assessmentData.hearAboutUs ? `Heard about us: ${assessmentData.hearAboutUs}` : '',
+        assessmentData.notes ? `Notes: ${assessmentData.notes}` : '',
+        assessmentData.subjects?.length
+          ? `Subjects: ${assessmentData.subjects.join(', ')}`
+          : '',
+        'Source: book-assessment-form',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      await syncHubSpotLeadIfConfigured(
+        [
+          { name: 'firstname', value: firstname },
+          { name: 'lastname', value: lastname },
+          { name: 'email', value: assessmentData.email },
+          { name: 'phone', value: assessmentData.phone },
+          { name: 'message', value: messageBlock },
+        ],
+        {
+          pageUri: request.headers.get('referer') ?? '',
+          pageName: 'Book assessment form',
+        },
+        'assessment',
+      );
 
       const payload: Record<string, unknown> = {
         success: true,

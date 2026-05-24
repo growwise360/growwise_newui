@@ -5,10 +5,7 @@ import { sendEmail, type SendEmailResult } from '@/lib/email';
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
-import {
-  isHubSpotFormsConfigured,
-  submitHubSpotForm,
-} from '@/lib/hubspot/submitForm';
+import { syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 
 const MAX_BODY_BYTES = 4 * 1024;
 
@@ -176,34 +173,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (isHubSpotFormsConfigured()) {
-      const messageBlock = [
-        'Growy chat email gate — conversation unlocked.',
-        pageContextId !== 'default' ? `Page context: ${pageContextId}` : '',
-        referer ? `Page: ${referer}` : '',
-        queuedMessage ? `Queued first message: ${queuedMessage}` : '',
-        'Source: chatbot-email-gate',
-      ]
-        .filter(Boolean)
-        .join('\n');
+    const messageBlock = [
+      'Growy chat email gate — conversation unlocked.',
+      pageContextId !== 'default' ? `Page context: ${pageContextId}` : '',
+      referer ? `Page: ${referer}` : '',
+      queuedMessage ? `Queued first message: ${queuedMessage}` : '',
+      'Source: chatbot-email-gate',
+    ]
+      .filter(Boolean)
+      .join('\n');
 
-      const hubResult = await submitHubSpotForm(
-        [
-          { name: 'firstname', value: 'Growy' },
-          { name: 'lastname', value: 'Chat lead' },
-          { name: 'email', value: email },
-          { name: 'message', value: messageBlock },
-        ],
-        {
-          pageUri: referer,
-          pageName: 'Growy chat email gate',
-        },
-      );
-
-      if (!hubResult.ok) {
-        console.error('[chat/email-lead] HubSpot sync failed:', hubResult.message);
-      }
-    }
+    await syncHubSpotLeadIfConfigured(
+      [
+        { name: 'firstname', value: 'Growy' },
+        { name: 'lastname', value: 'Chat lead' },
+        { name: 'email', value: email },
+        { name: 'message', value: messageBlock },
+      ],
+      {
+        pageUri: referer,
+        pageName: 'Growy chat email gate',
+      },
+      'chat/email-lead',
+    );
 
     console.log('[chat/email-lead] ok', {
       emailDomain: email.slice(email.indexOf('@') + 1),
