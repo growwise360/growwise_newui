@@ -130,7 +130,7 @@ export default function ContactForm({
   }
 
   return (
-    <Card className="relative bg-white/95 backdrop-blur-sm border-2 border-white/50">
+    <Card className="relative bg-white/95 backdrop-blur-sm border-2 border-white/50" data-clarity-mask="true">
       <CardContent className="p-4">
         <div className="text-center mb-3">
           <h3 className="text-sm font-semibold text-gray-900 mb-1">Get Personalized Information</h3>
