@@ -76,3 +76,34 @@ export function splitFullName(fullName: string): { firstname: string; lastname: 
   if (i === -1) return { firstname: t, lastname: '' };
   return { firstname: t.slice(0, i), lastname: t.slice(i + 1).trim() };
 }
+
+/**
+ * Sync a lead to HubSpot CRM when server env is configured.
+ * Failures are logged only — callers should still return success to the user if email delivery worked.
+ */
+export async function syncHubSpotLeadIfConfigured(
+  fields: HubSpotFieldRow[],
+  context: { pageUri?: string; pageName?: string },
+  logTag: string,
+): Promise<void> {
+  if (!isHubSpotFormsConfigured()) {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(
+        `[${logTag}] HubSpot CRM skipped — set HUBSPOT_PORTAL_ID and HUBSPOT_FORM_GUID on the server`,
+      );
+    }
+    return;
+  }
+
+  const hubResult = await submitHubSpotForm(fields, context);
+  if (!hubResult.ok) {
+    console.error(
+      `[${logTag}] HubSpot CRM sync failed:`,
+      hubResult.message,
+      hubResult.status ?? '',
+    );
+    return;
+  }
+
+  console.log(`[${logTag}] HubSpot CRM sync ok`);
+}
