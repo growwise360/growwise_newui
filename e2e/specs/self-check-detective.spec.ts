@@ -169,7 +169,7 @@ test.describe('Self-Check funnel', { tag: '@nightly' }, () => {
   });
 
   // ── 6. Happy path — magic link card appears after submit ──────────────────
-  test('successful submission shows magic link card', async ({ page }) => {
+  test('successful submission shows magic link card', { tag: '@critical' }, async ({ page }) => {
     await mockSelfCheckSuccess(page);
     await goto(page, localePath('/self-check'));
     await fillAndSubmitForm(page, 'Grade 3');

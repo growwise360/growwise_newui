@@ -8,7 +8,7 @@ import { defineConfig, devices } from '@playwright/test';
  * - Otherwise defaults to http://localhost:3000
  *
  * Test tiers (see `.cursor/rules.md` §17):
- * - @critical — enrollment, checkout, ad landing routes; run on every PR (`npm run test:e2e:smoke`)
+ * - @critical — enrollment, checkout, all lead forms, ad landing routes; run on every PR (`npm run test:e2e:smoke`)
  * - @nightly — bulk SEO/camps/mobile audit; run on morning schedule only (`npm run test:e2e:full`)
  *
  * Stripe:
