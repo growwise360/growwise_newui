@@ -1,6 +1,7 @@
 import { after, NextResponse } from 'next/server';
 import { createHmac, timingSafeEqual } from 'crypto';
 import { upsertMetaLeadContactInBrevo } from '@/lib/brevo';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 import {
   extractLeadgenWebhookEvents,
   fetchMetaLeadFromGraph,
@@ -50,6 +51,46 @@ async function processLeadgenEvents(
         });
       } else {
         console.log(`${LOG_PREFIX} Brevo sync ok`, { leadgenId: evt.leadgenId });
+
+        if (normalized.email) {
+          let firstname = normalized.firstName ?? '';
+          let lastname = normalized.lastName ?? '';
+          if (!firstname && !lastname && normalized.fullName) {
+            const split = splitFullName(normalized.fullName);
+            firstname = split.firstname;
+            lastname = split.lastname;
+          }
+
+          const rawFields = Object.entries(normalized.rawFieldData)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('\n');
+          const hubspotMessage = [
+            normalized.formId ? `Form ID: ${normalized.formId}` : '',
+            normalized.pageId ? `Page ID: ${normalized.pageId}` : '',
+            normalized.adId ? `Ad ID: ${normalized.adId}` : '',
+            normalized.submittedAt ? `Submitted: ${normalized.submittedAt}` : '',
+            rawFields,
+            'Source: meta-lead-ads',
+          ]
+            .filter(Boolean)
+            .join('\n');
+
+          const hubspotFields = [
+            { name: 'firstname', value: firstname },
+            { name: 'lastname', value: lastname },
+            { name: 'email', value: normalized.email },
+            { name: 'message', value: hubspotMessage },
+          ];
+          if (normalized.phone) {
+            hubspotFields.push({ name: 'phone', value: normalized.phone });
+          }
+
+          await syncHubSpotLeadIfConfigured(
+            hubspotFields,
+            { pageUri: '', pageName: 'Meta Lead Ads' },
+            'meta-leads',
+          );
+        }
       }
     } catch (err) {
       console.error(`${LOG_PREFIX} leadgen pipeline error`, {

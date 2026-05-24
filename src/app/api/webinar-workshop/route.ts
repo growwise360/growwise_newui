@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CONTACT_INFO } from '@/lib/constants';
 import { sendEmail } from '@/lib/email';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 
 export interface WebinarWorkshopFormData {
   parentName: string;
@@ -173,6 +174,35 @@ export async function POST(request: Request) {
     if (!businessResult.success) {
       console.warn('Workshop registration: business notification email skipped.', businessResult.error);
     }
+
+    const { firstname, lastname } = splitFullName(payload.parentName);
+    const hubspotMessage = [
+      `Student: ${payload.studentName} (Grade ${payload.grade})`,
+      `School district: ${payload.schoolDistrict}`,
+      `How they heard: ${payload.howDidYouHear}`,
+      `Event type: ${payload.eventType}`,
+      payload.eventTitle ? `Event: ${payload.eventTitle}` : '',
+      payload.eventDate ? `Date: ${payload.eventDate}` : '',
+      payload.eventTime ? `Time: ${payload.eventTime}` : '',
+      'Source: webinar-workshop',
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    await syncHubSpotLeadIfConfigured(
+      [
+        { name: 'firstname', value: firstname },
+        { name: 'lastname', value: lastname },
+        { name: 'email', value: payload.email },
+        ...(payload.phone ? [{ name: 'phone', value: payload.phone }] : []),
+        { name: 'message', value: hubspotMessage },
+      ],
+      {
+        pageUri: request.headers.get('referer') ?? '',
+        pageName: 'Webinar/workshop registration',
+      },
+      'webinar-workshop',
+    );
 
     return NextResponse.json({
       success: true,

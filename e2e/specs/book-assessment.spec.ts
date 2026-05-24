@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { localePath } from '../localePath';
+import { stubRecaptcha } from '../helpers';
 
 /** Click a Radix SelectTrigger reliably — scroll it into view first to avoid sticky-header interception. */
 async function clickTrigger(page: Page, testId: string) {
@@ -21,8 +22,10 @@ async function selectOption(
   await expect(page.getByTestId(triggerTestId)).toContainText(expectedTriggerText, { timeout: 8000 });
 }
 
-test.describe('Book assessment form', { tag: '@nightly' }, () => {
+test.describe('Book assessment form', { tag: '@critical' }, () => {
   test('submits free assessment booking with mocked backend', async ({ page }) => {
+    await stubRecaptcha(page);
+
     await page.route('**/api/assessment', async (route) => {
       if (route.request().method() === 'POST') {
         await route.fulfill({
