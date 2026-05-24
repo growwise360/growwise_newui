@@ -9,7 +9,7 @@ async function openSummerCampGuideModal(page: Page): Promise<void> {
 }
 
 test.describe('Summer camp lottery form (UI)', { tag: '@nightly' }, () => {
-  test('submits lottery form and navigates to thank-you page with mocked API', async ({ page }) => {
+  test('submits lottery form and navigates to thank-you page with mocked API', { tag: '@critical' }, async ({ page }) => {
     // The guide modal form posts to /api/summer-camp-summercamp (not /api/summer-camp-lottery).
     await page.route('**/api/summer-camp-summercamp', async (route) => {
       if (route.request().method() !== 'POST') {

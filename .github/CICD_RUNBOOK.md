@@ -18,7 +18,7 @@ You open a PR  dev → main
         ▼
 GitHub Actions runs tests automatically (pr-gate.yml)
   ├── Jest unit tests
-  └── Playwright smoke E2E (@critical — checkout, enrollment, ad routes)
+  └── Playwright smoke E2E (@critical — checkout, enrollment, all lead forms, ad routes)
         │
    pass? ──► merge is allowed
    fail? ──► merge is BLOCKED until fixed
