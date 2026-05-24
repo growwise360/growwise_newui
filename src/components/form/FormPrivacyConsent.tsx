@@ -52,7 +52,7 @@ export default function FormPrivacyConsent({
 
   if (alignPrivacyWithConsent) {
     return (
-      <div className={cn('space-y-3', className)}>
+      <div className={cn('space-y-3', className)} data-clarity-mask="true">
         <div className={blockClass}>
           <div className="flex items-start gap-2.5">
             <div className={colIcon}>
@@ -112,7 +112,7 @@ export default function FormPrivacyConsent({
   }
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn('space-y-4', className)} data-clarity-mask="true">
       {/* Privacy & Data Protection */}
       <div className={blockClass}>
         <div className="flex items-start gap-3 sm:gap-4">
