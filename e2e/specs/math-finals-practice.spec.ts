@@ -1,15 +1,5 @@
 import { test, expect } from '@playwright/test';
-import type { Page } from '@playwright/test';
 import { localePath } from '../localePath';
-import { fillStable } from '../helpers';
-
-async function selectRadixOption(page: Page, triggerId: string, optionName: RegExp | string) {
-  const trigger = page.locator(`#${triggerId}`);
-  await expect(trigger).toBeVisible({ timeout: 15_000 });
-  await trigger.scrollIntoViewIfNeeded();
-  await trigger.click({ force: true });
-  await page.getByRole('option', { name: optionName }).click();
-}
 
 test.describe('Math finals practice form', { tag: '@critical' }, () => {
   test('submits math finals request with mocked backend', async ({ page }) => {
@@ -25,22 +15,25 @@ test.describe('Math finals practice form', { tag: '@critical' }, () => {
       });
     });
 
-    await page.goto(localePath('/math-finals-practice-session'), {
+    const res = await page.goto(`${localePath('/math-finals-practice-session')}#signup`, {
       waitUntil: 'domcontentloaded',
     });
+    expect(res?.status(), 'math-finals page status').not.toBe(404);
 
-    const parentName = page.locator('#parentName');
+    const parentName = page.getByRole('textbox', { name: /^Parent name/i });
     await expect(parentName).toBeVisible({ timeout: 20_000 });
-    await parentName.scrollIntoViewIfNeeded();
 
-    await fillStable(page, /Parent name/i, 'E2E Parent');
-    await fillStable(page, /Parent email/i, 'math-finals.e2e@example.com');
-    await fillStable(page, /Student name/i, 'E2E Student');
-    await fillStable(page, /Parent phone/i, '5551234567');
-    await page.locator('#school').fill('Dublin High');
+    await parentName.fill('E2E Parent');
+    await page.getByRole('textbox', { name: /^Parent email/i }).fill('math-finals.e2e@example.com');
+    await page.getByRole('textbox', { name: /^Student name/i }).fill('E2E Student');
+    await page.getByRole('textbox', { name: /^Parent phone/i }).fill('5551234567');
+    await page.getByRole('textbox', { name: /^School/i }).fill('Dublin High');
 
-    await selectRadixOption(page, 'grade-select', /^Grade 10$/i);
-    await selectRadixOption(page, 'subject-select', /Algebra 1/i);
+    await page.getByRole('combobox', { name: /^Grade/i }).click({ force: true });
+    await page.getByRole('option', { name: /^Grade 10$/i }).click();
+
+    await page.getByRole('combobox', { name: /Current math course/i }).click({ force: true });
+    await page.getByRole('option', { name: /Algebra 1/i }).click();
 
     await page.getByRole('button', { name: /^Submit$/i }).click();
 
