@@ -38,6 +38,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/about',
   },
 
+
+  '/dublin-ca': {
+    title: 'K-12 Tutoring & Coding Classes in Dublin, CA | GrowWise',
+    description:
+      'In-person math, English, coding, SAT prep, and summer camps at 4564 Dublin Blvd. Serving Tri-Valley families. Book a free assessment.',
+    keywords:
+      'tutoring Dublin CA, coding classes Dublin, SAT prep Dublin, Tri-Valley tutoring, K-12 tutoring Pleasanton, San Ramon tutoring, GrowWise Dublin',
+    path: '/dublin-ca',
+  },
+
   '/contact': {
     title: 'Contact GrowWise | Dublin CA | Talk to Us',
     description:
@@ -344,6 +354,75 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'math tutoring tips, English tutoring advice, coding for kids, STEAM education, Grades 1-12 education blog, Dublin CA education, parenting tips, learning resources',
     path: '/growwise-blogs',
+  },
+
+  '/resources': {
+    title: 'Parent Guides & Resources | K-12 Learning Tips | GrowWise',
+    description:
+      'Free guides for parents on math mistakes, homework independence, SAT prep, coding for kids, and more. Research-backed advice from GrowWise educators.',
+    keywords:
+      'parent guides, K-12 learning tips, math mistakes, homework independence, SAT prep timing, coding for kids, vibe coding, Python vs Scratch, tutoring Dublin CA, GrowWise resources',
+    path: '/resources',
+  },
+
+  '/resources/tutoring-dublin-ca': {
+    title: 'K-12 Tutoring in Dublin, CA: How to Choose the Right Program (2026) | GrowWise',
+    description:
+      'Looking for tutoring in Dublin, CA for your Grade 1–12 student? This guide helps Tri-Valley parents choose between program types — and the questions to ask before enrolling.',
+    keywords:
+      'tutoring Dublin CA, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
+    path: '/resources/tutoring-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/python-vs-scratch': {
+    title: 'Python vs Scratch for Kids: Which Should Your Child Learn First? | GrowWise',
+    description:
+      "Scratch or Python? The honest, age-by-age answer for parents — including when to switch, what Scratch can't do, and why most kids need both in the right order.",
+    keywords:
+      'Python vs Scratch for kids, should kids learn Scratch or Python first, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14',
+    path: '/resources/python-vs-scratch',
+    type: 'article',
+  },
+
+  '/resources/careless-math-mistakes': {
+    title: 'Why Kids Make Careless Math Mistakes on Tests | GrowWise',
+    description:
+      "Your child knows the material but still loses points. Careless math mistakes follow specific patterns — and each pattern has a fix. Here's how to find the real blocker.",
+    keywords:
+      'careless mistakes in math, why kids lose points on math tests, child makes careless math mistakes, how to stop careless mistakes in math, child understands math but gets wrong answers, math mistake patterns, procedural errors in math',
+    path: '/resources/careless-math-mistakes',
+    type: 'article',
+  },
+
+  '/resources/what-is-vibe-coding': {
+    title: "What Is Vibe Coding? A Parent's Guide (2026) | GrowWise",
+    description:
+      "Vibe coding is the fastest-growing way kids learn to build real apps in 2026. Here's what it actually is, why it matters, and the one risk most parents miss.",
+    keywords:
+      'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
+    path: '/resources/what-is-vibe-coding',
+    type: 'article',
+  },
+
+  '/resources/homework-independence': {
+    title: 'How to Stop Sitting Next to Your Child Every Homework Night | GrowWise',
+    description:
+      "If you have to sit with your child every night for homework to get done, that's a system problem — not a character flaw. Here's how to build real homework independence in 6–8 weeks.",
+    keywords:
+      'how to get child to do homework independently, child won\'t do homework without me, homework independence kids, stop sitting with child for homework, homework battles every night, building homework routine kids, child procrastinates homework',
+    path: '/resources/homework-independence',
+    type: 'article',
+  },
+
+  '/resources/when-to-start-sat-prep': {
+    title: 'When Should My Child Start SAT Prep? Grade-by-Grade Guide | GrowWise',
+    description:
+      "Grade 8, 9, or 10? Most parents ask too late. Here's the honest, grade-by-grade answer — including the one thing most SAT prep programs don't check first.",
+    keywords:
+      'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
+    path: '/resources/when-to-start-sat-prep',
+    type: 'article',
   },
 
   '/workshop-calendar': {

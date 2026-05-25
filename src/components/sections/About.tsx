@@ -348,7 +348,15 @@ export default function About() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#1F396D]">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-3xl font-bold mb-6">{t('location.title')}</h2>
-          <p className="text-xl mb-8 text-white/90">{t('location.subtitle')}</p>
+          <p className="text-xl mb-4 text-white/90">{t('location.subtitle')}</p>
+          <p className="mb-8">
+            <Link
+              href={publicPath('/dublin-ca', locale)}
+              className="text-base font-semibold text-[#F1894F] underline-offset-4 hover:text-[#ffb380] hover:underline sm:text-lg"
+            >
+              Explore K-12 tutoring &amp; coding classes at our Dublin center →
+            </Link>
+          </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="flex items-center justify-center gap-3">
@@ -400,7 +408,7 @@ export default function About() {
             },
             {
               question: "Where is GrowWise located and which areas do you serve?",
-              answer: "GrowWise is located at 4564 Dublin Blvd, Dublin, CA 94568. We serve families from Dublin, Pleasanton, San Ramon, Danville, and Livermore across the Tri-Valley area. In-person, online, and hybrid formats are available.",
+              answer: "GrowWise is located at 4564 Dublin Blvd, Dublin, CA 94568. We serve families from Dublin, Pleasanton, San Ramon, Danville, and Livermore across the Tri-Valley area. In-person, online, and hybrid formats are available. See our Dublin center page at growwiseschool.org/dublin-ca for in-person programs, hours, and directions.",
             },
           ];
           return (

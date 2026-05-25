@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
@@ -582,6 +583,14 @@ export default function Contact() {
             </h2>
             <p className="text-lg text-gray-600">
               Located in the heart of {CONTACT_INFO.city}, our facility provides an optimal learning environment
+            </p>
+            <p className="mt-3 text-base">
+              <Link
+                href={publicPath('/dublin-ca', locale)}
+                className="font-semibold text-[#1F396D] underline-offset-4 hover:text-[#152a52] hover:underline"
+              >
+                View in-person K-12 tutoring &amp; coding programs at our Dublin, CA center →
+              </Link>
             </p>
           </div>
 

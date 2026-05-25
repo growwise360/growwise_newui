@@ -2,11 +2,13 @@ export interface FooterLink {
   label: string;
   href: string;
   active?: boolean;
+  highlight?: boolean;
 }
 
 export interface FooterSection {
   title: string;
-  links: FooterLink[];
+  links?: FooterLink[];
+  variant?: 'links' | 'contact';
 }
 
 export interface ContactInfo {
