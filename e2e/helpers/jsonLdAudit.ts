@@ -21,3 +21,32 @@ export async function countFaqPageOnPage(page: Page): Promise<number> {
     }
   }, 0)
 }
+
+/** Parse all JSON-LD script blocks (site-wide + page @graph). */
+export async function parseAllJsonLdOnPage(page: Page): Promise<unknown[]> {
+  const contents = await page.locator('script[type="application/ld+json"]').allTextContents()
+  return contents
+    .map((raw) => {
+      try {
+        return JSON.parse(raw.trim())
+      } catch {
+        return null
+      }
+    })
+    .filter((p): p is unknown => p !== null)
+}
+
+/** Find first node of schemaType in any @graph block on the page. */
+export async function findGraphNode<T extends Record<string, unknown>>(
+  page: Page,
+  schemaType: string,
+): Promise<T | undefined> {
+  for (const payload of await parseAllJsonLdOnPage(page)) {
+    if (!payload || typeof payload !== 'object') continue
+    const graph = (payload as Record<string, unknown>)['@graph']
+    if (!Array.isArray(graph)) continue
+    const node = graph.find((n) => n && typeof n === 'object' && (n as Record<string, unknown>)['@type'] === schemaType)
+    if (node) return node as T
+  }
+  return undefined
+}

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { findGraphNode } from '../helpers/jsonLdAudit'
 import { localePath } from '../localePath'
 
 test.describe('/dublin-ca location hub', () => {
@@ -31,11 +32,10 @@ test.describe('/dublin-ca location hub', () => {
 
   test('includes LocalBusiness JSON-LD graph', async ({ page }) => {
     await page.goto(localePath('/dublin-ca'))
-    const jsonLd = await page.locator('script[type="application/ld+json"]').first().textContent()
-    expect(jsonLd).toBeTruthy()
-    const parsed = JSON.parse(jsonLd!)
-    expect(parsed['@graph']).toBeDefined()
-    const localBusiness = parsed['@graph'].find((n: { '@type': string }) => n['@type'] === 'LocalBusiness')
+    const localBusiness = await findGraphNode<{
+      name: string
+      openingHours: string[]
+    }>(page, 'LocalBusiness')
     expect(localBusiness?.name).toBe('GrowWise School — Dublin, CA')
     expect(localBusiness?.openingHours).toEqual(['Mo-Fr 09:00-19:00', 'Sa 10:00-16:00'])
   })
