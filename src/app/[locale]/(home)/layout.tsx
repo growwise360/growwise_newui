@@ -3,8 +3,6 @@ import type { ReactNode } from 'react';
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 import { getValidLocale } from '@/i18n/localeConfig';
-import { generateFAQPageSchema } from '@/lib/seo/structuredData';
-import { HOME_VISIBLE_FAQS } from '@/lib/home/homeFaqCopy';
 import HomeGraphSchema from '@/components/seo/HomeGraphSchema';
 
 export async function generateMetadata({
@@ -45,8 +43,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
     },
   };
 
-  const faqSchema = generateFAQPageSchema(HOME_VISIBLE_FAQS);
-
   return (
     <>
       <link
@@ -56,10 +52,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <HomeGraphSchema />
       {children}

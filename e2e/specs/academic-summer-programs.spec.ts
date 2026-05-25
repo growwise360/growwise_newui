@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 import { localePath } from '../localePath';
 
 test.describe('Academic summer programs hub', { tag: '@nightly' }, () => {
@@ -67,4 +67,47 @@ test.describe('Academic summer programs hub', { tag: '@nightly' }, () => {
       expect(hasOverflow).toBe(false);
     });
   }
+});
+
+const ACADEMIC_CAMP_LANDING_PATHS = [
+  '/camps/summer-reading-writing-dublin-ca',
+  '/camps/summer-math-foundations-dublin-ca',
+] as const;
+
+async function expectCanonicalWwwNoEn(page: Page, path: string) {
+  const canonical = page.locator('link[rel="canonical"]');
+  await expect(canonical).toHaveAttribute('href', new RegExp(`https://www\\.growwiseschool\\.org${path.replace(/\//g, '\\/')}$`));
+  const href = await canonical.getAttribute('href');
+  expect(href).not.toMatch(/\/en\//);
+  const ogUrl = page.locator('meta[property="og:url"]');
+  if ((await ogUrl.count()) > 0) {
+    await expect(ogUrl).toHaveAttribute('content', new RegExp(`https://www\\.growwiseschool\\.org${path.replace(/\//g, '\\/')}$`));
+    const og = await ogUrl.getAttribute('content');
+    expect(og).not.toMatch(/\/en\//);
+  }
+}
+
+test.describe('Academic summer SEO landings — canonical & indexability', { tag: '@nightly' }, () => {
+  for (const path of ACADEMIC_CAMP_LANDING_PATHS) {
+    test(`${path} returns 200 with www canonical (no /en)`, async ({ page }) => {
+      const response = await page.goto(localePath(path));
+      expect(response?.status()).toBe(200);
+      await expect(page.locator('main h1')).toHaveCount(1);
+      await expectCanonicalWwwNoEn(page, path);
+    });
+  }
+
+  test('hub links to reading-writing and math-foundations landings', async ({ page }) => {
+    await page.goto(localePath('/camps/academic-summer-programs-dublin-ca'));
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Read to Prove program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-reading-writing-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'Bridge the Gap Math program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-math-foundations-dublin-ca/);
+  });
 });
