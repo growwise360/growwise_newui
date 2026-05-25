@@ -297,7 +297,7 @@ export default function Chatbot() {
       input.includes('enrolled')
     ) {
       return {
-        text: `${CHATBOT_BRAND_NAME} is trusted by Tri-Valley families:\n\n👥 **325+ students** learning with us\n📚 **25+ course paths** across tutoring, STEM, and camps\n👍 **98% parent satisfaction** in recent surveys\n\nWe pair structured tutoring with modern STEM, AI, and robotics experiences.`,
+        text: `${CHATBOT_BRAND_NAME} is trusted by Tri-Valley families:\n\n👥 **387+ students** learning with us\n📚 **25+ course paths** across tutoring, STEM, and camps\n👍 **98% parent satisfaction** in recent surveys\n\nWe pair structured tutoring with modern STEM, AI, and robotics experiences.`,
       };
     }
 

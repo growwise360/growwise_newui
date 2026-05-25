@@ -41,7 +41,7 @@
   },
   "cohorts": {
     "academicSummerSprint": {
-      "cohort1": "June 15–26",
+      "cohort1": "June 8–19",
       "cohort2": "June 30–July 11"
     },
     "getReadySprint": {
@@ -49,9 +49,9 @@
     }
   },
   "cohortDateLabels": {
-    "cohort1": "June 15–26, 2026",
+    "cohort1": "June 8–19, 2026",
     "cohort2": "June 30–July 11, 2026",
-    "bothCohorts": "June 15 – July 11, 2026"
+    "bothCohorts": "June 8 – July 11, 2026"
   },
   "sessionTimeLabel": "90 min / session · Mon–Fri",
   "getReadySprintFormat": {
@@ -159,7 +159,7 @@
   "socialProof": {
     "googleRating": 4.9,
     "googleReviewCount": 40,
-    "studentsEnrolled": 325,
+    "studentsEnrolled": 387,
     "maxStudentsPerClass": 8
   }
 }

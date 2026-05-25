@@ -6,6 +6,13 @@ import React from 'react';
 import { render, screen, within } from '@/test-utils';
 import { ProgramsSection } from '../ProgramsSection';
 import { PopularCoursesSection } from '../PopularCoursesSection';
+import { HomeAcademicSection } from '../HomeAcademicSection';
+import { HomeSteamSection } from '../HomeSteamSection';
+import { HomeHero } from '../HomeHero';
+import { HomeCampsStrip } from '../HomeCampsStrip';
+import { HomeDiagnosticSection } from '../HomeDiagnosticSection';
+import { HomeAssessmentOfferSection } from '../HomeAssessmentOfferSection';
+import { HomeFinalAssessmentCta } from '../HomeFinalAssessmentCta';
 import { getIconComponent } from '@/lib/iconMap';
 import { publicPath } from '@/lib/publicPath';
 import type { ProgramVM } from '../ProgramsSection';
@@ -15,6 +22,10 @@ import homeEn from '../../../../../public/api/mock/en/home.json';
 
 jest.mock('next-intl', () => ({
   useLocale: () => 'en',
+}));
+
+jest.mock('@/lib/analytics/hooks', () => ({
+  useButtonTracking: () => ({ trackCTAClick: jest.fn() }),
 }));
 
 function toProgramVMs(
@@ -93,6 +104,131 @@ describe('ProgramsSection redirect links (Grades 1-12 + STEAM)', () => {
     ctaLinks.forEach((link) => {
       expect(link).toHaveAttribute('href', expectedWorkshop);
     });
+  });
+});
+
+describe('HomeAcademicSection redirect links (OASC pillars)', () => {
+  const locale = 'en';
+  const cards = [
+    { title: 'Careless Mistakes', href: '/self-check' },
+    { title: "Homework Won't Get Done", href: '/academic' },
+    { title: 'Falling Behind in Math', href: '/courses/sat-prep' },
+    { title: 'Not Keeping Up in Class', href: '/courses/math' },
+  ] as const;
+
+  it('each pillar card links to the expected route', () => {
+    render(<HomeAcademicSection />);
+    cards.forEach(({ href }) => {
+      const matchingLink = screen
+        .getAllByRole('link')
+        .find((link) => link.getAttribute('href') === publicPath(href, locale));
+      expect(matchingLink).toBeTruthy();
+    });
+  });
+
+  it('assessment CTA links to book-assessment', () => {
+    render(<HomeAcademicSection />);
+    const cta = screen.getByRole('link', { name: /Book a Free Assessment/i });
+    expect(cta).toHaveAttribute('href', publicPath('/book-assessment', locale));
+  });
+});
+
+describe('HomeSteamSection redirect links (OASC STEAM)', () => {
+  const locale = 'en';
+  const cards = [
+    { title: 'Python & AI', href: '/steam/ml-ai-coding' },
+    { title: 'Game Development', href: '/steam/game-development' },
+    { title: 'Robotics & Engineering', href: '/steam/game-development?type=Robotics' },
+  ] as const;
+
+  it('each STEAM card links to the expected route', () => {
+    render(<HomeSteamSection />);
+    cards.forEach(({ title, href }) => {
+      const cardRoot = screen.getByRole('heading', { name: title }).closest('a');
+      expect(cardRoot).toHaveAttribute('href', publicPath(href, locale));
+    });
+  });
+
+  it('trial CTA links to workshop calendar', () => {
+    render(<HomeSteamSection />);
+    const cta = screen.getByRole('link', { name: /Book a Free Trial Class/i });
+    expect(cta).toHaveAttribute('href', publicPath('/workshop-calendar', locale));
+  });
+});
+
+describe('HomeHero redirect links (OASC carousel)', () => {
+  const locale = 'en';
+
+  it('assessment and self-check CTAs use the correct routes', () => {
+    render(<HomeHero />);
+    expect(
+      screen.getByRole('link', { name: /Book a Free Assessment/i }),
+    ).toHaveAttribute('href', publicPath('/book-assessment', locale));
+    expect(
+      screen.getByRole('link', { name: /Get My Child's Free Diagnostic Report/i }),
+    ).toHaveAttribute('href', publicPath('/self-check', locale));
+  });
+
+  it('STEAM CTAs use workshop calendar and STEAM hub', () => {
+    render(<HomeHero />);
+    expect(
+      screen.getByRole('link', { name: /Book a Free Trial Class/i }),
+    ).toHaveAttribute('href', publicPath('/workshop-calendar', locale));
+    expect(
+      screen.getByRole('link', { name: /View Coding Programs/i }),
+    ).toHaveAttribute('href', publicPath('/steam', locale));
+  });
+});
+
+describe('HomeCampsStrip redirect links', () => {
+  const locale = 'en';
+
+  it('camp CTAs point at academic programs hub and summer STEAM camps', () => {
+    render(<HomeCampsStrip />);
+    expect(screen.getByRole('link', { name: /Academic Sprint/i })).toHaveAttribute(
+      'href',
+      publicPath('/camps/academic-summer-programs-dublin-ca', locale),
+    );
+    expect(screen.getByRole('link', { name: /STEAM Coding/i })).toHaveAttribute(
+      'href',
+      publicPath('/camps/summer', locale),
+    );
+  });
+});
+
+describe('HomeDiagnosticSection redirect links', () => {
+  const locale = 'en';
+
+  it('primary self-check and secondary assessment links are correct', () => {
+    render(<HomeDiagnosticSection />);
+    expect(
+      screen.getByRole('link', { name: /Get My Child's Free Diagnostic Report/i }),
+    ).toHaveAttribute('href', publicPath('/self-check', locale));
+    expect(
+      screen.getByRole('link', { name: /Book a Free Assessment instead/i }),
+    ).toHaveAttribute('href', publicPath('/book-assessment', locale));
+  });
+});
+
+describe('HomeAssessmentOfferSection redirect links', () => {
+  const locale = 'en';
+
+  it('assessment CTA links to book-assessment', () => {
+    render(<HomeAssessmentOfferSection />);
+    expect(
+      screen.getByRole('link', { name: /Book a Free Assessment/i }),
+    ).toHaveAttribute('href', publicPath('/book-assessment', locale));
+  });
+});
+
+describe('HomeFinalAssessmentCta redirect links', () => {
+  const locale = 'en';
+
+  it('final assessment CTA links to book-assessment', () => {
+    render(<HomeFinalAssessmentCta />);
+    expect(
+      screen.getByRole('link', { name: /Book a Free Assessment/i }),
+    ).toHaveAttribute('href', publicPath('/book-assessment', locale));
   });
 });
 

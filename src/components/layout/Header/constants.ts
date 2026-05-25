@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { VariantStyles, type MenuItem } from './types';
 import { CONTACT_INFO } from '@/lib/constants';
+import { CHATBOT_PUBLIC_CONTACT_EMAIL } from '@/lib/chatbotScope';
 
 // Icon mapping for dynamic icon rendering
 export const ICON_MAP = {
@@ -47,7 +48,7 @@ export const VARIANT_STYLES: Record<string, VariantStyles> = {
 export const DEFAULT_HEADER_DATA = {
   topBar: {
     phone: CONTACT_INFO.phone,
-    email: CONTACT_INFO.email,
+    email: CHATBOT_PUBLIC_CONTACT_EMAIL,
     address: CONTACT_INFO.formattedAddress,
     followLabel: 'Follow us:',
     social: {

@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { useCart } from '@/components/gw/CartContext';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { CONTACT_INFO } from '@/lib/constants';
+import { CHATBOT_PUBLIC_CONTACT_EMAIL } from '@/lib/chatbotScope';
 import { publicPath } from '@/lib/publicPath';
 
 // Icon mapping for dynamic icon rendering
@@ -91,7 +92,7 @@ export default function Header() {
   }, [dispatch, header]);
 
   const topPhone = header?.topBar.phone ?? CONTACT_INFO.phone;
-  const topEmail = header?.topBar.email ?? CONTACT_INFO.email;
+  const topEmail = header?.topBar.email ?? CHATBOT_PUBLIC_CONTACT_EMAIL;
   const topAddress = header?.topBar.address ?? CONTACT_INFO.formattedAddress;
   const followLabel = header?.topBar.followLabel ?? 'Follow us:';
   const social = header?.topBar.social ?? { facebook: 'https://www.facebook.com/people/GrowWise/61561059687164/', twitter: '#', instagram: 'https://www.instagram.com/growwise.dublin/', linkedin: 'https://www.linkedin.com/company/thegrowwise/' };

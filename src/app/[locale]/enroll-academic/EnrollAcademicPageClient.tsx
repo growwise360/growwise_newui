@@ -178,12 +178,12 @@ export default function EnrollAcademicPageClient() {
               Start Your Academic Journey Today
             </Badge>
             <p className="text-white/90 max-w-3xl mx-auto text-lg">
-              Join 325+ students. Register today for our comprehensive academic programs and unlock your child's full potential.
+              Join 387+ students. Register today for our comprehensive academic programs and unlock your child's full potential.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center justify-items-center">
             {[
-              { number: "325+", label: "Students Enrolled" },
+              { number: "387+", label: "Students Enrolled" },
               { number: "98%", label: "Parent Satisfaction" },
               { number: "4.9/5", label: "Average Rating" },
             ].map((s, i) => (

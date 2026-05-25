@@ -90,7 +90,7 @@ const KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
   {
     category: 'statistics',
     key: 'students',
-    value: '325+ students enrolled',
+    value: '387+ students enrolled',
   },
   {
     category: 'statistics',

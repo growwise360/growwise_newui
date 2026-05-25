@@ -16,7 +16,7 @@ export interface SendEmailOptions {
   subject: string;
   html: string;
   text: string;
-  /** Optional Reply-To header (e.g. connect@thegrowwise.com). */
+  /** Optional Reply-To header (e.g. contact@growwiseschool.org). */
   replyTo?: string;
   /** Optional files (e.g. camp brochure PDF). */
   attachments?: EmailAttachment[];
