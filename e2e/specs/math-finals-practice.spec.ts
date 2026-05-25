@@ -35,6 +35,7 @@ test.describe('Math finals practice form', { tag: '@critical' }, () => {
     await page.getByRole('combobox', { name: /Current math course/i }).click({ force: true });
     await page.getByRole('option', { name: /Algebra 1/i }).click();
 
+    await page.getByRole('checkbox', { name: /I agree to the Terms/i }).check();
     await page.getByRole('button', { name: /^Submit$/i }).click();
 
     const thankYouPath = localePath('/math-finals-practice-session/thank-you').replace(

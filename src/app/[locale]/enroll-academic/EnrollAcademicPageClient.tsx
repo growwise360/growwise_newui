@@ -217,7 +217,7 @@ export default function EnrollAcademicPageClient() {
               { icon: Target, text: "Goal-oriented curriculum" },
               { icon: Users, text: "Small group & 1:1 options" },
               { icon: Shield, text: "Secure and trusted" },
-              { icon: Award, text: "Accredited programs" },
+              { icon: Award, text: "Curriculum-aligned programs" },
               { icon: Star, text: "Top-rated instructors" },
             ].map((b, i) => (
               <Card key={i} className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-100">
@@ -370,7 +370,7 @@ export default function EnrollAcademicPageClient() {
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: Shield, text: "SSL Encrypted & Secure" },
-              { icon: Award, text: "Accredited Programs" },
+              { icon: Award, text: "Curriculum-aligned Programs" },
               { icon: Clock, text: "24-Hour Response Time" },
             ].map((t, i) => (
               <div key={i} className="text-center">

@@ -29,6 +29,7 @@ export interface FooterData {
   contact: ContactInfo;
   sections: FooterSection[];
   curriculumAlignment?: string;
+  legalDisclaimer?: string;
   copyright: string;
 }
 
