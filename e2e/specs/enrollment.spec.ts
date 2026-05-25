@@ -36,7 +36,7 @@ test.describe('Enrollment form', { tag: '@critical' }, () => {
     await page.locator('#level').click();
     await page.getByRole('option', { name: /Elementary/i }).click();
 
-    await page.getByRole('checkbox', { name: /I agree to receive/i }).check();
+    await page.getByRole('checkbox', { name: /I agree to the Terms/i }).check();
 
     const submit = page.getByRole('button', { name: /Register for Assessment/i });
     await expect(submit).toBeEnabled({ timeout: 10_000 });

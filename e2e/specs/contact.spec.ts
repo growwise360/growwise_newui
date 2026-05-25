@@ -32,7 +32,7 @@ test.describe('Contact form', { tag: '@critical' }, () => {
     await fillStable(/^Subject \*/i, 'Free Assessment Request');
     await fillStable(/^Message \*/i, 'I would like more information about programs.');
 
-    await page.getByRole('checkbox', { name: /I agree to receive/i }).check();
+    await page.getByRole('checkbox', { name: /I agree to the Terms/i }).check();
     await page.getByRole('button', { name: /Send Message/i }).click();
 
     // Form redirects to thank-you page on success
