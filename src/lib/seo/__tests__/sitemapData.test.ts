@@ -1,8 +1,12 @@
-import { buildPagesUrls } from '@/lib/seo/sitemapData';
+import { RESOURCE_ARTICLE_PATHS } from '@/data/resources';
+import { buildBlogUrls, buildPagesUrls } from '@/lib/seo/sitemapData';
+
+const BASE = 'https://www.growwiseschool.org';
+const LASTMOD = '2026-05-20';
 
 describe('sitemapData', () => {
   it('includes academic summer programs hub in camp pages', () => {
-    const urls = buildPagesUrls('https://www.growwiseschool.org', '2026-05-20');
+    const urls = buildPagesUrls(BASE, LASTMOD);
     const locs = urls.map((u) => u.loc);
     expect(locs).toContain(
       'https://www.growwiseschool.org/camps/academic-summer-programs-dublin-ca',
@@ -20,9 +24,19 @@ describe('sitemapData', () => {
     );
   });
 
-  it('includes resource article pages', () => {
-    const urls = buildPagesUrls('https://www.growwiseschool.org', '2026-05-20');
-    const locs = urls.map((u) => u.loc);
-    expect(locs).toContain('https://www.growwiseschool.org/resources/python-vs-scratch');
+  it('includes resources hub in pages sitemap but not individual articles', () => {
+    const pageLocs = buildPagesUrls(BASE, LASTMOD).map((u) => u.loc);
+    expect(pageLocs).toContain(`${BASE}/resources`);
+    RESOURCE_ARTICLE_PATHS.forEach((path) => {
+      expect(pageLocs).not.toContain(`${BASE}${path}`);
+    });
+  });
+
+  it('includes all resource articles in blogs sitemap', () => {
+    const blogLocs = buildBlogUrls(BASE, LASTMOD).map((u) => u.loc);
+    RESOURCE_ARTICLE_PATHS.forEach((path) => {
+      expect(blogLocs).toContain(`${BASE}${path}`);
+    });
+    expect(blogLocs).toContain(`${BASE}/resources/python-vs-scratch`);
   });
 });
