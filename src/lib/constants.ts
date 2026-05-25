@@ -5,10 +5,10 @@
 // Contact Information
 export const CONTACT_INFO = {
   phone: '(925) 456-4606',
-  email: 'connect@thegrowwise.com',
-  businessEmail: 'connect@thegrowwise.com',
-  enrollmentEmail: 'connect@thegrowwise.com',
-  replyToEmails: ['connect@thegrowwise.com', 'thegrowwise@gmail.com'],
+  email: 'contact@growwiseschool.org',
+  businessEmail: 'contact@growwiseschool.org',
+  enrollmentEmail: 'contact@growwiseschool.org',
+  replyToEmails: ['contact@growwiseschool.org', 'thegrowwise@gmail.com'],
   address: '4564 Dublin Blvd, Dublin, CA 94568',
   formattedAddress: '📍 4564 Dublin Blvd, Dublin, CA',
   city: 'Dublin, CA',

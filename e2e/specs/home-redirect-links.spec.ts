@@ -5,11 +5,18 @@ import { test, expect } from '@playwright/test';
  * Smoke: each path returns a non-404 response when loaded directly.
  */
 const MARKETING_ROUTES = [
+  '/book-assessment',
   '/courses/math',
   '/courses/english',
   '/courses/sat-prep',
+  '/self-check',
+  '/academic',
+  '/steam',
   '/steam/ml-ai-coding',
+  '/steam/game-development',
   '/workshop-calendar',
+  '/camps/academic-summer-programs-dublin-ca',
+  '/camps/summer',
 ] as const;
 
 test.describe('Marketing route targets (home CTAs)', { tag: '@critical' }, () => {

@@ -8,6 +8,7 @@ import LazyChatbot from "@/components/chatbot/LazyChatbot";
 import { WhatsAppFloatingButton } from '@/components/layout/WhatsAppFloatingButton';
 import { locales } from '@/i18n/config';
 import { PageTrackingWrapper } from '@/components/analytics/PageTrackingWrapper';
+import { HomeCampsStripSlot } from '@/components/sections/home/HomeCampsStripSlot';
 import { websiteSchema } from '@/lib/seo/structuredData';
 
 const Header = dynamic(() => import("@/components/layout/Header/Header"));
@@ -15,9 +16,9 @@ const Footer = dynamic(() => import("@/components/layout/Footer/Footer"));
 
 // Default metadata - can be overridden by page-specific generateMetadata
 export const metadata: Metadata = {
-  title: "Grades 1-12 Tutoring & STEAM | Dublin CA | GrowWise",
+  title: "K-12 Online Tutoring & Coding Classes | GrowWise",
   description:
-    "Grades 1-12 tutoring and STEAM in Dublin, CA. Math, English, coding, and SAT prep. Small groups, personalized lessons. Book a free assessment.",
+    "GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
   keywords: "tutoring Dublin CA, Grades 1-12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning",
   icons: {
     icon: '/icon.png',
@@ -51,6 +52,7 @@ export default async function LocaleLayout({
       <ChatbotProvider>
         <ContentProvider>
           <PageTrackingWrapper>
+            <HomeCampsStripSlot />
             <Header />
             <main id="main-content" suppressHydrationWarning>
               {children}

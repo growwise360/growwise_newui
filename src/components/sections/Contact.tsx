@@ -551,7 +551,7 @@ export default function Contact() {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <Users className="w-5 h-5 text-[#F1894F]" />
-                      <span className="text-sm">325+ Happy Students</span>
+                      <span className="text-sm">387+ Happy Students</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Star className="w-5 h-5 text-[#F1894F]" />

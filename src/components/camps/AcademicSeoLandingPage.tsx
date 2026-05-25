@@ -184,6 +184,33 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
       ? `${copy.valueAnchorPrefix} ${formatAcademicSprintUsd(getAcademicSummerProgramsHubData().getReadyPricing.geometry.twoWeek)}.`
       : null;
 
+  const showHeroBanner = config.showHeroBanner !== false;
+
+  const heroContent = (
+    <div className="relative z-10 mx-auto flex w-full max-w-[1100px] flex-col justify-center px-5 py-8 sm:px-8 md:px-12 md:py-14 lg:px-16 lg:py-16">
+      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-200 md:text-sm">
+        {copy.hero.eyebrow}
+      </p>
+      <h1 className="font-heading mt-2 max-w-[700px] text-[1.5rem] font-bold leading-[1.15] text-white sm:text-[1.75rem] md:text-[2.25rem] lg:text-[2.625rem]">
+        {copy.hero.h1}
+      </h1>
+      <p className="mt-3 max-w-[650px] text-base leading-snug text-zinc-100 md:text-lg">{copy.hero.subtext}</p>
+      <div className="mt-5">
+        <Link
+          href={hubCtaHref}
+          className={cn(
+            'inline-flex min-h-[44px] w-full max-w-md items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:w-auto sm:text-base',
+            showHeroBanner
+              ? 'bg-[#1F396D] hover:bg-[#183056] focus-visible:ring-[#1F396D]'
+              : 'bg-[#F16112] hover:bg-[#d54f0a] focus-visible:ring-[#F16112]',
+          )}
+        >
+          {copy.hero.ctaLabel}
+        </Link>
+      </div>
+    </div>
+  );
+
   return (
     <div
       data-academic-seo-landing
@@ -191,41 +218,30 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
     >
       <main>
         <section
-          className="relative isolate w-full min-h-[min(48svh,17rem)] max-h-[600px] overflow-hidden md:min-h-[min(40vh,22rem)]"
+          className={cn(
+            'relative isolate w-full min-h-[min(48svh,17rem)] max-h-[600px] overflow-hidden md:min-h-[min(40vh,22rem)]',
+            !showHeroBanner && 'bg-[#1F396D]',
+          )}
           aria-label="Program hero"
         >
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={ACADEMIC_SUMMER_BANNER_SRC}
-              alt={copy.hero.h1}
-              fill
-              priority
-              fetchPriority="high"
-              decoding="async"
-              quality={70}
-              sizes="(max-width: 768px) 100vw, min(1100px, 85vw)"
-              className="object-cover object-center select-none"
-              draggable={false}
-            />
-            <div className="absolute inset-0 z-[1] bg-[rgba(0,0,0,0.6)]" aria-hidden />
-          </div>
-          <div className="relative z-10 mx-auto flex w-full max-w-[1100px] flex-col justify-center px-5 py-8 sm:px-8 md:px-12 md:py-14 lg:px-16 lg:py-16">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-200 md:text-sm">
-              {copy.hero.eyebrow}
-            </p>
-            <h1 className="font-heading mt-2 max-w-[700px] text-[1.5rem] font-bold leading-[1.15] text-white sm:text-[1.75rem] md:text-[2.25rem] lg:text-[2.625rem]">
-              {copy.hero.h1}
-            </h1>
-            <p className="mt-3 max-w-[650px] text-base leading-snug text-zinc-100 md:text-lg">{copy.hero.subtext}</p>
-            <div className="mt-5">
-              <Link
-                href={hubCtaHref}
-                className="inline-flex min-h-[44px] w-full max-w-md items-center justify-center rounded-lg bg-[#1F396D] px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#183056] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 sm:w-auto sm:text-base"
-              >
-                {copy.hero.ctaLabel}
-              </Link>
+          {showHeroBanner ? (
+            <div className="absolute inset-0 z-0">
+              <Image
+                src={ACADEMIC_SUMMER_BANNER_SRC}
+                alt={copy.hero.h1}
+                fill
+                priority
+                fetchPriority="high"
+                decoding="async"
+                quality={70}
+                sizes="(max-width: 768px) 100vw, min(1100px, 85vw)"
+                className="object-cover object-center select-none"
+                draggable={false}
+              />
+              <div className="absolute inset-0 z-[1] bg-[rgba(0,0,0,0.6)]" aria-hidden />
             </div>
-          </div>
+          ) : null}
+          {heroContent}
         </section>
 
         <SectionContainer className="bg-white">
