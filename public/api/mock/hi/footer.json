@@ -32,6 +32,7 @@
         { "label": "When to Start SAT Prep", "href": "/resources/when-to-start-sat-prep", "active": true },
         { "label": "What is Vibe Coding?", "href": "/resources/what-is-vibe-coding", "active": true },
         { "label": "Python vs Scratch for Kids", "href": "/resources/python-vs-scratch", "active": true },
+        { "label": "K-12 Tutoring in Dublin, CA", "href": "/resources/tutoring-dublin-ca", "active": true },
         { "label": "View all guides →", "href": "/resources", "active": true, "highlight": true }
       ]
     },

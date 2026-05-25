@@ -108,6 +108,16 @@ export function DublinCaLocationPage() {
           </h1>
           <p className="mt-4 text-lg font-medium text-slate-800 sm:text-xl">{copy.hero.subtext}</p>
           <p className="mt-4 text-sm leading-relaxed text-slate-700 sm:text-base">{copy.hero.intro}</p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-base">
+            New to tutoring options in the Tri-Valley? Read our{' '}
+            <Link
+              href={publicPath('/resources/tutoring-dublin-ca', locale)}
+              className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+            >
+              parent guide to choosing a K-12 tutoring program in Dublin, CA
+            </Link>
+            .
+          </p>
 
           <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:gap-6">
             <p className="flex items-center gap-2 text-slate-700">

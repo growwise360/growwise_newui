@@ -402,6 +402,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
     path: '/resources/what-is-vibe-coding',
+    type: 'article',
   },
 
   '/resources/homework-independence': {
