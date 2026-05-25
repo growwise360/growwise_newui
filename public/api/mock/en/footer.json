@@ -5,30 +5,29 @@
     "width": 250,
     "height": 100
   },
-  "description": "Dublin's premier Grades 1-12 academic support center, serving the Tri-Valley community with excellence.",
+  "description": "Helping Grades 1–12 students become confident, independent learners — live online nationwide and in-person in Dublin, CA.",
   "contact": {
     "phone": "(925) 456-4606",
-    "email": "connect@thegrowwise.com",
-    "address": "4564 Dublin Blvd, Dublin, CA"
+    "email": "contact@growwiseschool.org",
+    "address": "4564 Dublin Blvd, Dublin, CA",
+    "onlineNote": "🌐 Also available online — nationwide"
   },
+  "curriculumAlignment": "Curriculum aligned with: Common Core Math · Common Core ELA · Integrated Math 1/2/3 · SAT/ACT · College Board AP · NWEA MAP",
   "sections": [
     {
       "title": "Academic Programs",
       "links": [
-        { "label": "Math Courses", "href": "/courses/math", "active": true },
-        { "label": "English Courses", "href": "/courses/english", "active": true },
-        { "label": "Academic Programs", "href": "/academic", "active": true },
-        { "label": "Book Assessment", "href": "/book-assessment", "active": true },
-        { "label": "Enroll Academic", "href": "/enroll-academic", "active": true }
+        { "label": "Math Tutoring · Grades 1–12", "href": "/courses/math", "active": true },
+        { "label": "English & Writing", "href": "/courses/english", "active": true },
+        { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true }
       ]
     },
     {
       "title": "STEAM Programs",
       "links": [
-        { "label": "ML/AI Coding", "href": "/steam/ml-ai-coding", "active": true },
-        { "label": "Game Development", "href": "/steam/game-development", "active": true },
-        { "label": "STEAM Overview", "href": "/steam", "active": true },
-        { "label": "Python Programming", "href": "/steam/ml-ai-coding", "active": true }
+        { "label": "Coding & AI · Ages 10–18", "href": "/steam/ml-ai-coding", "active": true },
+        { "label": "Summer Camps", "href": "/camps/summer", "active": true },
+        { "label": "Robotics & STEAM", "href": "/steam", "active": true }
       ]
     },
     {

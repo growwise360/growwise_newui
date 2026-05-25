@@ -1,16 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 import { useButtonTracking } from '@/lib/analytics/hooks';
 
-const DELIVERABLES = [
-  "Your child's current skill level in Math/English",
-  'The mistake patterns behind weak scores',
-  'Why homework or tests feel harder than expected',
-  'A recommended 4–8 week learning plan',
-  'Best-fit program, schedule, and next step',
+const OUTCOMES = [
+  'Skill gaps in Math or English — by grade and subject unit',
+  'The exact mistake pattern behind dropped test scores',
+  'A named 4–8 week plan — before you commit to anything',
 ] as const;
 
 export function HomeAssessmentOfferSection() {
@@ -19,13 +18,20 @@ export function HomeAssessmentOfferSection() {
   const assessmentHref = publicPath('/book-assessment', locale);
 
   return (
-    <section className="home-section-offer">
-      <div className="home-section-inner">
-        <h2 className="home-offer-h2">What You&apos;ll Know After the Free Assessment</h2>
+    <section className="home-section-offer" aria-labelledby="home-offer-heading">
+      <div className="home-section-inner home-offer-inner">
+        <p className="home-section-pre home-pre-offer">Free Academic Assessment · Grades 1–12</p>
+        <h2 id="home-offer-heading" className="home-offer-h2">
+          Stop guessing what&apos;s holding your child back
+        </h2>
+        <p className="home-offer-sub">
+          One 45-minute session. A diagnosis, not a sales pitch.
+        </p>
         <ul className="home-offer-list">
-          {DELIVERABLES.map((item) => (
+          {OUTCOMES.map((item) => (
             <li key={item} className="home-offer-item">
-              {item}
+              <Check className="home-offer-check" aria-hidden strokeWidth={2.5} />
+              <span>{item}</span>
             </li>
           ))}
         </ul>
@@ -36,8 +42,11 @@ export function HomeAssessmentOfferSection() {
             className="home-btn-section-academic home-btn-offer"
             onClick={() => trackCTAClick('assessment_offer_cta_click', 'homepage_assessment_offer')}
           >
-            Book a Free Assessment
+            Book a Free Assessment →
           </Link>
+          <p className="home-section-cta-note home-offer-cta-note">
+            45 minutes · No commitment · Available nationwide
+          </p>
         </div>
       </div>
     </section>

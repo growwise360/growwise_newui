@@ -21,7 +21,7 @@ const PROGRAM_TICKER_ITEMS = [
 ] as const;
 
 const META_ITEMS = [
-  '325+ Students',
+  '387+ Students',
   '4.9★ Google',
   '98% Satisfaction',
   'Live Online',
@@ -98,7 +98,7 @@ export function HomeHero() {
       <RisingSymbols activeSlide={activeSlide} />
 
       <div className="hero-carousel-content">
-        <p className="hero-trust-line hero-trust-line-top">
+        <p className="pre-tag hero-trust-line hero-trust-line-top">
           &lt; Grades 1–12 · Live Online · Across the US &gt;
         </p>
 
@@ -161,12 +161,12 @@ export function HomeHero() {
         </div>
 
         <div className="hero-sub-wrap">
-          <p className={`hero-sub-slide ${activeSlide === 0 ? 'hero-slide-active' : ''}`}>
+          <p className={`hero-sub hero-sub-slide ${activeSlide === 0 ? 'hero-slide-active' : ''}`}>
             GrowWise helps students become confident, independent learners through targeted Math,
             English, and problem-solving support.
           </p>
           <p
-            className={`hero-sub-slide ${activeSlide === 1 ? 'hero-slide-active' : ''}`}
+            className={`hero-sub hero-sub-slide ${activeSlide === 1 ? 'hero-slide-active' : ''}`}
             aria-hidden={activeSlide !== 1}
           >
             Learn to build real apps using Python and AI — the way the next generation codes.
@@ -202,7 +202,7 @@ export function HomeHero() {
                 Get My Child&apos;s Free Diagnostic Report
               </Link>
               <p className="hero-secondary-helper">
-                Takes 5 minutes. Personalized report generated automatically.
+                Takes 15 minutes. Personalized report generated automatically.
               </p>
             </div>
           </div>

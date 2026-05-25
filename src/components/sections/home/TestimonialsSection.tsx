@@ -44,7 +44,7 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialVM }) {
   const shouldShowPhoto = (testimonial.hasPhoto !== false && testimonial.image && !imageError);
 
   return (
-    <Card className="bg-white/35 backdrop-blur-3xl rounded-[28px] shadow-[0px_25px_60px_0px_rgba(31,57,109,0.2)] border-2 border-white/50 hover:shadow-[0px_40px_100px_0px_rgba(31,57,109,0.3)] transition-all duration-500 hover:-translate-y-2 ring-1 ring-white/30 h-full flex flex-col min-h-[400px]">
+    <Card className="bg-white/35 backdrop-blur-3xl rounded-[28px] shadow-[0px_25px_60px_0px_rgba(31,57,109,0.2)] border-2 border-white/50 hover:shadow-[0px_40px_100px_0px_rgba(31,57,109,0.3)] transition-all duration-500 hover:-translate-y-2 ring-1 ring-white/30 h-full flex flex-col min-h-[300px] md:min-h-[360px] lg:min-h-[400px]">
       <CardContent className="p-8 relative flex flex-col flex-grow h-full">
         <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent rounded-[28px]"></div>
         <div className="relative z-10 flex flex-col flex-grow h-full">
@@ -111,19 +111,28 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialVM }) {
   );
 }
 
+function hasProfilePhotos(items: TestimonialVM[] | null | undefined): boolean {
+  return Boolean(items?.some((t) => t.image && t.image.length > 0));
+}
+
 export function TestimonialsSection({
   fallbackTestimonials,
+  preferCuratedFallback = false,
   homeError,
   onRetryHome,
 }: {
   /** Mock/home JSON when API has not returned yet */
   fallbackTestimonials?: TestimonialVM[] | null;
+  /** Prefer curated fallback when API serves generic default reviews (no photos) */
+  preferCuratedFallback?: boolean;
   homeError?: string | null;
   onRetryHome?: () => void;
 }) {
   const {
     testimonials: apiTestimonials,
     error: testimonialsError,
+    source,
+    fallback: apiFallback,
     retry: retryTestimonials,
   } = useTestimonials({
     limit: 20,
@@ -133,9 +142,22 @@ export function TestimonialsSection({
   });
 
   const testimonials = useMemo(() => {
+    const curated = fallbackTestimonials ?? [];
+    const apiIsGenericFallback =
+      source === 'default' || apiFallback || !hasProfilePhotos(apiTestimonials);
+
+    if (
+      preferCuratedFallback &&
+      curated.length > 0 &&
+      hasProfilePhotos(curated) &&
+      (apiIsGenericFallback || !apiTestimonials?.length)
+    ) {
+      return curated;
+    }
+
     if (apiTestimonials && apiTestimonials.length > 0) return apiTestimonials;
-    return fallbackTestimonials ?? [];
-  }, [apiTestimonials, fallbackTestimonials]);
+    return curated;
+  }, [apiTestimonials, fallbackTestimonials, preferCuratedFallback, source, apiFallback]);
 
   const error = testimonialsError || homeError;
 
@@ -233,11 +255,11 @@ export function TestimonialsSection({
   };
 
   return (
-    <section className="py-20 px-4 lg:px-8 relative overflow-hidden">
+    <section className="py-12 md:py-20 px-4 lg:px-8 relative overflow-hidden">
       <StructuredDataScript data={structuredData} id="testimonials-structured-data" />
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Why Parents Love <span className="text-[#F16112]">GrowWise</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -252,7 +274,7 @@ export function TestimonialsSection({
             <>
               <button
                 onClick={prevSet}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 lg:-translate-x-8 z-10 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 p-3 rounded-full shadow-lg border transition-all duration-200"
+                className="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 md:-translate-x-4 lg:-translate-x-8 z-10 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 min-w-[44px] min-h-[44px] p-2 rounded-full shadow-lg border transition-all duration-200 flex items-center justify-center"
                 aria-label="Previous testimonials"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -260,7 +282,7 @@ export function TestimonialsSection({
 
               <button
                 onClick={nextSet}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 lg:translate-x-8 z-10 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 p-3 rounded-full shadow-lg border transition-all duration-200"
+                className="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 md:translate-x-4 lg:translate-x-8 z-10 bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 min-w-[44px] min-h-[44px] p-2 rounded-full shadow-lg border transition-all duration-200 flex items-center justify-center"
                 aria-label="Next testimonials"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -270,7 +292,7 @@ export function TestimonialsSection({
 
           {/* Testimonials Grid with smooth transitions */}
           <div 
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-4 lg:px-8 transition-opacity duration-300 items-stretch ${
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 px-2 md:px-4 lg:px-8 transition-opacity duration-300 items-stretch ${
               isTransitioning ? 'opacity-0' : 'opacity-100'
             }`}
           >
@@ -287,13 +309,13 @@ export function TestimonialsSection({
 
           {/* Carousel Indicators */}
           {totalSets > 1 && (
-            <div className="flex justify-center mt-12 gap-2">
+            <div className="flex justify-center mt-8 md:mt-12 gap-2">
               {Array.from({ length: totalSets }, (_, index) => (
                 <button
                   key={index}
                   type="button"
                   onClick={() => goToSet(index)}
-                  className={`min-w-[24px] min-h-[24px] rounded-full transition-all duration-200 flex items-center justify-center ${
+                  className={`min-w-[44px] min-h-[44px] rounded-full transition-all duration-200 flex items-center justify-center ${
                     index === currentSet
                       ? 'bg-[#F16112] scale-125'
                       : 'bg-gray-300 hover:bg-gray-400'

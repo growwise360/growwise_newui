@@ -12,6 +12,7 @@ import FooterLogo from './FooterLogo';
 import FooterSection from './FooterSection';
 import FooterCopyright from './FooterCopyright';
 import FooterSocialBar from './FooterSocialBar';
+import FooterSbaBadge from './FooterSbaBadge';
 import { isRoboticsCampSeoPath } from '@/lib/camps/camp-seo-landing-slugs';
 
 export default function Footer() {
@@ -98,7 +99,11 @@ export default function Footer() {
         </div>
 
         <FooterSocialBar />
-        <FooterCopyright copyright={copyright} />
+        <FooterSbaBadge />
+        <FooterCopyright
+          copyright={copyright}
+          curriculumAlignment={display.curriculumAlignment}
+        />
       </div>
     </footer>
   );

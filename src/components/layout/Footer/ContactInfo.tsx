@@ -35,6 +35,9 @@ export default function ContactInfo({ contact }: ContactInfoProps) {
         <span>📍</span>
         <span>{contact.address}</span>
       </div>
+      {contact.onlineNote ? (
+        <p className="text-[12px] text-[#888]">{contact.onlineNote}</p>
+      ) : null}
     </div>
   );
 }

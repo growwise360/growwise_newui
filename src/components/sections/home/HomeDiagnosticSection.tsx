@@ -9,7 +9,7 @@ const STEPS = [
   {
     num: '1',
     title: 'Answer 5 quick questions',
-    body: ' about your child\u2019s current mistakes and patterns. Takes under 5 minutes.',
+    body: ' about your child\u2019s current mistakes and patterns. Takes about 15 minutes.',
   },
   {
     num: '2',
@@ -35,7 +35,7 @@ export function HomeDiagnosticSection() {
         <div className="home-diag-left">
           <h2 className="home-diag-h2">Not ready to book yet?</h2>
           <p className="home-diag-sub">
-            Start with a 5-minute diagnostic check. You&apos;ll receive a personalized report
+            Start with a 15-minute self-check. You&apos;ll receive a personalized diagnostic report
             showing your child&apos;s likely mistake patterns, skill gaps, and recommended next
             step.
           </p>

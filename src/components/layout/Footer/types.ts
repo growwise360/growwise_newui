@@ -13,6 +13,7 @@ export interface ContactInfo {
   phone: string;
   email: string;
   address: string;
+  onlineNote?: string;
 }
 
 export interface FooterData {
@@ -25,6 +26,7 @@ export interface FooterData {
   description: string;
   contact: ContactInfo;
   sections: FooterSection[];
+  curriculumAlignment?: string;
   copyright: string;
 }
 

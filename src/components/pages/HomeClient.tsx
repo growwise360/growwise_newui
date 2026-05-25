@@ -7,12 +7,11 @@ import { fetchHomeStart, fetchHomeSuccess } from '@/store/slices/homeSlice';
 import { HeroWrapper } from '../sections/home/HeroWrapper';
 import { HomeHero } from '../sections/home/HomeHero';
 import { HomeAcademicSection } from '../sections/home/HomeAcademicSection';
-import { HomeCurriculumTicker } from '../sections/home/HomeCurriculumTicker';
 import { HomeAssessmentOfferSection } from '../sections/home/HomeAssessmentOfferSection';
 import { HomeSocialProofSection } from '../sections/home/HomeSocialProofSection';
 import { HomeDiagnosticSection } from '../sections/home/HomeDiagnosticSection';
+import { HomeFaqSection } from '../sections/home/HomeFaqSection';
 import { HomeSteamSection } from '../sections/home/HomeSteamSection';
-import { HomeCampsStrip } from '../sections/home/HomeCampsStrip';
 import { HomeFinalAssessmentCta } from '../sections/home/HomeFinalAssessmentCta';
 import type { HomeContentData } from '@/store/slices/homeSlice';
 
@@ -28,17 +27,16 @@ function HomeHeroBlock() {
   );
 }
 
-function HomeFunnelSections({ testimonials }: { testimonials: HomeContentData['testimonials'] }) {
+function HomeFunnelSections() {
   return (
     <>
-      {/* OASC funnel (online-first): Outcome → Assess → Social proof → Convert expand (STEAM) → Diagnostic exit → Camps → Close */}
+      {/* OASC funnel (online-first): Outcome → Assess → Social proof → Convert expand (STEAM) → Diagnostic exit → Close */}
       <HomeAcademicSection />
-      <HomeCurriculumTicker />
       <HomeAssessmentOfferSection />
-      <HomeSocialProofSection fallbackTestimonials={testimonials ?? null} />
+      <HomeSocialProofSection />
       <HomeSteamSection />
       <HomeDiagnosticSection />
-      <HomeCampsStrip />
+      <HomeFaqSection />
       <HomeFinalAssessmentCta />
     </>
   );
@@ -69,7 +67,7 @@ export default function HomeClient({ initialData }: HomeClientProps) {
         style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}
       >
         <HomeHeroBlock />
-        <HomeFunnelSections testimonials={null} />
+        <HomeFunnelSections />
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-12">
           <p className="text-center text-red-700 max-w-md">{error}</p>
           <button
@@ -91,7 +89,7 @@ export default function HomeClient({ initialData }: HomeClientProps) {
         style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}
       >
         <HomeHeroBlock />
-        <HomeFunnelSections testimonials={null} />
+        <HomeFunnelSections />
       </div>
     );
   }
@@ -102,7 +100,7 @@ export default function HomeClient({ initialData }: HomeClientProps) {
       style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}
     >
       <HomeHeroBlock />
-      <HomeFunnelSections testimonials={data.testimonials} />
+      <HomeFunnelSections />
     </div>
   );
 }
