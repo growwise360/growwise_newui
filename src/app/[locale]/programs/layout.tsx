@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { PROGRAMS_FAQS } from '@/data/programs-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
@@ -47,6 +49,7 @@ export default function ProgramsLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
+      <FAQSchema faqs={PROGRAMS_FAQS} />
       {children}
     </>
   )

@@ -1,6 +1,8 @@
-import { test, expect, devices } from '@playwright/test';
+import { test, expect } from '@playwright/test';
+import { localePath } from '../localePath';
 
-test.use({ ...devices['iPhone 14'] });
+/** Mobile viewport only — nightly CI installs chromium, not webkit (iPhone 14 device). */
+test.use({ viewport: { width: 390, height: 844 } });
 
 test.describe('Courses pages (mobile)', { tag: '@nightly' }, () => {
   const paths = [
@@ -13,7 +15,7 @@ test.describe('Courses pages (mobile)', { tag: '@nightly' }, () => {
 
   for (const path of paths) {
     test(`${path} does not 404`, async ({ page }) => {
-      const res = await page.goto(path, { waitUntil: 'domcontentloaded' });
+      const res = await page.goto(localePath(path), { waitUntil: 'domcontentloaded' });
       expect(res, `No response for ${path}`).not.toBeNull();
       expect(res!.status(), `${path} returned ${res!.status()}`).not.toBe(404);
     });
@@ -25,7 +27,7 @@ test.describe('Camps pages (mobile)', { tag: '@nightly' }, () => {
 
   for (const path of paths) {
     test(`${path} does not 404`, async ({ page }) => {
-      const res = await page.goto(path, { waitUntil: 'domcontentloaded' });
+      const res = await page.goto(localePath(path), { waitUntil: 'domcontentloaded' });
       expect(res, `No response for ${path}`).not.toBeNull();
       expect(res!.status(), `${path} returned ${res!.status()}`).not.toBe(404);
     });

@@ -8,9 +8,9 @@ describe('HOME_GRAPH_JSON_LD', () => {
     expect(HOME_GRAPH_JSON_LD['@graph'][1]['@type']).toBe('FAQPage');
   });
 
-  it('includes 8 FAQ questions', () => {
+  it('includes all visible homepage FAQ questions from HOME_VISIBLE_FAQS', () => {
     const faqNode = HOME_GRAPH_JSON_LD['@graph'][1];
-    expect(faqNode.mainEntity).toHaveLength(8);
+    expect(faqNode.mainEntity).toHaveLength(9);
     expect(faqNode.mainEntity[0].name).toBe('What age should my child start coding?');
   });
 
