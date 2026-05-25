@@ -45,6 +45,7 @@ const corePages: SitemapEntry[] = [
   { path: '/about', priority: 0.9, changefreq: 'monthly' },
   { path: '/academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
+  { path: '/dublin-ca', priority: 0.9, changefreq: 'monthly' },
   { path: '/enroll', priority: 0.85, changefreq: 'monthly' },
   { path: '/enroll-academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/book-assessment', priority: 0.9, changefreq: 'monthly' },
@@ -53,6 +54,13 @@ const corePages: SitemapEntry[] = [
   { path: '/workshop-calendar', priority: 0.8, changefreq: 'weekly' },
   { path: '/programs', priority: 0.8, changefreq: 'monthly' },
   { path: '/growwise-blogs', priority: 0.85, changefreq: 'weekly' },
+  { path: '/resources', priority: 0.85, changefreq: 'weekly' },
+  { path: '/resources/careless-math-mistakes', priority: 0.8, changefreq: 'monthly' },
+  { path: '/resources/homework-independence', priority: 0.8, changefreq: 'monthly' },
+  { path: '/resources/what-is-vibe-coding', priority: 0.8, changefreq: 'monthly' },
+  { path: '/resources/when-to-start-sat-prep', priority: 0.8, changefreq: 'monthly' },
+  { path: '/resources/python-vs-scratch', priority: 0.8, changefreq: 'monthly' },
+  { path: '/resources/tutoring-dublin-ca', priority: 0.85, changefreq: 'monthly' },
 ]
 
 const coursePages: SitemapEntry[] = [

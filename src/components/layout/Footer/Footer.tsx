@@ -87,13 +87,16 @@ export default function Footer() {
             <FooterLogo
               logo={display.logo}
               description={display.description}
-              contact={display.contact}
             />
           </div>
 
           {display.sections.map((section, index) => (
             <div key={index} className="flex-1">
-              <FooterSection section={section} createLocaleUrl={createLocaleUrlHelper} />
+              <FooterSection
+                section={section}
+                createLocaleUrl={createLocaleUrlHelper}
+                contact={display.contact}
+              />
             </div>
           ))}
         </div>

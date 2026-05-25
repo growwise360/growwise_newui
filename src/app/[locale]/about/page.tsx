@@ -18,7 +18,7 @@ const ABOUT_FAQS = [
   },
   {
     question: "Where is GrowWise located and which areas do you serve?",
-    answer: "GrowWise is located at 4564 Dublin Blvd, Dublin, CA 94568. We serve families from Dublin, Pleasanton, San Ramon, Danville, and Livermore across the Tri-Valley area. In-person, online, and hybrid formats are available.",
+    answer: "GrowWise is located at 4564 Dublin Blvd, Dublin, CA 94568. We serve families from Dublin, Pleasanton, San Ramon, Danville, and Livermore across the Tri-Valley area. In-person, online, and hybrid formats are available. See our Dublin center page at growwiseschool.org/dublin-ca for in-person programs, hours, and directions.",
   },
 ]
 

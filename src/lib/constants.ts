@@ -16,6 +16,17 @@ export const CONTACT_INFO = {
   zipCode: '94568',
 } as const;
 
+/** Canonical office hours — used on /dublin-ca, /contact, and LocalBusiness JSON-LD */
+export const OFFICE_HOURS = {
+  summary: 'Monday–Friday, 9:00 AM–7:00 PM · Saturday, 10:00 AM–4:00 PM · Sunday closed',
+  schema: ['Mo-Fr 09:00-19:00', 'Sa 10:00-16:00'] as const,
+  schedule: [
+    { day: 'Monday - Friday', hours: '9:00 AM - 7:00 PM', isOpen: true },
+    { day: 'Saturday', hours: '10:00 AM - 4:00 PM', isOpen: true },
+    { day: 'Sunday', hours: 'Closed', isOpen: false },
+  ] as const,
+} as const;
+
 // Image Storage Configuration
 // S3 bucket base URL for images
 // Set NEXT_PUBLIC_S3_IMAGE_BASE_URL in .env.local or use default

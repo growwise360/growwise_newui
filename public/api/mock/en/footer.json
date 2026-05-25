@@ -15,31 +15,45 @@
   "curriculumAlignment": "Curriculum aligned with: Common Core Math · Common Core ELA · Integrated Math 1/2/3 · SAT/ACT · College Board AP · NWEA MAP",
   "sections": [
     {
-      "title": "Academic Programs",
+      "title": "Programs",
       "links": [
         { "label": "Math Tutoring · Grades 1–12", "href": "/courses/math", "active": true },
         { "label": "English & Writing", "href": "/courses/english", "active": true },
-        { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true }
-      ]
-    },
-    {
-      "title": "STEAM Programs",
-      "links": [
+        { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true },
         { "label": "Coding & AI · Ages 10–18", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "Summer Camps", "href": "/camps/summer", "active": true },
-        { "label": "Robotics & STEAM", "href": "/steam", "active": true }
+        { "label": "Robotics & STEAM", "href": "/steam", "active": true },
+        { "label": "Programs Overview", "href": "/programs", "active": true }
       ]
     },
     {
-      "title": "Resources",
+      "title": "RESOURCES",
       "links": [
-        { "label": "About Us", "href": "/about", "active": true },
-        { "label": "Contact Us", "href": "/contact", "active": true },
-        { "label": "Programs Overview", "href": "/programs", "active": true },
-        { "label": "General Enroll", "href": "/enroll", "active": true },
-        { "label": "Terms & Conditions", "href": "/terms-conditions", "active": true },
-        { "label": "Privacy Policy", "href": "/privacy-policy", "active": true }
+        { "label": "Why Kids Make Careless Math Mistakes", "href": "/resources/careless-math-mistakes", "active": true },
+        { "label": "How to Build Homework Independence", "href": "/resources/homework-independence", "active": true },
+        { "label": "When to Start SAT Prep", "href": "/resources/when-to-start-sat-prep", "active": true },
+        { "label": "What is Vibe Coding?", "href": "/resources/what-is-vibe-coding", "active": true },
+        { "label": "Python vs Scratch for Kids", "href": "/resources/python-vs-scratch", "active": true },
+        { "label": "View all guides →", "href": "/resources", "active": true, "highlight": true }
       ]
+    },
+    {
+      "title": "Company",
+      "links": [
+        { "label": "Book Free Assessment →", "href": "/book-assessment", "active": true, "highlight": true },
+        { "label": "Free Diagnostic Tool →", "href": "/self-check", "active": true, "highlight": true },
+        { "label": "About GrowWise", "href": "/about", "active": true },
+        { "label": "Blog", "href": "/growwise-blogs", "active": true },
+        { "label": "Contact", "href": "/contact", "active": true },
+        { "label": "Student Login", "href": "/student-login", "active": true },
+        { "label": "Terms", "href": "/terms-conditions", "active": true },
+        { "label": "Privacy", "href": "/privacy-policy", "active": true },
+        { "label": "General Enroll", "href": "/enroll", "active": true }
+      ]
+    },
+    {
+      "title": "Contact",
+      "variant": "contact"
     }
   ],
   "copyright": "© 2026 GrowWise. All rights reserved. Serving Dublin, Pleasanton, and the Tri-Valley community."

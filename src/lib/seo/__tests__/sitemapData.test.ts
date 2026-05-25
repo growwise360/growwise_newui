@@ -19,4 +19,10 @@ describe('sitemapData', () => {
       'https://www.growwiseschool.org/camps/summer-geometry-precalculus-dublin-ca',
     );
   });
+
+  it('includes resource article pages', () => {
+    const urls = buildPagesUrls('https://www.growwiseschool.org', '2026-05-20');
+    const locs = urls.map((u) => u.loc);
+    expect(locs).toContain('https://www.growwiseschool.org/resources/python-vs-scratch');
+  });
 });

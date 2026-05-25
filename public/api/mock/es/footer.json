@@ -13,31 +13,45 @@
   },
   "sections": [
     {
-      "title": "Programas Académicos",
+      "title": "Programas",
       "links": [
         { "label": "Math Tutoring · Grades 1–12", "href": "/courses/math", "active": true },
         { "label": "English & Writing", "href": "/courses/english", "active": true },
-        { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true }
-      ]
-    },
-    {
-      "title": "Programas STEAM",
-      "links": [
+        { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true },
         { "label": "Coding & AI · Ages 10–18", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "Summer Camps", "href": "/camps/summer", "active": true },
-        { "label": "Robotics & STEAM", "href": "/steam", "active": true }
+        { "label": "Robotics & STEAM", "href": "/steam", "active": true },
+        { "label": "Resumen de Programas", "href": "/programs", "active": true }
       ]
     },
     {
-      "title": "Recursos",
+      "title": "RESOURCES",
       "links": [
-        { "label": "Acerca de Nosotros", "href": "/about", "active": true },
-        { "label": "Contáctanos", "href": "/contact", "active": true },
-        { "label": "Resumen de Programas", "href": "/programs", "active": true },
-        { "label": "Inscripción General", "href": "/enroll", "active": true },
-        { "label": "Términos y Condiciones", "href": "/terms-conditions", "active": true },
-        { "label": "Política de Privacidad", "href": "/privacy-policy", "active": true }
+        { "label": "Why Kids Make Careless Math Mistakes", "href": "/resources/careless-math-mistakes", "active": true },
+        { "label": "How to Build Homework Independence", "href": "/resources/homework-independence", "active": true },
+        { "label": "When to Start SAT Prep", "href": "/resources/when-to-start-sat-prep", "active": true },
+        { "label": "What is Vibe Coding?", "href": "/resources/what-is-vibe-coding", "active": true },
+        { "label": "Python vs Scratch for Kids", "href": "/resources/python-vs-scratch", "active": true },
+        { "label": "View all guides →", "href": "/resources", "active": true, "highlight": true }
       ]
+    },
+    {
+      "title": "Empresa",
+      "links": [
+        { "label": "Book Free Assessment →", "href": "/book-assessment", "active": true, "highlight": true },
+        { "label": "Free Diagnostic Tool →", "href": "/self-check", "active": true, "highlight": true },
+        { "label": "Acerca de GrowWise", "href": "/about", "active": true },
+        { "label": "Blog", "href": "/growwise-blogs", "active": true },
+        { "label": "Contacto", "href": "/contact", "active": true },
+        { "label": "Student Login", "href": "/student-login", "active": true },
+        { "label": "Términos", "href": "/terms-conditions", "active": true },
+        { "label": "Privacidad", "href": "/privacy-policy", "active": true },
+        { "label": "Inscripción General", "href": "/enroll", "active": true }
+      ]
+    },
+    {
+      "title": "Contacto",
+      "variant": "contact"
     }
   ],
   "copyright": "© 2026 GrowWise. Todos los derechos reservados. Sirviendo a Dublin, Pleasanton y la comunidad Tri-Valley."

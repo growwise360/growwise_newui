@@ -13,9 +13,11 @@ const BODY = `# GrowWise School
 - [Workshops](https://www.growwiseschool.org/workshop-calendar)
 
 ## Info
+- [K-12 Tutoring in Dublin, CA](https://www.growwiseschool.org/dublin-ca)
 - [About](https://www.growwiseschool.org/about)
 - [Contact](https://www.growwiseschool.org/contact)
 - [Blog](https://www.growwiseschool.org/growwise-blogs)
+- [Parent Guides & Resources](https://www.growwiseschool.org/resources)
 
 Location: 4564 Dublin Blvd, Dublin, CA 94568
 Phone: (925) 456-4606

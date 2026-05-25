@@ -119,13 +119,6 @@
       }
     },
     {
-      "key": "resources",
-      "label": "Resources",
-      "href": "#",
-      "type": "simple",
-      "variant": "orange"
-    },
-    {
       "key": "blogs",
       "label": "ब्लॉग",
       "href": "/growwise-blogs",
