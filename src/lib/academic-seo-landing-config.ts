@@ -21,6 +21,8 @@ export type AcademicSeoLandingPageConfig = {
   readonly hubFilter: Exclude<AcademicProgramFilterId, 'all'>;
   readonly breadcrumbLabel: string;
   readonly relatedPageOrder: readonly AcademicSeoLandingPageId[];
+  /** When false, hero uses solid navy background instead of the shared banner image. */
+  readonly showHeroBanner?: boolean;
 };
 
 export const ACADEMIC_SEO_HUB_PATH = '/camps/academic-summer-programs-dublin-ca' as const;
@@ -38,6 +40,7 @@ export const ACADEMIC_SEO_LANDING_PAGES: Record<
     hubFilter: 'readingWriting',
     breadcrumbLabel: 'Summer Reading & Writing',
     relatedPageOrder: ['mathFoundations', 'algebra', 'geometry'],
+    showHeroBanner: false,
   },
   mathFoundations: {
     id: 'mathFoundations',
@@ -58,6 +61,7 @@ export const ACADEMIC_SEO_LANDING_PAGES: Record<
     hubFilter: 'getReadyMath',
     breadcrumbLabel: 'Summer Algebra',
     relatedPageOrder: ['mathFoundations', 'geometry', 'readingWriting'],
+    showHeroBanner: false,
   },
   geometry: {
     id: 'geometry',
