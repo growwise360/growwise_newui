@@ -10,6 +10,7 @@
  */
 
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources'
+import { RESOURCES_PATH } from '@/data/resources-hub'
 import { locales } from '@/i18n/config'
 import { DEFAULT_LOCALE } from '@/i18n/localeConfig'
 import { getCampSlugs } from '@/lib/camps/get-camp-page'
@@ -210,6 +211,12 @@ export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
 export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
   const urls: SitemapUrl[] = []
   locales.forEach((locale) => {
+    urls.push({
+      loc: absoluteSiteUrl(RESOURCES_PATH, locale, baseUrl),
+      lastmod,
+      changefreq: 'weekly',
+      priority: 0.85,
+    })
     blogPostPaths.forEach((path) => {
       urls.push({
         loc: absoluteSiteUrl(path, locale, baseUrl),

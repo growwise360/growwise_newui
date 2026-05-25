@@ -32,8 +32,9 @@ describe('sitemapData', () => {
     });
   });
 
-  it('includes all resource articles in blogs sitemap', () => {
+  it('includes resources hub and all articles in blogs sitemap', () => {
     const blogLocs = buildBlogUrls(BASE, LASTMOD).map((u) => u.loc);
+    expect(blogLocs).toContain(`${BASE}/resources`);
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       expect(blogLocs).toContain(`${BASE}${path}`);
     });
