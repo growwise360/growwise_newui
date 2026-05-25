@@ -7,10 +7,6 @@ import {
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { generateBreadcrumbSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
 
-export function buildCarelessMathMistakesFaqSchema() {
-  return generateFAQPageSchema([...CARELESS_MATH_MISTAKES_FAQS])
-}
-
 export function buildCarelessMathMistakesPageGraphSchema(baseUrl: string, locale: string) {
   const pageUrl = absoluteSiteUrl(CARELESS_MATH_MISTAKES_PATH, locale, baseUrl)
 

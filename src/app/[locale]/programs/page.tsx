@@ -1,13 +1,11 @@
 "use client";
 
 import Link from 'next/link';
-import { CONTACT_INFO } from '@/lib/constants';
 import { useTranslations, useLocale } from 'next-intl';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { HelpCircle } from "lucide-react";
-import { StructuredDataScript } from '@/components/seo/StructuredDataScript';
-import { generateFAQPageSchema } from '@/lib/seo/structuredData';
+import { PROGRAMS_FAQS } from '@/data/programs-faqs';
 import { publicPath } from '@/lib/publicPath';
 
 export default function ProgramsPage() {
@@ -15,33 +13,6 @@ export default function ProgramsPage() {
   const locale = useLocale();
   const createLocaleUrl = (path: string) => publicPath(path, locale);
   
-  const faqs = [
-    {
-      question: "What programs does GrowWise offer?",
-      answer: "GrowWise offers two main program categories: Academic Programs (Grades 1-12 Math and English courses aligned with DUSD & PUSD standards) and STEAM Programs (ML/AI, Game Development, Python coding, and more). We also offer SAT Prep courses and specialized high school math programs."
-    },
-    {
-      question: "What is the difference between Academic and STEAM programs?",
-      answer: "Academic programs focus on core subjects like Math and English, aligned with school curriculum standards. STEAM programs focus on Science, Technology, Engineering, Arts, and Mathematics through hands-on projects like game development, coding, and machine learning."
-    },
-    {
-      question: "Can students enroll in both Academic and STEAM programs?",
-      answer: "Yes! Many students benefit from combining academic support with STEAM enrichment. Our flexible scheduling allows students to participate in both program types based on their interests and needs."
-    },
-    {
-      question: "Are the programs suitable for all grade levels?",
-      answer: "Yes, we offer programs for Grades 1-12 students. Academic programs are available for all grade levels, while STEAM programs are typically designed for elementary through high school students, with age-appropriate content for each level."
-    },
-    {
-      question: "How do I choose the right program for my child?",
-      answer: "We recommend booking a free assessment to evaluate your child's strengths and areas for improvement. Our team can then recommend the best combination of Academic and STEAM programs based on your child's needs, interests, and goals."
-    },
-    {
-      question: "Do you offer trial classes or assessments?",
-      answer: `Yes, we offer free academic assessments to help determine the best program fit. Contact us at ${CONTACT_INFO.email} or ${CONTACT_INFO.phone} to schedule your free assessment.`
-    }
-  ];
-
   return (
     <main className="section-base section-white">
       <div className="max-w-7xl mx-auto">
@@ -66,10 +37,6 @@ export default function ProgramsPage() {
 
         {/* FAQ Section */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 rounded-xl">
-          <StructuredDataScript 
-            data={generateFAQPageSchema(faqs)} 
-            id="programs-faq-structured-data" 
-          />
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -83,9 +50,9 @@ export default function ProgramsPage() {
             <Accordion
               type="multiple"
               className="space-y-4"
-              defaultValue={getDefaultOpenFaqValues(faqs.length, (index) => `item-${index}`)}
+              defaultValue={getDefaultOpenFaqValues(PROGRAMS_FAQS.length, (index) => `item-${index}`)}
             >
-              {faqs.map((faq, index) => (
+              {PROGRAMS_FAQS.map((faq, index) => (
                 <AccordionItem 
                   key={index} 
                   value={`item-${index}`}

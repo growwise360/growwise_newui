@@ -4,6 +4,12 @@
  * Titles: max 60 characters. Descriptions: max 150 characters (no pricing).
  */
 
+import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+
+const canonicalSiteUrl = getCanonicalSiteUrl()
+const CAMP_SUMMER_BANNER_IMAGE = `${canonicalSiteUrl}/assets/camps/summer-camp-banner.png`
+const CAMP_ACADEMIC_BANNER_IMAGE = `${canonicalSiteUrl}/assets/camps/acabanner.webp`
+
 export interface PageMetadataConfig {
   title: string
   description: string
@@ -274,7 +280,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',
-    image: 'https://growwiseschool.org/assets/camps/summer-camp-banner.png',
+    image: CAMP_SUMMER_BANNER_IMAGE,
   },
 
   '/camps/summer/guide-success': {
@@ -284,7 +290,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'GrowWise summer camp, camp guide PDF, Dublin CA summer camp, STEM camp Tri-Valley',
     path: '/camps/summer/guide-success',
-    image: 'https://growwiseschool.org/assets/camps/summer-camp-banner.png',
+    image: CAMP_SUMMER_BANNER_IMAGE,
   },
 
   '/camps/academic-summer-programs-dublin-ca': {
@@ -294,7 +300,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'academic summer programs Dublin CA, summer reading program Dublin, summer math program Dublin CA, DUSD PUSD IM1 summer prep, affordable summer academic support, algebra summer prep, geometry summer prep Dublin',
     path: '/camps/academic-summer-programs-dublin-ca',
-    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/camps/academic-summer-sprint-dublin-ca': {
@@ -304,7 +310,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'academic summer sprint Dublin CA, Read to Prove summer program, Write with Structure summer writing, Mistake-Proof Math Dublin, summer reading comprehension Dublin, DUSD summer academic program',
     path: '/camps/academic-summer-sprint-dublin-ca',
-    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/camps/summer-reading-writing-dublin-ca': {
@@ -314,7 +320,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'summer reading program Dublin CA, summer writing program Dublin, Read to Prove Dublin, Write to Explain summer, DUSD reading writing summer',
     path: '/camps/summer-reading-writing-dublin-ca',
-    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/camps/summer-math-foundations-dublin-ca': {
@@ -324,7 +330,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'summer math program Dublin CA, Bridge the Gap Math, math foundations summer Dublin, DUSD math summer program',
     path: '/camps/summer-math-foundations-dublin-ca',
-    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/camps/summer-algebra-dublin-ca': {
@@ -334,7 +340,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'summer algebra program Dublin CA, Algebra 1 Get Ready Dublin, DUSD algebra summer prep, algebra summer camp Tri-Valley',
     path: '/camps/summer-algebra-dublin-ca',
-    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/camps/summer-geometry-precalculus-dublin-ca': {
@@ -344,7 +350,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'summer geometry program Dublin CA, Geometry Get Ready Dublin, DUSD geometry summer prep, geometry summer Dublin CA',
     path: '/camps/summer-geometry-precalculus-dublin-ca',
-    image: 'https://growwiseschool.org/assets/camps/acabanner.webp',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/growwise-blogs': {

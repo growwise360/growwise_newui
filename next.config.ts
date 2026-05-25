@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
+import { LEGACY_PATH_REDIRECTS } from './src/lib/seo/legacy-path-redirects';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
 
@@ -208,7 +209,13 @@ const nextConfig: NextConfig = {
   // Legacy `/camp/*` SEO landings → `/camps/*` (canonical namespace aligns with /camps/summer, /camps/winter).
   // `/en/camp/*` listed before `/en/:path*` so one redirect hop to `/camps/*`.
   async redirects() {
+    const legacyMarketingRedirects = LEGACY_PATH_REDIRECTS.flatMap(({ from, to }) => [
+      { source: from, destination: to, permanent: true as const },
+      { source: `${from}/`, destination: to, permanent: true as const },
+    ]);
+
     return [
+      ...legacyMarketingRedirects,
       { source: '/camp', destination: '/camps/summer', permanent: true },
       { source: '/camp/:slug', destination: '/camps/:slug', permanent: true },
       { source: '/en/camp', destination: '/camps/summer', permanent: true },

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { findGraphNode } from '../helpers/jsonLdAudit'
 import { localePath } from '../localePath'
 
 test.describe('/resources/careless-math-mistakes', () => {
@@ -23,11 +24,7 @@ test.describe('/resources/careless-math-mistakes', () => {
 
   test('includes FAQPage JSON-LD graph', async ({ page }) => {
     await page.goto(localePath('/resources/careless-math-mistakes'))
-    const jsonLd = await page.locator('script[type="application/ld+json"]').first().textContent()
-    expect(jsonLd).toBeTruthy()
-    const parsed = JSON.parse(jsonLd!)
-    expect(parsed['@graph']).toBeDefined()
-    const faqNode = parsed['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+    const faqNode = await findGraphNode<{ mainEntity: unknown[] }>(page, 'FAQPage')
     expect(faqNode?.mainEntity).toHaveLength(5)
   })
 })
