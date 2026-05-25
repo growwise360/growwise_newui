@@ -55,7 +55,7 @@
   ],
   "officeHours": [
     { "day": "Monday - Friday", "hours": "9:00 AM - 7:00 PM", "isOpen": true },
-    { "day": "Saturday", "hours": "10:00 AM - 4:00 PM", "isOpen": false },
+    { "day": "Saturday", "hours": "10:00 AM - 4:00 PM", "isOpen": true },
     { "day": "Sunday", "hours": "Closed", "isOpen": false }
   ],
   "faqs": [
