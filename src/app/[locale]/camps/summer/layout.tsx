@@ -56,7 +56,7 @@ export default async function SummerCampLayout({
   const { locale } = await params;
   const baseUrl = getCanonicalSiteUrl();
   const summerEventDescription =
-    'Accredited summer STEAM camps in Dublin, CA for Grades K-12. Weekly sessions in Math, Coding, Robotics, and AI. June through August 2026.';
+    'Standards-aligned summer STEAM camps in Dublin, CA for Grades K-12. Weekly sessions in Math, Coding, Robotics, and AI. June through August 2026.';
 
   const eventSchema = generateEventSchema({
     name: 'Summer STEAM Camp 2026 — Dublin, CA',

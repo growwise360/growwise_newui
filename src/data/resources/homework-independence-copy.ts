@@ -90,7 +90,7 @@ export const HOMEWORK_INDEPENDENCE_FAQS: readonly ResourceArticleFaq[] = [
   {
     question: 'My child has an IEP — does this system still apply?',
     answer:
-      "The system principles apply, but the implementation needs to account for your child's specific profile. Extended time, reduced task length, and modified environments may all be part of the right approach. A structured external program with experience in differentiated learning can help design the right routine.",
+      "General homework-structure principles may still help at home, but accommodations such as extended time, reduced task length, or modified environments should be determined by your child's school IEP team—not by a supplemental tutoring center. GrowWise is not equipped to implement IEP or Section 504 plans; see our Terms & Conditions for details. Work with your school's special-education team for formal accommodations, and use any home routine in alignment with their guidance.",
   },
 ] as const
 
