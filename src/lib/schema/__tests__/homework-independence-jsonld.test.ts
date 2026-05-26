@@ -5,7 +5,7 @@ import {
 } from '@/data/resources/homework-independence-copy'
 import { buildHomeworkIndependencePageGraphSchema } from '@/lib/schema/homework-independence-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('homework-independence-jsonld', () => {
   const graph = buildHomeworkIndependencePageGraphSchema(BASE_URL, 'en') as Record<string, unknown>

@@ -5,7 +5,7 @@ import {
 } from '@/lib/schema/camp-landing-jsonld';
 
 const LOCALE = 'en';
-const BASE_URL = 'https://www.growwiseschool.org';
+const BASE_URL = 'https://growwiseschool.org';
 
 describe('camp-landing-jsonld', () => {
   describe('buildSummerHubCampItemListSchema', () => {

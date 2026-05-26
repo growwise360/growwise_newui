@@ -87,14 +87,14 @@ const ACADEMIC_CAMP_LANDING_PATHS = [
   '/camps/summer-im2-get-ready-dublin-ca',
 ] as const;
 
-async function expectCanonicalWwwNoEn(page: Page, path: string) {
+async function expectCanonicalNoWwwNoEn(page: Page, path: string) {
   const canonical = page.locator('link[rel="canonical"]');
-  await expect(canonical).toHaveAttribute('href', new RegExp(`https://www\\.growwiseschool\\.org${path.replace(/\//g, '\\/')}$`));
+  await expect(canonical).toHaveAttribute('href', new RegExp(`https://growwiseschool\\.org${path.replace(/\//g, '\\/')}$`));
   const href = await canonical.getAttribute('href');
   expect(href).not.toMatch(/\/en\//);
   const ogUrl = page.locator('meta[property="og:url"]');
   if ((await ogUrl.count()) > 0) {
-    await expect(ogUrl).toHaveAttribute('content', new RegExp(`https://www\\.growwiseschool\\.org${path.replace(/\//g, '\\/')}$`));
+    await expect(ogUrl).toHaveAttribute('content', new RegExp(`https://growwiseschool\\.org${path.replace(/\//g, '\\/')}$`));
     const og = await ogUrl.getAttribute('content');
     expect(og).not.toMatch(/\/en\//);
   }
@@ -102,11 +102,11 @@ async function expectCanonicalWwwNoEn(page: Page, path: string) {
 
 test.describe('Academic summer SEO landings — canonical & indexability', { tag: '@nightly' }, () => {
   for (const path of ACADEMIC_CAMP_LANDING_PATHS) {
-    test(`${path} returns 200 with www canonical (no /en)`, async ({ page }) => {
+    test(`${path} returns 200 with non-www canonical (no /en)`, async ({ page }) => {
       const response = await page.goto(localePath(path));
       expect(response?.status()).toBe(200);
       await expect(page.locator('main h1')).toHaveCount(1);
-      await expectCanonicalWwwNoEn(page, path);
+      await expectCanonicalNoWwwNoEn(page, path);
     });
   }
 

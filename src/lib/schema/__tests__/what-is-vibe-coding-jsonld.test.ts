@@ -5,7 +5,7 @@ import {
 } from '@/data/resources/what-is-vibe-coding-copy'
 import { buildWhatIsVibeCodingPageGraphSchema } from '@/lib/schema/what-is-vibe-coding-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('what-is-vibe-coding-jsonld', () => {
   const graph = buildWhatIsVibeCodingPageGraphSchema(BASE_URL, 'en') as Record<string, unknown>

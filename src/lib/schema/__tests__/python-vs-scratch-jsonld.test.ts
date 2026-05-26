@@ -5,7 +5,7 @@ import {
 } from '@/data/resources/python-vs-scratch-copy'
 import { buildPythonVsScratchPageGraphSchema } from '@/lib/schema/python-vs-scratch-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('python-vs-scratch-jsonld', () => {
   const graph = buildPythonVsScratchPageGraphSchema(BASE_URL, 'en') as Record<string, unknown>

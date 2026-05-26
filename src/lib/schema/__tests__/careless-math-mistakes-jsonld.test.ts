@@ -5,7 +5,7 @@ import {
 } from '@/data/resources/careless-math-mistakes-copy'
 import { buildCarelessMathMistakesPageGraphSchema } from '@/lib/schema/careless-math-mistakes-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('careless-math-mistakes-jsonld', () => {
   const graph = buildCarelessMathMistakesPageGraphSchema(BASE_URL, 'en') as Record<string, unknown>

@@ -13,6 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://growwiseschool.org'),
   title: "K-12 Online Tutoring & Coding Classes | GrowWise",
   description:
     "GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",

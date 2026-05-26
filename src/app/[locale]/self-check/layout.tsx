@@ -12,6 +12,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const meta = generateMetadataFromPath('/self-check', locale);
+  const baseUrl = getCanonicalSiteUrl();
+  const selfCheckUrl = absoluteSiteUrl('/self-check', locale, baseUrl);
   return (
     meta ?? {
       title: 'Academic Self-Check for Students | GrowWise Dublin CA',
@@ -30,13 +32,13 @@ export async function generateMetadata({
         title: 'Free Math Self-Check — Find Your Child\'s Mistake Pattern',
         description:
           '8 questions. Personalized report emailed in minutes. Free for Grades 3–8.',
-        url: 'https://www.growwiseschool.org/self-check',
+        url: selfCheckUrl,
         siteName: 'GrowWise School',
         locale: 'en_US',
         type: 'website',
       },
       alternates: {
-        canonical: 'https://www.growwiseschool.org/self-check',
+        canonical: selfCheckUrl,
       },
     }
   );

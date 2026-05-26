@@ -1,7 +1,7 @@
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources';
 import { buildBlogUrls, buildPagesUrls } from '@/lib/seo/sitemapData';
 
-const BASE = 'https://www.growwiseschool.org';
+const BASE = 'https://growwiseschool.org';
 const LASTMOD = '2026-05-20';
 
 describe('sitemapData', () => {
@@ -9,27 +9,27 @@ describe('sitemapData', () => {
     const urls = buildPagesUrls(BASE, LASTMOD);
     const locs = urls.map((u) => u.loc);
     expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/academic-summer-programs-dublin-ca',
+      'https://growwiseschool.org/camps/academic-summer-programs-dublin-ca',
     );
-    expect(locs).toContain('https://www.growwiseschool.org/camps/summer');
+    expect(locs).toContain('https://growwiseschool.org/camps/summer');
     expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/summer-reading-writing-dublin-ca',
-    );
-    expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/summer-math-foundations-dublin-ca',
-    );
-    expect(locs).toContain('https://www.growwiseschool.org/camps/summer-algebra-dublin-ca');
-    expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/summer-geometry-precalculus-dublin-ca',
+      'https://growwiseschool.org/camps/summer-reading-writing-dublin-ca',
     );
     expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/summer-im-get-ready-dublin-ca',
+      'https://growwiseschool.org/camps/summer-math-foundations-dublin-ca',
+    );
+    expect(locs).toContain('https://growwiseschool.org/camps/summer-algebra-dublin-ca');
+    expect(locs).toContain(
+      'https://growwiseschool.org/camps/summer-geometry-precalculus-dublin-ca',
     );
     expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/summer-im1-get-ready-dublin-ca',
+      'https://growwiseschool.org/camps/summer-im-get-ready-dublin-ca',
     );
     expect(locs).toContain(
-      'https://www.growwiseschool.org/camps/summer-im2-get-ready-dublin-ca',
+      'https://growwiseschool.org/camps/summer-im1-get-ready-dublin-ca',
+    );
+    expect(locs).toContain(
+      'https://growwiseschool.org/camps/summer-im2-get-ready-dublin-ca',
     );
   });
 
