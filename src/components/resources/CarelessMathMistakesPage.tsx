@@ -54,6 +54,11 @@ export function CarelessMathMistakesPage() {
   const selfCheckHref = publicPath('/self-check', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
   const mathCoursesHref = publicPath('/courses/math', locale)
+  const mathFoundationsHref = publicPath('/camps/summer-math-foundations-dublin-ca', locale)
+  const im1GetReadyHref = publicPath('/camps/summer-im1-get-ready-dublin-ca', locale)
+  const im2GetReadyHref = publicPath('/camps/summer-im2-get-ready-dublin-ca', locale)
+  const algebraGetReadyHref = publicPath('/camps/summer-algebra-dublin-ca', locale)
+  const academicHubHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
   const relatedHref = publicPath(CARELESS_MATH_MISTAKES_RELATED.href, locale)
   const defaultOpenFaqs = getDefaultOpenFaqValues(CARELESS_MATH_MISTAKES_FAQS.length, (idx) => `careless-faq-${idx}`)
 
@@ -197,6 +202,16 @@ export function CarelessMathMistakesPage() {
               correcting established mistake patterns (Vanderbilt IRIS Center, 2026). What&apos;s needed is a diagnostic
               approach: identify the specific error type, then target that pattern directly with structured correction.
             </p>
+            <p className={bodyClass}>
+              For students entering Algebra 1 with execution gaps, a focused{' '}
+              <Link
+                href={algebraGetReadyHref}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                Algebra 1 Get Ready
+              </Link>{' '}
+              summer cohort targets sign and distribution errors before they become habits.
+            </p>
           </div>
 
           <h2 className={cn(h2Class, 'mt-12 mb-4')}>The GrowWise Approach to Careless Mistakes</h2>
@@ -224,6 +239,37 @@ export function CarelessMathMistakesPage() {
                 math tutoring
               </Link>{' '}
               programs are built around this diagnostic-first model.
+            </p>
+            <p className={bodyClass}>
+              During summer, our{' '}
+              <Link
+                href={mathFoundationsHref}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                Summer Math Foundations
+              </Link>{' '}
+              and{' '}
+              <Link
+                href={im1GetReadyHref}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                IM1
+              </Link>{' '}
+              /{' '}
+              <Link
+                href={im2GetReadyHref}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                IM2 Get Ready
+              </Link>{' '}
+              programs apply the same mistake-pattern diagnostic in structured cohorts. See all{' '}
+              <Link
+                href={academicHubHref}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                academic summer programs in Dublin
+              </Link>
+              .
             </p>
             <p className={bodyClass}>
               Most students with identifiable mistake patterns show measurable improvement within 4–6 sessions.

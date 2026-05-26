@@ -16,6 +16,7 @@ export function HomeworkIndependencePage() {
   const selfCheckHref = publicPath('/self-check', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
   const mathCoursesHref = publicPath('/courses/math', locale)
+  const academicHubHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
 
   return (
     <ResourceArticlePage
@@ -142,6 +143,14 @@ export function HomeworkIndependencePage() {
       <p>
         Most students who move their homework habit to a structured external environment — whether in-person or online —
         show measurable independence improvement within 4–6 sessions.
+      </p>
+
+      <p>
+        A structured summer cohort — like our{' '}
+        <Link href={academicHubHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          academic summer programs in Dublin
+        </Link>{' '}
+        — gives students a consistent routine and non-parent accountability while school is out.
       </p>
 
       <p>

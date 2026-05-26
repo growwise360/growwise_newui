@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { HelpCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { ImGetReadyThankYouBenefitBanner } from '@/components/camps/im-get-ready/ImGetReadyThankYouBenefitBanner';
+import { AcademicSeoParentGuidesBlock } from '@/components/camps/AcademicSeoParentGuidesBlock';
 import { ACADEMIC_SUMMER_BANNER_SRC } from '@/components/camps/AcademicProgramsHero';
 import { SectionContainer } from '@/components/camps/SectionContainer';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
@@ -20,6 +22,7 @@ import {
   getAcademicSummerProgramsHubData,
 } from '@/lib/academic-summer-programs-hub-data';
 import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
+import { getParentGuidesForLandingPage } from '@/lib/academic-seo-parent-guides';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -169,6 +172,7 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
   const copy = getAcademicSeoLandingCopy(pageId);
   const hubCtaHref = hubUrlWithFilter(locale, config.hubFilter);
   const hubAllHref = createLocaleUrl(ACADEMIC_SEO_HUB_PATH, locale);
+  const contactHref = createLocaleUrl('/contact', locale);
 
   const programCards = config.trackIds
     .map((trackId) => {
@@ -178,6 +182,7 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
     .filter((card): card is NonNullable<typeof card> => card !== null);
 
   const defaultOpenFaqs = getDefaultOpenFaqValues(copy.faq.length, (idx) => `faq-${idx}`);
+  const parentGuides = getParentGuidesForLandingPage(pageId);
 
   const valueAnchorText =
     copy.valueAnchorPrefix && pageId === 'geometry'
@@ -243,6 +248,16 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
           ) : null}
           {heroContent}
         </section>
+
+        {copy.thankYouBenefit ? (
+          <ImGetReadyThankYouBenefitBanner
+            title={copy.thankYouBenefit.title}
+            copy={copy.thankYouBenefit.copy}
+            note={copy.thankYouBenefit.importantNote}
+            ctaHref={contactHref}
+            ctaLabel={copy.thankYouBenefit.ctaLabel}
+          />
+        ) : null}
 
         <SectionContainer className="bg-white">
           <div
@@ -327,6 +342,16 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
             </p>
           </div>
         </SectionContainer>
+
+        {parentGuides.length > 0 ? (
+          <SectionContainer className="border-t border-slate-100 bg-slate-50/60">
+            <AcademicSeoParentGuidesBlock
+              locale={locale}
+              guides={parentGuides}
+              className="mx-auto max-w-3xl"
+            />
+          </SectionContainer>
+        ) : null}
 
         {valueAnchorText ? (
           <SectionContainer className="border-t border-slate-100 bg-slate-50/60 py-8">

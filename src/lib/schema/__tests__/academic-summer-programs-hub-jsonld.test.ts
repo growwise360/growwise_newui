@@ -49,10 +49,10 @@ describe('academic-summer-programs-hub-jsonld', () => {
     const schema = buildAcademicSummerProgramsCourseItemListSchema() as Record<string, unknown>;
     const items = schema.itemListElement as Array<Record<string, unknown>>;
 
-    it('uses ItemList with 6 courses', () => {
+    it('uses ItemList with 7 courses', () => {
       expect(schema['@type']).toBe('ItemList');
       expect(schema.name).toBe('GrowWise Academic Summer Programs');
-      expect(items).toHaveLength(6);
+      expect(items).toHaveLength(7);
     });
 
     it('lists courses in prompt order with nested Course items', () => {
@@ -65,6 +65,7 @@ describe('academic-summer-programs-hub-jsonld', () => {
         'Write to Explain',
         'Bridge the Gap Math',
         'IM1 Get Ready Sprint',
+        'IM2 Get Ready Sprint',
         'Algebra 1 Get Ready Sprint',
         'Geometry Get Ready Sprint',
       ]);
@@ -89,7 +90,7 @@ describe('academic-summer-programs-hub-jsonld', () => {
       const offers = readToProve.offers as Array<Record<string, unknown>>;
       expect(offers.map((o) => o.price)).toEqual(['249', '349']);
 
-      const geometry = items[5].item as Record<string, unknown>;
+      const geometry = items[6].item as Record<string, unknown>;
       const geometryOffers = geometry.offers as Array<Record<string, unknown>>;
       expect(geometryOffers.map((o) => o.price)).toEqual(['279', '499']);
     });
@@ -110,7 +111,14 @@ describe('academic-summer-programs-hub-jsonld', () => {
       expect(im1Schedule.startDate).toBe('2026-07-20');
       expect(im1Schedule.endDate).toBe('2026-08-15');
 
-      const algebraSchedule = (items[4].item as Record<string, unknown>).courseSchedule as Record<
+      const im2Schedule = (items[4].item as Record<string, unknown>).courseSchedule as Record<
+        string,
+        unknown
+      >;
+      expect(im2Schedule.startDate).toBe('2026-07-20');
+      expect(im2Schedule.endDate).toBe('2026-08-15');
+
+      const algebraSchedule = (items[5].item as Record<string, unknown>).courseSchedule as Record<
         string,
         unknown
       >;

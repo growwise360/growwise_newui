@@ -8,6 +8,7 @@ import { AcademicProgramList } from '@/components/camps/AcademicProgramList';
 import { AcademicProgramsHero } from '@/components/camps/AcademicProgramsHero';
 import { AcademicHowItWorksSection } from '@/components/camps/AcademicHowItWorksSection';
 import { AcademicInternalLinksSection } from '@/components/camps/AcademicInternalLinksSection';
+import { AcademicSeoParentGuidesBlock } from '@/components/camps/AcademicSeoParentGuidesBlock';
 import { AcademicProblemSection } from '@/components/camps/AcademicProblemSection';
 import { SectionContainer } from '@/components/camps/SectionContainer';
 import { SummerCampTrustBlock } from '@/components/camps/SummerCampTrustBlock';
@@ -28,6 +29,7 @@ import {
   type AcademicProgramFilterId,
 } from '@/lib/academic-summer-program-filters';
 import { ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS } from '@/lib/schema/academic-summer-programs-hub-jsonld-faqs';
+import { getParentGuidesForAcademicHub } from '@/lib/academic-seo-parent-guides';
 import type { Program } from '@/lib/summer-camp-data';
 import { CONTACT_INFO } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -345,6 +347,14 @@ export function AcademicSummerProgramsPage() {
         />
 
         <AcademicInternalLinksSection locale={locale} />
+
+        <SectionContainer className="border-t border-slate-100 bg-white">
+          <AcademicSeoParentGuidesBlock
+            locale={locale}
+            guides={getParentGuidesForAcademicHub()}
+            className="mx-auto max-w-3xl"
+          />
+        </SectionContainer>
 
         <SectionContainer id="faq" className="border-b border-slate-100 bg-slate-50/60">
           <div className="mx-auto max-w-4xl">

@@ -19,7 +19,7 @@ const FILTER_PROGRAM_IDS: Record<
 > = {
   readingWriting: ['read-to-prove', 'write-to-explain'],
   bridgeTheGap: ['bridge-the-gap-math'],
-  getReadyMath: ['im1', 'algebra-1', 'geometry'],
+  getReadyMath: ['im1', 'im2', 'algebra-1', 'geometry'],
 };
 
 export function filterAcademicProgramsByChip(

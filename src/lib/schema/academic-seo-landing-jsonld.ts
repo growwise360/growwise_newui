@@ -19,6 +19,17 @@ const MWF_SCHEDULE_JUNE = {
   byDay: ['Monday', 'Wednesday', 'Friday'] as const,
 };
 
+const MWF_SCHEDULE_JULY = {
+  startDate: '2026-07-20',
+  endDate: '2026-08-15',
+  byDay: ['Monday', 'Wednesday', 'Friday'] as const,
+};
+
+const STANDARD_GET_READY_OFFERS = [
+  { price: '249', priceCurrency: 'USD', name: '2-week sprint' },
+  { price: '449', priceCurrency: 'USD', name: 'Both cohorts' },
+] as const;
+
 function courseProviderWithPhone() {
   return {
     '@type': 'EducationalOrganization' as const,
@@ -117,6 +128,26 @@ const GEOMETRY_COURSE = {
   ],
 };
 
+const IM1_GET_READY_COURSE = {
+  '@type': 'Course' as const,
+  name: 'IM1 Get Ready — Integrated Math 1 Summer Prep Dublin CA',
+  description:
+    'Grade 7 accelerated math readiness. 100% DUSD aligned. Mon/Wed/Fri evenings 5–6:30 PM. Starts July 20. Dublin, CA.',
+  provider: courseProviderWithPhone(),
+  courseSchedule: courseSchedule(MWF_SCHEDULE_JULY),
+  offers: STANDARD_GET_READY_OFFERS.map(courseOffer),
+};
+
+const IM2_GET_READY_COURSE = {
+  '@type': 'Course' as const,
+  name: 'IM2 Get Ready — Integrated Math 2 Summer Prep Dublin CA',
+  description:
+    'Grade 8 Integrated Math 2 readiness. 100% DUSD aligned. Mon/Wed/Fri evenings 5–6:30 PM. Starts July 20. Dublin, CA.',
+  provider: courseProviderWithPhone(),
+  courseSchedule: courseSchedule(MWF_SCHEDULE_JULY),
+  offers: STANDARD_GET_READY_OFFERS.map(courseOffer),
+};
+
 export type AcademicSeoFaqItem = {
   question: string;
   answer: string;
@@ -140,6 +171,20 @@ export function buildAcademicSeoLandingCourseSchema(pageId: AcademicSeoLandingPa
       return { '@context': 'https://schema.org', ...ALGEBRA_COURSE };
     case 'geometry':
       return { '@context': 'https://schema.org', ...GEOMETRY_COURSE };
+    case 'imGetReady':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'IM1 & IM2 Get Ready Programs Dublin CA',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, item: IM1_GET_READY_COURSE },
+          { '@type': 'ListItem', position: 2, item: IM2_GET_READY_COURSE },
+        ],
+      };
+    case 'im1GetReady':
+      return { '@context': 'https://schema.org', ...IM1_GET_READY_COURSE };
+    case 'im2GetReady':
+      return { '@context': 'https://schema.org', ...IM2_GET_READY_COURSE };
     default: {
       const _exhaustive: never = pageId;
       return _exhaustive;

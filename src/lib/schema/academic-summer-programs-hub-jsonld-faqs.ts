@@ -6,7 +6,7 @@ export const ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS: FAQItem[] = [
   {
     question: 'What grades do these programs serve?',
     answer:
-      'Academic Summer Sprint (Read to Prove, Write to Explain, Bridge the Gap Math) serves Grades 1–8. Get Ready Sprint (IM1, Algebra 1, Geometry) serves Grades 7–10. Both programs run at 4564 Dublin Blvd, Dublin, CA.',
+      'Academic Summer Sprint (Read to Prove, Write to Explain, Bridge the Gap Math) serves Grades 1–8. Get Ready Sprint (IM1, IM2, Algebra 1, Geometry) serves Grades 7–10. Both programs run at 4564 Dublin Blvd, Dublin, CA.',
   },
   {
     question: 'How is this different from tutoring?',
@@ -26,7 +26,7 @@ export const ACADEMIC_SUMMER_PROGRAMS_HUB_FAQS: FAQItem[] = [
   {
     question: 'Are these programs DUSD aligned?',
     answer:
-      'Yes. Get Ready Sprint programs (IM1, Algebra 1, Geometry) are 100% aligned to Dublin Unified School District curriculum. Academic Summer Sprint programs follow Common Core standards and are designed to prepare students for DUSD and PUSD grade-level expectations.',
+      'Yes. Get Ready Sprint programs (IM1, IM2, Algebra 1, Geometry) are 100% aligned to Dublin Unified School District curriculum. Academic Summer Sprint programs follow Common Core standards and are designed to prepare students for DUSD and PUSD grade-level expectations.',
   },
   {
     question: 'What if my child misses a session?',

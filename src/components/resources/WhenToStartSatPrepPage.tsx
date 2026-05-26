@@ -15,6 +15,9 @@ export function WhenToStartSatPrepPage() {
   const satPrepHref = publicPath('/courses/sat-prep', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
   const mathCoursesHref = publicPath('/courses/math', locale)
+  const mathFoundationsHref = publicPath('/camps/summer-math-foundations-dublin-ca', locale)
+  const algebraGetReadyHref = publicPath('/camps/summer-algebra-dublin-ca', locale)
+  const highSchoolMathHref = publicPath('/courses/high-school-math', locale)
 
   return (
     <ResourceArticlePage
@@ -88,7 +91,15 @@ export function WhenToStartSatPrepPage() {
       <p>
         What Grade 8 <em>is</em> good for: identifying and closing math gaps before high school. A student who
         enters Grade 9 with solid arithmetic, pre-algebra, and early algebraic reasoning will be significantly
-        better positioned for SAT prep in Grade 10.
+        better positioned for SAT prep in Grade 10. Our{' '}
+        <Link href={mathFoundationsHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          Summer Math Foundations
+        </Link>{' '}
+        and{' '}
+        <Link href={algebraGetReadyHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          Algebra 1 Get Ready
+        </Link>{' '}
+        programs are built for exactly this window.
       </p>
 
       <p>
@@ -136,7 +147,11 @@ export function WhenToStartSatPrepPage() {
       <p>
         By Grade 10, most students have completed or are completing Algebra 2 — which covers the majority of SAT
         math content. This means prep can focus on test strategy, time management, and targeted practice rather
-        than re-teaching content.
+        than re-teaching content. If coursework gaps remain,{' '}
+        <Link href={highSchoolMathHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          high school math tutoring
+        </Link>{' '}
+        closes them before SAT strategy work begins.
       </p>
 
       <p>

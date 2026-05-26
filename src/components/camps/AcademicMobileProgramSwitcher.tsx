@@ -14,6 +14,7 @@ export const ACADEMIC_MOBILE_SWITCHER_PROGRAM_IDS = [
   'write-to-explain',
   'bridge-the-gap-math',
   'im1',
+  'im2',
   'algebra-1',
   'geometry',
 ] as const;

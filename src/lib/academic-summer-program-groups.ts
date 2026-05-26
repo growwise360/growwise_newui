@@ -9,13 +9,14 @@ export const ACADEMIC_PROGRAM_GROUP_ORDER: readonly AcademicProgramGroup[] = [
   'julyPrograms',
 ];
 
-const JULY_TRACK_IDS = new Set<AcademicSprintTrackId>(['im1', 'algebra-1', 'geometry']);
+const JULY_TRACK_IDS = new Set<AcademicSprintTrackId>(['im1', 'im2', 'algebra-1', 'geometry']);
 
 const TRACK_DISPLAY_ORDER: readonly AcademicSprintTrackId[] = [
   'read-to-prove',
   'write-to-explain',
   'bridge-the-gap-math',
   'im1',
+  'im2',
   'algebra-1',
   'geometry',
 ];

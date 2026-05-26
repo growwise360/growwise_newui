@@ -107,6 +107,13 @@ const ACADEMIC_SUMMER_COURSES: CourseEntry[] = [
     offers: STANDARD_GET_READY_OFFERS.map(courseOffer),
   },
   {
+    name: 'IM2 Get Ready Sprint',
+    description:
+      'Grade 8 Integrated Math 2 readiness. 100% DUSD aligned. Mon/Wed/Fri evenings. Dublin, CA.',
+    schedule: courseSchedule(MWF_SCHEDULE_JULY),
+    offers: STANDARD_GET_READY_OFFERS.map(courseOffer),
+  },
+  {
     name: 'Algebra 1 Get Ready Sprint',
     description:
       'Algebra 1 foundations before school starts. DUSD aligned. Mon/Wed/Fri evenings. Dublin, CA.',

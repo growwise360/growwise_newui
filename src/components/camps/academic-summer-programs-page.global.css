@@ -3,3 +3,13 @@ body:has([data-academic-summer-page]) {
   max-width: 100%;
   overflow-x: clip;
 }
+
+[data-im-get-ready-landing] {
+  --im-landing-nav-height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  [data-im-get-ready-landing] {
+    --im-landing-nav-height: 3.25rem;
+  }
+}
