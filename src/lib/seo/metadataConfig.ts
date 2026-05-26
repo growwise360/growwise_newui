@@ -419,6 +419,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/resources/reading-fluency-vs-comprehension': {
+    title: 'Fluency vs Comprehension: Reading Gaps | GrowWise',
+    description:
+      'Your child can decode every word but still not understand what they read. Learn how to tell fluency from comprehension gaps—and why support matters.',
+    keywords:
+      'reading fluency vs comprehension, reading fluency comprehension difference, child reads but doesn\'t understand, reading program, reading comprehension gap, reading fluency gap, child struggles with reading comprehension',
+    path: '/resources/reading-fluency-vs-comprehension',
+    type: 'article',
+  },
+
   '/resources/careless-math-mistakes': {
     title: 'Why Kids Make Careless Math Mistakes on Tests | GrowWise',
     description:

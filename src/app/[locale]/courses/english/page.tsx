@@ -1030,7 +1030,16 @@ function EnglishCoursesContent() {
         <div className="max-w-4xl mx-auto space-y-10">
           <div>
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Reading Comprehension Tutoring for Grades 1–8</h2>
-            <p className="text-gray-600 leading-relaxed">We build reading skills systematically — from decoding and fluency in early grades to inference, analysis, and comprehension strategies through Grade 8.</p>
+            <p className="text-gray-600 leading-relaxed">
+              We build reading skills systematically — from decoding and{' '}
+              <Link
+                href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                fluency vs. comprehension
+              </Link>{' '}
+              in early grades to inference, analysis, and comprehension strategies through Grade 8.
+            </p>
           </div>
 
           <div>

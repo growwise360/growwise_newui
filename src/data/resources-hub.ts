@@ -24,6 +24,16 @@ export const RESOURCE_FILTERS: ReadonlyArray<{ id: ResourceFilterId; label: stri
 
 export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
   {
+    id: 'reading-fluency-vs-comprehension',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'Reading Fluency vs. Reading Comprehension: Why Your Child Might Struggle With One and Not the Other',
+    description:
+      'Your child can decode every word but still not understand what they read. Learn how to tell fluency gaps from comprehension gaps.',
+    readTime: '6 min read',
+    href: '/resources/reading-fluency-vs-comprehension',
+  },
+  {
     id: 'careless-math-mistakes',
     category: 'academic',
     categoryLabel: 'ACADEMIC',

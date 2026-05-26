@@ -96,6 +96,10 @@ export const HOMEWORK_INDEPENDENCE_FAQS: readonly ResourceArticleFaq[] = [
 
 export const HOMEWORK_INDEPENDENCE_RELATED: readonly ResourceArticleRelated[] = [
   {
+    href: '/resources/reading-fluency-vs-comprehension',
+    title: 'Reading Fluency vs. Reading Comprehension: Which Gap Does Your Child Have?',
+  },
+  {
     href: '/resources/careless-math-mistakes',
     title: 'Why Kids Make Careless Math Mistakes (And How to Fix It)',
   },

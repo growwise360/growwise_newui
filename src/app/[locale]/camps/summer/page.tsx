@@ -881,6 +881,22 @@ export default function SummerCampPage() {
           <SummerCampPageFaq faqs={faqs} loading={faqsLoading} />
         ) : null}
 
+        {/* Summer learning loss context */}
+        <section className="py-14 px-4 bg-white border-t border-slate-200">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-slate-700 leading-relaxed mb-4">
+              Research shows students lose months of academic progress each summer. The earlier your child starts a structured program, the less ground they lose.{' '}
+              <Link
+                href={publicPath('/resources/summer-slide-dublin-ca', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                Learn more about the summer slide
+              </Link>
+              {' '}— and how our programs prevent it.
+            </p>
+          </div>
+        </section>
+
         {/* Year-round programs — internal linking */}
         <section className="py-14 px-4 bg-slate-50 border-t border-slate-200">
           <div className="max-w-4xl mx-auto">

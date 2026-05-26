@@ -206,8 +206,15 @@ export function HomeworkIndependencePage() {
       </p>
 
       <p>
-        If it&apos;s specific subjects (especially math or reading): likely a skill gap that makes the work genuinely
-        difficult. No routine fixes content that the student doesn&apos;t understand.
+        If it&apos;s specific subjects (especially{' '}
+        <Link
+          href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+          className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+        >
+          reading
+        </Link>{' '}
+        or math): likely a skill gap that makes the work genuinely difficult. No routine fixes content that the
+        student doesn&apos;t understand.
       </p>
 
       <p>
