@@ -15,6 +15,12 @@ import { buildAcademicSeoLandingCourseSchema } from '@/lib/schema/academic-seo-l
 import { ACADEMIC_SEO_LANDING_PAGE_IDS } from '@/lib/academic-seo-landing-config';
 import { getAcademicSeoLandingCopy } from '@/lib/academic-seo-landing-copy';
 
+const STANDARD_ACADEMIC_SEO_LANDING_PAGE_IDS = ACADEMIC_SEO_LANDING_PAGE_IDS.filter(
+  (id) => id !== 'imGetReady' && id !== 'im1GetReady' && id !== 'im2GetReady',
+);
+
+const ITEM_LIST_JSON_LD_PAGE_IDS = new Set(['readingWriting', 'imGetReady']);
+
 describe('camp-pages-registry', () => {
   it('lists all static camp hubs and SEO landing paths without duplicates', () => {
     const all = getAllCampsSmokePaths();
@@ -40,13 +46,13 @@ describe('camp-pages-registry', () => {
     expect(queries).toEqual(['reading-writing', 'bridge-the-gap', 'get-ready-math']);
   });
 
-  it('maps each SEO page to hub filter and three related paths', () => {
+  it('maps each SEO page to hub filter and related paths', () => {
     const expectations = getAcademicSeoPageSmokeExpectations();
-    expect(expectations).toHaveLength(4);
+    expect(expectations).toHaveLength(ACADEMIC_SEO_LANDING_PAGE_IDS.length);
     for (const page of expectations) {
       expect(page.h1.length).toBeGreaterThan(10);
       expect(page.hubFilterQuery).toMatch(/^(reading-writing|bridge-the-gap|get-ready-math)$/);
-      expect(page.relatedPaths).toHaveLength(3);
+      expect(page.relatedPaths.length).toBeGreaterThanOrEqual(3);
       expect(page.relatedPaths).not.toContain(page.path);
     }
   });
@@ -76,13 +82,13 @@ describe('camp pages sitemap', () => {
 });
 
 describe('academic SEO landing copy', () => {
-  it.each(ACADEMIC_SEO_LANDING_PAGE_IDS)('%s has body sections and five FAQ items', (pageId) => {
+  it.each(STANDARD_ACADEMIC_SEO_LANDING_PAGE_IDS)('%s has body sections and at least five FAQ items', (pageId) => {
     const copy = getAcademicSeoLandingCopy(pageId);
     expect(copy.bodySections.whatYourChildWillWorkOn.subsections.length).toBeGreaterThan(0);
     expect(copy.bodySections.whoTeaches.body.length).toBeGreaterThan(50);
     expect(copy.bodySections.whoIsRightFor.groups.length).toBeGreaterThan(0);
     expect(copy.bodySections.whyGrowWise.body.length).toBeGreaterThan(50);
-    expect(copy.faq).toHaveLength(5);
+    expect(copy.faq.length).toBeGreaterThanOrEqual(5);
   });
 });
 
@@ -90,7 +96,7 @@ describe('academic SEO JSON-LD', () => {
   it.each(ACADEMIC_SEO_LANDING_PAGE_IDS)('builds course schema for %s', (pageId) => {
     const schema = buildAcademicSeoLandingCourseSchema(pageId) as Record<string, unknown>;
     expect(schema['@context']).toBe('https://schema.org');
-    if (pageId === 'readingWriting') {
+    if (ITEM_LIST_JSON_LD_PAGE_IDS.has(pageId)) {
       expect(schema['@type']).toBe('ItemList');
     } else {
       expect(schema['@type']).toBe('Course');

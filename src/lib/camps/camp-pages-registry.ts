@@ -2,9 +2,15 @@ import { getCampSlugs } from '@/lib/camps/get-camp-page';
 import {
   ACADEMIC_SEO_LANDING_PAGE_IDS,
   ACADEMIC_SEO_LANDING_PAGES,
+  type AcademicSeoLandingPageId,
 } from '@/lib/academic-seo-landing-config';
 import { ACADEMIC_HUB_FILTER_QUERY_VALUES } from '@/lib/academic-summer-program-filters';
 import { getAcademicSeoLandingCopy } from '@/lib/academic-seo-landing-copy';
+import {
+  getIm1GetReadySeoLandingCopy,
+  getIm2GetReadySeoLandingCopy,
+  getImGetReadySeoLandingCopy,
+} from '@/lib/im-get-ready-seo-landing-copy';
 
 /** Static camp hub routes (not dynamic `[slug]` landings). */
 export const CAMP_STATIC_HUB_PATHS = [
@@ -87,13 +93,25 @@ export type AcademicSeoPageSmokeExpectation = {
   relatedPaths: readonly AcademicSeoCampPath[];
 };
 
+function getAcademicSeoPageH1(pageId: AcademicSeoLandingPageId): string {
+  switch (pageId) {
+    case 'imGetReady':
+      return getImGetReadySeoLandingCopy().hero.h1;
+    case 'im1GetReady':
+      return getIm1GetReadySeoLandingCopy().hero.h1;
+    case 'im2GetReady':
+      return getIm2GetReadySeoLandingCopy().hero.h1;
+    default:
+      return getAcademicSeoLandingCopy(pageId).hero.h1;
+  }
+}
+
 export function getAcademicSeoPageSmokeExpectations(): AcademicSeoPageSmokeExpectation[] {
   return ACADEMIC_SEO_LANDING_PAGE_IDS.map((id) => {
     const config = ACADEMIC_SEO_LANDING_PAGES[id];
-    const copy = getAcademicSeoLandingCopy(id);
     return {
       path: config.path as AcademicSeoCampPath,
-      h1: copy.hero.h1,
+      h1: getAcademicSeoPageH1(id),
       hubFilterQuery: ACADEMIC_HUB_FILTER_QUERY_VALUES[config.hubFilter],
       relatedPaths: config.relatedPageOrder.map(
         (relatedId) => ACADEMIC_SEO_LANDING_PAGES[relatedId].path as AcademicSeoCampPath,
