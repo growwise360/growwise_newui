@@ -215,12 +215,6 @@ const nextConfig: NextConfig = {
     ]);
 
     return [
-      {
-        source: '/:path*',
-        destination: 'https://growwiseschool.org/:path*',
-        permanent: true,
-        has: [{ type: 'host', value: 'www.growwiseschool.org' }],
-      },
       ...legacyMarketingRedirects,
       { source: '/camp', destination: '/camps/summer', permanent: true },
       { source: '/camp/:slug', destination: '/camps/:slug', permanent: true },
