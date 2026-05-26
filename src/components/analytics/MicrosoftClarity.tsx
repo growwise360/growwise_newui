@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Clarity from '@microsoft/clarity';
 import { isAutomatedAuditEnvironment } from '@/lib/consent';
 import { isClarityExcludedPath } from '@/lib/analytics/clarityPaths';
+import { getClaritySkipReasons, logClarityDebug } from '@/lib/analytics/clarityDebug';
 
 interface MicrosoftClarityProps {
   projectId: string;
@@ -25,6 +26,7 @@ function stopClarityRecording() {
 export function MicrosoftClarity({ projectId, pathname }: MicrosoftClarityProps) {
   const id = projectId.trim();
   const initializedRef = useRef(false);
+  const lastLoggedSkipKeyRef = useRef<string | null>(null);
 
   const shouldSkip =
     !id ||
@@ -34,7 +36,18 @@ export function MicrosoftClarity({ projectId, pathname }: MicrosoftClarityProps)
 
   useEffect(() => {
     if (shouldSkip) {
+      const skipKey = `${pathname}:${getClaritySkipReasons({ projectId: id, pathname }).join(',')}`;
+      if (lastLoggedSkipKeyRef.current !== skipKey) {
+        lastLoggedSkipKeyRef.current = skipKey;
+        logClarityDebug(
+          'skipped',
+          getClaritySkipReasons({ projectId: id, pathname }),
+          { pathname, projectId: id || undefined },
+        );
+      }
+
       if (initializedRef.current) {
+        logClarityDebug('stopped', [], { pathname });
         stopClarityRecording();
         initializedRef.current = false;
       }
@@ -49,7 +62,9 @@ export function MicrosoftClarity({ projectId, pathname }: MicrosoftClarityProps)
       Clarity.consentV2({ ad_Storage: 'denied', analytics_Storage: 'granted' });
     }
     initializedRef.current = true;
-  }, [id, shouldSkip]);
+    lastLoggedSkipKeyRef.current = null;
+    logClarityDebug('initialized', [], { pathname, projectId: id });
+  }, [id, pathname, shouldSkip]);
 
   useEffect(() => {
     return () => {
