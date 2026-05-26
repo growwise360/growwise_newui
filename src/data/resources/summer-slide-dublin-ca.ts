@@ -9,9 +9,9 @@ export const SUMMER_SLIDE_DUBLIN_CA_META: ResourceArticleMeta = {
   h1: 'The Summer Slide Is Real: What Dublin Parents Need to Know Before June Ends',
   readTime: '5 min read',
   updated: 'Updated May 2026',
-  title: 'The Summer Slide Is Real: What Dublin Parents Need to Know Before June Ends | GrowWise',
+  title: 'Summer Slide Dublin CA: What Parents Need to Know | GrowWise',
   description:
-    'Dublin and Tri-Valley students lose months of academic progress every summer. Here\'s what the summer slide actually looks like — and how structured programs prevent it.',
+    'Dublin and Tri-Valley students lose months of progress every summer. Learn what the summer slide looks like — and how structured programs prevent it.',
   keywords:
     'summer slide Dublin CA, academic summer programs Dublin CA, summer learning loss Tri-Valley, summer slide prevention, summer tutoring Dublin CA, academic summer camp Dublin CA, summer programs Dublin, summer learning loss Dublin CA',
   datePublished: '2026-06-01',

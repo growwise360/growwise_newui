@@ -409,6 +409,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/resources/summer-slide-dublin-ca': {
+    title: 'Summer Slide Dublin CA: What Parents Need to Know | GrowWise',
+    description:
+      'Dublin and Tri-Valley students lose months of progress every summer. Learn what the summer slide looks like — and how structured programs prevent it.',
+    keywords:
+      'summer slide Dublin CA, academic summer programs Dublin CA, summer learning loss Tri-Valley, summer slide prevention, summer tutoring Dublin CA, summer learning loss Dublin CA',
+    path: '/resources/summer-slide-dublin-ca',
+    type: 'article',
+  },
+
   '/resources/python-vs-scratch': {
     title: 'Python vs Scratch for Kids: Which Should Your Child Learn First? | GrowWise',
     description:

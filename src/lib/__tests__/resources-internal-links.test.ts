@@ -82,6 +82,34 @@ describe('resources internal links', () => {
     expect(source).toContain('/resources/reading-fluency-vs-comprehension');
   });
 
+  it('links summer camp pages to summer-slide-dublin-ca', () => {
+    const summerPage = readComponent('app/[locale]/camps/summer/page.tsx');
+    const problemSection = readComponent('components/camps/AcademicProblemSection.tsx');
+    const seoLanding = readComponent('components/camps/AcademicSeoLandingPage.tsx');
+
+    expect(summerPage).toContain('/resources/summer-slide-dublin-ca');
+    expect(problemSection).toContain('/resources/summer-slide-dublin-ca');
+    expect(seoLanding).toContain('/resources/summer-slide-dublin-ca');
+  });
+
+  it('links how-to-choose blog to summer-slide-dublin-ca', () => {
+    const source = readComponent(
+      'app/[locale]/growwise-blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide/page.tsx',
+    );
+    expect(source).toContain('/resources/summer-slide-dublin-ca');
+  });
+
+  it('links summer-slide-dublin-ca to related guides and summer programs', () => {
+    const articlePage = readComponent('components/resources/SummerSlideDublinCaArticlePage.tsx');
+    const dataModule = readComponent('data/resources/summer-slide-dublin-ca.ts');
+
+    expect(articlePage).toContain('/camps/academic-summer-programs-dublin-ca');
+    expectContainsHrefs(dataModule, [
+      '/resources/tutoring-dublin-ca',
+      '/resources/careless-math-mistakes',
+    ]);
+  });
+
   it('fixes tutoring-dublin-ca academic summer mislink and expands program links', () => {
     const source = readComponent('components/resources/TutoringDublinCaArticlePage.tsx');
 
