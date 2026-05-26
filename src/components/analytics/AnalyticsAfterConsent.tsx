@@ -8,6 +8,7 @@ import MetaPixel from '@/components/analytics/MetaPixel';
 import HubSpotSpaTracker from '@/components/analytics/HubSpotSpaTracker';
 import { MicrosoftClarity } from '@/components/analytics/MicrosoftClarity';
 import { isClarityExcludedPath } from '@/lib/analytics/clarityPaths';
+import { getClaritySkipReasons, logClarityDebug } from '@/lib/analytics/clarityDebug';
 import {
   getStoredCookieConsent,
   isAutomatedAuditEnvironment,
@@ -50,6 +51,29 @@ export function AnalyticsAfterConsent() {
       clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() || null,
     };
   }, []);
+
+  useEffect(() => {
+    if (!ready || isAutomatedAuditEnvironment()) return;
+
+    const clarityId = env.clarityProjectId ?? '';
+    const reasons = getClaritySkipReasons({
+      projectId: clarityId,
+      pathname: pathname ?? '/',
+      consentAccepted: consent === 'accepted',
+    }).filter(
+      (reason) =>
+        reason === 'no_cookie_consent' ||
+        reason === 'no_project_id' ||
+        reason === 'invalid_project_id',
+    );
+
+    if (reasons.length > 0) {
+      logClarityDebug('skipped', reasons, {
+        pathname: pathname ?? '/',
+        projectId: clarityId || undefined,
+      });
+    }
+  }, [ready, consent, env.clarityProjectId, pathname]);
 
   if (!ready) return null;
 

@@ -11,6 +11,11 @@ import { CheckCircle, Loader2, Home, FileText, AlertCircle } from 'lucide-react'
 import Link from 'next/link';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { publicPath } from '@/lib/publicPath';
+import { GoogleCustomerReviewsOptIn } from '@/components/analytics/GoogleCustomerReviewsOptIn';
+import {
+  getGcrFieldsFromCheckoutSession,
+  isGcrCheckoutReady,
+} from '@/lib/googleCustomerReviews';
 
 const CheckoutSuccessContent: React.FC = () => {
   const searchParams = useSearchParams();
@@ -130,9 +135,16 @@ const CheckoutSuccessContent: React.FC = () => {
 
   // If we have a session ID but no session data, assume payment was successful
   // (session fetch might have failed, but we're on the success page)
-  const isPaid = session?.payment_status === 'paid' || (sessionId && !error);
+  const isVerifiedPaid = session?.payment_status === 'paid';
+  // Legacy fallback UI when session fetch fails but Stripe redirected here
+  const isPaid = isVerifiedPaid || (sessionId && !error);
   const amountTotal = session?.amount_total ? (session.amount_total / 100).toFixed(2) : '0.00';
   const customerEmail = session?.customer_email || session?.customer_details?.email;
+  const gcrFields =
+    session && sessionId
+      ? getGcrFieldsFromCheckoutSession(session, sessionId)
+      : null;
+  const displayOrderId = gcrFields?.orderId || session?.id || sessionId;
 
   return (
     <div className="min-h-screen bg-[#ebebeb] py-12 px-4" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
@@ -155,7 +167,7 @@ const CheckoutSuccessContent: React.FC = () => {
                     <div>
                       <div className="text-gray-600 mb-1">Order ID:</div>
                       <div className="font-medium text-gray-900 break-all">
-                        {session?.id || sessionId}
+                        {displayOrderId}
                       </div>
                     </div>
                     <div>
@@ -204,6 +216,13 @@ const CheckoutSuccessContent: React.FC = () => {
                     </Button>
                   </Link>
                 </div>
+                {gcrFields && isGcrCheckoutReady(gcrFields) ? (
+                  <GoogleCustomerReviewsOptIn
+                    orderId={gcrFields.orderId}
+                    email={gcrFields.email}
+                    estimatedDeliveryDate={gcrFields.estimatedDeliveryDate}
+                  />
+                ) : null}
               </>
             ) : (
               <>
