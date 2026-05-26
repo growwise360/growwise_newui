@@ -78,6 +78,20 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       assertTitle('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', title)
       assertDesc('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', description)
     })
+
+    it('reading-fluency-vs-comprehension', () => {
+      const config = getMetadataConfig('/resources/reading-fluency-vs-comprehension')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/reading-fluency-vs-comprehension', config!.title)
+      assertDesc('/resources/reading-fluency-vs-comprehension', config!.description)
+    })
+
+    it('summer-slide-dublin-ca', () => {
+      const config = getMetadataConfig('/resources/summer-slide-dublin-ca')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/summer-slide-dublin-ca', config!.title)
+      assertDesc('/resources/summer-slide-dublin-ca', config!.description)
+    })
   })
 
   it('en locale enroll metaDescription from messages matches length cap (used by enroll layout)', () => {

@@ -233,7 +233,8 @@ export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
         loc: absoluteSiteUrl(path, locale, baseUrl),
         lastmod,
         changefreq: 'monthly',
-        priority: path === '/resources/tutoring-dublin-ca' ? 0.85 : 0.8,
+        priority:
+          path === '/resources/tutoring-dublin-ca' || path === '/resources/summer-slide-dublin-ca' ? 0.85 : 0.8,
       })
     })
   })

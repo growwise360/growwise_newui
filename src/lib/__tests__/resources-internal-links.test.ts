@@ -59,9 +59,55 @@ describe('resources internal links', () => {
     ]);
   });
 
-  it('links homework-independence to the academic summer hub', () => {
+  it('links homework-independence to the academic summer hub and reading guide', () => {
     const source = readComponent('components/resources/HomeworkIndependencePage.tsx');
-    expectContainsHrefs(source, ['/camps/academic-summer-programs-dublin-ca']);
+    expectContainsHrefs(source, [
+      '/camps/academic-summer-programs-dublin-ca',
+      '/resources/reading-fluency-vs-comprehension',
+    ]);
+  });
+
+  it('links reading-fluency-vs-comprehension to self-check and reading sprint', () => {
+    const source = readComponent('components/resources/ReadingFluencyVsComprehensionPage.tsx');
+    expectContainsHrefs(source, ['/self-check', '/camps/summer-reading-writing-dublin-ca']);
+  });
+
+  it('links courses/english to reading-fluency-vs-comprehension', () => {
+    const source = readComponent('app/[locale]/courses/english/page.tsx');
+    expect(source).toContain('/resources/reading-fluency-vs-comprehension');
+  });
+
+  it('links summer reading landing to reading-fluency-vs-comprehension', () => {
+    const source = readComponent('components/camps/AcademicSeoLandingPage.tsx');
+    expect(source).toContain('/resources/reading-fluency-vs-comprehension');
+  });
+
+  it('links summer camp pages to summer-slide-dublin-ca', () => {
+    const summerPage = readComponent('app/[locale]/camps/summer/page.tsx');
+    const problemSection = readComponent('components/camps/AcademicProblemSection.tsx');
+    const seoLanding = readComponent('components/camps/AcademicSeoLandingPage.tsx');
+
+    expect(summerPage).toContain('/resources/summer-slide-dublin-ca');
+    expect(problemSection).toContain('/resources/summer-slide-dublin-ca');
+    expect(seoLanding).toContain('/resources/summer-slide-dublin-ca');
+  });
+
+  it('links how-to-choose blog to summer-slide-dublin-ca', () => {
+    const source = readComponent(
+      'app/[locale]/growwise-blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide/page.tsx',
+    );
+    expect(source).toContain('/resources/summer-slide-dublin-ca');
+  });
+
+  it('links summer-slide-dublin-ca to related guides and summer programs', () => {
+    const articlePage = readComponent('components/resources/SummerSlideDublinCaArticlePage.tsx');
+    const dataModule = readComponent('data/resources/summer-slide-dublin-ca.ts');
+
+    expect(articlePage).toContain('/camps/academic-summer-programs-dublin-ca');
+    expectContainsHrefs(dataModule, [
+      '/resources/tutoring-dublin-ca',
+      '/resources/careless-math-mistakes',
+    ]);
   });
 
   it('fixes tutoring-dublin-ca academic summer mislink and expands program links', () => {

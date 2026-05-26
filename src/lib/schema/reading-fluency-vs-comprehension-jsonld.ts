@@ -1,34 +1,34 @@
 import {
-  SUMMER_SLIDE_DUBLIN_CA_FAQS,
-  SUMMER_SLIDE_DUBLIN_CA_META,
-  SUMMER_SLIDE_DUBLIN_CA_PATH,
-} from '@/data/resources/summer-slide-dublin-ca'
+  READING_FLUENCY_VS_COMPREHENSION_FAQS,
+  READING_FLUENCY_VS_COMPREHENSION_META,
+  READING_FLUENCY_VS_COMPREHENSION_PATH,
+} from '@/data/resources/reading-fluency-vs-comprehension-copy'
 import { RESOURCES_PATH } from '@/data/resources-hub'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { generateArticleSchema, generateBreadcrumbSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
 
-export function buildSummerSlideDublinCaArticleGraphSchema(baseUrl: string, locale: string) {
-  const pageUrl = absoluteSiteUrl(SUMMER_SLIDE_DUBLIN_CA_PATH, locale, baseUrl)
+export function buildReadingFluencyVsComprehensionPageGraphSchema(baseUrl: string, locale: string) {
+  const pageUrl = absoluteSiteUrl(READING_FLUENCY_VS_COMPREHENSION_PATH, locale, baseUrl)
   const resourcesUrl = absoluteSiteUrl(RESOURCES_PATH, locale, baseUrl)
 
   const article = {
     ...generateArticleSchema({
-      headline: SUMMER_SLIDE_DUBLIN_CA_META.h1,
-      description: SUMMER_SLIDE_DUBLIN_CA_META.description,
+      headline: READING_FLUENCY_VS_COMPREHENSION_META.h1,
+      description: READING_FLUENCY_VS_COMPREHENSION_META.description,
       url: pageUrl,
       author: { name: 'GrowWise School', type: 'Organization' },
-      datePublished: SUMMER_SLIDE_DUBLIN_CA_META.datePublished,
-      dateModified: SUMMER_SLIDE_DUBLIN_CA_META.dateModified,
+      datePublished: READING_FLUENCY_VS_COMPREHENSION_META.datePublished,
+      dateModified: READING_FLUENCY_VS_COMPREHENSION_META.dateModified,
     }),
     '@id': `${pageUrl}#article`,
-    articleSection: 'Local',
-    keywords: SUMMER_SLIDE_DUBLIN_CA_META.keywords,
+    articleSection: 'Academic',
+    keywords: READING_FLUENCY_VS_COMPREHENSION_META.keywords,
     isAccessibleForFree: true,
     inLanguage: 'en-US',
   }
 
   const faqPage = {
-    ...generateFAQPageSchema([...SUMMER_SLIDE_DUBLIN_CA_FAQS]),
+    ...generateFAQPageSchema([...READING_FLUENCY_VS_COMPREHENSION_FAQS]),
     '@id': `${pageUrl}#faq`,
   }
 
@@ -36,7 +36,7 @@ export function buildSummerSlideDublinCaArticleGraphSchema(baseUrl: string, loca
     ...generateBreadcrumbSchema([
       { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
       { name: 'Parent Guides', url: resourcesUrl },
-      { name: SUMMER_SLIDE_DUBLIN_CA_META.h1, url: pageUrl },
+      { name: READING_FLUENCY_VS_COMPREHENSION_META.h1, url: pageUrl },
     ]),
     '@id': `${pageUrl}#breadcrumb`,
   }

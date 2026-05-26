@@ -304,6 +304,23 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
 
         <AcademicSeoBodySectionsBlock sections={copy.bodySections} />
 
+        {pageId === 'readingWriting' ? (
+          <SectionContainer className="bg-white pb-0 pt-0">
+            <div className="mx-auto max-w-[720px] rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 sm:px-5">
+              <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
+                Not sure whether your child&apos;s gap is fluency or comprehension? Read our{' '}
+                <Link
+                  href={createLocaleUrl('/resources/reading-fluency-vs-comprehension', locale)}
+                  className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  parent guide on fluency vs. comprehension
+                </Link>{' '}
+                before you enroll.
+              </p>
+            </div>
+          </SectionContainer>
+        ) : null}
+
         <SectionContainer className="bg-white">
           <div className="mx-auto max-w-3xl">
             <h2 className="font-heading text-xl font-bold text-[#1F396D] sm:text-2xl">

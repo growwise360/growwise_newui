@@ -409,6 +409,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/resources/summer-slide-dublin-ca': {
+    title: 'Summer Slide Dublin CA: What Parents Need to Know | GrowWise',
+    description:
+      'Dublin and Tri-Valley students lose months of progress every summer. Learn what the summer slide looks like — and how structured programs prevent it.',
+    keywords:
+      'summer slide Dublin CA, academic summer programs Dublin CA, summer learning loss Tri-Valley, summer slide prevention, summer tutoring Dublin CA, summer learning loss Dublin CA',
+    path: '/resources/summer-slide-dublin-ca',
+    type: 'article',
+  },
+
   '/resources/python-vs-scratch': {
     title: 'Python vs Scratch for Kids: Which Should Your Child Learn First? | GrowWise',
     description:
@@ -416,6 +426,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'Python vs Scratch for kids, should kids learn Scratch or Python first, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14',
     path: '/resources/python-vs-scratch',
+    type: 'article',
+  },
+
+  '/resources/reading-fluency-vs-comprehension': {
+    title: 'Fluency vs Comprehension: Reading Gaps | GrowWise',
+    description:
+      'Your child can decode every word but still not understand what they read. Learn how to tell fluency from comprehension gaps—and why support matters.',
+    keywords:
+      'reading fluency vs comprehension, reading fluency comprehension difference, child reads but doesn\'t understand, reading program, reading comprehension gap, reading fluency gap, child struggles with reading comprehension',
+    path: '/resources/reading-fluency-vs-comprehension',
     type: 'article',
   },
 
