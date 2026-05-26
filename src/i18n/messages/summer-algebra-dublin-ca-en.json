@@ -1,8 +1,8 @@
 {
   "hero": {
-    "eyebrow": "Summer 2026 · Dublin, CA · Grades 7–8",
-    "h1": "Summer Algebra Program in Dublin, CA",
-    "subtext": "Build Algebra 1 foundations before school starts. DUSD aligned, small groups of max 8 students, Mon/Wed/Fri evenings so it doesn't take over their summer.",
+    "eyebrow": "Summer 2026 · Dublin, CA · DUSD & PUSD · Grades 7–8",
+    "h1": "Algebra 1 Get Ready Summer Program in Dublin, CA",
+    "subtext": "Build Algebra 1 foundations before school starts. 100% DUSD & PUSD aligned, small groups of max 8 students, Mon/Wed/Fri 5:00–6:30 PM evenings so summer stays flexible.",
     "ctaLabel": "View schedule & pricing →"
   },
   "keyDetails": [
@@ -55,6 +55,12 @@
       "body": "Algebra 1 is the course that sets a student's math trajectory through high school. Students who start strong tend to stay strong. Students who start behind tend to fall further behind as the year progresses. Dublin and Pleasanton families know this — and the demand for focused Algebra 1 prep in the Tri-Valley is exactly why GrowWise built this program. Small group, subject-trained instructor, DUSD aligned, evening format. Designed for the reality of a Tri-Valley summer — not a full-day commitment."
     }
   },
+  "thankYouBenefit": {
+    "title": "Summer Cohort Thank-You Benefit",
+    "copy": "As a thank-you for trusting GrowWise with summer preparation, families who enroll in a Summer Get Ready program and continue into a 6-month regular tutoring plan are eligible for up to $120 total savings.",
+    "importantNote": "This thank-you benefit is reserved for Summer Get Ready families only.",
+    "ctaLabel": "Ask About the Cohort Family Benefit"
+  },
   "mainCta": {
     "headline": "Ready to reserve a spot?",
     "subtext": "Select your cohort on the full program page.",
@@ -64,6 +70,14 @@
     "heading": "Related summer programs",
     "hubLinkLabel": "View all programs & pricing →",
     "items": {
+      "im1GetReady": {
+        "label": "IM1 Get Ready",
+        "description": "Integrated Math 1 first-quarter readiness · often Grade 7 accelerated"
+      },
+      "im2GetReady": {
+        "label": "IM2 Get Ready",
+        "description": "Integrated Math 2 geometry & proof readiness"
+      },
       "mathFoundations": {
         "label": "Summer Math Foundations",
         "description": "Fractions or word-problem gaps first?"
@@ -79,6 +93,14 @@
     }
   },
   "faq": [
+    {
+      "question": "How much does Algebra 1 Get Ready cost in Dublin, CA?",
+      "answer": "Algebra 1 Get Ready starts at $249 for a 2-week cohort (6 sessions). Enrolling in both June cohorts is $449 upfront — a $49 savings vs enrolling separately. Pricing is shown on the academic summer programs hub when you select Algebra 1 Get Ready."
+    },
+    {
+      "question": "Is there a thank-you benefit for Summer Get Ready families?",
+      "answer": "Yes. Families who enroll in Algebra 1 Get Ready (or any Summer Get Ready program) and continue into a 6-month regular tutoring plan may be eligible for up to $120 total savings. Contact us to confirm eligibility for your plan."
+    },
     {
       "question": "Is this program 100% DUSD aligned?",
       "answer": "Yes. Algebra 1 Get Ready follows the Dublin Unified School District Algebra 1 curriculum sequence — equations, functions, graphing, and inequalities — so students enter the school year already familiar with what their teacher will cover."

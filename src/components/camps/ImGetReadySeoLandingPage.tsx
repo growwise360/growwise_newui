@@ -4,159 +4,40 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { HelpCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { SectionContainer } from '@/components/camps/SectionContainer';
 import { ImGetReadyComparisonTable } from '@/components/camps/im-get-ready/ImGetReadyComparisonTable';
-import { ImGetReadyIm1DetailSection } from '@/components/camps/im-get-ready/ImGetReadyIm1DetailSection';
-import { ImGetReadyIm2DetailSection } from '@/components/camps/im-get-ready/ImGetReadyIm2DetailSection';
+import { ImGetReadySectionContainer } from '@/components/camps/im-get-ready/ImGetReadySectionContainer';
+import { ImGetReadyThankYouBenefitBanner } from '@/components/camps/im-get-ready/ImGetReadyThankYouBenefitBanner';
 import { ImGetReadyLandingNav } from '@/components/camps/im-get-ready/ImGetReadyLandingNav';
-import { ImGetReadyTimelineSection } from '@/components/camps/im-get-ready/ImGetReadyTimelineSection';
+import { AcademicSeoParentGuidesBlock } from '@/components/camps/AcademicSeoParentGuidesBlock';
+import {
+  IM_GET_READY_GRID_GAP,
+  IM_GET_READY_HEADING,
+  IM_GET_READY_HERO,
+  IM_GET_READY_SCROLL_MT,
+  IM_GET_READY_SECTION_STACK,
+} from '@/components/camps/im-get-ready/im-get-ready-layout';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
 import '@/components/camps/academic-summer-programs-page.global.css';
 import { ACADEMIC_SEO_HUB_PATH } from '@/lib/academic-seo-landing-config';
 import { ACADEMIC_HUB_FILTER_QUERY_VALUES } from '@/lib/academic-summer-program-filters';
 import { ACADEMIC_TRACK_BANNER_SRC } from '@/lib/academic-summer-programs-hub-data';
 import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
-import {
-  getImGetReadySeoLandingCopy,
-  type ImGetReadyProgramCardCopy,
-} from '@/lib/im-get-ready-seo-landing-copy';
+import { getImGetReadySeoLandingCopy } from '@/lib/im-get-ready-seo-landing-copy';
+import { getParentGuidesForLandingPage } from '@/lib/academic-seo-parent-guides';
+import { cn } from '@/lib/utils';
 
 type ImGetReadySeoLandingPageProps = {
   locale: string;
 };
 
+const TRACK_PAGES = {
+  im1: '/camps/summer-im1-get-ready-dublin-ca',
+  im2: '/camps/summer-im2-get-ready-dublin-ca',
+} as const;
+
 function hubReserveHref(locale: string, trackId: 'im1' | 'im2'): string {
   const query = ACADEMIC_HUB_FILTER_QUERY_VALUES.getReadyMath;
-  return createLocaleUrl(
-    `${ACADEMIC_SEO_HUB_PATH}?filter=${query}#track-${trackId}`,
-    locale,
-  );
-}
-
-function ImGetReadyProgramCard({
-  card,
-  locale,
-  imageSrc,
-}: {
-  card: ImGetReadyProgramCardCopy;
-  locale: string;
-  imageSrc: string;
-}) {
-  const hasExpandedHeader = card.headline !== undefined && card.subheadline !== undefined;
-
-  return (
-    <article
-      id={card.id}
-      className="flex scroll-mt-28 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
-    >
-      <div className="relative aspect-[650/270] w-full shrink-0 overflow-hidden bg-slate-200">
-        <Image
-          src={imageSrc}
-          alt={`${card.title}: ${card.headline ?? card.tagline ?? card.title}`}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          quality={70}
-          decoding="async"
-          className="object-cover"
-          draggable={false}
-        />
-      </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h2 className="font-heading text-lg font-bold uppercase tracking-tight text-[#1F396D] md:text-xl">
-          {card.title}
-        </h2>
-        <span className="mt-2 inline-flex w-fit rounded-full border border-[#1F396D]/20 bg-[#1F396D]/5 px-2.5 py-1 text-xs font-semibold text-[#1F396D]">
-          {card.gradeBadge}
-        </span>
-        {hasExpandedHeader ? (
-          <>
-            <h3 className="mt-3 text-base font-semibold leading-relaxed text-slate-900 md:text-lg">
-              {card.headline}
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-slate-700">{card.subheadline}</p>
-            {card.positioningLines !== undefined && card.positioningLines.length > 0 ? (
-              <ul className="mt-4 space-y-2" role="list">
-                {card.positioningLines.map((line) => (
-                  <li
-                    key={line}
-                    className="flex items-start gap-2 text-sm font-medium leading-snug text-slate-700"
-                  >
-                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#F16112]" aria-hidden />
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </>
-        ) : (
-          <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-800">{card.tagline}</p>
-        )}
-        <p className="mt-4 rounded-md bg-[#1F396D]/8 px-2.5 py-1.5 text-xs font-bold leading-snug text-[#1F396D]">
-          {card.scheduleLine}
-        </p>
-        {!hasExpandedHeader && card.bestFor !== undefined && card.bestFor.length > 0 ? (
-          <div className="mt-4 rounded-md border border-slate-200 bg-slate-50 px-3 py-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-800">
-              {card.bestForLabel}
-            </p>
-            <ul className="mt-2 space-y-1.5" role="list">
-              {card.bestFor.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2 text-sm font-medium leading-snug text-slate-800"
-                >
-                  <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#1F396D]" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-        {!hasExpandedHeader && card.workOn !== undefined && card.workOn.length > 0 ? (
-          <div className="mt-4 rounded-md border border-slate-200 bg-slate-50 px-3 py-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-800">
-              {card.workOnLabel}
-            </p>
-            <ul className="mt-2 space-y-1.5" role="list">
-              {card.workOn.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2 text-sm font-medium leading-snug text-slate-800"
-                >
-                  <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#1F396D]" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-        <ul className="mt-4 space-y-1 text-sm text-slate-700" role="list">
-          <li>{card.programLength}</li>
-          <li className="font-semibold text-[#1F396D]">{card.priceLabel}</li>
-          <li>{card.seatsLabel}</li>
-        </ul>
-        <Link
-          href={hubReserveHref(locale, card.hubTrackId)}
-          className="mt-5 inline-flex min-h-[44px] w-full items-center justify-center rounded-lg bg-[#F16112] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#d54f0a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F16112] focus-visible:ring-offset-2"
-        >
-          {card.ctaLabel}
-        </Link>
-      </div>
-    </article>
-  );
-}
-
-function BulletList({ items }: { items: readonly string[] }) {
-  return (
-    <ul className="mt-4 space-y-2" role="list">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-2 text-sm leading-relaxed text-slate-700 sm:text-base">
-          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#1F396D]" aria-hidden />
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
+  return createLocaleUrl(`${ACADEMIC_SEO_HUB_PATH}?filter=${query}#track-${trackId}`, locale);
 }
 
 export function ImGetReadySeoLandingPage({ locale }: ImGetReadySeoLandingPageProps) {
@@ -167,162 +48,177 @@ export function ImGetReadySeoLandingPage({ locale }: ImGetReadySeoLandingPagePro
   );
   const contactHref = createLocaleUrl('/contact', locale);
   const defaultOpenFaqs = getDefaultOpenFaqValues(copy.faq.length, (idx) => `faq-${idx}`);
+  const parentGuides = getParentGuidesForLandingPage('imGetReady');
+
+  const overviewNav = {
+    ...copy.topNav,
+    items: [
+      { label: 'IM1 Get Ready', href: TRACK_PAGES.im1, type: 'route' as const },
+      { label: 'IM2 Get Ready', href: TRACK_PAGES.im2, type: 'route' as const },
+      { label: 'FAQ', href: '#faq', type: 'anchor' as const },
+    ],
+  };
 
   return (
     <div
       data-academic-seo-landing
+      data-im-get-ready-landing
       className="min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
     >
       <ImGetReadyLandingNav
         locale={locale}
-        brandLabel={copy.topNav.brandLabel}
-        items={copy.topNav.items}
-        ctaLabel={copy.topNav.ctaLabel}
+        brandLabel={overviewNav.brandLabel}
+        items={overviewNav.items}
+        ctaLabel={overviewNav.ctaLabel}
         reserveHref={hubCtaHref}
       />
 
       <main>
         <section
-          className="relative isolate w-full min-h-[min(48svh,17rem)] max-h-[700px] overflow-hidden bg-[#1F396D] md:min-h-[min(40vh,22rem)]"
+          className="relative isolate w-full overflow-hidden bg-[#1F396D]"
           aria-label="Program hero"
         >
-          <div className="relative z-10 mx-auto flex w-full max-w-[1100px] flex-col justify-center px-5 py-8 sm:px-8 md:px-12 md:py-14 lg:px-16 lg:py-16">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-200 md:text-sm">
+          <div
+            className={cn(
+              'relative z-10 mx-auto flex w-full max-w-[1100px] flex-col justify-center',
+              IM_GET_READY_HERO,
+            )}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-200 sm:text-xs md:text-sm">
               {copy.hero.eyebrow}
             </p>
-            <h1 className="font-heading mt-2 max-w-[700px] text-[1.5rem] font-bold leading-[1.15] text-white sm:text-[1.75rem] md:text-[2.25rem] lg:text-[2.625rem]">
-              {copy.hero.h1}
+            <h1 className="font-heading mt-1.5 max-w-[760px] text-[1.375rem] font-bold leading-[1.15] text-white sm:mt-2 sm:text-[1.75rem] md:text-[2.25rem] lg:text-[2.625rem]">
+              IM1 &amp; IM2 Get Ready Summer Cohorts — DUSD &amp; PUSD, Dublin CA
             </h1>
-            <p className="mt-3 max-w-[650px] text-base leading-snug text-zinc-100 md:text-lg">
+            <p className="mt-2 max-w-[700px] text-sm leading-snug text-zinc-100 sm:mt-3 sm:text-base md:text-lg">
               {copy.hero.subheadline}
             </p>
-            <p className="mt-4 max-w-[650px] text-sm leading-relaxed text-zinc-200 md:text-base">
+            <p className="mt-2 max-w-[700px] text-sm leading-relaxed text-zinc-200 sm:mt-3">
               {copy.hero.supportingText}
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                href={hubCtaHref}
-                className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg bg-[#F16112] px-6 py-3 text-center text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#d54f0a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F16112] focus-visible:ring-offset-2 sm:w-auto sm:text-base"
-              >
-                {copy.hero.primaryCta}
-              </Link>
-              <a
-                href="#course-cards"
-                className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border-2 border-white/80 bg-transparent px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1F396D] sm:w-auto sm:text-base"
-              >
-                {copy.hero.secondaryCta}
-              </a>
-            </div>
-            <p className="mt-6 max-w-[650px] text-xs font-medium text-zinc-300 md:text-sm">
+            <p className="mt-3 max-w-[700px] text-[11px] font-medium text-zinc-300 sm:mt-4 sm:text-xs md:text-sm">
               {copy.hero.trustBar}
             </p>
           </div>
         </section>
 
-        <SectionContainer id="course-cards" className="scroll-mt-28 bg-white">
+        <ImGetReadySectionContainer
+          id="course-cards"
+          className={cn('bg-white', IM_GET_READY_SCROLL_MT)}
+        >
           <div className="mx-auto max-w-[1100px]">
-            <h2 className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
-              {copy.courseCardsSection.title}
-            </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700 sm:text-base">
+            <h2 className={IM_GET_READY_HEADING}>{copy.courseCardsSection.title}</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-700 sm:mt-3">
               {copy.courseCardsSection.intro}
             </p>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <ImGetReadyProgramCard
-                card={copy.programCards.im1}
-                locale={locale}
-                imageSrc={ACADEMIC_TRACK_BANNER_SRC.im1}
-              />
-              <ImGetReadyProgramCard
-                card={copy.programCards.im2}
-                locale={locale}
-                imageSrc={ACADEMIC_TRACK_BANNER_SRC.im2}
-              />
+            <div className={cn('grid md:grid-cols-2', IM_GET_READY_GRID_GAP)}>
+              {(['im1', 'im2'] as const).map((trackId) => {
+                const card = copy.programCards[trackId];
+                const pageHref = createLocaleUrl(TRACK_PAGES[trackId], locale);
+                return (
+                  <article
+                    key={trackId}
+                    id={card.id}
+                    className={cn(
+                      'flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm sm:rounded-2xl',
+                      IM_GET_READY_SCROLL_MT,
+                    )}
+                  >
+                    <div className="relative aspect-[650/270] w-full shrink-0 overflow-hidden bg-slate-200">
+                      <Image
+                        src={ACADEMIC_TRACK_BANNER_SRC[trackId]}
+                        alt={`${card.title}: ${card.headline ?? card.title}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        quality={70}
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6">
+                      <h3 className="font-heading text-base font-bold uppercase tracking-tight text-[#1F396D] sm:text-lg md:text-xl">
+                        {card.title}
+                      </h3>
+                      <span className="mt-1.5 inline-flex w-fit rounded-full border border-[#1F396D]/20 bg-[#1F396D]/5 px-2 py-0.5 text-[11px] font-semibold text-[#1F396D] sm:mt-2 sm:px-2.5 sm:py-1 sm:text-xs">
+                        {trackId === 'im1' ? 'Entering Integrated Math 1' : card.gradeBadge}
+                      </span>
+                      <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-900">
+                        {card.headline}
+                      </p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-slate-700">{card.subheadline}</p>
+                      <p className="mt-2 rounded-md bg-[#1F396D]/8 px-2 py-1 text-[11px] font-bold text-[#1F396D] sm:mt-3 sm:px-2.5 sm:py-1.5 sm:text-xs">
+                        {card.scheduleLine}
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-[#1F396D] sm:mt-3">{card.priceLabel}</p>
+                      <div className="mt-4 flex flex-col gap-2 sm:mt-5">
+                        <Link
+                          href={pageHref}
+                          className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg bg-[#1F396D] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#183056]"
+                        >
+                          View {trackId === 'im1' ? 'IM1' : 'IM2'} Program Details
+                        </Link>
+                        <Link
+                          href={hubReserveHref(locale, trackId)}
+                          className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border-2 border-[#F16112] bg-white px-4 py-2.5 text-sm font-semibold text-[#F16112] hover:bg-[#F16112]/5"
+                        >
+                          {card.ctaLabel}
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
-        </SectionContainer>
+        </ImGetReadySectionContainer>
 
-        <ImGetReadyIm1DetailSection locale={locale} detail={copy.im1Detail} />
+        <ImGetReadyThankYouBenefitBanner
+          title={copy.thankYouBenefit.title}
+          copy={copy.thankYouBenefit.copy}
+          note={copy.thankYouBenefit.importantNote}
+          ctaHref={contactHref}
+          ctaLabel={copy.thankYouBenefit.ctaLabel}
+        />
 
-        <ImGetReadyIm2DetailSection locale={locale} detail={copy.im2Detail} />
-
-        <ImGetReadyTimelineSection howItWorks={copy.howItWorks} />
-
-        <SectionContainer className="bg-slate-50/80">
-          <div className="mx-auto max-w-[720px]">
-            <h2 className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
-              {copy.whatStudentsReceive.title}
-            </h2>
-            <BulletList items={copy.whatStudentsReceive.items} />
-          </div>
-        </SectionContainer>
-
-        <SectionContainer id="regular-tutoring" className="scroll-mt-28 bg-white">
-          <div className="mx-auto max-w-[720px]">
-            <h2 className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
-              {copy.regularTutoring.title}
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-base">
-              {copy.regularTutoring.copy}
-            </p>
-            <h3 className="mt-6 font-heading text-lg font-bold text-slate-900">
-              {copy.regularTutoring.subheading}
-            </h3>
-            <BulletList items={copy.regularTutoring.items} />
-          </div>
-        </SectionContainer>
-
-        <SectionContainer className="bg-slate-50/80">
-          <div className="mx-auto max-w-[720px]">
-            <article className="rounded-2xl border border-[#1F396D]/15 bg-white p-6 shadow-sm md:p-8">
-              <h2 className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
-                {copy.thankYouBenefit.title}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-base">
-                {copy.thankYouBenefit.copy}
-              </p>
-              <p className="mt-4 text-sm font-medium text-slate-600">
-                {copy.thankYouBenefit.importantNote}
-              </p>
-              <Link
-                href={contactHref}
-                className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-lg border-2 border-[#1F396D] bg-white px-6 py-3 text-sm font-semibold text-[#1F396D] transition-colors hover:bg-[#1F396D]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
-              >
-                {copy.thankYouBenefit.ctaLabel}
-              </Link>
-            </article>
-          </div>
-        </SectionContainer>
-
-        <SectionContainer className="bg-white">
+        <ImGetReadySectionContainer className={cn('bg-slate-50/80', IM_GET_READY_SECTION_STACK)}>
           <div className="mx-auto max-w-[1100px]">
-            <h2 className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
-              {copy.comparison.title}
-            </h2>
-            <ImGetReadyComparisonTable comparison={copy.comparison} />
+            <h2 className={IM_GET_READY_HEADING}>{copy.comparison.title}</h2>
+            <div className="mt-4 sm:mt-5">
+              <ImGetReadyComparisonTable comparison={copy.comparison} />
+            </div>
           </div>
-        </SectionContainer>
+        </ImGetReadySectionContainer>
 
-        <SectionContainer id="faq" className="scroll-mt-28 border-t border-slate-100 bg-slate-50/60">
+        <ImGetReadySectionContainer className={cn('border-t border-slate-100 bg-slate-50/60', IM_GET_READY_SECTION_STACK)}>
+          <AcademicSeoParentGuidesBlock
+            locale={locale}
+            guides={parentGuides}
+            className="mx-auto max-w-3xl"
+          />
+        </ImGetReadySectionContainer>
+
+        <ImGetReadySectionContainer
+          id="faq"
+          className={cn('border-t border-slate-100 bg-white', IM_GET_READY_SCROLL_MT, IM_GET_READY_SECTION_STACK)}
+        >
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-center font-heading text-2xl font-bold text-slate-900 md:text-3xl">
+            <h2 className="text-center font-heading text-xl font-bold text-slate-900 sm:text-2xl md:text-3xl">
               Frequently Asked <span className="text-[#F16112]">Questions</span>
             </h2>
-            <div className="mt-10 space-y-3">
+            <div className="mt-5 space-y-2 sm:mt-6 sm:space-y-3">
               <Accordion type="multiple" className="w-full" defaultValue={defaultOpenFaqs}>
                 {copy.faq.map((item, idx) => (
                   <AccordionItem
                     key={item.question}
                     value={`faq-${idx}`}
-                    className="overflow-hidden rounded-xl border border-slate-200 bg-white px-4 shadow-sm"
+                    className="overflow-hidden rounded-xl border border-slate-200 bg-white px-3 shadow-sm sm:px-4"
                   >
-                    <AccordionTrigger className="py-4 text-left text-sm font-semibold text-slate-900 hover:no-underline md:text-base">
+                    <AccordionTrigger className="py-3 text-left text-sm font-semibold text-slate-900 hover:no-underline sm:py-4 md:text-base">
                       <span className="flex items-start gap-2">
                         <HelpCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#F16112]" aria-hidden />
                         {item.question}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-4 text-sm leading-relaxed text-slate-600 md:text-base">
+                    <AccordionContent className="pb-3 text-sm leading-relaxed text-slate-600 sm:pb-4 md:text-base">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -330,53 +226,33 @@ export function ImGetReadySeoLandingPage({ locale }: ImGetReadySeoLandingPagePro
               </Accordion>
             </div>
           </div>
-        </SectionContainer>
+        </ImGetReadySectionContainer>
 
-        <SectionContainer className="bg-[#1F396D]">
+        <ImGetReadySectionContainer className={cn('bg-[#1F396D]', IM_GET_READY_SECTION_STACK)}>
           <div className="mx-auto max-w-xl text-center">
-            <h2 className="font-heading text-2xl font-bold text-white md:text-3xl">
+            <h2 className="font-heading text-xl font-bold text-white sm:text-2xl md:text-3xl">
               {copy.finalCta.headline}
             </h2>
-            <p className="mt-3 text-sm text-zinc-200 md:text-base">{copy.finalCta.subheadline}</p>
-            <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <p className="mt-2 text-sm text-zinc-200 sm:mt-3 md:text-base">{copy.finalCta.subheadline}</p>
+            <div className="mt-4 flex flex-col items-center gap-2.5 sm:mt-5 sm:flex-row sm:justify-center sm:gap-3">
               <Link
                 href={hubCtaHref}
-                className="inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-[#F16112] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#d54f0a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F16112] focus-visible:ring-offset-2 sm:w-auto sm:text-base"
+                className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg bg-[#F16112] px-6 py-3 text-sm font-semibold text-white hover:bg-[#d54f0a] sm:w-auto"
               >
                 {copy.finalCta.primaryCta}
               </Link>
               <Link
                 href={contactHref}
-                className="inline-flex min-h-[48px] w-full items-center justify-center rounded-lg border-2 border-white/80 bg-transparent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1F396D] sm:w-auto sm:text-base"
+                className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border-2 border-white/80 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 sm:w-auto"
               >
                 {copy.finalCta.secondaryCta}
               </Link>
             </div>
-            <p className="mt-6 text-xs leading-relaxed text-zinc-300 md:text-sm">
+            <p className="mt-4 text-xs leading-relaxed text-zinc-300 sm:mt-5 md:text-sm">
               {copy.footerMicrocopy}
             </p>
           </div>
-        </SectionContainer>
-
-        <SectionContainer className="bg-white pb-8">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="font-heading text-lg font-bold text-[#1F396D] sm:text-xl">
-              {copy.internalLinks.heading}
-            </h2>
-            <ul className="mt-4 space-y-2">
-              {copy.internalLinks.items.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={createLocaleUrl(item.href, locale)}
-                    className="text-sm font-semibold text-[#1F396D] underline hover:text-[#F16112]"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </SectionContainer>
+        </ImGetReadySectionContainer>
       </main>
     </div>
   );

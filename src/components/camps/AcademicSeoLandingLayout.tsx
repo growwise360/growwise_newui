@@ -7,8 +7,13 @@ import {
   getAcademicSeoLandingPageConfig,
 } from '@/lib/academic-seo-landing-config';
 import { getAcademicSeoLandingCopy } from '@/lib/academic-seo-landing-copy';
-import { getImGetReadySeoLandingCopy } from '@/lib/im-get-ready-seo-landing-copy';
+import {
+  getIm1GetReadySeoLandingCopy,
+  getIm2GetReadySeoLandingCopy,
+  getImGetReadySeoLandingCopy,
+} from '@/lib/im-get-ready-seo-landing-copy';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
+import type { AcademicSeoFaqItem } from '@/lib/schema/academic-seo-landing-jsonld';
 import {
   buildAcademicSeoLandingCourseSchema,
   buildAcademicSeoLandingWebPageName,
@@ -30,6 +35,30 @@ export function createAcademicSeoLandingGenerateMetadata(pageId: AcademicSeoLand
   };
 }
 
+function getLandingSchemaCopy(pageId: AcademicSeoLandingPageId): {
+  description: string;
+  faqs: readonly AcademicSeoFaqItem[];
+} {
+  switch (pageId) {
+    case 'imGetReady': {
+      const copy = getImGetReadySeoLandingCopy();
+      return { description: copy.hero.subheadline, faqs: copy.faq };
+    }
+    case 'im1GetReady': {
+      const copy = getIm1GetReadySeoLandingCopy();
+      return { description: copy.hero.subheadline, faqs: copy.faq };
+    }
+    case 'im2GetReady': {
+      const copy = getIm2GetReadySeoLandingCopy();
+      return { description: copy.hero.subheadline, faqs: copy.faq };
+    }
+    default: {
+      const copy = getAcademicSeoLandingCopy(pageId);
+      return { description: copy.hero.subtext, faqs: copy.faq };
+    }
+  }
+}
+
 export function AcademicSeoLandingLayout({
   pageId,
   children,
@@ -40,8 +69,7 @@ export function AcademicSeoLandingLayout({
   locale: string;
 }) {
   const config = ACADEMIC_SEO_LANDING_PAGES[pageId];
-  const copy =
-    pageId === 'imGetReady' ? getImGetReadySeoLandingCopy() : getAcademicSeoLandingCopy(pageId);
+  const { description, faqs } = getLandingSchemaCopy(pageId);
   const baseUrl = getCanonicalSiteUrl();
   const pageUrl = absoluteSiteUrl(config.path, locale, baseUrl);
 
@@ -53,7 +81,7 @@ export function AcademicSeoLandingLayout({
 
   const webPageSchema = generateWebPageJsonLd({
     name: `${buildAcademicSeoLandingWebPageName(pageId)} | GrowWise`,
-    description: copy.hero.subtext,
+    description,
     url: pageUrl,
   });
 
@@ -65,7 +93,7 @@ export function AcademicSeoLandingLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <FAQSchema faqs={[...copy.faq]} />
+      <FAQSchema faqs={[...faqs]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}

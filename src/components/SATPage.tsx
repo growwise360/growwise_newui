@@ -9,6 +9,8 @@ import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { useCart } from './gw/CartContext';
 import FreeAssessmentModal from './FreeAssessmentModal';
 import { RelatedContent } from './seo/RelatedContent';
+import { AcademicSeoParentGuidesBlock } from '@/components/camps/AcademicSeoParentGuidesBlock';
+import { getParentGuidesForSatPrepPage } from '@/lib/academic-seo-parent-guides';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 
@@ -639,6 +641,12 @@ const SATPage: React.FC = () => {
       </section>
 
       {/* Related Content Section */}
+      <section className="bg-slate-50 px-4 py-12 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <AcademicSeoParentGuidesBlock locale={locale} guides={getParentGuidesForSatPrepPage()} />
+        </div>
+      </section>
+
       <RelatedContent locale={locale} currentPage="sat-prep" />
 
       {/* Free Assessment Modal */}

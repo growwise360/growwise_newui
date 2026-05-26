@@ -334,9 +334,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer-algebra-dublin-ca': {
-    title: 'Algebra 1 Summer Program Dublin CA | GrowWise',
+    title: 'Algebra 1 Get Ready Dublin CA | GrowWise School',
     description:
-      'Small-group Algebra 1 summer program in Dublin, CA. DUSD aligned. Grades 7–8. Mon/Wed/Fri evenings. Starts June 15. Max 8 students. From $249.',
+      'Algebra 1 Get Ready summer program in Dublin, CA. DUSD & PUSD aligned. Grades 7–8. Mon/Wed/Fri 5–6:30 PM. From $249. Max 8 students.',
     keywords:
       'summer algebra program Dublin CA, Algebra 1 Get Ready Dublin, DUSD algebra summer prep, algebra summer camp Tri-Valley',
     path: '/camps/summer-algebra-dublin-ca',
@@ -344,9 +344,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer-geometry-precalculus-dublin-ca': {
-    title: 'Summer Geometry Program Dublin CA | GrowWise',
+    title: 'Geometry Get Ready Dublin CA | GrowWise School',
     description:
-      'Small-group Geometry summer program in Dublin, CA. Proofs, reasoning, DUSD aligned. Grades 9–10. Mon/Wed/Fri evenings. Starts June 15. From $279.',
+      'Geometry Get Ready summer program in Dublin, CA. Proofs & reasoning. DUSD & PUSD aligned. Grades 9–10. Mon/Wed/Fri 5–6:30 PM. From $279.',
     keywords:
       'summer geometry program Dublin CA, Geometry Get Ready Dublin, DUSD geometry summer prep, geometry summer Dublin CA',
     path: '/camps/summer-geometry-precalculus-dublin-ca',
@@ -354,12 +354,30 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer-im-get-ready-dublin-ca': {
-    title: 'DUSD & PUSD IM Get Ready Cohorts | GrowWise School',
+    title: 'IM1 & IM2 Get Ready Cohorts Dublin CA | GrowWise School',
     description:
-      'Summer IM1 & IM2 Get Ready Cohorts for first-quarter readiness. DUSD & PUSD aligned. Mon/Wed/Fri evenings. Starts July 20. From $249. Dublin, CA.',
+      'Choose IM1 or IM2 Get Ready summer cohorts for first-quarter readiness. DUSD & PUSD aligned. Mon/Wed/Fri evenings. Starts July 20. From $249. Dublin, CA.',
     keywords:
-      'IM1 prep program Dublin CA, IM2 Get Ready cohort Tri-Valley, DUSD Integrated Math summer prep, PUSD IM1 IM2 readiness, Grade 7 accelerated math prep Dublin',
+      'IM1 IM2 Get Ready Dublin CA, Integrated Math summer prep Tri-Valley, DUSD PUSD math cohort Dublin',
     path: '/camps/summer-im-get-ready-dublin-ca',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
+  },
+  '/camps/summer-im1-get-ready-dublin-ca': {
+    title: 'IM1 Get Ready Summer Cohort Dublin CA | GrowWise School',
+    description:
+      'IM1 Get Ready: first-quarter algebra readiness for Integrated Math 1. DUSD & PUSD aligned. Mon/Wed/Fri 5–6:30 PM. Starts July 20. From $249. Dublin, CA.',
+    keywords:
+      'IM1 prep Dublin CA, Integrated Math 1 summer cohort, DUSD IM1 readiness, Grade 7 accelerated math Dublin',
+    path: '/camps/summer-im1-get-ready-dublin-ca',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
+  },
+  '/camps/summer-im2-get-ready-dublin-ca': {
+    title: 'IM2 Get Ready Summer Cohort Dublin CA | GrowWise School',
+    description:
+      'IM2 Get Ready: geometry, proof, and similarity readiness for Integrated Math 2. DUSD & PUSD aligned. Mon/Wed/Fri 5–6:30 PM. From $249. Dublin, CA.',
+    keywords:
+      'IM2 prep Dublin CA, Integrated Math 2 summer cohort, geometry proof readiness Dublin, PUSD IM2 prep',
+    path: '/camps/summer-im2-get-ready-dublin-ca',
     image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 

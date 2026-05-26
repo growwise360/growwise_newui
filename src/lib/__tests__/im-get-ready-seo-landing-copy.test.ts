@@ -1,4 +1,8 @@
-import { getImGetReadySeoLandingCopy } from '@/lib/im-get-ready-seo-landing-copy';
+import {
+  getIm1GetReadySeoLandingCopy,
+  getIm2GetReadySeoLandingCopy,
+  getImGetReadySeoLandingCopy,
+} from '@/lib/im-get-ready-seo-landing-copy';
 
 describe('im-get-ready-seo-landing-copy', () => {
   const copy = getImGetReadySeoLandingCopy();
@@ -8,9 +12,9 @@ describe('im-get-ready-seo-landing-copy', () => {
     expect(copy.hero.eyebrow).toContain('DUSD & PUSD');
   });
 
-  it('defines both program cards with distinct schedules', () => {
+  it('defines both program cards with the same evening schedule', () => {
     expect(copy.programCards.im1.scheduleLine).toContain('5:00–6:30 PM');
-    expect(copy.programCards.im2.scheduleLine).toContain('6:45–8:15 PM');
+    expect(copy.programCards.im2.scheduleLine).toContain('5:00–6:30 PM');
     expect(copy.programCards.im1.gradeBadge).toContain('entering IM1');
     expect(copy.programCards.im2.gradeBadge).toContain('entering IM2');
   });
@@ -72,5 +76,38 @@ describe('im-get-ready-seo-landing-copy', () => {
     expect(copy.topNav.items.some((item) => item.href === '/courses/high-school-math')).toBe(true);
     expect(copy.topNav.items.some((item) => item.href === '#im1-get-ready')).toBe(true);
     expect(copy.topNav.items.some((item) => item.href === '#im2-get-ready')).toBe(true);
+  });
+});
+
+describe('im1-get-ready track copy', () => {
+  const copy = getIm1GetReadySeoLandingCopy();
+
+  it('uses SEO-focused hero and track-specific nav', () => {
+    expect(copy.trackId).toBe('im1');
+    expect(copy.hero.h1).toBe('IM1 Get Ready Summer Cohort for Integrated Math 1');
+    expect(copy.hero.gradeBadge).toContain('Entering Integrated Math 1');
+    expect(copy.topNav.items.some((item) => item.href === '#im1-faq')).toBe(true);
+    expect(copy.siblingPage.href).toBe('/camps/summer-im2-get-ready-dublin-ca');
+  });
+
+  it('uses IM1 detail FAQ only', () => {
+    expect(copy.faq).toHaveLength(5);
+    expect(copy.detail.mistakePatterns).toHaveLength(11);
+  });
+});
+
+describe('im2-get-ready track copy', () => {
+  const copy = getIm2GetReadySeoLandingCopy();
+
+  it('uses SEO-focused hero and track-specific nav', () => {
+    expect(copy.trackId).toBe('im2');
+    expect(copy.hero.h1).toBe('IM2 Get Ready Summer Cohort for Integrated Math 2');
+    expect(copy.topNav.items.some((item) => item.href === '#im2-faq')).toBe(true);
+    expect(copy.siblingPage.href).toBe('/camps/summer-im1-get-ready-dublin-ca');
+  });
+
+  it('uses IM2 detail FAQ only', () => {
+    expect(copy.faq).toHaveLength(6);
+    expect(copy.detail.mistakePatterns).toHaveLength(11);
   });
 });

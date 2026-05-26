@@ -58,7 +58,7 @@
         },
         "im2": {
           "gradeBadge": "Grade 8 / entering IM2",
-          "scheduleLine": "Mon/Wed/Fri · 6:45–8:15 PM · Starts July 20",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 20",
           "bestFor": [
             "Starting Grade 8 Integrated Math 2 in fall",
             "Needs a head start on IM2 curriculum",
@@ -126,7 +126,7 @@
           "cohort2HolidayNote": null
         },
         "im2": {
-          "rowTimeLabel": "6:45–8:15 PM",
+          "rowTimeLabel": "5–6:30 PM",
           "cohort1": { "title": "Cohort 1 (July 20–31)", "sessions": 6 },
           "cohort2": { "title": "Cohort 2 (Aug 4–15)", "sessions": 6 },
           "both": {

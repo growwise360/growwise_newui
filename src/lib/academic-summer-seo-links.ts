@@ -33,11 +33,11 @@ const PROGRAM_ID_TO_SEO: Partial<Record<string, AcademicProgramSeoLink | null>> 
     labelKey: 'mistakeProofMath',
   },
   im1: {
-    slug: 'summer-im-get-ready-dublin-ca',
+    slug: 'summer-im1-get-ready-dublin-ca',
     labelKey: 'im1GetReady',
   },
   im2: {
-    slug: 'summer-im-get-ready-dublin-ca',
+    slug: 'summer-im2-get-ready-dublin-ca',
     labelKey: 'im2GetReady',
   },
   'algebra-1': {

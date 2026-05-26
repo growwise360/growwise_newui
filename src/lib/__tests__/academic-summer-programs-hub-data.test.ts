@@ -62,7 +62,7 @@ describe('academic-summer-programs-hub-data', () => {
       const im1 = getReadyPrograms.find((p) => p.id === 'im1');
       const im2 = getReadyPrograms.find((p) => p.id === 'im2');
       expect(im1?.levels[0]?.slots[0]?.time).toContain('5–6:30 PM');
-      expect(im2?.levels[0]?.slots[0]?.time).toContain('6:45–8:15 PM');
+      expect(im2?.levels[0]?.slots[0]?.time).toContain('5–6:30 PM');
     });
 
     it('defaults to read-to-prove as the hub program', () => {

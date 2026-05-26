@@ -148,12 +148,20 @@ export function TutoringDublinCaArticlePage() {
         geometry, and statistics across three years rather than teaching them as separate courses. Not every tutoring
         program has tutors familiar with this structure. It&apos;s worth asking specifically.
       </p>
+      <p>
+        GrowWise offers year-round{' '}
+        <ArticleLink href="/courses/integrated-math-1-dublin-ca">Integrated Math 1 tutoring</ArticleLink> and summer{' '}
+        <ArticleLink href="/camps/summer-im-get-ready-dublin-ca">IM Get Ready programs</ArticleLink> aligned to the
+        Tri-Valley IM pathway.
+      </p>
 
       <h3>Summer programs fill quickly.</h3>
       <p>
-        Academic <ArticleLink href="/camps/summer">summer programs</ArticleLink> in Dublin and the surrounding area —
-        enrichment, STEAM camps, SAT sprint programs — typically fill weeks before the summer starts. If summer
-        academic programming is on your radar, the right time to look is late winter/early spring.
+        Academic{' '}
+        <ArticleLink href="/camps/academic-summer-programs-dublin-ca">summer programs</ArticleLink> in Dublin — get-ready
+        cohorts, reading and writing sprints, and math foundations — typically fill weeks before summer starts.{' '}
+        <ArticleLink href="/camps/summer">STEAM coding camps</ArticleLink> fill on a similar timeline. If summer academic
+        programming is on your radar, the right time to look is late winter/early spring.
       </p>
 
       <h2>What GrowWise Offers Dublin Families</h2>
@@ -176,7 +184,15 @@ export function TutoringDublinCaArticlePage() {
       </p>
 
       <p>
-        <strong>Summer programs:</strong> Academic Sprint (Reading, Writing, Math) · STEAM Coding Camps
+        <strong>Summer programs:</strong>{' '}
+        <ArticleLink href="/camps/academic-summer-programs-dublin-ca">Academic summer hub</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer-reading-writing-dublin-ca">Reading &amp; Writing Sprint</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer-math-foundations-dublin-ca">Math Foundations</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer-algebra-dublin-ca">Algebra 1 Get Ready</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer-geometry-precalculus-dublin-ca">Geometry Get Ready</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer-im1-get-ready-dublin-ca">IM1 Get Ready</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer-im2-get-ready-dublin-ca">IM2 Get Ready</ArticleLink> ·{' '}
+        <ArticleLink href="/camps/summer">STEAM Coding Camps</ArticleLink>
       </p>
 
       <p>
@@ -237,7 +253,9 @@ export function TutoringDublinCaArticlePage() {
       </p>
 
       <p>
-        <strong>For summer programs:</strong> Start looking in March/April. Dublin-area programs fill quickly.
+        <strong>For summer programs:</strong> Start looking in March/April. Browse{' '}
+        <ArticleLink href="/camps/academic-summer-programs-dublin-ca">Dublin academic summer programs</ArticleLink> —
+        spots fill quickly.
       </p>
     </ResourceArticlePage>
   )

@@ -8,18 +8,18 @@ export function ImGetReadyComparisonTable({ comparison }: ImGetReadyComparisonTa
   const columns = [comparison.getReadyColumn, comparison.regularTutoringColumn];
 
   return (
-    <div className="mt-8 grid gap-6 lg:grid-cols-2">
+    <div className="grid gap-4 sm:gap-5 lg:grid-cols-2">
       {columns.map((column) => (
         <div
           key={column.title}
-          className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+          className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm sm:rounded-2xl"
         >
-          <p className="border-b border-slate-100 bg-[#1F396D]/5 px-5 py-4 text-center font-heading text-lg font-bold text-[#1F396D]">
+          <p className="border-b border-slate-100 bg-[#1F396D]/5 px-4 py-3 text-center font-heading text-base font-bold text-[#1F396D] sm:px-5 sm:py-4 sm:text-lg">
             {column.title}
           </p>
           <dl className="divide-y divide-slate-100">
             {column.rows.map((row) => (
-              <div key={row.label} className="px-5 py-4">
+              <div key={row.label} className="px-4 py-3 sm:px-5 sm:py-4">
                 <dt className="text-xs font-bold uppercase tracking-[0.08em] text-slate-500">
                   {row.label}
                 </dt>

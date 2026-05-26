@@ -142,7 +142,7 @@ const IM2_GET_READY_COURSE = {
   '@type': 'Course' as const,
   name: 'IM2 Get Ready — Integrated Math 2 Summer Prep Dublin CA',
   description:
-    'Grade 8 Integrated Math 2 readiness. 100% DUSD aligned. Mon/Wed/Fri evenings 6:45–8:15 PM. Starts July 20. Dublin, CA.',
+    'Grade 8 Integrated Math 2 readiness. 100% DUSD aligned. Mon/Wed/Fri evenings 5–6:30 PM. Starts July 20. Dublin, CA.',
   provider: courseProviderWithPhone(),
   courseSchedule: courseSchedule(MWF_SCHEDULE_JULY),
   offers: STANDARD_GET_READY_OFFERS.map(courseOffer),
@@ -181,6 +181,10 @@ export function buildAcademicSeoLandingCourseSchema(pageId: AcademicSeoLandingPa
           { '@type': 'ListItem', position: 2, item: IM2_GET_READY_COURSE },
         ],
       };
+    case 'im1GetReady':
+      return { '@context': 'https://schema.org', ...IM1_GET_READY_COURSE };
+    case 'im2GetReady':
+      return { '@context': 'https://schema.org', ...IM2_GET_READY_COURSE };
     default: {
       const _exhaustive: never = pageId;
       return _exhaustive;
