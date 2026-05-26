@@ -1,5 +1,8 @@
 import { HOME_VISIBLE_FAQS } from '@/lib/home/homeFaqCopy'
 import { generateFAQPageSchema } from '@/lib/seo/structuredData'
+import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+
+const CANONICAL_BASE = getCanonicalSiteUrl()
 
 const { ['@context']: _faqContext, ...faqPageNode } = generateFAQPageSchema(HOME_VISIBLE_FAQS)
 
@@ -9,8 +12,8 @@ export const HOME_GRAPH_JSON_LD = {
     {
       '@type': 'EducationalOrganization',
       name: 'GrowWise School',
-      url: 'https://www.growwiseschool.org',
-      logo: 'https://www.growwiseschool.org/logo.png',
+      url: CANONICAL_BASE,
+      logo: `${CANONICAL_BASE}/logo.png`,
       description:
         'GrowWise helps Grades 1-12 students become confident, independent learners through academic tutoring and STEAM programs. Available online nationwide and in-person in Dublin, CA.',
       address: {
