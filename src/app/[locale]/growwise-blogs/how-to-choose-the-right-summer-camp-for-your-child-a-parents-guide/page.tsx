@@ -113,10 +113,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               <p className="text-gray-700 mb-6 text-sm">
-                If you are comparing options locally, start with our current 
+                If you are comparing options locally, start with our current
                 <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   summer camp schedules in Dublin
                 </Link> and program tracks.
+              </p>
+
+              <p className="text-gray-700 mb-6 text-sm">
+                Before you choose, understand the stakes:{' '}
+                <Link href={publicPath('/resources/summer-slide-dublin-ca', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  research shows students lose months of progress over summer
+                </Link>
+                . The earlier your child starts, the less ground they lose.
               </p>
 
               {/* Featured Image */}
