@@ -54,6 +54,7 @@ export const ACADEMIC_HUB_FILTER_SMOKE_CASES: readonly HubFilterSmokeCase[] = [
       'Write to Explain',
       'Bridge the Gap Math',
       'IM1 Get Ready',
+      'IM2 Get Ready',
       'Algebra Get Ready',
       'Geometry Get Ready',
     ],
@@ -74,7 +75,7 @@ export const ACADEMIC_HUB_FILTER_SMOKE_CASES: readonly HubFilterSmokeCase[] = [
   {
     query: ACADEMIC_HUB_FILTER_QUERY_VALUES.getReadyMath,
     activeChipLabel: 'Get Ready Math',
-    visibleProgramTitles: ['IM1 Get Ready', 'Algebra Get Ready', 'Geometry Get Ready'],
+    visibleProgramTitles: ['IM1 Get Ready', 'IM2 Get Ready', 'Algebra Get Ready', 'Geometry Get Ready'],
     hiddenProgramTitles: ['Read to Prove', 'Bridge the Gap Math'],
   },
 ];

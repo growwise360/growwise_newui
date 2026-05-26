@@ -27,6 +27,7 @@ export type AcademicProgramInterestId =
   | 'write-to-explain'
   | 'bridge-the-gap-math'
   | 'im1'
+  | 'im2'
   | 'algebra-1'
   | 'geometry'
   | 'not-sure';

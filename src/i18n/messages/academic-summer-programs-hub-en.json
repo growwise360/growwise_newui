@@ -11,7 +11,7 @@
       },
       "julyPrograms": {
         "heading": "Math Get Ready programs",
-        "subtext": "IM1, Algebra, and Geometry prep · Starts July 20"
+        "subtext": "IM1, IM2, Algebra, and Geometry prep · Starts July 20"
       }
     },
     "sprintPickCard": {
@@ -56,6 +56,15 @@
             "Wants DUSD & PUSD-aligned preparation"
           ]
         },
+        "im2": {
+          "gradeBadge": "Grade 8 / entering IM2",
+          "scheduleLine": "Mon/Wed/Fri · 6:45–8:15 PM · Starts July 20",
+          "bestFor": [
+            "Starting Grade 8 Integrated Math 2 in fall",
+            "Needs a head start on IM2 curriculum",
+            "Wants DUSD & PUSD-aligned preparation"
+          ]
+        },
         "algebra-1": {
           "gradeBadge": "Grades 7–8",
           "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts June 15",
@@ -83,7 +92,7 @@
     "chooseProgramCta": "Choose a Program →",
     "askScheduleCta": "Ask About Schedule",
     "getReadyChooseCohortHeader": "Choose your cohort",
-    "getReadyRowFormat": "IN-PERSON · M/W/F · 5–6:30 PM · {sessions} sessions",
+    "getReadyRowFormat": "IN-PERSON · M/W/F · {time} · {sessions} sessions",
     "getReadySaveBadge": "Save {amount}",
     "getReadyBothUpfrontNote": "Pay upfront: {upfront} · saving {saveAmount} vs enrolling separately",
     "sprintBothUpfrontNote": "Pay upfront: {upfront} · saving {saveAmount} vs enrolling separately",
@@ -104,6 +113,20 @@
     "getReadyPanel": {
       "tracks": {
         "im1": {
+          "rowTimeLabel": "5–6:30 PM",
+          "cohort1": { "title": "Cohort 1 (July 20–31)", "sessions": 6 },
+          "cohort2": { "title": "Cohort 2 (Aug 4–15)", "sessions": 6 },
+          "both": {
+            "title": "Both cohorts (July 20–Aug 15)",
+            "sessions": 12,
+            "upfrontAmount": 399,
+            "upfrontSaveAmount": 99,
+            "includeHolidaySuffix": false
+          },
+          "cohort2HolidayNote": null
+        },
+        "im2": {
+          "rowTimeLabel": "6:45–8:15 PM",
           "cohort1": { "title": "Cohort 1 (July 20–31)", "sessions": 6 },
           "cohort2": { "title": "Cohort 2 (Aug 4–15)", "sessions": 6 },
           "both": {
@@ -205,6 +228,11 @@
       "name": "IM1 Get Ready",
       "tagline": "Start accelerated math with confidence.",
       "bestFor": ["DUSD/PUSD Grade 7 IM1 pathways", "Linear equations", "Systems & functions"]
+    },
+    "im2": {
+      "name": "IM2 Get Ready",
+      "tagline": "Build on IM1 with quadratics, geometry, and trigonometry.",
+      "bestFor": ["DUSD/PUSD Grade 8 IM2 pathways", "Quadratics & exponentials", "Geometry & trig intro"]
     },
     "algebra-1": {
       "name": "Algebra Get Ready",

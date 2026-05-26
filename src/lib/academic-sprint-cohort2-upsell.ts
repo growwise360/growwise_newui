@@ -6,7 +6,7 @@ export const ACADEMIC_SPRINT_TRACK_IDS = [
   'bridge-the-gap-math',
 ] as const;
 
-export const GET_READY_TRACK_IDS = ['im1', 'algebra-1', 'geometry'] as const;
+export const GET_READY_TRACK_IDS = ['im1', 'im2', 'algebra-1', 'geometry'] as const;
 
 export type AcademicSprintUpsellTierId = 'grades-3-5' | 'grades-6-8';
 

@@ -18,6 +18,7 @@ export const CAMPS_STATIC_PATH_SEGMENTS: ReadonlySet<string> = new Set([
   "summer-math-foundations-dublin-ca",
   "summer-algebra-dublin-ca",
   "summer-geometry-precalculus-dublin-ca",
+  "summer-im-get-ready-dublin-ca",
 ]);
 
 /** Params for `src/app/[locale]/camps/[slug]/page.tsx` — excludes static camp hubs. */

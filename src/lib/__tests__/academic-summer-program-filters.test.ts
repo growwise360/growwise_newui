@@ -4,8 +4,8 @@ import { buildAllAcademicSummerPrograms } from '@/lib/academic-summer-programs-h
 describe('filterAcademicProgramsByChip', () => {
   const programs = buildAllAcademicSummerPrograms();
 
-  it('returns all six programs for the all filter', () => {
-    expect(filterAcademicProgramsByChip(programs, 'all')).toHaveLength(6);
+  it('returns all seven programs for the all filter', () => {
+    expect(filterAcademicProgramsByChip(programs, 'all')).toHaveLength(7);
   });
 
   it('filters reading and writing sprints', () => {
@@ -20,7 +20,7 @@ describe('filterAcademicProgramsByChip', () => {
 
   it('filters get-ready math tracks', () => {
     const filtered = filterAcademicProgramsByChip(programs, 'getReadyMath');
-    expect(filtered.map((p) => p.id)).toEqual(['im1', 'algebra-1', 'geometry']);
+    expect(filtered.map((p) => p.id)).toEqual(['im1', 'im2', 'algebra-1', 'geometry']);
   });
 });
 

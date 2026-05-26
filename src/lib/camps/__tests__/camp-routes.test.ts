@@ -11,6 +11,7 @@ describe('camp-routes', () => {
     expect(CAMPS_STATIC_PATH_SEGMENTS.has('summer-math-foundations-dublin-ca')).toBe(true);
     expect(CAMPS_STATIC_PATH_SEGMENTS.has('summer-algebra-dublin-ca')).toBe(true);
     expect(CAMPS_STATIC_PATH_SEGMENTS.has('summer-geometry-precalculus-dublin-ca')).toBe(true);
+    expect(CAMPS_STATIC_PATH_SEGMENTS.has('summer-im-get-ready-dublin-ca')).toBe(true);
     expect(CAMPS_STATIC_PATH_SEGMENTS.has('summer')).toBe(true);
     expect(CAMPS_STATIC_PATH_SEGMENTS.has('winter')).toBe(true);
   });
@@ -23,6 +24,7 @@ describe('camp-routes', () => {
     expect(slugs).not.toContain('summer-math-foundations-dublin-ca');
     expect(slugs).not.toContain('summer-algebra-dublin-ca');
     expect(slugs).not.toContain('summer-geometry-precalculus-dublin-ca');
+    expect(slugs).not.toContain('summer-im-get-ready-dublin-ca');
     expect(slugs).not.toContain('summer');
     expect(slugs).not.toContain('winter');
   });

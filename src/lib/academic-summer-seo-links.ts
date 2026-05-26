@@ -9,6 +9,7 @@ export type AcademicProgramSeoSlugKey =
   | 'mistakeProofMath'
   | 'readingWritingPrograms'
   | 'im1GetReady'
+  | 'im2GetReady'
   | 'algebra1GetReady'
   | 'geometryGetReady';
 
@@ -31,7 +32,14 @@ const PROGRAM_ID_TO_SEO: Partial<Record<string, AcademicProgramSeoLink | null>> 
     slug: 'summer-math-foundations-dublin-ca',
     labelKey: 'mistakeProofMath',
   },
-  im1: null,
+  im1: {
+    slug: 'summer-im-get-ready-dublin-ca',
+    labelKey: 'im1GetReady',
+  },
+  im2: {
+    slug: 'summer-im-get-ready-dublin-ca',
+    labelKey: 'im2GetReady',
+  },
   'algebra-1': {
     slug: 'summer-algebra-dublin-ca',
     labelKey: 'algebra1GetReady',

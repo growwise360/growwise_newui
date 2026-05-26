@@ -31,7 +31,7 @@
       "id": "get-ready-sprint",
       "href": "/camps/get-ready-sprint-dublin-ca",
       "startDateIso": "2026-07-20",
-      "trackIds": ["im1", "algebra-1", "geometry"],
+      "trackIds": ["im1", "im2", "algebra-1", "geometry"],
       "pricing": null
     }
   ],
@@ -83,6 +83,7 @@
   },
   "getReadyPricingGroups": {
     "im1": "im1",
+    "im2": "im1",
     "algebra-1": "standard",
     "geometry": "geometry"
   },
@@ -115,6 +116,13 @@
       "ctaType": "phone",
       "ctaHref": null
     },
+    "im2": {
+      "sprintId": "get-ready-sprint",
+      "section": "math",
+      "gradeBadge": "Grades 1–10",
+      "ctaType": "phone",
+      "ctaHref": null
+    },
     "algebra-1": {
       "sprintId": "get-ready-sprint",
       "section": "math",
@@ -141,6 +149,9 @@
       "image": "/images/camps/banners/mistake_proof_math_3968b793_web.webp"
     },
     "im1": {
+      "image": "/images/camps/banners/im1_get_ready_04d2d274_web.webp"
+    },
+    "im2": {
       "image": "/images/camps/banners/im1_get_ready_04d2d274_web.webp"
     },
     "algebra-1": {

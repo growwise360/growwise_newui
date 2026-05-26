@@ -7,6 +7,7 @@ import {
   getAcademicSeoLandingPageConfig,
 } from '@/lib/academic-seo-landing-config';
 import { getAcademicSeoLandingCopy } from '@/lib/academic-seo-landing-copy';
+import { getImGetReadySeoLandingCopy } from '@/lib/im-get-ready-seo-landing-copy';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 import {
   buildAcademicSeoLandingCourseSchema,
@@ -39,7 +40,8 @@ export function AcademicSeoLandingLayout({
   locale: string;
 }) {
   const config = ACADEMIC_SEO_LANDING_PAGES[pageId];
-  const copy = getAcademicSeoLandingCopy(pageId);
+  const copy =
+    pageId === 'imGetReady' ? getImGetReadySeoLandingCopy() : getAcademicSeoLandingCopy(pageId);
   const baseUrl = getCanonicalSiteUrl();
   const pageUrl = absoluteSiteUrl(config.path, locale, baseUrl);
 

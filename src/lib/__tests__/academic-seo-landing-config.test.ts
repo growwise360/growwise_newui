@@ -4,7 +4,7 @@ import {
 } from '@/lib/academic-seo-landing-config';
 
 describe('academic-seo-landing-config showHeroBanner', () => {
-  it.each(['algebra', 'readingWriting'] as const)(
+  it.each(['algebra', 'readingWriting', 'imGetReady'] as const)(
     '%s disables the hero image banner',
     (pageId: AcademicSeoLandingPageId) => {
       expect(ACADEMIC_SEO_LANDING_PAGES[pageId].showHeroBanner).toBe(false);

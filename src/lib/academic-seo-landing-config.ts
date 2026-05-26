@@ -8,9 +8,14 @@ export type AcademicSeoLandingPageId =
   | 'readingWriting'
   | 'mathFoundations'
   | 'algebra'
-  | 'geometry';
+  | 'geometry'
+  | 'imGetReady';
 
-export type AcademicSeoLandingVariant = 'sprint-multi' | 'sprint-single' | 'get-ready-single';
+export type AcademicSeoLandingVariant =
+  | 'sprint-multi'
+  | 'sprint-single'
+  | 'get-ready-single'
+  | 'get-ready-multi';
 
 export type AcademicSeoLandingPageConfig = {
   readonly id: AcademicSeoLandingPageId;
@@ -60,7 +65,7 @@ export const ACADEMIC_SEO_LANDING_PAGES: Record<
     trackIds: ['algebra-1'],
     hubFilter: 'getReadyMath',
     breadcrumbLabel: 'Summer Algebra',
-    relatedPageOrder: ['mathFoundations', 'geometry', 'readingWriting'],
+    relatedPageOrder: ['imGetReady', 'geometry', 'readingWriting'],
     showHeroBanner: false,
   },
   geometry: {
@@ -71,7 +76,18 @@ export const ACADEMIC_SEO_LANDING_PAGES: Record<
     trackIds: ['geometry'],
     hubFilter: 'getReadyMath',
     breadcrumbLabel: 'Summer Geometry',
-    relatedPageOrder: ['algebra', 'mathFoundations', 'readingWriting'],
+    relatedPageOrder: ['imGetReady', 'algebra', 'mathFoundations'],
+  },
+  imGetReady: {
+    id: 'imGetReady',
+    slug: 'summer-im-get-ready-dublin-ca',
+    path: '/camps/summer-im-get-ready-dublin-ca',
+    variant: 'get-ready-multi',
+    trackIds: ['im1', 'im2'],
+    hubFilter: 'getReadyMath',
+    breadcrumbLabel: 'IM Get Ready Programs',
+    relatedPageOrder: ['algebra', 'geometry', 'mathFoundations'],
+    showHeroBanner: false,
   },
 };
 

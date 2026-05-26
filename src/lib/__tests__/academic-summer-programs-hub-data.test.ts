@@ -15,11 +15,11 @@ describe('academic-summer-programs-hub-data', () => {
   describe('hub JSON integrity', () => {
     const hub = getAcademicSummerProgramsHubData();
 
-    it('defines two sprints with six total tracks', () => {
+    it('defines two sprints with seven total tracks', () => {
       expect(hub.sprints).toHaveLength(2);
       const trackIds = hub.sprints.flatMap((s) => s.trackIds);
-      expect(trackIds).toHaveLength(6);
-      expect(new Set(trackIds).size).toBe(6);
+      expect(trackIds).toHaveLength(7);
+      expect(new Set(trackIds).size).toBe(7);
     });
 
     it('includes expected sprint pricing tiers', () => {
@@ -39,15 +39,15 @@ describe('academic-summer-programs-hub-data', () => {
     const sprintPrograms = buildAcademicSummerSprintPrograms();
     const getReadyPrograms = buildGetReadySummerPrograms();
 
-    it('builds six checkout-compatible programs', () => {
-      expect(allPrograms).toHaveLength(6);
+    it('builds seven checkout-compatible programs', () => {
+      expect(allPrograms).toHaveLength(7);
       expect(sprintPrograms).toHaveLength(3);
-      expect(getReadyPrograms).toHaveLength(3);
+      expect(getReadyPrograms).toHaveLength(4);
     });
 
     it('uses expected sprint and get-ready ids', () => {
       expect(sprintPrograms.map((p) => p.id)).toEqual([...ACADEMIC_SUMMER_SPRINT_TRACK_IDS]);
-      expect(getReadyPrograms.map((p) => p.id)).toEqual(['im1', 'algebra-1', 'geometry']);
+      expect(getReadyPrograms.map((p) => p.id)).toEqual(['im1', 'im2', 'algebra-1', 'geometry']);
     });
 
     it('assigns slots with prices for every program', () => {
@@ -56,6 +56,13 @@ describe('academic-summer-programs-hub-data', () => {
         expect(slots.length).toBeGreaterThan(0);
         expect(slots.every((s) => typeof s.price === 'number' && s.price > 0)).toBe(true);
       }
+    });
+
+    it('uses distinct evening times for IM1 and IM2 enrollment rows', () => {
+      const im1 = getReadyPrograms.find((p) => p.id === 'im1');
+      const im2 = getReadyPrograms.find((p) => p.id === 'im2');
+      expect(im1?.levels[0]?.slots[0]?.time).toContain('5–6:30 PM');
+      expect(im2?.levels[0]?.slots[0]?.time).toContain('6:45–8:15 PM');
     });
 
     it('defaults to read-to-prove as the hub program', () => {
@@ -72,21 +79,22 @@ describe('academic-summer-programs-hub-data', () => {
       expect(isAcademicGetReadyProgram('write-to-explain')).toBe(false);
     });
 
-    it('returns card display metadata for all six tracks', () => {
+    it('returns card display metadata for all seven tracks', () => {
       const map = getAcademicProgramCardDisplayMap();
-      expect(Object.keys(map)).toHaveLength(6);
+      expect(Object.keys(map)).toHaveLength(7);
       expect(map['read-to-prove'].startingPrice).toBe(249);
       expect(map.geometry.startingPrice).toBe(279);
     });
 
-    it('builds six track cards in reading/writing then math order', () => {
+    it('builds seven track cards in reading/writing then math order', () => {
       const cards = getAcademicTrackCards();
-      expect(cards).toHaveLength(6);
+      expect(cards).toHaveLength(7);
       expect(cards.map((c) => c.id)).toEqual([
         'read-to-prove',
         'write-to-explain',
         'bridge-the-gap-math',
         'im1',
+        'im2',
         'algebra-1',
         'geometry',
       ]);

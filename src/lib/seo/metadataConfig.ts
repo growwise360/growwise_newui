@@ -353,6 +353,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
+  '/camps/summer-im-get-ready-dublin-ca': {
+    title: 'DUSD & PUSD IM Get Ready Cohorts | GrowWise School',
+    description:
+      'Summer IM1 & IM2 Get Ready Cohorts for first-quarter readiness. DUSD & PUSD aligned. Mon/Wed/Fri evenings. Starts July 20. From $249. Dublin, CA.',
+    keywords:
+      'IM1 prep program Dublin CA, IM2 Get Ready cohort Tri-Valley, DUSD Integrated Math summer prep, PUSD IM1 IM2 readiness, Grade 7 accelerated math prep Dublin',
+    path: '/camps/summer-im-get-ready-dublin-ca',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
+  },
+
   '/growwise-blogs': {
     title: 'GrowWise Blog | Math, English & Coding Tips',
     description:
