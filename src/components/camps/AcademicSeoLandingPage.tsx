@@ -372,6 +372,28 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
           </div>
         </SectionContainer>
 
+        <SectionContainer className="border-t border-slate-100 bg-white">
+          <div className="mx-auto max-w-2xl">
+            <p className="text-slate-700 leading-relaxed">
+              Not sure if this program is the right fit, or worried about the{' '}
+              <Link
+                href={createLocaleUrl('/resources/summer-slide-dublin-ca', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                summer slide
+              </Link>
+              ? We help identify your child's actual gaps and recommend the best program before you commit.{' '}
+              <Link
+                href={createLocaleUrl('/self-check', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                Start with a free assessment
+              </Link>
+              .
+            </p>
+          </div>
+        </SectionContainer>
+
         <SectionContainer id="faq" className="border-t border-slate-100 bg-slate-50/60">
           <div className="mx-auto max-w-4xl">
             <h2 className="text-center font-heading text-2xl font-bold text-slate-900 md:text-3xl">

@@ -78,6 +78,15 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     readTime: '6 min read',
     href: '/resources/tutoring-dublin-ca',
   },
+  {
+    id: 'summer-slide-dublin-ca',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'The Summer Slide Is Real: What Dublin Parents Need to Know',
+    description: 'How students lose months of academic progress every summer — and what structured programs do differently.',
+    readTime: '5 min read',
+    href: '/resources/summer-slide-dublin-ca',
+  },
 ]
 
 export const RESOURCES_HERO = {
