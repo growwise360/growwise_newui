@@ -47,6 +47,16 @@ test.describe('Academic summer programs hub', { tag: '@nightly' }, () => {
         name: 'Geometry Get Ready program details →',
       }).first(),
     ).toHaveAttribute('href', /\/camps\/summer-geometry-precalculus-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'IM1 Get Ready program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-im1-get-ready-dublin-ca/);
+    await expect(
+      page.locator('#program-grid').getByRole('link', {
+        name: 'IM2 Get Ready program details →',
+      }).first(),
+    ).toHaveAttribute('href', /\/camps\/summer-im2-get-ready-dublin-ca/);
   });
 
   test('legacy sprint URL redirects to the hub', async ({ page }) => {
@@ -72,6 +82,9 @@ test.describe('Academic summer programs hub', { tag: '@nightly' }, () => {
 const ACADEMIC_CAMP_LANDING_PATHS = [
   '/camps/summer-reading-writing-dublin-ca',
   '/camps/summer-math-foundations-dublin-ca',
+  '/camps/summer-im-get-ready-dublin-ca',
+  '/camps/summer-im1-get-ready-dublin-ca',
+  '/camps/summer-im2-get-ready-dublin-ca',
 ] as const;
 
 async function expectCanonicalWwwNoEn(page: Page, path: string) {
@@ -110,4 +123,82 @@ test.describe('Academic summer SEO landings — canonical & indexability', { tag
       }).first(),
     ).toHaveAttribute('href', /\/camps\/summer-math-foundations-dublin-ca/);
   });
+});
+
+test.describe('IM Get Ready SEO landing', { tag: '@nightly' }, () => {
+  test('overview page shows chooser cards and shared FAQ', async ({ page }) => {
+    await page.goto(localePath('/camps/summer-im-get-ready-dublin-ca'));
+
+    await expect(page.locator('main h1')).toContainText('IM1 & IM2 Get Ready Summer Cohorts');
+    await expect(
+      page.getByRole('heading', { name: 'Choose the right Get Ready Cohort' }),
+    ).toBeVisible();
+    await expect(page.locator('#im1-get-ready')).toBeVisible();
+    await expect(page.locator('#im2-get-ready')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'View IM1 Program Details' })).toHaveAttribute(
+      'href',
+      /\/camps\/summer-im1-get-ready-dublin-ca/,
+    );
+    await expect(page.getByRole('link', { name: 'View IM2 Program Details' })).toHaveAttribute(
+      'href',
+      /\/camps\/summer-im2-get-ready-dublin-ca/,
+    );
+    await expect(page.getByRole('heading', { name: 'Frequently Asked Questions' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Reserve IM1 Spot' })).toHaveAttribute(
+      'href',
+      /#track-im1/,
+    );
+    await expect(page.getByRole('link', { name: 'Reserve IM2 Spot' })).toHaveAttribute(
+      'href',
+      /#track-im2/,
+    );
+  });
+
+  test('IM1 track page shows dedicated curriculum and FAQ', async ({ page }) => {
+    await page.goto(localePath('/camps/summer-im1-get-ready-dublin-ca'));
+
+    await expect(page.locator('main h1')).toContainText('IM1 Get Ready Summer Cohort');
+    await expect(
+      page.getByRole('heading', { name: 'Common IM1 Mistake Patterns We Target' }),
+    ).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'IM1 FAQ' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'View IM2 Get Ready →' })).toHaveAttribute(
+      'href',
+      /\/camps\/summer-im2-get-ready-dublin-ca/,
+    );
+  });
+
+  test('IM2 track page shows dedicated curriculum and FAQ', async ({ page }) => {
+    await page.goto(localePath('/camps/summer-im2-get-ready-dublin-ca'));
+
+    await expect(page.locator('main h1')).toContainText('IM2 Get Ready Summer Cohort');
+    await expect(
+      page.getByRole('heading', { name: 'Common IM2 Mistake Patterns We Target' }),
+    ).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'IM2 FAQ' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'View IM1 Get Ready →' })).toHaveAttribute(
+      'href',
+      /\/camps\/summer-im1-get-ready-dublin-ca/,
+    );
+  });
+
+  for (const path of [
+    '/camps/summer-im-get-ready-dublin-ca',
+    '/camps/summer-im1-get-ready-dublin-ca',
+    '/camps/summer-im2-get-ready-dublin-ca',
+  ] as const) {
+    for (const width of [375, 430] as const) {
+      test(`${path} has no horizontal overflow at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 812 });
+        await page.goto(localePath(path));
+        await expect(page.locator('main h1')).toBeVisible();
+
+        const hasOverflow = await page.evaluate(() => {
+          const doc = document.documentElement;
+          return doc.scrollWidth > doc.clientWidth;
+        });
+        expect(hasOverflow).toBe(false);
+      });
+    }
+  }
 });

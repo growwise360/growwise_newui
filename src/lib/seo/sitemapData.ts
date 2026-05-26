@@ -87,6 +87,9 @@ const campPages: SitemapEntry[] = [
   { path: '/camps/summer-math-foundations-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-algebra-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-geometry-precalculus-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-im-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-im1-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-im2-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/winter', priority: 0.7, changefreq: 'weekly' },
   { path: '/camps/winter/calendar', priority: 0.6, changefreq: 'weekly' },
 ]
@@ -230,7 +233,8 @@ export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
         loc: absoluteSiteUrl(path, locale, baseUrl),
         lastmod,
         changefreq: 'monthly',
-        priority: path === '/resources/tutoring-dublin-ca' ? 0.85 : 0.8,
+        priority:
+          path === '/resources/tutoring-dublin-ca' || path === '/resources/summer-slide-dublin-ca' ? 0.85 : 0.8,
       })
     })
   })

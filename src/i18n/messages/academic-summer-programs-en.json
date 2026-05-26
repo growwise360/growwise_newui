@@ -69,13 +69,15 @@
       },
       "julyPrograms": {
         "heading": "Math Get Ready programs",
-        "subtext": "IM1, Algebra, and Geometry prep · Mon/Wed/Fri evenings · Starts July 20 · From $249"
+        "subtext": "IM1, IM2, Algebra, and Geometry prep · Mon/Wed/Fri evenings · Starts July 20 · From $249"
       }
     },
     "seoLinks": {
       "readToProve": "Read to Prove program details →",
       "writeWithStructure": "Write to Explain program details →",
       "mistakeProofMath": "Bridge the Gap Math program details →",
+      "im1GetReady": "IM1 Get Ready program details →",
+      "im2GetReady": "IM2 Get Ready program details →",
       "algebra1GetReady": "Algebra Get Ready program details →",
       "geometryGetReady": "Geometry Get Ready program details →"
     }
@@ -115,7 +117,7 @@
     "highlights": [
       {
         "label": "Grades 1–10",
-        "detail": "Reading, writing & math foundations plus IM1, Algebra & Geometry prep"
+        "detail": "Reading, writing & math foundations plus IM1, IM2, Algebra & Geometry prep"
       },
       {
         "label": "Max 8 students",
@@ -220,6 +222,7 @@
       "write-to-explain": "Write to Explain",
       "bridge-the-gap-math": "Bridge the Gap Math",
       "im1": "IM1 Get Ready",
+      "im2": "IM2 Get Ready",
       "algebra-1": "Algebra Get Ready",
       "geometry": "Geometry Get Ready",
       "not-sure": "Not sure yet"

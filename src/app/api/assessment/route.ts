@@ -10,6 +10,7 @@ import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submit
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
+import { sendFormSms } from '@/lib/twilioSms';
 
 export const maxDuration = 60;
 
@@ -39,6 +40,7 @@ interface AssessmentFormData {
   /** Free-text or select value, e.g. how the family found GrowWise. */
   hearAboutUs?: string;
   notes?: string;
+  sms_consent?: boolean;
 }
 
 export async function POST(request: Request) {
@@ -84,7 +86,8 @@ export async function POST(request: Request) {
       mode,
       schedule,
       hearAboutUs,
-      notes
+      notes,
+      sms_consent,
     }: AssessmentFormData = body as unknown as AssessmentFormData;
 
     const subjects = Array.isArray(subjectsRaw)
@@ -168,6 +171,13 @@ export async function POST(request: Request) {
     const emailResult = await sendAssessmentEmails(assessmentData);
 
     if (emailResult.success) {
+      void sendFormSms({
+        phone: assessmentData.phone,
+        sms_consent: Boolean(sms_consent),
+        type: 'assessment',
+        name: assessmentData.parentName,
+      });
+
       const at = assessmentData.email.indexOf('@');
       const emailDomain = at > 0 ? assessmentData.email.slice(at + 1) : 'unknown';
       console.log('[assessment] submission ok', {

@@ -8,6 +8,7 @@ import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submit
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
+import { sendFormSms } from '@/lib/twilioSms';
 
 const MAX_BODY_BYTES = 32 * 1024;
 
@@ -179,6 +180,13 @@ export async function POST(request: Request) {
     const emailResult = await sendContactEmail(contactData);
 
     if (emailResult.success) {
+      void sendFormSms({
+        phone: phoneC,
+        sms_consent: Boolean((body as Record<string, unknown>).sms_consent),
+        type: 'contact',
+        name: nameC,
+      });
+
       const at = contactData.email.indexOf('@');
       const emailDomain = at > 0 ? contactData.email.slice(at + 1) : 'unknown';
       console.log('[contact] submission ok', {

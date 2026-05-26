@@ -56,6 +56,12 @@ export type AcademicSeoLandingCopy = {
     href: string;
   };
   valueAnchorPrefix?: string;
+  thankYouBenefit?: {
+    title: string;
+    copy: string;
+    importantNote: string;
+    ctaLabel?: string;
+  };
   mainCta: {
     headline: string;
     subtext: string;
@@ -131,6 +137,15 @@ export function countAcademicSeoLandingCopyWords(copy: AcademicSeoLandingCopy): 
 
   if (copy.valueAnchorPrefix) {
     parts.push(copy.valueAnchorPrefix);
+  }
+
+  if (copy.thankYouBenefit) {
+    parts.push(
+      copy.thankYouBenefit.title,
+      copy.thankYouBenefit.copy,
+      copy.thankYouBenefit.importantNote,
+      copy.thankYouBenefit.ctaLabel ?? '',
+    );
   }
 
   return parts.reduce((sum, text) => sum + countWords(text), 0);

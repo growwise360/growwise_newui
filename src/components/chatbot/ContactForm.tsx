@@ -34,6 +34,9 @@ export interface ContactFormData {
   gradeLevel?: string;
   preferredContact?: string;
   source?: string; // Where the form was submitted from
+  sms_consent?: boolean;
+  consent_timestamp?: string;
+  consent_source?: string;
   /** Honeypot — must stay empty (bots fill hidden fields). */
   _hp?: string;
 }
@@ -233,6 +236,19 @@ export default function ContactForm({
             {getFieldError('phone') && (
               <p className="text-xs text-red-600 mt-1" role="alert">{getFieldError('phone')}</p>
             )}
+          </div>
+
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="contact-sms-consent"
+              checked={formData.sms_consent ?? false}
+              onChange={(e) => setFormData(prev => ({ ...prev, sms_consent: e.target.checked }))}
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-[#F16112] focus:ring-[#F16112]"
+            />
+            <label htmlFor="contact-sms-consent" className="text-xs text-gray-700 leading-relaxed">
+              I agree to receive SMS updates from GrowWise School about programs and enrollment. Msg & data rates may apply. Reply STOP to opt out.
+            </label>
           </div>
 
           <FormPrivacyConsent

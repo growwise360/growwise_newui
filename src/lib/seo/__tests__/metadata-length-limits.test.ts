@@ -25,6 +25,9 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       ['/camps/summer-math-foundations-dublin-ca'],
       ['/camps/summer-algebra-dublin-ca'],
       ['/camps/summer-geometry-precalculus-dublin-ca'],
+      ['/camps/summer-im-get-ready-dublin-ca'],
+      ['/camps/summer-im1-get-ready-dublin-ca'],
+      ['/camps/summer-im2-get-ready-dublin-ca'],
       ['/courses/integrated-math-1-dublin-ca'],
       ['/enroll'],
     ] as const)('title + description for %s', (path) => {
@@ -74,6 +77,20 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
         'Why a B+ can hide math gaps in Tri-Valley schools—and how Dublin parents spot real understanding vs. memorization before algebra.'
       assertTitle('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', title)
       assertDesc('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', description)
+    })
+
+    it('reading-fluency-vs-comprehension', () => {
+      const config = getMetadataConfig('/resources/reading-fluency-vs-comprehension')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/reading-fluency-vs-comprehension', config!.title)
+      assertDesc('/resources/reading-fluency-vs-comprehension', config!.description)
+    })
+
+    it('summer-slide-dublin-ca', () => {
+      const config = getMetadataConfig('/resources/summer-slide-dublin-ca')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/summer-slide-dublin-ca', config!.title)
+      assertDesc('/resources/summer-slide-dublin-ca', config!.description)
     })
   })
 

@@ -16,6 +16,7 @@ export function HomeworkIndependencePage() {
   const selfCheckHref = publicPath('/self-check', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
   const mathCoursesHref = publicPath('/courses/math', locale)
+  const academicHubHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
 
   return (
     <ResourceArticlePage
@@ -145,6 +146,14 @@ export function HomeworkIndependencePage() {
       </p>
 
       <p>
+        A structured summer cohort — like our{' '}
+        <Link href={academicHubHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          academic summer programs in Dublin
+        </Link>{' '}
+        — gives students a consistent routine and non-parent accountability while school is out.
+      </p>
+
+      <p>
         The goal is not to transfer dependence from parent to tutor. The goal is to build the habit in a context where
         it can be practiced without the emotional weight of the parent-child dynamic.
       </p>
@@ -197,8 +206,15 @@ export function HomeworkIndependencePage() {
       </p>
 
       <p>
-        If it&apos;s specific subjects (especially math or reading): likely a skill gap that makes the work genuinely
-        difficult. No routine fixes content that the student doesn&apos;t understand.
+        If it&apos;s specific subjects (especially{' '}
+        <Link
+          href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+          className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+        >
+          reading
+        </Link>{' '}
+        or math): likely a skill gap that makes the work genuinely difficult. No routine fixes content that the
+        student doesn&apos;t understand.
       </p>
 
       <p>

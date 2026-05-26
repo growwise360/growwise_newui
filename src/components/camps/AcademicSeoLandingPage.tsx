@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { HelpCircle } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { ImGetReadyThankYouBenefitBanner } from '@/components/camps/im-get-ready/ImGetReadyThankYouBenefitBanner';
+import { AcademicSeoParentGuidesBlock } from '@/components/camps/AcademicSeoParentGuidesBlock';
 import { ACADEMIC_SUMMER_BANNER_SRC } from '@/components/camps/AcademicProgramsHero';
 import { SectionContainer } from '@/components/camps/SectionContainer';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
@@ -20,6 +22,7 @@ import {
   getAcademicSummerProgramsHubData,
 } from '@/lib/academic-summer-programs-hub-data';
 import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
+import { getParentGuidesForLandingPage } from '@/lib/academic-seo-parent-guides';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -169,6 +172,7 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
   const copy = getAcademicSeoLandingCopy(pageId);
   const hubCtaHref = hubUrlWithFilter(locale, config.hubFilter);
   const hubAllHref = createLocaleUrl(ACADEMIC_SEO_HUB_PATH, locale);
+  const contactHref = createLocaleUrl('/contact', locale);
 
   const programCards = config.trackIds
     .map((trackId) => {
@@ -178,6 +182,7 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
     .filter((card): card is NonNullable<typeof card> => card !== null);
 
   const defaultOpenFaqs = getDefaultOpenFaqValues(copy.faq.length, (idx) => `faq-${idx}`);
+  const parentGuides = getParentGuidesForLandingPage(pageId);
 
   const valueAnchorText =
     copy.valueAnchorPrefix && pageId === 'geometry'
@@ -244,6 +249,16 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
           {heroContent}
         </section>
 
+        {copy.thankYouBenefit ? (
+          <ImGetReadyThankYouBenefitBanner
+            title={copy.thankYouBenefit.title}
+            copy={copy.thankYouBenefit.copy}
+            note={copy.thankYouBenefit.importantNote}
+            ctaHref={contactHref}
+            ctaLabel={copy.thankYouBenefit.ctaLabel}
+          />
+        ) : null}
+
         <SectionContainer className="bg-white">
           <div
             className={cn(
@@ -289,6 +304,23 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
 
         <AcademicSeoBodySectionsBlock sections={copy.bodySections} />
 
+        {pageId === 'readingWriting' ? (
+          <SectionContainer className="bg-white pb-0 pt-0">
+            <div className="mx-auto max-w-[720px] rounded-lg border border-slate-200 bg-slate-50 px-4 py-4 sm:px-5">
+              <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
+                Not sure whether your child&apos;s gap is fluency or comprehension? Read our{' '}
+                <Link
+                  href={createLocaleUrl('/resources/reading-fluency-vs-comprehension', locale)}
+                  className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  parent guide on fluency vs. comprehension
+                </Link>{' '}
+                before you enroll.
+              </p>
+            </div>
+          </SectionContainer>
+        ) : null}
+
         <SectionContainer className="bg-white">
           <div className="mx-auto max-w-3xl">
             <h2 className="font-heading text-xl font-bold text-[#1F396D] sm:text-2xl">
@@ -328,6 +360,16 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
           </div>
         </SectionContainer>
 
+        {parentGuides.length > 0 ? (
+          <SectionContainer className="border-t border-slate-100 bg-slate-50/60">
+            <AcademicSeoParentGuidesBlock
+              locale={locale}
+              guides={parentGuides}
+              className="mx-auto max-w-3xl"
+            />
+          </SectionContainer>
+        ) : null}
+
         {valueAnchorText ? (
           <SectionContainer className="border-t border-slate-100 bg-slate-50/60 py-8">
             <p className="mx-auto max-w-2xl text-center text-sm text-slate-500">{valueAnchorText}</p>
@@ -344,6 +386,28 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
             >
               {copy.mainCta.button}
             </Link>
+          </div>
+        </SectionContainer>
+
+        <SectionContainer className="border-t border-slate-100 bg-white">
+          <div className="mx-auto max-w-2xl">
+            <p className="text-slate-700 leading-relaxed">
+              Not sure if this program is the right fit, or worried about the{' '}
+              <Link
+                href={createLocaleUrl('/resources/summer-slide-dublin-ca', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                summer slide
+              </Link>
+              ? We help identify your child's actual gaps and recommend the best program before you commit.{' '}
+              <Link
+                href={createLocaleUrl('/self-check', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                Start with a free assessment
+              </Link>
+              .
+            </p>
           </div>
         </SectionContainer>
 
