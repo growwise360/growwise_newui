@@ -5,7 +5,7 @@ import {
 } from '@/lib/schema/dublin-ca-local-business-jsonld'
 import { DUBLIN_CA_FAQS } from '@/data/dublin-ca-faqs'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('dublin-ca-local-business-jsonld', () => {
   describe('buildDublinCaLocalBusinessSchema', () => {

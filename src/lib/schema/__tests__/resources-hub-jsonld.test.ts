@@ -1,6 +1,6 @@
 import { buildResourcesHubCollectionSchema } from '@/lib/schema/resources-hub-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('resources-hub-jsonld', () => {
   it('emits CollectionPage schema with EducationalOrganization publisher', () => {

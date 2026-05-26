@@ -5,7 +5,7 @@ import {
 } from '@/data/resources/tutoring-dublin-ca'
 import { buildTutoringDublinCaArticleGraphSchema } from '@/lib/schema/tutoring-dublin-ca-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('tutoring-dublin-ca-jsonld', () => {
   const graph = buildTutoringDublinCaArticleGraphSchema(BASE_URL, 'en') as Record<string, unknown>

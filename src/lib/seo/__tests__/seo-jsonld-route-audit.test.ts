@@ -17,7 +17,7 @@ import { buildCampLandingJsonLdGraph } from '@/lib/schema/camp-landing-jsonld'
 import { getCampPage } from '@/lib/camps/get-camp-page'
 import { buildPagesUrls } from '@/lib/seo/sitemapData'
 
-const BASE = 'https://www.growwiseschool.org'
+const BASE = 'https://growwiseschool.org'
 const LOCALE = 'en'
 
 /** Simulated per-URL JSON-LD payloads (layout + page scripts). */

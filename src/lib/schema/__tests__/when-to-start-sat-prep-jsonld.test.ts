@@ -3,7 +3,7 @@ import {
   buildWhenToStartSatPrepPageGraphSchema,
 } from '@/lib/schema/when-to-start-sat-prep-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('when-to-start-sat-prep-jsonld', () => {
   describe('buildWhenToStartSatPrepPageGraphSchema', () => {

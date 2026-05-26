@@ -5,7 +5,7 @@ import {
 } from '@/data/resources/reading-fluency-vs-comprehension-copy'
 import { buildReadingFluencyVsComprehensionPageGraphSchema } from '@/lib/schema/reading-fluency-vs-comprehension-jsonld'
 
-const BASE_URL = 'https://www.growwiseschool.org'
+const BASE_URL = 'https://growwiseschool.org'
 
 describe('reading-fluency-vs-comprehension-jsonld', () => {
   const graph = buildReadingFluencyVsComprehensionPageGraphSchema(BASE_URL, 'en') as Record<string, unknown>

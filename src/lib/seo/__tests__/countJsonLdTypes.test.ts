@@ -21,7 +21,7 @@ describe('countSchemaType', () => {
 })
 
 describe('page graph builders emit exactly one FAQPage', () => {
-  const baseUrl = 'https://www.growwiseschool.org'
+  const baseUrl = 'https://growwiseschool.org'
   const locale = 'en'
 
   it('careless-math-mistakes graph', () => {

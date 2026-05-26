@@ -5,7 +5,7 @@ import {
   buildAcademicSummerProgramsOrgSchema,
 } from '@/lib/schema/academic-summer-programs-hub-jsonld';
 
-const BASE_URL = 'https://www.growwiseschool.org';
+const BASE_URL = 'https://growwiseschool.org';
 
 describe('academic-summer-programs-hub-jsonld', () => {
   describe('buildAcademicSummerProgramsOrgSchema', () => {
