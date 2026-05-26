@@ -1,7 +1,12 @@
+'use client';
+
+import { useLocale } from 'next-intl';
+import Link from 'next/link';
 import copy from '@/i18n/messages/academic-summer-programs-en.json';
 import { SectionContainer } from '@/components/camps/SectionContainer';
 import styles from '@/components/camps/academic-problem-section.module.css';
 import { CONTACT_INFO } from '@/lib/constants';
+import { publicPath } from '@/lib/publicPath';
 
 const SECTION = copy.problem;
 const phoneHref = `tel:${CONTACT_INFO.phone.replace(/\D/g, '')}`;
@@ -38,6 +43,7 @@ function StatItem({
 }
 
 export function AcademicProblemSection() {
+  const locale = useLocale();
   const [stat1, stat2, stat3] = SECTION.stats;
 
   return (
@@ -71,6 +77,14 @@ export function AcademicProblemSection() {
             </a>
           </p>
           <p className={styles.bannerTransition}>{SECTION.transition}</p>
+          <p className={styles.bannerMeta}>
+            <Link
+              href={publicPath('/resources/summer-slide-dublin-ca', locale)}
+              className={styles.bannerMetaLink}
+            >
+              Learn more about summer learning loss →
+            </Link>
+          </p>
         </div>
       </div>
     </SectionContainer>
