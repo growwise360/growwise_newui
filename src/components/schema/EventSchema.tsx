@@ -66,7 +66,7 @@ export default function EventSchema({
     performer: {
       '@type': 'Organization',
       name: 'GrowWise School',
-      url: 'https://www.growwiseschool.org',
+      url: site,
     },
     offers: {
       '@type': 'Offer',
