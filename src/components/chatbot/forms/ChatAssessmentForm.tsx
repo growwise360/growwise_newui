@@ -37,6 +37,7 @@ interface AssessmentState {
   preferredDay: string;
   preferredTime: string;
   notes: string;
+  sms_consent: boolean;
   _hp: string;
 }
 
@@ -55,6 +56,7 @@ const initialState: AssessmentState = {
   preferredDay: "",
   preferredTime: "",
   notes: "",
+  sms_consent: false,
   _hp: "",
 };
 
@@ -114,6 +116,7 @@ export default function ChatAssessmentForm({ onSuccess, onCancel }: ChatAssessme
       schedule,
       notes: data.notes.trim() || undefined,
       hearAboutUs: chatbotFormSource("assessment"),
+      sms_consent: data.sms_consent,
       _hp: data._hp,
     };
 
@@ -346,6 +349,19 @@ export default function ChatAssessmentForm({ onSuccess, onCancel }: ChatAssessme
                 <p className="text-xs text-red-600 mt-1">{errors.preferredTime}</p>
               )}
             </div>
+          </div>
+
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="asm-sms-consent"
+              checked={data.sms_consent}
+              onChange={(e) => setField("sms_consent", e.target.checked)}
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-[#F16112] focus:ring-[#F16112]"
+            />
+            <label htmlFor="asm-sms-consent" className="text-xs text-gray-700 leading-relaxed">
+              I agree to receive SMS updates from GrowWise School about programs and enrollment. Msg & data rates may apply. Reply STOP to opt out.
+            </label>
           </div>
 
           <FormPrivacyConsent

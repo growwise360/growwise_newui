@@ -1,0 +1,650 @@
+{
+  "topNav": {
+    "brandLabel": "GrowWise Math",
+    "items": [
+      { "label": "IM1 Get Ready", "href": "#im1-get-ready", "type": "anchor" },
+      { "label": "IM2 Get Ready", "href": "#im2-get-ready", "type": "anchor" },
+      { "label": "How It Works", "href": "#how-it-works", "type": "anchor" },
+      { "label": "Regular Tutoring", "href": "/courses/high-school-math", "type": "route" },
+      { "label": "FAQ", "href": "#faq", "type": "anchor" }
+    ],
+    "ctaLabel": "Reserve a Spot"
+  },
+  "hero": {
+    "eyebrow": "DUSD & PUSD-Aligned Summer Math Cohorts",
+    "h1": "Start Integrated Math with confidence.",
+    "subheadline": "Focused 4-week Get Ready Cohorts for students entering IM1 or IM2. We prepare students for the first quarter of accelerated math through targeted instruction, diagnostic practice, and mistake-pattern correction.",
+    "supportingText": "Designed for families who want their child to begin the school year ready — not spending the first few weeks catching up.",
+    "primaryCta": "Reserve a Spot",
+    "secondaryCta": "View Course Options",
+    "trustBar": "4 weeks · 12 sessions · 1.5 hours each · Limited small-group format"
+  },
+  "courseCardsSection": {
+    "title": "Choose the right Get Ready Cohort",
+    "intro": "Both cohorts are aligned to the early Integrated Math sequence used by DUSD and PUSD pathways. Students focus on the first-quarter concepts that most often create gaps when the school year begins."
+  },
+  "programCards": {
+    "im1": {
+      "id": "im1-get-ready",
+      "title": "IM1 Get Ready",
+      "gradeBadge": "Grade 7 accelerated / entering IM1",
+      "headline": "Start IM1 with strong algebra habits before the pace picks up.",
+      "subheadline": "A focused 4-week summer cohort for students entering DUSD or PUSD Integrated Math 1. Students strengthen the first-quarter foundations: expressions, equations, real-number properties, proportional reasoning, formulas, and early function readiness.",
+      "positioningLines": [
+        "This is a first-quarter readiness cohort, not a full-year IM1 course.",
+        "Quarter 2 and beyond continue through regular tutoring.",
+        "The cohort prepares students for the early IM1 topics that often create the first major gaps."
+      ],
+      "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 20",
+      "programLength": "4 weeks | 12 sessions | 1.5 hrs each",
+      "priceLabel": "From $249",
+      "seatsLabel": "Limited small-group format",
+      "ctaLabel": "Reserve IM1 Spot",
+      "hubTrackId": "im1"
+    },
+    "im2": {
+      "id": "im2-get-ready",
+      "title": "IM2 Get Ready",
+      "gradeBadge": "Grade 8 / entering IM2",
+      "headline": "Move into IM2 ready for geometry reasoning, proof, and similarity.",
+      "subheadline": "A focused 4-week summer cohort for students entering DUSD or PUSD Integrated Math 2. Students strengthen the first-quarter foundations: triangle congruence, triangle relationships, quadrilaterals, similarity, proportional reasoning, and early right-triangle readiness.",
+      "positioningLines": [
+        "This is a first-quarter readiness cohort, not a full-year IM2 course.",
+        "Quarter 2 and beyond continue through regular tutoring.",
+        "The cohort prepares students for the early IM2 topics that often create the first major geometry and proof gaps."
+      ],
+      "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 20",
+      "programLength": "4 weeks | 12 sessions | 1.5 hrs each",
+      "priceLabel": "From $249",
+      "seatsLabel": "Limited small-group format",
+      "ctaLabel": "Reserve IM2 Spot",
+      "hubTrackId": "im2"
+    }
+  },
+  "im1Detail": {
+    "bestFor": [
+      "Starting Integrated Math 1 in fall",
+      "Entering DUSD or PUSD Integrated Math 1",
+      "Needs a stronger start with expressions and equations",
+      "Struggles when word problems become equations",
+      "Makes sign errors, skips steps, or loses track in multi-step problems",
+      "Wants confidence before slope, functions, and graphing appear"
+    ],
+    "workOnModules": [
+      {
+        "title": "Module 1 Readiness — Expressions",
+        "bullets": [
+          "Numerical expressions and order of operations",
+          "Algebraic expressions and variable meaning",
+          "Properties of real numbers",
+          "Distributive property",
+          "Combining like terms",
+          "Expressions involving absolute value",
+          "Descriptive modeling and accuracy"
+        ]
+      },
+      {
+        "title": "Module 2 Readiness — Equations in One Variable",
+        "bullets": [
+          "Writing and interpreting equations",
+          "Solving one-step equations",
+          "Solving multi-step equations",
+          "Solving equations with variables on both sides",
+          "Solving equations involving absolute value",
+          "Solving proportions",
+          "Using formulas and rearranging relationships"
+        ]
+      },
+      {
+        "title": "Function Readiness Bridge",
+        "bullets": [
+          "Relations and functions vocabulary",
+          "Coordinate-plane fluency",
+          "Graphing from tables",
+          "Rate of change and slope",
+          "Slope-intercept form readiness",
+          "Linear function interpretation",
+          "Absolute value function readiness"
+        ]
+      }
+    ],
+    "mistakePatterns": [
+      "Treating variables as labels instead of quantities",
+      "Combining unlike terms",
+      "Distributing to only one term",
+      "Losing negative signs",
+      "Skipping inverse-operation steps",
+      "Solving equations by memorized moves without understanding balance",
+      "Misreading absolute value as parentheses",
+      "Confusing proportion setup",
+      "Plugging into formulas without tracking units",
+      "Treating slope as only a formula instead of a rate of change",
+      "Graphing points without connecting them to a relationship"
+    ],
+    "curriculumAlignment": {
+      "title": "Aligned to early IM1 readiness.",
+      "copy": "The IM1 Get Ready Cohort focuses on the skills students need before and during the first quarter of Integrated Math 1. We emphasize Module 1 and Module 2 foundations first, then build a bridge toward relations, functions, slope, and graphing so students are ready when the course begins moving faster.",
+      "cards": [
+        {
+          "title": "Expressions",
+          "text": "Students review numerical expressions, algebraic expressions, real-number properties, distributive property, absolute value expressions, and accuracy in mathematical modeling."
+        },
+        {
+          "title": "Equations",
+          "text": "Students practice writing, interpreting, and solving equations, including one-step equations, multi-step equations, variables on both sides, absolute value equations, proportions, and formulas."
+        },
+        {
+          "title": "Function Readiness",
+          "text": "Students build early confidence with tables, coordinate graphs, rate of change, slope, linear relationships, and the vocabulary needed for functions."
+        }
+      ]
+    },
+    "diagnosticMethod": {
+      "title": "We do more than review.",
+      "subtitle": "We find the mistake pattern behind the wrong answer.",
+      "features": [
+        {
+          "title": "Diagnose",
+          "text": "Students solve targeted problems that show whether the issue is a small slip, a repeated procedure error, or a deeper concept gap."
+        },
+        {
+          "title": "Repair",
+          "text": "We reteach the missing idea using models, examples, and guided reasoning instead of asking students to memorize another shortcut."
+        },
+        {
+          "title": "Strengthen",
+          "text": "Students practice varied problems so they can transfer the skill to new questions, word problems, graphs, and tests."
+        }
+      ]
+    },
+    "whyThisMatters": {
+      "title": "Why IM1 gaps show up early",
+      "copy": "IM1 moves quickly from arithmetic into algebraic structure. A student may understand basic operations but still struggle when expressions, variables, equations, proportions, formulas, and graphs appear together. This cohort helps students build the habits they need before those gaps become harder to fix.",
+      "habits": [
+        "Read expressions carefully",
+        "Show equation steps clearly",
+        "Use inverse operations correctly",
+        "Track signs and coefficients",
+        "Explain what variables represent",
+        "Translate situations into equations",
+        "Connect tables, graphs, and rules",
+        "Check answers for reasonableness"
+      ]
+    },
+    "fourWeekStructure": {
+      "title": "How the 4 weeks are organized",
+      "weeks": [
+        {
+          "title": "Week 1 — Expressions and Algebraic Structure",
+          "text": "Order of operations, variables, terms, coefficients, real-number properties, distributive property, and combining like terms."
+        },
+        {
+          "title": "Week 2 — Equations and Balance",
+          "text": "One-step equations, multi-step equations, equations with variables on both sides, and clean step-by-step solving habits."
+        },
+        {
+          "title": "Week 3 — Absolute Value, Proportions, and Formulas",
+          "text": "Absolute value expressions and equations, proportional reasoning, formula use, and interpreting what each quantity means."
+        },
+        {
+          "title": "Week 4 — Function and Graphing Readiness",
+          "text": "Coordinate-plane review, tables, rate of change, slope, slope-intercept readiness, and interpreting linear relationships."
+        }
+      ]
+    },
+    "regularTutoring": {
+      "title": "After the cohort",
+      "copy": "The Get Ready Cohort is designed for first-quarter readiness. Students who want continued support for Quarter 2, homework, quizzes, tests, and long-term gap repair can continue into regular DUSD and PUSD-aligned tutoring."
+    },
+    "thankYouBenefit": {
+      "title": "Summer Cohort Thank-You Benefit",
+      "copy": "As a thank-you for trusting GrowWise with summer preparation, families who enroll in the Summer Get Ready Cohort and continue into a 6-month regular tutoring plan are eligible for up to $120 total savings.",
+      "eligibilityNote": "This thank-you benefit is reserved for Summer Get Ready Cohort families only."
+    },
+    "faq": [
+      {
+        "question": "Is this a full IM1 course?",
+        "answer": "No. This is a focused first-quarter readiness cohort. It prepares students for the early IM1 foundations and builds readiness for functions and graphing."
+      },
+      {
+        "question": "Which topics are emphasized most?",
+        "answer": "The main focus is expressions, equations, properties, distributive property, absolute value, proportions, formulas, and early function readiness."
+      },
+      {
+        "question": "Is this for DUSD and PUSD students?",
+        "answer": "Yes. The cohort is designed around DUSD and PUSD Integrated Math 1 readiness needs."
+      },
+      {
+        "question": "What if my child already knows some of these topics?",
+        "answer": "The cohort uses diagnostic practice. Students who know the basics are pushed into deeper reasoning, multi-step work, error analysis, and application problems."
+      },
+      {
+        "question": "What happens after the cohort?",
+        "answer": "Students may continue into regular tutoring for Quarter 2 and beyond. Summer cohort families who continue into a 6-month regular tutoring plan may be eligible for up to $120 total savings."
+      }
+    ],
+    "finalCta": {
+      "headline": "Help your child start IM1 ready.",
+      "subheadline": "Build the expression, equation, and function habits needed for a confident start in Integrated Math 1.",
+      "primaryCta": "Reserve IM1 Spot",
+      "secondaryCta": "Ask a Question"
+    }
+  },
+  "im2Detail": {
+    "bestFor": [
+      "Completed IM1 and entering IM2 in fall",
+      "Entering DUSD or PUSD Integrated Math 2",
+      "Needs a stronger start with geometry reasoning and proof",
+      "Struggled with diagrams, triangle congruence, or similarity",
+      "Can calculate but has difficulty explaining why a theorem applies",
+      "Wants first-quarter IM2 readiness before school pace begins"
+    ],
+    "workOnModules": [
+      {
+        "title": "Triangle Congruence Bridge",
+        "bullets": [
+          "Angles of triangles",
+          "Congruent triangles",
+          "SSS, SAS, ASA, and AAS congruence",
+          "Right triangle congruence",
+          "Isosceles and equilateral triangles",
+          "Coordinate proof readiness"
+        ]
+      },
+      {
+        "title": "Module 1 Readiness — Relationships in Triangles",
+        "bullets": [
+          "Perpendicular bisectors",
+          "Angle bisectors",
+          "Medians and altitudes",
+          "Triangle inequalities",
+          "Indirect proof",
+          "Triangle inequality theorem",
+          "Inequalities in two triangles"
+        ]
+      },
+      {
+        "title": "Module 2 Readiness — Quadrilaterals",
+        "bullets": [
+          "Angles of polygons",
+          "Parallelogram properties",
+          "Tests for parallelograms",
+          "Rectangles, rhombi, and squares",
+          "Trapezoids and kites",
+          "Coordinate-plane classification and justification"
+        ]
+      },
+      {
+        "title": "Module 3 Readiness — Similarity",
+        "bullets": [
+          "Dilations and scale factor",
+          "Similar polygons",
+          "Similar triangles using AA similarity",
+          "Similar triangles using SSS and SAS similarity",
+          "Triangle proportionality",
+          "Parts of similar triangles",
+          "Proportional reasoning in diagrams"
+        ]
+      },
+      {
+        "title": "Early Module 4 Preview — Right Triangles",
+        "bullets": [
+          "Geometric mean readiness",
+          "Pythagorean Theorem and converse",
+          "Special right triangle preview",
+          "Trigonometric ratio awareness",
+          "Choosing the correct right-triangle tool"
+        ]
+      }
+    ],
+    "mistakePatterns": [
+      "Assuming a diagram is accurate without proof",
+      "Using the wrong congruence theorem",
+      "Confusing congruence and similarity",
+      "Mixing up angle bisectors, perpendicular bisectors, medians, and altitudes",
+      "Writing incomplete proof reasons",
+      "Applying scale factor to the wrong measurement",
+      "Setting up proportions with mismatched sides",
+      "Misusing triangle inequality",
+      "Classifying quadrilaterals from appearance instead of properties",
+      "Treating the Pythagorean Theorem as usable for every triangle",
+      "Using calculation without explaining the reasoning chain"
+    ],
+    "curriculumAlignment": {
+      "title": "Aligned to first-quarter IM2 readiness.",
+      "copy": "The IM2 Get Ready Cohort focuses on the geometry and reasoning skills students need at the start of Integrated Math 2. We begin with the triangle congruence skills students are expected to bring from IM1, then build into triangle relationships, quadrilaterals, similarity, and early right-triangle readiness.",
+      "cards": [
+        {
+          "title": "Triangle Congruence Bridge",
+          "text": "Students review triangle angle relationships, congruent triangles, SSS, SAS, ASA, AAS, right triangle congruence, isosceles and equilateral triangles, and coordinate proof readiness."
+        },
+        {
+          "title": "Triangle Relationships",
+          "text": "Students build reasoning with perpendicular bisectors, angle bisectors, medians, altitudes, triangle inequalities, indirect proof, and relationships within and between triangles."
+        },
+        {
+          "title": "Quadrilaterals and Proof",
+          "text": "Students strengthen properties of parallelograms, rectangles, rhombi, squares, trapezoids, and kites while practicing how to justify conclusions from definitions and theorems."
+        },
+        {
+          "title": "Similarity and Right-Triangle Readiness",
+          "text": "Students connect dilations, scale factor, similar polygons, similar triangles, triangle proportionality, and early right-triangle tools such as the Pythagorean Theorem."
+        }
+      ]
+    },
+    "diagnosticMethod": {
+      "title": "We do more than review geometry.",
+      "subtitle": "We find the reasoning mistake behind the wrong answer.",
+      "features": [
+        {
+          "title": "Diagnose",
+          "text": "Students solve targeted geometry problems that reveal whether the issue is vocabulary confusion, theorem misuse, weak diagram interpretation, or a deeper proof gap."
+        },
+        {
+          "title": "Repair",
+          "text": "We reteach the missing idea using diagrams, marked figures, theorem comparisons, and guided reasoning."
+        },
+        {
+          "title": "Strengthen",
+          "text": "Students practice varied problems so they can transfer the reasoning to new diagrams, proofs, similarity problems, and tests."
+        }
+      ]
+    },
+    "whyThisMatters": {
+      "title": "Why IM2 gaps show up early",
+      "copy": "IM2 begins with geometry reasoning. Students are no longer just finding an answer — they must justify why the answer is true. A student may know formulas but still struggle when a problem asks for proof, theorem selection, similarity reasoning, or diagram interpretation. This cohort helps students build those habits before school pace increases.",
+      "habits": [
+        "Read diagrams carefully",
+        "Identify what is given versus what only looks true",
+        "Choose the correct theorem",
+        "Write clear reasons in proof",
+        "Distinguish congruence from similarity",
+        "Match corresponding sides and angles",
+        "Set up proportions correctly",
+        "Use coordinate geometry as evidence",
+        "Explain why a method applies"
+      ]
+    },
+    "fourWeekStructure": {
+      "title": "How the 4 weeks are organized",
+      "weeks": [
+        {
+          "title": "Week 1 — Triangle Congruence Bridge",
+          "text": "Angles of triangles, congruent triangles, SSS, SAS, ASA, AAS, right triangle congruence, isosceles and equilateral triangle reasoning, and coordinate proof readiness."
+        },
+        {
+          "title": "Week 2 — Relationships in Triangles",
+          "text": "Perpendicular bisectors, angle bisectors, medians, altitudes, triangle inequalities, indirect proof, and reasoning about relationships inside triangles."
+        },
+        {
+          "title": "Week 3 — Quadrilaterals and Justification",
+          "text": "Angles of polygons, parallelograms, tests for parallelograms, rectangles, rhombi, squares, trapezoids, kites, and coordinate-plane classification."
+        },
+        {
+          "title": "Week 4 — Similarity and Right-Triangle Readiness",
+          "text": "Dilations, scale factor, similar polygons, AA/SSS/SAS similarity, triangle proportionality, parts of similar triangles, and preview of Pythagorean and special right-triangle reasoning."
+        }
+      ]
+    },
+    "regularTutoring": {
+      "title": "After the cohort",
+      "copy": "The Get Ready Cohort is designed for first-quarter readiness. Students who want continued support for Quarter 2, homework, quizzes, tests, and long-term gap repair can continue into regular DUSD and PUSD-aligned tutoring.",
+      "continuationLabel": "Regular tutoring can continue with:",
+      "items": [
+        "Right triangles and trigonometry",
+        "Circles",
+        "Measurement",
+        "Probability",
+        "Functions",
+        "Systems",
+        "Exponents and roots",
+        "Polynomials",
+        "Quadratic functions",
+        "Later IM2 cumulative review"
+      ]
+    },
+    "thankYouBenefit": {
+      "title": "Summer Cohort Thank-You Benefit",
+      "copy": "As a thank-you for trusting GrowWise with summer preparation, families who enroll in the Summer Get Ready Cohort and continue into a 6-month regular tutoring plan are eligible for up to $120 total savings.",
+      "eligibilityNote": "This thank-you benefit is reserved for Summer Get Ready Cohort families only."
+    },
+    "faq": [
+      {
+        "question": "Is this a full IM2 course?",
+        "answer": "No. This is a focused first-quarter readiness cohort. It prepares students for the early IM2 geometry and similarity foundations and previews the right-triangle tools that appear next."
+      },
+      {
+        "question": "Which topics are emphasized most?",
+        "answer": "The main focus is triangle congruence, triangle relationships, quadrilaterals, dilations, similarity, proportional reasoning, and proof readiness."
+      },
+      {
+        "question": "Why do you include triangle congruence if IM2 starts with triangle relationships?",
+        "answer": "Many students need a bridge from IM1 triangle congruence into IM2 geometry reasoning. Congruence, theorem selection, and proof habits support the early IM2 units."
+      },
+      {
+        "question": "Is this for DUSD and PUSD students?",
+        "answer": "Yes. The cohort is designed around DUSD and PUSD Integrated Math 2 readiness needs."
+      },
+      {
+        "question": "What if my child already knows some geometry?",
+        "answer": "The cohort uses diagnostic practice. Students who know the basics are pushed into proof reasoning, diagram interpretation, similarity applications, and error analysis."
+      },
+      {
+        "question": "What happens after the cohort?",
+        "answer": "Students may continue into regular tutoring for Quarter 2 and beyond. Summer cohort families who continue into a 6-month regular tutoring plan may be eligible for up to $120 total savings."
+      }
+    ],
+    "finalCta": {
+      "headline": "Help your child start IM2 ready.",
+      "subheadline": "Build the geometry, proof, and similarity habits needed for a confident start in Integrated Math 2.",
+      "primaryCta": "Reserve IM2 Spot",
+      "secondaryCta": "Ask a Question"
+    }
+  },
+  "curriculumAlignment": {
+    "title": "Built around what students see first.",
+    "intro": "The Get Ready Cohorts focus on the first-quarter concepts students are most likely to encounter early in IM1 and IM2. The goal is not to rush through the entire year. The goal is to build confidence, prevent early gaps, and strengthen the reasoning habits students need before the pace increases.",
+    "im1": {
+      "title": "IM1 First-Quarter Readiness",
+      "copy": "For students entering IM1, we focus on algebra foundations and function readiness. Students strengthen their understanding of expressions, equations, relations, functions, slope, rate of change, tables, graphs, and linear modeling.",
+      "topics": [
+        "Expressions and equivalent expressions",
+        "Equations in one variable",
+        "Relations and functions",
+        "Linear equations and graphing",
+        "Rate of change and slope",
+        "Slope-intercept readiness",
+        "Translating real situations into algebraic models"
+      ]
+    },
+    "im2": {
+      "title": "IM2 First-Quarter Readiness",
+      "copy": "For students entering IM2, we focus on geometry reasoning and similarity. Students build comfort with diagrams, theorem selection, proof structure, triangle relationships, quadrilateral properties, dilations, scale factor, and proportional reasoning.",
+      "topics": [
+        "Relationships in triangles",
+        "Perpendicular and angle bisectors",
+        "Medians and altitudes",
+        "Triangle inequalities",
+        "Quadrilateral properties and classification",
+        "Dilations and similarity",
+        "Similar triangles and proportional reasoning",
+        "Proof readiness and reasoning chains"
+      ]
+    }
+  },
+  "diagnosticMethod": {
+    "title": "We do more than review topics.",
+    "subtitle": "GrowWise uses diagnostic practice to find the mistake patterns behind wrong answers.",
+    "features": [
+      {
+        "title": "Diagnose",
+        "text": "Students work through carefully designed problems that reveal whether the issue is a slip, a repeated procedure error, or a deeper concept gap."
+      },
+      {
+        "title": "Repair",
+        "text": "We reteach the missing idea using clear models, guided practice, and step-by-step reasoning."
+      },
+      {
+        "title": "Strengthen",
+        "text": "Students practice similar but varied questions so they can transfer the skill instead of memorizing one pattern."
+      }
+    ]
+  },
+  "mistakePatterns": {
+    "title": "Common gaps we target before school starts",
+    "intro": "Many students do not struggle because they are \"bad at math.\" They struggle because one small misunderstanding becomes a repeated pattern. The cohort is designed to catch those patterns early.",
+    "im1Label": "IM1 Mistake Patterns",
+    "im1Patterns": [
+      "Misreading variables as labels instead of quantities",
+      "Skipping inverse-operation steps in equations",
+      "Combining unlike terms",
+      "Losing negative signs",
+      "Treating slope as just a formula instead of a rate of change",
+      "Graphing without connecting the graph to the equation",
+      "Translating word problems too literally instead of modeling relationships"
+    ],
+    "im2Label": "IM2 Mistake Patterns",
+    "im2Patterns": [
+      "Assuming facts from a diagram without proof",
+      "Confusing congruence and similarity",
+      "Using the wrong triangle or quadrilateral theorem",
+      "Writing incomplete reasoning chains",
+      "Mixing up angle relationships",
+      "Applying scale factor to the wrong measurement",
+      "Solving geometry problems by calculation only without justification"
+    ]
+  },
+  "howItWorks": {
+    "title": "How the 4-week cohort works",
+    "stepsAriaLabel": "Four-week cohort timeline",
+    "steps": [
+      {
+        "stepLabel": "Step 1",
+        "title": "Week 1 — Baseline and Foundations",
+        "text": "We identify current strengths and gaps, then review the core first-quarter ideas students need for IM1 or IM2."
+      },
+      {
+        "stepLabel": "Step 2",
+        "title": "Week 2 — Guided Skill Building",
+        "text": "Students work through structured examples, visual models, and teacher-led reasoning practice."
+      },
+      {
+        "stepLabel": "Step 3",
+        "title": "Week 3 — Diagnostic Practice",
+        "text": "Students solve varied problems designed to reveal common mistakes and strengthen transfer."
+      },
+      {
+        "stepLabel": "Step 4",
+        "title": "Week 4 — Readiness Review",
+        "text": "Students complete mixed practice, review high-risk gaps, and prepare for the first weeks of school."
+      }
+    ]
+  },
+  "whatStudentsReceive": {
+    "title": "What students receive",
+    "items": [
+      "12 live small-group sessions",
+      "First-quarter topic preparation",
+      "Diagnostic practice questions",
+      "Mistake-pattern correction",
+      "Step-by-step reasoning support",
+      "Review of high-risk concepts",
+      "Confidence-building routines for showing work",
+      "Guidance on how to check answers and explain thinking"
+    ]
+  },
+  "regularTutoring": {
+    "title": "What happens after the cohort?",
+    "copy": "The Get Ready Cohort is designed for first-quarter readiness. Quarter 2, semester review, homework support, test preparation, and long-term skill gaps continue through regular tutoring.",
+    "subheading": "Regular tutoring can support:",
+    "items": [
+      "Quarter 2 and later course topics",
+      "Homework and quiz preparation",
+      "Unit test review",
+      "Long-term gap repair",
+      "Cumulative exam preparation",
+      "Ongoing DUSD and PUSD course alignment"
+    ]
+  },
+  "thankYouBenefit": {
+    "title": "Summer Cohort Thank-You Benefit",
+    "copy": "As a thank-you for trusting GrowWise with summer preparation, families who enroll in the Summer Get Ready Cohort and continue into a 6-month regular tutoring plan are eligible for up to $120 total savings.",
+    "importantNote": "This thank-you benefit is reserved for Summer Get Ready Cohort families only.",
+    "ctaLabel": "Ask About the Cohort Family Benefit"
+  },
+  "comparison": {
+    "title": "Get Ready Cohort vs. Regular Tutoring",
+    "getReadyColumn": {
+      "title": "Get Ready Cohort",
+      "rows": [
+        { "label": "Purpose", "value": "First-quarter readiness before school starts" },
+        { "label": "Length", "value": "4 weeks" },
+        { "label": "Format", "value": "Small-group cohort" },
+        { "label": "Best For", "value": "Students entering IM1 or IM2 in fall" },
+        { "label": "Focus", "value": "Early course topics and common mistake patterns" },
+        { "label": "Timing", "value": "Summer / start-of-year preparation" }
+      ]
+    },
+    "regularTutoringColumn": {
+      "title": "Regular Tutoring",
+      "rows": [
+        { "label": "Purpose", "value": "Ongoing support during the school year" },
+        { "label": "Length", "value": "Monthly or long-term plan" },
+        { "label": "Format", "value": "Individual or small-group support depending on plan" },
+        { "label": "Best For", "value": "Homework, tests, Quarter 2+, and cumulative gaps" },
+        { "label": "Focus", "value": "Current school topics, review, and targeted remediation" },
+        { "label": "Timing", "value": "School-year support" }
+      ]
+    }
+  },
+  "finalCta": {
+    "headline": "Help your child start Integrated Math ready.",
+    "subheadline": "Choose the IM1 or IM2 Get Ready Cohort and give your child a stronger start before the school year begins.",
+    "primaryCta": "Reserve a Spot",
+    "secondaryCta": "Ask a Question"
+  },
+  "footerMicrocopy": "Limited small-group format. DUSD & PUSD-aligned support. First-quarter readiness cohort only; ongoing support available through regular tutoring.",
+  "internalLinks": {
+    "heading": "Helpful links",
+    "items": [
+      {
+        "href": "/camps/academic-summer-programs-dublin-ca",
+        "label": "See all summer programs"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact us with questions"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "Is this a full IM1 or IM2 course?",
+      "answer": "No. The Get Ready Cohort is focused on first-quarter readiness. It helps students begin the year with stronger foundations, better reasoning habits, and fewer early gaps."
+    },
+    {
+      "question": "Is Quarter 2 included?",
+      "answer": "Quarter 2 is not offered as a separate summer cohort. Students who want continued support can move into regular tutoring after the cohort."
+    },
+    {
+      "question": "Is this aligned to DUSD and PUSD?",
+      "answer": "Yes. The program is designed around DUSD and PUSD Integrated Math pathways and focuses on the concepts students are likely to encounter early in IM1 or IM2."
+    },
+    {
+      "question": "What if my child already knows some of the topics?",
+      "answer": "The cohort is diagnostic. Students who already know a topic are challenged with deeper reasoning, mixed practice, and mistake-pattern questions."
+    },
+    {
+      "question": "What if my child struggles with math confidence?",
+      "answer": "The small-group format is designed to be supportive. We focus on clear steps, reasoning, and correcting misconceptions without making students feel judged."
+    },
+    {
+      "question": "Who is eligible for the $120 savings?",
+      "answer": "The thank-you benefit is available only to Summer Get Ready Cohort families who continue into a 6-month regular tutoring plan. Eligible families may receive up to $120 total savings."
+    },
+    {
+      "question": "Can my child join regular tutoring without joining the cohort?",
+      "answer": "Yes. Regular tutoring is available separately. The summer cohort thank-you benefit, however, is reserved for cohort families."
+    }
+  ]
+}

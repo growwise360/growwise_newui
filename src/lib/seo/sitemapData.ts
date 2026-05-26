@@ -87,6 +87,9 @@ const campPages: SitemapEntry[] = [
   { path: '/camps/summer-math-foundations-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-algebra-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-geometry-precalculus-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-im-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-im1-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
+  { path: '/camps/summer-im2-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/winter', priority: 0.7, changefreq: 'weekly' },
   { path: '/camps/winter/calendar', priority: 0.6, changefreq: 'weekly' },
 ]

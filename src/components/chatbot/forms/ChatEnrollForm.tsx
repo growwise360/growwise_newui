@@ -39,6 +39,7 @@ interface EnrollState {
   programType: string;
   course: string;
   level: string;
+  sms_consent: boolean;
   _hp: string;
 }
 
@@ -56,6 +57,7 @@ const initialState: EnrollState = {
   programType: "",
   course: "",
   level: "",
+  sms_consent: false,
   _hp: "",
 };
 
@@ -104,6 +106,7 @@ export default function ChatEnrollForm({ onSuccess, onCancel }: ChatEnrollFormPr
       level: data.level,
       [data.programType === "STEAM" ? "bootcamp" : "course"]: courseField,
       agree: true,
+      sms_consent: data.sms_consent,
       _hp: data._hp,
     };
 
@@ -325,6 +328,19 @@ export default function ChatEnrollForm({ onSuccess, onCancel }: ChatEnrollFormPr
               disabled={isSubmitting}
             />
             {errors.course && <p className="text-xs text-red-600 mt-1">{errors.course}</p>}
+          </div>
+
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="enroll-sms-consent"
+              checked={data.sms_consent}
+              onChange={(e) => setField("sms_consent", e.target.checked)}
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-[#F16112] focus:ring-[#F16112]"
+            />
+            <label htmlFor="enroll-sms-consent" className="text-xs text-gray-700 leading-relaxed">
+              I agree to receive SMS updates from GrowWise School about programs and enrollment. Msg & data rates may apply. Reply STOP to opt out.
+            </label>
           </div>
 
           <FormPrivacyConsent

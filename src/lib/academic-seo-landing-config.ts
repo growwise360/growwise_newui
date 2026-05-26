@@ -8,9 +8,16 @@ export type AcademicSeoLandingPageId =
   | 'readingWriting'
   | 'mathFoundations'
   | 'algebra'
-  | 'geometry';
+  | 'geometry'
+  | 'imGetReady'
+  | 'im1GetReady'
+  | 'im2GetReady';
 
-export type AcademicSeoLandingVariant = 'sprint-multi' | 'sprint-single' | 'get-ready-single';
+export type AcademicSeoLandingVariant =
+  | 'sprint-multi'
+  | 'sprint-single'
+  | 'get-ready-single'
+  | 'get-ready-multi';
 
 export type AcademicSeoLandingPageConfig = {
   readonly id: AcademicSeoLandingPageId;
@@ -60,7 +67,7 @@ export const ACADEMIC_SEO_LANDING_PAGES: Record<
     trackIds: ['algebra-1'],
     hubFilter: 'getReadyMath',
     breadcrumbLabel: 'Summer Algebra',
-    relatedPageOrder: ['mathFoundations', 'geometry', 'readingWriting'],
+    relatedPageOrder: ['im1GetReady', 'im2GetReady', 'geometry', 'readingWriting'],
     showHeroBanner: false,
   },
   geometry: {
@@ -71,7 +78,40 @@ export const ACADEMIC_SEO_LANDING_PAGES: Record<
     trackIds: ['geometry'],
     hubFilter: 'getReadyMath',
     breadcrumbLabel: 'Summer Geometry',
-    relatedPageOrder: ['algebra', 'mathFoundations', 'readingWriting'],
+    relatedPageOrder: ['im1GetReady', 'im2GetReady', 'algebra', 'mathFoundations'],
+  },
+  imGetReady: {
+    id: 'imGetReady',
+    slug: 'summer-im-get-ready-dublin-ca',
+    path: '/camps/summer-im-get-ready-dublin-ca',
+    variant: 'get-ready-multi',
+    trackIds: ['im1', 'im2'],
+    hubFilter: 'getReadyMath',
+    breadcrumbLabel: 'IM Get Ready Programs',
+    relatedPageOrder: ['im1GetReady', 'im2GetReady', 'algebra', 'geometry'],
+    showHeroBanner: false,
+  },
+  im1GetReady: {
+    id: 'im1GetReady',
+    slug: 'summer-im1-get-ready-dublin-ca',
+    path: '/camps/summer-im1-get-ready-dublin-ca',
+    variant: 'get-ready-single',
+    trackIds: ['im1'],
+    hubFilter: 'getReadyMath',
+    breadcrumbLabel: 'IM1 Get Ready',
+    relatedPageOrder: ['im2GetReady', 'algebra', 'geometry'],
+    showHeroBanner: false,
+  },
+  im2GetReady: {
+    id: 'im2GetReady',
+    slug: 'summer-im2-get-ready-dublin-ca',
+    path: '/camps/summer-im2-get-ready-dublin-ca',
+    variant: 'get-ready-single',
+    trackIds: ['im2'],
+    hubFilter: 'getReadyMath',
+    breadcrumbLabel: 'IM2 Get Ready',
+    relatedPageOrder: ['im1GetReady', 'algebra', 'geometry'],
+    showHeroBanner: false,
   },
 };
 

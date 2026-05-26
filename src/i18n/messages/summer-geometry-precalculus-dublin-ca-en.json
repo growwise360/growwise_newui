@@ -1,8 +1,8 @@
 {
   "hero": {
-    "eyebrow": "Summer 2026 · Dublin, CA · Grades 9–10",
-    "h1": "Summer Geometry Program in Dublin, CA",
-    "subtext": "Prepare for Geometry before school starts. Proofs, triangles, coordinate geometry — DUSD aligned, small groups, Mon/Wed/Fri evenings.",
+    "eyebrow": "Summer 2026 · Dublin, CA · DUSD & PUSD · Grades 9–10",
+    "h1": "Geometry Get Ready Summer Program in Dublin, CA",
+    "subtext": "Prepare for Geometry before school starts. Proofs, triangles, similarity, and coordinate geometry — 100% DUSD & PUSD aligned, max 8 students, Mon/Wed/Fri 5:00–6:30 PM evenings.",
     "ctaLabel": "View schedule & pricing →"
   },
   "keyDetails": [
@@ -67,6 +67,12 @@
     "href": "/camps/summer"
   },
   "valueAnchorPrefix": "District summer Geometry programs often cost significantly more. GrowWise Get Ready Sprint starts from",
+  "thankYouBenefit": {
+    "title": "Summer Cohort Thank-You Benefit",
+    "copy": "As a thank-you for trusting GrowWise with summer preparation, families who enroll in a Summer Get Ready program and continue into a 6-month regular tutoring plan are eligible for up to $120 total savings.",
+    "importantNote": "This thank-you benefit is reserved for Summer Get Ready families only.",
+    "ctaLabel": "Ask About the Cohort Family Benefit"
+  },
   "mainCta": {
     "headline": "Ready to reserve a spot?",
     "subtext": "Select your cohort on the full program page.",
@@ -76,6 +82,14 @@
     "heading": "Related summer programs",
     "hubLinkLabel": "View all programs & pricing →",
     "items": {
+      "im1GetReady": {
+        "label": "IM1 Get Ready",
+        "description": "Integrated Math 1 first-quarter readiness"
+      },
+      "im2GetReady": {
+        "label": "IM2 Get Ready",
+        "description": "Geometry & proof readiness for Integrated Math 2"
+      },
       "algebra": {
         "label": "Algebra 1 Get Ready",
         "description": "Algebra 1 support before Geometry"
@@ -91,6 +105,14 @@
     }
   },
   "faq": [
+    {
+      "question": "How much does Geometry Get Ready cost in Dublin, CA?",
+      "answer": "Geometry Get Ready starts at $279 for a 2-week cohort (6 sessions). Enrolling in both June cohorts is $499 upfront — a $59 savings vs enrolling separately. Pricing is shown on the academic summer programs hub when you select Geometry Get Ready."
+    },
+    {
+      "question": "Is there a thank-you benefit for Summer Get Ready families?",
+      "answer": "Yes. Families who enroll in Geometry Get Ready (or any Summer Get Ready program) and continue into a 6-month regular tutoring plan may be eligible for up to $120 total savings. Contact us to confirm eligibility for your plan."
+    },
     {
       "question": "What Geometry topics does this program cover?",
       "answer": "Geometry Get Ready covers proof-based reasoning, triangle congruence and similarity, coordinate geometry, circles, and spatial thinking — all aligned to the DUSD Geometry curriculum sequence."

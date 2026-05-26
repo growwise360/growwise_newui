@@ -22,6 +22,15 @@ describe('sitemapData', () => {
     expect(locs).toContain(
       'https://www.growwiseschool.org/camps/summer-geometry-precalculus-dublin-ca',
     );
+    expect(locs).toContain(
+      'https://www.growwiseschool.org/camps/summer-im-get-ready-dublin-ca',
+    );
+    expect(locs).toContain(
+      'https://www.growwiseschool.org/camps/summer-im1-get-ready-dublin-ca',
+    );
+    expect(locs).toContain(
+      'https://www.growwiseschool.org/camps/summer-im2-get-ready-dublin-ca',
+    );
   });
 
   it('includes resources hub in pages sitemap but not individual articles', () => {

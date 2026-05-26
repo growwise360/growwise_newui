@@ -13,6 +13,7 @@ export type AcademicSprintTrackId =
   | 'write-to-explain'
   | 'bridge-the-gap-math'
   | 'im1'
+  | 'im2'
   | 'algebra-1'
   | 'geometry';
 
@@ -124,7 +125,7 @@ export type AcademicSummerProgramsHubData = {
   };
   readonly getReadyUpsellSaveAmount: number;
   readonly getReadyPricing: Record<GetReadyPricingGroupId, GetReadyPricing>;
-  readonly getReadyPricingGroups: Record<'im1' | 'algebra-1' | 'geometry', GetReadyPricingGroupId>;
+  readonly getReadyPricingGroups: Record<'im1' | 'im2' | 'algebra-1' | 'geometry', GetReadyPricingGroupId>;
   readonly tracks: Record<AcademicSprintTrackId, TrackHubMeta>;
   readonly trackAssets: Partial<
     Record<AcademicSprintTrackId, { readonly image: string }>
@@ -145,6 +146,7 @@ export const ACADEMIC_TRACK_BANNER_SRC: Record<AcademicSprintTrackId, string> = 
   'write-to-explain': '/images/camps/banners/write_with_structure_85f6d387_web.webp',
   'bridge-the-gap-math': '/images/camps/banners/mistake_proof_math_3968b793_web.webp',
   im1: '/images/camps/banners/im1_get_ready_04d2d274_web.webp',
+  im2: '/images/camps/banners/im1_get_ready_04d2d274_web.webp',
   'algebra-1': '/images/camps/banners/algebra_1_get_ready_3572836f_web.webp',
   geometry: '/images/camps/banners/geometry_get_ready_girl_2409911a_web.webp',
 };
@@ -298,7 +300,7 @@ export function buildAcademicSummerSprintPrograms(): Program[] {
     });
 }
 
-const GET_READY_TRACK_IDS = ['im1', 'algebra-1', 'geometry'] as const;
+const GET_READY_TRACK_IDS = ['im1', 'im2', 'algebra-1', 'geometry'] as const;
 
 export type AcademicGetReadyTrackId = (typeof GET_READY_TRACK_IDS)[number];
 
@@ -306,8 +308,15 @@ export function isAcademicGetReadyProgram(programId: string): programId is Acade
   return (GET_READY_TRACK_IDS as readonly string[]).includes(programId);
 }
 
-function formatGetReadyRowSubline(sessions: number): string {
-  return hubCopy.enrollmentPanel.getReadyRowFormat.replace('{sessions}', String(sessions));
+function formatGetReadyRowSubline(trackId: AcademicGetReadyTrackId, sessions: number): string {
+  const panelCopy = hubCopy.enrollmentPanel.getReadyPanel.tracks;
+  const track = panelCopy[trackId as keyof typeof panelCopy] as
+    | { rowTimeLabel?: string }
+    | undefined;
+  const timeLabel = track?.rowTimeLabel ?? '5–6:30 PM';
+  return hubCopy.enrollmentPanel.getReadyRowFormat
+    .replace('{time}', timeLabel)
+    .replace('{sessions}', String(sessions));
 }
 
 function buildGetReadyTrackSlots(
@@ -319,21 +328,21 @@ function buildGetReadyTrackSlots(
     {
       id: `${trackId}-cohort1`,
       label: panelMeta.cohort1.title,
-      time: formatGetReadyRowSubline(panelMeta.cohort1.sessions),
+      time: formatGetReadyRowSubline(trackId, panelMeta.cohort1.sessions),
       format: 'In-Person',
       price: prices.twoWeek,
     },
     {
       id: `${trackId}-cohort2`,
       label: panelMeta.cohort2.title,
-      time: formatGetReadyRowSubline(panelMeta.cohort2.sessions),
+      time: formatGetReadyRowSubline(trackId, panelMeta.cohort2.sessions),
       format: 'In-Person',
       price: prices.twoWeek,
     },
     {
       id: `${trackId}-both`,
       label: panelMeta.both.title,
-      time: formatGetReadyRowSubline(panelMeta.both.sessions),
+      time: formatGetReadyRowSubline(trackId, panelMeta.both.sessions),
       format: 'In-Person',
       price: prices.fourWeek,
     },
@@ -363,6 +372,9 @@ export function buildGetReadySummerPrograms(): Program[] {
     ];
     if (trackId === 'im1') {
       includes.unshift('DUSD/PUSD-aligned Grade 7 IM1 prep');
+    }
+    if (trackId === 'im2') {
+      includes.unshift('DUSD/PUSD-aligned Grade 8 IM2 prep');
     }
 
     return {
@@ -515,7 +527,7 @@ export function getAcademicProgramCardDisplay(
     };
   }
 
-  const groupId = hub.getReadyPricingGroups[trackId as 'im1' | 'algebra-1' | 'geometry'];
+  const groupId = hub.getReadyPricingGroups[trackId as 'im1' | 'im2' | 'algebra-1' | 'geometry'];
   const prices = hub.getReadyPricing[groupId];
   return {
     id: trackId,
@@ -536,6 +548,7 @@ export function getAcademicProgramCardDisplayMap(): Record<
     'write-to-explain',
     'bridge-the-gap-math',
     'im1',
+    'im2',
     'algebra-1',
     'geometry',
   ];
@@ -583,6 +596,7 @@ const TRACK_ICON: Record<AcademicSprintTrackId, AcademicTrackCardModel['icon']> 
   'write-to-explain': 'pen',
   'bridge-the-gap-math': 'calculator',
   im1: 'calculator',
+  im2: 'calculator',
   'algebra-1': 'calculator',
   geometry: 'calculator',
 };
@@ -595,6 +609,7 @@ const READING_WRITING_TRACKS: readonly AcademicSprintTrackId[] = [
 const MATH_TRACKS: readonly AcademicSprintTrackId[] = [
   'bridge-the-gap-math',
   'im1',
+  'im2',
   'algebra-1',
   'geometry',
 ];
@@ -661,7 +676,7 @@ function buildAcademicTrackCard(
   }
 
   if (meta.sprintId === 'get-ready-sprint') {
-    const groupId = hub.getReadyPricingGroups[trackId as 'im1' | 'algebra-1' | 'geometry'];
+    const groupId = hub.getReadyPricingGroups[trackId as 'im1' | 'im2' | 'algebra-1' | 'geometry'];
     const prices = hub.getReadyPricing[groupId];
     if (!prices) return null;
 
