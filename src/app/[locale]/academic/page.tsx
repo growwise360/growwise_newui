@@ -52,7 +52,7 @@ const ACADEMIC_FAQS = [
   },
   {
     question: "My daughter is in first grade and struggling with reading — can GrowWise help?",
-    answer: "Yes. GrowWise English programs start from Grade 1. For early readers, the program focuses on reading comprehension fundamentals — identifying the main idea, understanding what they have read, drawing inferences, and building vocabulary through literary and informational texts. In-person, online, and hybrid options are available.",
+    answer: "Yes. GrowWise English programs start from Grade 1. For early readers, the program focuses on reading comprehension fundamentals — identifying the main idea, understanding what they have read, drawing inferences, and building vocabulary through literary and informational texts. If you're unsure whether the struggle is fluency or comprehension, see our parent guide on reading fluency vs. comprehension. In-person, online, and hybrid options are available.",
   },
   {
     question: "My child struggles with writing assignments at school — is that something tutoring addresses?",
@@ -778,7 +778,24 @@ const AcademicPage: React.FC = () => {
                   <span className="font-semibold text-gray-900">{faq.question}</span>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4 text-gray-600">
-                  {faq.answer}
+                  {faq.question ===
+                  'My daughter is in first grade and struggling with reading — can GrowWise help?' ? (
+                    <>
+                      Yes. GrowWise English programs start from Grade 1. For early readers, the program focuses on
+                      reading comprehension fundamentals — identifying the main idea, understanding what they have read,
+                      drawing inferences, and building vocabulary through literary and informational texts. If
+                      you&apos;re unsure whether the struggle is fluency or comprehension, see our{' '}
+                      <Link
+                        href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+                        className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+                      >
+                        parent guide on reading fluency vs. comprehension
+                      </Link>
+                      . In-person, online, and hybrid options are available.
+                    </>
+                  ) : (
+                    faq.answer
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}

@@ -69,7 +69,7 @@ export const READING_FLUENCY_VS_COMPREHENSION_RELATED: readonly ResourceArticleR
     title: 'How to Stop Sitting Next to Your Child Every Homework Night',
   },
   {
-    href: '/resources/summer-slide-dublin-ca',
-    title: 'The Summer Slide Is Real: What Dublin Parents Need to Know',
+    href: '/courses/english',
+    title: 'English & Reading Programs for Grades 1–12',
   },
 ] as const
