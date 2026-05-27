@@ -177,18 +177,18 @@ export default function MobileNavigation({
   return (
     <>
       {/* Mobile menu button & cart icon */}
-      <div className="lg:hidden flex items-center gap-2 z-[55] relative">
+      <div className="lg:hidden flex items-center gap-1.5 z-[55] relative shrink-0">
         <HeaderChatbotTrigger variant="compact" />
         {showCart && (
           <Link
             href={createLocaleUrl('/cart')}
-            className="relative text-gray-700 hover:text-[#F16112] transition-colors p-2 -mr-2"
+            className="relative inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-gray-700 hover:text-[#F16112] transition-colors rounded-lg hover:bg-gray-50"
             onClick={onCloseMobileMenu}
             aria-label={cartItemCount > 0 ? `Shopping cart, ${cartItemCount} items` : 'Shopping cart'}
           >
-            <ShoppingCart className="w-6 h-6" aria-hidden />
+            <ShoppingCart className="w-7 h-7" strokeWidth={2.25} aria-hidden />
             {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#F16112] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium min-w-[1.25rem]" aria-hidden>
+              <span className="absolute top-1 right-1 bg-[#F16112] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium min-w-[1.25rem]" aria-hidden>
                 {cartItemCount}
               </span>
             )}
@@ -197,12 +197,19 @@ export default function MobileNavigation({
 
         <button
           type="button"
-          className="text-gray-700 hover:text-[#F16112] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:ring-offset-2 rounded p-2 -mr-2"
+          className="inline-flex items-center justify-center gap-1.5 min-h-[44px] min-w-[44px] px-3 rounded-lg border border-[#1F396D]/30 bg-[#1F396D]/5 text-[#1F396D] hover:bg-[#1F396D]/10 hover:border-[#1F396D]/45 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:ring-offset-2"
           onClick={onToggleMobileMenu}
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileMenuOpen}
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? (
+            <X className="w-7 h-7 shrink-0" strokeWidth={2.5} aria-hidden />
+          ) : (
+            <>
+              <Menu className="w-7 h-7 shrink-0" strokeWidth={2.5} aria-hidden />
+              <span className="text-sm font-semibold leading-none">Menu</span>
+            </>
+          )}
         </button>
       </div>
 
@@ -220,11 +227,11 @@ export default function MobileNavigation({
               <p className="text-lg font-semibold text-gray-900 m-0">Menu</p>
               <button
                 type="button"
-                className="text-gray-700 hover:text-[#F16112] transition-colors p-2 rounded-lg hover:bg-gray-100"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-gray-700 hover:text-[#F16112] transition-colors rounded-lg hover:bg-gray-100"
                 onClick={onCloseMobileMenu}
                 aria-label="Close menu"
               >
-                <X className="w-6 h-6" />
+                <X className="w-7 h-7" strokeWidth={2.5} aria-hidden />
               </button>
             </div>
 
