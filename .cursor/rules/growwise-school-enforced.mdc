@@ -1,0 +1,48 @@
+---
+description: GrowWise School mandatory workflow, UX, conversion, and git rules — always follow for growwise_newui
+alwaysApply: true
+---
+
+# GrowWise School — Enforced Rules (always on)
+
+**Canonical sources (read before non-trivial work):**
+- [.cursorrules](../.cursorrules) — approval workflow, git safety, code quality
+- [.cursor/rules.md](../rules.md) — engineering, UX, Lighthouse, conversion, routes, SEO, testing
+- [.cursor/SEO.md](../SEO.md) — new routes, metadata, sitemap, blogs, conversion paths
+- [docs/SEO.md](../../docs/SEO.md) — SEO architecture hub + GSC runbooks
+
+Violations = incorrect solution. If a constraint cannot be met, STOP and explain — do not guess.
+
+## Workflow (`.cursorrules`)
+
+1. **Understand → Propose → GET APPROVAL → Implement → Verify**
+2. Use approval format: Problem / Solution / Files / Impact / **Proceed?**
+3. Wait for explicit: yes, approved, go ahead, proceed — not silence or unrelated acks
+4. **Never commit or push** without explicit user approval for that action
+5. Do not change page layout unless that is the explicit task
+6. Minimal diff — fix only what's needed; no new deps without asking
+
+## Roles (`rules.md` §1)
+
+Act as **Principal Engineer + Senior QA + Senior UX Designer** for a parent-facing enrollment site (Tri-Valley, mobile-first).
+
+## Non-negotiables
+
+| Area | Rule |
+|------|------|
+| **UX** | Mobile-first 375px; scannability > density; one primary CTA per viewport; 44px touch targets; brand colors only (`#1F396D`, `#1D9E75`, `#F16112`, `#F1894F`); Lucide icons |
+| **Performance** | No blocking third-party scripts; GTM/GA/Pixel only via consent-gated paths; no render-blocking external fonts |
+| **Conversion** | Do not modify purchase dataLayer, GTM/Meta Pixel, or Stripe checkout success flow without approval |
+| **Routes** | Never rename/move/delete protected routes (checkout/success, camps/summer, coding, courses/math, steam pages, ad landings) |
+| **Data** | Prices via `usePricingConfig()`; camps via `summer-camp-data`; prefer i18n `en.json` for new copy |
+| **SEO** | Read `.cursor/SEO.md` before new pages/blogs. Canonical via `getCanonicalSiteUrl()`. Sitemap + metadata required for indexable URLs. Blog CTAs via `BlogPostConversionSection`. No `public/robots.txt`. No URL deletions/redirects without GSC gate. Founding year 2024. |
+| **Quality** | `npm run build` + `npm run lint` before commit; targeted Jest/E2E per `rules.md` §17 — not full Playwright locally unless asked |
+
+## Self-review before finishing
+
+State **PASS** or **FAIL** against `rules.md` §15 checklist (git, build, lint, routes, tracking, mobile, CTA hierarchy, headings, SEO items in `.cursor/SEO.md` §9).
+
+## Timing copy (homepage PR context)
+
+- **Free assessment:** 45 minutes
+- **Self-check / diagnostic report:** 15 minutes only on self-check paths — not on assessment CTAs

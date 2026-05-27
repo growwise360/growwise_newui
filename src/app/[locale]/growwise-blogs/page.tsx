@@ -6,6 +6,7 @@ import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 import Link from 'next/link'
 import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 export async function generateMetadata({
   params,
@@ -360,21 +361,13 @@ export default async function GrowWiseBlogsPage({ params, searchParams }: PagePr
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today to Unlock Learning Potential for Grades 1-12 Students!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/book-assessment"
+          programLabel="Book Free Assessment"
+          headline="Ready to find the right program?"
+          subtext="Book a free assessment — we will recommend academic or STEAM programs for your child."
+        />
       </div>
     </>
   )

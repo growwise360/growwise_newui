@@ -31,6 +31,7 @@ export function KhanAcademySummerDoesntWorkPage() {
       ctas={[
         { href: summerProgramsHref, label: 'Explore Summer Programs' },
         { href: selfCheckHref, label: 'Take the Self-Check' },
+        { href: '/book-assessment', label: 'Book Free Assessment' },
         { href: contactHref, label: 'Contact Us' },
       ]}
     >

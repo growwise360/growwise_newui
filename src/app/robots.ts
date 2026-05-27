@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
+/** Crawl policy — merged from former public/robots.txt + app route defaults. */
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = getCanonicalSiteUrl()
 
@@ -8,7 +9,14 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/student-login', '/cart'],
+      disallow: [
+        '/en/',
+        '/hi/',
+        '/*?*',
+        '/favicon.ico',
+        '/student-login',
+        '/cart',
+      ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   }

@@ -90,4 +90,9 @@ export const SUMMER_SLIDE_PREVENTION_RELATED: readonly ResourceArticleRelated[] 
     href: '/camps',
     description: 'GrowWise academic programs designed to prevent summer slide.',
   },
+  {
+    title: 'The Summer Slide Is Real: What Dublin Parents Need to Know',
+    href: '/resources/summer-slide-dublin-ca',
+    description: 'Local context for Tri-Valley families on summer learning loss.',
+  },
 ]

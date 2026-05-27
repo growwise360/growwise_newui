@@ -9,9 +9,9 @@ export const KHAN_ACADEMY_SUMMER_DOESNT_WORK_META: ResourceArticleMeta = {
   h1: 'Why "We\'ll Do Khan Academy This Summer" Almost Never Works (And What Does)',
   readTime: '5 min read',
   updated: 'Updated May 2026',
-  title: 'Why Khan Academy Summer Plans Fail | Self-Paced Learning Completion Problem',
+  title: 'Why Khan Academy Summer Plans Fail | GrowWise',
   description:
-    "Self-paced online learning has a completion problem. Here's why most at-home summer learning plans fail by July — and what the research says actually works.",
+    "Self-paced online learning has a completion problem. Here's why most at-home summer plans fail by July — and what research says works.",
   keywords:
     'Khan Academy summer, self-paced learning completion, summer learning at home, math tutoring summer, online learning fail, summer learning plan, at-home learning, summer academic programs, structured summer learning, completion rates online learning',
   datePublished: '2026-06-03',

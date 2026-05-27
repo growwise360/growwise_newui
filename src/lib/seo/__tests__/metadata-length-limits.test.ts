@@ -97,6 +97,19 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       assertTitle('/resources/summer-slide-dublin-ca', config!.title)
       assertDesc('/resources/summer-slide-dublin-ca', config!.description)
     })
+
+    it.each([
+      '/resources/summer-slide-prevention',
+      '/resources/khan-academy-summer-doesnt-work',
+      '/resources/summer-academic-program-checklist',
+      '/resources/im1-summer-prep-dublin-ca',
+      '/resources/summer-writing-program-dublin-ca',
+    ] as const)('title + description for %s', (path) => {
+      const config = getMetadataConfig(path)
+      expect(config).not.toBeNull()
+      assertTitle(path, config!.title)
+      assertDesc(path, config!.description)
+    })
   })
 
   it('en locale enroll metaDescription from messages matches length cap (used by enroll layout)', () => {

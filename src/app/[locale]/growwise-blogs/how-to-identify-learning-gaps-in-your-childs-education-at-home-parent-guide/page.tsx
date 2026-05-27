@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, User, BookOpen, CheckCircle, AlertCircle, Trending
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-identify-learning-gaps-in-your-childs-education-at-home-parent-guide.webp'
@@ -470,17 +471,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <em>Your child's path to confidence starts at home, and GrowWise supports families every step of the way.</em>
               </p>
 
-              <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
-                <p className="text-xl font-bold mb-4">
-                  Enroll Today and Unlock Your Kid's Potential!
-                </p>
-                <Link href="/enroll">
-                  <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
-                  </Button>
-                </Link>
-              </div>
-
             </div>
 
             {/* Program Callout */}
@@ -518,21 +508,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/academic"
+          programLabel="Explore Academic Programs"
+        />
       </div>
     </>
   )

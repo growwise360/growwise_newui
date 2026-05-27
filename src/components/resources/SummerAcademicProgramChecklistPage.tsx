@@ -31,6 +31,7 @@ export function SummerAcademicProgramChecklistPage() {
       ctas={[
         { href: summerProgramsHref, label: 'GrowWise Summer Programs' },
         { href: selfCheckHref, label: 'Self-Check' },
+        { href: '/book-assessment', label: 'Book Free Assessment' },
         { href: contactHref, label: 'Contact Us' },
       ]}
     >
