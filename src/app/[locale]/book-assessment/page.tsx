@@ -29,6 +29,8 @@ import { validatePhoneWithCountryCode, getPhonePlaceholder, getCallingCode, DIAL
 import { getRecaptchaToken } from '@/lib/recaptcha';
 import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
+import { trackAssessmentFormSubmitted } from '@/lib/analytics/gtmEvents';
+import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
 
 interface FormData {
   parentName: string;
@@ -83,6 +85,14 @@ export default function BookAssessmentPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    captureUtmFromSearchParams();
+    const utm = getStoredUtm();
+    if (utm?.utm_source === 'nextdoor') {
+      setFormData((prev) => (prev.hearAboutUs ? prev : { ...prev, hearAboutUs: 'nextdoor' }));
+    }
+  }, []);
+
   const grades = [
     'Kindergarten', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
     'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
@@ -109,6 +119,7 @@ export default function BookAssessmentPage() {
   const hearAboutOptions = useMemo(
     () => [
       { value: 'google', label: 'Google / web search' },
+      { value: 'nextdoor', label: 'Nextdoor' },
       { value: 'social', label: 'Social media' },
       { value: 'referral', label: 'Friend or family referral' },
       { value: 'school', label: 'School or community' },
@@ -294,7 +305,7 @@ export default function BookAssessmentPage() {
         mode: formData.mode,
         schedule: scheduleCombined,
         hearAboutUs: hearAboutOptions.find((h) => h.value === formData.hearAboutUs)?.label ?? formData.hearAboutUs,
-        notes: '',
+        notes: getStoredUtmNotesLine(),
         agreeToCommunications,
         recaptchaToken: recaptchaToken || undefined,
       };
@@ -316,6 +327,7 @@ export default function BookAssessmentPage() {
       }
 
       if (result.success) {
+        trackAssessmentFormSubmitted(window.location.pathname);
         router.replace(publicPath('/book-assessment/thank-you', locale));
         return;
       } else {

@@ -40,14 +40,23 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
 
   // Core pages
   '/about': {
-    title: 'About GrowWise | Dublin CA | Grades 1-12 & STEAM',
+    title: 'Meet the GrowWise Team — Dublin, CA',
     description:
-      "GrowWise offers Grades 1-12 tutoring and STEAM in Dublin, CA. Expert instructors, personalized learning, and proven results.",
+      'Founded by Anshika Verma. Trusted Dublin educators for K-12 tutoring and STEAM. Meet our team and see what local families say.',
     keywords:
-      'about GrowWise, tutoring center Dublin CA, Grades 1-12 education Dublin, STEAM programs, educational excellence',
+      'about GrowWise, Anshika Verma, tutoring center Dublin CA, Grades 1-12 education Dublin, STEAM programs',
     path: '/about',
   },
 
+  '/from-nextdoor': {
+    title: 'GrowWise in Dublin, CA — Trusted by Neighbors',
+    description:
+      'Dublin parents choose GrowWise for STEM, coding, and tutoring. Top-rated locally. Book a free assessment.',
+    keywords:
+      'tutoring Dublin CA, GrowWise Dublin, Nextdoor tutoring Dublin, coding classes Dublin, Tri-Valley tutoring',
+    path: '/from-nextdoor',
+    image: '/og-image.jpg',
+  },
 
   '/dublin-ca': {
     title: 'K-12 Tutoring & Coding Classes in Dublin, CA | GrowWise',

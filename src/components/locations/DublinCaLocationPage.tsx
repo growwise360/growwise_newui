@@ -116,6 +116,13 @@ export function DublinCaLocationPage() {
             >
               parent guide to choosing a K-12 tutoring program in Dublin, CA
             </Link>
+            .{' '}
+            <Link
+              href={publicPath('/from-nextdoor', locale)}
+              className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+            >
+              See what Dublin families say on Nextdoor
+            </Link>
             .
           </p>
 

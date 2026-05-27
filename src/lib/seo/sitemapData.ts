@@ -48,6 +48,7 @@ const corePages: SitemapEntry[] = [
   { path: '/academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
   { path: '/dublin-ca', priority: 0.9, changefreq: 'monthly' },
+  { path: '/from-nextdoor', priority: 0.9, changefreq: 'monthly' },
   { path: '/enroll', priority: 0.85, changefreq: 'monthly' },
   { path: '/enroll-academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/book-assessment', priority: 0.9, changefreq: 'monthly' },
