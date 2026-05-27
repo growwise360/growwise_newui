@@ -12,26 +12,29 @@ test.describe('Academic nested Math navigation', { tag: '@critical' }, () => {
   async function openAcademicFlyout(page: import('@playwright/test').Page) {
     await page.goto(localePath('/'));
     await expect(page.getByRole('banner')).toBeVisible({ timeout: 15000 });
-    await expect(page.locator('.header-desktop-nav')).toBeVisible({ timeout: 15000 });
 
-    const academic = page
-      .getByRole('button', { name: 'Academic' })
-      .or(page.getByRole('link', { name: 'Academic' }));
-    await academic.first().hover();
-    await expect(page.getByRole('link', { name: 'English Courses' })).toBeVisible({
-      timeout: 10000,
+    const nav = page.locator('.header-desktop-nav');
+    await expect(nav).toBeVisible({ timeout: 15000 });
+    await expect(nav.locator(`a[href$="${MATH_COURSE_PATHS.hub}"]`).first()).toBeAttached({
+      timeout: 15000,
+    });
+
+    const academic = nav.getByRole('link', { name: 'Academic' });
+    await academic.hover();
+    await expect(nav.getByRole('link', { name: 'English Courses' })).toBeVisible({
+      timeout: 15000,
     });
   }
 
   test('desktop flyout: clicking Math opens math hub', async ({ page }) => {
     await openAcademicFlyout(page);
 
-    const mathHubLink = page
-      .locator('.header-desktop-nav')
+    const nav = page.locator('.header-desktop-nav');
+    const mathHubLink = nav
       .getByRole('link')
       .filter({ has: page.getByText('Math', { exact: true }) })
       .first();
-    await expect(mathHubLink).toBeVisible({ timeout: 10000 });
+    await expect(mathHubLink).toBeVisible();
     await expect(mathHubLink).toHaveAttribute('href', pathPattern(MATH_COURSE_PATHS.hub));
     await mathHubLink.click();
 
@@ -41,18 +44,12 @@ test.describe('Academic nested Math navigation', { tag: '@critical' }, () => {
   test('desktop flyout: Academic → Math → Elementary Math', async ({ page }) => {
     await openAcademicFlyout(page);
 
-    await expect(page.getByText('Courses', { exact: true })).not.toBeVisible();
+    const nav = page.locator('.header-desktop-nav');
+    await expect(nav.getByText('Courses', { exact: true })).not.toBeVisible();
 
-    await page
-      .locator('.header-desktop-nav')
-      .getByRole('button', { name: /Show Math grade levels/i })
-      .first()
-      .hover();
+    await nav.getByRole('button', { name: /Show Math grade levels/i }).first().click();
 
-    const elementary = page
-      .locator('.header-desktop-nav')
-      .getByRole('link', { name: 'Elementary Math' })
-      .first();
+    const elementary = nav.getByRole('link', { name: 'Elementary Math' }).first();
     await expect(elementary).toBeVisible({ timeout: 10000 });
     await expect(elementary).toHaveAttribute('href', pathPattern(MATH_COURSE_PATHS.elementary));
     await elementary.click();

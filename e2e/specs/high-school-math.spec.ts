@@ -19,12 +19,12 @@ test.describe('High school math (canonical page)', { tag: '@critical' }, () => {
 
     await expect(page.getByText('From $189/month · 75 min, once a week · 3-month program')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'High School Math — 3-Month Program' })).toBeVisible();
-    await expect(page.getByText('From $189/month')).toBeVisible();
-    await expect(page.getByText('$189/mo')).toBeVisible();
-    await expect(page.getByText('$369/mo')).toBeVisible();
+    await expect(page.getByText('From $189/month', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('$189/mo', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('$369/mo', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('AP Math')).toBeVisible();
     await expect(page.getByText('(100% School Aligned)')).toBeVisible();
-    await expect(page.getByText('$376/mo')).toBeVisible();
+    await expect(page.getByText('$376/mo', { exact: true }).first()).toBeVisible();
     await expect(
       page.getByText('Free Sunday practice sessions — included for all Grades 6–12 students'),
     ).toBeVisible();
@@ -36,6 +36,6 @@ test.describe('High school math (canonical page)', { tag: '@critical' }, () => {
   test('legacy /courses/math/high-school redirects to canonical URL', async ({ page }) => {
     await page.goto(localePath('/courses/math/high-school'), { waitUntil: 'commit' });
     await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
-    await expect(page.getByText('$189/mo')).toBeVisible();
+    await expect(page.getByText('$189/mo', { exact: true }).first()).toBeVisible();
   });
 });

@@ -50,9 +50,11 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
   test('JTBD selector reveals resolution on click', async ({ page }) => {
     await page.goto(localePath('/academic/math'), { waitUntil: 'domcontentloaded' });
 
-    await page
-      .getByRole('button', { name: 'My child is falling behind and struggling to keep up' })
-      .click();
+    const situation = page.getByRole('listitem', {
+      name: 'My child is falling behind and struggling to keep up',
+    });
+    await situation.scrollIntoViewIfNeeded();
+    await situation.click();
 
     await expect(page.getByText(/A gap from 12–18 months back/)).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book free assessment' }).first()).toBeVisible();
@@ -61,6 +63,6 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
   test('/academic/math/high-school serves canonical high school page', async ({ page }) => {
     await page.goto(localePath('/academic/math/high-school'), { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
-    await expect(page.getByText('$189/mo')).toBeVisible();
+    await expect(page.getByText('$189/mo', { exact: true }).first()).toBeVisible();
   });
 });
