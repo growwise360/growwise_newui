@@ -84,43 +84,55 @@ interface JTBDSituation {
   body: string
   cta: 'assessment' | 'selfcheck' | 'summer' | 'advisor'
   ctaLabel: string
+  levelTag: string
+  levelColor: string // Tailwind bg + text classes
 }
 
 const JTBD_SITUATIONS: JTBDSituation[] = [
   {
-    label: 'Fractions',
-    heading: "\"My child has been struggling with fractions for months and I can't figure out why\"",
-    body: 'This is the most common elementary math presentation. Fractions are where conceptual gaps in multiplication and number sense compound all at once. The fix is almost always a few weeks back — not in the fractions unit itself.',
+    label: 'Falling behind',
+    heading: '"My child has been struggling and falling behind"',
+    body: 'This is the most common presentation. The gap usually started 6–18 months ago and has been compounding ever since. The diagnostic finds the root concept; the Beginner track closes it systematically.',
     cta: 'assessment',
     ctaLabel: 'Book free assessment',
+    levelTag: 'Beginner level',
+    levelColor: 'bg-green-100 text-green-700',
   },
   {
-    label: 'Word problems',
-    heading: "\"They're fine at computation but fall apart on word problems\"",
-    body: 'Word problems require reading the mathematical structure of a situation — not just calculating. This is a reasoning gap, not a computation gap. Different fix.',
-    cta: 'selfcheck',
-    ctaLabel: 'Try the Self-Check',
-  },
-  {
-    label: 'Practice gaps',
-    heading: "\"Teacher says they need more practice, but I don't know practice of what\"",
-    body: '"More practice" applied to the wrong concept produces frustration, not progress. The first step is identifying exactly which concept needs work.',
+    label: 'Needs consistency',
+    heading: '"They\'re doing okay but I want them more consistent"',
+    body: "Your child is at grade level but performance is uneven — good days and bad days, strong on some topics and shaky on others. The Champ track builds the consistency that makes math reliable.",
     cta: 'assessment',
     ctaLabel: 'Book free assessment',
+    levelTag: 'Champ level',
+    levelColor: 'bg-blue-100 text-blue-700',
+  },
+  {
+    label: 'Already strong',
+    heading: '"They\'re already strong — I want them further ahead"',
+    body: 'Your child has mastered grade-level material and is ready to work above it. The Pro track moves them into accelerated content with the same structured, gap-aware approach.',
+    cta: 'advisor',
+    ctaLabel: 'Talk to an advisor',
+    levelTag: 'Pro level',
+    levelColor: 'bg-purple-100 text-purple-700',
+  },
+  {
+    label: 'Practice of what?',
+    heading: '"Teacher says they need more practice but I don\'t know of what"',
+    body: '"More practice" applied to the wrong concept produces frustration, not progress. The 45-minute assessment identifies exactly which concept needs work and whether Beginner or Champ is the right starting point.',
+    cta: 'assessment',
+    ctaLabel: 'Book free assessment',
+    levelTag: 'Beginner or Champ · assessment decides',
+    levelColor: 'bg-gray-100 text-gray-600',
   },
   {
     label: 'New grade prep',
-    heading: "\"Going into a new grade and I want to make sure the foundation is solid\"",
-    body: 'Summer and transition prep for rising Grade 2–5 students. We assess where they are and build forward.',
+    heading: '"Going into a new grade, want the foundation solid"',
+    body: 'Transition prep for rising Grade 2–5 students. We assess where they are and build forward so they start the new year from a position of strength, not catch-up.',
     cta: 'summer',
     ctaLabel: 'See summer programs',
-  },
-  {
-    label: 'Enrichment',
-    heading: "\"They're doing fine — I want them ahead\"",
-    body: 'Enrichment track for students who have mastered grade-level material and are ready to work above it.',
-    cta: 'advisor',
-    ctaLabel: 'Talk to an advisor',
+    levelTag: 'Champ level',
+    levelColor: 'bg-blue-100 text-blue-700',
   },
 ]
 
@@ -278,8 +290,12 @@ const ElementaryMathPage: React.FC = () => {
               We find it before it spreads.
             </span>
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-8 leading-relaxed">
+          <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-4 leading-relaxed">
             By the time a parent notices the problem — grades slipping, homework battles, "I hate math" — the real blocker is usually something from 6 to 18 months ago that never fully landed. Our programs start with a free 45-minute diagnostic session that identifies where reasoning breaks down, not where the current worksheet is hard.
+          </p>
+          {/* Change 1 — level line */}
+          <p className="max-w-xl mx-auto text-sm text-gray-500 mb-8">
+            3 levels: <span className="font-medium text-green-700">Beginner</span> · <span className="font-medium text-blue-700">Champ</span> · <span className="font-medium text-purple-700">Pro</span> — assessment places your child in the right one.
           </p>
 
           {/* Trust chips */}
@@ -307,6 +323,75 @@ const ElementaryMathPage: React.FC = () => {
               Try the free Self-Check
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── MASTERY TRACK SECTION ────────────────────── */}
+      <section className="bg-white py-16 lg:py-20">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">GrowWise Mastery Track</p>
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-5">
+            A structured progression — not open-ended tutoring.
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-10 max-w-2xl">
+            Most tutoring programs run indefinitely with no defined milestones. GrowWise Elementary works differently. Every student is placed in one of three levels based on their assessment. Every 3 months, they are re-assessed. Advance to the next level only happens at 90% or above — not before.
+          </p>
+
+          {/* Stepper — 3 level boxes + assessment checkpoints */}
+          <div className="flex flex-col md:flex-row items-stretch gap-0 mb-8">
+            {/* Box 1 — Beginner */}
+            <div className="flex-1 rounded-xl border-2 border-green-200 bg-green-50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-green-600 mb-1">Level 1</p>
+              <p className="text-lg font-bold text-green-800 mb-1">Beginner</p>
+              <p className="text-sm text-green-700">Below grade level · Closing the gap</p>
+            </div>
+
+            {/* Checkpoint 1 */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-1 px-2 py-3 md:py-0 shrink-0">
+              <div className="flex flex-col items-center gap-1">
+                <ArrowRight className="h-5 w-5 text-gray-400 hidden md:block" aria-hidden />
+                <span className="text-[10px] font-semibold text-gray-500 text-center bg-gray-100 rounded-full px-2 py-0.5 whitespace-nowrap">3-month assessment · 90% to advance</span>
+                <ArrowRight className="h-5 w-5 text-gray-400 hidden md:block" aria-hidden />
+              </div>
+            </div>
+
+            {/* Box 2 — Champ */}
+            <div className="flex-1 rounded-xl border-2 border-blue-200 bg-blue-50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-1">Level 2</p>
+              <p className="text-lg font-bold text-blue-800 mb-1">Champ</p>
+              <p className="text-sm text-blue-700">At grade level · Building consistency</p>
+            </div>
+
+            {/* Checkpoint 2 */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-1 px-2 py-3 md:py-0 shrink-0">
+              <div className="flex flex-col items-center gap-1">
+                <ArrowRight className="h-5 w-5 text-gray-400 hidden md:block" aria-hidden />
+                <span className="text-[10px] font-semibold text-gray-500 text-center bg-gray-100 rounded-full px-2 py-0.5 whitespace-nowrap">3-month assessment · 90% to advance</span>
+                <ArrowRight className="h-5 w-5 text-gray-400 hidden md:block" aria-hidden />
+              </div>
+            </div>
+
+            {/* Box 3 — Pro */}
+            <div className="flex-1 rounded-xl border-2 border-purple-200 bg-purple-50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-purple-600 mb-1">Level 3</p>
+              <p className="text-lg font-bold text-purple-800 mb-1">Pro</p>
+              <p className="text-sm text-purple-700">Above grade level · Accelerating ahead</p>
+            </div>
+          </div>
+
+          <p className="text-gray-600 mb-3 leading-relaxed">
+            Students who score below 90% stay at their current level and continue building — no rushing, no skipping steps.
+          </p>
+          <p className="font-semibold text-gray-800 mb-6">
+            The assessment is free, takes 45 minutes, and places your child in the right level before the first paid session.
+          </p>
+          <Link
+            href={publicPath('/book-assessment', locale)}
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
+          >
+            Book free 45-minute assessment
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </div>
       </section>
 
@@ -374,7 +459,12 @@ const ElementaryMathPage: React.FC = () => {
               <div key={i} className="rounded-xl border border-gray-200 bg-gray-50 p-5 lg:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-800 mb-2">{situation.heading}</p>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <p className="font-semibold text-gray-800">{situation.heading}</p>
+                      <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full ${situation.levelColor}`}>
+                        → {situation.levelTag}
+                      </span>
+                    </div>
                     <p className="text-gray-600 text-sm leading-relaxed">{situation.body}</p>
                   </div>
                   <div className="shrink-0 mt-1">
@@ -656,7 +746,7 @@ const ElementaryMathPage: React.FC = () => {
           <Brain className="h-10 w-10 text-[#F1894F] mx-auto mb-5" aria-hidden />
           <h2 className="text-2xl lg:text-3xl font-bold mb-4">Start with a free 45-minute assessment.</h2>
           <p className="text-white/80 mb-8 leading-relaxed">
-            The free 45-minute assessment tells you exactly which gap to close — before you commit to anything. Most parents leave knowing more about their child's math than they did after months of homework help.
+            The free 45-minute assessment does three things: identifies your child's specific gap, places them in the right level (Beginner, Champ, or Pro), and maps out what month one of their program will focus on. No charge. No commitment. Results you can act on immediately.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button

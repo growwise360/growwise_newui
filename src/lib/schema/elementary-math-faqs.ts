@@ -33,6 +33,16 @@ export const ELEMENTARY_MATH_VISIBLE_FAQS: FAQItem[] = [
       'You receive a progress report at the end of each month showing which concepts were covered, which mistake patterns were corrected, and what the next month will focus on. The diagnostic at program start gives you a baseline to compare against.',
   },
   {
+    question: 'What are the Beginner, Champ, and Pro levels?',
+    answer:
+      'They are the three curriculum levels within GrowWise Elementary Math. Beginner is for students who are below grade level and catching up. Champ is for students at grade level building consistency. Pro is for students already ahead who want to accelerate further. The free 45-minute assessment determines which level your child starts at — parents do not choose.',
+  },
+  {
+    question: 'How does a student move from one level to the next?',
+    answer:
+      'Every 3 months, students take a GrowWise Mastery Assessment. Students who score 90% or above advance to the next level. Students who score below 90% continue at their current level and keep building. There is no penalty for staying — the 90% threshold ensures students are genuinely ready before moving forward, not just ready on paper.',
+  },
+  {
     question: 'What is the paid trial session?',
     answer:
       'A single 60-minute instructional session where your child works with a GrowWise instructor on real grade-level problems. At the end we give you a debrief on what we found and which program fits. The $45 session fee is fully waived if you enroll within 7 days.',
