@@ -16,6 +16,7 @@ import {
   Clock,
   Star,
   Phone,
+  Sparkles,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -278,7 +279,7 @@ const ElementaryMathPage: React.FC = () => {
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-8 leading-relaxed">
-            By the time a parent notices the problem — grades slipping, homework battles, "I hate math" — the real blocker is usually something from 6 to 18 months ago that never fully landed. Our programs start with a diagnostic session that identifies where reasoning breaks down, not where the current worksheet is hard.
+            By the time a parent notices the problem — grades slipping, homework battles, "I hate math" — the real blocker is usually something from 6 to 18 months ago that never fully landed. Our programs start with a free 45-minute diagnostic session that identifies where reasoning breaks down, not where the current worksheet is hard.
           </p>
 
           {/* Trust chips */}
@@ -445,15 +446,52 @@ const ElementaryMathPage: React.FC = () => {
                   </li>
                 ))}
               </ul>
+
+              {/* Pricing table */}
               <div className="rounded-xl border border-[#F16112]/20 bg-orange-50 p-5">
-                <p className="text-2xl font-bold text-[#F16112] mb-1">From $349/month</p>
-                <p className="text-sm text-gray-600 mb-1">Billed monthly · 3-month minimum</p>
-                <p className="text-xs text-gray-500 mb-4">Contact us for exact pricing by schedule and session type.</p>
+                <p className="text-2xl font-bold text-[#F16112] mb-1">From $169/month</p>
+                <p className="text-sm text-gray-600 mb-4">Billed monthly · 3-month minimum</p>
+
+                <div className="space-y-2 mb-4">
+                  {/* 1 Subject */}
+                  <div className="flex items-center justify-between bg-white rounded-lg px-4 py-3 border border-gray-100">
+                    <div>
+                      <p className="font-semibold text-gray-800 text-sm">1 Subject</p>
+                      <p className="text-xs text-gray-500">75 min/week</p>
+                    </div>
+                    <p className="font-bold text-[#F16112]">$169/mo</p>
+                  </div>
+                  {/* 2 Subject */}
+                  <div className="flex items-center justify-between bg-white rounded-lg px-4 py-3 border border-gray-100 relative">
+                    <div>
+                      <p className="font-semibold text-gray-800 text-sm">2 Subject</p>
+                      <p className="text-xs text-gray-500">2 × 60 min/week</p>
+                    </div>
+                    <p className="font-bold text-[#F16112]">$279/mo</p>
+                  </div>
+                  {/* Academic + Coding */}
+                  <div className="flex items-center justify-between bg-white rounded-lg px-4 py-3 border border-gray-100">
+                    <div>
+                      <p className="font-semibold text-gray-800 text-sm">Academic + Coding</p>
+                      <p className="text-xs text-gray-500">2 × 60 min/week</p>
+                    </div>
+                    <p className="font-bold text-[#F16112]">$279/mo</p>
+                  </div>
+                </div>
+
+                {/* FIX 3 — Urgency badge */}
+                <div className="flex items-center gap-1.5 mb-4">
+                  <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
+                    <Sparkles className="h-3 w-3" aria-hidden />
+                    No registration fee through July 2026
+                  </span>
+                </div>
+
                 <Button
                   onClick={openAssessment}
                   className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full w-full font-semibold"
                 >
-                  Book free assessment
+                  Book free 45-min assessment
                 </Button>
               </div>
             </div>
@@ -546,13 +584,79 @@ const ElementaryMathPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── SECTION 10: CTA block ────────────────────── */}
+      {/* ── SECTION 10: Paid trial ───────────────────── */}
+      <section className="bg-[#ebebeb] py-16 lg:py-20">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">Try before you commit</p>
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-5">
+            Not sure yet? Start with a single session.
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-8 max-w-2xl">
+            A lot can show up in one well-structured session. Your child works through problems with the instructor. We identify where reasoning breaks down and where it is solid. You leave with a clear picture of what needs work — and whether GrowWise is the right fit.
+          </p>
+
+          {/* Trial card */}
+          <div className="rounded-xl border-2 border-[#1F396D]/20 bg-white p-6 lg:p-8 mb-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+              <div>
+                <p className="font-bold text-gray-800 text-lg mb-1">Trial session — Grades 1–5</p>
+                <p className="text-gray-500 text-sm">One session · 60 minutes</p>
+              </div>
+              <div className="text-right shrink-0">
+                <p className="text-3xl font-bold text-[#1F396D]">$45</p>
+                <p className="text-xs text-green-600 font-semibold mt-0.5">Fee fully waived when you enroll within 7 days.</p>
+              </div>
+            </div>
+
+            <p className="text-sm font-semibold text-gray-700 mb-3">What happens in the trial:</p>
+            <ul className="space-y-2 mb-6">
+              {[
+                'Instructor works through grade-level problems with your child',
+                'Identifies the primary gap and specific mistake patterns',
+                'Parent debrief at the end — what we found, what we would focus on, which program fits',
+                'No pressure, no obligation',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
+                  <CheckCircle className="h-4 w-4 mt-0.5 text-[#1F396D] shrink-0" aria-hidden />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <p className="text-sm text-gray-700 font-semibold mb-6 border-l-4 border-[#F16112] pl-4">
+              The $45 is not a deposit. It is a session fee — for a real session, with a real instructor, producing a real result. If you enroll within 7 days, it is credited in full toward your first month.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href={publicPath('/enroll-academic', locale)}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-6 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
+              >
+                Book a trial session — $45
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href={publicPath('/book-assessment', locale)}
+                className="inline-flex items-center justify-center text-sm font-medium text-[#1F396D] hover:text-[#F16112] underline underline-offset-4 px-4 py-3 transition-colors"
+              >
+                Or start with the free 45-min assessment first
+              </Link>
+            </div>
+
+            <p className="text-xs text-gray-400 mt-4">
+              Trial fee applies to Grades 1–8. Fee waived upon enrollment within 7 days of trial session.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 11: CTA block ────────────────────── */}
       <section className="bg-gradient-to-br from-[#1F396D] to-[#29335C] py-16 lg:py-24 text-white text-center">
         <div className="max-w-2xl mx-auto px-4 lg:px-8">
           <Brain className="h-10 w-10 text-[#F1894F] mx-auto mb-5" aria-hidden />
-          <h2 className="text-2xl lg:text-3xl font-bold mb-4">Start with a free assessment.</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4">Start with a free 45-minute assessment.</h2>
           <p className="text-white/80 mb-8 leading-relaxed">
-            The diagnostic session is free, takes 20 minutes, and tells you exactly which gap to close — before you commit to anything. Most parents leave knowing more about their child's math than they did after months of homework help.
+            The free 45-minute assessment tells you exactly which gap to close — before you commit to anything. Most parents leave knowing more about their child's math than they did after months of homework help.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button
@@ -573,6 +677,10 @@ const ElementaryMathPage: React.FC = () => {
             <Phone className="h-4 w-4" aria-hidden />
             <span>Or call <a href="tel:+19254564606" className="underline underline-offset-2 hover:text-white">(925) 456-4606</a></span>
           </div>
+          {/* FIX 5 — trust line */}
+          <p className="mt-6 text-white/50 text-xs">
+            No registration fee through July 2026. No long-term contract. Monthly enrollment — cancel anytime.
+          </p>
         </div>
       </section>
 

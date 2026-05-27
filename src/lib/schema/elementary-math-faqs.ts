@@ -32,4 +32,14 @@ export const ELEMENTARY_MATH_VISIBLE_FAQS: FAQItem[] = [
     answer:
       'You receive a progress report at the end of each month showing which concepts were covered, which mistake patterns were corrected, and what the next month will focus on. The diagnostic at program start gives you a baseline to compare against.',
   },
+  {
+    question: 'What is the paid trial session?',
+    answer:
+      'A single 60-minute instructional session where your child works with a GrowWise instructor on real grade-level problems. At the end we give you a debrief on what we found and which program fits. The $45 session fee is fully waived if you enroll within 7 days.',
+  },
+  {
+    question: 'Is there a registration fee?',
+    answer:
+      'No registration fee through July 2026. After that a one-time registration fee applies. Enroll before July 2026 to lock in fee-free enrollment.',
+  },
 ]
