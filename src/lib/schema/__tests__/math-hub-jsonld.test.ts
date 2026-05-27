@@ -23,10 +23,10 @@ describe('math-hub-jsonld', () => {
       expect(urls).toContain(`${BASE_URL}/academic/math/high-school`);
     });
 
-    it('FAQPage has 6 questions', () => {
+    it('FAQPage has 7 questions', () => {
       const faq = nodes.find((n) => n['@type'] === 'FAQPage') as Record<string, unknown>;
       const mainEntity = faq.mainEntity as unknown[];
-      expect(mainEntity).toHaveLength(6);
+      expect(mainEntity).toHaveLength(7);
     });
   });
 

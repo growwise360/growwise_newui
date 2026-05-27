@@ -348,6 +348,11 @@ export const MATH_HUB_COPY = {
         answer:
           'Use the free Self-Check or book a free 45-minute assessment. The assessment takes about 45 minutes and gives you a clear answer before you commit to anything.',
       },
+      {
+        question: 'Where did the old /courses/math pages go?',
+        answer:
+          'Math programs now live at /academic/math. Choose a grade band: /academic/math/elementary, /academic/math/middle-school, or /academic/math/high-school. Older /courses/math links redirect here automatically.',
+      },
     ] as const,
   },
   cta: {
