@@ -13,6 +13,7 @@ interface MenuItemRendererProps {
   onDropdownEnter: (key: string) => void;
   onDropdownLeave: (key: string) => void;
   onDropdownToggle: (key: string) => void;
+  onDropdownNavigate: () => void;
   onSubmenuToggle: (key: string) => void;
   onSubmenuEnter: (key: string) => void;
   onSubmenuLeave: (key: string) => void;
@@ -30,6 +31,7 @@ export default function MenuItemRenderer({
   onDropdownEnter,
   onDropdownLeave,
   onDropdownToggle,
+  onDropdownNavigate,
   onSubmenuToggle,
   onSubmenuEnter,
   onSubmenuLeave,
@@ -52,12 +54,13 @@ export default function MenuItemRenderer({
         openSubmenus={openSubmenus}
         onMouseEnter={() => onDropdownEnter(item.key)}
         onMouseLeave={() => onDropdownLeave(item.key)}
-        onItemClick={() => onDropdownToggle(item.key)}
+        onItemClick={onDropdownNavigate}
         onSubmenuToggle={onSubmenuToggle}
         onSubmenuEnter={onSubmenuEnter}
         onSubmenuLeave={onSubmenuLeave}
         createLocaleUrl={createLocaleUrl}
         pathname={pathname}
+        locale={locale}
         footerHelper={footerHelper}
         footerContactCta={footerContactCta}
       />

@@ -233,7 +233,7 @@ function buildTrackNav(trackId: 'im1' | 'im2'): ImGetReadySeoLandingCopy['topNav
     items: [
       { label: 'Curriculum', href: '#curriculum', type: 'anchor' },
       { label: 'How It Works', href: '#how-it-works', type: 'anchor' },
-      { label: 'Regular Tutoring', href: '/courses/high-school-math', type: 'route' },
+      { label: 'Regular Tutoring', href: '/academic/math/high-school', type: 'route' },
       { label: 'FAQ', href: faqAnchor, type: 'anchor' },
     ],
     ctaLabel: trackId === 'im1' ? 'Reserve IM1 Spot' : 'Reserve IM2 Spot',
@@ -322,7 +322,7 @@ export function getIm2GetReadySeoLandingCopy(): ImTrackGetReadySeoLandingCopy {
       items: [
         { href: '/camps/summer-im-get-ready-dublin-ca', label: 'Compare IM1 & IM2 Get Ready programs' },
         { href: '/camps/academic-summer-programs-dublin-ca', label: 'See all summer programs' },
-        { href: '/courses/high-school-math', label: 'Year-round high school math tutoring' },
+        { href: '/academic/math/high-school', label: 'Year-round high school math tutoring' },
         { href: '/contact', label: 'Contact us with questions' },
       ],
     },

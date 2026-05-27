@@ -74,15 +74,21 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: isProd ? 86_400 : 60,
   },
   
+  // Webpack filesystem cache can corrupt .next/dev when multiple dev servers run
+  // (ENOENT on routes-manifest / fallback-build-manifest / pack.gz rename).
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
+  },
+
   // Experimental features for better performance
   experimental: {
     // Inline route CSS into HTML in production to remove render-blocking stylesheet round-trips
     // (helps mobile LCP/FCP; Tailwind-friendly per Next.js docs). Trade-off: larger HTML, experimental.
     // https://nextjs.org/docs/app/api-reference/config/next-config-js/inlineCss
     inlineCss: true,
-    // Dev-only: avoid distDir lockfile acquisition (can ETIMEDOUT on iCloud/synced or slow disks).
-    // Production builds keep the default lock behavior via NODE_ENV.
-    ...(process.env.NODE_ENV === 'development' ? { lockDistDir: false as const } : {}),
     // Smaller dev graphs for Webpack + Turbopack (tree-shake barrel imports)
     optimizePackageImports: [
       'lucide-react',

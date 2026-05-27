@@ -48,7 +48,7 @@ const ACADEMIC_TRACKS = [
     description:
       'Generic tutoring teaches content they\u2019re not being tested on. We align every session to their exact curriculum, unit pace, and upcoming assessments \u2014 so improvement shows up in actual class grades, not just practice.',
     tag: 'See how we do this \u2192',
-    href: '/courses/math',
+    href: '/academic/math',
     analyticsEvent: 'pillar_school_aligned_track_click',
   },
 ] as const;

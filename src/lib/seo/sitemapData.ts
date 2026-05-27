@@ -60,10 +60,12 @@ const corePages: SitemapEntry[] = [
 ]
 
 const coursePages: SitemapEntry[] = [
-  { path: '/courses/math', priority: 0.95, changefreq: 'weekly' },
-  { path: '/courses/english', priority: 0.95, changefreq: 'weekly' },
+  { path: '/academic/math', priority: 0.95, changefreq: 'weekly' },
+  { path: '/academic/math/elementary', priority: 0.9, changefreq: 'monthly' },
+  { path: '/academic/math/middle-school', priority: 0.9, changefreq: 'monthly' },
+  { path: '/academic/math/high-school', priority: 0.9, changefreq: 'monthly' },
+  { path: '/academic/english', priority: 0.95, changefreq: 'weekly' },
   { path: '/courses/sat-prep', priority: 0.9, changefreq: 'weekly' },
-  { path: '/courses/high-school-math', priority: 0.85, changefreq: 'monthly' },
   { path: '/courses/integrated-math-1-dublin-ca', priority: 0.85, changefreq: 'monthly' },
 ]
 

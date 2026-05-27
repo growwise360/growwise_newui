@@ -9,7 +9,7 @@ import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const metadata = generateMetadataFromPath('/courses/english', locale)
+  const metadata = generateMetadataFromPath('/academic/english', locale)
   return metadata || { title: 'English Courses | GrowWise', description: 'Comprehensive English courses' }
 }
 
@@ -41,7 +41,7 @@ export default async function EnglishCoursesLayout({
       "Writing Skills"
     ],
     coursePrerequisites: "Placement assessment recommended to determine appropriate level",
-    url: absoluteSiteUrl('/courses/english', locale, baseUrl),
+    url: absoluteSiteUrl('/academic/english', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {
       price: "35",
@@ -66,7 +66,7 @@ export default async function EnglishCoursesLayout({
           },
           {
             name: 'English Courses',
-            url: absoluteSiteUrl('/courses/english', locale, baseUrl),
+            url: absoluteSiteUrl('/academic/english', locale, baseUrl),
           },
         ]}
       />

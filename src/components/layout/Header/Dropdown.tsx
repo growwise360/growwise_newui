@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/components/ui/utils';
 import { MenuItem } from './types';
-import { getVariant, isMenuItemActive, getVisibleDropdownItems } from './utils';
+import { getVariant, isMenuItemActive, getVisibleDropdownItems, isDropdownItemPathActive } from './utils';
 import DropdownItem from './DropdownItem';
 
 interface DropdownProps {
@@ -19,6 +19,7 @@ interface DropdownProps {
   onSubmenuLeave: (key: string) => void;
   createLocaleUrl: (path: string) => string;
   pathname: string | null;
+  locale: string;
   footerHelper: string;
   footerContactCta: string;
 }
@@ -36,6 +37,7 @@ export default function Dropdown({
   onSubmenuLeave,
   createLocaleUrl,
   pathname,
+  locale,
   footerHelper,
   footerContactCta
 }: DropdownProps) {
@@ -125,15 +127,11 @@ export default function Dropdown({
           {/* Menu Items */}
           <div className="py-1 overflow-visible">
             {visibleItems.map((dropdownItem, index) => {
-              const isDropdownItemActive = (() => {
-                if (pathname?.startsWith(createLocaleUrl(dropdownItem.href))) return true;
-                if (dropdownItem.submenuItems?.length) {
-                  return dropdownItem.submenuItems.some((sub) =>
-                    pathname?.startsWith(createLocaleUrl(sub.href))
-                  );
-                }
-                return false;
-              })();
+              const isDropdownItemActive = isDropdownItemPathActive(
+                dropdownItem,
+                pathname,
+                locale,
+              );
               const hasSubmenu = dropdownItem.hasSubmenu && dropdownItem.submenuItems;
               const isSubmenuOpen = openSubmenus[dropdownItem.key];
               
@@ -152,10 +150,13 @@ export default function Dropdown({
                     hasSubmenu={hasSubmenu || false}
                     isSubmenuOpen={isSubmenuOpen || false}
                     onItemClick={onItemClick}
-                    onSubmenuToggle={() => onSubmenuToggle(dropdownItem.key)}
-                    onSubmenuEnter={() => onSubmenuEnter(dropdownItem.key)}
-                    onSubmenuLeave={() => onSubmenuLeave(dropdownItem.key)}
+                    onSubmenuToggle={onSubmenuToggle}
+                    onSubmenuEnter={onSubmenuEnter}
+                    onSubmenuLeave={onSubmenuLeave}
                     createLocaleUrl={createLocaleUrl}
+                    pathname={pathname}
+                    locale={locale}
+                    openSubmenus={openSubmenus}
                     variant={(item.variant as 'blue' | 'orange') || 'blue'}
                   />
                 </Fragment>

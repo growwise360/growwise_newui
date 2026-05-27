@@ -1,14 +1,16 @@
 import { Metadata } from 'next'
 import FAQSchema from '@/components/schema/FAQSchema'
-import { HS_MATH_VISIBLE_FAQS } from '@/lib/schema/course-hub-jsonld-faqs'
+import { HS_MATH_VISIBLE_FAQS } from '@/lib/schema/high-school-math-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { getMathHubSchemaOfferPrice } from '@/lib/math-pricing-display'
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const metadata = generateMetadataFromPath('/courses/high-school-math', locale)
+  const metadata = generateMetadataFromPath('/academic/math/high-school', locale)
   return metadata || { title: 'High School Math | GrowWise', description: 'High school math courses' }
 }
 
@@ -40,21 +42,21 @@ export default async function HighSchoolMathLayout({
       "Advanced Mathematics"
     ],
     coursePrerequisites: "High school level math foundation",
-    url: absoluteSiteUrl('/courses/high-school-math', locale, baseUrl),
+    url: absoluteSiteUrl(MATH_COURSE_PATHS.highSchool, locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {
-      price: "35",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/enroll', locale, baseUrl),
+      price: getMathHubSchemaOfferPrice('high-school'),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
     }
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Programs', url: absoluteSiteUrl('/programs', locale, baseUrl) },
     { name: 'Academic', url: absoluteSiteUrl('/academic', locale, baseUrl) },
-    { name: 'High School Math', url: absoluteSiteUrl('/courses/high-school-math', locale, baseUrl) },
+    { name: 'Math Programs', url: absoluteSiteUrl(MATH_COURSE_PATHS.hub, locale, baseUrl) },
+    { name: 'High School Math', url: absoluteSiteUrl(MATH_COURSE_PATHS.highSchool, locale, baseUrl) },
   ])
 
   return (

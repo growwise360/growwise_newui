@@ -5,7 +5,7 @@
       { "label": "IM1 Get Ready", "href": "#im1-get-ready", "type": "anchor" },
       { "label": "IM2 Get Ready", "href": "#im2-get-ready", "type": "anchor" },
       { "label": "How It Works", "href": "#how-it-works", "type": "anchor" },
-      { "label": "Regular Tutoring", "href": "/courses/high-school-math", "type": "route" },
+      { "label": "Regular Tutoring", "href": "/academic/math/high-school", "type": "route" },
       { "label": "FAQ", "href": "#faq", "type": "anchor" }
     ],
     "ctaLabel": "Reserve a Spot"

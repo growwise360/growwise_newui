@@ -6,10 +6,12 @@ test.use({ viewport: { width: 390, height: 844 } });
 
 test.describe('Courses pages (mobile)', { tag: '@nightly' }, () => {
   const paths = [
-    '/courses/math',
-    '/courses/english',
+    '/academic/math',
+    '/academic/math/elementary',
+    '/academic/math/middle-school',
+    '/academic/math/high-school',
+    '/academic/english',
     '/courses/sat-prep',
-    '/courses/high-school-math',
     '/courses/integrated-math-1-dublin-ca',
   ];
 

@@ -10,8 +10,8 @@ test.describe('/dublin-ca location hub', () => {
     await expect(page.locator('main h1')).toHaveText('K-12 Tutoring & Coding Classes in Dublin, CA')
 
     const programHrefs = [
-      '/courses/math',
-      '/courses/english',
+      '/academic/math',
+      '/academic/english',
       '/coding',
       '/courses/sat-prep',
       '/steam/game-development',

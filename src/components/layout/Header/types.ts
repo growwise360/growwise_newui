@@ -38,12 +38,17 @@ export interface DropdownItem {
 }
 
 export interface SubmenuItem {
+  key?: string;
   title: string;
   description: string;
   href: string;
   icon: string;
   gradient: string;
   visible?: boolean;
+  hasSubmenu?: boolean;
+  submenuItems?: SubmenuItem[];
+  submenuHeaderTitle?: string;
+  submenuHeaderSubtitle?: string;
 }
 
 export interface HeaderData {
