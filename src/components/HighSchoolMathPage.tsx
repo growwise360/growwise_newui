@@ -340,9 +340,6 @@ const HighSchoolMathPage: React.FC = () => {
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
               High School Math Tutoring
-              <span className="block bg-gradient-to-r from-[#1F396D] to-[#F16112] bg-clip-text text-transparent">
-                in Dublin, CA
-              </span>
             </h1>
             <div className="inline-flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-gray-200/50">
               <GraduationCap className="w-5 h-5 text-[#F1894F]" />
