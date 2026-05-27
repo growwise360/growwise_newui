@@ -5,14 +5,14 @@
       { "label": "IM1 Get Ready", "href": "#im1-get-ready", "type": "anchor" },
       { "label": "IM2 Get Ready", "href": "#im2-get-ready", "type": "anchor" },
       { "label": "How It Works", "href": "#how-it-works", "type": "anchor" },
-      { "label": "Regular Tutoring", "href": "/courses/high-school-math", "type": "route" },
+      { "label": "Regular Tutoring", "href": "/academic/math/high-school", "type": "route" },
       { "label": "FAQ", "href": "#faq", "type": "anchor" }
     ],
     "ctaLabel": "Reserve a Spot"
   },
   "hero": {
     "eyebrow": "DUSD & PUSD-Aligned Summer Math Cohorts",
-    "h1": "Start Integrated Math with confidence.",
+    "h1": "IM1 & IM2 Get Ready Summer Cohorts — DUSD & PUSD, Dublin CA",
     "subheadline": "Focused 4-week Get Ready Cohorts for students entering IM1 or IM2. We prepare students for the first quarter of accelerated math through targeted instruction, diagnostic practice, and mistake-pattern correction.",
     "supportingText": "Designed for families who want their child to begin the school year ready — not spending the first few weeks catching up.",
     "primaryCta": "Reserve a Spot",

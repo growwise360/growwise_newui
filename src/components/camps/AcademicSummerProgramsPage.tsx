@@ -210,7 +210,7 @@ export function AcademicSummerProgramsPage() {
       data-academic-summer-page
       className={cn(
         pageStyles.pageRoot,
-        'min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]',
+        'min-h-screen overflow-x-clip bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]',
       )}
     >
       <main
@@ -307,7 +307,7 @@ export function AcademicSummerProgramsPage() {
         <AcademicHowItWorksSection />
 
         <section className="border-b border-slate-200 bg-white py-14 md:py-20" aria-labelledby="final-cta-heading">
-          <div className="mx-auto max-w-[1100px] px-10 text-center md:px-12">
+          <div className="mx-auto max-w-[1100px] px-4 text-center sm:px-6 md:px-12">
             <h2 id="final-cta-heading" className="font-heading text-2xl font-bold text-slate-900 md:text-4xl">
               {PAGE.finalCta.heading}
             </h2>

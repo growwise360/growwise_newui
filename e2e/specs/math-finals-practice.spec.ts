@@ -36,12 +36,21 @@ test.describe('Math finals practice form', { tag: '@critical' }, () => {
     await page.getByRole('option', { name: /Algebra 1/i }).click();
 
     await page.getByRole('checkbox', { name: /I agree to the Terms/i }).check();
-    await page.getByRole('button', { name: /^Submit$/i }).click();
 
     const thankYouPath = localePath('/math-finals-practice-session/thank-you').replace(
       /[.*+?^${}()|[\]\\]/g,
       '\\$&',
     );
-    await expect(page).toHaveURL(new RegExp(`${thankYouPath}(\\?|$)`), { timeout: 20_000 });
+    const thankYouPattern = new RegExp(`${thankYouPath}(\\?|$)`);
+    await Promise.all([
+      page.waitForURL(thankYouPattern, { timeout: 20_000 }),
+      page.waitForResponse(
+        (response) =>
+          response.url().includes('/api/math-finals-practice') &&
+          response.request().method() === 'POST',
+      ),
+      page.getByRole('button', { name: /^Submit$/i }).click(),
+    ]);
+    await expect(page).toHaveURL(thankYouPattern);
   });
 });

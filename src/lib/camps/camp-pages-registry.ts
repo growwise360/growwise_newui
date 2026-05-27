@@ -86,12 +86,35 @@ export const ACADEMIC_HUB_FILTER_SMOKE_CASES: readonly HubFilterSmokeCase[] = [
   },
 ];
 
+export type AcademicSeoPageSmokeKind = 'standard' | 'im';
+
 export type AcademicSeoPageSmokeExpectation = {
   path: AcademicSeoCampPath;
+  kind: AcademicSeoPageSmokeKind;
   h1: string;
+  faqCount: number;
   hubFilterQuery: string;
   relatedPaths: readonly AcademicSeoCampPath[];
 };
+
+function getAcademicSeoPageKind(pageId: AcademicSeoLandingPageId): AcademicSeoPageSmokeKind {
+  return pageId === 'imGetReady' || pageId === 'im1GetReady' || pageId === 'im2GetReady'
+    ? 'im'
+    : 'standard';
+}
+
+function getAcademicSeoPageFaqCount(pageId: AcademicSeoLandingPageId): number {
+  switch (pageId) {
+    case 'imGetReady':
+      return getImGetReadySeoLandingCopy().faq.length;
+    case 'im1GetReady':
+      return getIm1GetReadySeoLandingCopy().faq.length;
+    case 'im2GetReady':
+      return getIm2GetReadySeoLandingCopy().faq.length;
+    default:
+      return getAcademicSeoLandingCopy(pageId).faq.length;
+  }
+}
 
 function getAcademicSeoPageH1(pageId: AcademicSeoLandingPageId): string {
   switch (pageId) {
@@ -111,13 +134,20 @@ export function getAcademicSeoPageSmokeExpectations(): AcademicSeoPageSmokeExpec
     const config = ACADEMIC_SEO_LANDING_PAGES[id];
     return {
       path: config.path as AcademicSeoCampPath,
+      kind: getAcademicSeoPageKind(id),
       h1: getAcademicSeoPageH1(id),
+      faqCount: getAcademicSeoPageFaqCount(id),
       hubFilterQuery: ACADEMIC_HUB_FILTER_QUERY_VALUES[config.hubFilter],
       relatedPaths: config.relatedPageOrder.map(
         (relatedId) => ACADEMIC_SEO_LANDING_PAGES[relatedId].path as AcademicSeoCampPath,
       ),
     };
   });
+}
+
+/** Standard `/camps/summer-*` landings using `AcademicSeoLandingPage` (excludes IM Get Ready pages). */
+export function getStandardAcademicSeoPageSmokeExpectations(): AcademicSeoPageSmokeExpectation[] {
+  return getAcademicSeoPageSmokeExpectations().filter((page) => page.kind === 'standard');
 }
 
 /** Paths that should redirect (legacy → hub). */

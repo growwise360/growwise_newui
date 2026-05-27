@@ -220,7 +220,11 @@ export function resolveChatPageContext(rawPathname: string | null | undefined): 
   }
 
   // Course topical context (informational only — no auto form)
-  if (path.startsWith("/courses/")) {
+  if (
+    path.startsWith("/courses/") ||
+    path.startsWith("/academic/math") ||
+    path.startsWith("/academic/english")
+  ) {
     return {
       id: "courseTopic",
       welcomeKey: "chatbot.pageWelcome.default",

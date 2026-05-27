@@ -525,15 +525,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
               <p className="text-gray-700 leading-relaxed">
                 Don&apos;t let your child fall further behind.{' '}
-                <Link href={publicPath('/courses/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                <Link href={publicPath('/academic/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Math tutoring for Grades 1–12
                 </Link>
                 {', '}
-                <Link href={publicPath('/courses/high-school-math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   our High School Math Tutoring program
                 </Link>{' '}
                 (Algebra, AP Precalculus, and Integrated Math), and{' '}
-                <Link href={publicPath('/courses/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                <Link href={publicPath('/academic/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   English &amp; ELA tutoring
                 </Link>{' '}
                 — small groups, proven results at GrowWise in Dublin, CA.{' '}

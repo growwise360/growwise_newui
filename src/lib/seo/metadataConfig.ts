@@ -5,6 +5,10 @@
  */
 
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import {
+  buildHighSchoolMetaDescription,
+  buildMiddleSchoolMetaDescription,
+} from '@/lib/math-pricing-display'
 
 const canonicalSiteUrl = getCanonicalSiteUrl()
 const CAMP_SUMMER_BANNER_IMAGE = `${canonicalSiteUrl}/assets/camps/summer-camp-banner.png`
@@ -82,22 +86,39 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/academic',
   },
 
-  '/courses/math': {
-    title: 'K-12 Math Tutoring in Dublin, CA | GrowWise',
+  '/academic/math': {
+    title: 'Math Tutoring Programs Online — Grades 1–12 | GrowWise',
     description:
-      'Expert math tutoring for Grades 1-12 in Dublin, CA. Elementary to AP-level. DUSD-aligned, small groups, personalized plans. Book your free assessment.',
+      'Structured math programs for Grades 1–12. Live online small groups. Elementary, middle school, and high school tracks. Book a free assessment.',
     keywords:
-      'math tutoring Dublin CA, math tutor Dublin, Grades 1-12 math courses, grade-level math, accelerated math, integrated math, DUSD math, PUSD math, algebra tutoring, geometry tutoring, pre-calculus, elementary math, middle school math, high school math, math classes Dublin CA, math enrichment Dublin CA, DUSD accelerated math, math help Dublin, math tutoring near me',
-    path: '/courses/math',
+      'math tutoring online, online math program grades 1-12, elementary math tutoring, middle school math help, IM1 tutoring, high school math tutoring, AP calculus tutoring online, math small group online, 3-month math program, math tutoring small group',
+    path: '/academic/math',
   },
 
-  '/courses/english': {
+  '/academic/math/elementary': {
+    title: 'Elementary Math Tutoring Online — Grades 1–5 | GrowWise',
+    description:
+      'Structured math programs for Grades 1–5. Number sense, fractions, word problem reasoning. Live online small groups. Diagnostic-first. 3-month programs.',
+    keywords:
+      'elementary math tutoring online, grade 1-5 math help, fractions tutoring grade 4, math word problem help elementary, grade 3 math struggles, place value tutoring, elementary math small group online, math program grades 1 5',
+    path: '/academic/math/elementary',
+  },
+
+  '/academic/math/middle-school': {
+    title: 'Middle School Math Tutoring — IM1, IM2 | GrowWise',
+    description: buildMiddleSchoolMetaDescription(),
+    keywords:
+      'middle school math tutoring online, IM1 tutoring, IM2 tutoring, pre-algebra tutoring online, integrated math 1 tutoring, grades 6-8 math program, standard track math, accelerated math tutoring',
+    path: '/academic/math/middle-school',
+  },
+
+  '/academic/english': {
     title: 'English Tutoring Dublin CA | ELA | GrowWise',
     description:
       'English and ELA tutoring for grades 1–12 in Dublin, CA. Reading, writing, and grammar in small groups. Book a free assessment.',
     keywords:
       'English tutoring Dublin CA, English tutor Dublin, reading comprehension, essay writing, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, writing tutor, reading tutor, English classes Dublin CA, English help Dublin, English tutoring near me, Grades 1-12 English courses',
-    path: '/courses/english',
+    path: '/academic/english',
   },
 
   '/courses/sat-prep': {
@@ -109,13 +130,12 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/courses/sat-prep',
   },
 
-  '/courses/high-school-math': {
+  '/academic/math/high-school': {
     title: 'High School Math Tutoring Dublin CA | GrowWise',
-    description:
-      'Algebra, Geometry, Pre-Calculus & AP Math tutoring in Dublin, CA. DUSD-aligned lessons, expert tutors, small groups. Book a free assessment at GrowWise.',
+    description: buildHighSchoolMetaDescription(),
     keywords:
-      'high school math tutoring Dublin CA, algebra tutoring, algebra 1, algebra 2, geometry tutoring, pre-calculus, AP precalculus, integrated math, integrated math 1, integrated math 2, DUSD accelerated math placement, high school math courses Dublin CA, advanced math tutoring',
-    path: '/courses/high-school-math',
+      'high school math tutoring Dublin CA, algebra tutoring, algebra 1, algebra 2, geometry tutoring, pre-calculus, AP precalculus, integrated math, integrated math 1, integrated math 2, DUSD accelerated math placement, high school math courses Dublin CA, advanced math tutoring, high school math tutoring online, AP calculus tutoring, algebra 2 tutoring, SAT math prep online, grades 9-12 math program',
+    path: '/academic/math/high-school',
   },
 
   '/courses/integrated-math-1-dublin-ca': {

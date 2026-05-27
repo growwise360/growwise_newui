@@ -912,7 +912,7 @@ export default function SummerCampPage() {
                 <span className="text-[#F16112] font-bold mt-0.5">→</span>
                 <span>
                   <Link
-                    href={publicPath('/courses/math', locale)}
+                    href={publicPath('/academic/math', locale)}
                     className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
                   >
                     K–12 Math Tutoring
@@ -936,7 +936,7 @@ export default function SummerCampPage() {
                 <span className="text-[#F16112] font-bold mt-0.5">→</span>
                 <span>
                   <Link
-                    href={publicPath('/courses/high-school-math', locale)}
+                    href={publicPath('/academic/math/high-school', locale)}
                     className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
                   >
                     High School Math Tutoring

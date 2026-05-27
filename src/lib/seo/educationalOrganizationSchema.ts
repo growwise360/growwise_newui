@@ -38,14 +38,14 @@ const OFFER_CATALOG_COURSES: CatalogCourse[] = [
   {
     name: 'Math Tutoring Grades 1-12',
     description: 'Grades 1–12 math tutoring including high school math and SAT prep in Dublin, CA',
-    path: '/courses/math',
+    path: '/academic/math',
     typicalAgeRange: '6-18',
     educationalLevel: 'Grades 1-12',
   },
   {
     name: 'English & ELA Tutoring',
     description: 'Grades 1–12 English, reading and writing classes in Dublin, CA',
-    path: '/courses/english',
+    path: '/academic/english',
     typicalAgeRange: '6-18',
     educationalLevel: 'Grades 1-12',
   },

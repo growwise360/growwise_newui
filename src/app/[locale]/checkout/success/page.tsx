@@ -209,7 +209,7 @@ const CheckoutSuccessContent: React.FC = () => {
                       Back to Home
                     </Button>
                   </Link>
-                  <Link href={createLocaleUrl('/courses/math')}>
+                  <Link href={createLocaleUrl('/academic/math')}>
                     <Button variant="outline">
                       <FileText className="w-4 h-4 mr-2" />
                       Browse More Courses

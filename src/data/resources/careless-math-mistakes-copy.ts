@@ -94,11 +94,33 @@ export const CARELESS_MATH_MISTAKES_FAQS = [
   },
 ] as const
 
-export const CARELESS_MATH_MISTAKES_RELATED = {
-  title: 'How to Build Homework Independence',
-  description: 'The system that builds independence in 6–8 weeks — without the fights.',
-  href: '/resources/homework-independence',
-} as const
+export const CARELESS_MATH_MISTAKES_RELATED = [
+  {
+    title: 'How to Build Homework Independence',
+    description: 'The system that builds independence in 6–8 weeks — without the fights.',
+    href: '/resources/homework-independence',
+  },
+  {
+    title: 'Free Math Gap Self-Check',
+    description: '10-minute diagnostic for recurring mistake patterns before you enroll.',
+    href: '/self-check',
+  },
+  {
+    title: 'Elementary Math Programs',
+    description: 'Grades 1–5 structured programs after a diagnostic placement.',
+    href: '/academic/math/elementary',
+  },
+  {
+    title: 'Middle School Math Programs',
+    description: 'Grades 6–8 standard and accelerated tracks — Course 1 through IM2.',
+    href: '/academic/math/middle-school',
+  },
+  {
+    title: 'High School Math Programs',
+    description: 'Course-specific support from Algebra through Pre-Calculus and AP.',
+    href: '/academic/math/high-school',
+  },
+] as const
 
 export const CARELESS_MATH_MISTAKES_CTA = {
   heading: 'Not sure what pattern your child has?',

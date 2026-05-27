@@ -4,6 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev --webpack",
+    "dev:clean": "bash scripts/dev-kill.sh && rm -rf .next node_modules/.cache",
+    "dev:kill": "bash scripts/dev-kill.sh",
+    "dev:fix": "bash scripts/dev-fix.sh",
+    "dev:preview": "bash scripts/dev-preview.sh",
     "dev:webpack": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev --webpack",
     "dev:turbo": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev --turbo",
     "build": "next build",

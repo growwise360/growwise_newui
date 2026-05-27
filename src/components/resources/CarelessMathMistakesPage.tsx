@@ -53,13 +53,12 @@ export function CarelessMathMistakesPage() {
   const resourcesHref = publicPath(RESOURCES_PATH, locale)
   const selfCheckHref = publicPath('/self-check', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
-  const mathCoursesHref = publicPath('/courses/math', locale)
+  const mathCoursesHref = publicPath('/academic/math', locale)
   const mathFoundationsHref = publicPath('/camps/summer-math-foundations-dublin-ca', locale)
   const im1GetReadyHref = publicPath('/camps/summer-im1-get-ready-dublin-ca', locale)
   const im2GetReadyHref = publicPath('/camps/summer-im2-get-ready-dublin-ca', locale)
   const algebraGetReadyHref = publicPath('/camps/summer-algebra-dublin-ca', locale)
   const academicHubHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
-  const relatedHref = publicPath(CARELESS_MATH_MISTAKES_RELATED.href, locale)
   const defaultOpenFaqs = getDefaultOpenFaqValues(CARELESS_MATH_MISTAKES_FAQS.length, (idx) => `careless-faq-${idx}`)
 
   return (
@@ -350,22 +349,32 @@ export function CarelessMathMistakesPage() {
 
           <section className="mt-12 border-t border-slate-200 pt-10" aria-labelledby="related-guide">
             <h2 id="related-guide" className="font-heading text-lg font-bold text-[#1F396D]">
-              Related guide
+              Related guides & programs
             </h2>
-            <article className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-              <h3 className="font-heading text-lg font-bold text-[#1F396D]">
-                <Link href={relatedHref} className="hover:text-[#F16112] hover:underline">
-                  {CARELESS_MATH_MISTAKES_RELATED.title}
-                </Link>
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">{CARELESS_MATH_MISTAKES_RELATED.description}</p>
-              <Link
-                href={relatedHref}
-                className="mt-3 inline-flex text-sm font-semibold text-[#F16112] hover:text-[#C45A1A] hover:underline"
-              >
-                Read guide →
-              </Link>
-            </article>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {CARELESS_MATH_MISTAKES_RELATED.map((related) => {
+                const relatedHref = publicPath(related.href, locale)
+                return (
+                  <article
+                    key={related.href}
+                    className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                  >
+                    <h3 className="font-heading text-lg font-bold text-[#1F396D]">
+                      <Link href={relatedHref} className="hover:text-[#F16112] hover:underline">
+                        {related.title}
+                      </Link>
+                    </h3>
+                    <p className="mt-2 text-sm text-slate-600">{related.description}</p>
+                    <Link
+                      href={relatedHref}
+                      className="mt-3 inline-flex text-sm font-semibold text-[#F16112] hover:text-[#C45A1A] hover:underline"
+                    >
+                      Read more →
+                    </Link>
+                  </article>
+                )
+              })}
+            </div>
           </section>
         </div>
       </article>

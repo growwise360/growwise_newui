@@ -13,8 +13,8 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', { tag: '@n
     await expect(page.locator('footer h2')).toHaveCount(0);
   });
 
-  test('TC-01: no h2 in nav or footer on /courses/math', async ({ page }) => {
-    await page.goto(localePath('/courses/math'));
+  test('TC-01: no h2 in nav or footer on /academic/math', async ({ page }) => {
+    await page.goto(localePath('/academic/math'));
     await expect(page.locator('nav h2')).toHaveCount(0);
     await expect(page.locator('footer h2')).toHaveCount(0);
   });
@@ -32,13 +32,13 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', { tag: '@n
   });
 
   test('TC-04: single main h1 with exact copy on math, english, enroll', async ({ page }) => {
-    await page.goto(localePath('/courses/math'));
+    await page.goto(localePath('/academic/math'));
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('main h1')).toHaveText(
       'K-12 Math Tutoring in Dublin, CA',
     );
 
-    await page.goto(localePath('/courses/english'));
+    await page.goto(localePath('/academic/english'));
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('main h1')).toHaveText(
       'English & Reading Classes in Dublin, CA — Grades 1–12',

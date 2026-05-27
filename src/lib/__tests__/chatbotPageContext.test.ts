@@ -70,7 +70,7 @@ describe('resolveChatPageContext', () => {
   })
 
   it('marks course pages as informational (no default form)', () => {
-    const c = resolveChatPageContext('/courses/math')
+    const c = resolveChatPageContext('/academic/math')
     expect(c.id).toBe('courseTopic')
     expect(c.defaultFormType).toBeNull()
   })

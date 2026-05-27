@@ -60,7 +60,7 @@ export function ImTrackGetReadySeoLandingPage({ locale, copy }: ImTrackGetReadyS
     <div
       data-academic-seo-landing
       data-im-get-ready-landing
-      className="min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
+      className="min-h-screen overflow-x-clip bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
     >
       <ImGetReadyLandingNav
         locale={locale}

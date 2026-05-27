@@ -15,7 +15,7 @@ export function HomeworkIndependencePage() {
   const locale = useLocale()
   const selfCheckHref = publicPath('/self-check', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
-  const mathCoursesHref = publicPath('/courses/math', locale)
+  const mathCoursesHref = publicPath('/academic/math', locale)
   const academicHubHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
 
   return (

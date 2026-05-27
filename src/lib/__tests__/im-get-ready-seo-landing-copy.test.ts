@@ -8,7 +8,7 @@ describe('im-get-ready-seo-landing-copy', () => {
   const copy = getImGetReadySeoLandingCopy();
 
   it('includes the cohort positioning hero headline', () => {
-    expect(copy.hero.h1).toBe('Start Integrated Math with confidence.');
+    expect(copy.hero.h1).toBe('IM1 & IM2 Get Ready Summer Cohorts — DUSD & PUSD, Dublin CA');
     expect(copy.hero.eyebrow).toContain('DUSD & PUSD');
   });
 
@@ -73,7 +73,7 @@ describe('im-get-ready-seo-landing-copy', () => {
   it('defines top nav with anchor and route items', () => {
     expect(copy.topNav.brandLabel).toBe('GrowWise Math');
     expect(copy.topNav.items.some((item) => item.type === 'anchor')).toBe(true);
-    expect(copy.topNav.items.some((item) => item.href === '/courses/high-school-math')).toBe(true);
+    expect(copy.topNav.items.some((item) => item.href === '/academic/math/high-school')).toBe(true);
     expect(copy.topNav.items.some((item) => item.href === '#im1-get-ready')).toBe(true);
     expect(copy.topNav.items.some((item) => item.href === '#im2-get-ready')).toBe(true);
   });

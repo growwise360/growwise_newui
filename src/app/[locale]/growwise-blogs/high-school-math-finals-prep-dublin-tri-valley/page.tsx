@@ -454,7 +454,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <div className="not-prose mt-10 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
               <p className="text-gray-700 leading-relaxed">
                 Need expert help finishing strong this school year?{' '}
-                <Link href={publicPath('/courses/high-school-math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Explore GrowWise High School Math tutoring
                 </Link>{' '}
                 — personalized prep for Algebra 2, Pre-Calculus, and DUSD accelerated math in Dublin, CA.

@@ -1,0 +1,1148 @@
+'use client';
+
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import Link from 'next/link';
+import { CONTACT_INFO } from '@/lib/constants';
+import FreeAssessmentModal from '@/components/FreeAssessmentModal';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, Clock, Users, Star, Filter, ShoppingCart, CheckCircle, Award, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, PenTool, BookMarked } from "lucide-react";
+import { englishCourses } from '@/data/englishCourses';
+import { useCart } from '@/components/gw/CartContext';
+import { useChatbot } from '@/contexts/ChatbotContext';
+import CourseCustomizationModal from '@/components/gw/CourseCustomizationModal';
+import { useTranslations, useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { RelatedContent } from '@/components/seo/RelatedContent';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { absoluteSiteUrl, publicPath } from '@/lib/publicPath';
+import { ENGLISH_COURSE_VISIBLE_FAQS } from '@/lib/schema/course-hub-jsonld-faqs';
+import { CourseFAQ } from '@/components/seo/CourseFAQ';
+import { fetchEnglishCoursesRequested } from '@/store/slices/englishCoursesSlice';
+import { getIconComponent } from '@/lib/iconMap';
+import { CourseCardSkeleton, CardSkeleton } from '@/components/ui/loading-skeletons';
+import HydrationBoundary from '@/components/HydrationBoundary';
+//import EnglishSymbolsBackground from '@/components/EnglishSymbolsBackground';
+import { useHydration } from '@/hooks/useHydration';
+import { 
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction
+} from '@/components/ui/alert-dialog';
+
+// Component that handles search params - wrapped separately for Suspense
+function SearchParamsHandler({ 
+  onTypeFound 
+}: { 
+  onTypeFound: (type: string) => void 
+}) {
+  const searchParams = useSearchParams();
+  
+  useEffect(() => {
+    const type = searchParams.get('type');
+    if (type) {
+      onTypeFound(type);
+      const el = document.getElementById('courses');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [searchParams, onTypeFound]);
+  
+  return null;
+}
+
+function EnglishCoursesContent() {
+  const locale = useLocale();
+  const { addItem } = useCart();
+  const { openChatbot } = useChatbot();
+  const t = useTranslations('englishCourses');
+  const dispatch = useAppDispatch();
+  const englishCoursesData = useAppSelector((s) => s.englishCourses.data);
+  const englishCoursesLoading = useAppSelector((s) => s.englishCourses.loading);
+  const { isHydrated } = useHydration();
+  
+  const [selectedGradeLevels, setSelectedGradeLevels] = useState<string[]>([]);
+  const [selectedCourseTypes, setSelectedCourseTypes] = useState<string[]>([]);
+  const [selectedAlignments, setSelectedAlignments] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<string>('price-low');
+  const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
+  const [scrollY, setScrollY] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // Compact contact options for modal
+  const contactInfo = [
+    { icon: 'Phone', title: 'Call Us', primary: '(925) 456-4606', bgColor: 'bg-[#1F396D]' },
+    { icon: 'Mail', title: 'Email Us', primary: CONTACT_INFO.email, bgColor: 'bg-[#F16112]' },
+    { icon: 'MapPin', title: 'Visit Us', primary: '4564 Dublin Blvd, Dublin, CA 94568', bgColor: 'bg-[#F1894F]' },
+    { icon: 'MessageCircle', title: 'Live Chat', primary: 'Instant Support', bgColor: 'bg-[#29335C]' }
+  ];
+
+  // Handler for search params type
+  const handleTypeFound = useCallback((type: string) => {
+    setSelectedCourseTypes((prev) => {
+      if (!prev.includes(type)) {
+        return [type];
+      }
+      return prev;
+    });
+  }, []);
+
+  // Fetch English courses data
+  useEffect(() => {
+    if (!englishCoursesData && !englishCoursesLoading) {
+      dispatch(fetchEnglishCoursesRequested());
+    }
+  }, [englishCoursesData, englishCoursesLoading, dispatch]);
+
+  // Debug logging
+  useEffect(() => {
+    console.log('English Courses Data:', englishCoursesData);
+    console.log('English Courses Loading:', englishCoursesLoading);
+  }, [englishCoursesData, englishCoursesLoading]);
+
+  // Detect touch device and disable hover effects on mobile
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      const hasHover = window.matchMedia('(hover: hover)').matches;
+      
+      setIsTouchDevice(hasTouch && (isSmallScreen || !hasHover));
+    };
+
+    checkTouchDevice();
+    window.addEventListener('resize', checkTouchDevice);
+    
+    return () => {
+      window.removeEventListener('resize', checkTouchDevice);
+    };
+  }, []);
+
+  // Scroll effect for header animations
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Deterministic PRNG to avoid hydration mismatches (stable across SSR/CSR)
+  const prng = (seed: number) => {
+    let t = seed >>> 0;
+    return () => {
+      t = (t * 1664525 + 1013904223) >>> 0;
+      return t / 4294967296;
+    };
+  };
+
+  // Filter categories from Redux data
+  const gradeLevelFilters = englishCoursesData?.filters?.gradeLevels ?? [];
+  const courseTypeFilters = englishCoursesData?.filters?.courseTypes ?? [];
+  const alignmentFilters = englishCoursesData?.filters?.alignments ?? [];
+
+  // Course gradients based on level
+  const getCourseGradients = (course: any) => {
+    if (course.gradeLevel.includes('Elementary')) {
+      return {
+        gradient: 'from-[#F16112] to-[#F1894F]',
+        bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
+        iconColor: 'text-[#F16112]',
+        hoverBorder: 'border-[#F16112]/30'
+      };
+    } else if (course.gradeLevel.includes('Middle School')) {
+      return {
+        gradient: 'from-[#1F396D] to-[#29335C]',
+        bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
+        iconColor: 'text-[#1F396D]',
+        hoverBorder: 'border-[#1F396D]/30'
+      };
+    } else if (course.gradeLevel.includes('High School')) {
+      return {
+        gradient: 'from-[#F1894F] to-[#F16112]',
+        bgGradient: 'bg-gradient-to-br from-[#F1894F]/5 to-[#F16112]/10',
+        iconColor: 'text-[#F1894F]',
+        hoverBorder: 'border-[#F1894F]/30'
+      };
+    } else {
+      return {
+        gradient: 'from-[#29335C] to-[#1F396D]',
+        bgGradient: 'bg-gradient-to-br from-[#29335C]/5 to-[#1F396D]/10',
+        iconColor: 'text-[#29335C]',
+        hoverBorder: 'border-[#29335C]/30'
+      };
+    }
+  };
+
+  // Filter course logic
+  const filteredCourses = englishCourses
+    .filter(course => {
+      const gradeMatch = selectedGradeLevels.length === 0 || 
+        selectedGradeLevels.some(grade => course.gradeLevel.includes(grade));
+      
+      const typeMatch = selectedCourseTypes.length === 0 || 
+        selectedCourseTypes.some(type => course.courseType.includes(type));
+      
+      const alignmentMatch = selectedAlignments.length === 0 || 
+        selectedAlignments.some(alignment => course.alignment.includes(alignment));
+      
+      return gradeMatch && typeMatch && alignmentMatch;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'price-low':
+          return a.price - b.price;
+        case 'price-high':
+          return b.price - a.price;
+        case 'duration':
+          return parseInt(a.duration) - parseInt(b.duration);
+        default:
+          return 0;
+      }
+    });
+
+  const handleAddToCart = (course: any) => {
+    setSelectedCourse(course);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedCourse(null);
+  };
+
+  // Modified hover handlers to respect touch device detection
+  const handleMouseEnter = (courseId: string) => {
+    if (!isTouchDevice) {
+      setHoveredCourse(courseId);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isTouchDevice) {
+      setHoveredCourse(null);
+    }
+  };
+
+  // Toggle filter functions
+  const toggleGradeLevel = (grade: string) => {
+    setSelectedGradeLevels(prev => 
+      prev.includes(grade) 
+        ? prev.filter(g => g !== grade)
+        : [...prev, grade]
+    );
+  };
+
+  const toggleCourseType = (type: string) => {
+    setSelectedCourseTypes(prev => 
+      prev.includes(type) 
+        ? prev.filter(t => t !== type)
+        : [...prev, type]
+    );
+  };
+
+  const toggleAlignment = (alignment: string) => {
+    setSelectedAlignments(prev => 
+      prev.includes(alignment) 
+        ? prev.filter(a => a !== alignment)
+        : [...prev, alignment]
+    );
+  };
+
+  const clearAllFilters = () => {
+    setSelectedGradeLevels([]);
+    setSelectedCourseTypes([]);
+    setSelectedAlignments([]);
+  };
+
+  // Get chip color for course tags
+  const getChipColor = (value: string, type: 'grade' | 'courseType' | 'alignment') => {
+    const filterArrays = {
+      grade: gradeLevelFilters,
+      courseType: courseTypeFilters,
+      alignment: alignmentFilters
+    };
+    
+    const filter = filterArrays[type].find(f => f.value === value);
+    return filter ? filter.color : 'bg-gray-100 text-gray-800 border-gray-200';
+  };
+
+  const getChipIcon = (value: string, type: 'grade' | 'courseType' | 'alignment') => {
+    const filterArrays = {
+      grade: gradeLevelFilters,
+      courseType: courseTypeFilters,
+      alignment: alignmentFilters
+    };
+    
+    const filter = filterArrays[type].find(f => f.value === value);
+    return filter ? filter.icon : '•';
+  };
+
+  // Enhanced Program Features from Redux data
+  const enhancedProgramFeatures = englishCoursesData?.features ?? [];
+
+  // Show loading skeleton when data is loading
+  if (englishCoursesLoading && !englishCoursesData) {
+    return (
+      <div className="min-h-screen bg-[#ebebeb]" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
+        {/* Header Skeleton */}
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-blue-50 via-indigo-50 to-purple-50"></div>
+          <div className="relative z-10 py-20 px-4 lg:px-8">
+            <div className="max-w-6xl mx-auto text-center">
+              <div className="space-y-6">
+                <div className="h-12 w-96 mx-auto bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-6 w-80 mx-auto bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-10 w-48 mx-auto bg-gray-200 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Filters Skeleton */}
+        <section className="py-12 px-4 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {[...Array(3)].map((_, index) => (
+                <CardSkeleton key={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Courses Grid Skeleton */}
+        <section className="py-12 px-4 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, index) => (
+                <CourseCardSkeleton key={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#ebebeb]" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
+      <Suspense fallback={null}>
+        <SearchParamsHandler onTypeFound={handleTypeFound} />
+      </Suspense>
+
+      {/* Breadcrumbs — noSchema: layout already emits server-rendered BreadcrumbList JSON-LD */}
+      <Breadcrumbs 
+        noSchema
+        items={[
+          { name: 'Programs', url: absoluteSiteUrl('/programs', locale) },
+          { name: 'Academic', url: absoluteSiteUrl('/academic', locale) },
+          { name: 'English Courses', url: absoluteSiteUrl('/academic/english', locale) },
+        ]}
+      />
+
+      {/* Enhanced Creative Header Section - English Theme */}
+      <div suppressHydrationWarning>
+      <section className="relative overflow-hidden">
+        {/* Animated Background - English-themed gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-blue-50 via-indigo-50 to-purple-50">
+          {/* Floating literary symbols - extracted to SSR-safe client component */}
+          {/* <EnglishSymbolsBackground scrollY={scrollY} seed={123456} /> */}
+          
+          {/* Gradient overlay circles - English theme colors */}
+          <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-100/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-indigo-100/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-16">
+          {/* Main Header Content */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+              {englishCoursesData?.hero?.title || t('hero.title')}
+            </h1>
+            <div className="inline-flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-gray-200/50">
+              <BookOpen className="w-5 h-5 text-[#F1894F]" />
+              <span className="text-gray-700 font-medium">{englishCoursesData?.hero?.badge || t('hero.badge')}</span>
+              <Sparkles className="w-5 h-5 text-[#F1894F]" />
+            </div>
+            
+            <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
+              {englishCoursesData?.hero?.subtitle || t('hero.subtitle')}
+            </p>
+            <p className="text-base text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Summer weeks are ideal for reading and writing intensives — see{' '}
+              <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                summer enrichment programs
+              </Link>
+              .
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button onClick={() => setIsAssessmentModalOpen(true)} className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#d54f0a] hover:to-[#F16112] text-white rounded-full px-8 py-4 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+                <BookOpen className="mr-2 w-5 h-5" />
+                Book a Free Assessment
+              </Button>
+              <Button 
+                onClick={() => {
+                  const coursesSection = document.getElementById('courses');
+                  if (coursesSection) {
+                    coursesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                variant="outline" className="border-2 border-gray-400 text-gray-700 bg-white/60 hover:bg-white hover:text-[#1F396D] rounded-full px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 shadow-lg">
+                <Eye className="mr-2 w-5 h-5" />
+                View Programs
+              </Button>
+            </div>
+          </div>
+
+          {/* Integrated "Why Choose Our English Programs" */}
+          <div className="bg-gradient-to-br from-emerald-100/30 via-blue-100/20 to-indigo-200/30 backdrop-blur-lg rounded-[32px] border border-blue-200/30 p-8 lg:p-12 shadow-2xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+                Why Choose Our <span className="text-[#1F396D]">English Programs</span>?
+              </h2>
+              <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+                Comprehensive English Language Arts education designed specifically for Tri-Valley students with curriculum alignment and proven literacy methodologies that produce measurable results.
+              </p>
+            </div>
+
+            {/* Enhanced Features Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {enhancedProgramFeatures.map((feature, index) => {
+                const IconComponent = getIconComponent(feature.icon);
+                return (
+                  <div 
+                    key={index} 
+                    className="text-center group"
+                    style={{ animationDelay: feature.delay }}
+                  >
+                    <div className="relative mb-6">
+                      <div className={`${feature.bgColor} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-all duration-500 shadow-xl backdrop-blur-sm border border-white/20`}>
+                        <IconComponent className={`w-10 h-10 ${feature.color}`} />
+                      </div>
+                      <div className="absolute -inset-2 bg-blue-100/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <h3 className="font-bold text-gray-800 text-lg mb-3 group-hover:text-[#1F396D] transition-colors duration-300">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                      {feature.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      {/* English Courses Section with Chip Filters */}
+      <section id="courses" className="py-16 px-4 lg:px-8" style={{
+        background: `
+          radial-gradient(circle at 20% 25%, rgba(31, 57, 109, 0.08) 0%, transparent 15%),
+          radial-gradient(circle at 80% 35%, rgba(241, 137, 79, 0.1) 0%, transparent 20%),
+          radial-gradient(circle at 45% 70%, rgba(31, 57, 109, 0.06) 0%, transparent 25%),
+          radial-gradient(circle at 70% 15%, rgba(241, 97, 18, 0.09) 0%, transparent 18%),
+          radial-gradient(circle at 15% 80%, rgba(241, 137, 79, 0.07) 0%, transparent 22%),
+          radial-gradient(circle at 90% 60%, rgba(31, 57, 109, 0.05) 0%, transparent 30%),
+          radial-gradient(circle at 35% 10%, rgba(241, 97, 18, 0.08) 0%, transparent 20%),
+          radial-gradient(circle at 60% 90%, rgba(241, 137, 79, 0.06) 0%, transparent 25%),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 50%, rgba(255, 255, 255, 0.9) 100%)
+        `
+      }}>
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Our <span className="text-[#F16112]">English Courses</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Choose from our comprehensive range of English Language Arts programs designed for every learning level and goal.
+            </p>
+          </div>
+
+          {/* Chip-Style Filters */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-200">
+            {/* Filter Header */}
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                <Filter className="w-5 h-5 text-gray-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Filter Courses</h3>
+                {(selectedGradeLevels.length > 0 || selectedCourseTypes.length > 0 || selectedAlignments.length > 0) && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearAllFilters}
+                    className="text-gray-600 hover:text-red-600 border-gray-300 hover:border-red-300"
+                  >
+                    <X className="w-4 h-4 mr-1" />
+                    Clear All
+                  </Button>
+                )}
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Sort by:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm"
+                >
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="duration">Duration</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Grade Level Filters */}
+            <div className="mb-6">
+              <h4 className="text-sm font-medium text-gray-900 mb-3">Grade Level</h4>
+              <div className="flex flex-wrap gap-2">
+                {gradeLevelFilters.map((filter) => (
+                  <button
+                    key={filter.value}
+                    onClick={() => toggleGradeLevel(filter.value)}
+                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                      selectedGradeLevels.includes(filter.value)
+                        ? `${filter.color} border-current shadow-md scale-105`
+                        : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
+                    }`}
+                  >
+                    <span>{filter.icon}</span>
+                    <span>{filter.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Course Type Filters */}
+            <div className="mb-6">
+              <h4 className="text-sm font-medium text-gray-900 mb-3">Course Type</h4>
+              <div className="flex flex-wrap gap-2">
+                {courseTypeFilters.map((filter) => (
+                  <button
+                    key={filter.value}
+                    onClick={() => toggleCourseType(filter.value)}
+                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                      selectedCourseTypes.includes(filter.value)
+                        ? `${filter.color} border-current shadow-md scale-105`
+                        : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
+                    }`}
+                  >
+                    <span>{filter.icon}</span>
+                    <span>{filter.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Alignment Filters */}
+            <div>
+              <h4 className="text-sm font-medium text-gray-900 mb-3">Curriculum Alignment</h4>
+              <div className="flex flex-wrap gap-2">
+                {alignmentFilters.map((filter) => (
+                  <button
+                    key={filter.value}
+                    onClick={() => toggleAlignment(filter.value)}
+                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                      selectedAlignments.includes(filter.value)
+                        ? `${filter.color} border-current shadow-md scale-105`
+                        : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100 hover:border-gray-300'
+                    }`}
+                  >
+                    <span>{filter.icon}</span>
+                    <span>{filter.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Results Summary */}
+          <div className="mb-6">
+            <p className="text-gray-600">
+              Showing {filteredCourses.length} of {englishCourses.length} courses
+              {(selectedGradeLevels.length > 0 || selectedCourseTypes.length > 0 || selectedAlignments.length > 0) && 
+                ' matching your filters'
+              }
+            </p>
+          </div>
+
+          {/* Course Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCourses.map((course) => {
+              const isHovered = hoveredCourse === course.id;
+              const courseGradients = getCourseGradients(course);
+
+              return (
+                <div
+                  key={course.id}
+                  className={`relative h-[420px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
+                  onMouseEnter={() => handleMouseEnter(course.id)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {/* Card Container with Conditional 3D Flip */}
+                  <div className={`relative w-full h-full transition-transform duration-700 ${
+                    !isTouchDevice ? 'transform-style-preserve-3d' : ''
+                  } ${
+                    !isTouchDevice && isHovered ? 'rotate-y-180' : ''
+                  }`}>
+                    
+                    {/* Front Side - Clean Layout */}
+                    <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] overflow-hidden shadow-[0px_8px_24px_0px_rgba(0,0,0,0.1)] border-2 border-white/50 hover:border-gray-200 ${!isTouchDevice ? 'backface-hidden' : ''} transition-all duration-300`}>
+                      <CardContent className="p-5 relative flex flex-col h-full justify-between">
+                        {/* Top Section - Course Header */}
+                        <div className="flex-shrink-0">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className={`p-2.5 rounded-2xl bg-gradient-to-br ${courseGradients.gradient} shadow-lg`}>
+                              <BookOpen className="w-5 h-5 text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <h4 className={`font-bold text-base ${courseGradients.iconColor} leading-tight`}>{course.name}</h4>
+                              <Badge className="bg-white/80 text-gray-700 text-xs mt-1">
+                                {course.level}
+                              </Badge>
+                            </div>
+                            {/* Hover Indicator - Only show on non-touch devices */}
+                            {!isTouchDevice && (
+                              <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                                <Eye className="w-4 h-4 text-gray-400 group-hover:text-gray-600" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Course Description */}
+                        <div className="flex-grow">
+                          <p className="text-gray-600 text-sm mb-1 leading-snug line-clamp-1">{course.description}</p>
+                          
+                          {/* Course Tags/Chips */}
+                          <div className="mb-2 space-y-1">
+                            <div className="flex flex-wrap gap-1">
+                              {course.gradeLevel.map((grade) => (
+                                <span
+                                  key={grade}
+                                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${getChipColor(grade, 'grade')}`}
+                                >
+                                  <span>{getChipIcon(grade, 'grade')}</span>
+                                  {grade}
+                                </span>
+                              ))}
+                              {course.courseType.map((type) => (
+                                <span
+                                  key={type}
+                                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${getChipColor(type, 'courseType')}`}
+                                >
+                                  <span>{getChipIcon(type, 'courseType')}</span>
+                                  {type}
+                                </span>
+                              ))}
+                            </div>
+                            <div className="flex flex-wrap gap-1">
+                              {course.alignment.map((align) => (
+                                <span
+                                  key={align}
+                                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${getChipColor(align, 'alignment')}`}
+                                >
+                                  <span>{getChipIcon(align, 'alignment')}</span>
+                                  {align}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Pricing & Rating */}
+                          <div className="mb-3 p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-gray-600">💰</span>
+                                <span className="font-bold text-lg text-[#1F396D]">{course.priceRange}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Star className="w-4 h-4 fill-[#F1894F] text-[#F1894F]" />
+                                <span className="text-sm font-semibold text-gray-700">4.9</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center mt-2 text-xs text-gray-600">
+                              <span>📦 Quantity: 1</span>
+                            </div>
+                          </div>
+
+                          {/* Mobile/Desktop Responsive Interaction Hint - Only for non-touch devices */}
+                          {!isTouchDevice && (
+                            <div className="mb-3 p-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200 group-hover:from-blue-50 group-hover:to-indigo-50 group-hover:border-blue-200 transition-all duration-300">
+                              <div className="flex items-center gap-2 text-gray-600 group-hover:text-blue-600">
+                                <Eye className="w-3.5 h-3.5" />
+                                <span className="text-xs font-medium">Hover to flip card</span>
+                                <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Bottom Section - CTA */}
+                        <div className="flex-shrink-0">
+                          <Button 
+                            onClick={() => handleAddToCart(course)}
+                            className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
+                          >
+                            {/* Desktop button text - Only for non-touch devices */}
+                            {!isTouchDevice && (
+                              <div className="hidden md:flex items-center justify-center">
+                                <Eye className="mr-2 w-4 h-4" />
+                                Hover to reveal information
+                              </div>
+                            )}
+                            {/* Mobile button text or fallback for touch devices */}
+                            <div className={`${!isTouchDevice ? 'flex md:hidden' : 'flex'} items-center justify-center`}>
+                              <ShoppingCart className="mr-2 w-4 h-4" />
+                              Add to Cart
+                            </div>
+                          </Button>
+                        </div>
+
+                          {/* Decorative background elements (kept within bounds) */}
+                          <div className={`absolute top-2 right-2 w-16 h-16 bg-gradient-to-br ${courseGradients.gradient} rounded-full opacity-10 transition-all duration-500`} />
+                          <div className={`absolute bottom-2 left-2 w-12 h-12 bg-gradient-to-br ${courseGradients.gradient} rounded-full opacity-5 transition-all duration-500`} />
+                      </CardContent>
+                    </Card>
+
+                    {/* Back Side - Enhanced Hover State - Only for non-touch devices */}
+                    {!isTouchDevice && (
+                      <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] overflow-hidden shadow-[0px_16px_32px_0px_rgba(0,0,0,0.15)] border-2 ${courseGradients.hoverBorder} backface-hidden rotate-y-180`}>
+                        <CardContent className="p-4 relative flex flex-col h-full justify-between overflow-hidden">
+                          {/* Top Section - Course Header */}
+                          <div className="flex-shrink-0">
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className={`p-2 rounded-xl bg-gradient-to-br ${courseGradients.gradient} shadow-lg`}>
+                                <BookOpen className="w-4 h-4 text-white" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h4 className={`font-bold text-sm ${courseGradients.iconColor} leading-tight truncate`}>{course.name}</h4>
+                                <div className="flex items-center gap-1 mt-1">
+                                  <Badge className="bg-white/80 text-gray-700 text-xs">{course.level}</Badge>
+                                  <Badge className="bg-white/80 text-gray-700 text-xs">{course.duration}</Badge>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Middle Section - Features */}
+                          <div className="flex-grow overflow-hidden">
+                            {/* Description */}
+                            <p className="text-gray-600 text-xs mb-2 leading-relaxed line-clamp-2">{course.description}</p>
+                            
+                            {/* Pricing */}
+                            <div className="mb-2 p-2 bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-1">
+                                  <span className="font-bold text-base text-[#1F396D]">{course.priceRange}</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <Star className="w-3 h-3 fill-[#F1894F] text-[#F1894F]" />
+                                  <span className="text-xs text-gray-600">4.9/5</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Key Features - Limited to 3 items */}
+                            <div className="space-y-1">
+                              {course.features.slice(0, 3).map((feature, featureIndex) => (
+                                <div 
+                                  key={featureIndex}
+                                  className="flex items-center gap-2 p-1.5 rounded-lg bg-white/70 backdrop-blur-sm border border-white/50"
+                                  style={{
+                                    transitionDelay: `${featureIndex * 100}ms`
+                                  }}
+                                >
+                                  <span className="text-sm">✅</span>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="font-semibold text-gray-800 text-xs truncate">{feature}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          {/* Bottom Section - CTA */}
+                          <div className="flex-shrink-0 mt-2">
+                            <Button 
+                              onClick={() => handleAddToCart(course)}
+                              className={`w-full bg-gradient-to-r ${courseGradients.gradient} hover:shadow-lg text-white rounded-xl py-2 text-xs transition-all duration-300 transform scale-105 shadow-lg`}
+                            >
+                              <ShoppingCart className="mr-1 w-3 h-3" />
+                              Add to Cart • {course.priceRange}
+                            </Button>
+                          </div>
+
+                          {/* Decorative background elements - Properly positioned within card bounds */}
+                          <div className={`absolute top-2 right-2 w-12 h-12 bg-gradient-to-br ${courseGradients.gradient} rounded-full opacity-20 scale-150`} />
+                          <div className={`absolute bottom-2 left-2 w-8 h-8 bg-gradient-to-br ${courseGradients.gradient} rounded-full opacity-10 scale-125`} />
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* No Results */}
+          {filteredCourses.length === 0 && (
+            <div className="text-center py-16">
+              <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">No courses found</h3>
+              <p className="text-gray-500">Try adjusting your filters to see more courses.</p>
+              <Button
+                onClick={clearAllFilters}
+                className="mt-4 bg-[#F16112] hover:bg-[#d54f0a] text-white px-6 py-2 rounded-lg"
+              >
+                Clear All Filters
+              </Button>
+            </div>
+          )}
+        </div>
+      </section>
+
+
+      {/* Program Highlights Section */}
+      <section className="py-16 px-4 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Program <span className="text-orange-600">Highlights</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover what makes our English programs so effective
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {englishCoursesLoading ? (
+              <div className="col-span-full text-center py-8">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#F16112]"></div>
+                <p className="mt-2 text-gray-600">Loading program highlights...</p>
+              </div>
+            ) : (englishCoursesData?.programHighlights ?? []).length > 0 ? (englishCoursesData?.programHighlights?.map((highlight, index) => {
+              const IconComponent = getIconComponent(highlight.icon);
+              return (
+                <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 group">
+                  <CardContent className="p-6 text-center">
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 ${highlight.color.replace('text-', 'bg-').replace('text-', 'bg-')}/10`}>
+                      <IconComponent className={`w-8 h-8 ${highlight.color}`} />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{highlight.title}</h3>
+                    <p className="text-gray-600 mb-4 leading-relaxed">{highlight.description}</p>
+                    <div className="bg-gradient-to-r from-orange-100 to-amber-100 rounded-lg p-3">
+                      <p className="text-sm font-semibold text-gray-800">{highlight.stats}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })) : (
+              <div className="col-span-full text-center py-8">
+                <p className="text-gray-600">No program highlights available at the moment.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Learning Outcomes Section */}
+      <section className="py-16 px-4 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Learning <span className="text-orange-600">Outcomes</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              What students will achieve through our comprehensive English programs
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {englishCoursesLoading ? (
+              <div className="col-span-full text-center py-8">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#F16112]"></div>
+                <p className="mt-2 text-gray-600">Loading learning outcomes...</p>
+              </div>
+            ) : (englishCoursesData?.learningOutcomes ?? []).length > 0 ? (englishCoursesData?.learningOutcomes.map((outcome, index) => (
+              <Card key={index} className="bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-100 hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-6">
+                  <div className="text-center mb-6">
+                    <div className="text-4xl mb-3">{outcome.icon}</div>
+                    <h3 className="text-xl font-bold text-gray-900">{outcome.category}</h3>
+                  </div>
+                  
+                  <ul className="space-y-3">
+                    {outcome.outcomes.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))) : (
+              <div className="col-span-full text-center py-8">
+                <p className="text-gray-600">No learning outcomes available at the moment.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Success Stories Section */}
+      {(englishCoursesData?.successStories ?? []).length > 0 && (
+        <section className="py-16 px-4 lg:px-8 bg-orange-50">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Student Success Stories</h2>
+            <p className="text-gray-600 text-center mb-10">Real results from GrowWise English students</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {englishCoursesData.successStories.map((story: { name: string; grade: string; improvement: string; quote: string; course: string }, index: number) => (
+                <Card key={index} className="bg-white border border-orange-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <CardContent className="p-6 flex flex-col gap-4">
+                    <div className="flex items-center gap-1 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 italic leading-relaxed">&ldquo;{story.quote}&rdquo;</p>
+                    <div className="mt-auto pt-2 border-t border-gray-100">
+                      <p className="font-semibold text-gray-900">{story.name}</p>
+                      <p className="text-sm text-gray-500">{story.grade} &mdash; {story.course}</p>
+                      <p className="text-sm font-medium text-[#F16112] mt-1">{story.improvement}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA Section */}
+      <section className="py-16 px-4 lg:px-8 bg-[#1F396D]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl mb-6 text-white">{englishCoursesData?.cta?.title || t('cta.title')}</h2>
+          <p className="text-xl mb-8 text-white/90">
+            {englishCoursesData?.cta?.subtitle || t('cta.subtitle')}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button onClick={openChatbot} className="bg-[#F16112] hover:bg-[#d54f0a] text-white px-8 py-3 rounded-[30px]" size="lg">
+              {englishCoursesData?.cta?.primaryButton || t('cta.primaryButton')}
+            </Button>
+            <Button 
+              onClick={() => setIsContactModalOpen(true)}
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#1F396D] px-8 py-3 rounded-[30px] transition-all duration-200" 
+              size="lg"
+            >
+              {englishCoursesData?.cta?.secondaryButton || t('cta.secondaryButton')}
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Methods Modal */}
+      <AlertDialog open={isContactModalOpen} onOpenChange={setIsContactModalOpen}>
+        <AlertDialogContent className="bg-white/95 border border-gray-200 rounded-2xl shadow-xl max-w-4xl w-[calc(100%-2rem)] p-0 overflow-hidden">
+          <button
+            onClick={() => setIsContactModalOpen(false)}
+            className="absolute top-4 right-4 z-20 w-8 h-8 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center shadow-md border border-gray-200"
+          >
+            <X className="w-4 h-4 text-gray-600" />
+          </button>
+          <div className="relative z-10 p-6">
+            <AlertDialogHeader className="text-center mb-4">
+              <AlertDialogTitle className="text-2xl font-bold text-gray-900 mb-1">
+                Multiple Ways to Connect
+              </AlertDialogTitle>
+              <AlertDialogDescription className="text-base text-gray-600">
+                Choose the method that works best for you
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {contactInfo.map((item, index) => {
+                const IconComponent = getIconComponent(item.icon);
+                const isPhone = item.icon === 'Phone';
+                const isEmail = item.icon === 'Mail';
+                const isLiveChat = item.icon === 'MessageCircle';
+                const isVisitUs = item.icon === 'MapPin';
+                const href = isPhone 
+                  ? `tel:${item.primary.replace(/[\s\(\)\-]/g, '')}`
+                  : isEmail 
+                  ? `mailto:${item.primary}`
+                  : isVisitUs
+                  ? 'https://maps.google.com/?q=4564+Dublin+Blvd,+Dublin,+CA'
+                  : '#';
+                const CardWrapper = isLiveChat ? 'button' : 'a';
+                const commonProps: any = isLiveChat
+                  ? { onClick: () => { setIsContactModalOpen(false); openChatbot(); } }
+                  : { href: href };
+                return (
+                  <Card key={index} className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden">
+                    <CardContent className="p-5">
+                      <CardWrapper {...commonProps} className="block text-left w-full">
+                        <div className="flex items-start gap-4">
+                          <div className={`${item.bgColor} w-12 h-12 rounded-xl flex items-center justify-center shadow-md`}>
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
+                            <p className="text-sm font-semibold whitespace-nowrap overflow-hidden text-ellipsis text-[#F16112]" title={item.primary}>{item.primary}</p>
+                          </div>
+                        </div>
+                      </CardWrapper>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Course Customization Modal */}
+      {selectedCourse && (
+        <CourseCustomizationModal
+          isOpen={modalOpen}
+          onClose={handleCloseModal}
+          course={selectedCourse}
+          onAddToCart={addItem}
+        />
+      )}
+      
+      {/* SEO Content Sections */}
+      <section className="py-16 px-4 lg:px-8 bg-white">
+        <div className="max-w-4xl mx-auto space-y-10">
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Reading Comprehension Tutoring for Grades 1–8</h2>
+            <p className="text-gray-600 leading-relaxed">
+              We build reading skills systematically — from decoding and{' '}
+              <Link
+                href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+                className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+              >
+                fluency vs. comprehension
+              </Link>{' '}
+              in early grades to inference, analysis, and comprehension strategies through Grade 8.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Essay Writing Help for Middle &amp; High School Students</h2>
+            <p className="text-gray-600 leading-relaxed">Students learn to construct arguments, organize ideas, and write with clarity. We cover five-paragraph essays through long-form analytical writing for high school.</p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Writing Classes for Kids — Small Group Format</h2>
+            <p className="text-gray-600 leading-relaxed">Our writing classes run in groups of 4–6 students, giving each child direct instructor feedback every session.</p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Middle School English Tutoring</h2>
+            <p className="text-gray-600 leading-relaxed">For grades 6–8, we focus on the skills that matter most at this level — literary analysis, vocabulary development, grammar, and structured writing.</p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">High School English Tutoring</h2>
+            <p className="text-gray-600 leading-relaxed">We support grades 9–12 with essay writing, literary analysis, AP English preparation, and college essay coaching.</p>
+          </div>
+
+          <p className="text-gray-600 leading-relaxed">
+            For families searching for English tutoring near me in the Tri-Valley area — GrowWise is at 4564 Dublin Blvd, Dublin CA, serving Dublin, Pleasanton, San Ramon, and Livermore. We offer English classes for kids and a reading and writing tutor program in one center.
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ Section for SEO */}
+      <CourseFAQ 
+        faqs={ENGLISH_COURSE_VISIBLE_FAQS}
+        title="English Tutoring FAQs"
+        subtitle="Get answers to common questions about our English Language Arts courses"
+        includeStructuredData={false}
+      />
+
+      {/* Related Content Section */}
+      <RelatedContent locale={locale} currentPage="english" />
+
+      {/* Free Assessment Modal */}
+      <FreeAssessmentModal 
+        isOpen={isAssessmentModalOpen}
+        onClose={() => setIsAssessmentModalOpen(false)}
+      />
+    </div>
+  );
+}
+
+const EnglishCoursesPage: React.FC = () => {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#ebebeb]" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
+        {/* Header Skeleton */}
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-blue-50 via-indigo-50 to-purple-50"></div>
+          <div className="relative z-10 py-20 px-4 lg:px-8">
+            <div className="max-w-6xl mx-auto text-center">
+              <div className="space-y-6">
+                <div className="h-12 w-96 mx-auto bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-6 w-80 mx-auto bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-10 w-48 mx-auto bg-gray-200 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Filters Skeleton */}
+        <section className="py-12 px-4 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {[...Array(3)].map((_, index) => (
+                <CardSkeleton key={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Courses Grid Skeleton */}
+        <section className="py-12 px-4 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, index) => (
+                <CourseCardSkeleton key={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    }>
+      <HydrationBoundary suppressHydrationWarning>
+        <EnglishCoursesContent />
+      </HydrationBoundary>
+    </Suspense>
+  );
+};
+
+export default EnglishCoursesPage;
+
+
+
+
+
+
+
+
+

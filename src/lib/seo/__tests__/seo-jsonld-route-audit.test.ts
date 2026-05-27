@@ -13,6 +13,7 @@ import { buildTutoringDublinCaArticleGraphSchema } from '@/lib/schema/tutoring-d
 import { buildHomeworkIndependencePageGraphSchema } from '@/lib/schema/homework-independence-jsonld'
 import { buildWhenToStartSatPrepPageGraphSchema } from '@/lib/schema/when-to-start-sat-prep-jsonld'
 import { buildWhatIsVibeCodingPageGraphSchema } from '@/lib/schema/what-is-vibe-coding-jsonld'
+import { buildMathHubPageGraphSchema } from '@/lib/schema/math-hub-jsonld'
 import { buildCampLandingJsonLdGraph } from '@/lib/schema/camp-landing-jsonld'
 import { getCampPage } from '@/lib/camps/get-camp-page'
 import { buildPagesUrls } from '@/lib/seo/sitemapData'
@@ -58,15 +59,11 @@ const ROUTE_JSON_LD_AUDIT: Array<{ route: string; schemas: unknown[] }> = [
     schemas: [{ '@type': 'Service' }, generateFAQPageSchema([])],
   },
   {
-    route: '/courses/math',
-    schemas: [
-      { '@type': 'Course' },
-      { '@type': 'BreadcrumbList' },
-      generateFAQPageSchema([]),
-    ],
+    route: '/academic/math',
+    schemas: [buildMathHubPageGraphSchema(BASE, LOCALE)],
   },
   {
-    route: '/courses/english',
+    route: '/academic/english',
     schemas: [
       { '@type': 'Course' },
       { '@type': 'BreadcrumbList' },
@@ -122,8 +119,8 @@ describe('SEO JSON-LD route audit', () => {
         '/academic',
         '/steam',
         '/programs',
-        '/courses/math',
-        '/courses/english',
+        '/academic/math',
+        '/academic/english',
         '/dublin-ca',
         '/resources/tutoring-dublin-ca',
         '/resources/careless-math-mistakes',

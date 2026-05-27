@@ -63,7 +63,7 @@ export function ImGetReadySeoLandingPage({ locale }: ImGetReadySeoLandingPagePro
     <div
       data-academic-seo-landing
       data-im-get-ready-landing
-      className="min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
+      className="min-h-screen overflow-x-clip bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
     >
       <ImGetReadyLandingNav
         locale={locale}
@@ -88,7 +88,7 @@ export function ImGetReadySeoLandingPage({ locale }: ImGetReadySeoLandingPagePro
               {copy.hero.eyebrow}
             </p>
             <h1 className="font-heading mt-1.5 max-w-[760px] text-[1.375rem] font-bold leading-[1.15] text-white sm:mt-2 sm:text-[1.75rem] md:text-[2.25rem] lg:text-[2.625rem]">
-              IM1 &amp; IM2 Get Ready Summer Cohorts — DUSD &amp; PUSD, Dublin CA
+              {copy.hero.h1}
             </h1>
             <p className="mt-2 max-w-[700px] text-sm leading-snug text-zinc-100 sm:mt-3 sm:text-base md:text-lg">
               {copy.hero.subheadline}

@@ -4,6 +4,7 @@ import {
   ACADEMIC_HUB_FILTER_SMOKE_CASES,
   CAMP_REDIRECT_PATHS,
   getAcademicSeoPageSmokeExpectations,
+  getStandardAcademicSeoPageSmokeExpectations,
   getAllCampsSmokePaths,
   getCampLandingPaths,
 } from '../../src/lib/camps/camp-pages-registry';
@@ -48,7 +49,7 @@ test.describe('Camps pages — legacy redirects', { tag: '@nightly' }, () => {
 });
 
 test.describe('Academic SEO landing pages', { tag: '@nightly' }, () => {
-  for (const seoPage of getAcademicSeoPageSmokeExpectations()) {
+  for (const seoPage of getStandardAcademicSeoPageSmokeExpectations()) {
     test(`${seoPage.path} hero, FAQ, related links, no checkout panel`, async ({ page }) => {
       await page.goto(localePath(seoPage.path));
 
@@ -60,7 +61,7 @@ test.describe('Academic SEO landing pages', { tag: '@nightly' }, () => {
       await expect(page.getByRole('heading', { name: 'Who teaches this program' })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Who this is right for' })).toBeVisible();
       await expect(page.getByRole('heading', { name: /Why GrowWise for/i })).toBeVisible();
-      await expect(page.locator('#faq button')).toHaveCount(5);
+      await expect(page.locator('#faq button')).toHaveCount(seoPage.faqCount);
 
       for (const relatedPath of seoPage.relatedPaths) {
         const link = page.locator(`a[href="${relatedPath}"], a[href$="${relatedPath}"]`).first();

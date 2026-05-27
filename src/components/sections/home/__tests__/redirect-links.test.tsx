@@ -113,7 +113,7 @@ describe('HomeAcademicSection redirect links (OASC pillars)', () => {
     { title: 'Careless Mistakes', href: '/self-check' },
     { title: "Homework Won't Get Done", href: '/academic' },
     { title: 'Falling Behind in Math', href: '/courses/sat-prep' },
-    { title: 'Not Keeping Up in Class', href: '/courses/math' },
+    { title: 'Not Keeping Up in Class', href: '/academic/math' },
   ] as const;
 
   it('each pillar card links to the expected route', () => {

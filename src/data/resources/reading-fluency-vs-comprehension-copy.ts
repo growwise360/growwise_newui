@@ -69,7 +69,7 @@ export const READING_FLUENCY_VS_COMPREHENSION_RELATED: readonly ResourceArticleR
     title: 'How to Stop Sitting Next to Your Child Every Homework Night',
   },
   {
-    href: '/courses/english',
+    href: '/academic/english',
     title: 'English & Reading Programs for Grades 1–12',
   },
 ] as const
