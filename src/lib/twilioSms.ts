@@ -52,8 +52,7 @@ export async function sendFormSms(opts: {
   const body = SMS_TEMPLATES[opts.type](opts.name, opts.eventTitle);
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const twilio = require('twilio');
+    const { default: twilio } = await import('twilio');
     const client = twilio(sid, token);
     await client.messages.create({ to: normalized, messagingServiceSid, body });
     console.log(`[sms] sent ok type=${opts.type}`);
