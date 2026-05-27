@@ -97,6 +97,55 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     readTime: '5 min read',
     href: '/resources/summer-slide-dublin-ca',
   },
+  {
+    id: 'summer-slide-prevention',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'How to Prevent Summer Slide: What Actually Works (And What Parents Waste Money On)',
+    description: "Summer learning loss is real. Here's what actually prevents it — and why most summer plans fail by July.",
+    readTime: '5 min read',
+    href: '/resources/summer-slide-prevention',
+  },
+  {
+    id: 'khan-academy-summer-doesnt-work',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: "Why \"We'll Do Khan Academy This Summer\" Almost Never Works (And What Does)",
+    description:
+      "Self-paced online learning has a completion problem. Here's why most at-home summer learning plans fail by July — and what the research says actually works.",
+    readTime: '5 min read',
+    href: '/resources/khan-academy-summer-doesnt-work',
+  },
+  {
+    id: 'im1-summer-prep-dublin-ca',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'Is Your Child Ready for IM1? An Honest Summer Prep Guide for Dublin & Tri-Valley Families',
+    description:
+      'IM1 starts in September. Here are the skills students need before day one — and the gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
+    readTime: '6 min read',
+    href: '/resources/im1-summer-prep-dublin-ca',
+  },
+  {
+    id: 'summer-academic-program-checklist',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: '5 Things to Look for in a Summer Academic Program (Before You Pay)',
+    description:
+      "Not all summer academic programs produce results. Here are five concrete things to evaluate before you enroll — and the questions most programs can't answer.",
+    readTime: '5 min read',
+    href: '/resources/summer-academic-program-checklist',
+  },
+  {
+    id: 'summer-writing-program-dublin-ca',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'Summer Writing Programs in Dublin, CA: What to Expect and How to Choose',
+    description:
+      "Most kids never receive direct writing instruction. Here's what good writing programs actually teach — and what to look for in Tri-Valley summer options.",
+    readTime: '6 min read',
+    href: '/resources/summer-writing-program-dublin-ca',
+  },
 ]
 
 export const RESOURCES_HERO = {
