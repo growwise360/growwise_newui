@@ -177,7 +177,7 @@ export default function MobileNavigation({
   return (
     <>
       {/* Mobile menu button & cart icon */}
-      <div className="lg:hidden flex items-center gap-1.5 z-[55] relative shrink-0">
+      <div className="lg:hidden flex items-center gap-1 z-[55] relative min-w-0">
         <HeaderChatbotTrigger variant="compact" />
         {showCart && (
           <Link
@@ -197,7 +197,7 @@ export default function MobileNavigation({
 
         <button
           type="button"
-          className="inline-flex items-center justify-center gap-1.5 min-h-[44px] min-w-[44px] px-3 rounded-lg border border-[#1F396D]/30 bg-[#1F396D]/5 text-[#1F396D] hover:bg-[#1F396D]/10 hover:border-[#1F396D]/45 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:ring-offset-2"
+          className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-lg border border-[#1F396D]/30 bg-[#1F396D]/5 text-[#1F396D] hover:bg-[#1F396D]/10 hover:border-[#1F396D]/45 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:ring-offset-2"
           onClick={onToggleMobileMenu}
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileMenuOpen}
@@ -205,10 +205,7 @@ export default function MobileNavigation({
           {mobileMenuOpen ? (
             <X className="w-7 h-7 shrink-0" strokeWidth={2.5} aria-hidden />
           ) : (
-            <>
-              <Menu className="w-7 h-7 shrink-0" strokeWidth={2.5} aria-hidden />
-              <span className="text-sm font-semibold leading-none">Menu</span>
-            </>
+            <Menu className="w-7 h-7 shrink-0" strokeWidth={2.5} aria-hidden />
           )}
         </button>
       </div>

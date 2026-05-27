@@ -38,9 +38,9 @@ describe('MobileNavigation Ask Growy triggers', () => {
     render(<MobileNavigation {...defaultProps} />);
 
     const menuButton = screen.getByRole('button', { name: 'Open menu' });
-    expect(menuButton).toHaveTextContent('Menu');
     expect(menuButton.className).toMatch(/min-h-\[44px\]/);
     expect(menuButton.className).toMatch(/min-w-\[44px\]/);
+    expect(menuButton.querySelector('svg')).toBeTruthy();
   });
 
   it('shows header and drawer triggers on academic camp routes when menu is open', () => {

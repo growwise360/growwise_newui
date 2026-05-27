@@ -32,7 +32,7 @@ export function ChatbotTrigger({ onClick, variant = 'header' }: ChatbotTriggerPr
         )}
       >
         <GrowyAvatar size="sm" ringClassName="ring-1 ring-[#1F396D]/10" />
-        <span>{t('chatbot.triggerLabel')}</span>
+        {!isCompact ? <span>{t('chatbot.triggerLabel')}</span> : null}
       </button>
     </div>
   );
