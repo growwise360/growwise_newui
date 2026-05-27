@@ -30,6 +30,7 @@ export function IM1SummerPrepDublinCAPage() {
       ctas={[
         { href: im1GetReadyHref, label: 'IM1 Get Ready Program' },
         { href: selfCheckHref, label: 'Use the Self-Check' },
+        { href: '/book-assessment', label: 'Book Free Assessment' },
       ]}
     >
       <p>

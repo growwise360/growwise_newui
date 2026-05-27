@@ -100,11 +100,18 @@ Act as: Principal Engineer + Senior QA Engineer + Senior UX Designer.
 
 ## 7. SEO & CONTENT INTEGRITY
 
+**Full checklist → [`.cursor/SEO.md`](SEO.md)** (read before any new route, blog, resource, or metadata change).  
+Architecture hub → [`docs/SEO.md`](../docs/SEO.md).
+
 1. Never remove or weaken SEO metadata — page titles, descriptions, keywords, JSON-LD structured data, and canonical URLs are intentional. Changes require approval.
-2. All canonical URLs must use `https://growwiseschool.org` (non-www) — this is set via `getCanonicalSiteUrl()` in `src/lib/seo/siteUrl.ts`. Never generate canonical tags with `www.` prefix.
+2. All canonical URLs must use `getCanonicalSiteUrl()` in `src/lib/seo/siteUrl.ts` — never hand-build inconsistent `www.` vs non-www variants.
 3. Founding year is 2024 — all references to GrowWise founding date must use 2024.
 4. FAQ data lives in `public/api/mock/en/summer-camp-faq.json` — new FAQs should be prepended, never replace existing ones.
-5. Never alter `robots.txt` or `sitemap.xml` generation logic without explicit approval.
+5. Robots policy: `src/app/robots.ts` only — never add `public/robots.txt`. Sitemap logic in `src/lib/seo/sitemapData.ts` — changes require approval.
+6. **New indexable routes** → add to `metadataConfig.ts` (or page `generateMetadata`) **and** `sitemapData.ts`.
+7. **New blog posts** → add slug to `sitemapData.ts` `blogPostPaths` + use `BlogPostConversionSection` (never enroll-only bottom CTA).
+8. **Route shadowing:** never create root `app/{route}/page.tsx` that shadows `src/app/[locale]/{route}/page.tsx` (see `/enroll`).
+9. **URL policy:** no deletions, 301 redirects, noindex, or content removals without GSC/analytics validation — cross-link duplicate surfaces instead.
 
 ---
 
@@ -191,6 +198,7 @@ Before final output, verify:
 - [ ] Primary CTA is visually dominant — no competing actions at equal weight
 - [ ] Only existing color palette, font scale, and component patterns used
 - [ ] Heading hierarchy is correct (`h1` → `h2` → `h3`, one `h1` per page)
+- [ ] SEO checklist (`.cursor/SEO.md` §9): sitemap, metadata, conversion path, no route shadowing, blog CTA pattern
 - [ ] Targeted E2E run when change touches conversion/enrollment/routes (see §17; not full suite unless requested)
 
 State **PASS** or **FAIL**. If FAIL: fix or refuse and explain.

@@ -13,7 +13,7 @@ import { Loader2, AlertCircle, User, Mail, Phone as PhoneIcon, GraduationCap, Ma
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { useFormTracking, usePageTracking } from '@/lib/analytics/hooks';
 import { TrackedForm } from '@/lib/analytics/components';
-import Phase3EnrollPage from '@/app/enroll/page';
+import Phase3EnrollPage from '@/components/enroll/EnrollPhase3Page';
 import { useSearchParams } from 'next/navigation';
 import { getRecaptchaToken } from '@/lib/recaptcha';
 

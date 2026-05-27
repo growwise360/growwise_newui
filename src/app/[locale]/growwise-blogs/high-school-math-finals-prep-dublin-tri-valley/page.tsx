@@ -65,7 +65,7 @@ export async function generateMetadata({
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return {
-    title: 'High School Math Finals Prep Dublin CA | GrowWise',
+    title: 'How to Prepare for High School Math Finals | Dublin Parent Guide | GrowWise',
     description:
       'High school math finals prep in Dublin, CA. Exam-style practice for Algebra 1 through AP Precalculus. In-center sessions at GrowWise School.',
     alternates: {
@@ -432,6 +432,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     className="h-12 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 text-base font-semibold text-white shadow-md"
                   >
                     <Link href={publicPath('/math-finals-practice-session', locale)}>Request Math Finals Prep</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="h-12 rounded-full border-[#1F396D] bg-white px-8 text-base font-semibold text-[#1F396D]"
+                  >
+                    <Link href={publicPath('/book-assessment', locale)}>Book Free Assessment</Link>
                   </Button>
                   <Link
                     href={publicPath('/contact', locale)}

@@ -11,7 +11,7 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_META: ResourceArticleMeta = {
   updated: 'Updated May 2026',
   title: '5 Things to Evaluate in Summer Academic Programs | GrowWise',
   description:
-    'Not all summer academic programs produce results. Here are five concrete things to evaluate before you enroll — and the questions most programs can\'t answer.',
+    'Not all summer academic programs produce results. Five things to evaluate before you enroll — and questions most programs cannot answer.',
   keywords:
     'summer academic program, summer school, summer tutoring program, summer math camp, summer reading program, best summer academic program, summer learning programs, program evaluation, class size summer camp, summer curriculum',
   datePublished: '2026-06-05',

@@ -31,6 +31,7 @@ export function SummerSlidePreventionPage() {
       ctaSubtext="Summer slide is preventable. The key is starting with a clear picture of where your child actually is."
       ctas={[
         { href: selfCheckHref, label: 'Take the Self-Check' },
+        { href: '/book-assessment', label: 'Book Free Assessment' },
         { href: contactHref, label: 'Contact Us' },
       ]}
     >

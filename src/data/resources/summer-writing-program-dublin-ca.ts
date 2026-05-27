@@ -11,7 +11,7 @@ export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_META: ResourceArticleMeta = {
   updated: 'Updated May 2026',
   title: 'Summer Writing Programs Dublin CA | Tri-Valley | GrowWise',
   description:
-    'Most kids never receive direct writing instruction. Here\'s what good writing programs actually teach — and what to look for in Tri-Valley summer options.',
+    'Most kids never receive direct writing instruction. What good writing programs teach — and what to look for in Tri-Valley summer options.',
   keywords:
     'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 2-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
   datePublished: '2026-06-06',

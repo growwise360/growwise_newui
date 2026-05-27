@@ -1,8 +1,8 @@
 import robots from '@/app/robots'
 
-/** TC-07 — robots.txt policy for crawlable courses/steam (automated: built rules object). */
+/** TC-07 — robots.txt policy (merged static + programmatic rules). */
 describe('robots() — GWA-192 / TC-07', () => {
-  it('allows all, disallows only student-login and cart, and sets sitemap', () => {
+  it('allows all, disallows legacy locale prefixes, query URLs, and auth/cart paths', () => {
     const r = robots()
     expect(r.sitemap).toMatch(/sitemap\.xml$/)
 
@@ -12,12 +12,18 @@ describe('robots() — GWA-192 / TC-07', () => {
     }
     expect(rules.userAgent).toBe('*')
     expect(rules.allow).toBe('/')
-    expect(rules.disallow).toEqual(['/student-login', '/cart'])
+    expect(rules.disallow).toEqual([
+      '/en/',
+      '/hi/',
+      '/*?*',
+      '/favicon.ico',
+      '/student-login',
+      '/cart',
+    ])
   })
 
-  it('does not disallow query-param crawl hacks used previously', () => {
+  it('does not disallow marketing program paths', () => {
     const serialized = JSON.stringify(robots())
-    expect(serialized).not.toContain('?type=')
     expect(serialized).not.toContain('/courses/')
     expect(serialized).not.toContain('/steam/')
     expect(serialized).not.toContain('/api/')

@@ -138,4 +138,27 @@ describe('resources internal links', () => {
       expect(pythonVsScratch).not.toContain(href);
     }
   });
+
+  it('links summer-slide-prevention and summer-slide-dublin-ca to each other', () => {
+    const preventionData = readComponent('data/resources/summer-slide-prevention.ts');
+    const dublinData = readComponent('data/resources/summer-slide-dublin-ca.ts');
+
+    expect(preventionData).toContain('/resources/summer-slide-dublin-ca');
+    expect(dublinData).toContain('/resources/summer-slide-prevention');
+  });
+
+  it('includes book-assessment in new summer resource article CTAs', () => {
+    const slugs = [
+      'SummerSlidePreventionPage.tsx',
+      'KhanAcademySummerDoesntWorkPage.tsx',
+      'SummerAcademicProgramChecklistPage.tsx',
+      'IM1SummerPrepDublinCAPage.tsx',
+      'SummerWritingProgramDublinCAPage.tsx',
+    ] as const;
+
+    for (const slug of slugs) {
+      const source = readComponent(`components/resources/${slug}`);
+      expect(source).toContain('/book-assessment');
+    }
+  });
 });

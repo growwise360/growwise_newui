@@ -11,7 +11,7 @@ export const IM1_SUMMER_PREP_DUBLIN_CA_META: ResourceArticleMeta = {
   updated: 'Updated May 2026',
   title: 'IM1 Summer Prep Guide | Dublin & Tri-Valley | GrowWise',
   description:
-    'IM1 starts in September. Here are the skills students need before day one — and the gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
+    'IM1 starts in September. Skills students need before day one — and gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
   keywords:
     'IM1 math prep, integrated math 1, IM1 summer prep Dublin CA, IM1 readiness Tri-Valley, IM1 summer program, math prep Dublin California, Pleasanton math prep, DUSD IM1 prep, PUSD IM1, summer math program Dublin',
   datePublished: '2026-06-04',
