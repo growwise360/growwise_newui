@@ -439,6 +439,56 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/resources/summer-slide-prevention': {
+    title: 'How to Prevent Summer Slide in Math & Reading | GrowWise',
+    description:
+      "Summer learning loss is real. Here's what actually prevents it — and why most summer plans fail by July.",
+    keywords:
+      'summer slide, prevent summer learning loss, summer academic skills, summer math review, summer reading practice, kids learning over summer break, summer academic program, how to prevent summer slide, summer tutoring, summer learning activities',
+    path: '/resources/summer-slide-prevention',
+    type: 'article',
+  },
+
+  '/resources/khan-academy-summer-doesnt-work': {
+    title: 'Why Khan Academy Summer Plans Fail | GrowWise',
+    description:
+      "Self-paced online learning has a completion problem. Here's why most at-home summer plans fail by July — and what research says works.",
+    keywords:
+      'Khan Academy summer, self-paced learning completion, summer learning at home, math tutoring summer, online learning fail, summer learning plan, at-home learning, summer academic programs, structured summer learning, completion rates online learning',
+    path: '/resources/khan-academy-summer-doesnt-work',
+    type: 'article',
+  },
+
+  '/resources/summer-academic-program-checklist': {
+    title: '5 Things to Evaluate in Summer Academic Programs | GrowWise',
+    description:
+      'Not all summer academic programs produce results. Five things to evaluate before you enroll — and questions most programs cannot answer.',
+    keywords:
+      'summer academic program, summer school, summer tutoring program, summer math camp, summer reading program, best summer academic program, summer learning programs, program evaluation, class size summer camp, summer curriculum',
+    path: '/resources/summer-academic-program-checklist',
+    type: 'article',
+  },
+
+  '/resources/im1-summer-prep-dublin-ca': {
+    title: 'IM1 Summer Prep Guide | Dublin & Tri-Valley | GrowWise',
+    description:
+      'IM1 starts in September. Skills students need before day one — and gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
+    keywords:
+      'IM1 math prep, integrated math 1, IM1 summer prep Dublin CA, IM1 readiness Tri-Valley, IM1 summer program, math prep Dublin California, Pleasanton math prep, DUSD IM1 prep, PUSD IM1, summer math program Dublin',
+    path: '/resources/im1-summer-prep-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/summer-writing-program-dublin-ca': {
+    title: 'Summer Writing Programs Dublin CA | Tri-Valley | GrowWise',
+    description:
+      'Most kids never receive direct writing instruction. What good writing programs teach — and what to look for in Tri-Valley summer options.',
+    keywords:
+      'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 2-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
+    path: '/resources/summer-writing-program-dublin-ca',
+    type: 'article',
+  },
+
   '/resources/python-vs-scratch': {
     title: 'Python vs Scratch for Kids: Which Should Your Child Learn First? | GrowWise',
     description:

@@ -34,6 +34,15 @@ describe('MobileNavigation Ask Growy triggers', () => {
     expect(screen.getAllByRole('button', { name: 'Open chat' })).toHaveLength(1);
   });
 
+  it('shows a visible Menu control with 44px touch target when closed', () => {
+    render(<MobileNavigation {...defaultProps} />);
+
+    const menuButton = screen.getByRole('button', { name: 'Open menu' });
+    expect(menuButton.className).toMatch(/min-h-\[44px\]/);
+    expect(menuButton.className).toMatch(/min-w-\[44px\]/);
+    expect(menuButton.querySelector('svg')).toBeTruthy();
+  });
+
   it('shows header and drawer triggers on academic camp routes when menu is open', () => {
     render(<MobileNavigation {...defaultProps} mobileMenuOpen />);
 

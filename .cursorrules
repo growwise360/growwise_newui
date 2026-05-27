@@ -128,3 +128,9 @@ Risks: [issues + mitigation]
 Never assume. When in doubt, ask.
 
 **Git:** Same bar for **commit** and **push** — ask first; see **GIT — COMMIT & PUSH** above.
+
+## SEO
+
+Before routes, blogs, or metadata changes, read `.cursor/SEO.md`.
+
+Architecture hub: `docs/SEO.md`.

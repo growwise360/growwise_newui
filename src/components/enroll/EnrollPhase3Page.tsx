@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { EnrollStepper, type EnrollStep } from '@/components/enroll/EnrollStepper';
 import { DEFAULT_LOCALE } from '@/i18n/localeConfig';
 import enMessages from '@/i18n/messages/en.json';
-import { ReviewStep } from './steps/ReviewStep';
-import { ChildStep } from './steps/ChildStep';
-import { PaymentStep } from './steps/PaymentStep';
+import { ReviewStep } from '@/app/enroll/steps/ReviewStep';
+import { ChildStep } from '@/app/enroll/steps/ChildStep';
+import { PaymentStep } from '@/app/enroll/steps/PaymentStep';
 
 function EnrollPhase3Inner() {
   const searchParams = useSearchParams();
@@ -23,13 +23,11 @@ function EnrollPhase3Inner() {
     return 1;
   }, [searchParams]);
 
-  // Read URL params from Phase 2 (program/tier/etc). Phase 1 validation only requires no-load errors.
   const program = searchParams.get('program') || '';
   const tier = searchParams.get('tier') || '';
   void program;
   void tier;
 
-  // If someone attempts to load `step=3` directly, we prevent it by forcing them back to step 2.
   const initialStep = requestedStep === 3 ? 2 : requestedStep;
   const [currentStep, setCurrentStep] = useState<EnrollStep>(initialStep);
   const [parentName, setParentName] = useState('');
@@ -133,4 +131,3 @@ export default function EnrollPhase3Page() {
     </NextIntlClientProvider>
   );
 }
-

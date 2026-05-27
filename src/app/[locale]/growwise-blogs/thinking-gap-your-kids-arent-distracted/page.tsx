@@ -5,6 +5,7 @@ import { generatePageMetadata } from '@/lib/seo/metadata'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 const PDF_PATH = '/downloads/ThinkingGap_Playbook_for_parents.pdf'
@@ -360,12 +361,12 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
                   I&apos;m happy to have a no-pressure conversation about your child&apos;s specific situation — whether or not it involves my programs.
                 </p>
                 <div className="mt-6 flex justify-center gap-3 flex-wrap">
-                  <a
-                    href="/enroll"
+                  <Link
+                    href={publicPath('/book-assessment', locale)}
                     className="inline-flex items-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-semibold text-white hover:bg-[#F1894F] transition-colors"
                   >
-                    Send a DM →
-                  </a>
+                    Book Free Assessment →
+                  </Link>
                   <a
                     href={PDF_PATH}
                     className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-semibold text-white hover:bg-white/15 transition-colors"
@@ -407,6 +408,12 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
             </div>
           </div>
         </article>
+
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/academic"
+          programLabel="Explore Academic Programs"
+        />
       </div>
     </>
   )

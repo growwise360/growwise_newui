@@ -25,6 +25,7 @@ import {
   type SummerCampProgramTrack,
 } from '@/lib/summer-camp-program-groups';
 import { SummerCampTrustBlock } from '@/components/camps/SummerCampTrustBlock';
+import { FeaturedCampGuidesSection } from '@/components/camps/FeaturedCampGuidesSection';
 import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
 import { SummerCampEmptySlotsPanel } from '@/components/camps/SummerCampUI';
 const SummerCampGuideLeadDialog = dynamic(
@@ -874,6 +875,8 @@ export default function SummerCampPage() {
           projectsCta={SC.trustProjectsCta}
           projectsCtaHref={SC.trustProjectsUrl}
         />
+
+        <FeaturedCampGuidesSection locale={locale} />
 
         {/* Sentinel: FAQ accordion chunk + Radix load only when near viewport */}
         <div ref={faqSentinelRef} className="h-px w-full shrink-0" aria-hidden />

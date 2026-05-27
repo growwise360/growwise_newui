@@ -97,10 +97,10 @@ export default function Header() {
       </div>
 
       {/* Main Navigation */}
-      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 overflow-x-clip">
         <div className="header-mainrow lg:flex-nowrap">
           {/* Logo — flex-shrink-0 keeps the logo visible when nav is long */}
-          <div className="flex items-center flex-shrink-0">
+          <div className="header-logo-wrap flex items-center">
             <Link href={createLocaleUrlHelper('/')} className="cursor-pointer" aria-label="GrowWise home">
               <Image
                 src="/assets/growwise-logo.png"

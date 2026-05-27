@@ -1,8 +1,13 @@
 import { CARELESS_MATH_MISTAKES_PATH } from '@/data/resources/careless-math-mistakes-copy'
 import { HOMEWORK_INDEPENDENCE_PATH } from '@/data/resources/homework-independence-copy'
+import { IM1_SUMMER_PREP_DUBLIN_CA_PATH } from '@/data/resources/im1-summer-prep-dublin-ca'
+import { KHAN_ACADEMY_SUMMER_DOESNT_WORK_PATH } from '@/data/resources/khan-academy-summer-doesnt-work'
 import { PYTHON_VS_SCRATCH_PATH } from '@/data/resources/python-vs-scratch-copy'
 import { READING_FLUENCY_VS_COMPREHENSION_PATH } from '@/data/resources/reading-fluency-vs-comprehension-copy'
+import { SUMMER_ACADEMIC_PROGRAM_CHECKLIST_PATH } from '@/data/resources/summer-academic-program-checklist'
 import { SUMMER_SLIDE_DUBLIN_CA_PATH } from '@/data/resources/summer-slide-dublin-ca'
+import { SUMMER_SLIDE_PREVENTION_PATH } from '@/data/resources/summer-slide-prevention'
+import { SUMMER_WRITING_PROGRAM_DUBLIN_CA_PATH } from '@/data/resources/summer-writing-program-dublin-ca'
 import { TUTORING_DUBLIN_CA_PATH } from '@/data/resources/tutoring-dublin-ca'
 import { WHAT_IS_VIBE_CODING_PATH } from '@/data/resources/what-is-vibe-coding-copy'
 import { WHEN_TO_START_SAT_PREP_PATH } from '@/data/resources/when-to-start-sat-prep'
@@ -16,6 +21,11 @@ export const RESOURCE_ARTICLE_PATHS = [
   WHEN_TO_START_SAT_PREP_PATH,
   PYTHON_VS_SCRATCH_PATH,
   SUMMER_SLIDE_DUBLIN_CA_PATH,
+  SUMMER_SLIDE_PREVENTION_PATH,
+  KHAN_ACADEMY_SUMMER_DOESNT_WORK_PATH,
+  IM1_SUMMER_PREP_DUBLIN_CA_PATH,
+  SUMMER_ACADEMIC_PROGRAM_CHECKLIST_PATH,
+  SUMMER_WRITING_PROGRAM_DUBLIN_CA_PATH,
   TUTORING_DUBLIN_CA_PATH,
 ] as const
 

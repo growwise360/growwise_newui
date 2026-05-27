@@ -7,6 +7,7 @@ import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { HelpCircle } from "lucide-react";
 import { PROGRAMS_FAQS } from '@/data/programs-faqs';
 import { publicPath } from '@/lib/publicPath';
+import { Button } from '@/components/ui/button';
 
 export default function ProgramsPage() {
   const t = useTranslations('navigation');
@@ -17,21 +18,31 @@ export default function ProgramsPage() {
     <main className="section-base section-white">
       <div className="max-w-7xl mx-auto">
         <h1 className="title-section mb-6">{t('programs')}</h1>
-        <p className="subtitle-sm mb-8">
+        <p className="subtitle-sm mb-6">
           Explore our academic and STEAM offerings — and{' '}
           <Link href={createLocaleUrl('/camps/summer')} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
             see summer camp programs
           </Link>{' '}
           for seasonal intensives in Dublin.
         </p>
+        <div className="mb-10 flex flex-col sm:flex-row gap-4">
+          <Button asChild className="rounded-full bg-[#F16112] hover:bg-[#F1894F] text-white px-8 py-6 text-base font-semibold">
+            <Link href={createLocaleUrl('/book-assessment')}>Book Free Assessment</Link>
+          </Button>
+          <Button asChild variant="outline" className="rounded-full border-[#1F396D] text-[#1F396D] px-8 py-6 text-base font-semibold">
+            <Link href={createLocaleUrl('/enroll')}>Enroll Now</Link>
+          </Button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          <Link href={createLocaleUrl('/academic')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100">
+          <Link href={createLocaleUrl('/academic')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100 group">
             <div className="text-strong text-lg mb-2">Academic</div>
-            <div className="text-muted">Grades 1-12 Math and English programs</div>
+            <div className="text-muted mb-4">Grades 1-12 Math and English programs</div>
+            <span className="text-[#F16112] font-semibold group-hover:underline">Explore academic programs →</span>
           </Link>
-          <Link href={createLocaleUrl('/steam')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100">
+          <Link href={createLocaleUrl('/steam')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100 group">
             <div className="text-strong text-lg mb-2">STEAM</div>
-            <div className="text-muted">ML/AI, Game Development and more</div>
+            <div className="text-muted mb-4">ML/AI, Game Development and more</div>
+            <span className="text-[#F16112] font-semibold group-hover:underline">Explore STEAM programs →</span>
           </Link>
         </div>
 

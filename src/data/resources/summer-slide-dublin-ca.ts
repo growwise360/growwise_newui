@@ -48,6 +48,11 @@ export const SUMMER_SLIDE_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
 
 export const SUMMER_SLIDE_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
+    title: 'How to Prevent Summer Slide: What Actually Works',
+    href: '/resources/summer-slide-prevention',
+    description: 'Evidence-based strategies to prevent summer learning loss.',
+  },
+  {
     title: 'K-12 Tutoring in Dublin, CA: How to Choose the Right Program',
     href: '/resources/tutoring-dublin-ca',
     description: 'An honest comparison of programs serving the Tri-Valley area.',
