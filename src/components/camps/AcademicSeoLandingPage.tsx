@@ -219,7 +219,7 @@ export function AcademicSeoLandingPage({ pageId, locale }: AcademicSeoLandingPag
   return (
     <div
       data-academic-seo-landing
-      className="min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
+      className="min-h-screen overflow-x-clip bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]"
     >
       <main>
         <section

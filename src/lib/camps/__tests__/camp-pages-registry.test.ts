@@ -51,10 +51,16 @@ describe('camp-pages-registry', () => {
     expect(expectations).toHaveLength(ACADEMIC_SEO_LANDING_PAGE_IDS.length);
     for (const page of expectations) {
       expect(page.h1.length).toBeGreaterThan(10);
+      expect(page.faqCount).toBeGreaterThanOrEqual(5);
+      expect(page.kind).toMatch(/^(standard|im)$/);
       expect(page.hubFilterQuery).toMatch(/^(reading-writing|bridge-the-gap|get-ready-math)$/);
       expect(page.relatedPaths.length).toBeGreaterThanOrEqual(3);
       expect(page.relatedPaths).not.toContain(page.path);
     }
+
+    const standardPages = expectations.filter((page) => page.kind === 'standard');
+    expect(standardPages).toHaveLength(4);
+    expect(standardPages.map((page) => page.faqCount)).toEqual([5, 5, 7, 7]);
   });
 });
 

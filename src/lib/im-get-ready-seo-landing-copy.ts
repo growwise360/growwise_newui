@@ -222,8 +222,18 @@ export type ImTrackGetReadySeoLandingCopy = {
   readonly faq: readonly AcademicSeoFaqItem[];
 };
 
+/** User-visible overview hero H1 (also used in E2E smoke expectations). */
+export const IM_GET_READY_OVERVIEW_HERO_H1 =
+  'IM1 & IM2 Get Ready Summer Cohorts — DUSD & PUSD, Dublin CA';
+
 export function getImGetReadySeoLandingCopy(): ImGetReadySeoLandingCopy {
-  return COPY;
+  return {
+    ...COPY,
+    hero: {
+      ...COPY.hero,
+      h1: IM_GET_READY_OVERVIEW_HERO_H1,
+    },
+  };
 }
 
 function buildTrackNav(trackId: 'im1' | 'im2'): ImGetReadySeoLandingCopy['topNav'] {

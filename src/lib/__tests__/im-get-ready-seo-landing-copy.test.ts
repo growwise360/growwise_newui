@@ -8,7 +8,7 @@ describe('im-get-ready-seo-landing-copy', () => {
   const copy = getImGetReadySeoLandingCopy();
 
   it('includes the cohort positioning hero headline', () => {
-    expect(copy.hero.h1).toBe('Start Integrated Math with confidence.');
+    expect(copy.hero.h1).toBe('IM1 & IM2 Get Ready Summer Cohorts — DUSD & PUSD, Dublin CA');
     expect(copy.hero.eyebrow).toContain('DUSD & PUSD');
   });
 

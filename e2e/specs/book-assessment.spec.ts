@@ -67,13 +67,20 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
     const submitBtn = page.getByTestId('assessment-submit');
     await expect(submitBtn).toBeEnabled({ timeout: 15000 });
     await submitBtn.scrollIntoViewIfNeeded();
-    await submitBtn.click();
 
     const successPath = localePath('/book-assessment/thank-you');
-    await expect(page).toHaveURL(
-      new RegExp(`${successPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\?.*)?$`),
-      { timeout: 20000 },
+    const thankYouPattern = new RegExp(
+      `${successPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\?.*)?$`,
     );
+    await Promise.all([
+      page.waitForURL(thankYouPattern, { timeout: 20000 }),
+      page.waitForResponse(
+        (response) =>
+          response.url().includes('/api/assessment') && response.request().method() === 'POST',
+      ),
+      submitBtn.click(),
+    ]);
+    await expect(page).toHaveURL(thankYouPattern);
     await expect(page.getByTestId('form-thank-you')).toBeVisible({ timeout: 20000 });
     await expect(page.getByRole('heading', { level: 1, name: /you.*re booked|thank you/i })).toBeVisible();
   });
