@@ -147,7 +147,7 @@
           {
             "key": "summerCamp",
             "title": "Summer Camp",
-            "description": "Accredited summer programs in Math, Coding, and Robotics",
+            "description": "符合标准的暑期数学、编程和机器人课程",
             "icon": "Calendar",
             "href": "/camps/summer",
             "gradient": "from-[#F16112] to-[#F1894F]"

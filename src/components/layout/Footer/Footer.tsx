@@ -106,6 +106,7 @@ export default function Footer() {
         <FooterCopyright
           copyright={copyright}
           curriculumAlignment={display.curriculumAlignment}
+          legalDisclaimer={display.legalDisclaimer}
         />
       </div>
     </footer>

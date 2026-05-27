@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const metadata = generateMetadataFromPath('/terms-conditions', locale)
   return metadata || { 
     title: 'Terms & Conditions | GrowWise', 
-    description: 'GrowWise Terms & Conditions - Effective Date: 16-July-2024' 
+    description: 'GrowWise Terms & Conditions - Effective Date: 25-May-2026' 
   }
 }
 
@@ -34,12 +34,12 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
             <h1 className="text-4xl md:text-5xl font-bold text-[#1F396D] mb-4">Terms & Conditions</h1>
             <p className="text-gray-600 mb-8">
-              <strong>Effective Date: 16-July-2024</strong>
+              <strong>Effective Date: 25-May-2026</strong>
             </p>
 
             <div className="prose prose-lg max-w-none">
               <p className="text-gray-700 mb-6">
-                Welcome to GrowWise! These Terms & Conditions ("Terms") govern your use of our website, services, and products. By accessing or using our website or services, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use our website or services.
+                Welcome to GrowWise! These Terms & Conditions (&quot;Terms&quot;) govern your use of our website, services, and products. By accessing or using our website or services, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use our website or services.
               </p>
 
               <section className="mb-8">
@@ -82,7 +82,9 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
                     <ul className="list-disc pl-6 mt-2 space-y-1">
                       <li>There is no refund policy for Grades 1-12 Math and English subjects.</li>
                       <li>Coding courses have a refund policy if students withdraw within one week after enrollment.</li>
-                      <li>For cancellations, a 30-day advance notice is required.</li>
+                      <li>
+                        For recurring enrollments or ongoing subjects, a written 30-day advance notice is required for cancellation. Fees accrued or billed during this 30-day notice period are non-refundable, and the student may continue attending classes through the end of the paid notice period.
+                      </li>
                       <li><strong>No refunds will be issued for any purchased summer camp programs.</strong></li>
                       <li>Registration fees are non-refundable for all classes.</li>
                     </ul>
@@ -94,12 +96,24 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">5. Accessibility and Special Education Needs</h2>
+                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">5. Special Education, IEP, and Section 504 Plans</h2>
                 <p className="text-gray-700 mb-4">
-                  While we are committed to providing a positive and inclusive learning environment for all students, we must acknowledge that our current programs and staff are not specifically trained or equipped to support children with special education needs, including those on the autism spectrum or with similar learning differences.
+                  GrowWise School is a private supplemental tutoring and STEAM learning center. We are not a special education provider, and our programs, instructors, and facilities are not designed, staffed, or equipped to implement Individualized Education Programs (IEPs), Section 504 accommodation plans, or other formal special-education or disability-related service plans.
+                </p>
+                <p className="text-gray-700 mb-4">
+                  While we strive to maintain a welcoming environment, we do not provide specialized instruction, behavioral intervention, related services (such as speech, occupational, or behavioral therapy), or legally mandated accommodations associated with IEP or 504 plans.
+                </p>
+                <p className="text-gray-700 mb-4">
+                  <strong>Parent/guardian obligation:</strong> By enrolling a student, you represent that you have disclosed any IEP, 504 plan, diagnosed learning disability, or other special-education designation to GrowWise in writing prior to enrollment. Failure to disclose such information may result in discontinuation of services without refund, to the extent permitted by law.
+                </p>
+                <p className="text-gray-700 mb-4">
+                  If a student requires accommodations, behavioral support, or staffing ratios beyond what GrowWise&apos;s standard student-to-teacher model can safely provide, GrowWise reserves the right to meet with parents or guardians to assess whether the learning environment remains safe and appropriate for the student and other participants. This process is intended to be collaborative and resource-based—not discriminatory—and may result in referral to specialized providers when GrowWise cannot meet documented needs.
+                </p>
+                <p className="text-gray-700 mb-4">
+                  Nothing in this section limits GrowWise&apos;s obligation to provide reasonable accommodations within the scope of its supplemental tutoring model where feasible; however, GrowWise is not a special-education provider and does not implement IEP or Section 504 plans.
                 </p>
                 <p className="text-gray-700">
-                  We encourage families with such needs to consult specialized educational providers who can offer the appropriate support and accommodations tailored to their child's unique requirements.
+                  We strongly encourage families whose children have IEPs, 504 plans, or documented special-education needs to consult school districts, regional centers, or licensed special-education providers who are qualified to deliver the required services and accommodations.
                 </p>
               </section>
 
@@ -129,27 +143,37 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
 
               <section className="mb-8">
                 <h2 className="text-2xl font-bold text-[#1F396D] mb-4">8. Limitation of Liability</h2>
-                <p className="text-gray-700">
+                <p className="text-gray-700 mb-4">
                   To the maximum extent permitted by law, GrowWise shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from your use of our website or services.
                 </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">9. Indemnification</h2>
                 <p className="text-gray-700">
-                  You agree to indemnify and hold harmless GrowWise, its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys' fees, arising out of or in any way connected with your access to or use of our website or services.
+                  GrowWise is likewise not liable for academic or programmatic outcomes arising from undisclosed or unsupported special-education needs as described in Section 5.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">10. Governing Law</h2>
+                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">9. Disclaimer of Educational Outcomes</h2>
+                <p className="text-gray-700">
+                  GrowWise provides supplemental educational instruction, enrichment, and tutoring aligned with academic benchmarks. Educational progress relies on student engagement, attendance, and prior academic foundation. GrowWise makes no guarantees, warranties, or representations—express or implied—regarding specific classroom grades, GPA improvements, standardized test scores (including but not limited to SAT, ACT, AP, or NWEA MAP), or specific school placement outcomes. All educational services and materials are provided on an &quot;as-is&quot; basis.
+                </p>
+              </section>
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">10. Indemnification</h2>
+                <p className="text-gray-700">
+                  You agree to indemnify and hold harmless GrowWise, its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys&apos; fees, arising out of or in any way connected with your access to or use of our website or services.
+                </p>
+              </section>
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">11. Governing Law</h2>
                 <p className="text-gray-700">
                   These Terms are governed by and construed by the laws of the State of California, without regard to its conflict of law principles. You agree to submit to the exclusive jurisdiction of the courts located in Alameda County, California for the resolution of any disputes arising from these Terms or your use of our website or services.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">11. Contact Us</h2>
+                <h2 className="text-2xl font-bold text-[#1F396D] mb-4">12. Contact Us</h2>
                 <p className="text-gray-700 mb-4">
                   If you have any questions about these Terms, please contact us:
                 </p>
@@ -167,4 +191,3 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
     </>
   )
 }
-

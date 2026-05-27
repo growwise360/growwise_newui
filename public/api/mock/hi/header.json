@@ -147,7 +147,7 @@
           {
             "key": "summerCamp",
             "title": "Summer Camp",
-            "description": "Accredited summer programs in Math, Coding, and Robotics",
+            "description": "गणित, कोडिंग और रोबोटिक्स में मानक-संरेखित ग्रीष्मकालीन कार्यक्रम",
             "icon": "Calendar",
             "href": "/camps/summer",
             "gradient": "from-[#F16112] to-[#F1894F]"
