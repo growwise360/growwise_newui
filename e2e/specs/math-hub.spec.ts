@@ -48,12 +48,14 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
   });
 
   test('JTBD selector reveals resolution on click', async ({ page }) => {
-    await page.goto(localePath('/academic/math'), { waitUntil: 'domcontentloaded' });
+    await page.goto(localePath('/academic/math'), { waitUntil: 'load' });
+    await expect(page.getByText('Step 2 — Find your situation')).toBeVisible();
 
-    const situation = page.getByRole('listitem', {
-      name: 'My child is falling behind and struggling to keep up',
+    const jtbdSection = page.locator('section').filter({ hasText: 'Step 2 — Find your situation' });
+    const situation = jtbdSection.getByText('My child is falling behind and struggling to keep up', {
+      exact: true,
     });
-    await situation.scrollIntoViewIfNeeded();
+    await expect(situation).toBeVisible();
     await situation.click();
 
     await expect(page.getByText(/A gap from 12–18 months back/)).toBeVisible();

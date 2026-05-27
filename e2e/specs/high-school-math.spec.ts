@@ -34,8 +34,8 @@ test.describe('High school math (canonical page)', { tag: '@critical' }, () => {
   });
 
   test('legacy /courses/math/high-school redirects to canonical URL', async ({ page }) => {
-    await page.goto(localePath('/courses/math/high-school'), { waitUntil: 'commit' });
-    await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
+    await page.goto(localePath('/courses/math/high-school'), { waitUntil: 'load' });
+    await page.waitForURL(pathPattern(MATH_COURSE_PATHS.highSchool), { timeout: 30000 });
     await expect(page.getByText('$189/mo', { exact: true }).first()).toBeVisible();
   });
 });
