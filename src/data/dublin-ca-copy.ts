@@ -35,12 +35,12 @@ export const DUBLIN_CA_COPY = {
       {
         title: 'Math Tutoring',
         description: 'Grades 1–12 math support from foundations through high school and AP-level topics.',
-        href: '/courses/math',
+        href: '/academic/math',
       },
       {
         title: 'English & Writing',
         description: 'Reading comprehension, grammar, and essay writing for Grades 1–12.',
-        href: '/courses/english',
+        href: '/academic/english',
       },
       {
         title: 'Python & AI Coding',

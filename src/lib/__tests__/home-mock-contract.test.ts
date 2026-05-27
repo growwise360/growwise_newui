@@ -76,7 +76,7 @@ describe('home.json mock contracts', () => {
       if (!ela) {
         throw new Error(`ELA card id=4 missing in ${locale}`);
       }
-      expect(ela.href).toBe('/courses/english');
+      expect(ela.href).toBe('/academic/english');
     });
 
     it('hero slide 1 has required marketing fields when secondary CTAs are used', () => {

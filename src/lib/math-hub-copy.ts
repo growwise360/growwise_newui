@@ -1,9 +1,11 @@
 /**
- * English copy for /courses/math hub and grade-band stub pages.
+ * English copy for /academic/math hub and grade-band stub pages.
  * Single source for UI + JSON-LD FAQ text.
  */
 
-export const MATH_HUB_PATH = '/courses/math' as const;
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
+
+export const MATH_HUB_PATH = MATH_COURSE_PATHS.hub;
 
 /** Pre-compressed WebP hero (~23KB @ 1024w). Served from /public/assets/courses/. */
 export const MATH_HUB_BANNER_SRC = '/assets/courses/math-hub-banner.webp' as const;
@@ -42,6 +44,9 @@ export type MathHubProgramOption = {
   readonly name: string;
   readonly schedule: string;
   readonly price: string;
+  readonly subtitle?: string;
+  readonly bestFor?: string;
+  readonly featured?: boolean;
 };
 
 export type MathHubProgramBandCard = {
@@ -67,7 +72,7 @@ export const MATH_HUB_COPY = {
     subheading:
       "Not all math problems are the same — and neither are the programs. Every grade band has different gaps, different curriculum demands, and different parent concerns. Start by selecting where your child is right now.",
     trustBar: [
-      'Live online · nationwide',
+      'Live online · In-person in Dublin, CA · nationwide',
       '6–10 students per group',
       'Starts monthly — no waiting for September',
       'Diagnostic-first',
@@ -79,7 +84,7 @@ export const MATH_HUB_COPY = {
     cards: [
       {
         id: 'elementary',
-        path: '/courses/math/elementary',
+        path: MATH_COURSE_PATHS.elementary,
         gradeTag: 'Grades 1–5',
         heading: 'Elementary math',
         tagline: 'Number sense, fractions, and reasoning — before the gaps compound.',
@@ -101,12 +106,13 @@ export const MATH_HUB_COPY = {
       },
       {
         id: 'middle-school',
-        path: '/courses/math/middle-school',
+        path: MATH_COURSE_PATHS.middleSchool,
         gradeTag: 'Grades 6–8',
         heading: 'Middle school math',
         tagline: 'Pre-Algebra, IM1, IM2 — including accelerated curriculum tracks.',
         description:
           'The jump into Integrated Math catches many students off guard. We close the gaps before they compound across the year.',
+        masteryLine: '5th & 7th grade district placement · Course 1/2, C1, C3, IM1',
         coursesIncluded: [
           'Pre-Algebra',
           'Integrated Math 1',
@@ -123,7 +129,7 @@ export const MATH_HUB_COPY = {
       },
       {
         id: 'high-school',
-        path: '/courses/math/high-school',
+        path: MATH_COURSE_PATHS.highSchool,
         gradeTag: 'Grades 9–12',
         heading: 'High school math',
         tagline: 'Algebra 2 through AP Calculus — course-specific, not general review.',
@@ -157,7 +163,7 @@ export const MATH_HUB_COPY = {
         resolution:
           "A gap from 12–18 months back that hasn't been named. We run a diagnostic before the first session to find it.",
         primaryCta: { label: 'Book free assessment', href: '/book-assessment' },
-        secondaryCta: { label: 'See rescue programs', href: '/courses/math' },
+        secondaryCta: { label: 'See rescue programs', href: '/academic/math' },
       },
       {
         id: 'harder-course-coming',
@@ -166,7 +172,7 @@ export const MATH_HUB_COPY = {
         resolution:
           "Placement doesn't guarantee readiness. We prep for the specific concepts the course assumes on week one.",
         primaryCta: { label: 'See Math Get Ready programs', href: '/camps/academic-summer-programs-dublin-ca' },
-        secondaryCta: { label: 'View 3-month packages', href: '/courses/math#packages' },
+        secondaryCta: { label: 'View 3-month packages', href: '/academic/math#packages' },
       },
       {
         id: 'gaps-unclear',
@@ -185,7 +191,7 @@ export const MATH_HUB_COPY = {
         resolution:
           'We work above grade level in a small group with peers at the same pace. No ceiling.',
         primaryCta: { label: 'Talk to an advisor', href: '/contact' },
-        secondaryCta: { label: 'View advanced programs', href: '/courses/math/high-school' },
+        secondaryCta: { label: 'View advanced programs', href: MATH_COURSE_PATHS.highSchool },
       },
       {
         id: 'year-round',
@@ -194,7 +200,7 @@ export const MATH_HUB_COPY = {
         resolution:
           '3-month rolling programs with monthly parent reports. Renew by quarter.',
         primaryCta: { label: 'Book free assessment', href: '/book-assessment' },
-        secondaryCta: { label: 'See year-round packages', href: '/courses/math#packages' },
+        secondaryCta: { label: 'See year-round packages', href: '/academic/math#packages' },
       },
     ] satisfies readonly MathHubJtbdSituation[],
   },
@@ -227,7 +233,7 @@ export const MATH_HUB_COPY = {
     cards: [
       {
         id: 'elementary',
-        path: '/courses/math/elementary',
+        path: MATH_COURSE_PATHS.elementary,
         heading: 'Elementary math',
         gradeRange: 'Grades 1–5',
         tracks: 'Beginner · Champ · Pro',
@@ -239,30 +245,52 @@ export const MATH_HUB_COPY = {
       },
       {
         id: 'middle-school',
-        path: '/courses/math/middle-school',
+        path: MATH_COURSE_PATHS.middleSchool,
         heading: 'Middle school math',
         gradeRange: 'Grades 6–8',
         tracks: 'IM1 · IM2 · Accelerated',
         ctaLabel: 'See full program',
         options: [
-          { name: '1 Subject', schedule: '75 min, once a week', price: '$179/mo' },
-          { name: '2 Subject', schedule: '2×60 min/week', price: '$289/mo' },
-          { name: 'Accelerated Math', schedule: '120 min/week', price: '$289/mo' },
+          {
+            name: '1 Subject',
+            schedule: '75 min/week',
+            price: '$179/mo',
+            bestFor: 'Students needing focused support in math only',
+          },
+          {
+            name: '2 Subject',
+            schedule: '2 × 60 min/week',
+            price: '$289/mo',
+            bestFor: 'Students needing math plus one additional subject',
+            featured: true,
+          },
+          {
+            name: 'Accelerated Math',
+            schedule: '120 min/week',
+            price: '$289/mo',
+            bestFor:
+              'Students on the accelerated track needing deeper curriculum coverage',
+          },
         ],
         includedBenefit:
           'Complimentary 60-minute weekly practice session included with every program',
       },
       {
         id: 'high-school',
-        path: '/courses/math/high-school',
+        path: MATH_COURSE_PATHS.highSchool,
         heading: 'High school math',
         gradeRange: 'Grades 9–12',
         tracks: 'Algebra 2 · AP Calc · SAT',
         ctaLabel: 'See full program',
         options: [
-          { name: '1 Subject', schedule: '75 min, once a week', price: '$189/mo' },
-          { name: '2 Subject', schedule: '2×60 min/week', price: '$369/mo' },
-          { name: 'AP Math', schedule: '120 min/week', price: '$376/mo' },
+          { name: '1 Subject', schedule: '75 min/week', price: '$189/mo' },
+          { name: '2 Subject', schedule: '2 × 60 min/week', price: '$369/mo' },
+          {
+            name: 'AP Math',
+            subtitle: '(100% School Aligned)',
+            schedule: '120 min/week',
+            price: '$376/mo',
+          },
         ],
         includedBenefit:
           'Complimentary 60-minute weekly practice session included with every program',
@@ -347,7 +375,7 @@ export type MathGradeBandStubCopy = {
 export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCopy> = {
   elementary: {
     id: 'elementary',
-    path: '/courses/math/elementary',
+    path: MATH_COURSE_PATHS.elementary,
     breadcrumbLabel: 'Elementary Math',
     h1: 'Elementary math programs — Grades 1–5',
     intro:
@@ -361,7 +389,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
   },
   'middle-school': {
     id: 'middle-school',
-    path: '/courses/math/middle-school',
+    path: MATH_COURSE_PATHS.middleSchool,
     breadcrumbLabel: 'Middle School Math',
     h1: 'Middle school math programs — Grades 6–8',
     intro: 'Pre-Algebra, IM1, IM2 — including accelerated curriculum tracks.',
@@ -374,7 +402,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
   },
   'high-school': {
     id: 'high-school',
-    path: '/courses/math/high-school',
+    path: MATH_COURSE_PATHS.highSchool,
     breadcrumbLabel: 'High School Math',
     h1: 'High school math programs — Grades 9–12',
     intro: 'Algebra 2 through AP Calculus — course-specific, not general review.',
@@ -388,28 +416,28 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
 };
 
 export const MATH_HUB_METADATA = {
-  '/courses/math': {
+  '/academic/math': {
     title: 'Math Tutoring Programs Online — Grades 1–12 | GrowWise',
     description:
       'Structured math programs for Grades 1–12. Live online small groups. Elementary, middle school, and high school tracks. 3-month curriculum packages. Book a free assessment.',
     keywords:
       'math tutoring online, online math program grades 1-12, elementary math tutoring, middle school math help, IM1 tutoring, high school math tutoring, AP calculus tutoring online, math small group online, 3-month math program, math tutoring small group',
   },
-  '/courses/math/elementary': {
+  '/academic/math/elementary': {
     title: 'Elementary Math Tutoring Online — Grades 1–5 | GrowWise',
     description:
       '3-month elementary math program for Grades 1–5. Number sense, fractions, operations, and word problems. Live online small groups. Book a free assessment.',
     keywords:
       'elementary math tutoring online, grades 1-5 math program, number sense tutoring, fractions tutoring online',
   },
-  '/courses/math/middle-school': {
+  '/academic/math/middle-school': {
     title: 'Middle School Math Tutoring — Grades 6–8 | GrowWise',
     description:
       'Middle school math programs for Grades 6–8. Pre-Algebra, Integrated Math 1 & 2. Live online small groups. 3-month curriculum. Book a free assessment.',
     keywords:
       'middle school math tutoring, IM1 tutoring, IM2 tutoring, pre-algebra tutoring online, grades 6-8 math program',
   },
-  '/courses/math/high-school': {
+  '/academic/math/high-school': {
     title: 'High School Math Tutoring Online — Grades 9–12 | GrowWise',
     description:
       'High school math programs: Algebra 2, Pre-Calculus, AP Calculus, AP Statistics, SAT Math. Course-specific 3-month programs. Book a free assessment.',

@@ -888,8 +888,8 @@ export default function BookAssessmentPage() {
           </h3>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
-              { href: publicPath('/courses/math', locale), label: 'K–12 Math Tutoring' },
-              { href: publicPath('/courses/high-school-math', locale), label: 'High School Math Tutoring' },
+              { href: publicPath('/academic/math', locale), label: 'K–12 Math Tutoring' },
+              { href: publicPath('/academic/math/high-school', locale), label: 'High School Math Tutoring' },
               { href: publicPath('/courses/sat-prep', locale), label: 'SAT Prep Tutoring' },
               { href: publicPath('/camps/summer', locale), label: 'Summer STEAM Camps 2026' },
               { href: publicPath('/camps/academic-summer-programs-dublin-ca', locale), label: 'Academic Summer Programs' },
@@ -1003,7 +1003,7 @@ export default function BookAssessmentPage() {
             </AlertDialogHeader>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card onClick={() => { router.push(publicPath('/courses/math', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
+              <Card onClick={() => { router.push(publicPath('/academic/math', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1F396D]/10 to-[#29335C]/15 opacity-60"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
                 <CardContent className="p-8 text-center flex flex-col items-center justify-between relative z-10 h-full">
@@ -1028,7 +1028,7 @@ export default function BookAssessmentPage() {
                 </CardContent>
               </Card>
 
-              <Card onClick={() => { router.push(publicPath('/courses/english', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
+              <Card onClick={() => { router.push(publicPath('/academic/english', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F16112]/10 to-[#F1894F]/15 opacity-60"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
                 <CardContent className="p-8 text-center flex flex-col items-center justify-between relative z-10 h-full">

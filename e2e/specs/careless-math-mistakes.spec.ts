@@ -13,7 +13,7 @@ test.describe('/resources/careless-math-mistakes', () => {
 
     await expect(page.locator('main a[href="/self-check"]').first()).toBeVisible()
     await expect(page.locator('main a[href="/book-assessment"]').first()).toBeVisible()
-    await expect(page.locator('main a[href="/courses/math"]').first()).toBeVisible()
+    await expect(page.locator('main a[href="/academic/math"]').first()).toBeVisible()
     await expect(page.locator('main a[href="/courses/sat-prep"]').first()).toBeVisible()
     await expect(page.locator('main a[href="/resources/homework-independence"]').first()).toBeVisible()
 

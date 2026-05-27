@@ -15,8 +15,8 @@
     {
       "title": "Programas",
       "links": [
-        { "label": "Math Tutoring · Grades 1–12", "href": "/courses/math", "active": true },
-        { "label": "English & Writing", "href": "/courses/english", "active": true },
+        { "label": "Math Tutoring · Grades 1–12", "href": "/academic/math", "active": true },
+        { "label": "English & Writing", "href": "/academic/english", "active": true },
         { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true },
         { "label": "Coding & AI · Ages 10–18", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "Summer Camps", "href": "/camps/summer", "active": true },

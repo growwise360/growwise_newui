@@ -1,7 +1,10 @@
-'use client'
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
+import { AcademicRedirectPage } from '@/lib/academic-redirect-page';
 
-import ElementaryMathPage from '@/components/ElementaryMathPage'
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
 
-export default function ElementaryMathPageRoute() {
-  return <ElementaryMathPage />
+export default function CoursesElementaryMathRedirectPage(props: PageProps) {
+  return <AcademicRedirectPage {...props} targetPath={MATH_COURSE_PATHS.elementary} />;
 }

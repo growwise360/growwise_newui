@@ -10,15 +10,15 @@ const FAQ_ROUTES = [
   '/academic',
   '/steam',
   '/programs',
-  '/courses/math',
-  '/courses/english',
+  '/academic/math',
+  '/academic/english',
   '/dublin-ca',
   '/resources/careless-math-mistakes',
   '/camps/summer',
   `/camps/${getCampSlugs()[0]}`,
 ] as const
 
-const CRITICAL_FAQ_ROUTES = ['/', '/courses/math'] as const
+const CRITICAL_FAQ_ROUTES = ['/', '/academic/math'] as const
 
 for (const path of FAQ_ROUTES) {
   const tags = CRITICAL_FAQ_ROUTES.includes(path as (typeof CRITICAL_FAQ_ROUTES)[number])

@@ -1,6 +1,6 @@
 import type { FAQItem } from '@/components/schema/FAQSchema'
 
-/** Visible accordion FAQs on /courses/math/elementary — single source for UI + JSON-LD in layout */
+/** Visible accordion FAQs on /academic/math/elementary — single source for UI + JSON-LD in layout */
 export const ELEMENTARY_MATH_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What grades does the elementary math program cover?',

@@ -1,22 +1,24 @@
 import { Metadata } from 'next'
 import FAQSchema from '@/components/schema/FAQSchema'
-import { ELEMENTARY_MATH_VISIBLE_FAQS } from '@/lib/schema/elementary-math-faqs'
+import { MIDDLE_SCHOOL_MATH_VISIBLE_FAQS } from '@/lib/schema/middle-school-math-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
+import { getMathHubSchemaOfferPrice } from '@/lib/math-pricing-display'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   return (
-    generateMetadataFromPath('/courses/math/elementary', locale) ?? {
-      title: 'Elementary Math Tutoring Grades 1–5 | GrowWise',
-      description: 'Structured math programs for Grades 1–5. Diagnostic-first. Live online small groups.',
+    generateMetadataFromPath('/academic/math/middle-school', locale) ?? {
+      title: 'Middle School Math Tutoring — IM1, IM2 | GrowWise',
+      description:
+        'Grades 6–8 math: Course 1 through IM2. Standard and accelerated tracks. Live online small groups. Free 45-minute assessment.',
     }
   )
 }
 
-export default async function ElementaryMathLayout({
+export default async function MiddleSchoolMathLayout({
   children,
   params,
 }: {
@@ -27,26 +29,25 @@ export default async function ElementaryMathLayout({
   const baseUrl = getCanonicalSiteUrl()
 
   const courseSchema = generateCourseSchema({
-    name: 'Elementary Math Foundation — Grades 1–5',
+    name: 'Middle School Math Program — Grades 6–8',
     description:
-      'Structured 3-month math programs for Grades 1–5. Covers number sense, place value, fractions, decimal operations, and multi-step word problem reasoning. Live online small groups of 6–10 students. Diagnostic-first.',
+      'Structured math programs for Grades 6–8. School district placement prep for Course 1/2, Course 1, Course 3, and Integrated Math 1–2. Live online small groups. Diagnostic-first course matching.',
     provider: 'GrowWise',
-    educationalLevel: 'Grades 1–5',
+    educationalLevel: 'Grades 6–8',
     teaches: [
-      'Number sense and place value',
-      'Addition and subtraction with understanding',
-      'Multiplication and division fluency',
-      'Fractions as numbers on a number line',
-      'Equivalent fractions',
-      'Multi-step word problems',
-      'Decimal operations',
-      'Order of operations',
+      'Ratios and proportional reasoning',
+      'Pre-Algebra',
+      'Integrated Math 1',
+      'Integrated Math 2',
+      'Linear equations and systems',
+      'Quadratic functions',
+      'Middle school geometry and statistics',
     ],
-    coursePrerequisites: 'Grades 1–5 elementary school level',
-    url: absoluteSiteUrl('/courses/math/elementary', locale, baseUrl),
+    coursePrerequisites: 'Grades 6–8 middle school level',
+    url: absoluteSiteUrl('/academic/math/middle-school', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {
-      price: '349',
+      price: getMathHubSchemaOfferPrice('middle-school'),
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
@@ -56,8 +57,8 @@ export default async function ElementaryMathLayout({
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
     { name: 'Academic', url: absoluteSiteUrl('/academic', locale, baseUrl) },
-    { name: 'Math Programs', url: absoluteSiteUrl('/courses/math', locale, baseUrl) },
-    { name: 'Elementary Math', url: absoluteSiteUrl('/courses/math/elementary', locale, baseUrl) },
+    { name: 'Math Programs', url: absoluteSiteUrl('/academic/math', locale, baseUrl) },
+    { name: 'Middle School Math', url: absoluteSiteUrl('/academic/math/middle-school', locale, baseUrl) },
   ])
 
   return (
@@ -70,7 +71,7 @@ export default async function ElementaryMathLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <FAQSchema faqs={ELEMENTARY_MATH_VISIBLE_FAQS} />
+      <FAQSchema faqs={MIDDLE_SCHOOL_MATH_VISIBLE_FAQS} />
       {children}
     </>
   )

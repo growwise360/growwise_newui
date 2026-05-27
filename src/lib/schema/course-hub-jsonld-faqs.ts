@@ -32,7 +32,7 @@ export const ENGLISH_COURSE_FAQ_JSONLD: FAQItem[] = [
   },
 ]
 
-/** Visible accordion FAQs on /courses/math — single source for UI + merged JSON-LD in layout */
+/** Visible accordion FAQs on /academic/math — single source for UI + merged JSON-LD in layout */
 export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What math courses do you offer at GrowWise?',
@@ -70,7 +70,7 @@ export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   },
 ]
 
-/** Visible accordion FAQs on /courses/english */
+/** Visible accordion FAQs on /academic/english */
 export const ENGLISH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What English courses do you offer at GrowWise?',
@@ -182,26 +182,8 @@ export const HIGH_SCHOOL_MATH_FAQ_JSONLD: FAQItem[] = [
   },
 ]
 
-/** Visible accordion + JSON-LD on /courses/high-school-math — single source */
-export const HS_MATH_VISIBLE_FAQS: FAQItem[] = [
-  {
-    question:
-      'My child is lost in Algebra or Geometry — how is targeted tutoring different from just sitting with them and doing the homework?',
-    answer:
-      "Targeted tutoring addresses the concept your child does not understand, not just tonight's problem set. GrowWise high school math covers Algebra I, Geometry, Algebra II, and Precalculus for Grades 9 through 12. Sessions begin with a free assessment that identifies whether the issue is in the current unit, a gap from a previous course, or a missing prerequisite skill.",
-  },
-  {
-    question:
-      'My child is in an honours math class and still struggling — is that something tutoring can help with?',
-    answer:
-      'Struggling in an honours course does not mean the student is in the wrong class. It often means the pace is faster than the student can absorb independently. GrowWise high school math sessions provide focused time on specific concepts that large classroom settings cannot. The free assessment identifies which concepts need reinforcing.',
-  },
-  {
-    question: 'Can GrowWise help my child prepare for Precalculus before the next school year starts?',
-    answer:
-      'Yes. GrowWise Precalculus support is available through the high school math program. Students preparing for a harder course can use the period between school years to build the skills they will need. The free assessment sets the right starting point.',
-  },
-]
+/** @deprecated Import from `@/lib/schema/high-school-math-faqs` */
+export { HS_MATH_VISIBLE_FAQS } from '@/lib/schema/high-school-math-faqs'
 
 /** Visible accordion + JSON-LD on /steam/ml-ai-coding — single source */
 export const ML_AI_CODING_FAQ_JSONLD: FAQItem[] = [

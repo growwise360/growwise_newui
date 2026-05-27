@@ -6,8 +6,8 @@ import { test, expect } from '@playwright/test';
  */
 const MARKETING_ROUTES = [
   '/book-assessment',
-  '/courses/math',
-  '/courses/english',
+  '/academic/math',
+  '/academic/english',
   '/courses/sat-prep',
   '/self-check',
   '/academic',

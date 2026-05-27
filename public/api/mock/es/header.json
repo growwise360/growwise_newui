@@ -35,18 +35,63 @@
           {
             "key": "math",
             "title": "Mathematics",
-            "description": "Master mathematics from basics to advanced",
+            "description": "School-aligned math support from foundations to advanced tracks.",
             "icon": "Calculator",
-            "href": "/courses/math",
-            "gradient": "from-[#1F396D] to-[#29335C]"
+            "href": "/academic/math",
+            "gradient": "from-[#1F396D] to-[#29335C]",
+            "hasSubmenu": true,
+            "submenuHeaderTitle": "Mathematics",
+            "submenuHeaderSubtitle": "Grades 1–12 math programs",
+            "submenuItems": [
+              {
+                "key": "elementary-math",
+                "title": "Elementary Math",
+                "description": "Grades 1–5 foundations, problem solving, and confidence building.",
+                "icon": "Calculator",
+                "href": "/academic/math/elementary",
+                "gradient": "from-[#1F396D] to-[#29335C]"
+              },
+              {
+                "key": "middle-school-math",
+                "title": "Middle School Math",
+                "description": "Grades 6–8, Course 1–3, accelerated math, IM1, and IM2.",
+                "icon": "BookOpen",
+                "href": "/academic/math/middle-school",
+                "gradient": "from-[#1F396D] to-[#F16112]"
+              },
+              {
+                "key": "high-school-math",
+                "title": "High School Math",
+                "description": "Algebra, Geometry, Algebra II, Precalculus, Calculus, and Statistics.",
+                "icon": "GraduationCap",
+                "href": "/academic/math/high-school",
+                "gradient": "from-[#29335C] to-[#1F396D]"
+              }
+            ]
           },
           {
             "key": "english",
             "title": "English",
-            "description": "Comprehensive English language arts",
+            "description": "Reading, writing, grammar, vocabulary, and comprehension.",
             "icon": "BookOpen",
-            "href": "/courses/english",
+            "href": "/academic/english",
             "gradient": "from-[#F16112] to-[#F1894F]"
+          },
+          {
+            "key": "satPrep",
+            "title": "SAT Prep",
+            "description": "Comprehensive SAT test preparation",
+            "icon": "Target",
+            "href": "/courses/sat-prep",
+            "gradient": "from-[#29335C] to-[#F16112]"
+          },
+          {
+            "key": "bookAssessment",
+            "title": "Book Assessment",
+            "description": "Schedule academic evaluation and get insights",
+            "icon": "BookMarked",
+            "href": "/book-assessment",
+            "gradient": "from-[#F16112] to-[#1F396D]"
           }
         ]
       }
@@ -180,7 +225,7 @@
         "title": "Mathematics",
         "description": "Master mathematics from basics to advanced",
         "icon": "Calculator",
-        "href": "/courses/math",
+        "href": "/academic/math",
         "gradient": "from-[#1F396D] to-[#29335C]"
       },
       {
@@ -188,7 +233,7 @@
         "title": "English",
         "description": "Comprehensive English language arts",
         "icon": "BookOpen",
-        "href": "/courses/english",
+        "href": "/academic/english",
         "gradient": "from-[#F16112] to-[#F1894F]"
       }
     ]

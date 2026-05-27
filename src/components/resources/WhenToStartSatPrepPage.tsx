@@ -14,10 +14,10 @@ export function WhenToStartSatPrepPage() {
   const locale = useLocale()
   const satPrepHref = publicPath('/courses/sat-prep', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
-  const mathCoursesHref = publicPath('/courses/math', locale)
+  const mathCoursesHref = publicPath('/academic/math', locale)
   const mathFoundationsHref = publicPath('/camps/summer-math-foundations-dublin-ca', locale)
   const algebraGetReadyHref = publicPath('/camps/summer-algebra-dublin-ca', locale)
-  const highSchoolMathHref = publicPath('/courses/high-school-math', locale)
+  const highSchoolMathHref = publicPath('/academic/math/high-school', locale)
 
   return (
     <ResourceArticlePage

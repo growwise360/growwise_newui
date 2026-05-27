@@ -14,9 +14,7 @@ import {
   Brain,
   TrendingUp,
   Clock,
-  Star,
   Phone,
-  Sparkles,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -25,6 +23,10 @@ import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { CourseFAQ } from '@/components/seo/CourseFAQ'
 import FreeAssessmentModal from '@/components/FreeAssessmentModal'
 import { ELEMENTARY_MATH_VISIBLE_FAQS } from '@/lib/schema/elementary-math-faqs'
+import { ELEMENTARY_TRIAL } from '@/lib/math-program-trial-copy'
+import { MathTrialSection } from '@/components/courses/MathTrialSection'
+import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection'
+import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { useLocale } from 'next-intl'
 
@@ -254,8 +256,8 @@ const ElementaryMathPage: React.FC = () => {
         noSchema
         items={[
           { name: 'Academic', url: absoluteSiteUrl('/academic', locale) },
-          { name: 'Math Programs', url: absoluteSiteUrl('/courses/math', locale) },
-          { name: 'Elementary Math', url: absoluteSiteUrl('/courses/math/elementary', locale) },
+          { name: 'Math Programs', url: absoluteSiteUrl('/academic/math', locale) },
+          { name: 'Elementary Math', url: absoluteSiteUrl('/academic/math/elementary', locale) },
         ]}
       />
 
@@ -507,87 +509,19 @@ const ElementaryMathPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── SECTION 5: Program details ───────────────── */}
-      <section className="bg-white py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">Program details</p>
-          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-8">
-            Elementary Math Foundation — 3-Month Program
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <p className="font-semibold text-gray-800 mb-4">What's included:</p>
-              <ul className="space-y-3">
-                {PROGRAM_INCLUDES.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-gray-700 text-sm">
-                    <CheckCircle className="h-4 w-4 mt-0.5 text-[#F16112] shrink-0" aria-hidden />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="font-semibold text-gray-800 mb-4">At the end of 3 months, your child should:</p>
-              <ul className="space-y-3 mb-8">
-                {PROGRAM_OUTCOMES.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-gray-700 text-sm">
-                    <Star className="h-4 w-4 mt-0.5 text-[#F16112] shrink-0" aria-hidden />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Pricing table */}
-              <div className="rounded-xl border border-[#F16112]/20 bg-orange-50 p-5">
-                <p className="text-2xl font-bold text-[#F16112] mb-1">From $169/month</p>
-                <p className="text-sm text-gray-600 mb-4">Billed monthly · 3-month minimum</p>
-
-                <div className="space-y-2 mb-4">
-                  {/* 1 Subject */}
-                  <div className="flex items-center justify-between bg-white rounded-lg px-4 py-3 border border-gray-100">
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">1 Subject</p>
-                      <p className="text-xs text-gray-500">75 min/week</p>
-                    </div>
-                    <p className="font-bold text-[#F16112]">$169/mo</p>
-                  </div>
-                  {/* 2 Subject */}
-                  <div className="flex items-center justify-between bg-white rounded-lg px-4 py-3 border border-gray-100 relative">
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">2 Subject</p>
-                      <p className="text-xs text-gray-500">2 × 60 min/week</p>
-                    </div>
-                    <p className="font-bold text-[#F16112]">$279/mo</p>
-                  </div>
-                  {/* Academic + Coding */}
-                  <div className="flex items-center justify-between bg-white rounded-lg px-4 py-3 border border-gray-100">
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">Academic + Coding</p>
-                      <p className="text-xs text-gray-500">2 × 60 min/week</p>
-                    </div>
-                    <p className="font-bold text-[#F16112]">$279/mo</p>
-                  </div>
-                </div>
-
-                {/* FIX 3 — Urgency badge */}
-                <div className="flex items-center gap-1.5 mb-4">
-                  <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
-                    <Sparkles className="h-3 w-3" aria-hidden />
-                    No registration fee through July 2026
-                  </span>
-                </div>
-
-                <Button
-                  onClick={openAssessment}
-                  className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full w-full font-semibold"
-                >
-                  Book free 45-min assessment
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <MathProgramDetailsSection
+        sectionLabel="Program details"
+        heading="Elementary Math Foundation — 3-Month Program"
+        includes={PROGRAM_INCLUDES}
+        outcomes={PROGRAM_OUTCOMES}
+        fromMonthlyLabel="From $169/month"
+        tiers={[
+          { name: '1 Subject', schedule: '75 min/week', price: '$169/mo' },
+          { name: '2 Subject', schedule: '2 × 60 min/week', price: '$279/mo' },
+          { name: 'Academic + Coding', schedule: '2 × 60 min/week', price: '$279/mo' },
+        ]}
+        onBookAssessment={openAssessment}
+      />
 
       {/* ── SECTION 6: Not homework help ─────────────── */}
       <section className="bg-[#1F396D] py-16 lg:py-20 text-white">
@@ -652,7 +586,7 @@ const ElementaryMathPage: React.FC = () => {
               </p>
             </div>
             <Link
-              href={publicPath('/courses/math/middle-school', locale)}
+              href={publicPath('/academic/math/middle-school', locale)}
               className="shrink-0 inline-flex items-center gap-1.5 rounded-full border-2 border-[#F16112] px-5 py-2.5 text-sm font-semibold text-[#F16112] hover:bg-[#F16112]/5 transition-colors whitespace-nowrap"
             >
               See middle school math
@@ -661,6 +595,8 @@ const ElementaryMathPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <MathParentGuidesSection locale={locale} pageId="elementary" />
 
       {/* ── SECTION 9: FAQ ───────────────────────────── */}
       <section className="bg-white py-16 lg:py-20">
@@ -674,71 +610,7 @@ const ElementaryMathPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── SECTION 10: Paid trial ───────────────────── */}
-      <section className="bg-[#ebebeb] py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">Try before you commit</p>
-          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-5">
-            Not sure yet? Start with a single session.
-          </h2>
-          <p className="text-gray-600 leading-relaxed mb-8 max-w-2xl">
-            A lot can show up in one well-structured session. Your child works through problems with the instructor. We identify where reasoning breaks down and where it is solid. You leave with a clear picture of what needs work — and whether GrowWise is the right fit.
-          </p>
-
-          {/* Trial card */}
-          <div className="rounded-xl border-2 border-[#1F396D]/20 bg-white p-6 lg:p-8 mb-6 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-              <div>
-                <p className="font-bold text-gray-800 text-lg mb-1">Trial session — Grades 1–5</p>
-                <p className="text-gray-500 text-sm">One session · 60 minutes</p>
-              </div>
-              <div className="text-right shrink-0">
-                <p className="text-3xl font-bold text-[#1F396D]">$45</p>
-                <p className="text-xs text-green-600 font-semibold mt-0.5">Fee fully waived when you enroll within 7 days.</p>
-              </div>
-            </div>
-
-            <p className="text-sm font-semibold text-gray-700 mb-3">What happens in the trial:</p>
-            <ul className="space-y-2 mb-6">
-              {[
-                'Instructor works through grade-level problems with your child',
-                'Identifies the primary gap and specific mistake patterns',
-                'Parent debrief at the end — what we found, what we would focus on, which program fits',
-                'No pressure, no obligation',
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
-                  <CheckCircle className="h-4 w-4 mt-0.5 text-[#1F396D] shrink-0" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <p className="text-sm text-gray-700 font-semibold mb-6 border-l-4 border-[#F16112] pl-4">
-              The $45 is not a deposit. It is a session fee — for a real session, with a real instructor, producing a real result. If you enroll within 7 days, it is credited in full toward your first month.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href={publicPath('/enroll-academic', locale)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-6 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
-              >
-                Book a trial session — $45
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link
-                href={publicPath('/book-assessment', locale)}
-                className="inline-flex items-center justify-center text-sm font-medium text-[#1F396D] hover:text-[#F16112] underline underline-offset-4 px-4 py-3 transition-colors"
-              >
-                Or start with the free 45-min assessment first
-              </Link>
-            </div>
-
-            <p className="text-xs text-gray-400 mt-4">
-              Trial fee applies to Grades 1–8. Fee waived upon enrollment within 7 days of trial session.
-            </p>
-          </div>
-        </div>
-      </section>
+      <MathTrialSection config={ELEMENTARY_TRIAL} locale={locale} />
 
       {/* ── SECTION 11: CTA block ────────────────────── */}
       <section className="bg-gradient-to-br from-[#1F396D] to-[#29335C] py-16 lg:py-24 text-white text-center">

@@ -426,6 +426,7 @@ html {
   margin: 0 auto;
   text-align: center;
   position: relative;
+  z-index: 1;
 }
 
 .hero-trust-line {
@@ -990,6 +991,10 @@ html {
   .hero-sub-slide,
   .hero-cta-slide {
     transition: none;
+  }
+
+  .smoke-cursor-layer {
+    display: none !important;
   }
 }
 

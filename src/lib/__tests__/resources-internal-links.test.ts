@@ -55,7 +55,7 @@ describe('resources internal links', () => {
     expectContainsHrefs(source, [
       '/camps/summer-math-foundations-dublin-ca',
       '/camps/summer-algebra-dublin-ca',
-      '/courses/high-school-math',
+      '/academic/math/high-school',
     ]);
   });
 
@@ -73,7 +73,7 @@ describe('resources internal links', () => {
   });
 
   it('links courses/english to reading-fluency-vs-comprehension', () => {
-    const source = readComponent('app/[locale]/courses/english/page.tsx');
+    const source = readComponent('app/[locale]/academic/english/page.tsx');
     expect(source).toContain('/resources/reading-fluency-vs-comprehension');
   });
 

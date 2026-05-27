@@ -27,7 +27,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
   const allItems = [
     {
       id: 'math',
-      href: publicPath('/courses/math', locale),
+      href: publicPath('/academic/math', locale),
       title: 'Math Courses',
       description: 'Comprehensive Grades 1-12 math courses: Grade-level, Accelerated, and Integrated Math programs.',
       icon: Calculator,
@@ -38,7 +38,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
     },
     {
       id: 'english',
-      href: publicPath('/courses/english', locale),
+      href: publicPath('/academic/english', locale),
       title: 'English Courses',
       description: 'Comprehensive English Language Arts programs for Grades 1-12 students. Reading, writing, and grammar.',
       icon: BookOpen,
@@ -60,7 +60,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
     },
     {
       id: 'high-school-math',
-      href: publicPath('/courses/high-school-math', locale),
+      href: publicPath('/academic/math/high-school', locale),
       title: 'High School Math',
       description: 'Advanced math courses including Algebra, Geometry, Pre-Calculus, and Calculus.',
       icon: GraduationCap,

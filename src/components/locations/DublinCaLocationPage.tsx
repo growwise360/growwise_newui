@@ -58,11 +58,11 @@ function DublinCaFaqAnswer({ question, locale }: { question: string; locale: str
     return (
       <>
         GrowWise supports students in Grades 1–12 at our Dublin center. Programs include{' '}
-        <Link href={publicPath('/courses/math', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+        <Link href={publicPath('/academic/math', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
           math tutoring
         </Link>
         ,{' '}
-        <Link href={publicPath('/courses/english', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+        <Link href={publicPath('/academic/english', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
           English &amp; writing
         </Link>
         ,{' '}

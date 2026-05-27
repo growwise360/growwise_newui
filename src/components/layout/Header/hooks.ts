@@ -2,6 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import { DropdownState } from './types';
 import { DROPDOWN_CLOSE_DELAY } from './constants';
 
+/** When a parent flyout closes, these nested submenu keys close too. */
+const NESTED_SUBMENU_CHILDREN: Record<string, readonly string[]> = {};
+
+export function submenuKeysToClose(key: string): string[] {
+  return [key, ...(NESTED_SUBMENU_CHILDREN[key] ?? [])];
+}
+
 export function useDropdownState() {
   const [openDropdowns, setOpenDropdowns] = useState<DropdownState>({});
   const [openSubmenus, setOpenSubmenus] = useState<DropdownState>({});
@@ -23,7 +30,7 @@ export function useDropdownState() {
     clearTimeoutRef(key);
     dropdownTimeouts.current[key] = window.setTimeout(() => {
       setOpenDropdowns(prev => ({ ...prev, [key]: false }));
-      setOpenSubmenus(prev => ({ ...prev, [key]: false }));
+      setOpenSubmenus({});
     }, DROPDOWN_CLOSE_DELAY);
   };
 
@@ -36,44 +43,40 @@ export function useDropdownState() {
   };
 
   const openSubmenu = (key: string) => {
-    // Clear any existing timeouts for submenus
-    Object.keys(dropdownTimeouts.current).forEach(timeoutKey => {
-      if (timeoutKey.startsWith('submenu-')) {
-        clearTimeoutRef(timeoutKey);
-      }
+    clearTimeoutRef(`submenu-${key}`);
+    submenuKeysToClose(key).forEach((nestedKey) => {
+      clearTimeoutRef(`submenu-${nestedKey}`);
     });
-    
-    setOpenSubmenus(prev => {
-      // Close all other submenus and open the new one
-      const newState: DropdownState = {};
-      newState[key] = true;
-      return newState;
-    });
+
+    setOpenSubmenus((prev) => ({ ...prev, [key]: true }));
   };
 
   const closeSubmenu = (key: string) => {
-    setOpenSubmenus(prev => ({ ...prev, [key]: false }));
+    setOpenSubmenus((prev) => {
+      const next = { ...prev };
+      submenuKeysToClose(key).forEach((k) => {
+        next[k] = false;
+      });
+      return next;
+    });
   };
 
   const scheduleCloseSubmenu = (key: string) => {
     const timeoutKey = `submenu-${key}`;
     clearTimeoutRef(timeoutKey);
     dropdownTimeouts.current[timeoutKey] = window.setTimeout(() => {
-      setOpenSubmenus(prev => ({ ...prev, [key]: false }));
-    }, 100); // Small delay to allow for smooth transitions
+      setOpenSubmenus((prev) => {
+        const next = { ...prev };
+        submenuKeysToClose(key).forEach((k) => {
+          next[k] = false;
+        });
+        return next;
+      });
+    }, DROPDOWN_CLOSE_DELAY);
   };
 
   const toggleSubmenu = (key: string) => {
-    setOpenSubmenus(prev => {
-      // If the current submenu is open, close it
-      if (prev[key]) {
-        return { ...prev, [key]: false };
-      }
-      // Otherwise, close all other submenus and open this one
-      const newState: DropdownState = {};
-      newState[key] = true;
-      return newState;
-    });
+    setOpenSubmenus((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const closeAllDropdowns = () => {
