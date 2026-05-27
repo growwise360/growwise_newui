@@ -9,6 +9,7 @@ import { LEGACY_PATH_REDIRECTS } from '../legacy-path-redirects'
 import { buildCarelessMathMistakesPageGraphSchema } from '@/lib/schema/careless-math-mistakes-jsonld'
 import { buildPythonVsScratchPageGraphSchema } from '@/lib/schema/python-vs-scratch-jsonld'
 import { buildDublinCaPageGraphSchema } from '@/lib/schema/dublin-ca-local-business-jsonld'
+import { buildFromNextdoorPageGraphSchema } from '@/lib/schema/from-nextdoor-jsonld'
 import { buildTutoringDublinCaArticleGraphSchema } from '@/lib/schema/tutoring-dublin-ca-jsonld'
 import { buildHomeworkIndependencePageGraphSchema } from '@/lib/schema/homework-independence-jsonld'
 import { buildWhenToStartSatPrepPageGraphSchema } from '@/lib/schema/when-to-start-sat-prep-jsonld'
@@ -73,6 +74,10 @@ const ROUTE_JSON_LD_AUDIT: Array<{ route: string; schemas: unknown[] }> = [
   {
     route: '/dublin-ca',
     schemas: [buildDublinCaPageGraphSchema(BASE, LOCALE)],
+  },
+  {
+    route: '/from-nextdoor',
+    schemas: [buildFromNextdoorPageGraphSchema(BASE, LOCALE)],
   },
   {
     route: '/resources/tutoring-dublin-ca',

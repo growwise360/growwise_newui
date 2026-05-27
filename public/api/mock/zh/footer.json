@@ -43,6 +43,7 @@
         { "label": "Book Free Assessment →", "href": "/book-assessment", "active": true, "highlight": true },
         { "label": "Free Diagnostic Tool →", "href": "/self-check", "active": true, "highlight": true },
         { "label": "关于 GrowWise", "href": "/about", "active": true },
+        { "label": "Dublin 邻里推荐", "href": "/from-nextdoor", "active": true },
         { "label": "Blog", "href": "/growwise-blogs", "active": true },
         { "label": "联系我们", "href": "/contact", "active": true },
         { "label": "Student Login", "href": "/student-login", "active": true },

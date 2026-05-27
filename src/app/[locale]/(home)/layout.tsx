@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 import { getValidLocale } from '@/i18n/localeConfig';
+import FounderSchema from '@/components/seo/FounderSchema';
 import HomeGraphSchema from '@/components/seo/HomeGraphSchema';
 
 export async function generateMetadata({
@@ -54,6 +55,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <HomeGraphSchema />
+      <FounderSchema />
       {children}
     </>
   );
