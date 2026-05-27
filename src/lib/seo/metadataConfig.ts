@@ -83,12 +83,39 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/courses/math': {
-    title: 'K-12 Math Tutoring in Dublin, CA | GrowWise',
+    title: 'Math Tutoring Programs Online — Grades 1–12 | GrowWise',
     description:
-      'Expert math tutoring for Grades 1-12 in Dublin, CA. Elementary to AP-level. DUSD-aligned, small groups, personalized plans. Book your free assessment.',
+      'Structured math programs for Grades 1–12. Live online small groups. Elementary, middle school, and high school tracks. Book a free assessment.',
     keywords:
-      'math tutoring Dublin CA, math tutor Dublin, Grades 1-12 math courses, grade-level math, accelerated math, integrated math, DUSD math, PUSD math, algebra tutoring, geometry tutoring, pre-calculus, elementary math, middle school math, high school math, math classes Dublin CA, math enrichment Dublin CA, DUSD accelerated math, math help Dublin, math tutoring near me',
+      'math tutoring online, online math program grades 1-12, elementary math tutoring, middle school math help, IM1 tutoring, high school math tutoring, AP calculus tutoring online, math small group online, 3-month math program, math tutoring small group',
     path: '/courses/math',
+  },
+
+  '/courses/math/elementary': {
+    title: 'Elementary Math Tutoring Online — Grades 1–5 | GrowWise',
+    description:
+      'Structured math programs for Grades 1–5. Number sense, fractions, word problem reasoning. Live online small groups. Diagnostic-first. 3-month programs.',
+    keywords:
+      'elementary math tutoring online, grade 1-5 math help, fractions tutoring grade 4, math word problem help elementary, grade 3 math struggles, place value tutoring, elementary math small group online, math program grades 1 5',
+    path: '/courses/math/elementary',
+  },
+
+  '/courses/math/middle-school': {
+    title: 'Middle School Math Tutoring — Grades 6–8 | GrowWise',
+    description:
+      'Middle school math programs for Grades 6–8. Pre-Algebra, Integrated Math 1 & 2. Live online small groups. 3-month curriculum. Book a free assessment.',
+    keywords:
+      'middle school math tutoring, IM1 tutoring, IM2 tutoring, pre-algebra tutoring online, grades 6-8 math program',
+    path: '/courses/math/middle-school',
+  },
+
+  '/courses/math/high-school': {
+    title: 'High School Math Tutoring Online — Grades 9–12 | GrowWise',
+    description:
+      'High school math programs: Algebra 2, Pre-Calculus, AP Calculus, AP Statistics, SAT Math. Course-specific 3-month programs. Book a free assessment.',
+    keywords:
+      'high school math tutoring online, AP calculus tutoring, algebra 2 tutoring, SAT math prep online, grades 9-12 math program',
+    path: '/courses/math/high-school',
   },
 
   '/courses/english': {
