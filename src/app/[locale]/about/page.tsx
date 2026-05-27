@@ -1,4 +1,5 @@
 import About from '@/components/sections/About'
+import FounderSchema from '@/components/seo/FounderSchema'
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { ABOUT_FAQS } from '@/data/about-faqs'
@@ -55,6 +56,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFAQPageSchema(ABOUT_FAQS)) }}
       />
+      <FounderSchema />
       <About />
     </>
   )

@@ -12,7 +12,6 @@ import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { 
   Star, 
-  CheckCircle, 
   MapPin, 
   Phone, 
   Mail, 
@@ -23,7 +22,9 @@ import { getIconComponent } from '@/lib/iconMap';
 import { useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchAboutRequested } from '@/store/slices/aboutSlice';
-import TestimonialsWithBackend from './TestimonialsWithBackend';
+import { FounderSection } from './about/FounderSection';
+import { ParentTestimonialsSection } from './about/ParentTestimonialsSection';
+import { TeamSection } from './about/TeamSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { ABOUT_FAQS } from "@/data/about-faqs";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
@@ -55,8 +56,6 @@ export default function About() {
 
   // Community involvement - Removed Scholarship Programs
   const communityImpact = about?.communityImpact ?? [];
-
-  const testimonials = about?.testimonials ?? [];
 
   return (
     <div className="min-h-screen section-gray">
@@ -255,65 +254,9 @@ export default function About() {
         </div>
       </section>
 
-      {/* Meet Our Founder Section */}
-      <section className="section-base section-gray">
-        <div className="max-w-7xl mx-auto">
-          <div className="center-text mb-12">
-            <h2 className="title-section mb-4">{t('founder.title')}</h2>
-            <p className="subtitle-sm max-w-3xl mx-auto">{t('founder.subtitle')}</p>
-          </div>
-          
-          <div className="flex justify-center">
-            {teamMembers.length > 0 && (() => {
-              const founder = teamMembers[0]; // Get the first team member (founder)
-              return (
-                <Card 
-                  className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 group max-w-2xl w-full"
-                >
-                  <CardContent className="p-8 md:p-12">
-                    <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                      <div className="relative flex-shrink-0">
-                        <img
-                          src={founder.image}
-                          alt={founder.name}
-                          className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-lg group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#F16112] rounded-full flex items-center justify-center shadow-lg">
-                          <CheckCircle className="w-5 h-5 text-white" />
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1 text-center md:text-left">
-                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{founder.name}</h3>
-                        <p className="text-[#F16112] font-semibold text-lg mb-4">{founder.role}</p>
-                        <p className="text-gray-600 mb-6 leading-relaxed">{founder.bio}</p>
-                        
-                        {founder.education && (
-                          <div className="mb-6">
-                            <p className="text-sm font-semibold text-gray-700 mb-2">Education:</p>
-                            <p className="text-sm text-gray-600">{founder.education}</p>
-                          </div>
-                        )}
-                        
-                        <div className="space-y-3">
-                          <div className="text-sm font-semibold text-gray-700">Expertise:</div>
-                          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                            {founder.expertise.map((skill, skillIndex) => (
-                              <Badge key={skillIndex} className="bg-[#1F396D]/10 text-[#1F396D] text-sm px-3 py-1">
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })()}
-          </div>
-        </div>
-      </section>
+      <FounderSection founder={teamMembers[0]} />
+
+      <TeamSection members={teamMembers.slice(1)} />
 
       {/* Community Impact Section - Now with 3 items */}
       <section className="section-base section-white">
@@ -342,8 +285,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <TestimonialsWithBackend />
+      <ParentTestimonialsSection />
 
       {/* Location & Contact Info */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#1F396D]">
