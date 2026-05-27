@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
+import { MATH_COURSE_PATHS } from '../../src/lib/math-course-paths';
+
+function pathPattern(suffix: string): RegExp {
+  return new RegExp(`${suffix.replace(/\//g, '\\/')}$`);
+}
 
 test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
   test('/academic/math shows hub H1 and grade-band CTAs', async ({ page }) => {
@@ -14,15 +19,15 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
 
     await expect(page.getByRole('link', { name: 'See elementary programs' })).toHaveAttribute(
       'href',
-      /\/courses\/math\/elementary/,
+      pathPattern(MATH_COURSE_PATHS.elementary),
     );
     await expect(page.getByRole('link', { name: 'See middle school programs' })).toHaveAttribute(
       'href',
-      /\/courses\/math\/middle-school/,
+      pathPattern(MATH_COURSE_PATHS.middleSchool),
     );
     await expect(page.getByRole('link', { name: 'See high school programs' })).toHaveAttribute(
       'href',
-      /\/courses\/high-school-math/,
+      pathPattern(MATH_COURSE_PATHS.highSchool),
     );
 
     const packages = page.locator('#packages');
@@ -32,7 +37,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
     await expect(packages.getByText('$376/mo')).toBeVisible();
     await expect(packages.getByRole('link', { name: 'See full program' }).first()).toHaveAttribute(
       'href',
-      /\/courses\/math\/elementary/,
+      pathPattern(MATH_COURSE_PATHS.elementary),
     );
     await expect(packages.getByText('Academic + Coding')).toHaveCount(0);
     await expect(
@@ -53,8 +58,9 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
     await expect(page.getByRole('link', { name: 'Book free assessment' }).first()).toBeVisible();
   });
 
-  test('/academic/math/high-school redirects to canonical high school page', async ({ page }) => {
-    await page.goto(localePath('/academic/math/high-school'), { waitUntil: 'commit' });
-    await expect(page).toHaveURL(/\/courses\/high-school-math/);
+  test('/academic/math/high-school serves canonical high school page', async ({ page }) => {
+    await page.goto(localePath('/academic/math/high-school'), { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
+    await expect(page.getByText('$189/mo')).toBeVisible();
   });
 });

@@ -17,7 +17,9 @@ test.describe('Middle school math page', { tag: '@critical' }, () => {
     ).toBeVisible();
     await expect(page.getByText('5th grade · district math placement test')).toBeVisible();
     await expect(page.getByText('Grade 7 math placement')).toBeVisible();
-    await expect(page.getByText('Grade 6')).toHaveCount(2);
+
+    const placementDiagram = page.getByLabel('School district math placement pathways');
+    await expect(placementDiagram.getByText('Grade 6', { exact: true })).toHaveCount(2);
     await expect(page.getByText('Standard track · Grades 6–8')).toHaveCount(0);
 
     await expect(page.getByText('95% school-aligned after curriculum review').first()).toBeVisible();

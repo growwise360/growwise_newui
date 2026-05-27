@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
+import { MATH_COURSE_PATHS } from '../../src/lib/math-course-paths';
+
+function pathPattern(suffix: string): RegExp {
+  return new RegExp(`${suffix.replace(/\//g, '\\/')}$`);
+}
 
 test.describe('High school math (canonical page)', { tag: '@critical' }, () => {
   test('/academic/math/high-school shows monthly pricing and Sunday callout', async ({ page }) => {
@@ -28,9 +33,9 @@ test.describe('High school math (canonical page)', { tag: '@critical' }, () => {
     await expect(page.getByText('Trial session — Grades 9–12')).toBeVisible();
   });
 
-  test('/academic/math/high-school redirects to canonical URL', async ({ page }) => {
-    await page.goto(localePath('/academic/math/high-school'), { waitUntil: 'commit' });
-    await expect(page).toHaveURL(/\/courses\/high-school-math/);
+  test('legacy /courses/math/high-school redirects to canonical URL', async ({ page }) => {
+    await page.goto(localePath('/courses/math/high-school'), { waitUntil: 'commit' });
+    await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
     await expect(page.getByText('$189/mo')).toBeVisible();
   });
 });
