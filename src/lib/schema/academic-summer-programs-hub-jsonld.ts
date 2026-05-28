@@ -1,4 +1,5 @@
 import { CONTACT_INFO } from '@/lib/constants';
+import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof';
 
 const ORG_NAME = 'GrowWise School';
 const PROVIDER_ADDRESS = `${CONTACT_INFO.street}, Dublin, CA ${CONTACT_INFO.zipCode}`;
@@ -150,12 +151,7 @@ export function buildAcademicSummerProgramsOrgSchema(baseUrl: string) {
     telephone: SCHEMA_PHONE,
     email: CONTACT_INFO.email,
     areaServed: ['Dublin, CA', 'Pleasanton, CA', 'San Ramon, CA', 'Livermore, CA'],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '40',
-      bestRating: '5',
-    },
+    aggregateRating: buildAggregateRatingJsonLd(),
   };
 }
 

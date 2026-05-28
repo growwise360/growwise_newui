@@ -1,6 +1,6 @@
-import React from 'react'
 import { CONTACT_INFO } from '@/lib/constants'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { getMinimumPublishedSummerCampPriceUsd } from '@/lib/summer-camp-data'
 
 interface EventSchemaProps {
   name: string
@@ -71,6 +71,7 @@ export default function EventSchema({
     offers: {
       '@type': 'Offer',
       url,
+      price: String(getMinimumPublishedSummerCampPriceUsd()),
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       validFrom: '2026-01-01',

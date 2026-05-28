@@ -142,7 +142,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
     metaDescription:
       "Hands-on robotics summer camp at GrowWise in Dublin, CA. Engineering habits, build-test cycles, and accountable instruction for Tri-Valley families.",
     metaKeywords:
-      "robotics camp Dublin CA, LEGO robotics Dublin, engineering camp Tri-Valley, robotics summer camp Dublin CA 2026",
+      "robotics camp Dublin CA, robotics Dublin California, LEGO robotics Dublin, engineering camp Tri-Valley, robotics summer camp Dublin CA 2026",
     scheduleIntro: null,
     h1: "Robotics Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",

@@ -519,9 +519,9 @@
     },
     "story": { 
       "title": "Our Story",
-      "p1": "Founded in 2024 in the heart of Dublin, California, GrowWise was born from a simple but powerful vision: every child deserves personalized education that meets them where they are and helps them reach their full potential.",
-      "p2": "What started as a small tutoring center has grown into a comprehensive educational institution serving families throughout the Tri-Valley area. Our founder, Anshika Verma, recognized that traditional one-size-fits-all education wasn't serving the diverse learning needs of today's students.",
-      "p3": "Today, GrowWise stands as a testament to what's possible when passionate educators combine proven teaching methods with innovative technology and genuine care for each student's success. We've helped over 387 students not just improve their grades, but develop confidence, curiosity, and a lifelong love of learning."
+      "p1": "Anshika arrived in the US in 2009 with $500. Her family were educators in India. She became a software engineer here. Then a mother.",
+      "p2": "For years she watched bright kids check out — not because they couldn't learn, but because nobody taught them how.",
+      "p3": "That gap became GrowWise. Not a tutoring center. A lab built on 15 years of observation, 2+ years of direct research with kids, and one belief: teach a child how to learn and everything changes."
     },
     "achievements": { 
       "title": "Our Achievements",
@@ -533,7 +533,7 @@
     },
     "founder": { 
       "title": "Meet Our Founder",
-      "subtitle": "Learn about the visionary leader who founded GrowWise with a passion for transforming education."
+      "subtitle": "Why GrowWise is a learning lab — not a tutoring center"
     },
     "team": { 
       "title": "Meet Our Team",
