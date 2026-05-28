@@ -109,6 +109,7 @@ export default function Header() {
                 width={230}
                 height={90}
                 sizes="(max-width: 640px) 120px, 280px"
+                fetchPriority="low"
               />
             </Link>
           </div>
