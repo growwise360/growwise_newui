@@ -1,4 +1,5 @@
 import { CONTACT_INFO } from '@/lib/constants'
+import { FOUNDER_COPY } from '@/data/founder-copy'
 
 export const FROM_NEXTDOOR_PATH = '/from-nextdoor' as const
 
@@ -23,7 +24,7 @@ export const FROM_NEXTDOOR_COPY = {
     phone: CONTACT_INFO.phone,
   },
   badges: {
-    topFive: 'Top 5 Tutoring & Learning Centers',
+    topFive: '40+ reviews across Google, Yelp, TripAdvisor & Trustpilot',
     nextdoorFaves: '12 community recommendations on Nextdoor',
   },
   programs: {
@@ -53,15 +54,11 @@ export const FROM_NEXTDOOR_COPY = {
   },
   founder: {
     heading: 'Meet the founder',
-    name: 'Anshika Verma',
-    role: 'Founder & Educational Director',
-    image: '/assets/founderImage.webp',
-    quote:
-      'I started GrowWise with the belief in making a positive impact in our community — teaching kids how to learn, not just what to memorize.',
-    story: [
-      'Inspired by her parents — both lifelong educators — and with over a decade in software engineering, Anshika built GrowWise to combine academic rigor with modern STEAM skills for Tri-Valley families.',
-      'Her focus is confidence, curiosity, and character: small classes where kids ask questions, build projects, and leave proud of what they created.',
-    ],
+    name: FOUNDER_COPY.name,
+    role: FOUNDER_COPY.role,
+    image: FOUNDER_COPY.image,
+    quote: FOUNDER_COPY.quote,
+    story: [...FOUNDER_COPY.story],
     aboutLinkLabel: 'Meet our full team',
   },
   faq: {

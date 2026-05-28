@@ -24,9 +24,9 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchAboutRequested } from '@/store/slices/aboutSlice';
 import { FounderSection } from './about/FounderSection';
 import { ParentTestimonialsSection } from './about/ParentTestimonialsSection';
-import { TeamSection } from './about/TeamSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
-import { ABOUT_FAQS } from "@/data/about-faqs";
+import { ABOUT_FAQS } from '@/data/about-faqs';
+import { FOUNDER_ABOUT_STORY_PARAGRAPHS } from '@/data/founder-copy';
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { HelpCircle } from "lucide-react";
 
@@ -47,9 +47,6 @@ export default function About() {
 
   // Our story and achievements
   const achievements = about?.achievements ?? [];
-
-  // Team members data
-  const teamMembers = about?.teamMembers ?? [];
 
   // Educational philosophy
   const educationalApproach = about?.educationalApproach ?? [];
@@ -120,15 +117,9 @@ export default function About() {
             <div>
               <h2 className="title-section mb-6">{about?.story?.title || t('story.title')}</h2>
               <div className="space-y-6 text-muted leading-relaxed">
-                {about?.story?.paragraphs?.map((paragraph: string, index: number) => (
+                {FOUNDER_ABOUT_STORY_PARAGRAPHS.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
-                )) || (
-                  <>
-                    <p>{t('story.p1')}</p>
-                    <p>{t('story.p2')}</p>
-                    <p>{t('story.p3')}</p>
-                  </>
-                )}
+                ))}
               </div>
               
               <div className="mt-8">
@@ -254,9 +245,7 @@ export default function About() {
         </div>
       </section>
 
-      <FounderSection founder={teamMembers[0]} />
-
-      <TeamSection members={teamMembers.slice(1)} />
+      <FounderSection />
 
       {/* Community Impact Section - Now with 3 items */}
       <section className="section-base section-white">

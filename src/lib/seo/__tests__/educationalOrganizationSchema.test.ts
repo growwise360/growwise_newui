@@ -14,7 +14,7 @@ describe('buildEducationalOrganizationSchema — GWA-192 / TC-09', () => {
     expect(schema.aggregateRating).toMatchObject({
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '47',
+      reviewCount: '40',
     })
     expect(Array.isArray(schema.knowsAbout)).toBe(true)
     expect((schema.knowsAbout as unknown[]).length).toBeGreaterThanOrEqual(5)

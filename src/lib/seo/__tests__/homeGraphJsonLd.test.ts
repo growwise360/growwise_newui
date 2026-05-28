@@ -18,6 +18,6 @@ describe('HOME_GRAPH_JSON_LD', () => {
     const org = HOME_GRAPH_JSON_LD['@graph'][0];
     expect(org.email).toBe('contact@growwiseschool.org');
     expect(org.aggregateRating?.ratingValue).toBe('4.9');
-    expect(org.aggregateRating?.reviewCount).toBe('325');
+    expect(org.aggregateRating?.reviewCount).toBe('40');
   });
 });

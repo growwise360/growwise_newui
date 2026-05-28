@@ -97,6 +97,10 @@ describe('camp-landing-jsonld', () => {
         availability: 'https://schema.org/InStock',
         priceCurrency: 'USD',
       });
+      expect(event.performer).toMatchObject({
+        '@type': 'Organization',
+        name: 'GrowWise School',
+      });
     });
 
     it('includes BreadcrumbList, WebPage, and FAQPage in graph', () => {

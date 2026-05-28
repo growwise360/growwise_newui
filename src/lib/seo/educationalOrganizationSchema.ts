@@ -1,4 +1,5 @@
 import { CONTACT_INFO } from '@/lib/constants'
+import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 type CatalogCourse = {
@@ -132,13 +133,7 @@ export function buildEducationalOrganizationSchema() {
     priceRange: '$$',
     currenciesAccepted: 'USD',
     paymentAccepted: 'Cash, Credit Card',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '47',
-      bestRating: '5',
-      worstRating: '1',
-    },
+    aggregateRating: buildAggregateRatingJsonLd(),
     knowsAbout: [
       'STEAM Education for K-12',
       'Math Tutoring Dublin CA',
