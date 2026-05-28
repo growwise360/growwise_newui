@@ -27,12 +27,12 @@ export function ChatbotTrigger({ onClick, variant = 'header' }: ChatbotTriggerPr
         className={cn(
           'inline-flex items-center gap-1.5 rounded-full bg-white font-bold text-[#1F396D] transition-colors hover:bg-[#F8FAFC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2',
           isCompact
-            ? 'min-h-[36px] px-2.5 py-1.5 text-xs'
+            ? 'min-h-[44px] px-2 py-1.5 text-xs'
             : 'min-h-[36px] whitespace-nowrap px-3 py-2 text-sm lg:px-4',
         )}
       >
         <GrowyAvatar size="sm" ringClassName="ring-1 ring-[#1F396D]/10" />
-        {!isCompact ? <span>{t('chatbot.triggerLabel')}</span> : null}
+        <span>{t('chatbot.triggerLabel')}</span>
       </button>
     </div>
   );
