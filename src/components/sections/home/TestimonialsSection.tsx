@@ -81,6 +81,8 @@ function TestimonialCard({ testimonial }: { testimonial: TestimonialVM }) {
                   alt={testimonial.name}
                   width={56}
                   height={56}
+                  loading="lazy"
+                  decoding="async"
                   className="rounded-full object-cover shadow-[0px_8px_20px_rgba(255,255,255,0.4)] border-2 border-white/70 ring-1 ring-white/50"
                   onError={() => setImageError(true)}
                   onLoad={() => setImageError(false)}

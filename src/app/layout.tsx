@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConsentAndAnalytics } from '@/components/analytics/ConsentAndAnalytics';
 import { CartProvider } from '@/components/gw/CartContext';
 import LocalBusinessSchema from '@/components/seo/LocalBusinessSchema';
 import SmokeCursor from '@/components/SmokeCursor';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  preload: false,
-});
+import { inter, plusJakarta } from '@/lib/fonts';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://growwiseschool.org'),
@@ -47,7 +40,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://api.growwiseschool.org" />
         <LocalBusinessSchema />
       </head>
-      <body className={`${inter.variable} min-h-screen bg-background font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${plusJakarta.variable} min-h-screen bg-background font-sans antialiased`} suppressHydrationWarning>
         <SmokeCursor />
         <a href="#main-content" className="absolute -left-[9999px] focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#1F396D] focus:text-white focus:rounded-md focus:no-underline">
           Skip to main content
