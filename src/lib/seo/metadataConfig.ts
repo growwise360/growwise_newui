@@ -53,7 +53,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'Dublin parents choose GrowWise for STEM, coding, and tutoring. Top-rated locally. Book a free assessment.',
     keywords:
-      'tutoring Dublin CA, GrowWise Dublin, Nextdoor tutoring Dublin, coding classes Dublin, Tri-Valley tutoring',
+      'tutoring Dublin CA, GrowWise Dublin, Nextdoor tutoring Dublin, coding classes Dublin, Tri-Valley tutoring, learning center Dublin California, tutoring Dublin California',
     path: '/from-nextdoor',
     image: '/og-image.jpg',
   },
@@ -63,7 +63,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'In-person math, English, coding, SAT prep, and summer camps at 4564 Dublin Blvd. Serving Tri-Valley families. Book a free assessment.',
     keywords:
-      'tutoring Dublin CA, coding classes Dublin, SAT prep Dublin, Tri-Valley tutoring, K-12 tutoring Pleasanton, San Ramon tutoring, GrowWise Dublin',
+      'tutoring Dublin CA, coding classes Dublin, SAT prep Dublin, Tri-Valley tutoring, K-12 tutoring Pleasanton, San Ramon tutoring, GrowWise Dublin, math tutor Dublin California, coding for kids Dublin California, robotics Dublin California, after school programs Dublin California, kids spring break camps Dublin California, learning center Dublin California, writing classes Dublin California, tutoring Dublin California',
     path: '/dublin-ca',
   },
 
@@ -280,7 +280,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'STEAM & academic summer camps in Dublin, CA. Coding, AI, robotics, math, and writing for Grades 1–12. Book a free assessment today.',
     keywords:
-      'kids camps Dublin CA, summer camp Dublin, STEAM camp Tri-Valley, coding camp kids, winter camp Dublin, academic camp Dublin CA',
+      'kids camps Dublin CA, summer camp Dublin, STEAM camp Tri-Valley, coding camp kids, winter camp Dublin, academic camp Dublin CA, kids spring break camps Dublin California',
     path: '/camps',
   },
 
@@ -289,7 +289,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'GrowWise Winter Camp: academic and STEAM workshops during winter break in Dublin, CA. Coding, math, and writing for grades 1–12. Reserve your week.',
     keywords:
-      'winter camp 2025, winter break programs, academic winter camp, STEAM winter camp, winter tutoring Dublin CA, December camp',
+      'winter camp 2025, winter break programs, academic winter camp, STEAM winter camp, winter tutoring Dublin CA, December camp, kids spring break camps Dublin California',
     path: '/camps/winter',
   },
 
@@ -433,7 +433,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'Looking for tutoring in Dublin, CA for your Grade 1–12 student? This guide helps Tri-Valley parents choose between program types — and the questions to ask before enrolling.',
     keywords:
-      'tutoring Dublin CA, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
+      'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
     path: '/resources/tutoring-dublin-ca',
     type: 'article',
   },

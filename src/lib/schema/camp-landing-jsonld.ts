@@ -110,6 +110,8 @@ function defaultSlotTime(program: Program): string {
   return program.category === 'Full Day Camps' ? '9:00 AM - 4:00 PM' : '9:00 AM - 12:00 PM';
 }
 
+const GROWWISE_PERFORMER = { name: 'GrowWise School', type: 'Organization' as const };
+
 function buildEventNode({
   name,
   description,
@@ -144,6 +146,7 @@ function buildEventNode({
       },
       eventStatus: EVENT_SCHEDULED,
       eventAttendanceMode: OFFLINE_MODE,
+      performer: GROWWISE_PERFORMER,
     }) as Record<string, unknown>,
   );
 }

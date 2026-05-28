@@ -19,6 +19,7 @@ import {
   SUMMER_CAMP_EVENT_START_ISO,
 } from '@/lib/summer-camp-week-calendar';
 import { buildSummerHubCampItemListSchema } from '@/lib/schema/camp-landing-jsonld';
+import { getMinimumPublishedSummerCampPriceUsd } from '@/lib/summer-camp-data';
 import summerCampFaqData from '../../../../../public/api/mock/en/summer-camp-faq.json';
 
 function mergeSummerHubJsonLdFaqs() {
@@ -79,9 +80,15 @@ export default async function SummerCampLayout({
     },
     image: `${baseUrl}/og-image.jpg`,
     offers: {
+      price: String(getMinimumPublishedSummerCampPriceUsd()),
+      priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       url: absoluteSiteUrl('/camps/summer', locale, baseUrl),
       validFrom: '2026-01-01',
+    },
+    performer: {
+      name: 'GrowWise School',
+      type: 'Organization',
     },
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',

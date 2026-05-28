@@ -1,7 +1,6 @@
 import { CONTACT_INFO } from '@/lib/constants'
+import { FOUNDER_COPY } from '@/data/founder-copy'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
-
-const FOUNDER_IMAGE_PATH = '/assets/founderImage.webp'
 
 export default function FounderSchema() {
   const baseUrl = getCanonicalSiteUrl()
@@ -9,11 +8,10 @@ export default function FounderSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Anshika Verma',
+    name: FOUNDER_COPY.name,
     jobTitle: 'Founder & Educational Director, GrowWise School',
-    image: `${baseUrl}${FOUNDER_IMAGE_PATH}`,
-    description:
-      'Educator focused on teaching kids how to learn. Founder of GrowWise School, a K–12 enrichment and tutoring center in Dublin, CA.',
+    image: `${baseUrl}${FOUNDER_COPY.image}`,
+    description: FOUNDER_COPY.schemaDescription,
     sameAs: [
       'https://nextdoor.com/pages/growwise-dublin-ca-1/',
       'https://www.yelp.com/biz/growwise-dublin',

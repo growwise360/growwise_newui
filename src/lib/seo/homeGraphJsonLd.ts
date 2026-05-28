@@ -1,5 +1,6 @@
 import { HOME_VISIBLE_FAQS } from '@/lib/home/homeFaqCopy'
 import { generateFAQPageSchema } from '@/lib/seo/structuredData'
+import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 const CANONICAL_BASE = getCanonicalSiteUrl()
@@ -27,11 +28,7 @@ export const HOME_GRAPH_JSON_LD = {
       telephone: '+19254564606',
       email: 'contact@growwiseschool.org',
       areaServed: 'US',
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '325',
-      },
+      aggregateRating: buildAggregateRatingJsonLd(),
     },
     faqPageNode,
   ],
