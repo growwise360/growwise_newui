@@ -97,10 +97,11 @@ const summerCampSelectClass = cn(
   'aria-invalid:border-destructive aria-invalid:ring-destructive/20'
 );
 
-/** Timed guide modal: opens 3s after load if not dismissed/submitted. */
+/** Timed guide modal: after LCP window — idle 8s or scroll past 25% (whichever first). */
 const SUMMERCAMP_POPUP_DISMISSED_KEY = 'summercamp_popup_dismissed';
 const SUMMERCAMP_SUBMITTED_KEY = 'summercamp_submitted';
-const SUMMERCAMP_TIMED_POPUP_MS = 3000;
+const SUMMERCAMP_TIMED_POPUP_MS = 8000;
+const SUMMERCAMP_SCROLL_POPUP_RATIO = 0.25;
 /** Ignore Radix duplicate `onOpenChange(false)` immediately after open (timestamp set in `markGuideModalOpenIntent`). */
 const GUIDE_MODAL_SPURIOUS_CLOSE_MS = 150;
 /** `?openGuide=1` — force timed popup (bypass localStorage) and allow in webdriver/Lighthouse for QA. */
@@ -161,7 +162,7 @@ export default function SummerCampPage() {
     setGuideModalOpen(true);
   }, [markGuideModalOpenIntent]);
 
-  /** Timed guide modal: 3s after load if not dismissed/submitted. */
+  /** Guide modal: after LCP — 8s timer or scroll past 25%, if not dismissed/submitted. */
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -189,12 +190,28 @@ export default function SummerCampPage() {
 
     if (shouldSkipByStorage()) return;
 
-    const id = window.setTimeout(() => {
-      if (shouldSkipByStorage()) return;
+    let opened = false;
+    const tryOpen = () => {
+      if (opened || shouldSkipByStorage()) return;
+      opened = true;
       openGuideModal();
-    }, SUMMERCAMP_TIMED_POPUP_MS);
+    };
 
-    return () => window.clearTimeout(id);
+    const onScroll = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+      if (window.scrollY / docHeight >= SUMMERCAMP_SCROLL_POPUP_RATIO) {
+        tryOpen();
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const id = window.setTimeout(tryOpen, SUMMERCAMP_TIMED_POPUP_MS);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.clearTimeout(id);
+    };
   }, [openGuideModal]);
 
   const handleGuideModalOpenChange = useCallback((open: boolean) => {

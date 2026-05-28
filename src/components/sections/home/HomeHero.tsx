@@ -34,41 +34,19 @@ export function HomeHero() {
   const locale = useLocale();
   const { trackCTAClick } = useButtonTracking();
   const [activeSlide, setActiveSlide] = useState<SlideIndex>(0);
+  const [animEpoch, setAnimEpoch] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const indicatorRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const bookAssessmentHref = publicPath('/book-assessment', locale);
   const selfCheckHref = publicPath('/self-check', locale);
   const workshopHref = publicPath('/workshop-calendar', locale);
   const steamHref = publicPath('/steam', locale);
 
-  const resetIndicatorAnimation = useCallback((index: SlideIndex) => {
-    indicatorRefs.current.forEach((el, i) => {
-      if (!el) return;
-      el.classList.toggle('hero-indicator-active', i === index);
-      const fill = el.querySelector('.hero-indicator-fill') as HTMLElement | null;
-      if (fill) {
-        fill.style.animation = 'none';
-        void fill.offsetHeight;
-        if (i === index) {
-          fill.style.animation = `hero-fill-bar ${SLIDE_DURATION_MS / 1000}s linear forwards`;
-        }
-      }
-    });
+  const goToSlide = useCallback((index: SlideIndex) => {
+    setActiveSlide(index);
+    setAnimEpoch((epoch) => epoch + 1);
   }, []);
-
-  const goToSlide = useCallback(
-    (index: SlideIndex) => {
-      setActiveSlide(index);
-      resetIndicatorAnimation(index);
-    },
-    [resetIndicatorAnimation],
-  );
-
-  useEffect(() => {
-    resetIndicatorAnimation(0);
-  }, [resetIndicatorAnimation]);
 
   useEffect(() => {
     if (paused) return;
@@ -110,13 +88,13 @@ export function HomeHero() {
               role="tab"
               aria-selected={activeSlide === index}
               aria-label={index === 0 ? 'Academic programs' : 'STEAM programs'}
-              className="hero-indicator"
-              ref={(el) => {
-                indicatorRefs.current[index] = el;
-              }}
+              className={`hero-indicator${activeSlide === index ? ' hero-indicator-active' : ''}`}
               onClick={() => handleIndicatorClick(index)}
             >
-              <span className="hero-indicator-fill" />
+              <span
+                key={activeSlide === index ? `fill-${animEpoch}` : 'fill-idle'}
+                className="hero-indicator-fill"
+              />
             </button>
           ))}
         </div>

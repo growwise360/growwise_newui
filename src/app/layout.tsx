@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConsentAndAnalytics } from '@/components/analytics/ConsentAndAnalytics';
 import { CartProvider } from '@/components/gw/CartContext';
 import LocalBusinessSchema from '@/components/seo/LocalBusinessSchema';
 import SmokeCursor from '@/components/SmokeCursor';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  preload: false,
-});
+import { inter } from '@/lib/fonts';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://growwiseschool.org'),

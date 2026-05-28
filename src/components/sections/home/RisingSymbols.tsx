@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 const ACADEMIC_SYMBOLS = ['π', '∑', '√', 'x²', '∞', 'Δ', '÷', 'f(x)', '±', '≠', '%', '²', '∫', 'θ', 'Aa', 'Bb', '→', '…', '≈', '"'];
 const STEAM_SYMBOLS = ['{ }', '</>', 'if', 'def', '01', '#', '( )', '==', '&&', '//', '[ ]', '++', 'AI', '<>', '/*', 'fn', 'var', 'int'];
@@ -17,29 +17,29 @@ type SymbolSpec = {
   group: 'academic' | 'steam';
 };
 
-function buildSpecs(symbols: string[], group: 'academic' | 'steam'): SymbolSpec[] {
+/** Deterministic specs — avoids hydration mismatch from Math.random() in useState. */
+function buildSpecs(symbols: readonly string[], group: 'academic' | 'steam'): SymbolSpec[] {
   return Array.from({ length: SYMBOL_COUNT }, (_, i) => {
     const xPercent = 3 + (i / (SYMBOL_COUNT - 1)) * 94;
     return {
       id: `${group}-${i}`,
-      text: symbols[Math.floor(Math.random() * symbols.length)] ?? symbols[0],
+      text: symbols[i % symbols.length] ?? symbols[0],
       left: xPercent,
       angle: -((xPercent - 50) * 0.45),
-      duration: 5 + Math.random() * 5,
-      delay: -(Math.random() * 10),
-      fontSize: 11 + Math.random() * 10,
+      duration: 5 + (i % 5),
+      delay: -((i % 10) * 1.1),
+      fontSize: 11 + (i % 10),
       group,
     };
   });
 }
 
 export function RisingSymbols({ activeSlide }: { activeSlide: 0 | 1 }) {
-  const [specs, setSpecs] = useState<SymbolSpec[] | null>(null);
+  const specs = useMemo(
+    () => [...buildSpecs(ACADEMIC_SYMBOLS, 'academic'), ...buildSpecs(STEAM_SYMBOLS, 'steam')],
+    [],
+  );
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSpecs([...buildSpecs(ACADEMIC_SYMBOLS, 'academic'), ...buildSpecs(STEAM_SYMBOLS, 'steam')]);
-  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -59,8 +59,6 @@ export function RisingSymbols({ activeSlide }: { activeSlide: 0 | 1 }) {
       }, 400);
     }
   }, [activeSlide]);
-
-  if (!specs) return null;
 
   return (
     <div ref={containerRef} className="hero-symbols-container" aria-hidden>
