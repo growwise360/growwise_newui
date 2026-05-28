@@ -34,12 +34,11 @@ function buildSpecs(symbols: string[], group: 'academic' | 'steam'): SymbolSpec[
 }
 
 export function RisingSymbols({ activeSlide }: { activeSlide: 0 | 1 }) {
-  const [specs, setSpecs] = useState<SymbolSpec[] | null>(null);
+  const [specs] = useState<SymbolSpec[]>(() => [
+    ...buildSpecs(ACADEMIC_SYMBOLS, 'academic'),
+    ...buildSpecs(STEAM_SYMBOLS, 'steam'),
+  ]);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSpecs([...buildSpecs(ACADEMIC_SYMBOLS, 'academic'), ...buildSpecs(STEAM_SYMBOLS, 'steam')]);
-  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -59,8 +58,6 @@ export function RisingSymbols({ activeSlide }: { activeSlide: 0 | 1 }) {
       }, 400);
     }
   }, [activeSlide]);
-
-  if (!specs) return null;
 
   return (
     <div ref={containerRef} className="hero-symbols-container" aria-hidden>

@@ -46,10 +46,6 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}

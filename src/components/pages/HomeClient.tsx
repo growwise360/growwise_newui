@@ -64,7 +64,6 @@ export default function HomeClient({ initialData }: HomeClientProps) {
     return (
       <div
         className="home-page-root relative z-10 min-h-screen flex flex-col bg-white"
-        style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}
       >
         <HomeHeroBlock />
         <HomeFunnelSections />
@@ -86,7 +85,6 @@ export default function HomeClient({ initialData }: HomeClientProps) {
     return (
       <div
         className="home-page-root relative z-10 min-h-screen bg-white"
-        style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}
       >
         <HomeHeroBlock />
         <HomeFunnelSections />
@@ -97,7 +95,6 @@ export default function HomeClient({ initialData }: HomeClientProps) {
   return (
     <div
       className="home-page-root relative z-10 min-h-screen bg-white"
-      style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}
     >
       <HomeHeroBlock />
       <HomeFunnelSections />
