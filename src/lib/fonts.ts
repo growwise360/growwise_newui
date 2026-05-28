@@ -5,13 +5,15 @@ export const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
   preload: false,
+  adjustFontFallback: true,
 });
 
-/** Hero headline font — self-hosted to avoid render-blocking Google Fonts CSS. */
+/** Homepage hero font — import only from `(home)/layout.tsx` so camp routes skip these bytes. */
 export const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-plus-jakarta',
   weight: ['400', '500', '600', '700', '800'],
   preload: true,
+  adjustFontFallback: true,
 });
