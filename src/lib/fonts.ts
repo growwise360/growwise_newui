@@ -4,7 +4,7 @@ export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  preload: true,
+  preload: false,
 });
 
 /** Hero headline font — self-hosted to avoid render-blocking Google Fonts CSS. */

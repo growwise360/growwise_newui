@@ -5,6 +5,7 @@ import { generateMetadataFromPath } from '@/lib/seo/metadata';
 import { getValidLocale } from '@/i18n/localeConfig';
 import FounderSchema from '@/components/seo/FounderSchema';
 import HomeGraphSchema from '@/components/seo/HomeGraphSchema';
+import { plusJakarta } from '@/lib/fonts';
 
 export async function generateMetadata({
   params,
@@ -52,7 +53,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       />
       <HomeGraphSchema />
       <FounderSchema />
-      {children}
+      <div className={plusJakarta.variable}>{children}</div>
     </>
   );
 }
