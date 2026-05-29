@@ -129,7 +129,7 @@ describe('resources internal links', () => {
     );
   });
 
-  it('does not force academic camp links into STEAM resource articles', () => {
+  it('does not force academic camp links into STEM resource articles', () => {
     const vibeCoding = readComponent('components/resources/WhatIsVibeCodingPage.tsx');
     const pythonVsScratch = readComponent('components/resources/PythonVsScratchPage.tsx');
 

@@ -4,8 +4,8 @@ export const SUMMER_SLIDE_DUBLIN_CA_PATH = '/resources/summer-slide-dublin-ca' a
 
 export const SUMMER_SLIDE_DUBLIN_CA_META: ResourceArticleMeta = {
   path: SUMMER_SLIDE_DUBLIN_CA_PATH,
-  category: 'local',
-  categoryLabel: 'LOCAL',
+  category: 'summer-learning',
+  categoryLabel: 'SUMMER LEARNING',
   h1: 'The Summer Slide Is Real: What Dublin Parents Need to Know Before June Ends',
   readTime: '5 min read',
   updated: 'Updated May 2026',

@@ -4,8 +4,8 @@ export const PYTHON_VS_SCRATCH_PATH = '/resources/python-vs-scratch' as const
 
 export const PYTHON_VS_SCRATCH_META: ResourceArticleMeta = {
   path: PYTHON_VS_SCRATCH_PATH,
-  category: 'steam',
-  categoryLabel: 'STEAM & CODING',
+  category: 'stem',
+  categoryLabel: 'STEM',
   h1: 'Python vs Scratch: Which Should Your Child Learn First?',
   readTime: '4 min read',
   updated: 'Updated May 2026',

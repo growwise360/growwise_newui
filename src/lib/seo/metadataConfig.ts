@@ -58,6 +58,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     image: '/og-image.jpg',
   },
 
+  '/bulletin': {
+    title: "How to Support Your K–12 Child's Learning | GrowWise Bulletin",
+    description:
+      "What I learn teaching students every day, I share with you. Every Tuesday, Thursday and Saturday. Free. Why this works for both:",
+    keywords:
+      'GrowWise newsletter, parent education tips, K-12 tutoring updates, Dublin tutoring newsletter, student learning insights',
+    path: '/bulletin',
+    image: '/og-image.jpg',
+  },
+
   '/dublin-ca': {
     title: 'K-12 Tutoring & Coding Classes in Dublin, CA | GrowWise',
     description:
@@ -475,6 +485,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'summer academic program, summer school, summer tutoring program, summer math camp, summer reading program, best summer academic program, summer learning programs, program evaluation, class size summer camp, summer curriculum',
     path: '/resources/summer-academic-program-checklist',
+    type: 'article',
+  },
+
+  '/resources/affordable-summer-academic-programs-dublin-ca': {
+    title: 'Affordable Summer Programs Dublin CA | Parent Guide',
+    description:
+      'Compare summer academic programs in Dublin, CA and learn how to evaluate true value based on class size, outcomes, structure, and skill-building.',
+    keywords:
+      'affordable summer programs Dublin CA, academic summer camp Dublin Pleasanton, summer academic programs Tri-Valley, summer tutoring Dublin CA, affordable summer academic programs, summer camp value Dublin, Tri-Valley summer programs',
+    path: '/resources/affordable-summer-academic-programs-dublin-ca',
     type: 'article',
   },
 

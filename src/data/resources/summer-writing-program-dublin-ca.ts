@@ -4,8 +4,8 @@ export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_PATH = '/resources/summer-writing-
 
 export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_META: ResourceArticleMeta = {
   path: SUMMER_WRITING_PROGRAM_DUBLIN_CA_PATH,
-  category: 'local',
-  categoryLabel: 'LOCAL',
+  category: 'summer-learning',
+  categoryLabel: 'SUMMER LEARNING',
   h1: 'Summer Writing Programs in Dublin, CA: What to Expect and How to Choose',
   readTime: '6 min read',
   updated: 'Updated May 2026',
@@ -75,6 +75,11 @@ export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_JSONLD_FAQS: readonly ResourceArti
 ] as const
 
 export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
+  {
+    title: 'Affordable Summer Academic Programs in Dublin, CA',
+    href: '/resources/affordable-summer-academic-programs-dublin-ca',
+    description: 'Compare Tri-Valley summer academic options and value.',
+  },
   {
     title: 'Self-Check: Is Your Child Ready?',
     href: '/self-check',

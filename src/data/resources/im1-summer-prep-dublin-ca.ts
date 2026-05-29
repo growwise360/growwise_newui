@@ -4,8 +4,8 @@ export const IM1_SUMMER_PREP_DUBLIN_CA_PATH = '/resources/im1-summer-prep-dublin
 
 export const IM1_SUMMER_PREP_DUBLIN_CA_META: ResourceArticleMeta = {
   path: IM1_SUMMER_PREP_DUBLIN_CA_PATH,
-  category: 'local',
-  categoryLabel: 'LOCAL',
+  category: 'summer-learning',
+  categoryLabel: 'SUMMER LEARNING',
   h1: 'Is Your Child Ready for IM1? An Honest Summer Prep Guide for Dublin & Tri-Valley Families',
   readTime: '6 min read',
   updated: 'Updated May 2026',

@@ -4,8 +4,8 @@ export const WHAT_IS_VIBE_CODING_PATH = '/resources/what-is-vibe-coding' as cons
 
 export const WHAT_IS_VIBE_CODING_META: ResourceArticleMeta = {
   path: WHAT_IS_VIBE_CODING_PATH,
-  category: 'steam',
-  categoryLabel: 'STEAM & CODING',
+  category: 'stem',
+  categoryLabel: 'STEM',
   h1: 'What Is Vibe Coding — And Should Your Child Learn It?',
   readTime: '5 min read',
   updated: 'Updated May 2026',
