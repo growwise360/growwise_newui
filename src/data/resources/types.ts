@@ -26,6 +26,16 @@ export type ResourceArticleMeta = {
   keywords: string
   datePublished: string
   dateModified: string
+  /** Optional extended frontmatter (Article 12+ template) */
+  seoTitle?: string
+  slug?: string
+  canonicalUrl?: string
+  author?: string
+  primaryKeyword?: string
+  secondaryKeywords?: readonly string[]
+  audience?: string
+  ctaText?: string
+  ctaUrl?: string
 }
 
 export type ResourceArticleCta = {

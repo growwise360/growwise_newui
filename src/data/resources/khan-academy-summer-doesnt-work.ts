@@ -4,8 +4,8 @@ export const KHAN_ACADEMY_SUMMER_DOESNT_WORK_PATH = '/resources/khan-academy-sum
 
 export const KHAN_ACADEMY_SUMMER_DOESNT_WORK_META: ResourceArticleMeta = {
   path: KHAN_ACADEMY_SUMMER_DOESNT_WORK_PATH,
-  category: 'academic',
-  categoryLabel: 'ACADEMIC',
+  category: 'summer-learning',
+  categoryLabel: 'SUMMER LEARNING',
   h1: 'Why "We\'ll Do Khan Academy This Summer" Almost Never Works (And What Does)',
   readTime: '5 min read',
   updated: 'Updated May 2026',

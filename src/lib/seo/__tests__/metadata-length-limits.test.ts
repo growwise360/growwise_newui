@@ -102,6 +102,7 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       '/resources/summer-slide-prevention',
       '/resources/khan-academy-summer-doesnt-work',
       '/resources/summer-academic-program-checklist',
+      '/resources/affordable-summer-academic-programs-dublin-ca',
       '/resources/im1-summer-prep-dublin-ca',
       '/resources/summer-writing-program-dublin-ca',
     ] as const)('title + description for %s', (path) => {

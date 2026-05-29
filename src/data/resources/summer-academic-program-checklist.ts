@@ -4,8 +4,8 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_PATH = '/resources/summer-academi
 
 export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_META: ResourceArticleMeta = {
   path: SUMMER_ACADEMIC_PROGRAM_CHECKLIST_PATH,
-  category: 'academic',
-  categoryLabel: 'ACADEMIC',
+  category: 'summer-learning',
+  categoryLabel: 'SUMMER LEARNING',
   h1: '5 Things to Look for in a Summer Academic Program (Before You Pay)',
   readTime: '5 min read',
   updated: 'Updated May 2026',
@@ -65,6 +65,11 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_JSONLD_FAQS: readonly ResourceArt
 ] as const
 
 export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED: readonly ResourceArticleRelated[] = [
+  {
+    title: 'Affordable Summer Academic Programs in Dublin, CA',
+    href: '/resources/affordable-summer-academic-programs-dublin-ca',
+    description: 'Compare value, class size, and outcomes before you enroll.',
+  },
   {
     title: 'Why "We\'ll Do Khan Academy This Summer" Almost Never Works',
     href: '/resources/khan-academy-summer-doesnt-work',

@@ -10,8 +10,9 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
+import { ResourceBulletinCta } from '@/components/resources/ResourceBulletinCta'
 import type { ResourceCategory } from '@/data/resources-hub'
-import { RESOURCES_PATH } from '@/data/resources-hub'
+import { RESOURCES_PATH, resourceCategoryTagClass } from '@/data/resources-hub'
 import type { ResourceArticleCta, ResourceArticleFaq, ResourceArticleRelated } from '@/data/resources/types'
 import { getDefaultOpenFaqValues } from '@/lib/faq-accordion'
 import { publicPath } from '@/lib/publicPath'
@@ -20,16 +21,6 @@ import { cn } from '@/lib/utils'
 const sectionClass = 'mx-auto max-w-3xl px-4 sm:px-6'
 const h2Class = 'font-heading text-2xl font-bold text-[#1F396D] sm:text-3xl'
 const bodyClass = 'text-base leading-relaxed text-slate-700 sm:text-lg'
-
-function categoryTagClass(category: ResourceCategory): string {
-  if (category === 'steam') {
-    return 'bg-[#F16112]/10 text-[#C45A1A] ring-1 ring-[#F16112]/20'
-  }
-  if (category === 'local') {
-    return 'bg-slate-100 text-slate-700 ring-1 ring-slate-200'
-  }
-  return 'bg-[#1F396D]/10 text-[#1F396D] ring-1 ring-[#1F396D]/15'
-}
 
 type Props = {
   slug: string
@@ -81,7 +72,7 @@ export function ResourceArticlePage({
           <span
             className={cn(
               'mt-6 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide',
-              categoryTagClass(category),
+              resourceCategoryTagClass(category),
             )}
           >
             {categoryLabel}
@@ -143,6 +134,8 @@ export function ResourceArticlePage({
             </ul>
           </aside>
         ) : null}
+
+        <ResourceBulletinCta className={cn(sectionClass, 'mt-12')} />
       </article>
 
       <section className="border-t border-slate-100 bg-white py-12 sm:py-16" aria-labelledby={`${slug}-faq-heading`}>

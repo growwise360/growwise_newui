@@ -3,6 +3,7 @@
  * Env: BREVO_API_KEY, BREVO_SENDER_EMAIL, BREVO_SENDER_NAME (optional),
  * BREVO_LIST_LOTTERY (numeric list id — summer camp guide leads + Meta Lead Ads upsert; legacy env name).
  * BREVO_LIST_MATH_FINALS (numeric list id — high school math finals practice form; triggers automations).
+ * BREVO_LIST_BULLETIN (numeric list id — GrowWise Bulletin newsletter signup at /bulletin).
  */
 
 import type { EmailAttachment, SendEmailResult } from '@/lib/email';
@@ -196,6 +197,76 @@ export async function addSummerCampLotteryContactToBrevoList(
   email: string,
 ): Promise<SendEmailResult> {
   return addSummerCampSummercampContactToBrevoList(email);
+}
+
+/** POST /v3/contacts — upsert newsletter subscriber and attach to `BREVO_LIST_BULLETIN`. */
+export async function addBulletinContactToBrevoList(email: string): Promise<SendEmailResult> {
+  const apiKey = getBrevoApiKey();
+  if (!apiKey) {
+    return { success: false, error: 'Brevo not configured' };
+  }
+
+  const listIdRaw = process.env.BREVO_LIST_BULLETIN?.trim();
+  if (!listIdRaw) {
+    console.warn('[brevo] BREVO_LIST_BULLETIN not set; skipping bulletin list add.');
+    return { success: false, error: 'BREVO_LIST_BULLETIN not set' };
+  }
+
+  const listId = Number.parseInt(listIdRaw, 10);
+  if (!Number.isFinite(listId)) {
+    console.warn('[brevo] BREVO_LIST_BULLETIN must be a numeric list id.');
+    return { success: false, error: 'Invalid BREVO_LIST_BULLETIN' };
+  }
+
+  const listIds = filterAutomationListIds([listId]);
+  if (!listIds) {
+    console.warn(
+      '[brevo] BREVO_LIST_BULLETIN is excluded from automation; upserting contact without list attachment.',
+      { listId },
+    );
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
+  if (!normalizedEmail) {
+    return { success: false, error: 'No email' };
+  }
+
+  try {
+    const res = await fetchWithTimeout(`${BREVO_API_BASE}/contacts`, {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'api-key': apiKey,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: normalizedEmail,
+        attributes: { SOURCE: 'growwise_bulletin' },
+        ...(listIds ? { listIds } : {}),
+        updateEnabled: true,
+      }),
+    });
+
+    const raw = await res.text();
+    let parsed: { message?: string } = {};
+    try {
+      parsed = raw ? (JSON.parse(raw) as typeof parsed) : {};
+    } catch {
+      /* ignore */
+    }
+
+    if (!res.ok) {
+      const errMsg = parsed.message || raw || `HTTP ${res.status}`;
+      console.warn('[brevo] Bulletin list contact failed:', errMsg);
+      return { success: false, error: errMsg };
+    }
+
+    return { success: true };
+  } catch (err) {
+    const error = err instanceof Error ? err.message : 'Bulletin list add failed';
+    console.warn('[brevo] Bulletin list contact error:', error);
+    return { success: false, error };
+  }
 }
 
 /** Math finals practice form — fields synced to Brevo for list-based automations. */

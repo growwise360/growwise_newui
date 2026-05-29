@@ -4,8 +4,8 @@ export const SUMMER_SLIDE_PREVENTION_PATH = '/resources/summer-slide-prevention'
 
 export const SUMMER_SLIDE_PREVENTION_META: ResourceArticleMeta = {
   path: SUMMER_SLIDE_PREVENTION_PATH,
-  category: 'academic',
-  categoryLabel: 'ACADEMIC',
+  category: 'summer-learning',
+  categoryLabel: 'SUMMER LEARNING',
   h1: 'How to Prevent Summer Slide: What Actually Works (And What Parents Waste Money On)',
   readTime: '5 min read',
   updated: 'Updated May 2026',
