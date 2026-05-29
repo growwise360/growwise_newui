@@ -9,26 +9,18 @@ import {
   RESOURCE_GUIDES,
   RESOURCES_CTA,
   RESOURCES_HERO,
-  type ResourceCategory,
+  resourceCategoryTagClass,
   type ResourceFilterId,
 } from '@/data/resources-hub'
+import { RESOURCE_BULLETIN_CTA } from '@/data/resource-bulletin-cta'
 import { publicPath } from '@/lib/publicPath'
 import { cn } from '@/lib/utils'
-
-function categoryTagClass(category: ResourceCategory): string {
-  if (category === 'steam') {
-    return 'bg-[#F16112]/10 text-[#C45A1A] ring-1 ring-[#F16112]/20'
-  }
-  if (category === 'local') {
-    return 'bg-slate-100 text-slate-700 ring-1 ring-slate-200'
-  }
-  return 'bg-[#1F396D]/10 text-[#1F396D] ring-1 ring-[#1F396D]/15'
-}
 
 export function ResourcesHubPage() {
   const locale = useLocale()
   const [activeFilter, setActiveFilter] = useState<ResourceFilterId>('all')
   const bookAssessmentHref = publicPath('/book-assessment', locale)
+  const bulletinHref = publicPath(RESOURCE_BULLETIN_CTA.href, locale)
 
   const visibleGuides = useMemo(() => {
     if (activeFilter === 'all') return RESOURCE_GUIDES
@@ -73,6 +65,23 @@ export function ResourcesHubPage() {
         </div>
       </section>
 
+      <section className="border-b border-amber-100 bg-amber-50/50 py-8 sm:py-10" aria-labelledby="resources-bulletin-promo">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 px-4 text-center sm:px-6 md:flex-row md:text-left">
+          <div className="flex-1">
+            <h2 id="resources-bulletin-promo" className="font-heading text-lg font-bold text-[#1F396D] sm:text-xl">
+              {RESOURCE_BULLETIN_CTA.heading}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-[15px]">{RESOURCE_BULLETIN_CTA.subtext}</p>
+          </div>
+          <Button
+            asChild
+            className="min-h-[48px] shrink-0 rounded-lg bg-[#F16112] px-6 text-sm font-semibold text-white hover:bg-[#d54f0a]"
+          >
+            <Link href={bulletinHref}>{RESOURCE_BULLETIN_CTA.buttonLabel}</Link>
+          </Button>
+        </div>
+      </section>
+
       <section className="bg-white py-12 sm:py-16" aria-label="Parent guides">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <ul className="grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3" role="list">
@@ -82,7 +91,7 @@ export function ResourcesHubPage() {
                   <span
                     className={cn(
                       'inline-flex w-fit rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide',
-                      categoryTagClass(guide.category),
+                      resourceCategoryTagClass(guide.category),
                     )}
                   >
                     {guide.categoryLabel}

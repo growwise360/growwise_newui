@@ -53,6 +53,11 @@ export const TUTORING_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
 
 export const TUTORING_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
+    title: 'Affordable Summer Academic Programs in Dublin, CA',
+    href: '/resources/affordable-summer-academic-programs-dublin-ca',
+    description: 'How to compare summer program value in the Tri-Valley.',
+  },
+  {
     title: 'When Should My Child Start SAT Prep?',
     href: '/resources/when-to-start-sat-prep',
     description: 'Grade 8, 9, or 10? The answer depends on one thing most parents miss.',

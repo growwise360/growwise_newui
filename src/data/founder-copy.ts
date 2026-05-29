@@ -2,6 +2,7 @@
 export const FOUNDER_COPY = {
   name: 'Anshika Verma',
   role: 'Founder & Educational Director',
+  email: 'anshikaverma@thegrowwise.com',
   image: '/assets/founder-anshika-verma.jpg',
   quote: 'Teach a child how to learn and everything changes.',
   shortBio:

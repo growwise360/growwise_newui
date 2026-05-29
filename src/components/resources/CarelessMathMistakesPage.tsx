@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
+import { ResourceBulletinCta } from '@/components/resources/ResourceBulletinCta'
 import {
   CARELESS_MATH_MISTAKES_CTA,
   CARELESS_MATH_MISTAKES_FAQS,
@@ -346,6 +347,8 @@ export function CarelessMathMistakesPage() {
               ))}
             </Accordion>
           </section>
+
+          <ResourceBulletinCta className="mt-12" />
 
           <section className="mt-12 border-t border-slate-200 pt-10" aria-labelledby="related-guide">
             <h2 id="related-guide" className="font-heading text-lg font-bold text-[#1F396D]">
