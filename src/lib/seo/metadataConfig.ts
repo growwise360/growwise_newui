@@ -538,6 +538,25 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/why-growwise': {
+    title: 'Why GrowWise | Structured, School-Aligned Programs for Grades 1–12',
+    description:
+      'GrowWise uses a diagnostic-first, 3-level progression model with monthly progress reports and school-aligned curriculum. See how it compares to traditional tutoring programs.',
+    keywords:
+      'tutoring programs, structured tutoring, diagnostic assessment, school-aligned curriculum, diagnostic-first learning, small group tutoring, monthly progress reports, diagnostic learning model',
+    path: '/why-growwise',
+  },
+
+  '/resources/why-grades-hide-learning-gaps': {
+    title: "Why Your Child's A Grade May Be Hiding a Learning Gap | GrowWise",
+    description:
+      "A grade measures performance on one day — not understanding. Here are three signs your child's grade is hiding a gap, and what to do about it.",
+    keywords:
+      'learning gap grades, does good grade mean ready for next grade, child good grades but struggling, grades hide learning gaps, academic gap assessment, diagnostic vs grade',
+    path: '/resources/why-grades-hide-learning-gaps',
+    type: 'article',
+  },
+
   '/resources/careless-math-mistakes': {
     title: 'Why Kids Make Careless Math Mistakes on Tests | GrowWise',
     description:

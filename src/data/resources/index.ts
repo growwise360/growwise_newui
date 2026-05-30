@@ -1,5 +1,6 @@
 import { AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_PATH } from '@/data/resources/affordable-summer-academic-programs-dublin-ca'
 import { CARELESS_MATH_MISTAKES_PATH } from '@/data/resources/careless-math-mistakes-copy'
+import { WHY_GRADES_PATH } from '@/data/resources/why-grades-hide-learning-gaps-copy'
 import { HOMEWORK_INDEPENDENCE_PATH } from '@/data/resources/homework-independence-copy'
 import { IM1_SUMMER_PREP_DUBLIN_CA_PATH } from '@/data/resources/im1-summer-prep-dublin-ca'
 import { KHAN_ACADEMY_SUMMER_DOESNT_WORK_PATH } from '@/data/resources/khan-academy-summer-doesnt-work'
@@ -29,6 +30,7 @@ export const RESOURCE_ARTICLE_PATHS = [
   AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_PATH,
   SUMMER_WRITING_PROGRAM_DUBLIN_CA_PATH,
   TUTORING_DUBLIN_CA_PATH,
+  WHY_GRADES_PATH,
 ] as const
 
 export type ResourceArticlePath = (typeof RESOURCE_ARTICLE_PATHS)[number]

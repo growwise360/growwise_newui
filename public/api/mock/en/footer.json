@@ -53,6 +53,7 @@
         { "label": "Book Free Assessment →", "href": "/book-assessment", "active": true, "highlight": true },
         { "label": "Free Diagnostic Tool →", "href": "/self-check", "active": true, "highlight": true },
         { "label": "About GrowWise", "href": "/about", "active": true },
+        { "label": "Why GrowWise", "href": "/why-growwise", "active": true },
         { "label": "GrowWise Bulletin", "href": "/bulletin", "active": true },
         { "label": "Trusted by Dublin Neighbors", "href": "/from-nextdoor", "active": true },
         { "label": "Blog", "href": "/growwise-blogs", "active": true },
