@@ -45,6 +45,7 @@ export interface SitemapUrl {
 const corePages: SitemapEntry[] = [
   { path: '/', priority: 1.0, changefreq: 'weekly' },
   { path: '/about', priority: 0.9, changefreq: 'monthly' },
+  { path: '/why-growwise', priority: 0.85, changefreq: 'monthly' },
   { path: '/academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
   { path: '/dublin-ca', priority: 0.9, changefreq: 'monthly' },
