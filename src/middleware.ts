@@ -34,11 +34,15 @@ function removeTrailingSlash(request: NextRequest): NextResponse | null {
 
 /**
  * Enforce HTTPS (301 redirect). Vercel handles this automatically in production.
- * On localhost dev, skip to avoid protocol issues.
+ * Skip on localhost so `next start` + CI E2E can use plain HTTP (no TLS on :3000).
  */
 function redirectToHttps(request: NextRequest): NextResponse | null {
   if (process.env.NODE_ENV !== 'production') {
-    return null; // Skip in dev; Vercel handles in production
+    return null;
+  }
+  const host = request.headers.get('host') || '';
+  if (/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)) {
+    return null;
   }
   const proto = request.headers.get('x-forwarded-proto');
   if (proto && proto !== 'https') {
