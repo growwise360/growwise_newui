@@ -4,6 +4,56 @@ import { NextResponse } from 'next/server';
 import { ENABLED_LOCALES, DEFAULT_LOCALE } from '@/i18n/localeConfig';
 
 /**
+ * Strip www subdomain to enforce single canonical domain (301 redirect).
+ * Consolidates SEO link equity and prevents crawl budget waste on duplicate www/non-www versions.
+ */
+function redirectWwwToDomain(request: NextRequest): NextResponse | null {
+  const host = request.headers.get('host') || '';
+  if (host.startsWith('www.')) {
+    const nonWwwHost = host.slice('www.'.length);
+    const url = request.nextUrl.clone();
+    url.hostname = nonWwwHost;
+    return NextResponse.redirect(url, 301);
+  }
+  return null;
+}
+
+/**
+ * Remove trailing slashes (except root) to normalize URLs and consolidate canonical versions.
+ * Prevents `/path/` and `/path` from being indexed as separate pages.
+ */
+function removeTrailingSlash(request: NextRequest): NextResponse | null {
+  const pathname = request.nextUrl.pathname;
+  if (pathname !== '/' && pathname.endsWith('/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.slice(0, -1);
+    return NextResponse.redirect(url, 301);
+  }
+  return null;
+}
+
+/**
+ * Enforce HTTPS (301 redirect). Vercel handles this automatically in production.
+ * Skip on localhost so `next start` + CI E2E can use plain HTTP (no TLS on :3000).
+ */
+function redirectToHttps(request: NextRequest): NextResponse | null {
+  if (process.env.NODE_ENV !== 'production') {
+    return null;
+  }
+  const host = request.headers.get('host') || '';
+  if (/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)) {
+    return null;
+  }
+  const proto = request.headers.get('x-forwarded-proto');
+  if (proto && proto !== 'https') {
+    const url = request.nextUrl.clone();
+    url.protocol = 'https:';
+    return NextResponse.redirect(url, 301);
+  }
+  return null;
+}
+
+/**
  * With `localePrefix: 'never'`, public URLs must not use `/en/`. Legacy `/en/*` HTML routes
  * (old Stripe success_url values, bookmarks, inbound links) are 301-redirected to the canonical
  * URL so link equity consolidates on the prefix-free path. `/_next/*` static assets nested under
@@ -53,6 +103,18 @@ function rewriteLocalePrefixedNextAssets(request: NextRequest): NextResponse | n
  * because there is no root `app/page.tsx` (only `app/[locale]/...`).
  */
 export default function middleware(request: NextRequest) {
+  // HTTPS enforcement (runs first)
+  const httpsRedirect = redirectToHttps(request);
+  if (httpsRedirect) return httpsRedirect;
+
+  // www → non-www redirect (consolidate domain canonicalization)
+  const wwwRedirect = redirectWwwToDomain(request);
+  if (wwwRedirect) return wwwRedirect;
+
+  // Remove trailing slashes (except root) to normalize URLs
+  const noTrailing = removeTrailingSlash(request);
+  if (noTrailing) return noTrailing;
+
   const pathname = request.nextUrl.pathname;
   // Non-localized App Router segments (`app/camp/...` at repo root). Running next-intl on these
   // can fight with `[locale]/camp/[slug]` and caused redirect loops to the same URL.
