@@ -12,7 +12,7 @@ function redirectWwwToDomain(request: NextRequest): NextResponse | null {
   if (host.startsWith('www.')) {
     const nonWwwHost = host.slice('www.'.length);
     const url = request.nextUrl.clone();
-    url.host = nonWwwHost;
+    url.hostname = nonWwwHost;
     return NextResponse.redirect(url, 301);
   }
   return null;

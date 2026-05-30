@@ -38,14 +38,16 @@ jobs:
         env:
           PORT: 3000
         run: npm run start > /tmp/server.log 2>&1 &
+        timeout-minutes: 2
 
-      - name: Wait for server
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:3000 --timeout 120000
+
+      - name: Show server logs if failed
+        if: failure()
         run: |
-          npx wait-on http://localhost:3000 --timeout 120000 || (
-            echo "Server failed to start. Logs:"
-            cat /tmp/server.log
-            exit 1
-          )
+          echo "Server logs:"
+          cat /tmp/server.log
 
       - name: Run Playwright smoke E2E (@critical)
         env:
