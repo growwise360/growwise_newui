@@ -33,12 +33,15 @@ function removeTrailingSlash(request: NextRequest): NextResponse | null {
 }
 
 /**
- * Enforce HTTPS (301 redirect). Vercel handles this automatically in production,
- * but explicit handling ensures it works in all environments.
+ * Enforce HTTPS (301 redirect). Vercel handles this automatically in production.
+ * On localhost dev, skip to avoid protocol issues.
  */
 function redirectToHttps(request: NextRequest): NextResponse | null {
-  const proto = request.headers.get('x-forwarded-proto') || request.nextUrl.protocol;
-  if (proto !== 'https:' && process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV !== 'production') {
+    return null; // Skip in dev; Vercel handles in production
+  }
+  const proto = request.headers.get('x-forwarded-proto');
+  if (proto && proto !== 'https') {
     const url = request.nextUrl.clone();
     url.protocol = 'https:';
     return NextResponse.redirect(url, 301);
