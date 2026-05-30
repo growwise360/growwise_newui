@@ -51,6 +51,16 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     href: '/resources/reading-fluency-vs-comprehension',
   },
   {
+    id: 'why-grades-hide-learning-gaps',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: "Why Your Child's A Grade May Be Hiding a Learning Gap",
+    description:
+      "A grade measures performance on one day — not understanding. Three signs your child's grade is hiding a gap, and what to do about it.",
+    readTime: '5 min read',
+    href: '/resources/why-grades-hide-learning-gaps',
+  },
+  {
     id: 'careless-math-mistakes',
     category: 'academic',
     categoryLabel: 'ACADEMIC',

@@ -35,7 +35,7 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', { tag: '@n
     await page.goto(localePath('/academic/math'));
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('main h1')).toHaveText(
-      'K-12 Math Tutoring in Dublin, CA',
+      "Find the right math program for your child's grade and goal.",
     );
 
     await page.goto(localePath('/academic/english'));

@@ -289,7 +289,15 @@ export default function About() {
               Explore K-12 tutoring &amp; coding classes at our Dublin center →
             </Link>
           </p>
-          
+          <p className="mb-8">
+            <Link
+              href={publicPath('/why-growwise', locale)}
+              className="text-base font-semibold text-[#F1894F] underline-offset-4 hover:text-[#ffb380] hover:underline sm:text-lg"
+            >
+              Why families choose GrowWise over traditional tutoring programs →
+            </Link>
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="flex items-center justify-center gap-3">
               <MapPin className="w-6 h-6 text-[#F1894F]" />
