@@ -49,4 +49,15 @@ describe('sitemapData', () => {
     });
     expect(blogLocs).toContain(`${BASE}/resources/python-vs-scratch`);
   });
+
+  it('does not include retired locale prefixes in sitemap URLs', () => {
+    const allLocs = [
+      ...buildPagesUrls(BASE, LASTMOD).map((u) => u.loc),
+      ...buildBlogUrls(BASE, LASTMOD).map((u) => u.loc),
+    ];
+    const localePrefixPattern = /\/(en|hi|zh|es)\//;
+    for (const loc of allLocs) {
+      expect(loc).not.toMatch(localePrefixPattern);
+    }
+  });
 });

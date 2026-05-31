@@ -53,20 +53,23 @@ function redirectToHttps(request: NextRequest): NextResponse | null {
   return null;
 }
 
+/** Retired URL prefixes — English-only site; none of these should return 200 HTML. */
+const LEGACY_LOCALE_PREFIXES = ['en', 'hi', 'zh', 'es'] as const;
+
 /**
- * With `localePrefix: 'never'`, public URLs must not use `/en/`. Legacy `/en/*` HTML routes
- * (old Stripe success_url values, bookmarks, inbound links) are 301-redirected to the canonical
- * URL so link equity consolidates on the prefix-free path. `/_next/*` static assets nested under
- * `/en/` are handled separately by `rewriteLocalePrefixedNextAssets` (rewrite, not redirect).
+ * With `localePrefix: 'never'`, public URLs must not use `/en/` (or retired `/hi|zh|es/`).
+ * Legacy prefixed routes are 301-redirected to prefix-free English paths.
+ * `/_next/*` under a locale prefix is handled by `rewriteLocalePrefixedNextAssets` (rewrite, not redirect).
  */
-function redirectLegacyDefaultLocalePrefix(request: NextRequest): NextResponse | null {
-  if (DEFAULT_LOCALE !== 'en') return null;
+function redirectLegacyLocalePrefix(request: NextRequest): NextResponse | null {
   const pathname = request.nextUrl.pathname;
-  if (pathname === '/en' || pathname.startsWith('/en/')) {
-    const rest = pathname === '/en' ? '/' : pathname.slice('/en'.length) || '/';
-    const url = request.nextUrl.clone();
-    url.pathname = rest === '' ? '/' : rest;
-    return NextResponse.redirect(url, 301);
+  for (const loc of LEGACY_LOCALE_PREFIXES) {
+    if (pathname === `/${loc}` || pathname.startsWith(`/${loc}/`)) {
+      const rest = pathname === `/${loc}` ? '/' : pathname.slice(`/${loc}`.length) || '/';
+      const url = request.nextUrl.clone();
+      url.pathname = rest === '' ? '/' : rest;
+      return NextResponse.redirect(url, 301);
+    }
   }
   return null;
 }
@@ -78,9 +81,10 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'never',
 });
 
-/** Must match every segment in `ENABLED_LOCALES` (kept in sync with next-intl `locales` above). */
-const localePattern =
-  ENABLED_LOCALES.length > 0 ? ENABLED_LOCALES.join('|') : 'en';
+/** Locales that may prefix `/_next/*` asset paths (enabled + retired). */
+const assetLocalePattern = [
+  ...new Set([...ENABLED_LOCALES, ...LEGACY_LOCALE_PREFIXES]),
+].join('|');
 
 /**
  * When the matcher runs, `/en/_next/static/...` is treated as a localized route.
@@ -89,7 +93,7 @@ const localePattern =
 function rewriteLocalePrefixedNextAssets(request: NextRequest): NextResponse | null {
   const pathname = request.nextUrl.pathname;
   const m = pathname.match(
-    new RegExp(`^/(?:${localePattern})/(_next(?:/.*)?)$`),
+    new RegExp(`^/(?:${assetLocalePattern})/(_next(?:/.*)?)$`),
   );
   if (!m) return null;
   const url = request.nextUrl.clone();
@@ -124,8 +128,8 @@ export default function middleware(request: NextRequest) {
 
   const rewritten = rewriteLocalePrefixedNextAssets(request);
   if (rewritten) return rewritten;
-  const legacyEn = redirectLegacyDefaultLocalePrefix(request);
-  if (legacyEn) return legacyEn;
+  const legacyLocale = redirectLegacyLocalePrefix(request);
+  if (legacyLocale) return legacyLocale;
   return intlMiddleware(request);
 }
 

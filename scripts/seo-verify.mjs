@@ -7,7 +7,7 @@
  * Exit code 0 = all clear, 1 = failures found.
  */
 
-const BASE = 'https://www.growwiseschool.org'
+const BASE = 'https://growwiseschool.org'
 
 const PAGES_TO_CHECK = [
   '/',
@@ -18,10 +18,8 @@ const PAGES_TO_CHECK = [
   '/enroll-academic',
   '/book-assessment',
   '/programs',
-  '/courses/math',
-  '/courses/english',
-  '/courses/sat-prep',
-  '/courses/high-school-math',
+  '/academic/math',
+  '/academic/english',
   '/steam',
   '/steam/ml-ai-coding',
   '/steam/game-development',
@@ -40,8 +38,8 @@ const PAGES_TO_CHECK = [
 const SCHEMA_PAGES = [
   '/',
   '/camps/summer',
-  '/courses/math',
-  '/courses/english',
+  '/academic/math',
+  '/academic/english',
   '/steam/ml-ai-coding',
   '/steam/game-development',
 ]
@@ -174,8 +172,8 @@ async function checkSchema() {
   const REQUIRED_TYPES = {
     '/': ['EducationalOrganization', 'WebSite'],
     '/camps/summer': ['Event'],
-    '/courses/math': ['Course'],
-    '/courses/english': ['Course'],
+    '/academic/math': ['Course'],
+    '/academic/english': ['Course'],
     '/steam/ml-ai-coding': ['Course'],
     '/steam/game-development': ['Course'],
   }
@@ -239,7 +237,7 @@ async function checkSitemap() {
     pass(`${childUrl} — ${clocs.length} URLs`)
 
     // Spot-check key pages are in sitemap
-    const KEY_PAGES = ['/camps/summer', '/courses/math', '/courses/english', '/steam']
+    const KEY_PAGES = ['/camps/summer', '/academic/math', '/academic/english', '/steam']
     if (childUrl.includes('pages')) {
       KEY_PAGES.forEach(p => {
         const found = clocs.some(l => l.includes(p))

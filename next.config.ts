@@ -220,7 +220,22 @@ const nextConfig: NextConfig = {
       { source: `${from}/`, destination: to, permanent: true as const },
     ]);
 
+    const retiredLocale = 'hi|zh|es';
+    const localePrefixedLegacyRedirects = LEGACY_PATH_REDIRECTS.flatMap(({ from, to }) => [
+      {
+        source: `/:locale(${retiredLocale})${from}`,
+        destination: to,
+        permanent: true as const,
+      },
+      {
+        source: `/:locale(${retiredLocale})${from}/`,
+        destination: to,
+        permanent: true as const,
+      },
+    ]);
+
     return [
+      ...localePrefixedLegacyRedirects,
       ...legacyMarketingRedirects,
       { source: '/camp', destination: '/camps/summer', permanent: true },
       { source: '/camp/:slug', destination: '/camps/:slug', permanent: true },
@@ -228,6 +243,8 @@ const nextConfig: NextConfig = {
       { source: '/en/camp/:slug', destination: '/camps/:slug', permanent: true },
       { source: '/en', destination: '/', permanent: true },
       { source: '/en/:path*', destination: '/:path*', permanent: true },
+      { source: `/:locale(${retiredLocale})`, destination: '/', permanent: true },
+      { source: `/:locale(${retiredLocale})/:path*`, destination: '/:path*', permanent: true },
       {
         source: '/:locale/camps/summer/lottery-success',
         destination: '/:locale/camps/summer/summercamp-success',

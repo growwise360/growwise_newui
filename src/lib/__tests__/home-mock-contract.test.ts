@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 const MOCK_ROOT = join(process.cwd(), 'public', 'api', 'mock');
-const HOME_LOCALES = ['en', 'es', 'hi', 'zh'] as const;
+const HOME_LOCALES = ['en'] as const;
 
 type PopularCourse = {
   id: number;
