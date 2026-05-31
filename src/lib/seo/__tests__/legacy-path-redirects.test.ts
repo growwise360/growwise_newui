@@ -18,6 +18,11 @@ describe('LEGACY_PATH_REDIRECTS', () => {
     expect(entry?.to).toBe('/academic/math/high-school')
   })
 
+  it('redirects legacy courses english to academic english', () => {
+    const entry = LEGACY_PATH_REDIRECTS.find((r) => r.from === '/courses/english')
+    expect(entry?.to).toBe('/academic/english')
+  })
+
   it('redirects math-tutoring-dublin-ca to dublin-ca', () => {
     const entry = LEGACY_PATH_REDIRECTS.find((r) => r.from === '/math-tutoring-dublin-ca')
     expect(entry?.to).toBe('/dublin-ca')

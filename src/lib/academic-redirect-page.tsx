@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import { DEFAULT_LOCALE } from '@/i18n/localeConfig';
 import { publicPath } from '@/lib/publicPath';
 
 type AcademicRedirectPageProps = {
@@ -8,6 +9,6 @@ type AcademicRedirectPageProps = {
 
 /** Server redirect for retired /courses/* URLs (next.config 301 is primary; this covers locale routing). */
 export async function AcademicRedirectPage({ params, targetPath }: AcademicRedirectPageProps) {
-  const { locale } = await params;
-  redirect(publicPath(targetPath, locale));
+  await params;
+  redirect(publicPath(targetPath, DEFAULT_LOCALE));
 }

@@ -15,6 +15,8 @@ describe('robots() — GWA-192 / TC-07', () => {
     expect(rules.disallow).toEqual([
       '/en/',
       '/hi/',
+      '/zh/',
+      '/es/',
       '/*?*',
       '/favicon.ico',
       '/student-login',

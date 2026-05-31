@@ -24,9 +24,9 @@ node scripts/seo-verify.mjs
 2. Left sidebar → **Sitemaps**
 3. Remove any old sitemap entries if present
 4. Add each sitemap URL and click Submit:
-   - `https://www.growwiseschool.org/sitemap.xml`
-   - `https://www.growwiseschool.org/sitemap-pages.xml`
-   - `https://www.growwiseschool.org/sitemap-blogs.xml`
+   - `https://growwiseschool.org/sitemap.xml`
+   - `https://growwiseschool.org/sitemap-pages.xml`
+   - `https://growwiseschool.org/sitemap-blogs.xml`
 5. **Expected response:** "Success" with URL count shown
 6. Monitor "Discovered URLs" vs "Indexed URLs" — should close within 2–4 weeks
 
@@ -36,16 +36,16 @@ Use **URL Inspection Tool** for each high-value page in this order:
 
 | Priority | URL | Action |
 |----------|-----|--------|
-| 1 | `https://www.growwiseschool.org/camps/summer` | Inspect → Request Indexing |
-| 2 | `https://www.growwiseschool.org/` | Inspect → Request Indexing |
-| 3 | `https://www.growwiseschool.org/courses/math` | Inspect → Request Indexing |
-| 4 | `https://www.growwiseschool.org/courses/english` | Inspect → Request Indexing |
-| 5 | `https://www.growwiseschool.org/courses/sat-prep` | Inspect → Request Indexing |
-| 6 | `https://www.growwiseschool.org/steam/ml-ai-coding` | Inspect → Request Indexing |
-| 7 | `https://www.growwiseschool.org/steam/game-development` | Inspect → Request Indexing |
-| 8 | `https://www.growwiseschool.org/academic` | Inspect → Request Indexing |
-| 9 | `https://www.growwiseschool.org/enroll` | Inspect → Request Indexing |
-| 10 | `https://www.growwiseschool.org/book-assessment` | Inspect → Request Indexing |
+| 1 | `https://growwiseschool.org/camps/summer` | Inspect → Request Indexing |
+| 2 | `https://growwiseschool.org/` | Inspect → Request Indexing |
+| 3 | `https://growwiseschool.org/academic/math` | Inspect → Request Indexing |
+| 4 | `https://growwiseschool.org/academic/english` | Inspect → Request Indexing |
+| 5 | `https://growwiseschool.org/steam/ml-ai-coding` | Inspect → Request Indexing |
+| 6 | `https://growwiseschool.org/steam/game-development` | Inspect → Request Indexing |
+| 7 | `https://growwiseschool.org/academic` | Inspect → Request Indexing |
+| 8 | `https://growwiseschool.org/enroll` | Inspect → Request Indexing |
+| 9 | `https://growwiseschool.org/book-assessment` | Inspect → Request Indexing |
+| 10 | `https://growwiseschool.org/resources/reading-fluency-vs-comprehension` | Inspect → Request Indexing |
 
 > GSC allows ~10 indexing requests per day. Do top 10 today, rest tomorrow.
 
@@ -53,9 +53,9 @@ Use **URL Inspection Tool** for each high-value page in this order:
 
 1. Go to: https://search.google.com/test/rich-results
 2. Test these URLs for schema errors:
-   - `https://www.growwiseschool.org/` → expect: EducationalOrganization, WebSite
-   - `https://www.growwiseschool.org/camps/summer` → expect: Event, BreadcrumbList
-   - `https://www.growwiseschool.org/courses/math` → expect: Course
+   - `https://growwiseschool.org/` → expect: EducationalOrganization, WebSite
+   - `https://growwiseschool.org/camps/summer` → expect: Event, BreadcrumbList
+   - `https://growwiseschool.org/academic/math` → expect: Course
 3. Zero errors = success. Fix any remaining warnings in schema files.
 
 ### D. Check Core Web Vitals
