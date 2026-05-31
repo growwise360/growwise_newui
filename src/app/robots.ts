@@ -12,6 +12,8 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         '/en/',
         '/hi/',
+        '/zh/',
+        '/es/',
         '/*?*',
         '/favicon.ico',
         '/student-login',
