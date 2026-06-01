@@ -52,6 +52,7 @@ const HighSchoolMathPage: React.FC = () => {
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [selectedHsJtbdId, setSelectedHsJtbdId] = useState(HIGH_SCHOOL_JTBD_SITUATIONS[0].id);
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
   const selectedHsJtbd =
     HIGH_SCHOOL_JTBD_SITUATIONS.find((s) => s.id === selectedHsJtbdId) ??
@@ -144,91 +145,185 @@ const HighSchoolMathPage: React.FC = () => {
 
   const highSchoolMathCourses = [
     {
-      id: 'freshman-sophomore',
-      name: 'Freshman & Sophomore',
-      subtitle: 'Grades 9-10',
-      description: 'Foundation courses covering Algebra I and Geometry with personalized attention to build strong mathematical fundamentals.',
+      id: 'algebra-1',
+      name: 'Algebra 1',
+      description: 'Master linear equations, quadratic functions, and foundational algebraic concepts aligned with DUSD and PUSD standards.',
       groupPrice: 45,
       oneOnOnePrice: 65,
-      priceRange: '$45-$65',
-      duration: 'Per session',
-      sessions: '2 hrs/session',
-      level: 'Grades 9-10',
+      level: 'Grades 8-9',
       icon: GraduationCap,
       gradient: 'from-[#1F396D] to-[#29335C]',
       bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
       iconColor: 'text-[#1F396D]',
       hoverBorder: 'border-[#1F396D]/30',
-      curriculum: [
-        {
-          course: 'Algebra I',
-          topics: [
-            'One and Two Variable Statistics',
-            'Linear equations & inequalities',
-            'Systems of linear equations',
-            'Quadratic equations',
-            'Exponential Functions',
-            'Functions (intro, graphs)'
-          ]
-        },
-        {
-          course: 'Geometry',
-          topics: [
-            'Points, lines, angles',
-            'Triangles (congruence, similarity)',
-            'Quadrilaterals & polygons',
-            'Circles & tangents',
-            'Transformations & dilations',
-            'Coordinate geometry',
-            'Perimeter, area, volume',
-            'Proofs (two-column, paragraph)',
-            'Intro trigonometry'
-          ]
-        }
+      duration: 'One 2 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      topics: [
+        'Linear equations & inequalities',
+        'Systems of linear equations',
+        'Quadratic equations & functions',
+        'Exponential functions',
+        'Graphing techniques',
+        'Problem-solving strategies'
+      ],
+      goals: [
+        { icon: Star, title: 'Solid Foundation Establishment', description: 'Establish a strong foundation for future math courses.' },
+        { icon: Star, title: 'Critical Skills Development', description: 'Develop critical skills essential for success in algebraic concepts.' },
+        { icon: Star, title: 'Inequality Mastery', description: 'Master inequalities and their applications in algebraic problems.' },
+        { icon: Star, title: 'Strategic Problem-Solving', description: 'Develop strategic problem-solving skills specific to algebraic scenarios.' },
+        { icon: Star, title: 'Comprehensive Topic Coverage', description: 'Cover key topics including functions, inequalities, and systems of equations.' },
+        { icon: Star, title: 'Functional Understanding', description: 'Attain a functional understanding of mathematical functions.' },
+        { icon: Star, title: 'Systems of Equations Proficiency', description: 'Excel in solving systems of equations through focused learning.' },
+        { icon: Star, title: 'Interactive Learning Environment', description: 'Engage in interactive sessions for effective and dynamic learning.' }
       ]
     },
     {
-      id: 'junior-senior',
-      name: 'Junior & Senior',
-      subtitle: 'Grades 11-12',
-      description: 'Advanced courses covering Algebra II and Pre-Calculus preparing students for college-level mathematics and AP exams.',
-      groupPrice: 65,
-      oneOnOnePrice: 75,
-      priceRange: '$65-$75',
-      duration: 'Per session',
-      sessions: '2 hrs/session',
-      level: 'Grades 11-12',
+      id: 'algebra-2',
+      name: 'Algebra 2',
+      description: 'Explore polynomial and exponential functions, trigonometry introduction, and advanced algebraic problem-solving.',
+      groupPrice: 45,
+      oneOnOnePrice: 65,
+      level: 'Grades 10-11',
+      icon: Calculator,
+      gradient: 'from-[#F16112] to-[#F1894F]',
+      bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
+      iconColor: 'text-[#F16112]',
+      hoverBorder: 'border-[#F16112]/30',
+      duration: 'One 2 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      topics: [
+        'Polynomial functions',
+        'Rational functions',
+        'Exponential & logarithmic functions',
+        'Complex numbers',
+        'Trigonometric functions',
+        'Statistical analysis'
+      ],
+      goals: [
+        { icon: Star, title: 'Advanced Function Mastery', description: 'Master complex functions and their real-world applications.' },
+        { icon: Star, title: 'College Readiness', description: 'Prepare for college-level mathematics with rigorous coursework.' },
+        { icon: Star, title: 'Higher Order Thinking', description: 'Develop abstract thinking and mathematical reasoning skills.' },
+        { icon: Star, title: 'Test Excellence', description: 'Achieve success on standardized assessments and course exams.' }
+      ]
+    },
+    {
+      id: 'advanced-algebra-2',
+      name: 'Advanced Algebra 2',
+      description: 'Accelerated curriculum for advanced learners, diving deeper into complex algebraic concepts and college prep.',
+      groupPrice: 55,
+      oneOnOnePrice: 70,
+      level: 'Grades 10-11',
+      icon: TrendingUp,
+      gradient: 'from-[#1F396D] to-[#29335C]',
+      bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
+      iconColor: 'text-[#1F396D]',
+      hoverBorder: 'border-[#1F396D]/30',
+      duration: 'One 2.5 hours class every weekday for 10 weeks',
+      campDuration: 'June 15 - August 22, 2026',
+      topics: [
+        'Advanced polynomial functions',
+        'Complex exponential concepts',
+        'Trigonometric identities',
+        'Systems of equations',
+        'Matrix algebra',
+        'College-level applications'
+      ],
+      goals: [
+        { icon: Star, title: 'Accelerated Learning Path', description: 'Progress at an advanced pace with challenging material.' },
+        { icon: Star, title: 'Mathematical Maturity', description: 'Develop sophisticated problem-solving and proof-writing skills.' },
+        { icon: Star, title: 'STEM Preparation', description: 'Build foundation for advanced science and engineering courses.' },
+        { icon: Star, title: 'Competition Readiness', description: 'Prepare for math competitions and advanced assessments.' }
+      ]
+    },
+    {
+      id: 'precalculus',
+      name: 'Precalculus',
+      description: 'Prepare for Calculus with advanced function analysis, trigonometry, and analytical geometry.',
+      groupPrice: 55,
+      oneOnOnePrice: 70,
+      level: 'Grade 11',
       icon: Award,
       gradient: 'from-[#F16112] to-[#F1894F]',
       bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
       iconColor: 'text-[#F16112]',
       hoverBorder: 'border-[#F16112]/30',
-      curriculum: [
-        {
-          course: 'Algebra II',
-          topics: [
-            'Sequences and Functions',
-            'Polynomial functions',
-            'Rational Functions and Equations',
-            'Complex Numbers and Rational Exponents',
-            'Exponential Functions and Equations',
-            'Transformations and Functions',
-            'Trigonometric Functions',
-            'Statistical Inferences'
-          ]
-        },
-        {
-          course: 'Precalculus',
-          topics: [
-            'Advanced functions',
-            'Trigonometric (identities, graphs)',
-            'Sequences & series',
-            'Vectors & parametrics',
-            'Conic sections',
-            'Limits (intro)',
-            'Matrices & determinants'
-          ]
-        }
+      duration: 'One 2.5 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      topics: [
+        'Advanced functions & composition',
+        'Trigonometric identities & graphs',
+        'Sequences & series',
+        'Conic sections',
+        'Limits introduction',
+        'Vectors & parametric equations'
+      ],
+      goals: [
+        { icon: Star, title: 'Calculus Foundation', description: 'Build essential concepts needed for successful Calculus study.' },
+        { icon: Star, title: 'Advanced Trigonometry', description: 'Master trigonometric functions and their applications.' },
+        { icon: Star, title: 'Analytical Thinking', description: 'Develop ability to analyze and interpret complex functions.' },
+        { icon: Star, title: 'College Pathway', description: 'Complete requirements for college mathematics placement.' }
+      ]
+    },
+    {
+      id: 'ap-precalculus',
+      name: 'AP Precalculus',
+      description: 'College Board AP-level course covering advanced topics essential for Calculus and university success.',
+      groupPrice: 65,
+      oneOnOnePrice: 75,
+      level: 'Grade 11',
+      icon: Brain,
+      gradient: 'from-[#1F396D] to-[#29335C]',
+      bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
+      iconColor: 'text-[#1F396D]',
+      hoverBorder: 'border-[#1F396D]/30',
+      duration: 'One 2.5 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      topics: [
+        'AP Precalculus curriculum',
+        'Advanced trigonometry',
+        'Polar coordinates',
+        'Parametric equations',
+        'Complex function analysis',
+        'AP exam preparation'
+      ],
+      goals: [
+        { icon: Star, title: 'AP Exam Excellence', description: 'Achieve a high score on the AP Precalculus examination.' },
+        { icon: Star, title: 'College Credit Potential', description: 'Earn college credit through AP exam success.' },
+        { icon: Star, title: 'Rigorous Preparation', description: 'Master College Board curriculum standards.' },
+        { icon: Star, title: 'University Success', description: 'Build skills for success in university-level mathematics.' }
+      ]
+    },
+    {
+      id: 'calculus-ab',
+      name: 'Calculus AB',
+      description: 'Master AP Calculus AB: limits, derivatives, integration, and real-world applications for college credit.',
+      groupPrice: 65,
+      oneOnOnePrice: 75,
+      level: 'Grades 11-12',
+      icon: Sparkles,
+      gradient: 'from-[#F16112] to-[#F1894F]',
+      bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
+      iconColor: 'text-[#F16112]',
+      hoverBorder: 'border-[#F16112]/30',
+      duration: 'One 2.5 hours class every weekday for 14 weeks',
+      campDuration: 'June 15 - September 19, 2026',
+      topics: [
+        'Limits & continuity',
+        'Derivatives & applications',
+        'Integration techniques',
+        'Fundamental Theorem',
+        'AP exam strategies',
+        'College credit potential'
+      ],
+      goals: [
+        { icon: Star, title: 'Strengthen Algebra Skills', description: 'Strengthen algebra skills crucial for success in calculus.' },
+        { icon: Star, title: 'Critical Concepts Exploration', description: 'Explore critical calculus concepts, including limits, asymptotes, derivatives, and integrals.' },
+        { icon: Star, title: 'Limit Understanding', description: 'Develop a clear understanding of limits as a foundational calculus concept.' },
+        { icon: Star, title: 'Asymptote Exploration', description: 'Explore the concept of asymptotes and their significance in calculus.' },
+        { icon: Star, title: 'Derivatives Mastery', description: 'Master the calculation and application of derivatives in calculus.' },
+        { icon: Star, title: 'Integral Understanding', description: 'Gain a comprehensive understanding of integrals and their role in calculus.' },
+        { icon: Star, title: 'Application of Concepts', description: 'Apply learned concepts to solve real-world calculus problems.' },
+        { icon: Star, title: 'Problem-Solving Proficiency', description: 'Develop proficiency in problem-solving through calculus exercises.' }
       ]
     }
   ];
@@ -568,7 +663,7 @@ const HighSchoolMathPage: React.FC = () => {
           </div>
 
           {/* Course Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {highSchoolMathCourses.map((course) => {
               const isHovered = hoveredCourse === course.id;
               const courseGradients = getCourseGradients(course);
@@ -577,9 +672,10 @@ const HighSchoolMathPage: React.FC = () => {
               return (
                 <div
                   key={course.id}
-                  className={`relative h-[500px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
+                  className={`relative h-[450px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
                   onMouseEnter={() => handleMouseEnter(course.id)}
                   onMouseLeave={handleMouseLeave}
+                  onClick={() => setSelectedCourseId(course.id)}
                 >
                   {/* Card Container with Conditional 3D Flip */}
                   <div className={`relative w-full h-full transition-transform duration-700 ${
@@ -685,66 +781,33 @@ const HighSchoolMathPage: React.FC = () => {
                         <CardContent className="p-5 relative flex flex-col h-full overflow-hidden">
                           {/* Top Section - Course Header */}
                           <div className="flex-shrink-0 mb-3">
-                            <div className="text-center mb-2">
-                              <h4 className={`font-bold text-base ${courseGradients.iconColor} mb-1`}>High School Math Curriculum</h4>
-                              <p className="text-[10px] text-gray-600">(Aligned with California Common Core Standards)</p>
-                            </div>
+                            <h4 className={`font-bold text-sm ${courseGradients.iconColor} mb-1`}>{course.name}</h4>
+                            <p className="text-[11px] text-gray-600">Key Topics</p>
                           </div>
-                          
-                          {/* Middle Section - Curriculum Content */}
+
+                          {/* Middle Section - Topics List */}
                           <div className="flex-grow overflow-y-auto custom-scrollbar">
-                            <div className="grid grid-cols-2 gap-3">
-                              {course.curriculum.map((curriculumItem, idx) => {
-                                const isAlgebraI = curriculumItem.course === 'Algebra I';
-                                const isGeometry = curriculumItem.course === 'Geometry';
-                                const isAlgebraII = curriculumItem.course === 'Algebra II';
-                                const isPrecalculus = curriculumItem.course === 'Precalculus';
-                                
-                                return (
-                                  <div 
-                                    key={idx}
-                                    className={`p-3 rounded-xl border-2 ${
-                                      isAlgebraI || isPrecalculus
-                                        ? 'bg-[#1F396D]/5 border-[#1F396D]/20'
-                                        : 'bg-[#F16112]/5 border-[#F16112]/20'
-                                    }`}
-                                  >
-                                    <div className={`text-center py-2 px-3 rounded-lg mb-2 ${
-                                      isAlgebraI || isPrecalculus
-                                        ? 'bg-[#1F396D] text-white'
-                                        : 'bg-[#F16112] text-white'
-                                    }`}>
-                                      <h5 className="text-xs font-bold">{curriculumItem.course}</h5>
-                                    </div>
-                                    <ul className="space-y-1.5">
-                                      {curriculumItem.topics.map((topic, topicIdx) => (
-                                        <li key={topicIdx} className="flex items-start gap-1.5">
-                                          <span className={`inline-block w-1 h-1 rounded-full mt-1.5 flex-shrink-0 ${
-                                            isAlgebraI || isPrecalculus ? 'bg-[#1F396D]' : 'bg-[#F16112]'
-                                          }`}></span>
-                                          <span className={`text-[10px] leading-tight ${
-                                            isAlgebraI || isPrecalculus ? 'text-[#1F396D]' : 'text-[#F16112]'
-                                          }`}>
-                                            {topic}
-                                          </span>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                );
-                              })}
-                            </div>
+                            <ul className="space-y-2">
+                              {course.topics.map((topic, idx) => (
+                                <li key={idx} className="flex items-start gap-2">
+                                  <span className={`inline-block w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${courseGradients.iconColor}`}></span>
+                                  <span className="text-xs leading-tight text-gray-700">
+                                    {topic}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
 
                           {/* Bottom Section - Pricing & CTA */}
                           <div className="flex-shrink-0 mt-3 pt-3 border-t border-gray-200">
                             <div className="mb-2 text-center">
-                              <div className="text-xs text-gray-600 mb-1">
+                              <div className="text-xs text-gray-700 mb-1">
                                 <span className="font-semibold">Group: ${course.groupPrice}</span>
                                 <span className="mx-2">•</span>
                                 <span className="font-semibold">1-on-1: ${course.oneOnOnePrice}</span>
                               </div>
-                              <p className="text-[10px] text-gray-500">{course.sessions} per session</p>
+                              <p className="text-[10px] text-gray-600">Per session</p>
                             </div>
                             <Button
                               onClick={() => handleAddToCart(course)}
@@ -961,8 +1024,110 @@ const HighSchoolMathPage: React.FC = () => {
       <MathParentGuidesSection locale={locale} pageId="high-school-math" />
       <RelatedContent locale={locale} currentPage="high-school-math" />
 
+      {/* Course Detail Modal */}
+      {selectedCourseId && (
+        <AlertDialog open={!!selectedCourseId} onOpenChange={() => setSelectedCourseId(null)}>
+          <AlertDialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+            {(() => {
+              const course = highSchoolMathCourses.find(c => c.id === selectedCourseId);
+              if (!course) return null;
+
+              return (
+                <div className="flex flex-col">
+                  {/* Header with Close Button */}
+                  <div className="sticky top-0 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
+                    <h2 className="text-2xl font-bold text-gray-900">{course.name}</h2>
+                    <button
+                      onClick={() => setSelectedCourseId(null)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  <div className="flex-1 overflow-y-auto p-6">
+                    {/* Course Description */}
+                    <p className="text-gray-700 text-base leading-relaxed mb-6">{course.description}</p>
+
+                    {/* Course Goals Section */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">Course Goals:</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {course.goals && course.goals.map((goal, idx) => (
+                          <div key={idx} className="flex gap-3">
+                            <Star className="w-5 h-5 text-[#F16112] flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-900 text-sm">{goal.title}:</h4>
+                              <p className="text-gray-600 text-sm mt-1">{goal.description}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-200 my-6"></div>
+
+                    {/* Course Info Section */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Camp Duration</span>
+                        </div>
+                        <span className="text-sm text-gray-600">{course.campDuration}</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Clock className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Class Duration</span>
+                        </div>
+                        <span className="text-sm text-gray-600">{course.duration}</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Price</span>
+                        </div>
+                        <span className="text-lg font-bold text-[#F16112]">${course.groupPrice}.00</span>
+                      </div>
+                    </div>
+
+                    {/* Schedule Selector and Enroll */}
+                    <div className="flex items-end gap-4 pt-4 border-t border-gray-200">
+                      <div className="flex-1">
+                        <label className="block text-sm font-bold text-gray-900 mb-2">Select a schedule</label>
+                        <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent text-gray-700">
+                          <option>10am to Noon</option>
+                          <option>1pm to 3pm</option>
+                          <option>3:30pm to 5:30pm</option>
+                          <option>Online Evening</option>
+                        </select>
+                      </div>
+                      <button
+                        onClick={() => {
+                          handleAddToCart(course);
+                          setSelectedCourseId(null);
+                        }}
+                        className="bg-[#9333EA] hover:bg-[#7e22ce] text-white font-bold py-2.5 px-8 rounded-lg transition-colors whitespace-nowrap"
+                      >
+                        Enroll
+                      </button>
+                    </div>
+
+                    {course.level && (
+                      <p className="text-xs text-gray-500 mt-4">Recommended for: {course.level}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+
       {/* Free Assessment Modal */}
-      <FreeAssessmentModal 
+      <FreeAssessmentModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
       />
