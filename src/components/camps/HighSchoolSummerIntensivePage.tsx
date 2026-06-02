@@ -810,10 +810,13 @@ export function HighSchoolSummerIntensivePage() {
               { stars: 5, text: 'Small class size meant she got real attention. Worth every penny.', author: 'Maria G., Livermore' },
             ].map((review, idx) => (
               <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
-                <div className="flex gap-1 mb-3">
-                  {Array.from({ length: review.stars }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  ))}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex gap-1">
+                    {Array.from({ length: review.stars }).map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded">Google Review</span>
                 </div>
                 <p className="text-sm text-gray-700 mb-4">"{review.text}"</p>
                 <p className="text-xs font-semibold text-gray-900">{review.author}</p>
