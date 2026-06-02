@@ -13,7 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
-import { CheckCircle, Calculator, Award, Brain, Sparkles, Star, X, HelpCircle, Calendar, ChevronDown, DollarSign, Clock } from "lucide-react";
+import { CheckCircle, Calculator, Award, Brain, Sparkles, Star, X, HelpCircle, Calendar, ChevronDown, DollarSign, Clock, Quote } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { useLocale } from 'next-intl';
@@ -805,21 +805,40 @@ export function HighSchoolSummerIntensivePage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-10">What Parents Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { stars: 5, text: 'My child went from C to A in just 6 weeks. The instructors really care.', author: 'Sarah M., Pleasanton' },
-              { stars: 5, text: 'Best summer decision we made. She started AP ready and confident.', author: 'James L., San Ramon' },
-              { stars: 5, text: 'Small class size meant she got real attention. Worth every penny.', author: 'Maria G., Livermore' },
+              { stars: 5, text: 'My child went from C to A in just 6 weeks. The instructors really care.', author: 'Sarah M.', location: 'Pleasanton', initials: 'SM' },
+              { stars: 5, text: 'Best summer decision we made. She started AP ready and confident.', author: 'James L.', location: 'San Ramon', initials: 'JL' },
+              { stars: 5, text: 'Small class size meant she got real attention. Worth every penny.', author: 'Maria G.', location: 'Livermore', initials: 'MG' },
             ].map((review, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex gap-1">
+              <div key={idx} className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-0">
+                <div className="text-center">
+                  {/* Quote Icon */}
+                  <div className="w-12 h-12 bg-[#1F396D]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Quote className="w-6 h-6 text-[#1F396D]" />
+                  </div>
+
+                  {/* Rating */}
+                  <div className="flex justify-center gap-1 mb-4">
                     {Array.from({ length: review.stars }).map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <Star key={i} className="w-4 h-4 fill-[#F16112] text-[#F16112]" />
                     ))}
                   </div>
-                  <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded">Google Review</span>
+
+                  {/* Review Text */}
+                  <p className="text-sm text-gray-700 leading-relaxed mb-6 italic">
+                    "{review.text}"
+                  </p>
+
+                  {/* Author Info */}
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-[#1F396D] flex items-center justify-center border-2 border-white shadow-md flex-shrink-0">
+                      <span className="text-white font-bold text-base">{review.initials}</span>
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-semibold text-gray-900 text-sm">{review.author}</h4>
+                      <p className="text-gray-600 text-xs">{review.location}</p>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-700 mb-4">"{review.text}"</p>
-                <p className="text-xs font-semibold text-gray-900">{review.author}</p>
               </div>
             ))}
           </div>
