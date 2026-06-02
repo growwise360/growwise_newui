@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import FAQSchema from '@/components/schema/FAQSchema'
 import { ELEMENTARY_ENGLISH_VISIBLE_FAQS } from '@/lib/schema/elementary-english-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateCourseSchema, generateBreadcrumbSchema, localBusinessSchema } from '@/lib/seo/structuredData'
+import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { fetchPricingConfigServer } from '@/lib/pricing-config-server'
@@ -51,20 +51,14 @@ export default async function ElementaryEnglishLayout({
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
     { name: 'Academic', url: absoluteSiteUrl('/academic', locale, baseUrl) },
-    { name: 'English programs', url: absoluteSiteUrl('/courses/english', locale, baseUrl) },
+    { name: 'English programs', url: absoluteSiteUrl('/academic/english', locale, baseUrl) },
     { name: 'Elementary English', url: absoluteSiteUrl('/academic/english/elementary', locale, baseUrl) },
   ])
-
-  const localBusinessWithService = {
-    ...localBusinessSchema,
-    serviceType: 'Elementary English tutoring Grades 1–5',
-  }
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessWithService) }} />
       <FAQSchema faqs={ELEMENTARY_ENGLISH_VISIBLE_FAQS} />
       {children}
     </>
