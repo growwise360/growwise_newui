@@ -218,6 +218,14 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           emphasis: 'academicSummer',
         },
         {
+          key: 'highSchoolSummerIntensive',
+          title: 'High School Intensive',
+          description: 'Algebra 1, Geometry, Precalculus & Calculus · Grades 9–12 · June–Sept',
+          icon: 'Calculator',
+          href: '/camps/high-school-summer-intensive-dublin-ca',
+          gradient: 'from-[#1F396D] to-[#29335C]',
+        },
+        {
           key: 'workshopCalendar',
           title: 'Book a Workshop',
           description: 'Browse upcoming workshops',
