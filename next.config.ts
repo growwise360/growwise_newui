@@ -68,7 +68,6 @@ const nextConfig: NextConfig = {
     ...(process.env.NODE_ENV === 'development' ? { lockDistDir: false as const } : {}),
     // Smaller dev graphs for Webpack + Turbopack (tree-shake barrel imports)
     optimizePackageImports: [
-      'lucide-react',
       'next-intl',
       'recharts',
       'embla-carousel-react',

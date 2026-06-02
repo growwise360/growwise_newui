@@ -57,6 +57,7 @@ const corePages: SitemapEntry[] = [
 const coursePages: SitemapEntry[] = [
   { path: '/courses/math', priority: 0.95, changefreq: 'weekly' },
   { path: '/courses/english', priority: 0.95, changefreq: 'weekly' },
+  { path: '/academic/english/elementary', priority: 0.92, changefreq: 'weekly' },
   { path: '/courses/sat-prep', priority: 0.9, changefreq: 'weekly' },
   { path: '/courses/high-school-math', priority: 0.85, changefreq: 'monthly' },
 ]
