@@ -7,7 +7,13 @@ import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import type { SummerCampFaqItem } from './SummerCampPageFaq';
-import { fetchSummerCampData, getDefaultSummerCampData, type Program, type OlympiadTierConfig } from '@/lib/summer-camp-data';
+import {
+  fetchSummerCampData,
+  filterSummerCampHubPrograms,
+  getDefaultSummerCampData,
+  type Program,
+  type OlympiadTierConfig,
+} from '@/lib/summer-camp-data';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
 import { publicPath } from '@/lib/publicPath';
 import { cn } from '@/lib/utils';
@@ -42,6 +48,7 @@ const SC = canonicalSummerCampEn.conversion;
 
 /** Module-scoped default data — avoids per-render `getDefaultSummerCampData()` calls (singleton inside that fn anyway). */
 const DEFAULT_CAMP_DATA = getDefaultSummerCampData();
+const DEFAULT_HUB_PROGRAMS = filterSummerCampHubPrograms(DEFAULT_CAMP_DATA.programs);
 
 const ProgramList = dynamic(
   () => import('@/components/camps/SummerCampProgramList').then((m) => ({ default: m.ProgramList })),
@@ -127,7 +134,8 @@ export default function SummerCampPage() {
   );
   // English data is already loaded from the static bundle; no skeleton needed on first render.
   const [programsLoading, setProgramsLoading] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState<Program | null>(DEFAULT_CAMP_DATA.programs[0] ?? null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(DEFAULT_HUB_PROGRAMS[0] ?? null);
+  const hubPrograms = useMemo(() => filterSummerCampHubPrograms(programs), [programs]);
   const [programTrackFilter, setProgramTrackFilter] = useState<ProgramTrackFilter>('all');
   const [faqs, setFaqs] = useState<SummerCampFaqItem[]>([]);
   const [faqsLoading, setFaqsLoading] = useState(true);
@@ -368,7 +376,7 @@ export default function SummerCampPage() {
   useEffect(() => {
     // English data is already hydrated from the static bundle — no fetch needed.
     if (locale === 'en') {
-      const p = DEFAULT_CAMP_DATA.programs;
+      const p = filterSummerCampHubPrograms(DEFAULT_CAMP_DATA.programs);
       const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
       setSelectedProgram((prev) => {
         const mapped = prev ? p.find((x) => x.id === prev.id) : undefined;
@@ -385,12 +393,13 @@ export default function SummerCampPage() {
         if (!cancelled) {
           setPrograms(p);
           setOlympiadTierConfigs(o);
+          const hub = filterSummerCampHubPrograms(p);
           const isMobileViewport =
             typeof window !== 'undefined' && window.innerWidth <= 768;
           setSelectedProgram((prev) => {
-            const mapped = prev ? p.find((x) => x.id === prev.id) : undefined;
+            const mapped = prev ? hub.find((x) => x.id === prev.id) : undefined;
             if (isMobileViewport) return mapped ?? null;
-            return mapped ?? p[0] ?? null;
+            return mapped ?? hub[0] ?? null;
           });
         }
       } catch {
@@ -463,40 +472,40 @@ export default function SummerCampPage() {
   }, [programsLoading]);
 
   const filteredPrograms = useMemo(() => {
-    if (programTrackFilter === 'all') return programs;
+    if (programTrackFilter === 'all') return hubPrograms;
     if (programTrackFilter === 'fullDay') {
-      return programs.filter((p) => p.category === 'Full Day Camps');
+      return hubPrograms.filter((p) => p.category === 'Full Day Camps');
     }
-    return programs.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
-  }, [programs, programTrackFilter]);
+    return hubPrograms.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
+  }, [hubPrograms, programTrackFilter]);
 
   const fullDayCampCount = useMemo(
-    () => programs.filter((p) => p.category === 'Full Day Camps').length,
-    [programs]
+    () => hubPrograms.filter((p) => p.category === 'Full Day Camps').length,
+    [hubPrograms]
   );
 
   const programTrackOrder = useMemo(() => {
     const present = new Set<SummerCampProgramTrack>();
-    for (const p of programs) {
+    for (const p of hubPrograms) {
       const tr = getSummerCampProgramTrack(p.id);
       if (tr) present.add(tr);
     }
     return SUMMER_CAMP_PROGRAM_TRACK_ORDER.filter((tr) => present.has(tr));
-  }, [programs]);
+  }, [hubPrograms]);
 
   const scrollToSlots = useCallback(() => {
     slotsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
   useEffect(() => {
-    if (programsLoading || programs.length === 0) return;
+    if (programsLoading || hubPrograms.length === 0) return;
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
     const list =
       programTrackFilter === 'all'
-        ? programs
+        ? hubPrograms
         : programTrackFilter === 'fullDay'
-          ? programs.filter((p) => p.category === 'Full Day Camps')
-          : programs.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
+          ? hubPrograms.filter((p) => p.category === 'Full Day Camps')
+          : hubPrograms.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
     const ordered = orderProgramsBySummerCampTrack(list);
     setSelectedProgram((prev) => {
       if (prev && ordered.some((p) => p.id === prev.id)) return prev;
@@ -504,7 +513,7 @@ export default function SummerCampPage() {
       if (isMobile) return null;
       return ordered[0] ?? null;
     });
-  }, [programs, programsLoading, programTrackFilter]);
+  }, [hubPrograms, programsLoading, programTrackFilter]);
 
   useEffect(() => {
     let lastWide = typeof window !== 'undefined' && window.innerWidth >= 1024;
@@ -750,16 +759,14 @@ export default function SummerCampPage() {
                             }
                       }
                     >
-                      {t('filter.allCamps')} {programs.length}
+                      {t('filter.allCamps')} {hubPrograms.length}
                     </button>
                     {programTrackOrder.map((track) => {
-                      const count = programs.filter((p) => getSummerCampProgramTrack(p.id) === track).length;
+                      const count = hubPrograms.filter((p) => getSummerCampProgramTrack(p.id) === track).length;
                       const label =
-                        track === 'academic'
-                          ? t('filter.trackAcademic')
-                          : track === 'aiGameDev'
-                            ? t('filter.trackAiGameDev')
-                            : t('filter.trackCreativeWriting');
+                        track === 'aiGameDev'
+                          ? t('filter.trackAiGameDev')
+                          : t('filter.trackCreativeWriting');
                       return (
                         <button
                           key={track}

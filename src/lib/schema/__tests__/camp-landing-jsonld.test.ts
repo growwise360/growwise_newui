@@ -12,26 +12,18 @@ describe('camp-landing-jsonld', () => {
     const schema = buildSummerHubCampItemListSchema(LOCALE) as Record<string, unknown>;
     const items = schema.itemListElement as Array<Record<string, unknown>>;
 
-    it('lists all 7 summer hub programs in track order', () => {
+    it('lists summer hub booking-grid programs in track order (excludes Olympiad & Advanced Math)', () => {
       expect(schema['@type']).toBe('ItemList');
-      expect(items).toHaveLength(7);
+      expect(items).toHaveLength(5);
       const names = items.map((entry) => entry.name);
-      expect(names[0]).toContain('Math Olympiad');
-      expect(names[1]).toContain('Advanced Math');
+      expect(names[0]).toContain('AI Entrepreneur');
       expect(names).toContain('Scratch');
+      expect(names.some((n) => String(n).includes('Math Olympiad'))).toBe(false);
+      expect(names.some((n) => String(n).includes('Advanced Math'))).toBe(false);
     });
 
-    it('links programs with landing pages to /camps/[slug]', () => {
-      const mathOlympiad = items.find((entry) =>
-        String(entry.name).includes('Math Olympiad'),
-      );
-      expect(mathOlympiad?.item).toBe(`${BASE_URL}/camps/math-olympiad-camp-dublin-ca`);
-    });
-
-    it('links hub-only programs to /camps/summer', () => {
-      const advMath = items.find((entry) => String(entry.name).includes('Advanced Math'));
+    it('links hub programs with dedicated landing pages to /camps/[slug]', () => {
       const scratch = items.find((entry) => String(entry.name).includes('Scratch'));
-      expect(advMath?.item).toBe(`${BASE_URL}/camps/summer`);
       expect(scratch?.item).toBe(`${BASE_URL}/camps/summer`);
     });
   });

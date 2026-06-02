@@ -220,7 +220,7 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
         {
           key: 'highSchoolSummerIntensive',
           title: 'High School Intensive',
-          description: 'Algebra 1, Geometry, Precalculus & Calculus · Grades 9–12 · June–Sept',
+          description: 'Algebra 1, Geometry, Precalculus & Calculus · Grades 9–12 · June 15 – July 24',
           icon: 'Calculator',
           href: '/camps/high-school-summer-intensive-dublin-ca',
           gradient: 'from-[#1F396D] to-[#29335C]',

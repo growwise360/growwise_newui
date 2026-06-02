@@ -1,6 +1,243 @@
 {
   "programs": [
     {
+      "id": "ai-entrepreneur",
+      "title": "AI Entrepreneur Studio",
+      "description": "Learn to build businesses leveraging AI automation tools, founder-led sessions.",
+      "outcome": "Turn ideas into real AI-powered products",
+      "bullets": [
+        "Learn ideation, validation & business thinking",
+        "Use AI tools to build and test concepts",
+        "Pitch your idea in a live demo",
+        "No coding experience required",
+        "Grades 8–12 · Half-day"
+      ],
+      "iconId": "Lightbulb",
+      "category": "Half-Day Camps",
+      "hoursPerWeek": "30 hours a week",
+      "ageGroup": "Grades 8-12",
+      "startingPrice": 349,
+      "image": "/images/camps/banners/ai-entrepreneur-banner.webp",
+      "details": {
+        "schedule": "Monday – Friday",
+        "daysPerWeek": 5,
+        "dailyHours": "3 hours per day",
+        "hoursLabel": "Session hours",
+        "deliverySummary": "In-person or online (choose when enrolling)",
+        "includes": [
+          "Led by instructor",
+          "Hands-on AI tools",
+          "Prompt engineering fundamentals",
+          "Live demo day — present your startup idea",
+          "Mentor feedback sessions"
+        ]
+      },
+      "levels": [
+        {
+          "id": "ai-weekly",
+          "name": "Startup Lab",
+          "description": "Prompt engineering meets business development.",
+          "slotTemplate": {
+            "slotIdPrefix": "ai-entrepreneur",
+            "count": 8,
+            "defaultFormat": "Online",
+            "priceByProgramAndFormat": {
+              "default": { "In-Person": 399, "Online": 349 }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scratch-online",
+      "title": "Scratch",
+      "description": "Introductory visual programming for young creators.",
+      "outcome": "Go from beginner to real coding projects",
+      "bullets": [
+        "Scratch → Python progression",
+        "Build working programs",
+        "Grades 3–6 · Half-day"
+      ],
+      "iconId": "Code2",
+      "category": "Half-Day Camps",
+      "hoursPerWeek": "9 hours a week",
+      "ageGroup": "3-6",
+      "ageGroupLabel": "Grade group",
+      "startingPrice": 329,
+      "image": "/images/camps/banners/scratch-banner.webp",
+      "details": {
+        "schedule": "Monday – Friday",
+        "daysPerWeek": 5,
+        "dailyHours": "3 hours per day",
+        "hoursLabel": "Session hours",
+        "deliverySummary": "In-person or online (choose when enrolling)",
+        "includes": [
+          "Scratch visual programming environment",
+          "Animated story & interactive game projects",
+          "Introduction to loops, conditionals & variables",
+          "Shareable project portfolio at end of week",
+          "Live demo sessions"
+        ]
+      },
+      "levels": [
+        {
+          "id": "scratch-weekly",
+          "name": "Visual Coding",
+          "description": "Fundamental logic through drag-and-drop games.",
+          "slotTemplate": {
+            "slotIdPrefix": "scratch-online",
+            "count": 8,
+            "defaultFormat": "Online",
+            "priceByProgramAndFormat": {
+              "default": { "In-Person": 349, "Online": 329 }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "roblox-in-person",
+      "title": "Roblox",
+      "description": "Master Lua scripting in a collaborative on-site environment.",
+      "outcome": "Build and publish your own game by Friday",
+      "bullets": [
+        "Learn game design + coding fundamentals",
+        "Create playable projects using real tools",
+        "Grades 3–6 · Half-day"
+      ],
+      "iconId": "Gamepad2",
+      "category": "Half-Day Camps",
+      "hoursPerWeek": "15 hours per week",
+      "ageGroup": "3-6",
+      "ageGroupLabel": "Grade group",
+      "startingPrice": 329,
+      "image": "/images/camps/banners/roblox-banner.webp",
+      "details": {
+        "schedule": "Monday – Friday",
+        "daysPerWeek": 5,
+        "dailyHours": "3 hours per day",
+        "hoursLabel": "Session hours",
+        "deliverySummary": "In-person or online (choose when enrolling)",
+        "includes": [
+          "Lua scripting fundamentals in Roblox Studio",
+          "Game mechanics design & world-building",
+          "Multiplayer scripting & game testing",
+          "Collaborative team game project",
+          "Published game on Roblox platform by end of week"
+        ]
+      },
+      "levels": [
+        {
+          "id": "rob-ip-weekly",
+          "name": "Dev Studio",
+          "description": "Deep dive into game mechanics and multiplayer scripting.",
+          "slotTemplate": {
+            "slotIdPrefix": "roblox-h",
+            "count": 8,
+            "defaultFormat": "In-Person",
+            "priceByProgramAndFormat": {
+              "default": { "In-Person": 349, "Online": 329 }
+            },
+            "time": "9:00 AM - 12:00 PM"
+          }
+        }
+      ]
+    },
+    {
+      "id": "robotics-camp",
+      "title": "Robotics Camp",
+      "description": "Full-day engineering immersive with advanced sensor arrays.",
+      "outcome": "Design, build, and race a robot by Friday",
+      "bullets": [
+        "Hands-on from Day 1",
+        "Team-based engineering challenges",
+        "Grades 3–6 · Full-day"
+      ],
+      "iconId": "Bot",
+      "category": "Full Day Camps",
+      "hoursPerWeek": "30 hours per week",
+      "ageGroup": "3-6",
+      "ageGroupLabel": "Grade group",
+      "startingPrice": 639,
+      "image": "/images/camps/banners/robotics-banner.webp",
+      "details": {
+        "schedule": "Monday – Friday",
+        "daysPerWeek": 5,
+        "dailyHours": "6 hours / day",
+        "deliverySummary": "In-person only",
+        "includes": [
+          "Build & program a working robot from scratch",
+          "Sensor arrays: ultrasonic, IR & colour sensors",
+          "Mechanical design + logic programming",
+          "Daily team engineering challenges",
+          "Final robot showcase on Friday"
+        ]
+      },
+      "levels": [
+        {
+          "id": "bot-weekly",
+          "name": "Engineering Lab",
+          "description": "Full day on-site mechanical design and logic programming.",
+          "slotTemplate": {
+            "slotIdPrefix": "robotics-camp-f",
+            "count": 8,
+            "defaultFormat": "In-Person",
+            "priceByProgramAndFormat": {
+              "default": { "In-Person": 639, "Online": 639 }
+            },
+            "time": "9:00 AM - 4:00 PM"
+          }
+        }
+      ]
+    },
+    {
+      "id": "young-authors",
+      "title": "Young Authors Camp",
+      "description": "Immersive full-day writing studio for aspiring novelists.",
+      "outcome": "Write and publish your own book by Friday",
+      "bullets": [
+        "Full story + illustrations",
+        "Printed, take-home book",
+        "Grades 3–6 · Full-day"
+      ],
+      "iconId": "PenTool",
+      "category": "Full Day Camps",
+      "hoursPerWeek": "30 hours per week",
+      "ageGroup": "3-6",
+      "ageGroupLabel": "Grade group",
+      "startingPrice": 599,
+      "image": "/images/camps/banners/young-authors-banner.webp",
+      "details": {
+        "schedule": "Monday – Friday",
+        "daysPerWeek": 5,
+        "dailyHours": "6 hours / day",
+        "deliverySummary": "In-person only",
+        "includes": [
+          "Story structure, plot & character development",
+          "Daily creative writing workshops",
+          "Peer review & revision sessions",
+          "Illustration basics for your story",
+          "Professionally printed copy of your finished book"
+        ]
+      },
+      "levels": [
+        {
+          "id": "author-weekly",
+          "name": "Writing Studio",
+          "description": "Comprehensive daily workshop to publish your own story.",
+          "slotTemplate": {
+            "slotIdPrefix": "authors-f",
+            "count": 8,
+            "defaultFormat": "In-Person",
+            "priceByProgramAndFormat": {
+              "default": { "In-Person": 599, "Online": 599 }
+            },
+            "time": "9:00 AM - 4:00 PM"
+          }
+        }
+      ]
+    },
+    {
       "id": "adv-math",
       "title": "Advanced Math (Algebra II + Precalculus)",
       "description": "Accelerated track covering Algebra 2 and Pre-Calculus fundamentals.",
@@ -96,243 +333,6 @@
               "tier1": { "In-Person": 449, "Online": 399 },
               "tier2": { "In-Person": 799, "Online": 759 }
             }
-          }
-        }
-      ]
-    },
-    {
-      "id": "ai-entrepreneur",
-      "title": "AI Entrepreneur Studio",
-      "description": "Learn to build businesses leveraging AI automation tools, founder-led sessions.",
-      "outcome": "Turn ideas into real AI-powered products",
-      "bullets": [
-        "Learn ideation, validation & business thinking",
-        "Use AI tools to build and test concepts",
-        "Pitch your idea in a live demo",
-        "No coding experience required",
-        "Grades 8–12 · Half-day"
-      ],
-      "iconId": "Lightbulb",
-      "category": "Half-Day Camps",
-      "hoursPerWeek": "30 hours a week",
-      "ageGroup": "Grades 8-12",
-      "startingPrice": 349,
-      "image": "/images/camps/banners/ai-entrepreneur-banner.webp",
-      "details": {
-        "schedule": "Monday – Friday",
-        "daysPerWeek": 5,
-        "dailyHours": "3 hours per day",
-        "hoursLabel": "Session hours",
-        "deliverySummary": "In-person or online (choose when enrolling)",
-        "includes": [
-          "Led by instructor",
-          "Hands-on AI tools",
-          "Prompt engineering fundamentals",
-          "Live demo day — present your startup idea",
-          "Mentor feedback sessions"
-        ]
-      },
-      "levels": [
-        {
-          "id": "ai-weekly",
-          "name": "Startup Lab",
-          "description": "Prompt engineering meets business development.",
-          "slotTemplate": {
-            "slotIdPrefix": "ai-entrepreneur",
-            "count": 8,
-            "defaultFormat": "Online",
-            "priceByProgramAndFormat": {
-              "default": { "In-Person": 399, "Online": 349 }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "id": "scratch-online",
-      "title": "Scratch",
-      "description": "Introductory visual programming for young creators.",
-      "outcome": "Go from beginner to real coding projects",
-      "bullets": [
-        "Scratch → Python progression",
-        "Build working programs",
-        "Grades 3–8 · Half-day"
-      ],
-      "iconId": "Code2",
-      "category": "Half-Day Camps",
-      "hoursPerWeek": "9 hours a week",
-      "ageGroup": "3-6",
-      "ageGroupLabel": "Grade group",
-      "startingPrice": 329,
-      "image": "/images/camps/banners/scratch-banner.webp",
-      "details": {
-        "schedule": "Monday – Friday",
-        "daysPerWeek": 5,
-        "dailyHours": "3 hours per day",
-        "hoursLabel": "Session hours",
-        "deliverySummary": "In-person or online (choose when enrolling)",
-        "includes": [
-          "Scratch visual programming environment",
-          "Animated story & interactive game projects",
-          "Introduction to loops, conditionals & variables",
-          "Shareable project portfolio at end of week",
-          "Live demo sessions"
-        ]
-      },
-      "levels": [
-        {
-          "id": "scratch-weekly",
-          "name": "Visual Coding",
-          "description": "Fundamental logic through drag-and-drop games.",
-          "slotTemplate": {
-            "slotIdPrefix": "scratch-online",
-            "count": 8,
-            "defaultFormat": "Online",
-            "priceByProgramAndFormat": {
-              "default": { "In-Person": 349, "Online": 329 }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "id": "robotics-camp",
-      "title": "Robotics Camp",
-      "description": "Full-day engineering immersive with advanced sensor arrays.",
-      "outcome": "Design, build, and race a robot by Friday",
-      "bullets": [
-        "Hands-on from Day 1",
-        "Team-based engineering challenges",
-        "Grades 5–9 · Full-day"
-      ],
-      "iconId": "Bot",
-      "category": "Full Day Camps",
-      "hoursPerWeek": "30 hours per week",
-      "ageGroup": "3-6",
-      "ageGroupLabel": "Grade group",
-      "startingPrice": 639,
-      "image": "/images/camps/banners/robotics-banner.webp",
-      "details": {
-        "schedule": "Monday – Friday",
-        "daysPerWeek": 5,
-        "dailyHours": "6 hours / day",
-        "deliverySummary": "In-person only",
-        "includes": [
-          "Build & program a working robot from scratch",
-          "Sensor arrays: ultrasonic, IR & colour sensors",
-          "Mechanical design + logic programming",
-          "Daily team engineering challenges",
-          "Final robot showcase on Friday"
-        ]
-      },
-      "levels": [
-        {
-          "id": "bot-weekly",
-          "name": "Engineering Lab",
-          "description": "Full day on-site mechanical design and logic programming.",
-          "slotTemplate": {
-            "slotIdPrefix": "robotics-camp-f",
-            "count": 8,
-            "defaultFormat": "In-Person",
-            "priceByProgramAndFormat": {
-              "default": { "In-Person": 639, "Online": 639 }
-            },
-            "time": "9:00 AM - 4:00 PM"
-          }
-        }
-      ]
-    },
-    {
-      "id": "young-authors",
-      "title": "Young Authors Camp",
-      "description": "Immersive full-day writing studio for aspiring novelists.",
-      "outcome": "Write and publish your own book by Friday",
-      "bullets": [
-        "Full story + illustrations",
-        "Printed, take-home book",
-        "Grades 3–9 · Full-day"
-      ],
-      "iconId": "PenTool",
-      "category": "Full Day Camps",
-      "hoursPerWeek": "30 hours per week",
-      "ageGroup": "3-6",
-      "ageGroupLabel": "Grade group",
-      "startingPrice": 599,
-      "image": "/images/camps/banners/young-authors-banner.webp",
-      "details": {
-        "schedule": "Monday – Friday",
-        "daysPerWeek": 5,
-        "dailyHours": "6 hours / day",
-        "deliverySummary": "In-person only",
-        "includes": [
-          "Story structure, plot & character development",
-          "Daily creative writing workshops",
-          "Peer review & revision sessions",
-          "Illustration basics for your story",
-          "Professionally printed copy of your finished book"
-        ]
-      },
-      "levels": [
-        {
-          "id": "author-weekly",
-          "name": "Writing Studio",
-          "description": "Comprehensive daily workshop to publish your own story.",
-          "slotTemplate": {
-            "slotIdPrefix": "authors-f",
-            "count": 8,
-            "defaultFormat": "In-Person",
-            "priceByProgramAndFormat": {
-              "default": { "In-Person": 599, "Online": 599 }
-            },
-            "time": "9:00 AM - 4:00 PM"
-          }
-        }
-      ]
-    },
-    {
-      "id": "roblox-in-person",
-      "title": "Roblox",
-      "description": "Master Lua scripting in a collaborative on-site environment.",
-      "outcome": "Build and publish your own game by Friday",
-      "bullets": [
-        "Learn game design + coding fundamentals",
-        "Create playable projects using real tools",
-        "Grades 3–10 · Half-day"
-      ],
-      "iconId": "Gamepad2",
-      "category": "Half-Day Camps",
-      "hoursPerWeek": "15 hours per week",
-      "ageGroup": "3-8",
-      "ageGroupLabel": "Grade group",
-      "startingPrice": 329,
-      "image": "/images/camps/banners/roblox-banner.webp",
-      "details": {
-        "schedule": "Monday – Friday",
-        "daysPerWeek": 5,
-        "dailyHours": "3 hours per day",
-        "hoursLabel": "Session hours",
-        "deliverySummary": "In-person or online (choose when enrolling)",
-        "includes": [
-          "Lua scripting fundamentals in Roblox Studio",
-          "Game mechanics design & world-building",
-          "Multiplayer scripting & game testing",
-          "Collaborative team game project",
-          "Published game on Roblox platform by end of week"
-        ]
-      },
-      "levels": [
-        {
-          "id": "rob-ip-weekly",
-          "name": "Dev Studio",
-          "description": "Deep dive into game mechanics and multiplayer scripting.",
-          "slotTemplate": {
-            "slotIdPrefix": "roblox-h",
-            "count": 8,
-            "defaultFormat": "In-Person",
-            "priceByProgramAndFormat": {
-              "default": { "In-Person": 349, "Online": 329 }
-            },
-            "time": "9:00 AM - 12:00 PM"
           }
         }
       ]

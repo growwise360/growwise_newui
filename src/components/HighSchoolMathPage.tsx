@@ -37,7 +37,6 @@ import FreeAssessmentModal from './FreeAssessmentModal';
 import { getIconComponent } from '@/lib/iconMap';
 import { RelatedContent } from './seo/RelatedContent';
 import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection';
-import { PricingInquirySection } from '@/components/courses/PricingInquirySection';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 
@@ -629,12 +628,6 @@ const HighSchoolMathPage: React.FC = () => {
           {' '}— we'll identify the right level and track before your first session.
         </p>
       </div>
-
-      {/* NEW: Pricing Inquiry Section */}
-      <PricingInquirySection
-        onContactClick={() => setIsContactModalOpen(true)}
-        onAssessmentClick={() => setIsAssessmentModalOpen(true)}
-      />
 
       {/* SEO Content Sections */}
       <section className="py-16 px-4 lg:px-8 bg-white">

@@ -8,17 +8,21 @@ import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { CheckCircle, Calculator, Award, Brain, Sparkles, Star, X, HelpCircle, Calendar, ChevronDown, DollarSign, Clock } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
+import { HIGH_SCHOOL_SUMMER_INTENSIVE_FAQS } from '@/lib/schema/high-school-summer-intensive-jsonld-faqs';
+import pageCopy from '@/i18n/messages/high-school-summer-intensive-en.json';
+
+const PAGE = pageCopy;
 
 // Types
 type SummerEnrollmentCourse = {
@@ -598,8 +602,8 @@ function SocialProofSection() {
     <section className="bg-gray-50 py-12 md:py-14 border-b border-gray-200">
       <div className="max-w-6xl mx-auto px-4 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Real Results Parents Trust</h2>
-          <p className="text-sm text-gray-600">Rated 4.9⭐ on Google · 40+ reviews</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{PAGE.socialProof.title}</h2>
+          <p className="text-sm text-gray-600">{PAGE.socialProof.subtitle}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((review) => (
@@ -612,7 +616,9 @@ function SocialProofSection() {
               <p className="text-sm text-gray-700 mb-4 leading-relaxed line-clamp-3">
                 "{review.content}"
               </p>
-              <p className="text-xs text-gray-600">— {review.name} · Google review</p>
+              <p className="text-xs text-gray-600">
+                — {review.name} {PAGE.socialProof.reviewAttribution}
+              </p>
             </div>
           ))}
         </div>
@@ -666,7 +672,7 @@ export function HighSchoolSummerIntensivePage() {
 
     const { parentName, email, studentName, grade, subject } = summerEnrollmentForm;
     if (!parentName.trim() || !email.trim() || !studentName.trim() || !grade.trim() || !subject.trim()) {
-      setSummerEnrollmentError('Please complete all fields.');
+      setSummerEnrollmentError(PAGE.enrollment.requiredFields);
       return;
     }
 
@@ -689,13 +695,13 @@ export function HighSchoolSummerIntensivePage() {
       });
       const result: { success?: boolean; error?: string; message?: string } = await response.json();
       if (!response.ok || !result.success) {
-        setSummerEnrollmentError(result.error || result.message || 'Please try again.');
+        setSummerEnrollmentError(result.error || result.message || PAGE.enrollment.genericError);
         setSummerEnrollmentStatus('idle');
         return;
       }
       setSummerEnrollmentStatus('success');
     } catch {
-      setSummerEnrollmentError('Network error. Please try again.');
+      setSummerEnrollmentError(PAGE.enrollment.networkError);
       setSummerEnrollmentStatus('idle');
     }
   };
@@ -713,11 +719,11 @@ export function HighSchoolSummerIntensivePage() {
     <>
       <div className="space-y-6">
         <div>
-          <p className="text-sm font-semibold text-gray-600 mb-3">CAMP DETAILS</p>
+          <p className="text-sm font-semibold text-gray-600 mb-3">{PAGE.courses.campDetailsLabel}</p>
           <div className="grid grid-cols-3 gap-4">
             <div className={`rounded-lg p-4 ${courseTheme.iconTilePrimary}`}>
               <Calendar className="w-5 h-5 mb-2" />
-              <p className="text-xs font-semibold text-gray-900">Duration</p>
+              <p className="text-xs font-semibold text-gray-900">{PAGE.courses.durationLabel}</p>
               <p className="text-sm mt-1">{course.campDuration}</p>
             </div>
             <div className={`rounded-lg p-4 ${courseTheme.iconTileSecond}`}>
@@ -727,15 +733,17 @@ export function HighSchoolSummerIntensivePage() {
             </div>
             <div className={`rounded-lg p-4 ${courseTheme.iconTilePrimary}`}>
               <Clock className="w-5 h-5 mb-2" />
-              <p className="text-xs font-semibold text-gray-900">Daily hours</p>
-              <p className="text-sm mt-1">{course.sessions} / day</p>
+              <p className="text-xs font-semibold text-gray-900">{PAGE.courses.dailyHoursLabel}</p>
+              <p className="text-sm mt-1">
+                {course.sessions} {PAGE.courses.perDaySuffix}
+              </p>
             </div>
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Choose your schedule
+            {PAGE.courses.scheduleLabel}
           </label>
           <select
             value={courseSchedules[course.id] ?? DEFAULT_SCHEDULE}
@@ -761,32 +769,26 @@ export function HighSchoolSummerIntensivePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/50"></div>
 
         <div className="relative max-w-6xl mx-auto px-4 lg:px-8">
-          <div className="mb-3">
-            <Link href={publicPath('/academic/math/high-school', locale)} className="text-white/90 hover:text-white font-medium text-sm transition-colors">
-              ← Back to Year-Round Tutoring
+          <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+            <Link href={publicPath('/academic/math/high-school', locale)} className="text-white/90 hover:text-white font-medium transition-colors">
+              {PAGE.hero.backHighSchool}
+            </Link>
+            <Link href={publicPath('/camps/summer', locale)} className="text-white/80 hover:text-white font-medium transition-colors">
+              {PAGE.hero.backSummer}
             </Link>
           </div>
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-            High School Math Summer Intensive · Dublin, CA
-          </h1>
-          <p className="text-lg text-white/90 mb-3">June 15 – July 24, 2026</p>
-          <p className="text-base text-white/80 max-w-3xl">
-            6 weeks × 10 hours per week = 60 hours of expert instruction. Master Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, or Calculus AB before school starts.
-          </p>
+          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{PAGE.hero.h1}</h1>
+          <p className="text-lg text-white/90 mb-3">{PAGE.hero.dateLine}</p>
+          <p className="text-base text-white/80 max-w-3xl">{PAGE.hero.subhead}</p>
         </div>
       </section>
 
       {/* 1. JTBD Situation Strip */}
       <section className="bg-white border-b border-gray-200 py-12 md:py-14">
         <div className="max-w-6xl mx-auto px-4 lg:px-8">
-          <p className="text-sm font-semibold text-gray-600 uppercase mb-6">Which sounds like your child?</p>
+          <p className="text-sm font-semibold text-gray-600 uppercase mb-6">{PAGE.jtbd.eyebrow}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { label: 'Entering a harder course', desc: 'Needs to build confidence before fall' },
-              { label: 'Passed, but not confident', desc: 'Strong grade, weaker understanding' },
-              { label: 'Honors / AP track', desc: 'Staying ahead of accelerated pace' },
-              { label: 'Close gaps before fall', desc: 'Firm up weak spots now' },
-            ].map((situation, idx) => (
+            {PAGE.jtbd.situations.map((situation, idx) => (
               <button
                 key={idx}
                 onClick={() => document.querySelector('[data-section="courses"]')?.scrollIntoView({ behavior: 'smooth' })}
@@ -805,15 +807,15 @@ export function HighSchoolSummerIntensivePage() {
         <div className="max-w-6xl mx-auto px-4 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-700">
             <div className="flex items-center gap-1">
-              <span className="text-lg font-bold">4.9★</span>
-              <span>Google Reviews</span>
+              <span className="text-lg font-bold">{PAGE.trustBar.rating}</span>
+              <span>{PAGE.trustBar.ratingLabel}</span>
             </div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div className="hidden sm:block">40+ parent reviews</div>
+            <div className="hidden sm:block">{PAGE.trustBar.reviews}</div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div className="hidden sm:block">387+ students enrolled</div>
+            <div className="hidden sm:block">{PAGE.trustBar.enrolled}</div>
             <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div className="hidden sm:block">Max 8 per class</div>
+            <div className="hidden sm:block">{PAGE.trustBar.classSize}</div>
           </div>
         </div>
       </section>
@@ -821,16 +823,12 @@ export function HighSchoolSummerIntensivePage() {
       {/* 3. How It Works */}
       <section className="bg-white py-12 md:py-14 border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-10">How It Works</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-10">{PAGE.howItWorks.title}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { step: 1, title: 'Choose Your Course', desc: 'Pick Algebra 1, Precalc, AP Calc, or another course' },
-              { step: 2, title: 'Select a Schedule', desc: '10am–Noon or 3:30–5:30pm, Monday–Friday' },
-              { step: 3, title: 'Start June 15', desc: '60 hours of expert instruction over 6 weeks' },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
+            {PAGE.howItWorks.steps.map((item, stepIndex) => (
+              <div key={item.title} className="text-center">
                 <div className="w-12 h-12 rounded-full bg-[#1F396D] text-white font-bold flex items-center justify-center mx-auto mb-4">
-                  {item.step}
+                  {stepIndex + 1}
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-600">{item.desc}</p>
@@ -845,7 +843,7 @@ export function HighSchoolSummerIntensivePage() {
 
       {/* Courses Grid */}
       <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 lg:px-8" data-section="courses">
-        <h2 className="text-3xl font-bold text-gray-900 mb-12">Choose Your Course</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-12">{PAGE.courses.title}</h2>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {highSchoolMathCourses.map((course, index) => {
@@ -869,7 +867,7 @@ export function HighSchoolSummerIntensivePage() {
                 <div className="p-6 lg:p-8 flex flex-col flex-grow">
                   {/* Learning Outcomes */}
                   <div className="mb-8">
-                    <p className="text-sm font-semibold text-gray-600 uppercase mb-3">By the end, students will:</p>
+                    <p className="text-sm font-semibold text-gray-600 uppercase mb-3">{PAGE.courses.outcomesLabel}</p>
                     <ul className="space-y-3">
                       {curriculum.learningOutcomes.map((outcome, i) => (
                         <li key={i} className="flex items-start gap-3">
@@ -883,13 +881,13 @@ export function HighSchoolSummerIntensivePage() {
                   {/* Info Badges */}
                   <div className="flex flex-wrap gap-2 mb-8 pb-8 border-b border-gray-200">
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-300 bg-gray-50">
-                      <span className="text-xs font-medium text-gray-700">Aligned with DUSD & PUSD</span>
+                      <span className="text-xs font-medium text-gray-700">{PAGE.courses.alignedBadge}</span>
                     </div>
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-300 bg-gray-50">
-                      <span className="text-xs font-medium text-gray-700">Max 8 students</span>
+                      <span className="text-xs font-medium text-gray-700">{PAGE.courses.maxStudentsBadge}</span>
                     </div>
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-300 bg-gray-50">
-                      <span className="text-xs font-medium text-gray-700">Pattern Mistake Fixing</span>
+                      <span className="text-xs font-medium text-gray-700">{PAGE.courses.patternBadge}</span>
                     </div>
                   </div>
 
@@ -911,7 +909,7 @@ export function HighSchoolSummerIntensivePage() {
                         <ChevronDown
                           className={`h-5 w-5 transition-transform ${expandedCurriculum[course.id] ? 'rotate-180' : ''}`}
                         />
-                        What we cover — full topic list
+                        {PAGE.courses.curriculumToggle}
                       </button>
 
                       {expandedCurriculum[course.id] && (
@@ -922,11 +920,15 @@ export function HighSchoolSummerIntensivePage() {
                                 Week {week.week}: {week.title}
                               </h4>
                               <div className="mb-3">
-                                <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-1">Core Topics:</p>
+                                <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                  {PAGE.courses.coreTopicsLabel}
+                                </p>
                                 <p className="text-base text-gray-700">{week.topics.join(', ')}</p>
                               </div>
                               <div>
-                                <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-1">Key Outcome:</p>
+                                <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                                  {PAGE.courses.weeklyOutcomeLabel}
+                                </p>
                                 <p className="text-base text-gray-700">{week.outcome}</p>
                               </div>
                             </div>
@@ -971,7 +973,7 @@ export function HighSchoolSummerIntensivePage() {
                     onClick={() => handleEnroll(course)}
                     className={`w-full rounded-lg px-6 py-4 text-base font-semibold text-white ${courseTheme.buttonBg} ${courseTheme.buttonShadow} transition-all hover:shadow-md mt-auto`}
                   >
-                    Enroll now →
+                    {PAGE.courses.enrollCta}
                   </Button>
                 </div>
               </article>
@@ -983,40 +985,22 @@ export function HighSchoolSummerIntensivePage() {
       {/* 5. FAQ Section */}
       <section className="py-16 md:py-20 bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12">Frequently Asked Questions</h2>
-          <Accordion type="single" collapsible className="space-y-4">
-            {[
-              {
-                q: 'What if my child is behind in math?',
-                a: 'Our instructors work at each student\'s level. We start with fundamentals and build from there. Small class size means personalized attention.',
-              },
-              {
-                q: 'Is this online or in-person?',
-                a: 'All classes are in-person at our Dublin campus, Monday–Friday, 2 hours per day. We provide a focused, interactive learning environment.',
-              },
-              {
-                q: 'What grade levels are these courses for?',
-                a: 'Algebra 1 is Grades 8–9; Algebra 2 is Grades 10–11; Precalculus and AP Precalculus are Grade 11; Calculus AB is Grades 11–12. Placement depends on your child\'s math level.',
-              },
-              {
-                q: 'How small are the classes?',
-                a: 'Maximum 8 students per class. This ensures every student gets personal feedback and attention from the instructor.',
-              },
-              {
-                q: 'What if I\'m not sure which course to pick?',
-                a: 'We recommend a free assessment call. Our team will evaluate your child\'s current level and recommend the best fit. Email us or call (925) 555-0123.',
-              },
-              {
-                q: 'What\'s your refund policy?',
-                a: 'Refunds are available if you cancel at least 2 weeks before the start date. Partial refunds are available for cancellations closer to the start.',
-              },
-            ].map((item, idx) => (
-              <AccordionItem key={idx} value={`faq-${idx}`}>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">{PAGE.faq.title}</h2>
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(
+              HIGH_SCHOOL_SUMMER_INTENSIVE_FAQS.length,
+              (idx) => `faq-${idx}`,
+            )}
+          >
+            {HIGH_SCHOOL_SUMMER_INTENSIVE_FAQS.map((item, idx) => (
+              <AccordionItem key={item.question} value={`faq-${idx}`}>
                 <AccordionTrigger className="text-lg font-semibold text-gray-900 hover:text-[#1F396D]">
-                  {item.q}
+                  {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-base text-gray-700 pt-2">
-                  {item.a}
+                  {item.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -1025,66 +1009,73 @@ export function HighSchoolSummerIntensivePage() {
       </section>
 
       {/* Enrollment Modal */}
-      <AlertDialog open={!!selectedSummerCourse} onOpenChange={closeSummerEnrollmentModal}>
-        <AlertDialogContent className="max-w-md">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Enroll in {selectedSummerCourse?.name}</AlertDialogTitle>
-            <AlertDialogDescription>
-              Schedule: {selectedSummerCourse?.schedule}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+      <Dialog
+        open={!!selectedSummerCourse}
+        onOpenChange={(open) => {
+          if (!open) closeSummerEnrollmentModal();
+        }}
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>
+              {PAGE.modal.titlePrefix} {selectedSummerCourse?.name}
+            </DialogTitle>
+            <DialogDescription>
+              {PAGE.modal.scheduleLabel} {selectedSummerCourse?.schedule}
+            </DialogDescription>
+          </DialogHeader>
 
           {summerEnrollmentStatus === 'success' ? (
             <div className="py-8 text-center">
               <Sparkles className="w-12 h-12 text-[#F16112] mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">You're All Set!</h3>
-              <p className="text-gray-600">We'll contact you shortly to confirm your enrollment.</p>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">{PAGE.modal.successTitle}</h3>
+              <p className="text-gray-600">{PAGE.modal.successBody}</p>
               <Button
                 onClick={closeSummerEnrollmentModal}
                 className="mt-6 w-full bg-[#1F396D] hover:bg-[#183056] text-white rounded-full"
               >
-                Done
+                {PAGE.modal.done}
               </Button>
             </div>
           ) : (
             <form onSubmit={handleSummerEnrollmentSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-1">Parent Name *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-1">{PAGE.modal.parentNameLabel}</label>
                 <input
                   type="text"
                   value={summerEnrollmentForm.parentName}
                   onChange={(e) => updateSummerEnrollmentForm('parentName', e.target.value)}
-                  placeholder="Your name"
+                  placeholder={PAGE.modal.parentNamePlaceholder}
                   className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1F396D]/20"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-1">Email *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-1">{PAGE.modal.emailLabel}</label>
                 <input
                   type="email"
                   value={summerEnrollmentForm.email}
                   onChange={(e) => updateSummerEnrollmentForm('email', e.target.value)}
-                  placeholder="your@email.com"
+                  placeholder={PAGE.modal.emailPlaceholder}
                   className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1F396D]/20"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-1">Student Name *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-1">{PAGE.modal.studentNameLabel}</label>
                 <input
                   type="text"
                   value={summerEnrollmentForm.studentName}
                   onChange={(e) => updateSummerEnrollmentForm('studentName', e.target.value)}
-                  placeholder="Student name"
+                  placeholder={PAGE.modal.studentNamePlaceholder}
                   className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1F396D]/20"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-1">Grade *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-1">{PAGE.modal.gradeLabel}</label>
                 <input
                   type="text"
                   value={summerEnrollmentForm.grade}
                   onChange={(e) => updateSummerEnrollmentForm('grade', e.target.value)}
-                  placeholder="e.g., 10"
+                  placeholder={PAGE.modal.gradePlaceholder}
                   className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1F396D]/20"
                 />
               </div>
@@ -1098,25 +1089,25 @@ export function HighSchoolSummerIntensivePage() {
                 disabled={summerEnrollmentStatus === 'submitting'}
                 className="w-full bg-[#F16112] hover:bg-[#d54f0a] disabled:bg-gray-400 text-white rounded-full px-6 py-3 font-semibold transition-colors"
               >
-                {summerEnrollmentStatus === 'submitting' ? 'Submitting...' : 'Complete Enrollment'}
+                {summerEnrollmentStatus === 'submitting' ? PAGE.modal.submitting : PAGE.modal.submitIdle}
               </button>
             </form>
           )}
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
 
       {/* 6. Sticky CTA Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40 py-4">
         <div className="max-w-6xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
           <div>
-            <p className="font-semibold text-gray-900">Enroll by June 1</p>
-            <p className="text-xs text-gray-600">~2 spots left in most schedules</p>
+            <p className="font-semibold text-gray-900">{PAGE.sticky.headline}</p>
+            <p className="text-xs text-gray-600">{PAGE.sticky.subline}</p>
           </div>
           <Button
             onClick={() => document.querySelector('[data-section="courses"]')?.scrollIntoView({ behavior: 'smooth' })}
             className="bg-[#F16112] hover:bg-[#d54f0a] text-white px-6 py-2 rounded-full font-semibold whitespace-nowrap"
           >
-            Choose a Course
+            {PAGE.sticky.cta}
           </Button>
         </div>
       </div>

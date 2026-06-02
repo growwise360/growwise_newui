@@ -9,6 +9,7 @@ import {
 } from '@/lib/seo/structuredData';
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
 import {
+  filterSummerCampHubPrograms,
   getDefaultSummerCampData,
   type Level,
   type Program,
@@ -298,7 +299,9 @@ function buildCampFaqNode(page: CampLandingPage): Record<string, unknown> | null
 /** ItemList of all 7 summer hub programs in track order. */
 export function buildSummerHubCampItemListSchema(locale: string) {
   const baseUrl = getCanonicalSiteUrl();
-  const ordered = orderProgramsBySummerCampTrack(getDefaultSummerCampData().programs);
+  const ordered = orderProgramsBySummerCampTrack(
+    filterSummerCampHubPrograms(getDefaultSummerCampData().programs),
+  );
   const items = ordered.map((program) => ({
     name: program.title,
     url: resolveProgramUrl(program.id, locale, baseUrl),
