@@ -55,6 +55,14 @@ type CourseCurriculum = {
   weeks: CurriculumWeek[];
 };
 
+// Schedule options (not hardcoded)
+export const SCHEDULE_OPTIONS = [
+  { value: '10am to Noon', label: '10:00 AM – 12:00 PM' },
+  { value: '3:30pm to 5:30pm', label: '3:30 PM – 5:30 PM' },
+] as const;
+
+export const DEFAULT_SCHEDULE = SCHEDULE_OPTIONS[0].value;
+
 // Curriculum data
 const algebra1Curriculum: CourseCurriculum = {
   courseId: 'algebra-1',
@@ -582,7 +590,7 @@ export function HighSchoolSummerIntensivePage() {
   const [expandedCurriculum, setExpandedCurriculum] = useState<Record<string, boolean>>({});
 
   const handleEnroll = (course: { id: string; name: string }) => {
-    const schedule = courseSchedules[course.id] ?? '10am to Noon';
+    const schedule = courseSchedules[course.id] ?? DEFAULT_SCHEDULE;
     setSelectedSummerCourse({
       id: course.id,
       name: course.name,
@@ -689,12 +697,15 @@ export function HighSchoolSummerIntensivePage() {
             Choose your schedule
           </label>
           <select
-            value={courseSchedules[course.id] ?? '10am to Noon'}
+            value={courseSchedules[course.id] ?? DEFAULT_SCHEDULE}
             onChange={(e) => setCourseSchedules({ ...courseSchedules, [course.id]: e.target.value })}
             className={`w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 ${courseTheme.selectFocusRing}`}
           >
-            <option value="10am to Noon">10:00 AM – 12:00 PM</option>
-            <option value="3:30pm to 5:30pm">3:30 PM – 5:30 PM</option>
+            {SCHEDULE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -715,17 +726,105 @@ export function HighSchoolSummerIntensivePage() {
             </Link>
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-            High School Summer Intensive
+            High School Math Summer Intensive · Dublin, CA
           </h1>
-          <p className="text-lg text-white/90 mb-3">June 15 – September 5, 2026</p>
+          <p className="text-lg text-white/90 mb-3">June 15 – July 24, 2026</p>
           <p className="text-base text-white/80 max-w-3xl">
-            6 weeks × 9 hours per week = 54 hours of expert instruction. Master Algebra 1, Geometry, Algebra 2, Precalculus, or AP Calculus before school starts.
+            6 weeks × 10 hours per week = 60 hours of expert instruction. Master Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, or Calculus AB before school starts.
           </p>
         </div>
       </section>
 
+      {/* 1. JTBD Situation Strip */}
+      <section className="bg-white border-b border-gray-200 py-12 md:py-14">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold text-gray-600 uppercase mb-6">Which sounds like your child?</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { label: 'Entering a harder course', desc: 'Needs to build confidence before fall' },
+              { label: 'Passed, but not confident', desc: 'Strong grade, weaker understanding' },
+              { label: 'Honors / AP track', desc: 'Staying ahead of accelerated pace' },
+              { label: 'Close gaps before fall', desc: 'Firm up weak spots now' },
+            ].map((situation, idx) => (
+              <button
+                key={idx}
+                onClick={() => document.querySelector('[data-section="courses"]')?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-left p-4 rounded-lg border border-gray-300 hover:border-[#1F396D] hover:bg-[#1F396D]/5 transition-all cursor-pointer"
+              >
+                <p className="font-semibold text-gray-900 text-sm">{situation.label}</p>
+                <p className="text-xs text-gray-600 mt-1">{situation.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Trust Bar */}
+      <section className="bg-gray-50 py-6 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-700">
+            <div className="flex items-center gap-1">
+              <span className="text-lg font-bold">4.9★</span>
+              <span>Google Reviews</span>
+            </div>
+            <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
+            <div className="hidden sm:block">40+ parent reviews</div>
+            <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
+            <div className="hidden sm:block">387+ students enrolled</div>
+            <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
+            <div className="hidden sm:block">Max 8 per class</div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. How It Works */}
+      <section className="bg-white py-12 md:py-14 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-10">How It Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { step: 1, title: 'Choose Your Course', desc: 'Pick Algebra 1, Precalc, AP Calc, or another course' },
+              { step: 2, title: 'Select a Schedule', desc: '10am–Noon or 3:30–5:30pm, Monday–Friday' },
+              { step: 3, title: 'Start June 15', desc: '60 hours of expert instruction over 6 weeks' },
+            ].map((item) => (
+              <div key={item.step} className="text-center">
+                <div className="w-12 h-12 rounded-full bg-[#1F396D] text-white font-bold flex items-center justify-center mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-600">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Social Proof */}
+      <section className="bg-gray-50 py-12 md:py-14 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-10">What Parents Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { stars: 5, text: 'My child went from C to A in just 6 weeks. The instructors really care.', author: 'Sarah M., Pleasanton' },
+              { stars: 5, text: 'Best summer decision we made. She started AP ready and confident.', author: 'James L., San Ramon' },
+              { stars: 5, text: 'Small class size meant she got real attention. Worth every penny.', author: 'Maria G., Livermore' },
+            ].map((review, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+                <div className="flex gap-1 mb-3">
+                  {Array.from({ length: review.stars }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-700 mb-4">"{review.text}"</p>
+                <p className="text-xs font-semibold text-gray-900">{review.author}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Courses Grid */}
-      <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 lg:px-8">
+      <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 lg:px-8" data-section="courses">
         <h2 className="text-3xl font-bold text-gray-900 mb-12">Choose Your Course</h2>
 
         <div className="grid lg:grid-cols-2 gap-8">
@@ -829,7 +928,7 @@ export function HighSchoolSummerIntensivePage() {
                         Select a schedule
                       </label>
                       <select
-                        value={courseSchedules[course.id] ?? '10am to Noon'}
+                        value={courseSchedules[course.id] ?? DEFAULT_SCHEDULE}
                         onChange={(event) =>
                           setCourseSchedules((current) => ({
                             ...current,
@@ -838,8 +937,11 @@ export function HighSchoolSummerIntensivePage() {
                         }
                         className={`w-full px-4 py-3 text-base font-medium text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 ${courseTheme.selectFocusRing} bg-white`}
                       >
-                        <option>10am to Noon</option>
-                        <option>3:30pm to 5:30pm</option>
+                        {SCHEDULE_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -855,6 +957,50 @@ export function HighSchoolSummerIntensivePage() {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      {/* 5. FAQ Section */}
+      <section className="py-16 md:py-20 bg-white border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Frequently Asked Questions</h2>
+          <Accordion type="single" collapsible className="space-y-4">
+            {[
+              {
+                q: 'What if my child is behind in math?',
+                a: 'Our instructors work at each student\'s level. We start with fundamentals and build from there. Small class size means personalized attention.',
+              },
+              {
+                q: 'Is this online or in-person?',
+                a: 'All classes are in-person at our Dublin campus, Monday–Friday, 2 hours per day. We provide a focused, interactive learning environment.',
+              },
+              {
+                q: 'What grade levels are these courses for?',
+                a: 'Algebra 1 is Grades 8–9; Algebra 2 is Grades 10–11; Precalculus and AP Precalculus are Grade 11; Calculus AB is Grades 11–12. Placement depends on your child\'s math level.',
+              },
+              {
+                q: 'How small are the classes?',
+                a: 'Maximum 8 students per class. This ensures every student gets personal feedback and attention from the instructor.',
+              },
+              {
+                q: 'What if I\'m not sure which course to pick?',
+                a: 'We recommend a free assessment call. Our team will evaluate your child\'s current level and recommend the best fit. Email us or call (925) 555-0123.',
+              },
+              {
+                q: 'What\'s your refund policy?',
+                a: 'Refunds are available if you cancel at least 2 weeks before the start date. Partial refunds are available for cancellations closer to the start.',
+              },
+            ].map((item, idx) => (
+              <AccordionItem key={idx} value={`faq-${idx}`}>
+                <AccordionTrigger className="text-lg font-semibold text-gray-900 hover:text-[#1F396D]">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-gray-700 pt-2">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
@@ -938,6 +1084,25 @@ export function HighSchoolSummerIntensivePage() {
           )}
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* 6. Sticky CTA Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40 py-4">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
+          <div>
+            <p className="font-semibold text-gray-900">Enroll by June 1</p>
+            <p className="text-xs text-gray-600">~2 spots left in most schedules</p>
+          </div>
+          <Button
+            onClick={() => document.querySelector('[data-section="courses"]')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-[#F16112] hover:bg-[#d54f0a] text-white px-6 py-2 rounded-full font-semibold whitespace-nowrap"
+          >
+            Choose a Course
+          </Button>
+        </div>
+      </div>
+
+      {/* Bottom padding to prevent content from hiding under sticky CTA */}
+      <div className="h-24"></div>
     </div>
   );
 }
