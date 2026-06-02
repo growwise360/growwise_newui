@@ -140,6 +140,15 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/academic/english',
   },
 
+  '/academic/english/elementary': {
+    title: 'Elementary English Tutoring Online — Grades 1–5 | GrowWise',
+    description:
+      'Structured English program for Grades 1–5. Reading fluency, vocabulary, grammar, and writing. Live online small groups. Diagnostic-first. 3-month programs. Dublin, CA.',
+    keywords:
+      'elementary English tutoring online, reading below grade level grades 1-5, my child hates writing, child reads but does not understand, California Common Core ELA, English tutoring Dublin CA, Pleasanton San Ramon Tri-Valley',
+    path: '/academic/english/elementary',
+  },
+
   '/courses/sat-prep': {
     title: 'SAT Prep Tutoring in Dublin, CA | GrowWise',
     description:
