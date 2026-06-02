@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CONTACT_INFO } from '@/lib/constants';
+import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -580,6 +581,46 @@ const COURSE_THEMES = [
   },
 ] as const;
 
+// Social Proof Component with Real Reviews
+function SocialProofSection() {
+  const testimonials = useMemo(
+    () =>
+      siteGoogleTrustReviewCards().slice(0, 3).map((t, i) => ({
+        id: i + 1,
+        name: t.name,
+        content: t.content,
+        rating: t.rating,
+      })),
+    []
+  );
+
+  return (
+    <section className="bg-gray-50 py-12 md:py-14 border-b border-gray-200">
+      <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Real Results Parents Trust</h2>
+          <p className="text-sm text-gray-600">Rated 4.9⭐ on Google · 40+ reviews</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((review) => (
+            <div key={review.id} className="bg-white p-6 rounded-lg border border-gray-200">
+              <div className="flex gap-1 mb-4">
+                {Array.from({ length: review.rating }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
+                ))}
+              </div>
+              <p className="text-sm text-gray-700 mb-4 leading-relaxed line-clamp-3">
+                "{review.content}"
+              </p>
+              <p className="text-xs text-gray-600">— {review.name} · Google review</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function HighSchoolSummerIntensivePage() {
   const locale = useLocale();
   const [selectedSummerCourse, setSelectedSummerCourse] = useState<SummerEnrollmentCourse | null>(null);
@@ -800,33 +841,7 @@ export function HighSchoolSummerIntensivePage() {
       </section>
 
       {/* 4. Social Proof */}
-      <section className="bg-gray-50 py-12 md:py-14 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Real Results Parents Trust</h2>
-            <p className="text-sm text-gray-600">Rated 4.9⭐ on Google · 40+ reviews</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { stars: 5, text: 'My child went from C to A in just 6 weeks. The instructors really care.', author: 'Sarah M.' },
-              { stars: 5, text: 'Best summer decision we made. She started AP ready and confident.', author: 'James L.' },
-              { stars: 5, text: 'Small class size meant she got real attention. Worth every penny.', author: 'Maria G.' },
-            ].map((review, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: review.stars }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
-                  ))}
-                </div>
-                <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                  "{review.text}"
-                </p>
-                <p className="text-xs text-gray-600">— {review.author} · Google review</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SocialProofSection />
 
       {/* Courses Grid */}
       <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 lg:px-8" data-section="courses">
