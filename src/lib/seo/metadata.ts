@@ -19,6 +19,8 @@ interface PageMetadataOptions {
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
+  /** Open Graph / social image alt text. Defaults to title when omitted. */
+  imageAlt?: string;
   /** If false, emit noindex,follow (conversion / thank-you pages). Defaults to true. */
   indexable?: boolean;
 }
@@ -63,6 +65,7 @@ export function generatePageMetadata({
   type = "website",
   publishedTime,
   modifiedTime,
+  imageAlt,
   indexable = true,
 }: PageMetadataOptions): Metadata {
   const baseUrl = getCanonicalSiteUrl();
@@ -101,7 +104,7 @@ export function generatePageMetadata({
           url: image,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: imageAlt ?? title,
         },
       ],
       locale: effectiveLocale,

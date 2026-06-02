@@ -13,6 +13,7 @@ export function buildCampMetadata(page: CampLandingPage): Metadata {
   return {
     title,
     description,
+    ...(page.metaKeywords ? { keywords: page.metaKeywords } : {}),
     alternates: {
       canonical: url,
     },

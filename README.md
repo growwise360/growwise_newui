@@ -25,7 +25,6 @@ npm install
 cp .env.example .env.local   # then edit with your values
 npm run dev                  # http://localhost:3000
 ```
-
 Important env vars (examples):
 - `NEXT_PUBLIC_BACKEND_URL=https://<your-backend-domain>`
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...`

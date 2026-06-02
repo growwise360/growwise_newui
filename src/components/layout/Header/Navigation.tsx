@@ -10,6 +10,7 @@ interface NavigationProps {
   onDropdownEnter: (key: string) => void;
   onDropdownLeave: (key: string) => void;
   onDropdownToggle: (key: string) => void;
+  onDropdownNavigate: () => void;
   onSubmenuToggle: (key: string) => void;
   onSubmenuEnter: (key: string) => void;
   onSubmenuLeave: (key: string) => void;
@@ -29,6 +30,7 @@ export default function Navigation({
   onDropdownEnter,
   onDropdownLeave,
   onDropdownToggle,
+  onDropdownNavigate,
   onSubmenuToggle,
   onSubmenuEnter,
   onSubmenuLeave,
@@ -62,6 +64,7 @@ export default function Navigation({
               onDropdownEnter={onDropdownEnter}
               onDropdownLeave={onDropdownLeave}
               onDropdownToggle={onDropdownToggle}
+              onDropdownNavigate={onDropdownNavigate}
               onSubmenuToggle={onSubmenuToggle}
               onSubmenuEnter={onSubmenuEnter}
               onSubmenuLeave={onSubmenuLeave}

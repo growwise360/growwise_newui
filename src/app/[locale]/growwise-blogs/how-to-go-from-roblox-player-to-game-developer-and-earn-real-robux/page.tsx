@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, User, Code, Gamepad2, TrendingUp, DollarSign, Ligh
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-go-from-roblox-player-to-game-developer-and-earn-real-robux.webp'
@@ -42,6 +43,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'How to Go from Roblox Player to Game Developer',
     description: "Transform your child's gaming passion into valuable coding and development skills. Learn Roblox game development and turn screen time into productive skill time.",
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-06-24',
+    dateModified: '2025-06-24',
   })
 
   return (
@@ -325,6 +329,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             </div>
 
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Ready to build your first game?{' '}
+                <Link href={publicPath('/steam/game-development', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise Game Development classes
+                </Link>{' '}
+                — Roblox, Scratch, Minecraft, and Unity for Grades 1–12 in Dublin, CA.
+              </p>
+            </div>
+
             {/* Back to Blogs Link */}
             <div className="mt-8 text-center">
               <Link 
@@ -338,21 +353,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/steam/game-development"
+          programLabel="Explore Game Development"
+        />
       </div>
     </>
   )

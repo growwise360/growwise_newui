@@ -4,6 +4,7 @@ import type { CampLandingPage } from "@/lib/camps/camp-types";
 import { HelpCircle } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 
 import { SectionContainer } from "./SectionContainer";
 
@@ -12,6 +13,8 @@ type FAQSectionProps = {
 };
 
 export function FAQSection({ page }: FAQSectionProps) {
+  const defaultOpenFaqs = getDefaultOpenFaqValues(page.faqItems.length, (idx) => `faq-${idx}`);
+
   return (
     <SectionContainer id="faq" className="bg-slate-50 border-t border-slate-100">
       <div className="max-w-4xl mx-auto">
@@ -25,7 +28,11 @@ export function FAQSection({ page }: FAQSectionProps) {
         {/* NOTE: Our Accordion implementation forwards the root `className` to each Header/Trigger.
            Keep spacing on an outer wrapper so rows stay visually consistent. */}
         <div className="mt-10 space-y-3">
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion
+            type="multiple"
+            className="w-full"
+            defaultValue={defaultOpenFaqs}
+          >
             {page.faqItems.map((item, idx) => (
               <AccordionItem
                 key={item.question}

@@ -7,6 +7,10 @@ import { defineConfig, devices } from '@playwright/test';
  * - Uses E2E_BASE_URL if set (e.g. staging)
  * - Otherwise defaults to http://localhost:3000
  *
+ * Test tiers (see `.cursor/rules.md` §17):
+ * - @critical — enrollment, checkout, all lead forms, ad landing routes; run on every PR (`npm run test:e2e:smoke`)
+ * - @nightly — bulk SEO/camps/mobile audit; run on morning schedule only (`npm run test:e2e:full`)
+ *
  * Stripe:
  * - Checkout flow is expected to redirect to Stripe test checkout page.
  * - Tests should assert redirect to a Stripe URL and not real card charges.
@@ -20,11 +24,11 @@ export default defineConfig({
   expect: {
     timeout: 10_000,
   },
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   // `next dev` + parallel Playwright workers reliably triggers RSC/JSON.parse races and flaky tests.
-  // Override with PLAYWRIGHT_WORKERS (e.g. 4) when using `next start` or E2E_BASE_URL against staging.
+  // webServer: next start if built, else next dev. CI sets E2E_BASE_URL and starts the server in the workflow.
   workers: process.env.PLAYWRIGHT_WORKERS
     ? parseInt(process.env.PLAYWRIGHT_WORKERS, 10)
     : 1,
@@ -54,7 +58,7 @@ export default defineConfig({
   webServer: process.env.E2E_BASE_URL
     ? undefined
     : {
-        command: 'npm run dev',
+        command: 'bash scripts/e2e-web-server.sh',
         url: BASE_URL,
         reuseExistingServer: !process.env.CI,
         timeout: 180_000,

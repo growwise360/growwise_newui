@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Checkout success page', () => {
+test.describe('Checkout success page', { tag: '@critical' }, () => {
   test('displays payment success and clears cart with mocked session', async ({ page }) => {
     await page.route('**/api/payment/session/**', async (route) => {
       await route.fulfill({

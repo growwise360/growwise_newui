@@ -14,7 +14,7 @@ async function openSummerCampGuideModal(page: Page): Promise<void> {
   }
 }
 
-test.describe('Summer camp summercamp form (UI)', () => {
+test.describe('Summer camp summercamp form (UI)', { tag: '@nightly' }, () => {
   test('submits summercamp form and navigates to thank-you page with mocked API', async ({ page }) => {
     await page.route('**/api/summer-camp-summercamp', async (route) => {
       if (route.request().method() !== 'POST') {

@@ -1,6 +1,6 @@
-import React from 'react'
 import { CONTACT_INFO } from '@/lib/constants'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { getMinimumPublishedSummerCampPriceUsd } from '@/lib/summer-camp-data'
 
 interface EventSchemaProps {
   name: string
@@ -66,16 +66,16 @@ export default function EventSchema({
     performer: {
       '@type': 'Organization',
       name: 'GrowWise School',
-      url: 'https://www.growwiseschool.org',
+      url: site,
     },
     offers: {
       '@type': 'Offer',
       url,
+      price: String(getMinimumPublishedSummerCampPriceUsd()),
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       validFrom: '2026-01-01',
     },
-    typicalAgeRange,
     inLanguage: 'en',
   }
 

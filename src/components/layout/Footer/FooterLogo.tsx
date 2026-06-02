@@ -1,13 +1,11 @@
 import { FooterData } from './types';
-import ContactInfo from './ContactInfo';
 
 interface FooterLogoProps {
   logo: FooterData['logo'];
   description: string;
-  contact: FooterData['contact'];
 }
 
-export default function FooterLogo({ logo, description, contact }: FooterLogoProps) {
+export default function FooterLogo({ logo, description }: FooterLogoProps) {
   return (
     <div className="flex flex-col">
       <div className="flex items-center space-x-2 mb-6">
@@ -25,7 +23,6 @@ export default function FooterLogo({ logo, description, contact }: FooterLogoPro
       <p className="text-gray-600 leading-relaxed mb-6">
         {description}
       </p>
-      <ContactInfo contact={contact} />
     </div>
   );
 }

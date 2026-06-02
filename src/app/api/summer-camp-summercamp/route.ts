@@ -8,6 +8,7 @@ import {
   sendBrevoTransactionalEmail,
 } from '@/lib/brevo';
 import { sendEmail, type EmailAttachment, type SendEmailResult } from '@/lib/email';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
 import {
   buildCampGuidePdfUrl,
@@ -339,6 +340,32 @@ export async function POST(request: Request) {
     if (!businessResult.success) {
       console.warn('[summer-camp-guide] Business notification failed (user email already sent):', businessResult.error);
     }
+
+    const leadName = parentNameRaw || 'Summer camp lead';
+    const { firstname, lastname } = splitFullName(leadName);
+    await syncHubSpotLeadIfConfigured(
+      [
+        { name: 'firstname', value: firstname },
+        { name: 'lastname', value: lastname },
+        { name: 'email', value: email },
+        {
+          name: 'message',
+          value: [
+            `Camp interest: ${interestLabel}`,
+            `Child grade: ${gradeLabel}`,
+            locale ? `Locale: ${locale}` : '',
+            'Source: summer-camp-guide',
+          ]
+            .filter(Boolean)
+            .join('\n'),
+        },
+      ],
+      {
+        pageUri: request.headers.get('referer') ?? '',
+        pageName: 'Summer camp guide',
+      },
+      'summer-camp-summercamp',
+    );
 
     let listAddResult: SendEmailResult | undefined;
     if (brevoReady) {

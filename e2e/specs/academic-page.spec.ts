@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Academic landing page', () => {
+test.describe('Academic landing page', { tag: '@nightly' }, () => {
   test('shows key academic content and links', async ({ page }) => {
     await page.goto(localePath('/academic'));
 

@@ -6,7 +6,7 @@ on:
 
 jobs:
   test-frontend:
-    name: Frontend — Jest + Playwright
+    name: Frontend — Jest + Smoke E2E
     runs-on: ubuntu-latest
 
     steps:
@@ -31,20 +31,30 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Kill any process using port 3000
+        run: lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+
       - name: Start Next.js server
         env:
           PORT: 3000
-        run: npm run start &
+        run: npm run start > /tmp/server.log 2>&1 &
+        timeout-minutes: 2
 
-      - name: Wait for server
-        run: npx wait-on http://localhost:3000 --timeout 60000
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:3000 --timeout 120000
 
-      - name: Run Playwright E2E
+      - name: Show server logs if failed
+        if: failure()
+        run: |
+          echo "Server logs:"
+          cat /tmp/server.log
+
+      - name: Run Playwright smoke E2E (@critical)
         env:
           E2E_BASE_URL: http://localhost:3000
           PLAYWRIGHT_WORKERS: '2'
           CI: true
-        run: npx playwright test --project=chromium
+        run: npm run test:e2e:smoke
 
       - name: Upload Playwright report
         if: always()

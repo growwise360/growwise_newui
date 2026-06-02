@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from 'next-intl/plugin';
+import { LEGACY_PATH_REDIRECTS } from './src/lib/seo/legacy-path-redirects';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
 
@@ -47,6 +48,22 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'growwiseschool.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'patch.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.activityhero.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.6crickets.com',
+      },
     ],
     formats: ['image/avif', 'image/webp'], // Use modern image formats
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -57,15 +74,21 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: isProd ? 86_400 : 60,
   },
   
+  // Webpack filesystem cache can corrupt .next/dev when multiple dev servers run
+  // (ENOENT on routes-manifest / fallback-build-manifest / pack.gz rename).
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
+  },
+
   // Experimental features for better performance
   experimental: {
     // Inline route CSS into HTML in production to remove render-blocking stylesheet round-trips
     // (helps mobile LCP/FCP; Tailwind-friendly per Next.js docs). Trade-off: larger HTML, experimental.
     // https://nextjs.org/docs/app/api-reference/config/next-config-js/inlineCss
     inlineCss: true,
-    // Dev-only: avoid distDir lockfile acquisition (can ETIMEDOUT on iCloud/synced or slow disks).
-    // Production builds keep the default lock behavior via NODE_ENV.
-    ...(process.env.NODE_ENV === 'development' ? { lockDistDir: false as const } : {}),
     // Smaller dev graphs for Webpack + Turbopack (tree-shake barrel imports)
     optimizePackageImports: [
       'next-intl',
@@ -191,13 +214,36 @@ const nextConfig: NextConfig = {
   // Legacy `/camp/*` SEO landings → `/camps/*` (canonical namespace aligns with /camps/summer, /camps/winter).
   // `/en/camp/*` listed before `/en/:path*` so one redirect hop to `/camps/*`.
   async redirects() {
+    const legacyMarketingRedirects = LEGACY_PATH_REDIRECTS.flatMap(({ from, to }) => [
+      { source: from, destination: to, permanent: true as const },
+      { source: `${from}/`, destination: to, permanent: true as const },
+    ]);
+
+    const retiredLocale = 'hi|zh|es';
+    const localePrefixedLegacyRedirects = LEGACY_PATH_REDIRECTS.flatMap(({ from, to }) => [
+      {
+        source: `/:locale(${retiredLocale})${from}`,
+        destination: to,
+        permanent: true as const,
+      },
+      {
+        source: `/:locale(${retiredLocale})${from}/`,
+        destination: to,
+        permanent: true as const,
+      },
+    ]);
+
     return [
+      ...localePrefixedLegacyRedirects,
+      ...legacyMarketingRedirects,
       { source: '/camp', destination: '/camps/summer', permanent: true },
       { source: '/camp/:slug', destination: '/camps/:slug', permanent: true },
       { source: '/en/camp', destination: '/camps/summer', permanent: true },
       { source: '/en/camp/:slug', destination: '/camps/:slug', permanent: true },
       { source: '/en', destination: '/', permanent: true },
       { source: '/en/:path*', destination: '/:path*', permanent: true },
+      { source: `/:locale(${retiredLocale})`, destination: '/', permanent: true },
+      { source: `/:locale(${retiredLocale})/:path*`, destination: '/:path*', permanent: true },
       {
         source: '/:locale/camps/summer/lottery-success',
         destination: '/:locale/camps/summer/summercamp-success',

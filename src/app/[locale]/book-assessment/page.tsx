@@ -22,12 +22,15 @@ import { BookOpen, BookMarked, CheckCircle, Clock, Users, Award, TrendingUp, Bra
 import CountryCodeSelector from '@/components/CountryCodeSelector';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { PHONE_PLACEHOLDER, CONTACT_INFO } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { validatePhoneWithCountryCode, getPhonePlaceholder, getCallingCode, DIAL_CODE_TO_ISO2 } from '@/lib/phoneValidation';
 import { getRecaptchaToken } from '@/lib/recaptcha';
 import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
+import { trackAssessmentFormSubmitted } from '@/lib/analytics/gtmEvents';
+import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
 
 interface FormData {
   parentName: string;
@@ -82,6 +85,14 @@ export default function BookAssessmentPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    captureUtmFromSearchParams();
+    const utm = getStoredUtm();
+    if (utm?.utm_source === 'nextdoor') {
+      setFormData((prev) => (prev.hearAboutUs ? prev : { ...prev, hearAboutUs: 'nextdoor' }));
+    }
+  }, []);
+
   const grades = [
     'Kindergarten', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
     'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
@@ -108,6 +119,7 @@ export default function BookAssessmentPage() {
   const hearAboutOptions = useMemo(
     () => [
       { value: 'google', label: 'Google / web search' },
+      { value: 'nextdoor', label: 'Nextdoor' },
       { value: 'social', label: 'Social media' },
       { value: 'referral', label: 'Friend or family referral' },
       { value: 'school', label: 'School or community' },
@@ -293,7 +305,7 @@ export default function BookAssessmentPage() {
         mode: formData.mode,
         schedule: scheduleCombined,
         hearAboutUs: hearAboutOptions.find((h) => h.value === formData.hearAboutUs)?.label ?? formData.hearAboutUs,
-        notes: '',
+        notes: getStoredUtmNotesLine(),
         agreeToCommunications,
         recaptchaToken: recaptchaToken || undefined,
       };
@@ -315,6 +327,7 @@ export default function BookAssessmentPage() {
       }
 
       if (result.success) {
+        trackAssessmentFormSubmitted(window.location.pathname);
         router.replace(publicPath('/book-assessment/thank-you', locale));
         return;
       } else {
@@ -530,7 +543,11 @@ export default function BookAssessmentPage() {
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="grade" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Grade / Level <span className="text-red-500">*</span></Label>
-                          <Select onValueChange={(value) => handleInputChange('grade', value)} required>
+                          <Select
+                            onValueChange={(value) => handleInputChange('grade', value)}
+                            value={formData.grade || undefined}
+                            required
+                          >
                             <SelectTrigger
                               data-testid="assessment-grade-trigger"
                               className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl hover:border-gray-400 transition-all h-12 md:h-14 text-sm sm:text-base"
@@ -875,6 +892,34 @@ export default function BookAssessmentPage() {
         </div>
       </section>
 
+      {/* Browse programs — visible before and after form submission */}
+      <section className="py-12 px-4 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-lg sm:text-xl font-bold text-[#1F396D] mb-5 text-center">
+            Want to explore programs first?
+          </h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { href: publicPath('/academic/math', locale), label: 'K–12 Math Tutoring' },
+              { href: publicPath('/academic/math/high-school', locale), label: 'High School Math Tutoring' },
+              { href: publicPath('/courses/sat-prep', locale), label: 'SAT Prep Tutoring' },
+              { href: publicPath('/camps/summer', locale), label: 'Summer STEAM Camps 2026' },
+              { href: publicPath('/camps/academic-summer-programs-dublin-ca', locale), label: 'Academic Summer Programs' },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="flex items-center gap-2 p-4 rounded-xl border-2 border-[#1F396D]/20 bg-white hover:border-[#F16112] hover:shadow-md transition-all text-[#1F396D] font-semibold text-sm sm:text-base"
+                >
+                  <span className="text-[#F16112]">→</span>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -970,7 +1015,7 @@ export default function BookAssessmentPage() {
             </AlertDialogHeader>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card onClick={() => { router.push(publicPath('/courses/math', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
+              <Card onClick={() => { router.push(publicPath('/academic/math', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1F396D]/10 to-[#29335C]/15 opacity-60"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
                 <CardContent className="p-8 text-center flex flex-col items-center justify-between relative z-10 h-full">
@@ -995,7 +1040,7 @@ export default function BookAssessmentPage() {
                 </CardContent>
               </Card>
 
-              <Card onClick={() => { router.push(publicPath('/courses/english', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
+              <Card onClick={() => { router.push(publicPath('/academic/english', locale)); setIsExploreCoursesModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F16112]/10 to-[#F1894F]/15 opacity-60"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
                 <CardContent className="p-8 text-center flex flex-col items-center justify-between relative z-10 h-full">

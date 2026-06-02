@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 import { ChevronRight } from 'lucide-react';
+import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSummerProgramsTeaserBand';
 
 export interface ProgramVM {
   id: number;
@@ -55,6 +56,13 @@ export function ProgramsSection({
                   const isSteamGameProgram = program.title.toLowerCase().includes('game development');
                   const isSteamPythonProgram = program.title.toLowerCase().includes('python programming');
                   const nameLower = item.name.toLowerCase();
+                  let mathBandPath: string | null = nameLower.includes('elementary')
+                    ? '/academic/math/elementary'
+                    : nameLower.includes('middle') || nameLower.includes('dusd')
+                    ? '/academic/math/middle-school'
+                    : nameLower.includes('high')
+                    ? '/academic/math/high-school'
+                    : null;
                   let gradeParam = nameLower.includes('elementary')
                     ? 'Elementary'
                     : nameLower.includes('middle')
@@ -96,7 +104,7 @@ export function ProgramsSection({
                     : (isSteamGameProgram && nameLower.includes('robot'))
                     ? 'Robotics'
                     : null;
-                  const isLinked = (isMathProgram && (!!gradeParam || !!alignmentParam)) || 
+                  const isLinked = (isMathProgram && (!!mathBandPath || !!gradeParam || !!alignmentParam)) || 
                     (isEnglishProgram && !!courseTypeParam) ||
                     (isWritingProgram && !!courseTypeParam) ||
                     (isSteamGameProgram && (!!levelParam || !!courseTypeParam)) ||
@@ -111,9 +119,9 @@ export function ProgramsSection({
                     ? `level=${encodeURIComponent(levelParam)}`
                     : '';
                   const href = isMathProgram
-                    ? `${publicPath(`/courses/math${query ? `?${query}` : ''}`, locale)}#courses`
+                    ? publicPath(mathBandPath ?? `/academic/math${query ? `?${query}` : ''}`, locale)
                     : (isEnglishProgram || isWritingProgram)
-                    ? `${publicPath(`/courses/english${query ? `?${query}` : ''}`, locale)}#courses`
+                    ? `${publicPath(`/academic/english${query ? `?${query}` : ''}`, locale)}#courses`
                     : isSteamGameProgram
                     ? `${publicPath(`/steam/game-development${query ? `?${query}` : ''}`, locale)}#courses`
                     : isSteamPythonProgram
@@ -195,6 +203,7 @@ export function ProgramsSection({
           </div>
           <ProgramGrid items={k12} accent="blue" />
         </div>
+        <AcademicSummerProgramsTeaserBand locale={locale} variant="homepage" />
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-12">
             <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">STEAM Programs</h3>

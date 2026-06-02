@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, User, Heart, Shield, Lightbulb, Users, Star, Targe
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/unlocking-confidence-independence-and-fun-through-summer-camp.webp'
@@ -43,6 +44,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'Unlocking Confidence, Independence, and Fun Through Summer Camp',
     description: 'How structured summer camps build confidence, independence, and social skills—while kids learn through projects they enjoy.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-02-14',
+    dateModified: '2025-02-14',
   })
 
   return (
@@ -318,9 +322,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <p className="mb-6">
                   Explore GrowWise Summer Camp programs designed to build confidence, independence, and essential life skills while having fun!
                 </p>
-                <Link href="/camps/winter">
+                <Link href={publicPath('/camps/summer', locale)}>
                   <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Explore Summer Camps
+                    Summer STEAM Camps 2026
                   </Button>
                 </Link>
               </div>
@@ -340,21 +344,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/camps/summer"
+          programLabel="View Summer Camp Programs"
+        />
       </div>
     </>
   )

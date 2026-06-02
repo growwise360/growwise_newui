@@ -62,3 +62,11 @@ dataconnect-generated/
 # local python tooling (PDF analysis, etc.)
 .venv-pdf/
 *.venv/
+
+# Local-only SEO tooling & tracking docs — never commit
+docs/ahrefs-recrawl-tracking.md
+docs/seo-30day-dashboard.md
+docs/seo-post-deploy-checklist.md
+scripts/indexnow-submit.mjs
+scripts/seo-monitor.mjs
+scripts/seo-verify.mjs

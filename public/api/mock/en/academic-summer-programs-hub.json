@@ -1,0 +1,176 @@
+{
+  "sprints": [
+    {
+      "id": "academic-summer-sprint",
+      "href": "/camps/academic-summer-programs-dublin-ca#slots-section",
+      "startDateIso": "2026-06-15",
+      "trackIds": ["read-to-prove", "write-to-explain", "bridge-the-gap-math"],
+      "pricing": {
+        "cohortWeeks": 2,
+        "cohortHours": 15,
+        "bothCohortsWeeks": 4,
+        "bothCohortsHours": 30,
+        "upsellSaveAmount": 60,
+        "tiers": [
+          {
+            "id": "grades-3-5",
+            "perCohortPrice": 249,
+            "bothCohortsPrice": 438,
+            "perHourRate": 16.6
+          },
+          {
+            "id": "grades-6-8",
+            "perCohortPrice": 349,
+            "bothCohortsPrice": 638,
+            "perHourRate": 23.27
+          }
+        ]
+      }
+    },
+    {
+      "id": "get-ready-sprint",
+      "href": "/camps/get-ready-sprint-dublin-ca",
+      "startDateIso": "2026-07-20",
+      "trackIds": ["im1", "im2", "algebra-1", "geometry"],
+      "pricing": null
+    }
+  ],
+  "academicSummerSprintFormat": {
+    "weekdayCount": 10,
+    "sessionMinutesPerDay": 90
+  },
+  "cohorts": {
+    "academicSummerSprint": {
+      "cohort1": "June 8–19",
+      "cohort2": "June 30–July 11"
+    },
+    "getReadySprint": {
+      "startLabel": "Starts July 20, 2026"
+    }
+  },
+  "cohortDateLabels": {
+    "cohort1": "June 8–19, 2026",
+    "cohort2": "June 30–July 11, 2026",
+    "bothCohorts": "June 8 – July 11, 2026"
+  },
+  "sessionTimeLabel": "90 min / session · Mon–Fri",
+  "getReadySprintFormat": {
+    "schedule": "Mon/Wed/Fri · 5:00–6:30 PM"
+  },
+  "getReadyCohortDateLabels": {
+    "cohort1TwoWeek": "July 20–31",
+    "cohort1FourWeek": "July 20–Aug 14",
+    "cohort2TwoWeek": "Aug 4–15",
+    "cohort2FourWeek": "Aug 4–Aug 29"
+  },
+  "getReadyUpsellSaveAmount": 50,
+  "getReadyPricing": {
+    "standard": {
+      "twoWeek": 249,
+      "fourWeek": 449,
+      "upfront": 399
+    },
+    "im1": {
+      "twoWeek": 249,
+      "fourWeek": 449,
+      "upfront": 399
+    },
+    "geometry": {
+      "twoWeek": 279,
+      "fourWeek": 499,
+      "upfront": 449
+    }
+  },
+  "getReadyPricingGroups": {
+    "im1": "im1",
+    "im2": "im1",
+    "algebra-1": "standard",
+    "geometry": "geometry"
+  },
+  "tracks": {
+    "read-to-prove": {
+      "sprintId": "academic-summer-sprint",
+      "section": "readingWriting",
+      "gradeBadge": "Grades 1–8",
+      "ctaType": "page",
+      "ctaHref": "/camps/academic-summer-programs-dublin-ca#track-read-to-prove"
+    },
+    "write-to-explain": {
+      "sprintId": "academic-summer-sprint",
+      "section": "readingWriting",
+      "gradeBadge": "Grades 1–8",
+      "ctaType": "page",
+      "ctaHref": "/camps/academic-summer-programs-dublin-ca#track-write-to-explain"
+    },
+    "bridge-the-gap-math": {
+      "sprintId": "academic-summer-sprint",
+      "section": "math",
+      "gradeBadge": "Grades 1–8",
+      "ctaType": "page",
+      "ctaHref": "/camps/academic-summer-programs-dublin-ca#track-bridge-the-gap-math"
+    },
+    "im1": {
+      "sprintId": "get-ready-sprint",
+      "section": "math",
+      "gradeBadge": "Grades 1–10",
+      "ctaType": "phone",
+      "ctaHref": null
+    },
+    "im2": {
+      "sprintId": "get-ready-sprint",
+      "section": "math",
+      "gradeBadge": "Grades 1–10",
+      "ctaType": "phone",
+      "ctaHref": null
+    },
+    "algebra-1": {
+      "sprintId": "get-ready-sprint",
+      "section": "math",
+      "gradeBadge": "Grades 1–10",
+      "ctaType": "phone",
+      "ctaHref": null
+    },
+    "geometry": {
+      "sprintId": "get-ready-sprint",
+      "section": "math",
+      "gradeBadge": "Grades 1–10",
+      "ctaType": "phone",
+      "ctaHref": null
+    }
+  },
+  "trackAssets": {
+    "read-to-prove": {
+      "image": "/images/camps/banners/read_to_prove_4291b661_web.webp"
+    },
+    "write-to-explain": {
+      "image": "/images/camps/banners/write_with_structure_85f6d387_web.webp"
+    },
+    "bridge-the-gap-math": {
+      "image": "/images/camps/banners/mistake_proof_math_3968b793_web.webp"
+    },
+    "im1": {
+      "image": "/images/camps/banners/im1_get_ready_04d2d274_web.webp"
+    },
+    "im2": {
+      "image": "/images/camps/banners/im1_get_ready_04d2d274_web.webp"
+    },
+    "algebra-1": {
+      "image": "/images/camps/banners/algebra_1_get_ready_3572836f_web.webp"
+    },
+    "geometry": {
+      "image": "/images/camps/banners/geometry_get_ready_girl_2409911a_web.webp"
+    }
+  },
+  "howItWorks": {
+    "instructionMinutes": 60,
+    "practiceLabMinutes": 30,
+    "maxStudents": 12,
+    "minStudents": 8
+  },
+  "socialProof": {
+    "googleRating": 4.9,
+    "googleReviewCount": 40,
+    "studentsEnrolled": 387,
+    "maxStudentsPerClass": 8
+  }
+}

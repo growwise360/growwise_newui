@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, User, BookOpen, CheckCircle, Target, Users, Clock,
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide.webp'
@@ -38,6 +39,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'How to Choose the Right Summer Camp for Your Child',
     description: 'Pick a summer camp that fits your child: interests, schedule, safety, and learning outcomes—before you pay a deposit.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2026-02-10',
+    dateModified: '2026-02-10',
   })
 
   const breadcrumbItems = [
@@ -110,10 +114,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               <p className="text-gray-700 mb-6 text-sm">
-                If you are comparing options locally, start with our current 
+                If you are comparing options locally, start with our current
                 <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   summer camp schedules in Dublin
                 </Link> and program tracks.
+              </p>
+
+              <p className="text-gray-700 mb-6 text-sm">
+                Before you choose, understand the stakes:{' '}
+                <Link href={publicPath('/resources/summer-slide-dublin-ca', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  research shows students lose months of progress over summer
+                </Link>
+                . The earlier your child starts, the less ground they lose.
               </p>
 
               {/* Featured Image */}
@@ -321,17 +333,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Don't just choose the most popular camp—choose the one that's the right fit for your child. A thoughtful decision today can lead to a <strong>transformative summer experience</strong> that helps your child grow academically, socially, and emotionally.
               </p>
 
-              <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
-                <p className="text-xl font-bold mb-4">
-                  Enroll Today and Unlock Your Kid's Potential!
-                </p>
-                <Link href="/enroll">
-                  <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
-                  </Button>
-                </Link>
-              </div>
-
             </div>
 
             {/* Back to Blogs Link */}
@@ -347,21 +348,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/camps/summer"
+          programLabel="View Summer Camp Programs"
+        />
       </div>
     </>
   )

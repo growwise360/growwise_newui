@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Gamepad2, Code, Monitor, Joystick, Clock, Users, Star, Filter, ShoppingCart, CheckCircle, Award, BookOpen, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, Smartphone, Zap, Lightbulb, Rocket, Palette, Music, Bot, Brain, Cpu, Database, Network } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
+import { GAME_DEVELOPMENT_FAQ_JSONLD } from "@/lib/schema/course-hub-jsonld-faqs";
 import { useCart } from '@/components/gw/CartContext';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import ImageWithFallback from '@/components/gw/ImageWithFallback';
@@ -866,6 +869,30 @@ const GameDevelopmentPage: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-4 lg:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Frequently Asked Questions</h2>
+          <p className="text-gray-600 text-center mb-10">Common questions from parents about our game development courses</p>
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(GAME_DEVELOPMENT_FAQ_JSONLD.length, (i) => `faq-${i}`)}
+          >
+            {GAME_DEVELOPMENT_FAQ_JSONLD.map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-xl shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline font-semibold text-gray-900">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 

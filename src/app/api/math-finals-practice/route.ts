@@ -6,6 +6,7 @@ import {
   upsertMathFinalsLeadInBrevo,
 } from '@/lib/brevo'
 import { sendEmail, type EmailAttachment, type SendEmailResult } from '@/lib/email'
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm'
 import { isMathFinalsPracticeInterest, MATH_FINALS_INTEREST_LABELS, type MathFinalsPracticeInterest } from '@/data/math-finals-practice-interest'
 import { MATH_FINALS_PRACTICE_SUBJECTS, type MathFinalsPracticeSubject } from '@/data/math-finals-practice-subjects'
 
@@ -385,6 +386,35 @@ export async function POST(request: Request) {
         businessResult.error
       )
     }
+
+    const { firstname, lastname } = splitFullName(pName)
+    const hubspotMessage = [
+      `Interest: ${interestLabel} (${interest})`,
+      `Student: ${sName}`,
+      `Grade: ${g}`,
+      sch ? `School: ${sch}` : '',
+      `Current math course: ${subj}`,
+      `Q4 topics / outline: ${agendaAttachment ? `attached (${agendaAttachment.filename})` : 'not uploaded'}`,
+      notesVal ? `Notes: ${notesVal}` : '',
+      'Source: math-finals-practice',
+    ]
+      .filter(Boolean)
+      .join('\n')
+
+    await syncHubSpotLeadIfConfigured(
+      [
+        { name: 'firstname', value: firstname },
+        { name: 'lastname', value: lastname },
+        { name: 'email', value: pEmail },
+        { name: 'phone', value: pPhone },
+        { name: 'message', value: hubspotMessage },
+      ],
+      {
+        pageUri: request.headers.get('referer') ?? '',
+        pageName: 'Math finals practice',
+      },
+      'math-finals-practice',
+    )
 
     let brevoListResult: SendEmailResult | undefined
     if (brevoReady) {

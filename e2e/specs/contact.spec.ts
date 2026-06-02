@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Contact form', () => {
+test.describe('Contact form', { tag: '@critical' }, () => {
   test('submits contact form successfully with mocked backend', async ({ page }) => {
     await page.route('**/api/contact', async (route) => {
       const body = await route.request().postDataJSON();
@@ -32,7 +32,7 @@ test.describe('Contact form', () => {
     await fillStable(/^Subject \*/i, 'Free Assessment Request');
     await fillStable(/^Message \*/i, 'I would like more information about programs.');
 
-    await page.getByRole('checkbox', { name: /I agree to receive/i }).check();
+    await page.getByRole('checkbox', { name: /I agree to the Terms/i }).check();
     await page.getByRole('button', { name: /Send Message/i }).click();
 
     // Form redirects to thank-you page on success

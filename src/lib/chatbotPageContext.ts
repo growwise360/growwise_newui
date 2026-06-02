@@ -19,6 +19,7 @@ export type ChatPageContextId =
   | "default"
   | "campsHub"
   | "campsSummer"
+  | "campsAcademicSummer"
   | "campsWinter"
   | "campSlug"
   | "assessment"
@@ -98,8 +99,34 @@ export function resolveChatPageContext(rawPathname: string | null | undefined): 
   const path = stripLocale(rawPathname);
 
   // Camps — most specific first.
+  if (
+    path === "/camps/academic-summer-programs-dublin-ca" ||
+    path.startsWith("/camps/academic-summer-programs-dublin-ca/") ||
+    path === "/camps/academic-summer-sprint-dublin-ca" ||
+    path.startsWith("/camps/academic-summer-sprint-dublin-ca/")
+  ) {
+    return {
+      id: "campsAcademicSummer",
+      welcomeKey: "chatbot.pageWelcome.campsAcademicSummer",
+      suggestionKeys: [
+        "chatbot.suggestions.k12Programs",
+        "chatbot.suggestions.bookAssessment",
+        "chatbot.suggestions.pricing",
+        "chatbot.suggestions.getStarted",
+      ],
+      defaultFormType: "enroll",
+      llmHint:
+        "User is on GrowWise Academic Summer Programs (reading, writing, math sprints + IM1/Algebra 1/Geometry Get Ready). Help them pick a track by grade and subject; June sprints enroll online, July Get Ready tracks may need a phone call.",
+    };
+  }
   const slugMatch = path.match(/^\/camps\/([^/]+)\/?$/);
-  if (slugMatch && slugMatch[1] !== "summer" && slugMatch[1] !== "winter") {
+  const reservedCampSegments = new Set([
+    "summer",
+    "winter",
+    "academic-summer-programs-dublin-ca",
+    "academic-summer-sprint-dublin-ca",
+  ]);
+  if (slugMatch && !reservedCampSegments.has(slugMatch[1])) {
     const ctx = getCampSlugContext(slugMatch[1]);
     if (ctx) return ctx;
   }
@@ -193,7 +220,11 @@ export function resolveChatPageContext(rawPathname: string | null | undefined): 
   }
 
   // Course topical context (informational only — no auto form)
-  if (path.startsWith("/courses/")) {
+  if (
+    path.startsWith("/courses/") ||
+    path.startsWith("/academic/math") ||
+    path.startsWith("/academic/english")
+  ) {
     return {
       id: "courseTopic",
       welcomeKey: "chatbot.pageWelcome.default",

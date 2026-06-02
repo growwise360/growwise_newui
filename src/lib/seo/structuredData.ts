@@ -19,157 +19,12 @@ export const TRI_VALLEY_AREA_SERVED = [
   "Tri-Valley, CA",
 ] as const
 
-export const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  "name": "GrowWise",
-  "alternateName": "GrowWise School",
-  "url": CANONICAL_BASE,
-  "logo": `${CANONICAL_BASE}/logo.png`,
-  "description": "Empowering students through personalized Grades 1-12 education and innovative STEAM programs in Dublin, CA. Expert instruction, proven results, and flexible scheduling.",
-  "areaServed": [...TRI_VALLEY_AREA_SERVED],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": CONTACT_INFO.street,
-    "addressLocality": "Dublin",
-    "addressRegion": "CA",
-    "postalCode": CONTACT_INFO.zipCode,
-    "addressCountry": "US"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": CONTACT_INFO.phone,
-    "contactType": "customer service",
-    "email": CONTACT_INFO.email,
-    "areaServed": "US",
-    "availableLanguage": ["en", "es", "hi", "zh"]
-  },
-  "sameAs": [
-    "https://www.facebook.com/people/GrowWise/61561059687164/",
-    "https://www.instagram.com/growwise.dublin/",
-    "https://www.linkedin.com/company/thegrowwise/"
-  ],
-  "foundingDate": "2024",
-  "numberOfEmployees": {
-    "@type": "QuantitativeValue",
-    "value": "10-50"
-  }
-}
-
-export const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": `${CANONICAL_BASE}/#organization`,
-  "name": "GrowWise",
-  "alternateName": "GrowWise School",
-  "image": `${CANONICAL_BASE}/logo.png`,
-  "telephone": CONTACT_INFO.phone,
-  "email": CONTACT_INFO.email,
-  "url": CANONICAL_BASE,
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": CONTACT_INFO.street,
-    "addressLocality": "Dublin",
-    "addressRegion": "CA",
-    "postalCode": CONTACT_INFO.zipCode,
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 37.7021,
-    "longitude": -121.9358
-  },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "09:00",
-      "closes": "19:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Saturday"],
-      "opens": "09:00",
-      "closes": "17:00"
-    }
-  ],
-  "priceRange": "$$",
-  "currenciesAccepted": "USD",
-  "paymentAccepted": "Credit Card, Cash, Check",
-  "areaServed": [...TRI_VALLEY_AREA_SERVED],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Educational Services",
-    "itemListElement": [
-      {
-        "@type": "OfferCatalog",
-        "name": "Academic Programs",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Math Tutoring",
-              "description": "Grades 1-12 Math courses including grade-level, accelerated, and integrated math"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "English Tutoring",
-              "description": "English Language Arts courses for Grades 1-12 students"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "SAT Prep",
-              "description": "Comprehensive SAT test preparation courses"
-            }
-          }
-        ]
-      },
-      {
-        "@type": "OfferCatalog",
-        "name": "STEAM Programs",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "ML/AI Coding",
-              "description": "Machine Learning and Artificial Intelligence coding courses"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Game Development",
-              "description": "Game development courses using Roblox, Scratch, and Python"
-            }
-          }
-        ]
-      }
-    ]
-  }
-}
 
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "GrowWise",
   "url": CANONICAL_BASE,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": `${CANONICAL_BASE}/search?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
-  }
 }
 
 /**
@@ -186,6 +41,7 @@ export function generateCourseSchema({
   url,
   image,
   offers,
+  location,
 }: {
   name: string
   description: string
@@ -202,6 +58,16 @@ export function generateCourseSchema({
     availability?: string
     url?: string
     validFrom?: string
+  }
+  location?: {
+    name: string
+    address: {
+      streetAddress: string
+      addressLocality: string
+      addressRegion: string
+      postalCode: string
+      addressCountry: string
+    }
   }
 }) {
   return {
@@ -232,7 +98,20 @@ export function generateCourseSchema({
     ...(image && { "image": image }),
     "inLanguage": "en-US",
     "isAccessibleForFree": false,
-    "areaServed": [...TRI_VALLEY_AREA_SERVED],
+    ...(location && {
+      "location": {
+        "@type": "Place",
+        "name": location.name,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": location.address.streetAddress,
+          "addressLocality": location.address.addressLocality,
+          "addressRegion": location.address.addressRegion,
+          "postalCode": location.address.postalCode,
+          "addressCountry": location.address.addressCountry,
+        },
+      },
+    }),
     ...(offers && {
       "offers": {
         "@type": "Offer",
@@ -513,7 +392,8 @@ export function generateItemListSchema(
 }
 
 /**
- * Generate Article structured data (for blog posts)
+ * Generate BlogPosting structured data (for blog posts).
+ * Uses BlogPosting (preferred over Article for blog content) per Google & AI search best practices.
  * Only include verified fields — never invent dates, images, or author names not visible on the page.
  */
 export function generateArticleSchema({
@@ -538,11 +418,14 @@ export function generateArticleSchema({
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     "headline": headline,
     "description": description,
     "url": url,
-    "mainEntityOfPage": url,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": url,
+    },
     "publisher": {
       "@type": "Organization",
       "name": "GrowWise",

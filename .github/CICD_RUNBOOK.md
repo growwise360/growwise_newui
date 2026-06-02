@@ -18,7 +18,7 @@ You open a PR  dev → main
         ▼
 GitHub Actions runs tests automatically (pr-gate.yml)
   ├── Jest unit tests
-  └── Playwright E2E tests
+  └── Playwright smoke E2E (@critical — checkout, enrollment, all lead forms, ad routes)
         │
    pass? ──► merge is allowed
    fail? ──► merge is BLOCKED until fixed
@@ -31,10 +31,10 @@ GitHub Actions deploys to production (deploy.yml)
   └── Triggers Amplify prod build
         │
         ▼
-Every night at 02:15 UTC (nightly-frontend.yml)
+Every morning at 07:00 Pacific (nightly-frontend.yml)
   ├── Jest
-  ├── Playwright E2E against staging
-  └── Lighthouse performance smoke
+  ├── Playwright full E2E suite
+  └── Lighthouse performance smoke (root monorepo workflow)
        └── If anything fails → GitHub issue auto-created
 ```
 
@@ -81,11 +81,11 @@ Every night at 02:15 UTC (nightly-frontend.yml)
 ## How to manually trigger a workflow (no waiting until 2am)
 
 1. Go to `github.com/thegrowwise/growwise_newui/actions`
-2. Click **Nightly Tests — Frontend** in the left list
+2. Click **Morning Tests — Frontend** in the left list
 3. Click **Run workflow** (top right)
 4. Leave branch as `dev` → click **Run workflow**
 
-Use this to verify the pipeline works before relying on the nightly schedule.
+Use this to verify the pipeline works before relying on the morning schedule.
 
 ---
 
@@ -105,7 +105,7 @@ Do this once after merging PR #227 into `dev`.
    - ✅ Do not allow bypassing (even for admins)
 5. Under **Required status checks** → search for and add:
    ```
-   Frontend — Jest + Playwright
+   Frontend — Jest + Smoke E2E
    ```
    > This only appears after the first PR has run the `pr-gate.yml` workflow.
 
@@ -136,7 +136,7 @@ Turn off auto-build on `main` so only the `deploy.yml` workflow triggers prod de
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `secret not found` or build uses wrong URL | `STAGING_API_URL` not set | Add the secret (see above) |
-| Jest passes, Playwright fails | Server didn't start in time | Check if `npm run start` output shows an error in the logs |
+| Jest passes, smoke E2E fails | Server didn't start in time | Check if `npm run start` output shows an error in the logs |
 | Amplify deploy step fails | `AMPLIFY_APP_ID` wrong or IAM permissions missing | Verify the App ID in Amplify console; ensure the AWS key has `amplify:StartJob` permission |
 | Nightly issue not created | `GH_TOKEN` not set or missing `repo` scope | Recreate the token with `repo` scope |
 | Lighthouse step fails | `perf:ci` script missing or Chrome install failed | Check `package.json` has a `perf:ci` script |
@@ -147,7 +147,7 @@ Turn off auto-build on `main` so only the `deploy.yml` workflow triggers prod de
 
 ```
 1. Create a feature branch from dev
-2. Make changes, test locally (npm test + npm run test:e2e)
+2. Make changes, test locally (`npm test` + targeted E2E per `.cursor/rules.md` §17)
 3. Push branch → open PR into dev
 4. Merge into dev → staging auto-deploys via Amplify
 5. When ready to ship → open PR from dev → main
@@ -163,7 +163,7 @@ Turn off auto-build on `main` so only the `deploy.yml` workflow triggers prod de
 | File | Purpose |
 |---|---|
 | `.github/workflows/pr-gate.yml` | Blocks merge to main if tests fail |
-| `.github/workflows/nightly-frontend.yml` | Nightly test run against staging |
+| `.github/workflows/nightly-frontend.yml` | Morning full E2E + Jest (07:00 Pacific) |
 | `.github/workflows/deploy.yml` | Triggers Amplify prod deploy on merge to main |
 | `.github/BRANCH_PROTECTION.md` | Branch protection settings reference |
 | `.github/CICD_RUNBOOK.md` | This file |

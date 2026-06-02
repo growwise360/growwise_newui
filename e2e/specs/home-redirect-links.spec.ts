@@ -5,14 +5,21 @@ import { test, expect } from '@playwright/test';
  * Smoke: each path returns a non-404 response when loaded directly.
  */
 const MARKETING_ROUTES = [
-  '/courses/math',
-  '/courses/english',
+  '/book-assessment',
+  '/academic/math',
+  '/academic/english',
   '/courses/sat-prep',
+  '/self-check',
+  '/academic',
+  '/steam',
   '/steam/ml-ai-coding',
+  '/steam/game-development',
   '/workshop-calendar',
+  '/camps/academic-summer-programs-dublin-ca',
+  '/camps/summer',
 ] as const;
 
-test.describe('Marketing route targets (home CTAs)', () => {
+test.describe('Marketing route targets (home CTAs)', { tag: '@critical' }, () => {
   for (const path of MARKETING_ROUTES) {
     test(`${path} responds without 404`, async ({ page }) => {
       const res = await page.goto(path, { waitUntil: 'domcontentloaded' });

@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, User, BookOpen, CheckCircle, AlertCircle, Trending
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/firstBlog.webp'
@@ -44,6 +45,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'US Kids & Core Skills — How Parents Can Help',
     description: 'Why math and English gaps widen—and how Tri-Valley families use assessments and routines to rebuild skills and confidence.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-08-05',
+    dateModified: '2024-08-05',
   })
 
   return (
@@ -518,6 +522,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             </div>
 
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Don&apos;t let your child fall further behind.{' '}
+                <Link href={publicPath('/academic/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Math tutoring for Grades 1–12
+                </Link>
+                {', '}
+                <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  our High School Math Tutoring program
+                </Link>{' '}
+                (Algebra, AP Precalculus, and Integrated Math), and{' '}
+                <Link href={publicPath('/academic/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  English &amp; ELA tutoring
+                </Link>{' '}
+                — small groups, proven results at GrowWise in Dublin, CA.{' '}
+                <Link href={publicPath('/book-assessment', locale)} className="text-[#F16112] font-semibold underline hover:text-[#F1894F]">
+                  Start with a free assessment &rarr;
+                </Link>
+              </p>
+            </div>
+
             {/* Back to Blogs Link */}
             <div className="mt-8 text-center">
               <Link 
@@ -531,21 +557,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/book-assessment"
+          programLabel="Book Free Assessment"
+        />
       </div>
     </>
   )

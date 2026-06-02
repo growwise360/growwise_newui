@@ -1,4 +1,5 @@
 import React from 'react'
+import { generateFAQPageSchema } from '@/lib/seo/structuredData'
 
 export interface FAQItem {
   question: string
@@ -11,18 +12,7 @@ interface FAQSchemaProps {
 
 /** FAQPage JSON-LD — questions/answers must match visible FAQ content on the page when applicable. */
 export default function FAQSchema({ faqs }: FAQSchemaProps) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  }
+  const schema = generateFAQPageSchema(faqs)
 
   return (
     <script

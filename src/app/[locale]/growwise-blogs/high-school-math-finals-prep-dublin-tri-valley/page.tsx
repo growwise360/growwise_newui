@@ -65,7 +65,7 @@ export async function generateMetadata({
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return {
-    title: 'High School Math Finals Prep Dublin CA | GrowWise',
+    title: 'How to Prepare for High School Math Finals | Dublin Parent Guide | GrowWise',
     description:
       'High school math finals prep in Dublin, CA. Exam-style practice for Algebra 1 through AP Precalculus. In-center sessions at GrowWise School.',
     alternates: {
@@ -433,6 +433,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                   >
                     <Link href={publicPath('/math-finals-practice-session', locale)}>Request Math Finals Prep</Link>
                   </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="h-12 rounded-full border-[#1F396D] bg-white px-8 text-base font-semibold text-[#1F396D]"
+                  >
+                    <Link href={publicPath('/book-assessment', locale)}>Book Free Assessment</Link>
+                  </Button>
                   <Link
                     href={publicPath('/contact', locale)}
                     className="text-sm font-semibold text-[#1F396D] underline-offset-2 hover:underline"
@@ -449,6 +456,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               subheading="Same information as the FAQ data on this page—tap to expand."
               faqs={[...BLOG_FAQS]}
             />
+
+            {/* Program Callout */}
+            <div className="not-prose mt-10 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Need expert help finishing strong this school year?{' '}
+                <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise High School Math tutoring
+                </Link>{' '}
+                — personalized prep for Algebra 2, Pre-Calculus, and DUSD accelerated math in Dublin, CA.
+              </p>
+            </div>
 
             <p className="not-prose text-center text-sm text-gray-500 mt-10 max-w-4xl mx-auto">
               More for Tri-Valley families:{' '}

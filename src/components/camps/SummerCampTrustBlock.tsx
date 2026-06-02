@@ -65,26 +65,30 @@ export function SummerCampTrustBlock({
           {proofStrip}
         </p>
 
-        <ul className="mx-auto mt-8 max-w-3xl space-y-3 text-sm text-slate-700 md:text-base">
-          {bullets.map((line) => (
-            <li key={line} className="flex gap-2">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1D9E75]" aria-hidden />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
+        {bullets.length > 0 ? (
+          <ul className="mx-auto mt-8 max-w-3xl space-y-3 text-sm text-slate-700 md:text-base">
+            {bullets.map((line) => (
+              <li key={line} className="flex gap-2">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1D9E75]" aria-hidden />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
 
-        <p className="mt-8 text-center">
-          <Link
-            href={projectsCtaHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${projectsCta} (opens in new tab)`}
-            className="inline-flex text-sm font-semibold text-[#1F396D] underline-offset-4 transition-colors hover:text-[#152a52] hover:underline"
-          >
-            {projectsCta}
-          </Link>
-        </p>
+        {projectsCta ? (
+          <p className="mt-8 text-center">
+            <Link
+              href={projectsCtaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${projectsCta} (opens in new tab)`}
+              className="inline-flex text-sm font-semibold text-[#1F396D] underline-offset-4 transition-colors hover:text-[#152a52] hover:underline"
+            >
+              {projectsCta}
+            </Link>
+          </p>
+        ) : null}
       </div>
     </section>
   );

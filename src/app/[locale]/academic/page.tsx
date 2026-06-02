@@ -38,6 +38,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
 import { generateFAQPageSchema } from '@/lib/seo/structuredData';
 
 const ACADEMIC_FAQS = [
@@ -51,7 +52,7 @@ const ACADEMIC_FAQS = [
   },
   {
     question: "My daughter is in first grade and struggling with reading — can GrowWise help?",
-    answer: "Yes. GrowWise English programs start from Grade 1. For early readers, the program focuses on reading comprehension fundamentals — identifying the main idea, understanding what they have read, drawing inferences, and building vocabulary through literary and informational texts. In-person, online, and hybrid options are available.",
+    answer: "Yes. GrowWise English programs start from Grade 1. For early readers, the program focuses on reading comprehension fundamentals — identifying the main idea, understanding what they have read, drawing inferences, and building vocabulary through literary and informational texts. If you're unsure whether the struggle is fluency or comprehension, see our parent guide on reading fluency vs. comprehension. In-person, online, and hybrid options are available.",
   },
   {
     question: "My child struggles with writing assignments at school — is that something tutoring addresses?",
@@ -117,7 +118,7 @@ const AcademicPage: React.FC = () => {
         'One-on-One & Small Group Options'
       ],
       ctaText: 'Start Learning',
-      ctaUrl: '/courses/math'
+      ctaUrl: '/academic/math'
     },
     {
       id: 2,
@@ -135,7 +136,7 @@ const AcademicPage: React.FC = () => {
         'California Common Core Aligned'
       ],
       ctaText: 'Start Learning',
-      ctaUrl: '/courses/english'
+      ctaUrl: '/academic/english'
     }
   ];
 
@@ -762,7 +763,11 @@ const AcademicPage: React.FC = () => {
               Common questions from families about GrowWise academic programs.
             </p>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(ACADEMIC_FAQS.length, (index) => `item-${index}`)}
+          >
             {ACADEMIC_FAQS.map((faq, index) => (
               <AccordionItem
                 key={index}
@@ -773,7 +778,24 @@ const AcademicPage: React.FC = () => {
                   <span className="font-semibold text-gray-900">{faq.question}</span>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4 text-gray-600">
-                  {faq.answer}
+                  {faq.question ===
+                  'My daughter is in first grade and struggling with reading — can GrowWise help?' ? (
+                    <>
+                      Yes. GrowWise English programs start from Grade 1. For early readers, the program focuses on
+                      reading comprehension fundamentals — identifying the main idea, understanding what they have read,
+                      drawing inferences, and building vocabulary through literary and informational texts. If
+                      you&apos;re unsure whether the struggle is fluency or comprehension, see our{' '}
+                      <Link
+                        href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+                        className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
+                      >
+                        parent guide on reading fluency vs. comprehension
+                      </Link>
+                      . In-person, online, and hybrid options are available.
+                    </>
+                  ) : (
+                    faq.answer
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -825,7 +847,7 @@ const AcademicPage: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card onClick={() => { router.push(publicPath('/courses/math', locale)); setIsLearnMoreModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
+            <Card onClick={() => { router.push(publicPath('/academic/math', locale)); setIsLearnMoreModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1F396D]/10 to-[#29335C]/15 opacity-60"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
                 <CardContent className="p-8 text-center flex flex-col items-center justify-between relative z-10 h-full">
@@ -844,7 +866,7 @@ const AcademicPage: React.FC = () => {
                     </div>
                   </div>
                   <Button 
-                    onClick={() => { router.push(publicPath('/courses/math', locale)); setIsLearnMoreModalOpen(false); }}
+                    onClick={() => { router.push(publicPath('/academic/math', locale)); setIsLearnMoreModalOpen(false); }}
                     className="w-full bg-gradient-to-r from-[#1F396D] to-[#29335C] hover:from-[#29335C] hover:to-[#1F396D] text-white rounded-xl py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm border border-white/20 mt-auto"
                   >
                     View More
@@ -853,7 +875,7 @@ const AcademicPage: React.FC = () => {
                 </CardContent>
               </Card>
 
-              <Card onClick={() => { router.push(publicPath('/courses/english', locale)); setIsLearnMoreModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
+              <Card onClick={() => { router.push(publicPath('/academic/english', locale)); setIsLearnMoreModalOpen(false); }} className="bg-white/40 backdrop-blur-2xl border-2 border-white/50 rounded-[24px] shadow-[0px_20px_50px_rgba(255,255,255,0.3)] hover:shadow-[0px_30px_80px_rgba(255,255,255,0.4)] transition-all duration-500 cursor-pointer group hover:scale-105 transform overflow-hidden relative ring-1 ring-white/40 h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#F16112]/10 to-[#F1894F]/15 opacity-60"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10"></div>
                 <CardContent className="p-8 text-center flex flex-col items-center justify-between relative z-10 h-full">
@@ -872,7 +894,7 @@ const AcademicPage: React.FC = () => {
                     </div>
                   </div>
                   <Button 
-                    onClick={() => { router.push(publicPath('/courses/english', locale)); setIsLearnMoreModalOpen(false); }}
+                    onClick={() => { router.push(publicPath('/academic/english', locale)); setIsLearnMoreModalOpen(false); }}
                     className="w-full bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white rounded-xl py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm border border-white/20 mt-auto"
                   >
                     View More

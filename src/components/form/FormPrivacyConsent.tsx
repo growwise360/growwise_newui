@@ -1,12 +1,14 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import { Shield } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { publicPath } from '@/lib/publicPath';
 
 export interface FormPrivacyConsentProps {
   /** Unique id for the consent checkbox (required for a11y) */
@@ -25,6 +27,29 @@ export interface FormPrivacyConsentProps {
   alignPrivacyWithConsent?: boolean;
   /** Optional class for the wrapper */
   className?: string;
+}
+
+function PolicyLinks({ className }: { className?: string }) {
+  const locale = useLocale();
+  const t = useTranslations('commonForm.privacy');
+
+  return (
+    <span className={cn('block mt-2', className)}>
+      <Link
+        href={publicPath('/privacy-policy', locale)}
+        className="text-[#1F396D] underline hover:no-underline"
+      >
+        {t('privacyPolicyLink')}
+      </Link>
+      {' · '}
+      <Link
+        href={publicPath('/terms-conditions', locale)}
+        className="text-[#1F396D] underline hover:no-underline"
+      >
+        {t('termsLink')}
+      </Link>
+    </span>
+  );
 }
 
 /**
@@ -52,7 +77,7 @@ export default function FormPrivacyConsent({
 
   if (alignPrivacyWithConsent) {
     return (
-      <div className={cn('space-y-3', className)}>
+      <div className={cn('space-y-3', className)} data-clarity-mask="true">
         <div className={blockClass}>
           <div className="flex items-start gap-2.5">
             <div className={colIcon}>
@@ -62,7 +87,10 @@ export default function FormPrivacyConsent({
             </div>
             <div className="min-w-0 flex-1">
               <h3 className="mb-0.5 text-sm font-semibold text-gray-900">{t('title')}</h3>
-              <p className="text-xs leading-relaxed text-gray-600">{t('description')}</p>
+              <p className="text-xs leading-relaxed text-gray-600">
+                {t('description')}
+                <PolicyLinks />
+              </p>
             </div>
           </div>
           <div className="mt-3 border-t border-gray-200/90 pt-3">
@@ -112,7 +140,7 @@ export default function FormPrivacyConsent({
   }
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn('space-y-4', className)} data-clarity-mask="true">
       {/* Privacy & Data Protection */}
       <div className={blockClass}>
         <div className="flex items-start gap-3 sm:gap-4">
@@ -131,6 +159,7 @@ export default function FormPrivacyConsent({
             </h3>
             <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
               {t('description')}
+              <PolicyLinks />
             </p>
           </div>
         </div>

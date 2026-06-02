@@ -1,0 +1,83 @@
+'use client';
+
+import { useEffect, useMemo, useRef } from 'react';
+
+const ACADEMIC_SYMBOLS = ['π', '∑', '√', 'x²', '∞', 'Δ', '÷', 'f(x)', '±', '≠', '%', '²', '∫', 'θ', 'Aa', 'Bb', '→', '…', '≈', '"'];
+const STEAM_SYMBOLS = ['{ }', '</>', 'if', 'def', '01', '#', '( )', '==', '&&', '//', '[ ]', '++', 'AI', '<>', '/*', 'fn', 'var', 'int'];
+const SYMBOL_COUNT = 22;
+
+type SymbolSpec = {
+  id: string;
+  text: string;
+  left: number;
+  angle: number;
+  duration: number;
+  delay: number;
+  fontSize: number;
+  group: 'academic' | 'steam';
+};
+
+/** Deterministic specs — avoids hydration mismatch from Math.random() in useState. */
+function buildSpecs(symbols: readonly string[], group: 'academic' | 'steam'): SymbolSpec[] {
+  return Array.from({ length: SYMBOL_COUNT }, (_, i) => {
+    const xPercent = 3 + (i / (SYMBOL_COUNT - 1)) * 94;
+    return {
+      id: `${group}-${i}`,
+      text: symbols[i % symbols.length] ?? symbols[0],
+      left: xPercent,
+      angle: -((xPercent - 50) * 0.45),
+      duration: 5 + (i % 5),
+      delay: -((i % 10) * 1.1),
+      fontSize: 11 + (i % 10),
+      group,
+    };
+  });
+}
+
+export function RisingSymbols({ activeSlide }: { activeSlide: 0 | 1 }) {
+  const specs = useMemo(
+    () => [...buildSpecs(ACADEMIC_SYMBOLS, 'academic'), ...buildSpecs(STEAM_SYMBOLS, 'steam')],
+    [],
+  );
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const academic = container.querySelectorAll('[data-group="academic"]');
+    const steam = container.querySelectorAll('[data-group="steam"]');
+
+    if (activeSlide === 0) {
+      steam.forEach((el) => el.classList.add('hero-sym-hidden'));
+      window.setTimeout(() => {
+        academic.forEach((el) => el.classList.remove('hero-sym-hidden'));
+      }, 400);
+    } else {
+      academic.forEach((el) => el.classList.add('hero-sym-hidden'));
+      window.setTimeout(() => {
+        steam.forEach((el) => el.classList.remove('hero-sym-hidden'));
+      }, 400);
+    }
+  }, [activeSlide]);
+
+  return (
+    <div ref={containerRef} className="hero-symbols-container" aria-hidden>
+      {specs.map((spec) => (
+        <div
+          key={spec.id}
+          data-group={spec.group}
+          className={`hero-sym hero-sym-${spec.group} ${spec.group === 'steam' ? 'hero-sym-hidden' : ''}`}
+          style={{
+            left: `${spec.left}%`,
+            fontSize: `${spec.fontSize}px`,
+            transform: `rotate(${spec.angle}deg)`,
+            animationDuration: `${spec.duration}s`,
+            animationDelay: `${spec.delay}s`,
+          }}
+        >
+          {spec.text}
+        </div>
+      ))}
+    </div>
+  );
+}

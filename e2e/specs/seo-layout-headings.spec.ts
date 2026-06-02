@@ -6,15 +6,15 @@ import { localePath } from '../localePath';
  * Manual: Screaming Frog, Lighthouse CLS, Google Rich Results, GSC (TC-11).
  */
 
-test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
+test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', { tag: '@nightly' }, () => {
   test('TC-01: no h2 in nav or footer on homepage', async ({ page }) => {
     await page.goto(localePath('/'));
     await expect(page.locator('nav h2')).toHaveCount(0);
     await expect(page.locator('footer h2')).toHaveCount(0);
   });
 
-  test('TC-01: no h2 in nav or footer on /courses/math', async ({ page }) => {
-    await page.goto(localePath('/courses/math'));
+  test('TC-01: no h2 in nav or footer on /academic/math', async ({ page }) => {
+    await page.goto(localePath('/academic/math'));
     await expect(page.locator('nav h2')).toHaveCount(0);
     await expect(page.locator('footer h2')).toHaveCount(0);
   });
@@ -32,13 +32,13 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
   });
 
   test('TC-04: single main h1 with exact copy on math, english, enroll', async ({ page }) => {
-    await page.goto(localePath('/courses/math'));
+    await page.goto(localePath('/academic/math'));
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('main h1')).toHaveText(
-      'Math Tutoring Classes in Dublin, CA — Grades 1–12',
+      "Find the right math program for your child's grade and goal.",
     );
 
-    await page.goto(localePath('/courses/english'));
+    await page.goto(localePath('/academic/english'));
     await expect(page.locator('main h1')).toHaveCount(1);
     await expect(page.locator('main h1')).toHaveText(
       'English & Reading Classes in Dublin, CA — Grades 1–12',
@@ -53,11 +53,11 @@ test.describe('SEO — headings & landmarks (TC-01 / TC-04 / TC-08)', () => {
     await page.goto(localePath('/courses/sat-prep'));
     const text = await page.locator('main h1').innerText();
     const normalized = text.replace(/\s+/g, ' ').trim();
-    expect(normalized).toBe('SAT Prep Courses in Dublin, CA');
+    expect(normalized).toBe('SAT Prep Tutoring in Dublin, CA');
   });
 });
 
-test.describe('SEO — TC-02 partial (cart)', () => {
+test.describe('SEO — TC-02 partial (cart)', { tag: '@nightly' }, () => {
   test('shopping cart link in header has aria-label', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto(localePath('/'));

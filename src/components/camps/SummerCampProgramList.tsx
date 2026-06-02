@@ -1,16 +1,19 @@
 'use client';
 
-import { memo, useCallback, useMemo } from 'react';
+import { Fragment, memo, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { Check } from 'lucide-react';
+import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSummerProgramsTeaserBand';
+import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
 import type { Program } from '@/lib/summer-camp-data';
 import {
   getSummerCampProgramTrack,
   orderProgramsBySummerCampTrack,
   type SummerCampProgramTrack,
 } from '@/lib/summer-camp-program-groups';
+import { getSummerCampPickCardMeta } from '@/lib/summer-camp-pick-card-meta';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
 import {
   getSummerCampProgramSeoLink,
@@ -34,6 +37,17 @@ function groupProgramsByTrack(ordered: Program[]): Array<{
   return groups;
 }
 
+const CARD_SHELL_CLASS = (isSelected: boolean) =>
+  `group flex w-full flex-col overflow-hidden rounded-xl border-2 bg-white text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 ${
+    isSelected
+      ? 'border-[#1F396D] shadow-lg'
+      : 'border-slate-200 active:border-slate-300 min-[769px]:hover:border-slate-300 min-[769px]:hover:shadow-md'
+  }`;
+
+const TITLE_CLASS = (isSelected: boolean) =>
+  `line-clamp-2 font-black text-sm uppercase leading-snug tracking-tight ${
+    isSelected ? 'text-[#1F396D]' : 'text-slate-900'
+  }`;
 
 const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
   program,
@@ -49,30 +63,29 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
   imageWrapperClassName: string;
 }) {
   const t = useTranslations('summerCamp');
-  const handleClick = useCallback(() => {
+  const cardMeta = getSummerCampPickCardMeta(program.id);
+
+  const handleEnroll = useCallback(() => {
     void import('@/lib/meta-pixel').then(({ trackCampView }) =>
-      trackCampView(program.title, program.category)
+      trackCampView(program.title, program.category),
     );
     onSelect(program);
   }, [onSelect, program]);
+
+  if (!cardMeta) return null;
 
   return (
     <button
       type="button"
       aria-pressed={isSelected}
-      aria-label={program.title}
-      onClick={handleClick}
-      className={`text-left flex flex-col rounded-xl overflow-hidden border-2 transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 bg-white w-full
-        ${isSelected
-          ? 'border-[#1F396D] shadow-lg'
-          : 'border-slate-200 active:border-slate-300 active:shadow-md min-[769px]:hover:border-slate-300 min-[769px]:hover:shadow-md'
-        }
-      `}
+      aria-label={cardMeta.title}
+      onClick={handleEnroll}
+      className={CARD_SHELL_CLASS(isSelected)}
     >
       <div className={`relative w-full shrink-0 overflow-hidden bg-slate-200 ${imageWrapperClassName}`}>
         <Image
           src={program.image}
-          alt={`${program.title}: ${program.description}`}
+          alt={`${cardMeta.title}: ${program.description}`}
           fill
           sizes={imageSizes}
           quality={70}
@@ -83,25 +96,51 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
         />
       </div>
 
-      <div className="px-4 py-3 flex flex-col flex-1">
-        <h4
-          className={`font-black text-sm uppercase tracking-tight leading-snug line-clamp-2
-            ${isSelected ? 'text-[#1F396D]' : 'text-slate-900'}
-          `}
-        >
-          {program.title}
-        </h4>
-        <p className="text-xs text-slate-500 mt-1.5 leading-relaxed line-clamp-2">
-          {program.outcome}
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-4 py-3">
+        <h4 className={TITLE_CLASS(isSelected)}>{cardMeta.title}</h4>
+        <span className="mt-1.5 inline-flex w-fit rounded-full border border-[#1F396D]/20 bg-[#1F396D]/5 px-2 py-0.5 text-[10px] font-semibold text-[#1F396D]">
+          {cardMeta.gradeLine}
+        </span>
+        <p className="mt-2 rounded-md bg-[#1F396D]/8 px-2.5 py-1.5 text-[11px] font-bold leading-snug text-[#1F396D]">
+          {cardMeta.dayType}
         </p>
-        {isSelected && (
+        <span className="mt-2 inline-flex w-fit rounded-full bg-[#1F396D]/10 px-2 py-0.5 text-[10px] font-black uppercase tracking-widest text-[#1F396D]">
+          {cardMeta.formatPill}
+        </span>
+        <div className="mt-2 min-h-0 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-slate-800">
+            {cardMeta.workOnLabel}
+          </p>
+          <ul className="mt-1 space-y-1" role="list">
+            {cardMeta.workOnBullets.slice(0, 3).map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2 text-[12px] font-medium leading-tight text-slate-800"
+              >
+                <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#1F396D]" aria-hidden />
+                <span className="line-clamp-2">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="mt-2 line-clamp-1 rounded-md bg-emerald-50 px-2 py-1 text-[11px] font-semibold text-emerald-900">
+          <span aria-hidden="true">✓ </span>
+          {cardMeta.outcome}
+        </p>
+        {isSelected ? (
           <div
             aria-live="polite"
-            className="mt-2 flex items-center gap-1 text-[#1F396D] text-[10px] font-black uppercase tracking-widest"
+            className="mt-1.5 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-[#1F396D]"
           >
-            {t('card.active')} <Check className="w-3 h-3" aria-hidden="true" />
+            {t('card.active')} <Check className="h-3 w-3" aria-hidden="true" />
           </div>
-        )}
+        ) : null}
+        <span
+          aria-hidden="true"
+          className="mt-2 flex h-8 w-full shrink-0 items-center justify-center rounded-full bg-[#1A2B4A] px-3.5 text-[10px] font-bold text-white min-[769px]:group-hover:bg-[#1F396D]"
+        >
+          {cardMeta.ctaLabel}
+        </span>
       </div>
     </button>
   );
@@ -121,6 +160,7 @@ export const ProgramList = memo(function ProgramList({
   const list = programs ?? [];
   const ordered = useMemo(() => orderProgramsBySummerCampTrack(list), [list]);
   const groups = useMemo(() => groupProgramsByTrack(ordered), [ordered]);
+  const showAcademicTeaser = groups.some((g) => g.track === 'aiGameDev');
 
   const sectionHeading = (track: SummerCampProgramTrack | 'unknown') => {
     switch (track) {
@@ -135,49 +175,78 @@ export const ProgramList = memo(function ProgramList({
     }
   };
 
+  const renderCardListItem = (
+    program: Program,
+    layout: 'mobile' | 'desktop',
+    idx: number,
+    groupLength: number,
+  ) => {
+    const isSelected = selectedProgramId === program.id;
+    const hasOddCount = groupLength % 2 !== 0;
+    const isLastAndAlone = layout === 'desktop' && hasOddCount && idx === groupLength - 1;
+    const seo = getSummerCampProgramSeoLink(program.id);
+
+    const imageSizes =
+      layout === 'mobile'
+        ? '(max-width:768px) 96vw, 100vw'
+        : '(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
+
+    const imageWrapperClassName =
+      layout === 'mobile'
+        ? 'aspect-[650/270]'
+        : isLastAndAlone
+          ? 'h-[120px]'
+          : 'aspect-[650/270]';
+
+    return (
+      <li
+        key={program.id}
+        className={`[content-visibility:auto] [contain-intrinsic-size:auto_420px] flex flex-col gap-2 ${isLastAndAlone ? 'col-span-2' : ''}`}
+      >
+        <SummerCampProgramPickCard
+          program={program}
+          isSelected={isSelected}
+          onSelect={onSelectProgram}
+          imageSizes={imageSizes}
+          imageWrapperClassName={imageWrapperClassName}
+        />
+        {seo ? (
+          <Link
+            href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
+            className="-mt-0.5 rounded-sm px-0.5 text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
+          >
+            {t(summerCampSeoMessagePath(seo.labelKey))}
+          </Link>
+        ) : null}
+      </li>
+    );
+  };
+
   return (
     <div className="space-y-8" role="group" aria-label={t('page.title')}>
       <div className="min-[769px]:hidden space-y-8">
         {groups.map((group) => (
-          <section key={group.track} className="space-y-3">
-            <h3 className="font-heading font-black text-base text-slate-800 uppercase tracking-tight">
-              {sectionHeading(group.track)}
-            </h3>
-            <ul className="grid grid-cols-1 gap-3 list-none p-0 m-0" aria-label={sectionHeading(group.track)}>
-              {group.programs.map((program) => {
-                const isSelected = selectedProgramId === program.id;
-                const seo = getSummerCampProgramSeoLink(program.id);
-                return (
-                  <li
-                    key={program.id}
-                    className="[content-visibility:auto] [contain-intrinsic-size:auto_300px] flex flex-col gap-2"
-                  >
-                    <SummerCampProgramPickCard
-                      program={program}
-                      isSelected={isSelected}
-                      onSelect={onSelectProgram}
-                      imageSizes="(max-width:768px) 96vw, 100vw"
-                      imageWrapperClassName="aspect-[650/450]"
-                    />
-                    {seo ? (
-                      <Link
-                        href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
-                        className="text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm px-0.5 -mt-0.5"
-                      >
-                        {t(summerCampSeoMessagePath(seo.labelKey))}
-                      </Link>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+          <Fragment key={group.track}>
+            <section className="space-y-3">
+              <h3 className="font-heading text-base font-black uppercase tracking-tight text-slate-800">
+                {sectionHeading(group.track)}
+              </h3>
+              <ul
+                className="m-0 grid list-none grid-cols-1 gap-3 p-0"
+                aria-label={sectionHeading(group.track)}
+              >
+                {group.programs.map((program, idx) =>
+                  renderCardListItem(program, 'mobile', idx, group.programs.length),
+                )}
+              </ul>
+            </section>
+            {group.track === 'academic' && showAcademicTeaser ? (
+              <AcademicSummerProgramsTeaserBand locale={locale} />
+            ) : null}
+          </Fragment>
         ))}
         <p className="text-center">
-          <a
-            href="#lead-capture"
-            className="text-[13px] font-medium text-[#065f46]"
-          >
+          <a href="#lead-capture" className="text-[13px] font-medium text-[#065f46]">
             {t('mobile.summercampLink')}
           </a>
         </p>
@@ -185,45 +254,29 @@ export const ProgramList = memo(function ProgramList({
 
       <div className="hidden min-[769px]:block space-y-8">
         {groups.map((group) => (
-          <section key={`d-${group.track}`} className="space-y-3">
-            <h3 className="font-heading font-black text-base text-slate-800 uppercase tracking-tight">
-              {sectionHeading(group.track)}
-            </h3>
-            <ul
-              className="grid grid-cols-2 gap-3 list-none p-0 m-0"
-              aria-label={sectionHeading(group.track)}
-            >
-              {group.programs.map((program, idx) => {
-                const isSelected = selectedProgramId === program.id;
-                const hasOddCount = group.programs.length % 2 !== 0;
-                const isLastAndAlone = hasOddCount && idx === group.programs.length - 1;
-                const seo = getSummerCampProgramSeoLink(program.id);
-                return (
-                  <li
-                    key={program.id}
-                    className={`[content-visibility:auto] [contain-intrinsic-size:auto_300px] flex flex-col gap-2 ${isLastAndAlone ? 'col-span-2' : ''}`}
-                  >
-                    <SummerCampProgramPickCard
-                      program={program}
-                      isSelected={isSelected}
-                      onSelect={onSelectProgram}
-                      imageSizes="(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw"
-                      imageWrapperClassName={isLastAndAlone ? 'h-[200px]' : 'aspect-[650/450]'}
-                    />
-                    {seo ? (
-                      <Link
-                        href={createLocaleUrl(`/camps/${seo.slug}`, locale)}
-                        className="text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm px-0.5 -mt-0.5"
-                      >
-                        {t(summerCampSeoMessagePath(seo.labelKey))}
-                      </Link>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+          <Fragment key={`d-${group.track}`}>
+            <section className="space-y-3">
+              <h3 className="font-heading text-base font-black uppercase tracking-tight text-slate-800">
+                {sectionHeading(group.track)}
+              </h3>
+              <ul
+                className="m-0 grid list-none grid-cols-2 gap-3 p-0"
+                aria-label={sectionHeading(group.track)}
+              >
+                {group.programs.map((program, idx) =>
+                  renderCardListItem(program, 'desktop', idx, group.programs.length),
+                )}
+              </ul>
+            </section>
+            {group.track === 'academic' && showAcademicTeaser ? (
+              <AcademicSummerProgramsTeaserBand locale={locale} />
+            ) : null}
+          </Fragment>
         ))}
+      </div>
+
+      <div className="max-[768px]:hidden">
+        <SummerCampParentsKnowStrip />
       </div>
     </div>
   );

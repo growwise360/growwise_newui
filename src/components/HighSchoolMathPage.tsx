@@ -12,31 +12,37 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from "./ui/alert-dialog";
-import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, ShoppingCart, ArrowRight, Filter, X, UserCheck, Phone, Mail, MapPin, MessageCircle, HelpCircle } from "lucide-react";
+import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, ShoppingCart, ArrowRight, Filter, X, UserCheck, Phone, Mail, MapPin, MessageCircle, HelpCircle, Calendar } from "lucide-react";
+import { MATH_HUB_COPY } from '@/lib/math-hub-copy';
+import {
+  HIGH_SCHOOL_MATH_PROGRAM_DETAILS,
+  HIGH_SCHOOL_PROGRAM_INCLUDES,
+  HIGH_SCHOOL_PROGRAM_OUTCOMES,
+} from '@/lib/high-school-math-program-copy';
+import { mapHubOptionsToPricingTiers } from '@/lib/map-math-program-tiers';
+import { buildHighSchoolSeoIntroParagraph, getMathHubMinMonthlyUsd } from '@/lib/math-pricing-display';
+import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
-import { generateFAQPageSchema } from '@/lib/seo/structuredData';
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
+import { HS_MATH_VISIBLE_FAQS } from "@/lib/schema/high-school-math-faqs";
+import {
+  HIGH_SCHOOL_JTBD_SECTION,
+  HIGH_SCHOOL_JTBD_SITUATIONS,
+  type HighSchoolJtbdSituation,
+} from '@/lib/high-school-math-jtbd';
+import { HIGH_SCHOOL_TRIAL } from '@/lib/math-program-trial-copy';
+import { MathTrialSection } from '@/components/courses/MathTrialSection';
 import { useCart } from './gw/CartContext';
 import { useChatbot } from '../contexts/ChatbotContext';
 import FreeAssessmentModal from './FreeAssessmentModal';
 import { getIconComponent } from '@/lib/iconMap';
 import { RelatedContent } from './seo/RelatedContent';
+import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 
-const HS_MATH_FAQS = [
-  {
-    question: "My child is lost in Algebra or Geometry — how is targeted tutoring different from just sitting with them and doing the homework?",
-    answer: "Targeted tutoring addresses the concept your child does not understand, not just tonight's problem set. GrowWise high school math covers Algebra I, Geometry, Algebra II, and Precalculus for Grades 9 through 12. Sessions begin with a free assessment that identifies whether the issue is in the current unit, a gap from a previous course, or a missing prerequisite skill.",
-  },
-  {
-    question: "My child is in an honours math class and still struggling — is that something tutoring can help with?",
-    answer: "Struggling in an honours course does not mean the student is in the wrong class. It often means the pace is faster than the student can absorb independently. GrowWise high school math sessions provide focused time on specific concepts that large classroom settings cannot. The free assessment identifies which concepts need reinforcing.",
-  },
-  {
-    question: "Can GrowWise help my child prepare for Precalculus before the next school year starts?",
-    answer: "Yes. GrowWise Precalculus support is available through the high school math program. Students preparing for a harder course can use the period between school years to build the skills they will need. The free assessment sets the right starting point.",
-  },
-];
+const hsMonthlyProgram = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school');
+const hsGradeBandCard = MATH_HUB_COPY.gradeBands.cards.find((c) => c.id === 'high-school');
 
 const HighSchoolMathPage: React.FC = () => {
   const router = useRouter();
@@ -45,6 +51,36 @@ const HighSchoolMathPage: React.FC = () => {
   const { openChatbot } = useChatbot();
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [selectedHsJtbdId, setSelectedHsJtbdId] = useState(HIGH_SCHOOL_JTBD_SITUATIONS[0].id);
+
+  const selectedHsJtbd =
+    HIGH_SCHOOL_JTBD_SITUATIONS.find((s) => s.id === selectedHsJtbdId) ??
+    HIGH_SCHOOL_JTBD_SITUATIONS[0];
+
+  const openAssessment = () => setIsAssessmentModalOpen(true);
+
+  const primaryHsJtbdCta = (situation: HighSchoolJtbdSituation) => {
+    if (situation.primaryCta === 'contact') {
+      return (
+        <button
+          type="button"
+          onClick={() => setIsContactModalOpen(true)}
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#1F396D] px-5 py-2.5 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+        >
+          {situation.primaryLabel}
+        </button>
+      );
+    }
+    return (
+      <button
+        type="button"
+        onClick={openAssessment}
+        className="inline-flex items-center justify-center rounded-full bg-[#F16112] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#d54f0a]"
+      >
+        {situation.primaryLabel}
+      </button>
+    );
+  };
   const [scrollY, setScrollY] = useState(0);
   const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -304,9 +340,6 @@ const HighSchoolMathPage: React.FC = () => {
           <div className="text-center mb-16">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
               High School Math Tutoring
-              <span className="block bg-gradient-to-r from-[#1F396D] to-[#F16112] bg-clip-text text-transparent">
-                in Dublin, CA
-              </span>
             </h1>
             <div className="inline-flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-gray-200/50">
               <GraduationCap className="w-5 h-5 text-[#F1894F]" />
@@ -317,13 +350,18 @@ const HighSchoolMathPage: React.FC = () => {
             <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
               Comprehensive Math Courses in Dublin, CA for Grades 9-12. Aligned with California Common Core Standards for academic success and future STEM opportunities.
             </p>
-            <p className="text-base text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
               For a focused summer boost, see{' '}
               <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                 summer math camps in Dublin
               </Link>
               .
             </p>
+            {hsGradeBandCard ? (
+              <p className="text-sm text-gray-500 mb-8 max-w-xl mx-auto">
+                {hsGradeBandCard.packageLine}
+              </p>
+            ) : null}
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
@@ -385,6 +423,113 @@ const HighSchoolMathPage: React.FC = () => {
                   </Card>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Assessment CTA Banner */}
+      <div className="bg-amber-50 border-y border-amber-200 py-4 px-4 lg:px-8">
+        <p className="text-center text-sm sm:text-base text-amber-900 max-w-3xl mx-auto">
+          Not sure which program fits your child?{' '}
+          <Link
+            href={publicPath('/book-assessment', locale)}
+            className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+          >
+            Get a free academic assessment
+          </Link>
+          {' '}— we'll identify the right level and track before your first session.
+        </p>
+      </div>
+
+      {hsMonthlyProgram ? (
+        <MathProgramDetailsSection
+          sectionLabel={HIGH_SCHOOL_MATH_PROGRAM_DETAILS.sectionLabel}
+          heading={HIGH_SCHOOL_MATH_PROGRAM_DETAILS.heading}
+          includes={HIGH_SCHOOL_PROGRAM_INCLUDES}
+          outcomes={HIGH_SCHOOL_PROGRAM_OUTCOMES}
+          fromMonthlyLabel={`From $${getMathHubMinMonthlyUsd('high-school')}/month`}
+          tiers={mapHubOptionsToPricingTiers(hsMonthlyProgram.options)}
+          onBookAssessment={openAssessment}
+        />
+      ) : null}
+
+      {/* Free Sunday practice sessions */}
+      {hsMonthlyProgram?.includedBenefit ? (
+        <section className="bg-[#ebebeb] py-12 lg:py-16">
+          <div className="max-w-4xl mx-auto px-4 lg:px-8">
+            <div className="rounded-xl border border-[#1F396D]/20 bg-blue-50 p-6 lg:p-8 flex flex-col md:flex-row items-start gap-5">
+              <div className="shrink-0 h-12 w-12 rounded-full bg-[#1F396D] flex items-center justify-center">
+                <Calendar className="h-6 w-6 text-white" aria-hidden />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold text-gray-800 text-lg mb-2">
+                  Free Sunday practice sessions — included for all Grades 6–12 students
+                </p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Every enrolled high school student gets access to free Sunday timed practice sessions.
+                  Exam-style problems, structured like school assessments, designed to build test-readiness
+                  between paid sessions.
+                </p>
+                <p className="text-gray-600 text-sm mt-3">{hsMonthlyProgram.includedBenefit}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* JTBD — parent situations */}
+      <section className="bg-white py-16 lg:py-20">
+        <div className="max-w-5xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+            {HIGH_SCHOOL_JTBD_SECTION.sectionLabel}
+          </p>
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">
+            {HIGH_SCHOOL_JTBD_SECTION.heading}
+          </h2>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-5">
+            <div className="flex flex-col gap-2 lg:col-span-2" role="list">
+              {HIGH_SCHOOL_JTBD_SITUATIONS.map((situation) => {
+                const isSelected = selectedHsJtbdId === situation.id;
+                return (
+                  <button
+                    key={situation.id}
+                    type="button"
+                    role="listitem"
+                    aria-pressed={isSelected}
+                    onClick={() => setSelectedHsJtbdId(situation.id)}
+                    className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
+                      isSelected
+                        ? 'border-[#1F396D] bg-[#1F396D] text-white shadow-sm'
+                        : 'border-slate-200 bg-white text-slate-800 hover:border-[#1F396D]/40 hover:bg-slate-50'
+                    }`}
+                  >
+                    {situation.leftLabel}
+                  </button>
+                );
+              })}
+            </div>
+            <div
+              className="rounded-2xl border border-slate-200 bg-gray-50 p-6 lg:col-span-3 min-h-[220px]"
+              aria-live="polite"
+            >
+              <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 mb-3">
+                {selectedHsJtbd.tagPill}
+              </span>
+              <h3 className="text-lg font-bold text-[#1F396D] mb-3">{selectedHsJtbd.panelHeading}</h3>
+              <p className="text-sm leading-relaxed text-slate-700 mb-6">{selectedHsJtbd.panelBody}</p>
+              <div className="flex flex-wrap gap-3">
+                {primaryHsJtbdCta(selectedHsJtbd)}
+                {selectedHsJtbd.secondaryHref && selectedHsJtbd.secondaryLabel ? (
+                  <Link
+                    href={publicPath(selectedHsJtbd.secondaryHref, locale)}
+                    className="inline-flex items-center justify-center rounded-full border-2 border-[#1F396D] px-5 py-2.5 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+                  >
+                    {selectedHsJtbd.secondaryLabel}
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
@@ -627,7 +772,7 @@ const HighSchoolMathPage: React.FC = () => {
       <section className="py-16 px-4 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto space-y-10">
           <p className="text-gray-600 leading-relaxed text-lg">
-            GrowWise offers structured math learning programs for high school students in Dublin, CA — from Algebra 1 through Pre-Calculus, Integrated Math, and beyond. Small classes, expert instructors, results that show up on report cards.
+            {buildHighSchoolSeoIntroParagraph()}
           </p>
 
           <div>
@@ -642,7 +787,13 @@ const HighSchoolMathPage: React.FC = () => {
 
           <div>
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Advanced Math Classes</h2>
-            <p className="text-gray-600 leading-relaxed">Our advanced math classes are designed for students working 1–2 grade levels ahead or targeting accelerated placement. We cover Integrated Math 1 &amp; 2, Geometry, and AP preparation.</p>
+            <p className="text-gray-600 leading-relaxed">
+              Our advanced math classes are designed for students working 1–2 grade levels ahead or targeting accelerated placement. We cover{' '}
+              <Link href={publicPath('/courses/integrated-math-1-dublin-ca', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:text-[#F16112] hover:underline">
+                Integrated Math 1
+              </Link>{' '}
+              &amp; 2, Geometry, and AP preparation.
+            </p>
           </div>
 
           <p className="text-gray-600 leading-relaxed">
@@ -765,9 +916,10 @@ const HighSchoolMathPage: React.FC = () => {
         </AlertDialogContent>
       </AlertDialog>
 
+      <MathTrialSection config={HIGH_SCHOOL_TRIAL} locale={locale} />
+
       {/* FAQ Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" aria-labelledby="hs-math-faq-heading">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFAQPageSchema(HS_MATH_FAQS)) }} />
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 id="hs-math-faq-heading" className="text-3xl font-bold text-gray-900 mb-4">
@@ -777,8 +929,12 @@ const HighSchoolMathPage: React.FC = () => {
               Common questions from families about GrowWise high school math support.
             </p>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
-            {HS_MATH_FAQS.map((faq, index) => (
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(HS_MATH_VISIBLE_FAQS.length, (index) => `item-${index}`)}
+          >
+            {HS_MATH_VISIBLE_FAQS.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
@@ -802,6 +958,7 @@ const HighSchoolMathPage: React.FC = () => {
       </section>
 
       {/* Related Content Section */}
+      <MathParentGuidesSection locale={locale} pageId="high-school-math" />
       <RelatedContent locale={locale} currentPage="high-school-math" />
 
       {/* Free Assessment Modal */}

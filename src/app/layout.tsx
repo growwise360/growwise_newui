@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConsentAndAnalytics } from '@/components/analytics/ConsentAndAnalytics';
 import { CartProvider } from '@/components/gw/CartContext';
 import LocalBusinessSchema from '@/components/seo/LocalBusinessSchema';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  preload: false,
-});
+import SmokeCursor from '@/components/SmokeCursor';
+import { inter } from '@/lib/fonts';
 
 export const metadata: Metadata = {
-  title: "Grades 1-12 Tutoring & STEAM | Dublin CA | GrowWise",
-  description: "GrowWise offers Grades 1-12 tutoring and STEAM programs in Dublin, CA. Expert instruction, personalized learning, and proven results.",
+  metadataBase: new URL('https://growwiseschool.org'),
+  title: "K-12 Online Tutoring & Coding Classes | GrowWise",
+  description:
+    "GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
   keywords: "Grades 1-12 education, tutoring Dublin CA, STEAM programs, SAT prep, math courses, coding classes, personalized learning",
   icons: {
     icon: [
@@ -45,6 +41,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className={`${inter.variable} min-h-screen bg-background font-sans antialiased`} suppressHydrationWarning>
+        <SmokeCursor />
         <a href="#main-content" className="absolute -left-[9999px] focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#1F396D] focus:text-white focus:rounded-md focus:no-underline">
           Skip to main content
         </a>

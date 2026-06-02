@@ -23,6 +23,19 @@ describe('resolveChatPageContext', () => {
     expect(resolveChatPageContext('/camps/winter').id).toBe('campsWinter')
   })
 
+  it('detects academic summer programs hub (not unknown camp slug)', () => {
+    const c = resolveChatPageContext('/camps/academic-summer-programs-dublin-ca')
+    expect(c.id).toBe('campsAcademicSummer')
+    expect(c.defaultFormType).toBe('enroll')
+    expect(c.llmHint).toMatch(/Academic Summer Programs/i)
+    expect(resolveChatPageContext('/en/camps/academic-summer-programs-dublin-ca').id).toBe(
+      'campsAcademicSummer',
+    )
+    expect(resolveChatPageContext('/camps/academic-summer-sprint-dublin-ca').id).toBe(
+      'campsAcademicSummer',
+    )
+  })
+
   it('detects nested camp season subpages (success pages, etc)', () => {
     expect(resolveChatPageContext('/camps/summer/guide-success').id).toBe('campsSummer')
     expect(resolveChatPageContext('/camps/winter/calendar').id).toBe('campsWinter')
@@ -57,7 +70,7 @@ describe('resolveChatPageContext', () => {
   })
 
   it('marks course pages as informational (no default form)', () => {
-    const c = resolveChatPageContext('/courses/math')
+    const c = resolveChatPageContext('/academic/math')
     expect(c.id).toBe('courseTopic')
     expect(c.defaultFormType).toBeNull()
   })

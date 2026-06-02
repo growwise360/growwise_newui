@@ -11,6 +11,38 @@ import {
 } from 'lucide-react';
 import { VariantStyles, type MenuItem } from './types';
 import { CONTACT_INFO } from '@/lib/constants';
+import { CHATBOT_PUBLIC_CONTACT_EMAIL } from '@/lib/chatbotScope';
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
+import type { SubmenuItem } from './types';
+
+/** Grade-band links under Academic → Math (desktop flyout + mobile accordion). */
+export const MATH_GRADE_BAND_NAV_ITEMS: SubmenuItem[] = [
+  {
+    key: 'elementary-math',
+    title: 'Elementary Math',
+    description: 'Grades 1–5 foundations, problem solving, and confidence building.',
+    icon: 'Calculator',
+    href: MATH_COURSE_PATHS.elementary,
+    gradient: 'from-[#1F396D] to-[#29335C]',
+  },
+  {
+    key: 'middle-school-math',
+    title: 'Middle School Math',
+    description: 'Grades 6–8, Course 1–3, accelerated math, IM1, and IM2.',
+    icon: 'BookOpen',
+    href: MATH_COURSE_PATHS.middleSchool,
+    gradient: 'from-[#1F396D] to-[#F16112]',
+  },
+  {
+    key: 'high-school-math',
+    title: 'High School Math',
+    description:
+      'Algebra, Geometry, Algebra II, Precalculus, Calculus, and Statistics.',
+    icon: 'GraduationCap',
+    href: MATH_COURSE_PATHS.highSchool,
+    gradient: 'from-[#29335C] to-[#1F396D]',
+  },
+];
 
 // Icon mapping for dynamic icon rendering
 export const ICON_MAP = {
@@ -47,7 +79,7 @@ export const VARIANT_STYLES: Record<string, VariantStyles> = {
 export const DEFAULT_HEADER_DATA = {
   topBar: {
     phone: CONTACT_INFO.phone,
-    email: CONTACT_INFO.email,
+    email: CHATBOT_PUBLIC_CONTACT_EMAIL,
     address: CONTACT_INFO.formattedAddress,
     followLabel: 'Follow us:',
     social: {
@@ -88,57 +120,26 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
       subtitle: 'Choose your learning path',
       items: [
         {
-          key: 'courses',
-          title: 'Courses',
-          description: 'Browse our academic courses',
-          icon: 'BookOpen',
-          href: '/courses',
-          gradient: 'from-[#1F396D] to-[#F16112]',
+          key: 'math',
+          title: 'Math',
+          description:
+            'School-aligned math support from foundations to advanced tracks.',
+          icon: 'Calculator',
+          href: MATH_COURSE_PATHS.hub,
+          gradient: 'from-[#1F396D] to-[#29335C]',
           hasSubmenu: true,
-          submenuItems: [
-            {
-              key: 'math',
-              title: 'Math Courses',
-              description: 'Master mathematics from basics to advanced',
-              icon: 'Calculator',
-              href: '/courses/math',
-              gradient: 'from-[#1F396D] to-[#29335C]',
-            },
-            {
-              key: 'english',
-              title: 'English Courses',
-              description: 'Comprehensive English language arts',
-              icon: 'BookOpen',
-              href: '/courses/english',
-              gradient: 'from-[#F16112] to-[#F1894F]',
-            },
-          ],
+          submenuHeaderTitle: 'Math',
+          submenuHeaderSubtitle: 'Grades 1–12 math programs',
+          submenuItems: MATH_GRADE_BAND_NAV_ITEMS,
         },
         {
-          key: 'highSchoolMath',
-          title: 'High School Math',
-          description: 'Advanced mathematics for high school students',
-          icon: 'GraduationCap',
-          href: '/courses/high-school-math',
-          gradient: 'from-[#29335C] to-[#1F396D]',
-          hasSubmenu: true,
-          submenuHeaderSubtitle: 'Tutoring, curriculum, and finals prep',
-          submenuItems: [
-            {
-              title: 'High School Math',
-              description: 'Algebra I through Pre-Calculus — tutoring overview',
-              icon: 'GraduationCap',
-              href: '/courses/high-school-math',
-              gradient: 'from-[#29335C] to-[#1F396D]',
-            },
-            {
-              title: 'Math Finals Prep',
-              description: 'End-of-year finals support & structured prep program',
-              icon: 'Target',
-              href: '/math-finals-practice-session',
-              gradient: 'from-[#1F396D] to-[#F16112]',
-            },
-          ],
+          key: 'english',
+          title: 'English Courses',
+          description:
+            'Reading, writing, grammar, vocabulary, and comprehension.',
+          icon: 'BookOpen',
+          href: MATH_COURSE_PATHS.english,
+          gradient: 'from-[#F16112] to-[#F1894F]',
         },
         {
           key: 'satPrep',
@@ -155,14 +156,6 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           icon: 'BookMarked',
           href: '/book-assessment',
           gradient: 'from-[#F16112] to-[#1F396D]',
-        },
-        {
-          key: 'enrollAcademic',
-          title: 'Enroll Now - Academic',
-          description: 'Register for academic programs today',
-          icon: 'UserCheck',
-          href: '/enroll-academic',
-          gradient: 'from-[#1F396D] to-[#F16112]',
         },
       ],
     },
@@ -208,16 +201,26 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
       items: [
         {
           key: 'summerCamp',
-          title: 'Summer Camp',
-          description: 'Accredited summer programs in Math, Coding, and Robotics',
+          title: 'Summer STEAM Camps',
+          description: 'Coding, AI, Robotics & Math · Grades 1–12',
           icon: 'Calendar',
           href: '/camps/summer',
           gradient: 'from-[#F16112] to-[#F1894F]',
         },
         {
+          key: 'academicSummerPrograms',
+          title: 'Academic Summer Programs',
+          description: 'Reading, Writing & Math Sprints · Grades 1–10 · June & July',
+          icon: 'BookOpen',
+          href: '/camps/academic-summer-programs-dublin-ca',
+          gradient: 'from-[#F16112] to-[#F1894F]',
+          badge: 'New',
+          emphasis: 'academicSummer',
+        },
+        {
           key: 'workshopCalendar',
-          title: 'Book Workshop/Webinar',
-          description: 'Browse and book upcoming workshops and webinars',
+          title: 'Book a Workshop',
+          description: 'Browse upcoming workshops',
           icon: 'BookMarked',
           href: '/workshop-calendar',
           gradient: 'from-[#1F396D] to-[#29335C]',

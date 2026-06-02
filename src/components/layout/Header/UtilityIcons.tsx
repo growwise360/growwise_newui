@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
 import SearchBar from './SearchBar';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
+import { HeaderChatbotTrigger } from '@/components/chatbot/HeaderChatbotTrigger';
 import { useButtonTracking } from '@/lib/analytics/hooks';
 import { useTranslations } from 'next-intl';
 
@@ -50,12 +51,15 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
           {t('enroll')}
         </Link>
 
-        <Link
-          href={createLocaleUrl('/student-login')}
-          className="px-4 py-2 rounded-full text-sm font-medium border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white transition-all duration-300 whitespace-nowrap shadow-sm"
-        >
-          Student Login
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href={createLocaleUrl('/student-login')}
+            className="px-4 py-2 rounded-full text-sm font-medium border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white transition-all duration-300 whitespace-nowrap shadow-sm"
+          >
+            Student Login
+          </Link>
+          <HeaderChatbotTrigger />
+        </div>
       </div>
 
       <LocaleSwitcher />

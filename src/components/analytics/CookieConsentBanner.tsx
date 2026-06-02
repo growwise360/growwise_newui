@@ -1,7 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { DEFAULT_LOCALE } from '@/i18n/localeConfig';
+import { publicPath } from '@/lib/publicPath';
 import {
   getStoredCookieConsent,
   isAutomatedAuditEnvironment,
@@ -12,6 +15,7 @@ import {
 export function CookieConsentBanner() {
   const [consent, setConsent] = useState<CookieConsentState | null>(null);
   const [ready, setReady] = useState(false);
+  const privacyPolicyHref = publicPath('/privacy-policy', DEFAULT_LOCALE);
 
   useEffect(() => {
     // Lighthouse / WebDriver — no banner (audits stay clean; real users still see it).
@@ -40,7 +44,13 @@ export function CookieConsentBanner() {
       <div className="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-white/95 shadow-xl backdrop-blur">
         <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <div className="text-sm text-gray-700">
-            <span className="font-semibold text-gray-900">Cookies:</span> We use analytics cookies to understand usage and improve your experience.
+            <span className="font-semibold text-gray-900">Cookies:</span> We use analytics cookies to understand usage and improve your experience. With your consent, we may also record anonymized sessions on public pages.{' '}
+            <Link
+              href={privacyPolicyHref}
+              className="text-[#1F396D] underline hover:no-underline"
+            >
+              Privacy Policy
+            </Link>
           </div>
           <div className="flex shrink-0 gap-2">
             <Button
@@ -70,4 +80,3 @@ export function CookieConsentBanner() {
     </div>
   );
 }
-

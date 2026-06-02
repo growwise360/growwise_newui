@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Academic enrollment form', () => {
+test.describe('Academic enrollment form', { tag: '@critical' }, () => {
   test('submits academic enrollment successfully with mocked backend', async ({ page }) => {
     await page.route('**/api/enroll', async (route) => {
       const body = await route.request().postDataJSON();
@@ -29,7 +29,7 @@ test.describe('Academic enrollment form', () => {
     await page.getByLabel(/^City\b/i).fill('Dublin');
     await page.getByLabel(/Postal Code/i).fill('94568');
 
-    await page.getByRole('checkbox', { name: /I agree to receive/i }).check();
+    await page.getByRole('checkbox', { name: /I agree to the Terms/i }).check();
     await page.getByRole('button', { name: /Complete Registration/i }).click();
 
     // Form redirects to thank-you page on success

@@ -7,9 +7,11 @@ import {
   isBrevoTransactionalReady,
   sendBrevoTransactionalEmail,
 } from '@/lib/brevo';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
+import { sendFormSms } from '@/lib/twilioSms';
 
 /** Serverless: allow Brevo HTTP + dual sends to finish (matches summer-camp-summercamp). */
 export const maxDuration = 60;
@@ -36,6 +38,7 @@ interface EnrollFormData {
   course?: string;
   level: string;
   agree: boolean;
+  sms_consent?: boolean;
 }
 
 export async function POST(request: Request) {
@@ -144,6 +147,7 @@ export async function POST(request: Request) {
       course,
       level,
       agree,
+      sms_consent,
     }: EnrollFormData = body as unknown as EnrollFormData;
 
     if (!fullName || !email || !mobile || !city || !postal || !level) {
@@ -210,6 +214,13 @@ export async function POST(request: Request) {
     const emailResult = await sendEnrollmentEmails(enrollmentData);
 
     if (emailResult.success) {
+      void sendFormSms({
+        phone: enrollmentData.mobile,
+        sms_consent: Boolean(sms_consent),
+        type: 'enrollment',
+        name: enrollmentData.fullName,
+      });
+
       const at = enrollmentData.email.indexOf('@');
       const emailDomain = at > 0 ? enrollmentData.email.slice(at + 1) : 'unknown';
       console.log('[enroll] inquiry ok', {
@@ -218,6 +229,31 @@ export async function POST(request: Request) {
         emailIds: emailResult.emailIds,
         userConfirmationSent: process.env.ENABLE_USER_CONFIRMATION_EMAIL === 'true',
       });
+
+      const { firstname, lastname } = splitFullName(enrollmentData.fullName);
+      const messageBlock = [
+        `Level: ${enrollmentData.level}`,
+        `Bootcamp: ${enrollmentData.bootcamp}`,
+        `Course: ${enrollmentData.course}`,
+        `City: ${enrollmentData.city}`,
+        `Postal: ${enrollmentData.postal}`,
+        'Source: enroll-form',
+      ].join('\n');
+
+      await syncHubSpotLeadIfConfigured(
+        [
+          { name: 'firstname', value: firstname },
+          { name: 'lastname', value: lastname },
+          { name: 'email', value: enrollmentData.email },
+          { name: 'phone', value: enrollmentData.mobile },
+          { name: 'message', value: messageBlock },
+        ],
+        {
+          pageUri: request.headers.get('referer') ?? '',
+          pageName: 'Enrollment form',
+        },
+        'enroll',
+      );
 
       const payload: Record<string, unknown> = {
         success: true,

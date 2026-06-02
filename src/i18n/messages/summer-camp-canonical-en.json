@@ -1,7 +1,8 @@
 {
   "hero": {
-    "h1": "Summer STEAM Camps in Dublin, CA",
-    "subhead": "This summer, your child builds something real. Coding, AI, Robotics & Math · Grades 1–12 · Limited seats",
+    "h1": "Summer STEAM Camps 2026 in Dublin, CA",
+    "subhead": "This summer, your child builds something real. Coding, AI, Robotics & Math · Grades 1–12",
+    "subheadDetail": "Rated 4.9 ⭐ · 40+ Dublin families · Max 8 students · Weeks filling fast",
     "primaryCta": "Reserve a Spot →",
     "secondaryCta": "Get Camp Guide →",
     "brochurePdf": "/assets/camps/SummerCampBrochure.pdf",
@@ -32,7 +33,7 @@
     ],
     "trustBlockHeading": "Real Results Parents Trust",
     "trustGoogleRatingLine": "Rated 4.9⭐ on Google · 40+ reviews",
-    "trustProofStrip": "325+ students enrolled · 98% parent satisfaction · 40+ student projects showcased",
+    "trustProofStrip": "387+ students enrolled · 98% parent satisfaction · 40+ student projects showcased",
     "trustBullets": [
       "Max 8 students per class — personalized attention",
       "Experienced instructors in coding, math & robotics",
@@ -64,6 +65,131 @@
     "finalReserveCta": "Reserve a Spot →",
     "finalGuidePdfCta": "Get camp guide by email →",
     "bookingSectionTitle": "Choose your camp & reserve a week",
-    "bookingSectionSub": "Pick a program, then select your week and checkout."
+    "bookingSectionSub": "Pick a program, then select your week and checkout.",
+    "academicTeaserBadge": "New · June 15",
+    "academicTeaserEyebrow": "Academic Summer Programs",
+    "academicTeaserHeading": "Looking for daily reading, writing, or math support?",
+    "academicTeaserSubhead": "Not a camp. A focused academic sprint — 90 min/day, small groups, DUSD aligned.",
+    "academicTeaserPills": [
+      "Read to Prove",
+      "Write to Explain",
+      "Bridge the Gap Math",
+      "IM1 · Algebra · Geometry"
+    ],
+    "academicTeaserFooter": "Grades 1–10 · From $249 · Starts June 15",
+    "academicTeaserCta": "View academic programs →",
+    "academicTeaserHref": "/camps/academic-summer-programs-dublin-ca"
+  },
+  "pickCardsCommon": {
+    "workOnLabel": "What Students Work On",
+    "priceLine": "From $XXX — contact us",
+    "ctaLabel": "View & Enroll"
+  },
+  "pickCards": {
+    "adv-math": {
+      "title": "Advanced Math",
+      "gradeLine": "Grades 9–12 · High School",
+      "dayType": "Half-Day",
+      "formatPill": "Online & In-Person",
+      "workOnBullets": [
+        "Algebra II — Mon · Wed · Fri",
+        "Pre-Calculus — Tue · Wed · Thu",
+        "Structured problem sets, 3× per week"
+      ],
+      "outcome": "Master Algebra II & Pre-Calculus before school starts"
+    },
+    "math-olympiad": {
+      "title": "Math Olympiad Prep",
+      "gradeLine": "Grades 5–8",
+      "dayType": "Half-Day",
+      "formatPill": "Online & In-Person",
+      "workOnBullets": [
+        "Olympiad-style problem solving",
+        "Logical reasoning, patterns & strategies",
+        "Time-bound thinking and accuracy"
+      ],
+      "outcome": "Compete confidently in AMC8 / MOEMS"
+    },
+    "ai-entrepreneur": {
+      "title": "AI Entrepreneur Studio",
+      "gradeLine": "Grades 6–12",
+      "dayType": "Half-Day",
+      "formatPill": "Online & In-Person",
+      "workOnBullets": [
+        "Build functional prototypes using AI tools",
+        "Real-world entrepreneurship concepts",
+        "Design and present a working application"
+      ],
+      "outcome": "Demo a working AI-powered product by end of week"
+    },
+    "scratch-online": {
+      "title": "Scratch Programming",
+      "gradeLine": "Grades 3–6",
+      "dayType": "Half-Day",
+      "formatPill": "Online & In-Person",
+      "workOnBullets": [
+        "Block-based coding through games & animations",
+        "Logical thinking and sequencing",
+        "Multiple projects with working code logic"
+      ],
+      "outcome": "Complete and publish multiple working Scratch projects"
+    },
+    "roblox-in-person": {
+      "title": "Roblox Game Dev",
+      "gradeLine": "Grades 5–9",
+      "dayType": "Half-Day",
+      "formatPill": "Online & In-Person",
+      "workOnBullets": [
+        "3D game design with Lua scripting",
+        "Game mechanics and world building",
+        "Publish a playable game to Roblox"
+      ],
+      "outcome": "Build and publish your own Roblox game by Friday"
+    },
+    "robotics-camp": {
+      "title": "Robotics Camp",
+      "gradeLine": "Grades 6–12",
+      "dayType": "Full-Day",
+      "formatPill": "In-Person Only",
+      "workOnBullets": [
+        "Robotics design and programming",
+        "Sensors, motors, automation, and logic",
+        "Engineering challenges using LEGO / EV3 / VEX-style platforms"
+      ],
+      "outcome": "Complete a working robot and compete in end-of-camp challenge"
+    },
+    "young-authors": {
+      "title": "Young Authors Camp",
+      "gradeLine": "Grades 4–10",
+      "dayType": "Full-Day",
+      "formatPill": "In-Person Only",
+      "workOnBullets": [
+        "Story planning and narrative structure",
+        "Character development and chapter writing",
+        "Drafting, revising, and completing a full manuscript"
+      ],
+      "outcome": "Each student takes home a fully published manuscript"
+    }
+  },
+  "parentsKnow": {
+    "heading": "What Parents Should Know",
+    "items": [
+      {
+        "title": "Class Size",
+        "body": "Maximum 8–12 students per instructor"
+      },
+      {
+        "title": "Results",
+        "body": "Each program includes a final project or portfolio piece"
+      },
+      {
+        "title": "Learning Method",
+        "body": "Students work on real projects with measurable deliverables"
+      },
+      {
+        "title": "Environment",
+        "body": "Academic setting with clear expectations and structured time"
+      }
+    ]
   }
 }

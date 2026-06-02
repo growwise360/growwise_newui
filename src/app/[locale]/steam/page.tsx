@@ -47,6 +47,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
 import { generateFAQPageSchema } from '@/lib/seo/structuredData';
 
 // ImageWithFallback component
@@ -850,7 +851,11 @@ export default function SteamPage() {
               Common questions from families about GrowWise STEAM programs.
             </p>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(STEAM_FAQS.length, (index) => `item-${index}`)}
+          >
             {STEAM_FAQS.map((faq, index) => (
               <AccordionItem
                 key={index}

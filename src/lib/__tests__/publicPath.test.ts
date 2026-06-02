@@ -2,8 +2,8 @@ import { publicPath, pathWithoutLocalePrefix } from '@/lib/publicPath';
 
 describe('publicPath', () => {
   it('default locale keeps clean paths (no /en prefix)', () => {
-    expect(publicPath('/courses/english', 'en')).toBe('/courses/english');
-    expect(publicPath('courses/math', 'en')).toBe('/courses/math');
+    expect(publicPath('/academic/english', 'en')).toBe('/academic/english');
+    expect(publicPath('courses/math', 'en')).toBe('/academic/math');
     expect(publicPath('/', 'en')).toBe('/');
   });
 
@@ -18,7 +18,7 @@ describe('publicPath', () => {
 
 describe('pathWithoutLocalePrefix', () => {
   it('strips a single leading locale segment when it is a known locale', () => {
-    expect(pathWithoutLocalePrefix('/en/courses/english')).toBe('/courses/english');
+    expect(pathWithoutLocalePrefix('/en/academic/english')).toBe('/academic/english');
   });
 
   it('returns root for bare locale path', () => {
@@ -26,6 +26,6 @@ describe('pathWithoutLocalePrefix', () => {
   });
 
   it('leaves default paths unchanged when no locale prefix', () => {
-    expect(pathWithoutLocalePrefix('/courses/english')).toBe('/courses/english');
+    expect(pathWithoutLocalePrefix('/academic/english')).toBe('/academic/english');
   });
 });

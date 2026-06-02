@@ -20,6 +20,20 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
   describe('metadataConfig static paths', () => {
     it.each([
       ['/camps/summer'],
+      ['/camps/academic-summer-programs-dublin-ca'],
+      ['/camps/summer-reading-writing-dublin-ca'],
+      ['/camps/summer-math-foundations-dublin-ca'],
+      ['/camps/summer-algebra-dublin-ca'],
+      ['/camps/summer-geometry-precalculus-dublin-ca'],
+      ['/camps/summer-im-get-ready-dublin-ca'],
+      ['/camps/summer-im1-get-ready-dublin-ca'],
+      ['/camps/summer-im2-get-ready-dublin-ca'],
+      ['/courses/integrated-math-1-dublin-ca'],
+      ['/academic/math'],
+      ['/academic/math/elementary'],
+      ['/academic/math/middle-school'],
+      ['/academic/math/high-school'],
+      ['/academic/math/high-school'],
       ['/enroll'],
     ] as const)('title + description for %s', (path) => {
       const config = getMetadataConfig(path)
@@ -60,6 +74,42 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
         'Simple, research-backed strategies to help your child focus better in school and at home. A parent guide from GrowWise School in Dublin, CA.'
       assertTitle('/growwise-blogs/improve-child-focus-feel-valued', title)
       assertDesc('/growwise-blogs/improve-child-focus-feel-valued', description)
+    })
+
+    it('your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', () => {
+      const title = "B+ Doesn't Mean Math Understanding | GrowWise"
+      const description =
+        'Why a B+ can hide math gaps in Tri-Valley schools—and how Dublin parents spot real understanding vs. memorization before algebra.'
+      assertTitle('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', title)
+      assertDesc('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', description)
+    })
+
+    it('reading-fluency-vs-comprehension', () => {
+      const config = getMetadataConfig('/resources/reading-fluency-vs-comprehension')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/reading-fluency-vs-comprehension', config!.title)
+      assertDesc('/resources/reading-fluency-vs-comprehension', config!.description)
+    })
+
+    it('summer-slide-dublin-ca', () => {
+      const config = getMetadataConfig('/resources/summer-slide-dublin-ca')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/summer-slide-dublin-ca', config!.title)
+      assertDesc('/resources/summer-slide-dublin-ca', config!.description)
+    })
+
+    it.each([
+      '/resources/summer-slide-prevention',
+      '/resources/khan-academy-summer-doesnt-work',
+      '/resources/summer-academic-program-checklist',
+      '/resources/affordable-summer-academic-programs-dublin-ca',
+      '/resources/im1-summer-prep-dublin-ca',
+      '/resources/summer-writing-program-dublin-ca',
+    ] as const)('title + description for %s', (path) => {
+      const config = getMetadataConfig(path)
+      expect(config).not.toBeNull()
+      assertTitle(path, config!.title)
+      assertDesc(path, config!.description)
     })
   })
 

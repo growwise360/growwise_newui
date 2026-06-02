@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-test.describe('Enroll Phase 3 stepper', () => {
+test.describe('Enroll Phase 3 stepper', { tag: '@nightly' }, () => {
   test('enforces step order and back navigation', async ({ page, browser }) => {
     await page.goto(
       `${localePath('/enroll')}?program=python&tier=plus&mode=live&addons=uuid1,uuid2&children=1`,
