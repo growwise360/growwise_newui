@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import type { SummerCampFaqItem } from './SummerCampPageFaq';
+import { getSummerHubVisibleFaqs } from '@/lib/schema/summer-hub-jsonld-faqs';
 import {
   fetchSummerCampData,
   filterSummerCampHubPrograms,
@@ -89,10 +90,6 @@ const SlotsPanel = dynamic(
 
 export type { SummerCampFaqItem };
 
-export interface SummerCampFaqData {
-  faqs: SummerCampFaqItem[];
-}
-
 /** Booking grid filter: all programs, one program track, or full-day-only (e.g. robotics, Young Authors). */
 type ProgramTrackFilter = 'all' | SummerCampProgramTrack | 'fullDay';
 
@@ -137,8 +134,7 @@ export default function SummerCampPage() {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(DEFAULT_HUB_PROGRAMS[0] ?? null);
   const hubPrograms = useMemo(() => filterSummerCampHubPrograms(programs), [programs]);
   const [programTrackFilter, setProgramTrackFilter] = useState<ProgramTrackFilter>('all');
-  const [faqs, setFaqs] = useState<SummerCampFaqItem[]>([]);
-  const [faqsLoading, setFaqsLoading] = useState(true);
+  const faqs = useMemo(() => getSummerHubVisibleFaqs(), []);
   const [summerCampEmail, setSummerCampEmail] = useState('');
   const [summerCampParentName, setSummerCampParentName] = useState('');
   const [summerCampPhone, setSummerCampPhone] = useState('');
@@ -417,43 +413,6 @@ export default function SummerCampPage() {
       cancelled = true;
     };
   }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // FAQ JSON after programs settle — avoids competing with hero + program images on the critical network path.
-  useEffect(() => {
-    if (programsLoading) return;
-    let cancelled = false;
-    const narrow =
-      typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-    const cancelIdle = scheduleIdleTask(() => {
-      if (cancelled) return;
-      void (async () => {
-        setFaqsLoading(true);
-        try {
-          const res = await fetch(`/api/mock/${locale}/summer-camp-faq.json`);
-          if (!res.ok) {
-            const fallback = locale !== 'en' ? await fetch('/api/mock/en/summer-camp-faq.json') : null;
-            if (fallback?.ok && !cancelled) {
-              const data: SummerCampFaqData = await fallback.json();
-              setFaqs(data.faqs ?? []);
-            } else if (!cancelled) {
-              setFaqs([]);
-            }
-          } else {
-            const data: SummerCampFaqData = await res.json();
-            if (!cancelled) setFaqs(data.faqs ?? []);
-          }
-        } catch {
-          if (!cancelled) setFaqs([]);
-        } finally {
-          if (!cancelled) setFaqsLoading(false);
-        }
-      })();
-    }, narrow ? 4000 : 2200);
-    return () => {
-      cancelled = true;
-      cancelIdle();
-    };
-  }, [programsLoading, locale]);
 
   // Warm the slots/cart chunk before first interaction (same module as SlotsPanel).
   // Phones: defer longer so hero + program thumbnails finish first (mobile Lighthouse / LCP).
@@ -905,7 +864,7 @@ export default function SummerCampPage() {
         {/* Sentinel: FAQ accordion chunk + Radix load only when near viewport */}
         <div ref={faqSentinelRef} className="h-px w-full shrink-0" aria-hidden />
         {faqMount ? (
-          <SummerCampPageFaq faqs={faqs} loading={faqsLoading} />
+          <SummerCampPageFaq faqs={faqs} loading={false} />
         ) : null}
 
         {/* Summer learning loss context */}
