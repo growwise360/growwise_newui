@@ -5,7 +5,7 @@
 import { Metadata } from 'next';
 import FAQSchema from '@/components/schema/FAQSchema';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
-import { SUMMER_HUB_PRIORITY_FAQS } from '@/lib/schema/summer-hub-jsonld-faqs';
+import { getSummerHubVisibleFaqs } from '@/lib/schema/summer-hub-jsonld-faqs';
 import {
   generateEventSchema,
   generateBreadcrumbSchema,
@@ -20,17 +20,6 @@ import {
 } from '@/lib/summer-camp-week-calendar';
 import { buildSummerHubCampItemListSchema } from '@/lib/schema/camp-landing-jsonld';
 import { getMinimumPublishedSummerCampPriceUsd } from '@/lib/summer-camp-data';
-import summerCampFaqData from '../../../../../public/api/mock/en/summer-camp-faq.json';
-
-function mergeSummerHubJsonLdFaqs() {
-  const priorityKeys = new Set(
-    SUMMER_HUB_PRIORITY_FAQS.map((f) => f.question.trim().toLowerCase()),
-  );
-  const rest = summerCampFaqData.faqs.filter(
-    (f) => !priorityKeys.has(f.question.trim().toLowerCase()),
-  );
-  return [...SUMMER_HUB_PRIORITY_FAQS, ...rest];
-}
 
 export async function generateMetadata({
   params,
@@ -119,7 +108,7 @@ export default async function SummerCampLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <FAQSchema faqs={mergeSummerHubJsonLdFaqs()} />
+      <FAQSchema faqs={getSummerHubVisibleFaqs()} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}

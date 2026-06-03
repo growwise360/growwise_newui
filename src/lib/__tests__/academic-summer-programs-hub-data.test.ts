@@ -58,6 +58,15 @@ describe('academic-summer-programs-hub-data', () => {
       }
     });
 
+    it('uses June 15 cohort windows in sprint slot labels (aligned with program cards)', () => {
+      const readToProve = sprintPrograms.find((p) => p.id === 'read-to-prove');
+      const labels = (readToProve?.levels[0]?.slots ?? []).map((s) => s.label);
+      expect(labels.some((l) => l.includes('June 15'))).toBe(true);
+      expect(labels.every((l) => !l.includes('June 8'))).toBe(true);
+      expect(labels.some((l) => l.includes('Cohort 1 (June 15–26)'))).toBe(true);
+      expect(labels.some((l) => l.includes('Both cohorts (June 15–July 11)'))).toBe(true);
+    });
+
     it('uses distinct evening times for IM1 and IM2 enrollment rows', () => {
       const im1 = getReadyPrograms.find((p) => p.id === 'im1');
       const im2 = getReadyPrograms.find((p) => p.id === 'im2');

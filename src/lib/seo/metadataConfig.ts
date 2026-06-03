@@ -341,6 +341,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     image: CAMP_SUMMER_BANNER_IMAGE,
   },
 
+  '/camps/high-school-summer-intensive-dublin-ca': {
+    title: 'High School Summer Math Intensive Dublin CA | GrowWise',
+    description:
+      '6-week summer math intensives for Grades 8–12 in Dublin, CA. Algebra 1, Algebra 2, Precalculus, and AP Calculus AB. Small groups.',
+    keywords:
+      'high school summer math Dublin CA, algebra summer intensive, precalculus summer camp, calculus AB summer Dublin, DUSD PUSD summer math',
+    path: '/camps/high-school-summer-intensive-dublin-ca',
+    image: `${canonicalSiteUrl}/assets/courses/math-band-high-school.webp`,
+  },
+
   '/camps/academic-summer-programs-dublin-ca': {
     title: 'Academic Summer Programs Dublin CA | GrowWise',
     description:

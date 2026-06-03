@@ -89,6 +89,7 @@ const legalPages: SitemapEntry[] = [
 const campPages: SitemapEntry[] = [
   { path: '/camps/summer', priority: 1.0, changefreq: 'weekly' },
   { path: '/camps/academic-summer-programs-dublin-ca', priority: 0.95, changefreq: 'weekly' },
+  { path: '/camps/high-school-summer-intensive-dublin-ca', priority: 0.95, changefreq: 'weekly' },
   { path: '/camps/summer-reading-writing-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-math-foundations-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-algebra-dublin-ca', priority: 0.9, changefreq: 'weekly' },

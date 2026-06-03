@@ -16,9 +16,9 @@
     "exploreProgramCta": "Explore Program →",
     "programGroups": [
       {
-        "title": "Academic Camp",
-        "outcome": "Math Olympiad (AMC8 / MOEMS) and High School Math—structured intensives that match how we run camps year-round.",
-        "ages": "Grades 3–12"
+        "title": "High School Summer Intensive",
+        "outcome": "6-week Algebra, Precalculus, and Calculus AB intensives—small groups, in-person in Dublin.",
+        "ages": "Grades 8–12"
       },
       {
         "title": "AI & Game Development",
@@ -78,7 +78,20 @@
     ],
     "academicTeaserFooter": "Grades 1–10 · From $249 · Starts June 15",
     "academicTeaserCta": "View academic programs →",
-    "academicTeaserHref": "/camps/academic-summer-programs-dublin-ca"
+    "academicTeaserHref": "/camps/academic-summer-programs-dublin-ca",
+    "hsSummerIntensiveTeaserBadge": "Summer 2026",
+    "hsSummerIntensiveTeaserEyebrow": "High School Math",
+    "hsSummerIntensiveTeaserHeading": "Need a 6-week Algebra or Calculus intensive?",
+    "hsSummerIntensiveTeaserSubhead": "Structured small-group courses—60 hours of instruction before school starts. In-person in Dublin.",
+    "hsSummerIntensiveTeaserPills": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "AP Calculus AB"
+    ],
+    "hsSummerIntensiveTeaserFooter": "Grades 8–12 · June 15 – July 24 · Max 8 per class",
+    "hsSummerIntensiveTeaserCta": "View High School Intensive →",
+    "hsSummerIntensiveTeaserHref": "/camps/high-school-summer-intensive-dublin-ca"
   },
   "pickCardsCommon": {
     "workOnLabel": "What Students Work On",
@@ -86,30 +99,6 @@
     "ctaLabel": "View & Enroll"
   },
   "pickCards": {
-    "adv-math": {
-      "title": "Advanced Math",
-      "gradeLine": "Grades 9–12 · High School",
-      "dayType": "Half-Day",
-      "formatPill": "Online & In-Person",
-      "workOnBullets": [
-        "Algebra II — Mon · Wed · Fri",
-        "Pre-Calculus — Tue · Wed · Thu",
-        "Structured problem sets, 3× per week"
-      ],
-      "outcome": "Master Algebra II & Pre-Calculus before school starts"
-    },
-    "math-olympiad": {
-      "title": "Math Olympiad Prep",
-      "gradeLine": "Grades 5–8",
-      "dayType": "Half-Day",
-      "formatPill": "Online & In-Person",
-      "workOnBullets": [
-        "Olympiad-style problem solving",
-        "Logical reasoning, patterns & strategies",
-        "Time-bound thinking and accuracy"
-      ],
-      "outcome": "Compete confidently in AMC8 / MOEMS"
-    },
     "ai-entrepreneur": {
       "title": "AI Entrepreneur Studio",
       "gradeLine": "Grades 6–12",
@@ -136,7 +125,7 @@
     },
     "roblox-in-person": {
       "title": "Roblox Game Dev",
-      "gradeLine": "Grades 5–9",
+      "gradeLine": "Grades 3–6",
       "dayType": "Half-Day",
       "formatPill": "Online & In-Person",
       "workOnBullets": [
@@ -148,7 +137,7 @@
     },
     "robotics-camp": {
       "title": "Robotics Camp",
-      "gradeLine": "Grades 6–12",
+      "gradeLine": "Grades 3–6",
       "dayType": "Full-Day",
       "formatPill": "In-Person Only",
       "workOnBullets": [
@@ -160,7 +149,7 @@
     },
     "young-authors": {
       "title": "Young Authors Camp",
-      "gradeLine": "Grades 4–10",
+      "gradeLine": "Grades 3–6",
       "dayType": "Full-Day",
       "formatPill": "In-Person Only",
       "workOnBullets": [
