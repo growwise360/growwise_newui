@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CONTACT_INFO } from '@/lib/constants';
-import { useRouter } from 'next/navigation';
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from "./ui/alert-dialog";
-import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, ShoppingCart, ArrowRight, Filter, X, UserCheck, Phone, Mail, MapPin, MessageCircle, HelpCircle, Calendar } from "lucide-react";
+import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, X, UserCheck, HelpCircle, Calendar, ChevronDown, ArrowRight, ShoppingCart } from "lucide-react";
 import { MATH_HUB_COPY } from '@/lib/math-hub-copy';
 import {
   HIGH_SCHOOL_MATH_PROGRAM_DETAILS,
@@ -43,15 +43,34 @@ import { publicPath } from '@/lib/publicPath';
 
 const hsMonthlyProgram = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school');
 const hsGradeBandCard = MATH_HUB_COPY.gradeBands.cards.find((c) => c.id === 'high-school');
+const floatingMathSymbols = [
+  { symbol: '∑', left: 8, top: 18, duration: 9.2, size: 22 },
+  { symbol: '∫', left: 18, top: 68, duration: 10.4, size: 28 },
+  { symbol: '∂', left: 27, top: 32, duration: 11.1, size: 24 },
+  { symbol: 'π', left: 39, top: 78, duration: 8.8, size: 30 },
+  { symbol: '∞', left: 48, top: 20, duration: 10.9, size: 26 },
+  { symbol: '√', left: 58, top: 54, duration: 9.7, size: 21 },
+  { symbol: '≈', left: 69, top: 14, duration: 11.4, size: 29 },
+  { symbol: '≠', left: 78, top: 72, duration: 9.5, size: 25 },
+  { symbol: '≤', left: 88, top: 36, duration: 10.7, size: 23 },
+  { symbol: '≥', left: 94, top: 84, duration: 8.9, size: 31 },
+  { symbol: 'α', left: 12, top: 44, duration: 11.6, size: 20 },
+  { symbol: 'β', left: 34, top: 10, duration: 9.8, size: 27 },
+  { symbol: 'θ', left: 52, top: 88, duration: 10.2, size: 24 },
+  { symbol: 'Δ', left: 72, top: 42, duration: 11.8, size: 32 },
+  { symbol: '∇', left: 86, top: 8, duration: 9.1, size: 22 },
+];
 
 const HighSchoolMathPage: React.FC = () => {
-  const router = useRouter();
   const locale = useLocale();
   const { addItem } = useCart();
   const { openChatbot } = useChatbot();
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [selectedHsJtbdId, setSelectedHsJtbdId] = useState(HIGH_SCHOOL_JTBD_SITUATIONS[0].id);
+  const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
   const selectedHsJtbd =
     HIGH_SCHOOL_JTBD_SITUATIONS.find((s) => s.id === selectedHsJtbdId) ??
@@ -82,22 +101,19 @@ const HighSchoolMathPage: React.FC = () => {
     );
   };
   const [scrollY, setScrollY] = useState(0);
-  const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  // Detect touch device and disable hover effects on mobile
   useEffect(() => {
     const checkTouchDevice = () => {
       const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
       const hasHover = window.matchMedia('(hover: hover)').matches;
-      
+
       setIsTouchDevice(hasTouch && (isSmallScreen || !hasHover));
     };
 
     checkTouchDevice();
     window.addEventListener('resize', checkTouchDevice);
-    
+
     return () => {
       window.removeEventListener('resize', checkTouchDevice);
     };
@@ -144,105 +160,250 @@ const HighSchoolMathPage: React.FC = () => {
 
   const highSchoolMathCourses = [
     {
-      id: 'freshman-sophomore',
-      name: 'Freshman & Sophomore',
-      subtitle: 'Grades 9-10',
-      description: 'Foundation courses covering Algebra I and Geometry with personalized attention to build strong mathematical fundamentals.',
+      id: 'algebra-1',
+      name: 'Algebra 1',
+      description: 'Master linear equations, quadratic functions, and foundational algebraic concepts aligned with DUSD and PUSD standards.',
+      parentFit: 'Best when your child is entering Algebra 1 or needs a stronger base before Algebra 2.',
+      parentOutcome: 'Fewer missed steps on equations, graphs, and word problems.',
+      parentConcern: 'My child understands in class, then freezes on homework or tests.',
+      imageSrc: '/images/camps/banners/algebra_1_get_ready_3572836f_web.webp',
       groupPrice: 45,
       oneOnOnePrice: 65,
-      priceRange: '$45-$65',
-      duration: 'Per session',
-      sessions: '2 hrs/session',
-      level: 'Grades 9-10',
+      level: 'Grades 8-9',
       icon: GraduationCap,
       gradient: 'from-[#1F396D] to-[#29335C]',
       bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
       iconColor: 'text-[#1F396D]',
       hoverBorder: 'border-[#1F396D]/30',
-      curriculum: [
-        {
-          course: 'Algebra I',
-          topics: [
-            'One and Two Variable Statistics',
-            'Linear equations & inequalities',
-            'Systems of linear equations',
-            'Quadratic equations',
-            'Exponential Functions',
-            'Functions (intro, graphs)'
-          ]
-        },
-        {
-          course: 'Geometry',
-          topics: [
-            'Points, lines, angles',
-            'Triangles (congruence, similarity)',
-            'Quadrilaterals & polygons',
-            'Circles & tangents',
-            'Transformations & dilations',
-            'Coordinate geometry',
-            'Perimeter, area, volume',
-            'Proofs (two-column, paragraph)',
-            'Intro trigonometry'
-          ]
-        }
+      duration: 'One 2 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      sessions: '2 hours',
+      topics: [
+        'Linear equations & inequalities',
+        'Systems of linear equations',
+        'Quadratic equations & functions',
+        'Exponential functions',
+        'Graphing techniques',
+        'Problem-solving strategies'
+      ],
+      goals: [
+        { icon: Star, title: 'Solid Foundation Establishment', description: 'Establish a strong foundation for future math courses.' },
+        { icon: Star, title: 'Critical Skills Development', description: 'Develop critical skills essential for success in algebraic concepts.' },
+        { icon: Star, title: 'Inequality Mastery', description: 'Master inequalities and their applications in algebraic problems.' },
+        { icon: Star, title: 'Strategic Problem-Solving', description: 'Develop strategic problem-solving skills specific to algebraic scenarios.' },
+        { icon: Star, title: 'Comprehensive Topic Coverage', description: 'Cover key topics including functions, inequalities, and systems of equations.' },
+        { icon: Star, title: 'Functional Understanding', description: 'Attain a functional understanding of mathematical functions.' },
+        { icon: Star, title: 'Systems of Equations Proficiency', description: 'Excel in solving systems of equations through focused learning.' },
+        { icon: Star, title: 'Interactive Learning Environment', description: 'Engage in interactive sessions for effective and dynamic learning.' }
       ]
     },
     {
-      id: 'junior-senior',
-      name: 'Junior & Senior',
-      subtitle: 'Grades 11-12',
-      description: 'Advanced courses covering Algebra II and Pre-Calculus preparing students for college-level mathematics and AP exams.',
-      groupPrice: 65,
-      oneOnOnePrice: 75,
-      priceRange: '$65-$75',
-      duration: 'Per session',
-      sessions: '2 hrs/session',
-      level: 'Grades 11-12',
+      id: 'algebra-2',
+      name: 'Algebra 2',
+      description: 'Explore polynomial and exponential functions, trigonometry introduction, and advanced algebraic problem-solving.',
+      parentFit: 'Best when grades are slipping in Algebra 2 or the next test feels unpredictable.',
+      parentOutcome: 'A clearer plan for functions, polynomials, logs, and multi-step exam problems.',
+      parentConcern: 'Algebra 2 suddenly feels harder than Algebra 1.',
+      imageSrc: '/images/camps/cards/algebra-1.webp',
+      groupPrice: 45,
+      oneOnOnePrice: 65,
+      level: 'Grades 10-11',
+      icon: Calculator,
+      gradient: 'from-[#F16112] to-[#F1894F]',
+      bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
+      iconColor: 'text-[#F16112]',
+      hoverBorder: 'border-[#F16112]/30',
+      duration: 'One 2 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      sessions: '2 hours',
+      topics: [
+        'Polynomial functions',
+        'Rational functions',
+        'Exponential & logarithmic functions',
+        'Complex numbers',
+        'Trigonometric functions',
+        'Statistical analysis'
+      ],
+      goals: [
+        { icon: Star, title: 'Advanced Function Mastery', description: 'Master complex functions and their real-world applications.' },
+        { icon: Star, title: 'College Readiness', description: 'Prepare for college-level mathematics with rigorous coursework.' },
+        { icon: Star, title: 'Higher Order Thinking', description: 'Develop abstract thinking and mathematical reasoning skills.' },
+        { icon: Star, title: 'Test Excellence', description: 'Achieve success on standardized assessments and course exams.' }
+      ]
+    },
+    {
+      id: 'advanced-algebra-2',
+      name: 'Advanced Algebra 2',
+      description: 'Accelerated curriculum for advanced learners, diving deeper into complex algebraic concepts and college prep.',
+      parentFit: 'Best for students on an honors, accelerated, or STEM track who need more challenge.',
+      parentOutcome: 'Stronger readiness for Precalculus, AP courses, and advanced problem solving.',
+      parentConcern: 'My child is doing well, but needs a higher ceiling.',
+      imageSrc: '/images/camps/banners/advanced-math-banner.webp',
+      groupPrice: 55,
+      oneOnOnePrice: 70,
+      level: 'Grades 10-11',
+      icon: TrendingUp,
+      gradient: 'from-[#1F396D] to-[#29335C]',
+      bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
+      iconColor: 'text-[#1F396D]',
+      hoverBorder: 'border-[#1F396D]/30',
+      duration: 'One 2.5 hours class every weekday for 10 weeks',
+      campDuration: 'June 15 - August 22, 2026',
+      sessions: '2.5 hours',
+      topics: [
+        'Advanced polynomial functions',
+        'Complex exponential concepts',
+        'Trigonometric identities',
+        'Systems of equations',
+        'Matrix algebra',
+        'College-level applications'
+      ],
+      goals: [
+        { icon: Star, title: 'Accelerated Learning Path', description: 'Progress at an advanced pace with challenging material.' },
+        { icon: Star, title: 'Mathematical Maturity', description: 'Develop sophisticated problem-solving and proof-writing skills.' },
+        { icon: Star, title: 'STEM Preparation', description: 'Build foundation for advanced science and engineering courses.' },
+        { icon: Star, title: 'Competition Readiness', description: 'Prepare for math competitions and advanced assessments.' }
+      ]
+    },
+    {
+      id: 'precalculus',
+      name: 'Precalculus',
+      description: 'Prepare for Calculus with advanced function analysis, trigonometry, and analytical geometry.',
+      parentFit: 'Best when your child is about to take Calculus or is stuck in trig/functions.',
+      parentOutcome: 'A smoother path into Calculus with fewer gaps in functions and trigonometry.',
+      parentConcern: 'Precalculus is exposing gaps from earlier algebra or geometry.',
+      imageSrc: '/assets/courses/math-band-high-school.webp',
+      groupPrice: 55,
+      oneOnOnePrice: 70,
+      level: 'Grade 11',
       icon: Award,
       gradient: 'from-[#F16112] to-[#F1894F]',
       bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
       iconColor: 'text-[#F16112]',
       hoverBorder: 'border-[#F16112]/30',
-      curriculum: [
-        {
-          course: 'Algebra II',
-          topics: [
-            'Sequences and Functions',
-            'Polynomial functions',
-            'Rational Functions and Equations',
-            'Complex Numbers and Rational Exponents',
-            'Exponential Functions and Equations',
-            'Transformations and Functions',
-            'Trigonometric Functions',
-            'Statistical Inferences'
-          ]
-        },
-        {
-          course: 'Precalculus',
-          topics: [
-            'Advanced functions',
-            'Trigonometric (identities, graphs)',
-            'Sequences & series',
-            'Vectors & parametrics',
-            'Conic sections',
-            'Limits (intro)',
-            'Matrices & determinants'
-          ]
-        }
+      duration: 'One 2.5 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      sessions: '2.5 hours',
+      topics: [
+        'Advanced functions & composition',
+        'Trigonometric identities & graphs',
+        'Sequences & series',
+        'Conic sections',
+        'Limits introduction',
+        'Vectors & parametric equations'
+      ],
+      goals: [
+        { icon: Star, title: 'Calculus Foundation', description: 'Build essential concepts needed for successful Calculus study.' },
+        { icon: Star, title: 'Advanced Trigonometry', description: 'Master trigonometric functions and their applications.' },
+        { icon: Star, title: 'Analytical Thinking', description: 'Develop ability to analyze and interpret complex functions.' },
+        { icon: Star, title: 'College Pathway', description: 'Complete requirements for college mathematics placement.' }
+      ]
+    },
+    {
+      id: 'ap-precalculus',
+      name: 'AP Precalculus',
+      description: 'College Board AP-level course covering advanced topics essential for Calculus and university success.',
+      parentFit: 'Best for students taking AP Precalculus who need AP pacing, review, and exam strategy.',
+      parentOutcome: 'More confidence with AP-style questions and the concepts Calculus will assume.',
+      parentConcern: 'The AP pace is fast and I want my child to stay ahead.',
+      imageSrc: '/images/blog/high-school-math-finals-prep-banner.png',
+      groupPrice: 65,
+      oneOnOnePrice: 75,
+      level: 'Grade 11',
+      icon: Brain,
+      gradient: 'from-[#1F396D] to-[#29335C]',
+      bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
+      iconColor: 'text-[#1F396D]',
+      hoverBorder: 'border-[#1F396D]/30',
+      duration: 'One 2.5 hours class every weekday for 12 weeks',
+      campDuration: 'June 15 - September 5, 2026',
+      sessions: '2.5 hours',
+      topics: [
+        'AP Precalculus curriculum',
+        'Advanced trigonometry',
+        'Polar coordinates',
+        'Parametric equations',
+        'Complex function analysis',
+        'AP exam preparation'
+      ],
+      goals: [
+        { icon: Star, title: 'AP Exam Excellence', description: 'Achieve a high score on the AP Precalculus examination.' },
+        { icon: Star, title: 'College Credit Potential', description: 'Earn college credit through AP exam success.' },
+        { icon: Star, title: 'Rigorous Preparation', description: 'Master College Board curriculum standards.' },
+        { icon: Star, title: 'University Success', description: 'Build skills for success in university-level mathematics.' }
+      ]
+    },
+    {
+      id: 'calculus-ab',
+      name: 'Calculus AB',
+      description: 'Master AP Calculus AB: limits, derivatives, integration, and real-world applications for college credit.',
+      parentFit: 'Best when your child is in AP Calculus AB or wants support before the AP exam.',
+      parentOutcome: 'A stronger grasp of limits, derivatives, integrals, and timed AP problem solving.',
+      parentConcern: 'Calculus problems make sense in pieces, but not end-to-end.',
+      imageSrc: '/images/camps/banners/advanced-math-banner.webp',
+      groupPrice: 65,
+      oneOnOnePrice: 75,
+      level: 'Grades 11-12',
+      icon: Sparkles,
+      gradient: 'from-[#F16112] to-[#F1894F]',
+      bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
+      iconColor: 'text-[#F16112]',
+      hoverBorder: 'border-[#F16112]/30',
+      duration: 'One 2.5 hours class every weekday for 14 weeks',
+      campDuration: 'June 15 - September 19, 2026',
+      sessions: '2.5 hours',
+      topics: [
+        'Limits & continuity',
+        'Derivatives & applications',
+        'Integration techniques',
+        'Fundamental Theorem',
+        'AP exam strategies',
+        'College credit potential'
+      ],
+      goals: [
+        { icon: Star, title: 'Strengthen Algebra Skills', description: 'Strengthen algebra skills crucial for success in calculus.' },
+        { icon: Star, title: 'Critical Concepts Exploration', description: 'Explore critical calculus concepts, including limits, asymptotes, derivatives, and integrals.' },
+        { icon: Star, title: 'Limit Understanding', description: 'Develop a clear understanding of limits as a foundational calculus concept.' },
+        { icon: Star, title: 'Asymptote Exploration', description: 'Explore the concept of asymptotes and their significance in calculus.' },
+        { icon: Star, title: 'Derivatives Mastery', description: 'Master the calculation and application of derivatives in calculus.' },
+        { icon: Star, title: 'Integral Understanding', description: 'Gain a comprehensive understanding of integrals and their role in calculus.' },
+        { icon: Star, title: 'Application of Concepts', description: 'Apply learned concepts to solve real-world calculus problems.' },
+        { icon: Star, title: 'Problem-Solving Proficiency', description: 'Develop proficiency in problem-solving through calculus exercises.' }
       ]
     }
   ];
 
-  const handleAddToCart = (course: any) => {
+  type HighSchoolMathCourse = (typeof highSchoolMathCourses)[number];
+
+  const handleAddToCart = (course: HighSchoolMathCourse) => {
     addItem({
       id: course.id,
       name: course.name,
       price: course.groupPrice,
       quantity: 1,
       image: '📐',
-      category: 'High School Math'
+      category: 'High School Math',
     });
   };
+
+  const handleMouseEnter = (courseId: string) => {
+    if (!isTouchDevice) {
+      setHoveredCourse(courseId);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isTouchDevice) {
+      setHoveredCourse(null);
+    }
+  };
+
+  const getCourseGradients = (course: HighSchoolMathCourse) => ({
+    gradient: course.gradient,
+    bgGradient: course.bgGradient,
+    iconColor: course.iconColor,
+    hoverBorder: course.hoverBorder,
+  });
 
   // Contact information for modal
   const contactInfo = [
@@ -280,52 +441,29 @@ const HighSchoolMathPage: React.FC = () => {
     }
   ];
 
-  // Modified hover handlers to respect touch device detection
-  const handleMouseEnter = (courseId: string) => {
-    if (!isTouchDevice) {
-      setHoveredCourse(courseId);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isTouchDevice) {
-      setHoveredCourse(null);
-    }
-  };
-
-  // Get course gradients
-  const getCourseGradients = (course: any) => {
-    return {
-      gradient: course.gradient,
-      bgGradient: course.bgGradient,
-      iconColor: course.iconColor,
-      hoverBorder: course.hoverBorder
-    };
-  };
-
   return (
     <div className="min-h-screen bg-[#ebebeb]" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
-      
+
       {/* Enhanced Creative Header Section - High School Math Theme */}
       <section className="relative overflow-hidden">
         {/* Animated Background - High School Math-themed gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100">
           {/* Floating math symbols */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+            {floatingMathSymbols.map((item, i) => (
               <div
                 key={i}
                 className="absolute text-gray-500/60 animate-float-gentle font-semibold"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: `${item.left}%`,
+                  top: `${item.top}%`,
                   transform: `translateY(${scrollY * 0.05}px)`,
                   animationDelay: `${i * 1.2}s`,
-                  animationDuration: `${8 + Math.random() * 4}s`,
-                  fontSize: `${Math.random() * 15 + 18}px`
+                  animationDuration: `${item.duration}s`,
+                  fontSize: `${item.size}px`
                 }}
               >
-                {['∑', '∫', '∂', 'π', '∞', '√', '≈', '≠', '≤', '≥', 'α', 'β', 'θ', 'Δ', '∇'][Math.floor(Math.random() * 15)]}
+                {item.symbol}
               </div>
             ))}
           </div>
@@ -386,8 +524,87 @@ const HighSchoolMathPage: React.FC = () => {
               </Button>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Integrated "Why Choose Our High School Math" */}
+      {/* CTA: Explore Summer Intensive Programs */}
+      <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] py-12 lg:py-16">
+        <div className="max-w-5xl mx-auto px-4 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
+            Looking for summer intensive programs?
+          </h2>
+          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+            Explore our 6-week High School Summer Intensive courses — Algebra 1, Algebra 2, Precalculus, and Calculus AB. June 15 – September 5, 2026.
+          </p>
+          <Link
+            href={publicPath('/camps/high-school-summer-intensive-dublin-ca', locale)}
+            className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 font-semibold text-[#1F396D] shadow-lg hover:bg-gray-100 transition-colors"
+          >
+            View Summer Programs →
+          </Link>
+        </div>
+      </section>
+
+      {/* JTBD — parent situations */}
+      <section className="bg-white py-16 lg:py-20">
+        <div className="max-w-5xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+            {HIGH_SCHOOL_JTBD_SECTION.sectionLabel}
+          </p>
+          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">
+            {HIGH_SCHOOL_JTBD_SECTION.heading}
+          </h2>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-5">
+            <div className="flex flex-col gap-2 lg:col-span-2" role="list">
+              {HIGH_SCHOOL_JTBD_SITUATIONS.map((situation) => {
+                const isSelected = selectedHsJtbdId === situation.id;
+                return (
+                  <button
+                    key={situation.id}
+                    type="button"
+                    role="listitem"
+                    aria-pressed={isSelected}
+                    onClick={() => setSelectedHsJtbdId(situation.id)}
+                    className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
+                      isSelected
+                        ? 'border-[#1F396D] bg-[#1F396D] text-white shadow-sm'
+                        : 'border-slate-200 bg-white text-slate-800 hover:border-[#1F396D]/40 hover:bg-slate-50'
+                    }`}
+                  >
+                    {situation.leftLabel}
+                  </button>
+                );
+              })}
+            </div>
+            <div
+              className="rounded-2xl border border-slate-200 bg-gray-50 p-6 lg:col-span-3 min-h-[220px]"
+              aria-live="polite"
+            >
+              <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 mb-3">
+                {selectedHsJtbd.tagPill}
+              </span>
+              <h3 className="text-lg font-bold text-[#1F396D] mb-3">{selectedHsJtbd.panelHeading}</h3>
+              <p className="text-sm leading-relaxed text-slate-700 mb-6">{selectedHsJtbd.panelBody}</p>
+              <div className="flex flex-wrap gap-3">
+                {primaryHsJtbdCta(selectedHsJtbd)}
+                {selectedHsJtbd.secondaryHref && selectedHsJtbd.secondaryLabel ? (
+                  <Link
+                    href={publicPath(selectedHsJtbd.secondaryHref, locale)}
+                    className="inline-flex items-center justify-center rounded-full border-2 border-[#1F396D] px-5 py-2.5 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+                  >
+                    {selectedHsJtbd.secondaryLabel}
+                  </Link>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Our High School Math Programs */}
+      <section className="bg-white py-16 lg:py-20">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
           <div className="bg-gradient-to-br from-blue-100/30 via-indigo-100/20 to-purple-200/30 backdrop-blur-lg rounded-[32px] border border-blue-200/30 p-8 lg:p-12 shadow-2xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
@@ -403,7 +620,7 @@ const HighSchoolMathPage: React.FC = () => {
               {programFeatures.map((feature, index) => {
                 const IconComponent = feature.icon;
                 return (
-                  <Card 
+                  <Card
                     key={index}
                     className={`${feature.isWhiteCard ? 'bg-white/80 backdrop-blur-sm border-2 border-gray-200' : 'bg-gradient-to-r from-[#F16112] to-[#F1894F]'} rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 ${feature.isOrangeCard ? 'text-white border-[#F16112]' : ''}`}
                   >
@@ -478,63 +695,6 @@ const HighSchoolMathPage: React.FC = () => {
         </section>
       ) : null}
 
-      {/* JTBD — parent situations */}
-      <section className="bg-white py-16 lg:py-20">
-        <div className="max-w-5xl mx-auto px-4 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
-            {HIGH_SCHOOL_JTBD_SECTION.sectionLabel}
-          </p>
-          <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">
-            {HIGH_SCHOOL_JTBD_SECTION.heading}
-          </h2>
-
-          <div className="mt-8 grid gap-8 lg:grid-cols-5">
-            <div className="flex flex-col gap-2 lg:col-span-2" role="list">
-              {HIGH_SCHOOL_JTBD_SITUATIONS.map((situation) => {
-                const isSelected = selectedHsJtbdId === situation.id;
-                return (
-                  <button
-                    key={situation.id}
-                    type="button"
-                    role="listitem"
-                    aria-pressed={isSelected}
-                    onClick={() => setSelectedHsJtbdId(situation.id)}
-                    className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
-                      isSelected
-                        ? 'border-[#1F396D] bg-[#1F396D] text-white shadow-sm'
-                        : 'border-slate-200 bg-white text-slate-800 hover:border-[#1F396D]/40 hover:bg-slate-50'
-                    }`}
-                  >
-                    {situation.leftLabel}
-                  </button>
-                );
-              })}
-            </div>
-            <div
-              className="rounded-2xl border border-slate-200 bg-gray-50 p-6 lg:col-span-3 min-h-[220px]"
-              aria-live="polite"
-            >
-              <span className="inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 mb-3">
-                {selectedHsJtbd.tagPill}
-              </span>
-              <h3 className="text-lg font-bold text-[#1F396D] mb-3">{selectedHsJtbd.panelHeading}</h3>
-              <p className="text-sm leading-relaxed text-slate-700 mb-6">{selectedHsJtbd.panelBody}</p>
-              <div className="flex flex-wrap gap-3">
-                {primaryHsJtbdCta(selectedHsJtbd)}
-                {selectedHsJtbd.secondaryHref && selectedHsJtbd.secondaryLabel ? (
-                  <Link
-                    href={publicPath(selectedHsJtbd.secondaryHref, locale)}
-                    className="inline-flex items-center justify-center rounded-full border-2 border-[#1F396D] px-5 py-2.5 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
-                  >
-                    {selectedHsJtbd.secondaryLabel}
-                  </Link>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* High School Math Courses Section */}
       <section id="courses" className="py-16 px-4 lg:px-8" style={{
         background: `
@@ -568,7 +728,7 @@ const HighSchoolMathPage: React.FC = () => {
           </div>
 
           {/* Course Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {highSchoolMathCourses.map((course) => {
               const isHovered = hoveredCourse === course.id;
               const courseGradients = getCourseGradients(course);
@@ -577,9 +737,10 @@ const HighSchoolMathPage: React.FC = () => {
               return (
                 <div
                   key={course.id}
-                  className={`relative h-[500px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
+                  className={`relative h-[450px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
                   onMouseEnter={() => handleMouseEnter(course.id)}
                   onMouseLeave={handleMouseLeave}
+                  onClick={() => setSelectedCourseId(course.id)}
                 >
                   {/* Card Container with Conditional 3D Flip */}
                   <div className={`relative w-full h-full transition-transform duration-700 ${
@@ -685,66 +846,33 @@ const HighSchoolMathPage: React.FC = () => {
                         <CardContent className="p-5 relative flex flex-col h-full overflow-hidden">
                           {/* Top Section - Course Header */}
                           <div className="flex-shrink-0 mb-3">
-                            <div className="text-center mb-2">
-                              <h4 className={`font-bold text-base ${courseGradients.iconColor} mb-1`}>High School Math Curriculum</h4>
-                              <p className="text-[10px] text-gray-600">(Aligned with California Common Core Standards)</p>
-                            </div>
+                            <h4 className={`font-bold text-sm ${courseGradients.iconColor} mb-1`}>{course.name}</h4>
+                            <p className="text-[11px] text-gray-600">Key Topics</p>
                           </div>
-                          
-                          {/* Middle Section - Curriculum Content */}
+
+                          {/* Middle Section - Topics List */}
                           <div className="flex-grow overflow-y-auto custom-scrollbar">
-                            <div className="grid grid-cols-2 gap-3">
-                              {course.curriculum.map((curriculumItem, idx) => {
-                                const isAlgebraI = curriculumItem.course === 'Algebra I';
-                                const isGeometry = curriculumItem.course === 'Geometry';
-                                const isAlgebraII = curriculumItem.course === 'Algebra II';
-                                const isPrecalculus = curriculumItem.course === 'Precalculus';
-                                
-                                return (
-                                  <div 
-                                    key={idx}
-                                    className={`p-3 rounded-xl border-2 ${
-                                      isAlgebraI || isPrecalculus
-                                        ? 'bg-[#1F396D]/5 border-[#1F396D]/20'
-                                        : 'bg-[#F16112]/5 border-[#F16112]/20'
-                                    }`}
-                                  >
-                                    <div className={`text-center py-2 px-3 rounded-lg mb-2 ${
-                                      isAlgebraI || isPrecalculus
-                                        ? 'bg-[#1F396D] text-white'
-                                        : 'bg-[#F16112] text-white'
-                                    }`}>
-                                      <h5 className="text-xs font-bold">{curriculumItem.course}</h5>
-                                    </div>
-                                    <ul className="space-y-1.5">
-                                      {curriculumItem.topics.map((topic, topicIdx) => (
-                                        <li key={topicIdx} className="flex items-start gap-1.5">
-                                          <span className={`inline-block w-1 h-1 rounded-full mt-1.5 flex-shrink-0 ${
-                                            isAlgebraI || isPrecalculus ? 'bg-[#1F396D]' : 'bg-[#F16112]'
-                                          }`}></span>
-                                          <span className={`text-[10px] leading-tight ${
-                                            isAlgebraI || isPrecalculus ? 'text-[#1F396D]' : 'text-[#F16112]'
-                                          }`}>
-                                            {topic}
-                                          </span>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                );
-                              })}
-                            </div>
+                            <ul className="space-y-2">
+                              {course.topics.map((topic, idx) => (
+                                <li key={idx} className="flex items-start gap-2">
+                                  <span className={`inline-block w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${courseGradients.iconColor}`}></span>
+                                  <span className="text-xs leading-tight text-gray-700">
+                                    {topic}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
 
                           {/* Bottom Section - Pricing & CTA */}
                           <div className="flex-shrink-0 mt-3 pt-3 border-t border-gray-200">
                             <div className="mb-2 text-center">
-                              <div className="text-xs text-gray-600 mb-1">
+                              <div className="text-xs text-gray-700 mb-1">
                                 <span className="font-semibold">Group: ${course.groupPrice}</span>
                                 <span className="mx-2">•</span>
                                 <span className="font-semibold">1-on-1: ${course.oneOnOnePrice}</span>
                               </div>
-                              <p className="text-[10px] text-gray-500">{course.sessions} per session</p>
+                              <p className="text-[10px] text-gray-600">Per session</p>
                             </div>
                             <Button
                               onClick={() => handleAddToCart(course)}
@@ -768,6 +896,7 @@ const HighSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
+
       {/* SEO Content Sections */}
       <section className="py-16 px-4 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto space-y-10">
@@ -775,18 +904,20 @@ const HighSchoolMathPage: React.FC = () => {
             {buildHighSchoolSeoIntroParagraph()}
           </p>
 
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">High School Math Courses</h2>
+
           <div>
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Algebra 2 Tutoring</h2>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Algebra 2 Tutoring</h3>
             <p className="text-gray-600 leading-relaxed">Algebra 2 is where many students hit a wall. Our program breaks down functions, polynomials, and complex equations with a concept-first approach — building real understanding, not just test technique.</p>
           </div>
 
           <div>
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Pre-Calculus Tutoring</h2>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Pre-Calculus Tutoring</h3>
             <p className="text-gray-600 leading-relaxed">For students preparing for Calculus, our Pre-Calculus program covers trigonometry, functions, and analytical geometry. We align with both DUSD and PUSD curriculum pacing.</p>
           </div>
 
           <div>
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Advanced Math Classes</h2>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Advanced Math Classes</h3>
             <p className="text-gray-600 leading-relaxed">
               Our advanced math classes are designed for students working 1–2 grade levels ahead or targeting accelerated placement. We cover{' '}
               <Link href={publicPath('/courses/integrated-math-1-dublin-ca', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:text-[#F16112] hover:underline">
@@ -930,9 +1061,10 @@ const HighSchoolMathPage: React.FC = () => {
             </p>
           </div>
           <Accordion
-            type="multiple"
+            type="single"
+            collapsible
             className="space-y-4"
-            defaultValue={getDefaultOpenFaqValues(HS_MATH_VISIBLE_FAQS.length, (index) => `item-${index}`)}
+            defaultValue="item-0"
           >
             {HS_MATH_VISIBLE_FAQS.map((faq, index) => (
               <AccordionItem
@@ -961,8 +1093,110 @@ const HighSchoolMathPage: React.FC = () => {
       <MathParentGuidesSection locale={locale} pageId="high-school-math" />
       <RelatedContent locale={locale} currentPage="high-school-math" />
 
+      {/* Course Detail Modal */}
+      {selectedCourseId && (
+        <AlertDialog open={!!selectedCourseId} onOpenChange={() => setSelectedCourseId(null)}>
+          <AlertDialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+            {(() => {
+              const course = highSchoolMathCourses.find(c => c.id === selectedCourseId);
+              if (!course) return null;
+
+              return (
+                <div className="flex flex-col">
+                  {/* Header with Close Button */}
+                  <div className="sticky top-0 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
+                    <h2 className="text-2xl font-bold text-gray-900">{course.name}</h2>
+                    <button
+                      onClick={() => setSelectedCourseId(null)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  <div className="flex-1 overflow-y-auto p-6">
+                    {/* Course Description */}
+                    <p className="text-gray-700 text-base leading-relaxed mb-6">{course.description}</p>
+
+                    {/* Course Goals Section */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">Course Goals:</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {course.goals && course.goals.map((goal, idx) => (
+                          <div key={idx} className="flex gap-3">
+                            <Star className="w-5 h-5 text-[#F16112] flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-900 text-sm">{goal.title}:</h4>
+                              <p className="text-gray-600 text-sm mt-1">{goal.description}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-200 my-6"></div>
+
+                    {/* Course Info Section */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Camp Duration</span>
+                        </div>
+                        <span className="text-sm text-gray-600">{course.campDuration}</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Clock className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Class Duration</span>
+                        </div>
+                        <span className="text-sm text-gray-600">{course.duration}</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Price</span>
+                        </div>
+                        <span className="text-lg font-bold text-[#F16112]">${course.groupPrice}.00</span>
+                      </div>
+                    </div>
+
+                    {/* Schedule Selector and Enroll */}
+                    <div className="flex items-end gap-4 pt-4 border-t border-gray-200">
+                      <div className="flex-1">
+                        <label className="block text-sm font-bold text-gray-900 mb-2">Select a schedule</label>
+                        <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent text-gray-700">
+                          <option>10am to Noon</option>
+                          <option>1pm to 3pm</option>
+                          <option>3:30pm to 5:30pm</option>
+                          <option>Online Evening</option>
+                        </select>
+                      </div>
+                      <button
+                        onClick={() => {
+                          handleAddToCart(course);
+                          setSelectedCourseId(null);
+                        }}
+                        className="bg-[#9333EA] hover:bg-[#7e22ce] text-white font-bold py-2.5 px-8 rounded-lg transition-colors whitespace-nowrap"
+                      >
+                        Enroll
+                      </button>
+                    </div>
+
+                    {course.level && (
+                      <p className="text-xs text-gray-500 mt-4">Recommended for: {course.level}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+
       {/* Free Assessment Modal */}
-      <FreeAssessmentModal 
+      <FreeAssessmentModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
       />

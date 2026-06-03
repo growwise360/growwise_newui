@@ -37,6 +37,16 @@ export type ProgramDetails = {
   deliverySummary?: string;
 };
 
+/** Programs kept in data for landing-page JSON-LD but hidden from `/camps/summer` booking grid. */
+export const SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS = new Set<string>([
+  'adv-math',
+  'math-olympiad',
+]);
+
+export function filterSummerCampHubPrograms(programs: Program[]): Program[] {
+  return programs.filter((p) => !SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS.has(p.id));
+}
+
 export type Program = {
   id: string;
   title: string;

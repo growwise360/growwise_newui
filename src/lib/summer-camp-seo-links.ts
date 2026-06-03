@@ -43,7 +43,7 @@ export function getRoboticsFullDaySeoLink(): SummerCampProgramSeoLink {
 
 /** Pillar “Start with one track” link labels — `summerCamp.programGroup.*` in messages. */
 export type SummerCampProgramGroupLinkMsgKey =
-  | 'linkMathOlympiad'
+  | 'linkHighSchoolSummerIntensive'
   | 'linkAiStudio'
   | 'linkGameDevelopment'
   | 'linkRobotics'
@@ -54,9 +54,8 @@ export type SummerCampProgramGroupPillarLink = {
   msgKey: SummerCampProgramGroupLinkMsgKey;
 };
 
-/** Order matches `SUMMER_CAMP_PROGRAM_GROUP_IDS` / conversion cards: Academic → AI & game → Creative writing. No full-day robotics slug here. */
+/** Order matches `SUMMER_CAMP_PROGRAM_GROUP_IDS`: AI & game dev → Creative writing. */
 export const SUMMER_CAMP_PROGRAM_GROUP_SEO_LINKS: readonly (readonly SummerCampProgramGroupPillarLink[])[] = [
-  [{ slug: SUMMER_CAMP_SEO_SLUGS.mathOlympiad, msgKey: 'linkMathOlympiad' }],
   [
     { slug: SUMMER_CAMP_SEO_SLUGS.aiStudio, msgKey: 'linkAiStudio' },
     { slug: SUMMER_CAMP_SEO_SLUGS.gameDevelopment, msgKey: 'linkGameDevelopment' },
@@ -64,6 +63,8 @@ export const SUMMER_CAMP_PROGRAM_GROUP_SEO_LINKS: readonly (readonly SummerCampP
   ],
   [{ slug: SUMMER_CAMP_SEO_SLUGS.youngAuthors, msgKey: 'linkYoungAuthors' }],
 ];
+
+export const HIGH_SCHOOL_SUMMER_INTENSIVE_SEO_SLUG = 'high-school-summer-intensive-dublin-ca';
 
 /** Message path under `summerCamp` for `useTranslations('summerCamp')`. */
 export function summerCampSeoMessagePath(labelKey: SummerCampSeoLinkKey): `seo.${SummerCampSeoLinkKey}` {

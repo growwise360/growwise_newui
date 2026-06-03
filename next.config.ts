@@ -91,7 +91,6 @@ const nextConfig: NextConfig = {
     inlineCss: true,
     // Smaller dev graphs for Webpack + Turbopack (tree-shake barrel imports)
     optimizePackageImports: [
-      'lucide-react',
       'next-intl',
       'recharts',
       'embla-carousel-react',

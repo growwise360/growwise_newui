@@ -1048,6 +1048,64 @@
           "sort_order": 4
         }
       ]
+    },
+    {
+      "id": "elementary-english",
+      "track": "academic",
+      "name": "Elementary English",
+      "tagline": "Reading fluency, vocabulary, grammar, and writing — Grades 1–5",
+      "age_min": 6,
+      "age_max": 11,
+      "studio_only": false,
+      "active": true,
+      "sort_order": 10,
+      "journey_levels": [
+        {
+          "id": "elem-eng-l1",
+          "program_id": "elementary-english",
+          "level_num": 1,
+          "name": "Beginner",
+          "milestones": "Close pillar gaps below grade level",
+          "price_live": 289,
+          "price_studio": 289
+        }
+      ],
+      "tiers": [
+        {
+          "id": "elem-eng-core",
+          "program_id": "elementary-english",
+          "name": "core",
+          "price_live": 289,
+          "price_studio": 289,
+          "is_featured": true,
+          "includes": [
+            "2 sessions per week · 60 min each",
+            "Group of 6–10 at same skill profile",
+            "All four pillars each session",
+            "Monthly parent progress report"
+          ],
+          "sort_order": 1
+        }
+      ],
+      "program_fees": [
+        {
+          "id": "elem-eng-fee-diagnostic",
+          "program_id": "elementary-english",
+          "fee_type": "diagnostic",
+          "name": "Placement assessment",
+          "amount": 0,
+          "description": "Free 45-minute diagnostic"
+        },
+        {
+          "id": "elem-eng-fee-trial",
+          "program_id": "elementary-english",
+          "fee_type": "enrollment",
+          "name": "Trial session",
+          "amount": 45,
+          "description": "Credited in full if enrolled within 7 days"
+        }
+      ],
+      "program_addons": []
     }
   ],
   "last_updated": "2026-03-30T00:00:00Z",

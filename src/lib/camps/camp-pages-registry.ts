@@ -20,6 +20,7 @@ export const CAMP_STATIC_HUB_PATHS = [
   '/camps/winter/calendar',
   '/camps/academic-summer-programs-dublin-ca',
   '/camps/academic-summer-sprint-dublin-ca',
+  '/camps/high-school-summer-intensive-dublin-ca',
 ] as const;
 
 export type CampStaticHubPath = (typeof CAMP_STATIC_HUB_PATHS)[number];
