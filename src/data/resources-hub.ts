@@ -116,6 +116,15 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     href: '/resources/tutoring-dublin-ca',
   },
   {
+    id: 'how-to-choose-summer-camp',
+    category: 'summer-learning',
+    categoryLabel: 'SUMMER LEARNING',
+    title: 'How to Choose the Right Summer Camp for Your Child',
+    description: "A practical guide to matching camp programs with your child's interests, schedule, and learning goals.",
+    readTime: '8 min read',
+    href: '/resources/how-to-choose-summer-camp',
+  },
+  {
     id: 'summer-slide-dublin-ca',
     category: 'summer-learning',
     categoryLabel: 'SUMMER LEARNING',
