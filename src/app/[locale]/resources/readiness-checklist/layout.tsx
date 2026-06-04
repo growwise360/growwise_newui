@@ -9,7 +9,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const path = '/free-dublin-math-reading-readiness-checklist'
+  const path = '/resources/readiness-checklist'
   const meta = generateMetadataFromPath(path, locale)
   const baseUrl = getCanonicalSiteUrl()
   const pageUrl = absoluteSiteUrl(path, locale, baseUrl)
@@ -52,7 +52,7 @@ export default async function ReadinessChecklistLayout({
 }) {
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
-  const path = '/free-dublin-math-reading-readiness-checklist'
+  const path = '/resources/readiness-checklist'
   const pageUrl = absoluteSiteUrl(path, locale, baseUrl)
 
   const faqSchema = {

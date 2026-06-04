@@ -137,18 +137,18 @@ export function ReadinessChecklistClient() {
   return (
     <div className="space-y-10">
       {/* Score Bar */}
-      <div className="sticky top-4 z-10 bg-white border border-[#D8E8E0] rounded-xl p-6 shadow-sm">
+      <div className="sticky top-4 z-10 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
         <div className="flex justify-between items-center mb-3">
-          <span className="text-xs font-bold text-[#5A6472] uppercase tracking-wide">Signs Identified</span>
-          <span className="font-serif text-xl text-[#0F3D22]">{checkedCount} / {TOTAL}</span>
+          <span className="text-xs font-bold text-slate-600 uppercase tracking-wide">Signs Identified</span>
+          <span className="font-semibold text-xl text-[#1E3A5F]">{checkedCount} / {TOTAL}</span>
         </div>
-        <div className="h-2 bg-[#E8F5EE] rounded-full overflow-hidden mb-3">
+        <div className="h-2 bg-slate-100 rounded-full overflow-hidden mb-3">
           <div
-            className="h-full bg-[#1A6B3C] rounded-full transition-all duration-300"
+            className="h-full bg-[#F97316] rounded-full transition-all duration-300"
             style={{ width: `${pct}%` }}
           />
         </div>
-        <div className={`text-sm min-h-5 ${scoreMessage.alert ? 'text-[#0F3D22] font-medium' : 'text-[#5A6472]'}`}>
+        <div className={`text-sm min-h-5 ${scoreMessage.alert ? 'text-[#1E3A5F] font-medium' : 'text-slate-600'}`}>
           {scoreMessage.text}
         </div>
       </div>
@@ -156,31 +156,31 @@ export function ReadinessChecklistClient() {
       {/* Checklist Sections */}
       <div className="space-y-8">
         {sections.map((section) => (
-          <div key={section.name} className="rounded-lg overflow-hidden border border-[#D8E8E0]">
-            <div className="bg-[#1A6B3C] text-white px-5 py-3 font-bold text-sm uppercase tracking-wider">
+          <div key={section.name} className="overflow-hidden rounded-lg border border-slate-200">
+            <div className="bg-[#1E3A5F] text-white px-5 py-3 font-bold text-sm uppercase tracking-wider">
               {section.name}
             </div>
-            <div className="bg-white divide-y divide-[#D8E8E0]">
+            <div className="divide-y divide-slate-200 bg-white">
               {section.items.map(({ idx, text }) => (
                 <div
                   key={idx}
                   onClick={() => handleToggle(idx)}
                   className={`flex items-start gap-3 p-4 cursor-pointer transition-colors user-select-none ${
-                    checked.has(idx) ? 'bg-[#E8F5EE]' : 'hover:bg-[#E8F5EE]'
+                    checked.has(idx) ? 'bg-orange-50' : 'hover:bg-slate-50'
                   }`}
                 >
                   <div
-                    className={`w-5 h-5 flex-shrink-0 border-2 rounded flex items-center justify-center transition-all mt-0.5 ${
+                    className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border-2 transition-all ${
                       checked.has(idx)
-                        ? 'bg-[#1A6B3C] border-[#1A6B3C]'
-                        : 'border-[#C8E6D6] bg-white'
+                        ? 'border-[#F97316] bg-[#F97316]'
+                        : 'border-slate-300 bg-white'
                     }`}
                   >
                     {checked.has(idx) && <span className="text-white text-xs font-bold">✓</span>}
                   </div>
                   <span
-                    className={`text-sm leading-normal flex-1 ${
-                      checked.has(idx) ? 'text-[#0F3D22] font-medium' : 'text-[#1A1A1A]'
+                    className={`flex-1 text-sm leading-normal ${
+                      checked.has(idx) ? 'text-[#1E3A5F] font-medium' : 'text-slate-900'
                     }`}
                   >
                     {text}
@@ -194,12 +194,20 @@ export function ReadinessChecklistClient() {
 
       {/* Dynamic Result Block */}
       {resultBlock && resultBlock.visible && (
-        <div className="bg-[#E8F5EE] border-2 border-[#C8E6D6] rounded-xl p-7 text-center">
-          <h3 className="font-serif text-2xl text-[#0F3D22] mb-2">{resultBlock.title}</h3>
-          <p className="text-[#5A6472] text-sm mb-5">{resultBlock.text}</p>
+        <div className="rounded-xl border-2 border-orange-200 bg-orange-50 p-7 text-center">
+          <h3 className="font-heading text-2xl font-bold text-[#1E3A5F] mb-2">{resultBlock.title}</h3>
+          <p className="text-slate-700 text-sm mb-5">{resultBlock.text}</p>
           <a
             href="https://growwiseschool.org/contact"
-            className="inline-block bg-[#1A6B3C] text-white font-bold text-sm px-7 py-3 rounded-lg hover:bg-[#0F3D22] transition-colors"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'assessment_cta_click', {
+                  score: checkedCount,
+                  source: 'readiness_checklist_high_intent',
+                })
+              }
+            }}
+            className="inline-block bg-[#F97316] text-white font-bold text-sm px-7 py-3 rounded-lg hover:bg-orange-500 transition-colors"
           >
             Book a Free Academic Gap Assessment
           </a>

@@ -1,6 +1,6 @@
 export const RESOURCES_PATH = '/resources' as const
 
-export type ResourceCategory = 'academic' | 'stem' | 'sat-prep' | 'local' | 'summer-learning'
+export type ResourceCategory = 'academic' | 'stem' | 'sat-prep' | 'local' | 'summer-learning' | 'parent-resources'
 
 export type ResourceFilterId = 'all' | ResourceCategory
 
@@ -16,6 +16,7 @@ export type ResourceGuide = {
 
 export const RESOURCE_FILTERS: ReadonlyArray<{ id: ResourceFilterId; label: string }> = [
   { id: 'all', label: 'All' },
+  { id: 'parent-resources', label: 'Parent Resources' },
   { id: 'academic', label: 'Academic' },
   { id: 'summer-learning', label: 'Summer Learning' },
   { id: 'stem', label: 'STEM' },
@@ -24,6 +25,9 @@ export const RESOURCE_FILTERS: ReadonlyArray<{ id: ResourceFilterId; label: stri
 ]
 
 export function resourceCategoryTagClass(category: ResourceCategory): string {
+  if (category === 'parent-resources') {
+    return 'bg-[#F97316]/10 text-[#1E3A5F] ring-1 ring-[#F97316]/20'
+  }
   if (category === 'stem') {
     return 'bg-[#F16112]/10 text-[#C45A1A] ring-1 ring-[#F16112]/20'
   }
@@ -40,6 +44,26 @@ export function resourceCategoryTagClass(category: ResourceCategory): string {
 }
 
 export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
+  {
+    id: 'math-reading-readiness-checklist',
+    category: 'parent-resources',
+    categoryLabel: 'PARENT RESOURCES',
+    title: 'Free Math & Reading Readiness Checklist',
+    description:
+      'Quick interactive tool to identify academic gaps in grades 1–8. No signup required. Takes 3 minutes.',
+    readTime: 'Interactive',
+    href: '/resources/readiness-checklist',
+  },
+  {
+    id: 'self-check',
+    category: 'parent-resources',
+    categoryLabel: 'PARENT RESOURCES',
+    title: 'Free Self-Check Diagnostic Tool',
+    description:
+      'Interactive assessment to help your child discover their learning style and identify knowledge gaps quickly.',
+    readTime: 'Interactive',
+    href: '/self-check',
+  },
   {
     id: 'reading-fluency-vs-comprehension',
     category: 'academic',
