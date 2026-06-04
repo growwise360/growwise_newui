@@ -238,6 +238,15 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/self-check',
   },
 
+  '/free-dublin-math-reading-readiness-checklist': {
+    title: 'Free Math & Reading Readiness Checklist for Parents | GrowWise School Dublin CA',
+    description:
+      'Free downloadable checklist for Dublin and Tri-Valley parents. Identify math gaps, reading comprehension issues, and writing weaknesses in grades 1–8. No signup required.',
+    keywords:
+      'math readiness checklist, reading comprehension assessment, academic gap finder, learning gaps checklist, Dublin math tutor, Tri-Valley education, parent resources, grades 1-8',
+    path: '/free-dublin-math-reading-readiness-checklist',
+  },
+
   '/book-assessment': {
     title: 'Free Math & English Assessment for Kids | GrowWise Dublin',
     description:

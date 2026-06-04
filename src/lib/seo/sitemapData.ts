@@ -55,6 +55,7 @@ const corePages: SitemapEntry[] = [
   { path: '/enroll-academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/book-assessment', priority: 0.9, changefreq: 'monthly' },
   { path: '/self-check', priority: 0.85, changefreq: 'monthly' },
+  { path: '/free-dublin-math-reading-readiness-checklist', priority: 0.85, changefreq: 'monthly' },
   { path: '/math-finals-practice-session', priority: 0.85, changefreq: 'weekly' },
   { path: '/workshop-calendar', priority: 0.8, changefreq: 'weekly' },
   { path: '/programs', priority: 0.8, changefreq: 'monthly' },
