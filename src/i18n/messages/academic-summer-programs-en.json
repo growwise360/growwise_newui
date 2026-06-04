@@ -142,6 +142,11 @@
     "body": "Academic sprints run June–August. GrowWise also offers full-day STEAM camps and year-round tutoring at our Dublin campus.",
     "items": [
       {
+        "href": "/camps/high-school-summer-intensive-dublin-ca",
+        "label": "High School Summer Math Intensive",
+        "description": "6-week Algebra, Precalculus, and Calculus AB — Grades 8–12"
+      },
+      {
         "href": "/camps/summer",
         "label": "Summer STEAM Camps 2026",
         "description": "Coding, robotics, AI, and math camps — June through August"

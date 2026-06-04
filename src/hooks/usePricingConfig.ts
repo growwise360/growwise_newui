@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export type DeliveryMode = 'live' | 'studio';
 export type TierName = 'core' | 'plus' | 'elite';
-export type Track = 'coding' | 'game-dev';
+export type Track = 'coding' | 'game-dev' | 'academic';
 
 export interface JourneyLevel {
   id: string;

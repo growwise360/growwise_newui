@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { Check } from 'lucide-react';
 import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSummerProgramsTeaserBand';
+import { HighSchoolSummerIntensiveTeaserBand } from '@/components/camps/HighSchoolSummerIntensiveTeaserBand';
 import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
 import type { Program } from '@/lib/summer-camp-data';
 import {
@@ -164,8 +165,6 @@ export const ProgramList = memo(function ProgramList({
 
   const sectionHeading = (track: SummerCampProgramTrack | 'unknown') => {
     switch (track) {
-      case 'academic':
-        return t('filter.trackAcademic');
       case 'aiGameDev':
         return t('filter.trackAiGameDev');
       case 'creativeWriting':
@@ -240,8 +239,11 @@ export const ProgramList = memo(function ProgramList({
                 )}
               </ul>
             </section>
-            {group.track === 'academic' && showAcademicTeaser ? (
-              <AcademicSummerProgramsTeaserBand locale={locale} />
+            {group.track === 'aiGameDev' && showAcademicTeaser ? (
+              <>
+                <HighSchoolSummerIntensiveTeaserBand locale={locale} />
+                <AcademicSummerProgramsTeaserBand locale={locale} />
+              </>
             ) : null}
           </Fragment>
         ))}
@@ -268,8 +270,11 @@ export const ProgramList = memo(function ProgramList({
                 )}
               </ul>
             </section>
-            {group.track === 'academic' && showAcademicTeaser ? (
-              <AcademicSummerProgramsTeaserBand locale={locale} />
+            {group.track === 'aiGameDev' && showAcademicTeaser ? (
+              <>
+                <HighSchoolSummerIntensiveTeaserBand locale={locale} />
+                <AcademicSummerProgramsTeaserBand locale={locale} />
+              </>
             ) : null}
           </Fragment>
         ))}

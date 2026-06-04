@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
 const CHECKLIST_ITEMS = [
   // Math Readiness — Grades 1–4
@@ -53,6 +53,20 @@ interface ChecklistSection {
 
 export function ReadinessChecklistClient() {
   const [checked, setChecked] = useState<Set<number>>(new Set())
+  const [viewedAnyItem, setViewedAnyItem] = useState(false)
+
+  // Compliance: Track engagement
+  useEffect(() => {
+    if (checked.size > 0 && !viewedAnyItem) {
+      setViewedAnyItem(true)
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'checklist_engagement', {
+          event_category: 'checklist',
+          event_label: 'user_started',
+        })
+      }
+    }
+  }, [checked.size, viewedAnyItem])
 
   const handleToggle = (idx: number) => {
     const newSet = new Set(checked)
@@ -62,6 +76,15 @@ export function ReadinessChecklistClient() {
       newSet.add(idx)
     }
     setChecked(newSet)
+
+    // Compliance: Track in GA4 (non-invasive)
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'checklist_item_toggled', {
+        checked_count: newSet.size,
+        total_items: TOTAL,
+        item_section: CHECKLIST_ITEMS[idx].section,
+      })
+    }
   }
 
   const checkedCount = checked.size

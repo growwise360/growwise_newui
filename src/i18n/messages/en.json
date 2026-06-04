@@ -702,9 +702,11 @@
       "gameDevelopment": "Game development summer camp program",
       "robotics": "Robotics summer camp (Dublin, CA)",
       "roboticsFullDay": "Full-day robotics summer camp option",
-      "youngAuthors": "Young Authors summer camp writing program"
+      "youngAuthors": "Young Authors summer camp writing program",
+      "highSchoolSummerIntensive": "High School Summer Intensive (Dublin, CA)"
     },
     "programGroup": {
+      "linkHighSchoolSummerIntensive": "High School Summer Intensive",
       "linkMathOlympiad": "Math Olympiad Camp Details",
       "linkAiStudio": "AI Studio Camp Details",
       "linkGameDevelopment": "Game Development Camp Details",
@@ -787,9 +789,9 @@
       "exploreProgramCta": "Explore Program →",
       "programGroups": [
         {
-          "title": "Academic Camp",
-          "outcome": "Math Olympiad (AMC8 / MOEMS) and High School Math—structured intensives that match how we run camps year-round.",
-          "ages": "Grades 3–12"
+          "title": "High School Summer Intensive",
+          "outcome": "6-week Algebra, Precalculus, and Calculus AB intensives—small groups, in-person in Dublin.",
+          "ages": "Grades 8–12"
         },
         {
           "title": "AI & Game Development",

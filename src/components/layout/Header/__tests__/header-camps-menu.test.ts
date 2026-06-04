@@ -11,12 +11,21 @@ function getCampsDropdownItems() {
 describe('header camps dropdown menu', () => {
   const items = getCampsDropdownItems();
 
-  it('exposes three visible camp hub links in order', () => {
+  it('exposes four visible camp hub links in order', () => {
     expect(items.map((item) => item.key)).toEqual([
       'summerCamp',
       'academicSummerPrograms',
+      'highSchoolSummerIntensive',
       'workshopCalendar',
     ]);
+  });
+
+  it('includes high school summer intensive entry with href', () => {
+    const hs = items.find((item) => item.key === 'highSchoolSummerIntensive');
+    expect(hs).toMatchObject({
+      title: 'High School Intensive',
+      href: '/camps/high-school-summer-intensive-dublin-ca',
+    });
   });
 
   it('includes academic summer programs entry with badge and href', () => {
