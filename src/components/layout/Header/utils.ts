@@ -4,6 +4,7 @@ import {
   ROUTE_PATH_PATTERNS_HIDE_CART,
   FALLBACK_MENU_ITEMS,
   MATH_GRADE_BAND_NAV_ITEMS,
+  ENGLISH_SUBMENU_NAV_ITEMS,
 } from './constants';
 import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
 import { ENABLED_LOCALES } from '@/i18n/localeConfig';
@@ -101,19 +102,31 @@ export function normalizeAcademicMathNav(menuItems: MenuItem[]): MenuItem[] {
     }
 
     const items = item.dropdown.items.map((dropdownItem) => {
-      if (dropdownItem.key !== 'math') {
-        return dropdownItem;
+      if (dropdownItem.key === 'math') {
+        return {
+          ...dropdownItem,
+          href: dropdownItem.href?.trim() || MATH_COURSE_PATHS.hub,
+          hasSubmenu: true,
+          submenuItems:
+            dropdownItem.submenuItems?.length && dropdownItem.submenuItems.length > 0
+              ? dropdownItem.submenuItems
+              : MATH_GRADE_BAND_NAV_ITEMS,
+        };
       }
 
-      return {
-        ...dropdownItem,
-        href: dropdownItem.href?.trim() || MATH_COURSE_PATHS.hub,
-        hasSubmenu: true,
-        submenuItems:
-          dropdownItem.submenuItems?.length && dropdownItem.submenuItems.length > 0
-            ? dropdownItem.submenuItems
-            : MATH_GRADE_BAND_NAV_ITEMS,
-      };
+      if (dropdownItem.key === 'english') {
+        return {
+          ...dropdownItem,
+          href: dropdownItem.href?.trim() || MATH_COURSE_PATHS.english,
+          hasSubmenu: true,
+          submenuItems:
+            dropdownItem.submenuItems?.length && dropdownItem.submenuItems.length > 0
+              ? dropdownItem.submenuItems
+              : ENGLISH_SUBMENU_NAV_ITEMS,
+        };
+      }
+
+      return dropdownItem;
     });
 
     return {

@@ -44,6 +44,18 @@ export const MATH_GRADE_BAND_NAV_ITEMS: SubmenuItem[] = [
   },
 ];
 
+/** Grade-band links under Academic → English (desktop flyout + mobile accordion). */
+export const ENGLISH_SUBMENU_NAV_ITEMS: SubmenuItem[] = [
+  {
+    key: 'elementary-english',
+    title: 'Elementary School English',
+    description: 'Grades 1–5 reading fluency, vocabulary, grammar, and writing.',
+    icon: 'BookOpen',
+    href: MATH_COURSE_PATHS.englishElementary,
+    gradient: 'from-[#F16112] to-[#F1894F]',
+  },
+];
+
 // Icon mapping for dynamic icon rendering
 export const ICON_MAP = {
   Calculator,
@@ -140,6 +152,10 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           icon: 'BookOpen',
           href: MATH_COURSE_PATHS.english,
           gradient: 'from-[#F16112] to-[#F1894F]',
+          hasSubmenu: true,
+          submenuHeaderTitle: 'English',
+          submenuHeaderSubtitle: 'Grades 1–12 English programs',
+          submenuItems: ENGLISH_SUBMENU_NAV_ITEMS,
         },
         {
           key: 'satPrep',

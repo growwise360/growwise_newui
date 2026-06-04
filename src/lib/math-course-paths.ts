@@ -9,6 +9,7 @@ export const MATH_COURSE_PATHS = {
   highSchool: '/academic/math/high-school',
   mathFinalsPrep: '/math-finals-practice-session',
   english: '/academic/english',
+  englishElementary: '/academic/english/elementary',
 } as const;
 
 export type MathCoursePathKey = keyof typeof MATH_COURSE_PATHS;
