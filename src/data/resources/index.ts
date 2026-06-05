@@ -1,5 +1,6 @@
 import { AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_PATH } from '@/data/resources/affordable-summer-academic-programs-dublin-ca'
 import { CARELESS_MATH_MISTAKES_PATH } from '@/data/resources/careless-math-mistakes-copy'
+import { HOW_TO_CHOOSE_SUMMER_CAMP_PATH } from '@/data/resources/how-to-choose-summer-camp'
 import { WHY_GRADES_PATH } from '@/data/resources/why-grades-hide-learning-gaps-copy'
 import { HOMEWORK_INDEPENDENCE_PATH } from '@/data/resources/homework-independence-copy'
 import { IM1_SUMMER_PREP_DUBLIN_CA_PATH } from '@/data/resources/im1-summer-prep-dublin-ca'
@@ -13,11 +14,14 @@ import { SUMMER_WRITING_PROGRAM_DUBLIN_CA_PATH } from '@/data/resources/summer-w
 import { TUTORING_DUBLIN_CA_PATH } from '@/data/resources/tutoring-dublin-ca'
 import { WHAT_IS_VIBE_CODING_PATH } from '@/data/resources/what-is-vibe-coding-copy'
 import { WHEN_TO_START_SAT_PREP_PATH } from '@/data/resources/when-to-start-sat-prep'
+import { READINESS_CHECKLIST_PATH } from '@/data/resources/readiness-checklist'
 
 /** Resource article paths for sitemap and routing registry. */
 export const RESOURCE_ARTICLE_PATHS = [
+  READINESS_CHECKLIST_PATH,
   READING_FLUENCY_VS_COMPREHENSION_PATH,
   CARELESS_MATH_MISTAKES_PATH,
+  HOW_TO_CHOOSE_SUMMER_CAMP_PATH,
   HOMEWORK_INDEPENDENCE_PATH,
   WHAT_IS_VIBE_CODING_PATH,
   WHEN_TO_START_SAT_PREP_PATH,

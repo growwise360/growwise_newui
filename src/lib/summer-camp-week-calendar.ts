@@ -78,6 +78,14 @@ export function formatCampWeekSlotHeading(weekIndex0: number): string {
   return `Week ${weekIndex0 + 1} (${dates})`;
 }
 
+/**
+ * Registration is closed for camp slots that start on June 8, 2026.
+ * Uses the rendered slot label so generated one-week and multi-week slots share the same guard.
+ */
+export function isJune8SummerCampRegistrationClosed(slotLabel: string): boolean {
+  return /\bJun\s+8\b/.test(slotLabel);
+}
+
 /** Math Olympiad Tier 2: `Weeks 1-2 (Jun 8 – Jun 19, 2026)` */
 export function formatOlympiadTier2SlotHeading(slotIndex0: number): string {
   const dates = getMathOlympiadTier2SlotLabel(slotIndex0);

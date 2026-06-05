@@ -51,6 +51,7 @@ import { formatAdvMathWeekSlotHeading } from '@/lib/adv-math-week-sessions';
 import {
   formatCampWeekSlotHeading,
   formatOlympiadTier2SlotHeading,
+  isJune8SummerCampRegistrationClosed,
   SUMMER_CAMP_JULY4_NOTE,
   SUMMER_CAMP_SEASON_RANGE_TEXT,
 } from '@/lib/summer-camp-week-calendar';
@@ -228,15 +229,18 @@ export function SlotRow({
 }) {
   const t = useTranslations('summerCamp');
   const inCart = cartItemIds.has(slot.id);
+  const registrationClosed = isJune8SummerCampRegistrationClosed(slot.label);
 
   return (
     <div
       className={`flex items-center justify-between gap-3 px-4 py-2 max-[768px]:flex-col max-[768px]:items-stretch max-[768px]:gap-2 max-[768px]:py-2.5 ${
-        inCart ? 'bg-green-50/30' : ''
+        inCart ? 'bg-green-50/30' : registrationClosed ? 'bg-slate-50' : ''
       }`}
     >
       <div className="min-w-0 flex-1">
-        <div className="truncate text-[12px] font-bold leading-tight text-slate-800 max-[768px]:whitespace-normal max-[768px]:line-clamp-2">
+        <div className={`truncate text-[12px] font-bold leading-tight max-[768px]:whitespace-normal max-[768px]:line-clamp-2 ${
+          registrationClosed ? 'text-slate-500' : 'text-slate-800'
+        }`}>
           {slot.label}
         </div>
         <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0 text-[11px] text-slate-600">
@@ -250,11 +254,21 @@ export function SlotRow({
             {slot.format}
           </span>
           <span className="text-slate-700">{slot.time}</span>
+          {registrationClosed ? (
+            <span className="font-bold text-slate-500">Registration closed</span>
+          ) : null}
         </div>
       </div>
       <div className="flex shrink-0 items-center gap-2.5 max-[768px]:w-full max-[768px]:justify-between max-[768px]:border-t max-[768px]:border-slate-100 max-[768px]:pt-2">
         <span className="text-[13px] font-black tabular-nums text-slate-900">${slot.price}</span>
-        {inCart ? (
+        {registrationClosed ? (
+          <EnrollmentCompactAddButton
+            label="Closed"
+            ariaLabel={`Registration closed for ${slot.label}`}
+            onClick={() => undefined}
+            disabled
+          />
+        ) : inCart ? (
           <EnrollmentCompactAddButton
             label={t('slots.remove')}
             ariaLabel={`${t('slots.remove')} ${slot.label}`}
@@ -357,6 +371,7 @@ export function SlotsPanel({
 
   const handleAdd = (level: Level, slot: Slot) => {
     if (summerCampItemIds.has(slot.id)) return;
+    if (isJune8SummerCampRegistrationClosed(slot.label)) return;
     void import('@/lib/meta-pixel').then(({ trackEnrollClick }) =>
       trackEnrollClick(program.title, slot.price)
     );

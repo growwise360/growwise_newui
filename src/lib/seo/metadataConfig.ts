@@ -247,6 +247,25 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/self-check',
   },
 
+  '/resources/readiness-checklist': {
+    title: 'Free Math & Reading Readiness Checklist for Parents | GrowWise School Dublin CA',
+    description:
+      'Free interactive checklist for Dublin and Tri-Valley parents. Identify math gaps, reading comprehension issues, and writing weaknesses in grades 1–8. No signup required.',
+    keywords:
+      'math readiness checklist, reading comprehension assessment, academic gap finder, learning gaps checklist, Dublin math tutor, Tri-Valley education, parent resources, grades 1-8',
+    path: '/resources/readiness-checklist',
+  },
+
+  '/resources/how-to-choose-summer-camp': {
+    title: 'How to Choose the Right Summer Camp | Parent Guide | GrowWise',
+    description:
+      "Interactive parent guide for choosing between academic sprint, STEAM coding, and enrichment camps based on your child's grade, goal, and gaps.",
+    keywords:
+      'how to choose summer camp, parent summer camp guide, Dublin CA summer camp, academic summer camp, STEAM summer camp, kids camp selection',
+    path: '/resources/how-to-choose-summer-camp',
+    type: 'article',
+  },
+
   '/book-assessment': {
     title: 'Free Math & English Assessment for Kids | GrowWise Dublin',
     description:
@@ -329,6 +348,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
       'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',
     image: CAMP_SUMMER_BANNER_IMAGE,
+  },
+
+  '/camps/high-school-summer-intensive-dublin-ca': {
+    title: 'High School Summer Math | Dublin CA',
+    description:
+      'Six-week summer math intensives for Algebra 1, Algebra 2, Precalculus, and Calculus AB in Dublin, CA.',
+    keywords:
+      'high school summer math Dublin CA, Algebra 1 summer intensive, Algebra 2 summer course, Precalculus summer, Calculus AB prep',
+    path: '/camps/high-school-summer-intensive-dublin-ca',
+    image: CAMP_ACADEMIC_BANNER_IMAGE,
   },
 
   '/camps/summer/guide-success': {

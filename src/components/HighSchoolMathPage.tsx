@@ -748,7 +748,7 @@ const HighSchoolMathPage: React.FC = () => {
                   } ${
                     !isTouchDevice && isHovered ? 'rotate-y-180' : ''
                   }`}>
-                    
+
                     {/* Front Side - Clean Layout */}
                     <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.1)] border-2 border-white/50 hover:border-gray-200 ${!isTouchDevice ? 'backface-hidden' : ''} group-hover:scale-105 transition-all duration-300`}>
                       <CardContent className="p-5 relative flex flex-col h-full justify-between">
@@ -776,7 +776,7 @@ const HighSchoolMathPage: React.FC = () => {
                         {/* Course Description */}
                         <div className="flex-grow">
                           <p className="text-gray-600 text-sm mb-4 leading-relaxed">{course.description}</p>
-                          
+
                           {/* Pricing Display */}
                           <div className="mb-4 space-y-3">
                             <div className="flex items-center justify-between p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
@@ -815,7 +815,7 @@ const HighSchoolMathPage: React.FC = () => {
 
                         {/* Bottom Section - CTA */}
                         <div className="flex-shrink-0">
-                          <Button 
+                          <Button
                             onClick={() => handleAddToCart(course)}
                             className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
                           >

@@ -4,6 +4,7 @@ import { join } from 'path';
 import {
   FALLBACK_MENU_ITEMS,
   MATH_GRADE_BAND_NAV_ITEMS,
+  ENGLISH_SUBMENU_NAV_ITEMS,
 } from '@/components/layout/Header/constants';
 import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
 
@@ -40,13 +41,17 @@ describe('header academic math nested menu', () => {
     ]);
   });
 
-  it('has English as a direct Academic link', () => {
+  it('has English with elementary link in flyout', () => {
     const english = academicItems.find((item) => item.key === 'english');
     expect(english).toMatchObject({
       title: 'English Courses',
       href: MATH_COURSE_PATHS.english,
+      hasSubmenu: true,
     });
-    expect(english?.hasSubmenu).toBeFalsy();
+    expect(english?.submenuItems).toEqual(ENGLISH_SUBMENU_NAV_ITEMS);
+    expect(english?.submenuItems?.map((item) => item.href)).toEqual([
+      MATH_COURSE_PATHS.englishElementary,
+    ]);
   });
 
   it('does not expose duplicate top-level High School Math flyout', () => {
@@ -81,6 +86,10 @@ describe('header academic math nested menu', () => {
       MATH_COURSE_PATHS.elementary,
       MATH_COURSE_PATHS.middleSchool,
       MATH_COURSE_PATHS.highSchool,
+    ]);
+    const apiEnglish = apiItems.find((item) => item.key === 'english');
+    expect(apiEnglish?.submenuItems?.map((item) => item.href)).toEqual([
+      MATH_COURSE_PATHS.englishElementary,
     ]);
   });
 });

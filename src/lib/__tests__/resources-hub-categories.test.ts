@@ -5,17 +5,27 @@ import {
 } from '@/data/resources-hub'
 
 describe('resources-hub categories', () => {
-  it('includes Summer Learning and STEM filters', () => {
+  it('includes Summer Learning, STEM, and Parent Resources filters', () => {
     const filterIds = RESOURCE_FILTERS.map((filter) => filter.id)
     expect(filterIds).toContain('summer-learning')
     expect(filterIds).toContain('stem')
+    expect(filterIds).toContain('parent-resources')
     expect(filterIds).not.toContain('steam')
   })
 
-  it('tags six summer guides as summer-learning', () => {
+  it('tags seven summer guides as summer-learning', () => {
     const summerGuides = RESOURCE_GUIDES.filter((guide) => guide.category === 'summer-learning')
     expect(summerGuides).toHaveLength(7)
     expect(summerGuides.every((guide) => guide.categoryLabel === 'SUMMER LEARNING')).toBe(true)
+  })
+
+  it('tags parent resources including readiness checklist, self-check, and camp guide', () => {
+    const parentResources = RESOURCE_GUIDES.filter((guide) => guide.category === 'parent-resources')
+    expect(parentResources).toHaveLength(3)
+    expect(parentResources.every((guide) => guide.categoryLabel === 'PARENT RESOURCES')).toBe(true)
+    expect(parentResources.map((guide) => guide.id)).toEqual(
+      expect.arrayContaining(['math-reading-readiness-checklist', 'self-check', 'how-to-choose-summer-camp']),
+    )
   })
 
   it('tags coding guides as STEM', () => {
