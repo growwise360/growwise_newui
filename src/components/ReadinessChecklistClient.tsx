@@ -19,6 +19,9 @@ interface ChecklistSection {
 
 type ThresholdKey = 'watch' | 'clear'
 
+const READINESS_FEEDBACK_SESSION_KEY = 'growwise_readiness_feedback_state'
+const READINESS_SHARE_URL = 'https://growwiseschool.org/readinesschecklist'
+
 function getScoreRate(count: number, total: number) {
   return total > 0 ? Math.round((count / total) * 100) : 0
 }
@@ -54,8 +57,12 @@ export function ReadinessChecklistClient() {
   const [evaluationReadyKey, setEvaluationReadyKey] = useState('')
   const [showFixedScoreBar, setShowFixedScoreBar] = useState(false)
   const [exportError, setExportError] = useState('')
+  const [feedbackVisible, setFeedbackVisible] = useState(false)
+  const [feedbackRating, setFeedbackRating] = useState<number | null>(null)
+  const [shareCopied, setShareCopied] = useState(false)
   const startedTracked = useRef(false)
   const reachedThresholds = useRef<Set<ThresholdKey>>(new Set())
+  const feedbackTimerRef = useRef<number | null>(null)
   const scoreBarRef = useRef<HTMLDivElement | null>(null)
   const checklistEndRef = useRef<HTMLDivElement | null>(null)
 
@@ -173,6 +180,14 @@ export function ReadinessChecklistClient() {
     }
   }, [activeTotal, checkedCount, gradeBandId])
 
+  useEffect(() => {
+    return () => {
+      if (feedbackTimerRef.current !== null) {
+        window.clearTimeout(feedbackTimerRef.current)
+      }
+    }
+  }, [])
+
   const scoreMessage = useMemo(() => {
     if (checkedCount === 0) {
       return 'Check the signs that apply to your child.'
@@ -197,6 +212,68 @@ export function ReadinessChecklistClient() {
         : 'Export the report to see the detailed interpretation and suggested next steps.',
     }
   }, [checkedCount, evaluationStatus])
+
+  const hasFeedbackSessionState = () => {
+    if (typeof window === 'undefined') return true
+    return Boolean(window.sessionStorage.getItem(READINESS_FEEDBACK_SESSION_KEY))
+  }
+
+  const scheduleFeedbackPrompt = () => {
+    if (typeof window === 'undefined' || hasFeedbackSessionState()) return
+
+    if (feedbackTimerRef.current !== null) {
+      window.clearTimeout(feedbackTimerRef.current)
+    }
+
+    feedbackTimerRef.current = window.setTimeout(() => {
+      if (hasFeedbackSessionState()) return
+      setFeedbackVisible(true)
+      trackChecklistEvent('readiness_feedback_shown', {
+        checked_count: checkedCount,
+        total_items: activeTotal,
+        grade_band: selectedGradeBand.label,
+      })
+    }, 1200)
+  }
+
+  const handleDismissFeedback = () => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.setItem(READINESS_FEEDBACK_SESSION_KEY, 'dismissed')
+    }
+    setFeedbackVisible(false)
+    trackChecklistEvent('readiness_feedback_dismissed', {
+      checked_count: checkedCount,
+      total_items: activeTotal,
+      grade_band: selectedGradeBand.label,
+    })
+  }
+
+  const handleFeedbackRating = (rating: number) => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.setItem(READINESS_FEEDBACK_SESSION_KEY, `rated:${rating}`)
+    }
+    setFeedbackRating(rating)
+    setShareCopied(false)
+    trackChecklistEvent('readiness_feedback_rated', {
+      rating,
+      checked_count: checkedCount,
+      total_items: activeTotal,
+      grade_band: selectedGradeBand.label,
+    })
+  }
+
+  const handleCopyShareUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(READINESS_SHARE_URL)
+      setShareCopied(true)
+      trackChecklistEvent('readiness_feedback_link_copied', {
+        rating: feedbackRating ?? 0,
+        grade_band: selectedGradeBand.label,
+      })
+    } catch {
+      setShareCopied(false)
+    }
+  }
 
   const handleExportReport = async () => {
     if (evaluationStatus !== 'ready') return
@@ -229,6 +306,7 @@ export function ReadinessChecklistClient() {
       reportWindow.document.write(payload.html)
       reportWindow.document.close()
       setExportError('')
+      scheduleFeedbackPrompt()
 
       trackChecklistEvent('readiness_report_export_clicked', {
         checked_count: checkedCount,
@@ -397,6 +475,80 @@ export function ReadinessChecklistClient() {
           </button>
           {exportError ? (
             <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold text-white">{exportError}</p>
+          ) : null}
+          {feedbackVisible ? (
+            <div className="mx-auto mt-6 max-w-2xl border border-slate-200 border-l-[3px] border-l-[#F97316] bg-white p-5 text-left text-slate-900 shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h4 className="text-base font-black text-[#1E3A5F]">Was this helpful?</h4>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                    Your rating helps us improve this free resource. No email required.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleDismissFeedback}
+                  aria-label="Dismiss feedback"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-bold leading-none text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2" role="radiogroup" aria-label="Rate this report">
+                {[1, 2, 3, 4, 5].map((rating) => {
+                  const selected = feedbackRating === rating
+                  return (
+                    <button
+                      key={rating}
+                      type="button"
+                      role="radio"
+                      aria-checked={selected}
+                      aria-label={`${rating} star${rating === 1 ? '' : 's'}`}
+                      onClick={() => handleFeedbackRating(rating)}
+                      className={`min-h-10 rounded-full border bg-white px-3 text-xl leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] ${
+                        selected
+                          ? 'border-[#F97316] text-[#F97316]'
+                          : 'border-slate-200 text-slate-400 hover:border-[#F97316]/60 hover:text-[#F97316]'
+                      }`}
+                    >
+                      ★
+                    </button>
+                  )
+                })}
+              </div>
+
+              {feedbackRating ? (
+                <div className="mt-4 border-t border-slate-200 pt-4">
+                  {feedbackRating >= 4 ? (
+                    <>
+                      <p className="text-sm font-semibold text-[#1E3A5F]">
+                        Thank you. Want to share it with another parent or program?
+                      </p>
+                      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                        <input
+                          readOnly
+                          value={READINESS_SHARE_URL}
+                          aria-label="Readiness checklist share URL"
+                          className="min-h-10 flex-1 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-700"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleCopyShareUrl}
+                          className="inline-flex min-h-10 items-center justify-center rounded-lg border border-[#1E3A5F] bg-white px-4 text-sm font-black text-[#1E3A5F] transition-colors hover:bg-slate-50"
+                        >
+                          {shareCopied ? 'Copied' : 'Copy link'}
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-sm font-semibold text-[#1E3A5F]">
+                      Thank you. We&apos;ll use this to make the report clearer.
+                    </p>
+                  )}
+                </div>
+              ) : null}
+            </div>
           ) : null}
         </div>
       ) : null}
