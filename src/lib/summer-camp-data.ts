@@ -37,6 +37,16 @@ export type ProgramDetails = {
   deliverySummary?: string;
 };
 
+/** Programs kept in data for landing-page JSON-LD but hidden from `/camps/summer` booking grid. */
+export const SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS = new Set<string>([
+  'adv-math',
+  'math-olympiad',
+]);
+
+export function filterSummerCampHubPrograms(programs: Program[]): Program[] {
+  return programs.filter((p) => !SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS.has(p.id));
+}
+
 export type Program = {
   id: string;
   title: string;
@@ -273,13 +283,6 @@ export function getDefaultSummerCampData(): ReturnType<typeof hydrateSummerCampD
     _defaultData = hydrateSummerCampData(enProgramsJson as SummerCampDataJson);
   }
   return _defaultData;
-}
-
-const SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS = new Set(['adv-math', 'math-olympiad']);
-
-/** Programs shown on the summer camp hub grid; dedicated SEO landings handle excluded programs. */
-export function filterSummerCampHubPrograms(programs: Program[]): Program[] {
-  return programs.filter((program) => !SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS.has(program.id));
 }
 
 /**

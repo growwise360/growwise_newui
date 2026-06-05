@@ -75,7 +75,20 @@
             "description": "Reading, writing, grammar, vocabulary, and comprehension.",
             "icon": "BookOpen",
             "href": "/academic/english",
-            "gradient": "from-[#F16112] to-[#F1894F]"
+            "gradient": "from-[#F16112] to-[#F1894F]",
+            "hasSubmenu": true,
+            "submenuHeaderTitle": "English",
+            "submenuHeaderSubtitle": "Grades 1–12 English programs",
+            "submenuItems": [
+              {
+                "key": "elementary-english",
+                "title": "Elementary School English",
+                "description": "Grades 1–5 reading fluency, vocabulary, grammar, and writing.",
+                "icon": "BookOpen",
+                "href": "/academic/english/elementary",
+                "gradient": "from-[#F16112] to-[#F1894F]"
+              }
+            ]
           },
           {
             "key": "satPrep",

@@ -141,11 +141,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/english/elementary': {
-    title: 'Elementary English Tutoring | GrowWise',
+    title: 'Elementary English Tutoring Online — Grades 1–5 | GrowWise',
     description:
-      'Grades 1-5 English tutoring for reading fluency, vocabulary, grammar, and writing. Live online and in Dublin, CA.',
+      'Structured English program for Grades 1–5. Reading fluency, vocabulary, grammar, and writing. Live online small groups. Diagnostic-first. 3-month programs. Dublin, CA.',
     keywords:
-      'elementary English tutoring, reading tutoring grades 1-5, writing tutoring elementary, English tutoring Dublin CA, ELA tutor',
+      'elementary English tutoring online, reading below grade level grades 1-5, my child hates writing, child reads but does not understand, California Common Core ELA, English tutoring Dublin CA, Pleasanton San Ramon Tri-Valley',
     path: '/academic/english/elementary',
   },
 
@@ -368,6 +368,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
       'GrowWise summer camp, camp guide PDF, Dublin CA summer camp, STEM camp Tri-Valley',
     path: '/camps/summer/guide-success',
     image: CAMP_SUMMER_BANNER_IMAGE,
+  },
+
+  '/camps/high-school-summer-intensive-dublin-ca': {
+    title: 'High School Summer Math Intensive Dublin CA | GrowWise',
+    description:
+      '6-week summer math intensives for Grades 8–12 in Dublin, CA. Algebra 1, Algebra 2, Precalculus, and AP Calculus AB. Small groups.',
+    keywords:
+      'high school summer math Dublin CA, algebra summer intensive, precalculus summer camp, calculus AB summer Dublin, DUSD PUSD summer math',
+    path: '/camps/high-school-summer-intensive-dublin-ca',
+    image: `${canonicalSiteUrl}/assets/courses/math-band-high-school.webp`,
   },
 
   '/camps/academic-summer-programs-dublin-ca': {

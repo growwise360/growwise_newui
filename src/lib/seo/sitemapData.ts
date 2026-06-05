@@ -68,6 +68,7 @@ const coursePages: SitemapEntry[] = [
   { path: '/academic/math/middle-school', priority: 0.9, changefreq: 'monthly' },
   { path: '/academic/math/high-school', priority: 0.9, changefreq: 'monthly' },
   { path: '/academic/english', priority: 0.95, changefreq: 'weekly' },
+  { path: '/academic/english/elementary', priority: 0.92, changefreq: 'weekly' },
   { path: '/courses/sat-prep', priority: 0.9, changefreq: 'weekly' },
   { path: '/courses/integrated-math-1-dublin-ca', priority: 0.85, changefreq: 'monthly' },
 ]
@@ -88,6 +89,7 @@ const legalPages: SitemapEntry[] = [
 const campPages: SitemapEntry[] = [
   { path: '/camps/summer', priority: 1.0, changefreq: 'weekly' },
   { path: '/camps/academic-summer-programs-dublin-ca', priority: 0.95, changefreq: 'weekly' },
+  { path: '/camps/high-school-summer-intensive-dublin-ca', priority: 0.95, changefreq: 'weekly' },
   { path: '/camps/summer-reading-writing-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-math-foundations-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-algebra-dublin-ca', priority: 0.9, changefreq: 'weekly' },

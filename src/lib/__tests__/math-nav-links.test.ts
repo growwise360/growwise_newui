@@ -3,6 +3,7 @@ import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
 import {
   FALLBACK_MENU_ITEMS,
   MATH_GRADE_BAND_NAV_ITEMS,
+  ENGLISH_SUBMENU_NAV_ITEMS,
 } from '@/components/layout/Header/constants';
 import { normalizeAcademicMathNav } from '@/components/layout/Header/utils';
 
@@ -20,6 +21,14 @@ describe('math navigation links', () => {
     const math = academic?.dropdown?.items.find((item) => item.key === 'math');
     expect(math?.href).toBe(MATH_COURSE_PATHS.hub);
     expect(math?.hasSubmenu).toBe(true);
+  });
+
+  it('Academic English dropdown item links to hub with submenu', () => {
+    const academic = FALLBACK_MENU_ITEMS.find((item) => item.key === 'academic');
+    const english = academic?.dropdown?.items.find((item) => item.key === 'english');
+    expect(english?.href).toBe(MATH_COURSE_PATHS.english);
+    expect(english?.hasSubmenu).toBe(true);
+    expect(english?.submenuItems).toEqual(ENGLISH_SUBMENU_NAV_ITEMS);
   });
 
   it('legacy courses high-school band URL redirects to academic math high school', () => {

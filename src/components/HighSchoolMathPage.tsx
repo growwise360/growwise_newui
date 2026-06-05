@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CONTACT_INFO } from '@/lib/constants';
@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from "./ui/alert-dialog";
-import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, X, UserCheck, HelpCircle, Calendar, ChevronDown } from "lucide-react";
+import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, X, UserCheck, HelpCircle, Calendar, ChevronDown, ArrowRight, ShoppingCart } from "lucide-react";
 import { MATH_HUB_COPY } from '@/lib/math-hub-copy';
 import {
   HIGH_SCHOOL_MATH_PROGRAM_DETAILS,
@@ -32,6 +32,7 @@ import {
 } from '@/lib/high-school-math-jtbd';
 import { HIGH_SCHOOL_TRIAL } from '@/lib/math-program-trial-copy';
 import { MathTrialSection } from '@/components/courses/MathTrialSection';
+import { useCart } from './gw/CartContext';
 import { useChatbot } from '../contexts/ChatbotContext';
 import FreeAssessmentModal from './FreeAssessmentModal';
 import { getIconComponent } from '@/lib/iconMap';
@@ -62,10 +63,14 @@ const floatingMathSymbols = [
 
 const HighSchoolMathPage: React.FC = () => {
   const locale = useLocale();
+  const { addItem } = useCart();
   const { openChatbot } = useChatbot();
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [selectedHsJtbdId, setSelectedHsJtbdId] = useState(HIGH_SCHOOL_JTBD_SITUATIONS[0].id);
+  const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
   const selectedHsJtbd =
     HIGH_SCHOOL_JTBD_SITUATIONS.find((s) => s.id === selectedHsJtbdId) ??
@@ -96,6 +101,23 @@ const HighSchoolMathPage: React.FC = () => {
     );
   };
   const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      const hasHover = window.matchMedia('(hover: hover)').matches;
+
+      setIsTouchDevice(hasTouch && (isSmallScreen || !hasHover));
+    };
+
+    checkTouchDevice();
+    window.addEventListener('resize', checkTouchDevice);
+
+    return () => {
+      window.removeEventListener('resize', checkTouchDevice);
+    };
+  }, []);
 
   React.useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -351,6 +373,38 @@ const HighSchoolMathPage: React.FC = () => {
     }
   ];
 
+  type HighSchoolMathCourse = (typeof highSchoolMathCourses)[number];
+
+  const handleAddToCart = (course: HighSchoolMathCourse) => {
+    addItem({
+      id: course.id,
+      name: course.name,
+      price: course.groupPrice,
+      quantity: 1,
+      image: '📐',
+      category: 'High School Math',
+    });
+  };
+
+  const handleMouseEnter = (courseId: string) => {
+    if (!isTouchDevice) {
+      setHoveredCourse(courseId);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isTouchDevice) {
+      setHoveredCourse(null);
+    }
+  };
+
+  const getCourseGradients = (course: HighSchoolMathCourse) => ({
+    gradient: course.gradient,
+    bgGradient: course.bgGradient,
+    iconColor: course.iconColor,
+    hoverBorder: course.hoverBorder,
+  });
+
   // Contact information for modal
   const contactInfo = [
     {
@@ -591,6 +645,32 @@ const HighSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Assessment CTA Banner */}
+      <div className="bg-amber-50 border-y border-amber-200 py-4 px-4 lg:px-8">
+        <p className="text-center text-sm sm:text-base text-amber-900 max-w-3xl mx-auto">
+          Not sure which program fits your child?{' '}
+          <Link
+            href={publicPath('/book-assessment', locale)}
+            className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+          >
+            Get a free academic assessment
+          </Link>
+          {' '}— we'll identify the right level and track before your first session.
+        </p>
+      </div>
+
+      {hsMonthlyProgram ? (
+        <MathProgramDetailsSection
+          sectionLabel={HIGH_SCHOOL_MATH_PROGRAM_DETAILS.sectionLabel}
+          heading={HIGH_SCHOOL_MATH_PROGRAM_DETAILS.heading}
+          includes={HIGH_SCHOOL_PROGRAM_INCLUDES}
+          outcomes={HIGH_SCHOOL_PROGRAM_OUTCOMES}
+          fromMonthlyLabel={`From $${getMathHubMinMonthlyUsd('high-school')}/month`}
+          tiers={mapHubOptionsToPricingTiers(hsMonthlyProgram.options)}
+          onBookAssessment={openAssessment}
+        />
+      ) : null}
+
       {/* Free Sunday practice sessions */}
       {hsMonthlyProgram?.includedBenefit ? (
         <section className="bg-[#ebebeb] py-12 lg:py-16">
@@ -615,19 +695,207 @@ const HighSchoolMathPage: React.FC = () => {
         </section>
       ) : null}
 
-      {/* Assessment CTA Banner */}
-      <div className="bg-amber-50 border-y border-amber-200 py-4 px-4 lg:px-8">
-        <p className="text-center text-sm sm:text-base text-amber-900 max-w-3xl mx-auto">
-          Not sure which program fits your child?{' '}
-          <Link
-            href={publicPath('/book-assessment', locale)}
-            className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
-          >
-            Get a free academic assessment
-          </Link>
-          {' '}— we'll identify the right level and track before your first session.
-        </p>
-      </div>
+      {/* High School Math Courses Section */}
+      <section id="courses" className="py-16 px-4 lg:px-8" style={{
+        background: `
+          radial-gradient(circle at 20% 25%, rgba(31, 57, 109, 0.08) 0%, transparent 15%),
+          radial-gradient(circle at 80% 35%, rgba(241, 137, 79, 0.1) 0%, transparent 20%),
+          radial-gradient(circle at 45% 70%, rgba(31, 57, 109, 0.06) 0%, transparent 25%),
+          radial-gradient(circle at 70% 15%, rgba(241, 97, 18, 0.09) 0%, transparent 18%),
+          radial-gradient(circle at 15% 80%, rgba(241, 137, 79, 0.07) 0%, transparent 22%),
+          radial-gradient(circle at 90% 60%, rgba(31, 57, 109, 0.05) 0%, transparent 30%),
+          radial-gradient(circle at 35% 10%, rgba(241, 97, 18, 0.08) 0%, transparent 20%),
+          radial-gradient(circle at 60% 90%, rgba(241, 137, 79, 0.06) 0%, transparent 25%),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 50%, rgba(255, 255, 255, 0.9) 100%)
+        `
+      }}>
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Our <span className="text-[#1F396D]">High School Math Courses</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Flexible learning options designed for every student's needs
+            </p>
+          </div>
+
+          {/* Results Summary */}
+          <div className="mb-6">
+            <p className="text-gray-600 text-center">
+              Showing {highSchoolMathCourses.length} high school math programs
+            </p>
+          </div>
+
+          {/* Course Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {highSchoolMathCourses.map((course) => {
+              const isHovered = hoveredCourse === course.id;
+              const courseGradients = getCourseGradients(course);
+              const IconComponent = course.icon;
+
+              return (
+                <div
+                  key={course.id}
+                  className={`relative h-[450px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
+                  onMouseEnter={() => handleMouseEnter(course.id)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => setSelectedCourseId(course.id)}
+                >
+                  {/* Card Container with Conditional 3D Flip */}
+                  <div className={`relative w-full h-full transition-transform duration-700 ${
+                    !isTouchDevice ? 'transform-style-preserve-3d' : ''
+                  } ${
+                    !isTouchDevice && isHovered ? 'rotate-y-180' : ''
+                  }`}>
+
+                    {/* Front Side - Clean Layout */}
+                    <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.1)] border-2 border-white/50 hover:border-gray-200 ${!isTouchDevice ? 'backface-hidden' : ''} group-hover:scale-105 transition-all duration-300`}>
+                      <CardContent className="p-5 relative flex flex-col h-full justify-between">
+                        {/* Top Section - Course Header */}
+                        <div className="flex-shrink-0">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className={`p-2.5 rounded-2xl bg-gradient-to-br ${courseGradients.gradient} shadow-lg`}>
+                              <IconComponent className="w-5 h-5 text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <h4 className={`font-bold text-base ${courseGradients.iconColor} leading-tight`}>{course.name}</h4>
+                              <Badge className="bg-white/80 text-gray-700 text-xs mt-1">
+                                {course.level}
+                              </Badge>
+                            </div>
+                            {/* Hover Indicator - Only show on non-touch devices */}
+                            {!isTouchDevice && (
+                              <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                                <Eye className="w-4 h-4 text-gray-400 group-hover:text-gray-600" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Course Description */}
+                        <div className="flex-grow">
+                          <p className="text-gray-600 text-sm mb-4 leading-relaxed">{course.description}</p>
+
+                          {/* Pricing Display */}
+                          <div className="mb-4 space-y-3">
+                            <div className="flex items-center justify-between p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
+                              <div className="flex items-center gap-2">
+                                <Users className="w-4 h-4 text-[#F16112]" />
+                                <span className="text-sm text-gray-700 font-medium">Group Classes</span>
+                              </div>
+                              <span className="font-bold text-lg text-[#1F396D]">${course.groupPrice}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
+                              <div className="flex items-center gap-2">
+                                <UserCheck className="w-4 h-4 text-[#1F396D]" />
+                                <span className="text-sm text-gray-700 font-medium">1-on-1 Classes</span>
+                              </div>
+                              <span className="font-bold text-lg text-[#1F396D]">${course.oneOnOnePrice}</span>
+                            </div>
+                          </div>
+
+                          {/* Duration Info */}
+                          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+                            <Clock className="w-3.5 h-3.5 text-[#F16112]" />
+                            <span>{course.sessions} per session</span>
+                          </div>
+
+                          {/* Mobile/Desktop Responsive Interaction Hint - Only for non-touch devices */}
+                          {!isTouchDevice && (
+                            <div className="mb-3 p-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200 group-hover:from-blue-50 group-hover:to-indigo-50 group-hover:border-blue-200 transition-all duration-300">
+                              <div className="flex items-center gap-2 text-gray-600 group-hover:text-blue-600">
+                                <Eye className="w-3.5 h-3.5" />
+                                <span className="text-xs font-medium">Hover to flip card</span>
+                                <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Bottom Section - CTA */}
+                        <div className="flex-shrink-0">
+                          <Button
+                            onClick={() => handleAddToCart(course)}
+                            className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
+                          >
+                            {/* Desktop button text - Only for non-touch devices */}
+                            {!isTouchDevice && (
+                              <div className="hidden md:flex items-center justify-center">
+                                <Eye className="mr-2 w-4 h-4" />
+                                Hover to reveal information
+                              </div>
+                            )}
+                            {/* Mobile button text or fallback for touch devices */}
+                            <div className={`${!isTouchDevice ? 'flex md:hidden' : 'flex'} items-center justify-center`}>
+                              <ShoppingCart className="mr-2 w-4 h-4" />
+                              Add to Cart
+                            </div>
+                          </Button>
+                        </div>
+
+                        {/* Decorative background elements */}
+                        <div className={`absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br ${courseGradients.gradient} rounded-full opacity-10 transition-all duration-500 group-hover:scale-150 group-hover:opacity-20`} />
+                        <div className={`absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-br ${courseGradients.gradient} rounded-full opacity-5 transition-all duration-500 group-hover:scale-125 group-hover:opacity-10`} />
+                      </CardContent>
+                    </Card>
+
+                    {/* Back Side - Enhanced Hover State - Only for non-touch devices */}
+                    {!isTouchDevice && (
+                      <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] shadow-[0px_16px_32px_0px_rgba(0,0,0,0.15)] border-2 ${courseGradients.hoverBorder} backface-hidden rotate-y-180 scale-105`}>
+                        <CardContent className="p-5 relative flex flex-col h-full overflow-hidden">
+                          {/* Top Section - Course Header */}
+                          <div className="flex-shrink-0 mb-3">
+                            <h4 className={`font-bold text-sm ${courseGradients.iconColor} mb-1`}>{course.name}</h4>
+                            <p className="text-[11px] text-gray-600">Key Topics</p>
+                          </div>
+
+                          {/* Middle Section - Topics List */}
+                          <div className="flex-grow overflow-y-auto custom-scrollbar">
+                            <ul className="space-y-2">
+                              {course.topics.map((topic, idx) => (
+                                <li key={idx} className="flex items-start gap-2">
+                                  <span className={`inline-block w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${courseGradients.iconColor}`}></span>
+                                  <span className="text-xs leading-tight text-gray-700">
+                                    {topic}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Bottom Section - Pricing & CTA */}
+                          <div className="flex-shrink-0 mt-3 pt-3 border-t border-gray-200">
+                            <div className="mb-2 text-center">
+                              <div className="text-xs text-gray-700 mb-1">
+                                <span className="font-semibold">Group: ${course.groupPrice}</span>
+                                <span className="mx-2">•</span>
+                                <span className="font-semibold">1-on-1: ${course.oneOnOnePrice}</span>
+                              </div>
+                              <p className="text-[10px] text-gray-600">Per session</p>
+                            </div>
+                            <Button
+                              onClick={() => handleAddToCart(course)}
+                              className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg`}
+                            >
+                              <ShoppingCart className="mr-2 w-4 h-4" />
+                              Enroll Now
+                            </Button>
+                          </div>
+
+                          {/* Decorative corner accent */}
+                          <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${courseGradients.gradient} rounded-bl-full opacity-10`}></div>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
 
       {/* SEO Content Sections */}
       <section className="py-16 px-4 lg:px-8 bg-white">
@@ -824,6 +1092,108 @@ const HighSchoolMathPage: React.FC = () => {
       {/* Related Content Section */}
       <MathParentGuidesSection locale={locale} pageId="high-school-math" />
       <RelatedContent locale={locale} currentPage="high-school-math" />
+
+      {/* Course Detail Modal */}
+      {selectedCourseId && (
+        <AlertDialog open={!!selectedCourseId} onOpenChange={() => setSelectedCourseId(null)}>
+          <AlertDialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+            {(() => {
+              const course = highSchoolMathCourses.find(c => c.id === selectedCourseId);
+              if (!course) return null;
+
+              return (
+                <div className="flex flex-col">
+                  {/* Header with Close Button */}
+                  <div className="sticky top-0 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
+                    <h2 className="text-2xl font-bold text-gray-900">{course.name}</h2>
+                    <button
+                      onClick={() => setSelectedCourseId(null)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  <div className="flex-1 overflow-y-auto p-6">
+                    {/* Course Description */}
+                    <p className="text-gray-700 text-base leading-relaxed mb-6">{course.description}</p>
+
+                    {/* Course Goals Section */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">Course Goals:</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {course.goals && course.goals.map((goal, idx) => (
+                          <div key={idx} className="flex gap-3">
+                            <Star className="w-5 h-5 text-[#F16112] flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-900 text-sm">{goal.title}:</h4>
+                              <p className="text-gray-600 text-sm mt-1">{goal.description}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-200 my-6"></div>
+
+                    {/* Course Info Section */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Camp Duration</span>
+                        </div>
+                        <span className="text-sm text-gray-600">{course.campDuration}</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Clock className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Class Duration</span>
+                        </div>
+                        <span className="text-sm text-gray-600">{course.duration}</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Price</span>
+                        </div>
+                        <span className="text-lg font-bold text-[#F16112]">${course.groupPrice}.00</span>
+                      </div>
+                    </div>
+
+                    {/* Schedule Selector and Enroll */}
+                    <div className="flex items-end gap-4 pt-4 border-t border-gray-200">
+                      <div className="flex-1">
+                        <label className="block text-sm font-bold text-gray-900 mb-2">Select a schedule</label>
+                        <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent text-gray-700">
+                          <option>10am to Noon</option>
+                          <option>1pm to 3pm</option>
+                          <option>3:30pm to 5:30pm</option>
+                          <option>Online Evening</option>
+                        </select>
+                      </div>
+                      <button
+                        onClick={() => {
+                          handleAddToCart(course);
+                          setSelectedCourseId(null);
+                        }}
+                        className="bg-[#9333EA] hover:bg-[#7e22ce] text-white font-bold py-2.5 px-8 rounded-lg transition-colors whitespace-nowrap"
+                      >
+                        Enroll
+                      </button>
+                    </div>
+
+                    {course.level && (
+                      <p className="text-xs text-gray-500 mt-4">Recommended for: {course.level}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
 
       {/* Free Assessment Modal */}
       <FreeAssessmentModal
