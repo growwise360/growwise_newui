@@ -215,6 +215,33 @@ function EnglishCoursesContent() {
     setModalOpen(true);
   };
 
+  const renderCourseAction = (
+    course: any,
+    className: string,
+    children: React.ReactNode,
+  ) => {
+    if (course.href) {
+      return (
+        <Link
+          href={publicPath(course.href, locale)}
+          className={className}
+          onClick={(event) => event.stopPropagation()}
+        >
+          {children}
+        </Link>
+      );
+    }
+
+    return (
+      <Button
+        onClick={() => handleAddToCart(course)}
+        className={className}
+      >
+        {children}
+      </Button>
+    );
+  };
+
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedCourse(null);
@@ -693,23 +720,42 @@ function EnglishCoursesContent() {
 
                         {/* Bottom Section - CTA */}
                         <div className="flex-shrink-0">
-                          <Button 
-                            onClick={() => handleAddToCart(course)}
-                            className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
-                          >
+                          {renderCourseAction(
+                            course,
+                            `inline-flex w-full items-center justify-center bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm font-medium transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`,
+                            <>
                             {/* Desktop button text - Only for non-touch devices */}
                             {!isTouchDevice && (
                               <div className="hidden md:flex items-center justify-center">
-                                <Eye className="mr-2 w-4 h-4" />
-                                Hover to reveal information
+                                {course.href ? (
+                                  <>
+                                    <ArrowRight className="mr-2 w-4 h-4" />
+                                    View Program
+                                  </>
+                                ) : (
+                                  <>
+                                    <Eye className="mr-2 w-4 h-4" />
+                                    Hover to reveal information
+                                  </>
+                                )}
                               </div>
                             )}
                             {/* Mobile button text or fallback for touch devices */}
                             <div className={`${!isTouchDevice ? 'flex md:hidden' : 'flex'} items-center justify-center`}>
-                              <ShoppingCart className="mr-2 w-4 h-4" />
-                              Add to Cart
+                              {course.href ? (
+                                <>
+                                  <ArrowRight className="mr-2 w-4 h-4" />
+                                  View Program
+                                </>
+                              ) : (
+                                <>
+                                  <ShoppingCart className="mr-2 w-4 h-4" />
+                                  Add to Cart
+                                </>
+                              )}
                             </div>
-                          </Button>
+                            </>,
+                          )}
                         </div>
 
                           {/* Decorative background elements (kept within bounds) */}
@@ -777,13 +823,21 @@ function EnglishCoursesContent() {
                           
                           {/* Bottom Section - CTA */}
                           <div className="flex-shrink-0 mt-2">
-                            <Button 
-                              onClick={() => handleAddToCart(course)}
-                              className={`w-full bg-gradient-to-r ${courseGradients.gradient} hover:shadow-lg text-white rounded-xl py-2 text-xs transition-all duration-300 transform scale-105 shadow-lg`}
-                            >
-                              <ShoppingCart className="mr-1 w-3 h-3" />
-                              Add to Cart • {course.priceRange}
-                            </Button>
+                            {renderCourseAction(
+                              course,
+                              `inline-flex w-full items-center justify-center bg-gradient-to-r ${courseGradients.gradient} hover:shadow-lg text-white rounded-xl py-2 text-xs font-medium transition-all duration-300 transform scale-105 shadow-lg`,
+                              course.href ? (
+                                <>
+                                  <ArrowRight className="mr-1 w-3 h-3" />
+                                  View Program
+                                </>
+                              ) : (
+                                <>
+                                  <ShoppingCart className="mr-1 w-3 h-3" />
+                                  Add to Cart • {course.priceRange}
+                                </>
+                              ),
+                            )}
                           </div>
 
                           {/* Decorative background elements - Properly positioned within card bounds */}
@@ -1137,7 +1191,6 @@ const EnglishCoursesPage: React.FC = () => {
 };
 
 export default EnglishCoursesPage;
-
 
 
 

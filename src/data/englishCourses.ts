@@ -1,27 +1,29 @@
 export const englishCourses = [
   {
     id: 'reading-enrichment-k-5',
-    name: 'Reading Enrichment K-5',
-    description: 'Comprehensive reading program focusing on Reading, Annotations, Brainstorming, and Vocabulary development for elementary students. Build strong foundational literacy skills through interactive learning.',
+    name: 'Elementary English Grades 1-5',
+    description: 'Structured elementary English program for reading fluency, comprehension, vocabulary, grammar, and writing. Built for Grades 1-5 students who need stronger ELA foundations.',
     level: 'Elementary',
     duration: 'Flexible',
     gradeLevel: ['Elementary'],
     courseType: ['Core English'],
     alignment: ['California Standards', 'DUSD Aligned', 'PUSD Aligned'],
-    priceRange: '$216 - $648',
-    price: 216, // Base price
+    priceRange: 'From $289/mo',
+    price: 289, // Base monthly price
     originalPrice: null,
+    href: '/academic/english/elementary',
     features: [
       'Phonics and decoding strategies',
       'Reading comprehension techniques',
+      'Vocabulary and academic language',
+      'Grammar and sentence structure',
+      'Paragraph writing foundations',
       'Interactive annotation methods',
-      'Vocabulary building exercises',
       'Story analysis and discussion',
-      'Creative response activities',
       'Progress tracking and assessment',
       'Small group collaborative learning'
     ],
-    detailedDescription: 'Our Reading Enrichment program for K-5 students builds strong literacy foundations through proven methodologies. Students develop critical reading skills, learn to annotate texts effectively, and expand their vocabulary through engaging activities. The program includes phonics instruction, comprehension strategies, and creative writing exercises tailored to each grade level.',
+    detailedDescription: 'Our Elementary English program for Grades 1-5 builds the core ELA skills students need before middle school: reading fluency, comprehension, vocabulary, grammar, and writing. Students start with a diagnostic-first placement and progress through structured 3-month programs.',
     image: '/assets/photos/photo-1481627834876-b7833e8f5570.jpg'
   },
   {
