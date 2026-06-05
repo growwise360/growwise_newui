@@ -75,7 +75,7 @@ export default function ReadinessChecklistPage() {
         <div className="mx-auto grid max-w-6xl gap-4 px-4 py-5 sm:grid-cols-3 sm:px-6 lg:px-8">
           {[
             ['3 minutes', 'Quick parent-friendly scan'],
-            ['34 signs', 'Math, reading, writing, and readiness'],
+            ['Grade-aware', 'Only relevant sections count toward the score'],
             ['5 areas', 'Pattern summary by learning area'],
           ].map(([stat, label]) => (
             <div key={stat} className="rounded-lg border border-slate-200 bg-slate-50 p-4">

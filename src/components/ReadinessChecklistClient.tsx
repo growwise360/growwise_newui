@@ -82,7 +82,29 @@ const CHECKLIST_ITEMS = SECTIONS.flatMap((section) =>
     text,
   })),
 )
-const TOTAL = CHECKLIST_ITEMS.length
+
+const GRADE_BANDS = [
+  {
+    id: 'grades-1-4',
+    label: 'Grades 1-4',
+    description: 'Elementary math, reading, and writing signals',
+    sectionIds: ['math-1-4', 'reading', 'writing'],
+  },
+  {
+    id: 'grades-5-6',
+    label: 'Grades 5-6',
+    description: 'Upper elementary plus middle-school transition readiness',
+    sectionIds: ['math-5-8', 'reading', 'writing', 'middle-school'],
+  },
+  {
+    id: 'grades-7-8',
+    label: 'Grades 7-8',
+    description: 'Middle-school math, reading, and writing signals',
+    sectionIds: ['math-5-8', 'reading', 'writing'],
+  },
+] as const
+
+type GradeBandId = (typeof GRADE_BANDS)[number]['id']
 
 interface ChecklistSection {
   id: string
@@ -148,9 +170,27 @@ function trackChecklistEvent(event: string, params: Record<string, string | numb
 }
 
 export function ReadinessChecklistClient() {
+  const [gradeBandId, setGradeBandId] = useState<GradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
   const startedTracked = useRef(false)
   const reachedThresholds = useRef<Set<ThresholdKey>>(new Set())
+
+  const selectedGradeBand = useMemo(
+    () => GRADE_BANDS.find((gradeBand) => gradeBand.id === gradeBandId) ?? GRADE_BANDS[0],
+    [gradeBandId],
+  )
+
+  const activeSectionIds = useMemo(
+    () => new Set<string>(selectedGradeBand.sectionIds),
+    [selectedGradeBand],
+  )
+
+  const activeItems = useMemo(
+    () => CHECKLIST_ITEMS.filter((item) => activeSectionIds.has(item.sectionId)),
+    [activeSectionIds],
+  )
+
+  const activeTotal = activeItems.length
 
   const handleToggle = (key: string, idx: number) => {
     const newChecked = {
@@ -158,22 +198,24 @@ export function ReadinessChecklistClient() {
       [key]: !checked[key],
     }
     setChecked(newChecked)
-    const nextCheckedCount = Object.values(newChecked).filter(Boolean).length
+    const nextCheckedCount = activeItems.filter((item) => newChecked[item.key]).length
 
     trackChecklistEvent('checklist_item_toggled', {
       checked_count: nextCheckedCount,
-      total_items: TOTAL,
+      total_items: activeTotal,
+      grade_band: selectedGradeBand.label,
       item_section: CHECKLIST_ITEMS[idx].section,
       score_band: getScoreBand(nextCheckedCount),
     })
   }
 
-  const checkedCount = Object.values(checked).filter(Boolean).length
-  const pct = Math.round((checkedCount / TOTAL) * 100)
+  const checkedCount = activeItems.filter((item) => checked[item.key]).length
+  const pct = activeTotal > 0 ? Math.round((checkedCount / activeTotal) * 100) : 0
 
   const sections = useMemo(() => {
     const grouped: Record<string, ChecklistSection> = {}
-    CHECKLIST_ITEMS.forEach((item, idx) => {
+    activeItems.forEach((item) => {
+      const idx = CHECKLIST_ITEMS.findIndex((checklistItem) => checklistItem.key === item.key)
       if (!grouped[item.section]) {
         const sectionIndex = SECTIONS.findIndex((section) => section.title === item.section)
         grouped[item.section] = {
@@ -187,10 +229,10 @@ export function ReadinessChecklistClient() {
       grouped[item.section].items.push({ key: item.key, idx, text: item.text })
     })
     return Object.values(grouped)
-  }, [])
+  }, [activeItems])
 
   const sectionScores = useMemo<Record<string, RankedSection>>(() => {
-    return Object.fromEntries(SECTIONS.map((section) => {
+    return Object.fromEntries(SECTIONS.filter((section) => activeSectionIds.has(section.id)).map((section) => {
       const hits = section.items.filter((_, itemIndex) => checked[`${section.id}-${itemIndex}`]).length
       const rate = Math.round((hits / section.max) * 100)
       const score = {
@@ -203,7 +245,7 @@ export function ReadinessChecklistClient() {
       }
       return [section.id, score]
     }))
-  }, [checked])
+  }, [activeSectionIds, checked])
 
   const rankedSections = useMemo<RankedSection[]>(() => {
     return Object.values(sectionScores)
@@ -225,7 +267,8 @@ export function ReadinessChecklistClient() {
       startedTracked.current = true
       trackChecklistEvent('checklist_started', {
         checked_count: checkedCount,
-        total_items: TOTAL,
+        total_items: activeTotal,
+        grade_band: selectedGradeBand.label,
       })
     }
 
@@ -234,11 +277,12 @@ export function ReadinessChecklistClient() {
       reachedThresholds.current.add(threshold)
       trackChecklistEvent(`score_${threshold}_reached`, {
         checked_count: checkedCount,
-        total_items: TOTAL,
+        total_items: activeTotal,
+        grade_band: selectedGradeBand.label,
         score_band: getScoreBand(checkedCount),
       })
     }
-  }, [checkedCount])
+  }, [activeTotal, checkedCount, selectedGradeBand.label])
 
   const scoreMessage = useMemo(() => {
     if (checkedCount === 0) {
@@ -294,11 +338,56 @@ export function ReadinessChecklistClient() {
 
   return (
     <div id="checklist-start" className="space-y-10 scroll-mt-24">
-      <div className="sticky top-0 z-40 rounded-b-2xl border-x border-b border-[#1E3A5F]/20 bg-white p-4 shadow-lg sm:p-5">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="grade-band-heading">
+        <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-[#F97316]">
+          Step 1
+        </p>
+        <h2 id="grade-band-heading" className="font-heading text-xl font-black text-[#1E3A5F]">
+          Choose the student&apos;s current grade band.
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-slate-600">
+          The checklist and score will use only the sections that apply to that grade band.
+        </p>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {GRADE_BANDS.map((gradeBand) => {
+            const isSelected = gradeBand.id === gradeBandId
+            return (
+              <button
+                key={gradeBand.id}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => {
+                  const nextSectionIds = new Set<string>(gradeBand.sectionIds)
+                  const nextActiveItems = CHECKLIST_ITEMS.filter((item) => nextSectionIds.has(item.sectionId))
+                  setGradeBandId(gradeBand.id)
+                  reachedThresholds.current.clear()
+                  trackChecklistEvent('checklist_grade_band_selected', {
+                    grade_band: gradeBand.label,
+                    checked_count: nextActiveItems.filter((item) => checked[item.key]).length,
+                    total_items: nextActiveItems.length,
+                  })
+                }}
+                className={`rounded-xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] ${
+                  isSelected
+                    ? 'border-[#F97316] bg-[#FFF7ED] text-[#1E3A5F] ring-1 ring-[#F97316]/30'
+                    : 'border-slate-200 bg-white text-slate-800 hover:border-[#1E3A5F]/30 hover:bg-slate-50'
+                }`}
+              >
+                <span className="block text-sm font-black">{gradeBand.label}</span>
+                <span className="mt-1 block text-xs leading-relaxed text-slate-600">
+                  {gradeBand.description}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </section>
+
+      <div className="sticky top-3 z-40 rounded-2xl border border-[#1E3A5F]/20 bg-white/95 p-4 shadow-lg backdrop-blur sm:p-5">
         <div className="mb-3 flex items-center justify-between gap-4">
           <div>
             <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-              Signs identified
+              {selectedGradeBand.label} score
             </span>
             <span className="block text-sm font-semibold text-[#1E3A5F]">
               {scoreMessage.text}
@@ -306,7 +395,7 @@ export function ReadinessChecklistClient() {
           </div>
           <span className="shrink-0 text-3xl font-black tabular-nums text-[#1E3A5F] sm:text-4xl">
             {checkedCount}
-            <span className="text-base font-bold text-slate-400">/{TOTAL}</span>
+            <span className="text-base font-bold text-slate-400">/{activeTotal}</span>
           </span>
         </div>
         <div className="h-3 overflow-hidden rounded-full bg-slate-100">
