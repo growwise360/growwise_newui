@@ -104,6 +104,9 @@ export default function ReadinessChecklistPage() {
                 No email is required. Your score is calculated in your browser. If you choose to book, GrowWise uses the result only to understand the pattern before the free assessment.
               </p>
             </div>
+            <p className="mt-5 rounded-lg border-l-4 border-[#F97316] bg-[#FFF7ED] px-4 py-3 text-sm font-semibold leading-relaxed text-slate-800">
+              Inspired by MTSS/RtI pattern-based screening logic: one concern is not a diagnosis; repeated signs across learning areas may be a reason to schedule a deeper academic assessment.
+            </p>
           </section>
 
           <ReadinessChecklistClient />
@@ -115,9 +118,6 @@ export default function ReadinessChecklistPage() {
             <h2 className="font-heading text-2xl font-black text-[#1E3A5F]">
               Use the score as a decision guide.
             </h2>
-            <p className="mt-4 max-w-4xl rounded-lg border-l-4 border-[#F97316] bg-[#FFF7ED] px-4 py-3 text-sm font-semibold leading-relaxed text-slate-800">
-              Inspired by MTSS/RtI pattern-based screening logic: one concern is not a diagnosis; repeated signs across learning areas may be a reason to schedule a deeper academic assessment.
-            </p>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
                 <p className="text-2xl font-black text-[#1E3A5F]">0–2</p>
