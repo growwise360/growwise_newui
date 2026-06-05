@@ -1,33 +1,7 @@
 import { ComplianceDisclaimer } from '@/components/ComplianceDisclaimer'
 import { ReadinessChecklistClient } from '@/components/ReadinessChecklistClient'
+import { READINESS_CHECKLIST_FAQS } from '@/data/resources/readiness-checklist-faq'
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews'
-
-const FAQ_ITEMS = [
-  {
-    q: 'Is this checklist a diagnosis?',
-    a: 'No. It is a pattern-finding tool. Only a qualified educator can assess the depth of an academic gap. This checklist helps you decide whether a more structured academic review is worth pursuing.',
-  },
-  {
-    q: "My child's grades are fine. Should I still use this?",
-    a: 'Yes. Grades in elementary and middle school often mask gaps — teachers provide scaffolding, tests are re-taken, and partial credit softens low scores. The checklist looks at patterns, not report cards.',
-  },
-  {
-    q: 'What does GrowWise do with the gaps identified?',
-    a: 'This checklist groups repeated signs by learning area so families, schools, aftercare programs, and support providers can discuss the pattern more clearly.',
-  },
-  {
-    q: 'How were the score thresholds chosen?',
-    a: 'The thresholds are inspired by MTSS/RtI pattern-based screening logic: one concern by itself does not define readiness, but repeated signs across learning areas may indicate a pattern worth discussing. This checklist is parent-facing and non-diagnostic.',
-  },
-  {
-    q: 'What grades does GrowWise serve?',
-    a: 'GrowWise serves grades 1–12 across Dublin, Pleasanton, San Ramon, Livermore, and the broader Tri-Valley area.',
-  },
-  {
-    q: 'How do I take the next step?',
-    a: 'Use the patterns you identify to decide whether to monitor, share observations with a teacher, or pursue a structured academic review.',
-  },
-]
 
 export default function ReadinessChecklistPage() {
   const googleReviews = siteGoogleTrustReviewCards().slice(0, 3)
@@ -186,7 +160,7 @@ export default function ReadinessChecklistPage() {
               Common questions
             </h2>
             <div className="mt-6 divide-y divide-slate-200">
-              {FAQ_ITEMS.map((item) => (
+              {READINESS_CHECKLIST_FAQS.map((item) => (
                 <details key={item.q} className="group py-4">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-black text-slate-900">
                     {item.q}
