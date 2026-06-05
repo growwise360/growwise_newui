@@ -1,129 +1,23 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
-const SECTIONS = [
-  {
-    id: 'math-1-4',
-    title: 'Math Readiness — Grades 1–4',
-    max: 7,
-    items: [
-      'Counts on fingers for basic addition or subtraction past 1st grade',
-      'Cannot recall basic multiplication facts by end of 3rd grade',
-      'Struggles to explain how they got an answer — guesses without process',
-      'Makes the same arithmetic mistakes repeatedly — not random errors',
-      'Avoids word problems or skips them entirely',
-      'Confuses place value — treats 34 and 43 as similar or interchangeable',
-      'Cannot identify simple fractions visually (½, ¼) by 3rd grade',
-    ],
-  },
-  {
-    id: 'math-5-8',
-    title: 'Math Readiness — Grades 5–8',
-    max: 7,
-    items: [
-      'Cannot convert between fractions, decimals, and percentages fluently',
-      'Struggles with negative numbers or gets confused by signs in subtraction',
-      'Cannot set up a ratio or proportion from a word problem',
-      'Pre-algebra feels impossible — variables cause shutdown or refusal',
-      'Makes consistent errors in multi-step problems — loses track of the process',
-      'Cannot identify what operation a word problem is asking for',
-      'Integrated Math 1 is assigned next year and current foundations are weak',
-    ],
-  },
-  {
-    id: 'reading',
-    title: 'Reading Comprehension',
-    max: 7,
-    items: [
-      'Reads words correctly but cannot explain what a passage means',
-      'Cannot identify the main idea vs. a supporting detail',
-      'Struggles to make inferences — only understands what is stated explicitly',
-      'Cannot answer "why" or "how" questions about a text',
-      'Avoids reading independently — prefers to be read to past 2nd grade',
-      'Comprehension drops significantly when text length increases',
-      'Cannot compare two texts or identify an author\'s purpose',
-    ],
-  },
-  {
-    id: 'writing',
-    title: 'Writing Gaps',
-    max: 7,
-    items: [
-      'Writes short, vague sentences without supporting detail',
-      'Cannot construct a clear argument with evidence from a text',
-      'Uses the same sentence structure repeatedly throughout a piece',
-      'Avoids writing — freezes or shuts down when given a blank page',
-      'Cannot revise their own work — does not see what is unclear',
-      'Written explanations are much weaker than verbal explanations of the same idea',
-      'Essays lack a clear beginning, middle, and conclusion — ideas run together',
-    ],
-  },
-  {
-    id: 'middle-school',
-    title: 'Middle School Readiness — Grades 5–6 Transition',
-    max: 6,
-    items: [
-      'Study habits are not in place — relies on parent reminders for everything',
-      'Cannot manage a multi-day assignment independently from start to finish',
-      'Does not review mistakes after a graded test — moves on without correction',
-      'Struggles when a teacher does not re-explain every concept individually',
-      'Cannot identify their own knowledge gaps — says "I get it" but scores poorly',
-      'Homework takes 2–3× longer than peers without a clear reason',
-    ],
-  },
-] as const
-
-const CHECKLIST_ITEMS = SECTIONS.flatMap((section) =>
-  section.items.map((text, itemIndex) => ({
-    key: `${section.id}-${itemIndex}`,
-    sectionId: section.id,
-    section: section.title,
-    text,
-  })),
-)
-
-const GRADE_BANDS = [
-  {
-    id: 'grades-1-4',
-    label: 'Grades 1-4',
-    description: 'Elementary math, reading, and writing signals',
-    sectionIds: ['math-1-4', 'reading', 'writing'],
-  },
-  {
-    id: 'grades-5-6',
-    label: 'Grades 5-6',
-    description: 'Upper elementary plus middle-school transition readiness',
-    sectionIds: ['math-5-8', 'reading', 'writing', 'middle-school'],
-  },
-  {
-    id: 'grades-7-8',
-    label: 'Grades 7-8',
-    description: 'Middle-school math, reading, and writing signals',
-    sectionIds: ['math-5-8', 'reading', 'writing'],
-  },
-] as const
-
-type GradeBandId = (typeof GRADE_BANDS)[number]['id']
+import {
+  READINESS_CHECKLIST_ITEMS,
+  READINESS_GRADE_BANDS,
+  READINESS_SECTIONS,
+  getReadinessActiveItems,
+  type ReadinessGradeBandId,
+} from '@/lib/readiness-checklist-data'
 
 interface ChecklistSection {
   id: string
   name: string
   number: string
-  max: number
   items: Array<{ key: string; idx: number; text: string }>
 }
 
 type ThresholdKey = 'watch' | 'clear'
-type SectionClassification = 'high' | 'monitor' | 'strong'
-type RankedSection = {
-  id: string
-  title: string
-  hits: number
-  max: number
-  rate: number
-  classification: SectionClassification
-}
 
 function getScoreRate(count: number, total: number) {
   return total > 0 ? Math.round((count / total) * 100) : 0
@@ -144,87 +38,6 @@ function getThresholdKey(count: number, total: number): ThresholdKey | null {
   return null
 }
 
-function classifySection(rate: number): SectionClassification {
-  if (rate >= 40) return 'high'
-  if (rate >= 20) return 'monitor'
-  return 'strong'
-}
-
-function sectionPriorityLabel(classification: SectionClassification): string {
-  if (classification === 'high') return 'Priority'
-  if (classification === 'monitor') return 'Watch'
-  return 'Strong'
-}
-
-function sectionPriorityClass(classification: SectionClassification): string {
-  if (classification === 'high') return 'bg-[#F97316] text-white'
-  if (classification === 'monitor') return 'bg-yellow-300 text-slate-950'
-  return 'bg-green-600 text-white'
-}
-
-function getOverallInterpretation(count: number, total: number) {
-  const rate = getScoreRate(count, total)
-  if (count === 0) {
-    return {
-      label: 'No pattern selected yet',
-      meaning:
-        'No readiness signs were selected for this grade band. This usually means there is no obvious pattern from this checklist alone.',
-      nextStep:
-        'Continue normal monitoring, especially during grade transitions or when homework suddenly becomes harder.',
-    }
-  }
-  if (rate < 15) {
-    return {
-      label: 'Low concern',
-      meaning:
-        'Only a small number of signs were selected. This does not suggest a broad readiness pattern, but repeated signs are still worth watching.',
-      nextStep:
-        'Monitor the selected signs for two to three weeks. If the same signs keep appearing, discuss them with the adult supporting the student.',
-    }
-  }
-  if (rate < 30) {
-    return {
-      label: 'Watch pattern',
-      meaning:
-        'Several signs were selected across the grade-relevant checklist. This may indicate an emerging pattern rather than a one-off bad day.',
-      nextStep:
-        'Review which section has the highest concentration and compare it with homework, classwork, and teacher observations.',
-    }
-  }
-  return {
-    label: 'Clear pattern',
-    meaning:
-      'The selected signs are concentrated enough to suggest a clear academic readiness pattern for this grade band.',
-    nextStep:
-      'Use this report to guide a structured conversation with a teacher, program lead, or academic support provider.',
-  }
-}
-
-function getSectionInterpretation(section: RankedSection) {
-  if (section.classification === 'high') {
-    return {
-      meaning:
-        'This area has the strongest concentration of selected signs and should be reviewed first.',
-      nextStep:
-        'Look for recent assignments or tests connected to this area, then choose one or two specific skills to investigate before adding more practice.',
-    }
-  }
-  if (section.classification === 'monitor') {
-    return {
-      meaning:
-        'This area shows enough signs to watch. It may be an emerging gap or a support habit that has not fully settled yet.',
-      nextStep:
-        'Track whether the same signs repeat over the next few assignments. Repetition matters more than a single difficult day.',
-    }
-  }
-  return {
-    meaning:
-      'This area does not currently show a concentrated pattern based on the selected signs.',
-    nextStep:
-      'Keep this area in normal monitoring unless new signs appear or school feedback points in the same direction.',
-  }
-}
-
 function trackChecklistEvent(event: string, params: Record<string, string | number | boolean>) {
   if (typeof window === 'undefined') return
   const analyticsWindow = window as typeof window & {
@@ -235,61 +48,29 @@ function trackChecklistEvent(event: string, params: Record<string, string | numb
   analyticsWindow.dataLayer?.push({ event, ...params })
 }
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-}
-
 export function ReadinessChecklistClient() {
-  const [gradeBandId, setGradeBandId] = useState<GradeBandId>('grades-1-4')
+  const [gradeBandId, setGradeBandId] = useState<ReadinessGradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
   const [evaluationReadyKey, setEvaluationReadyKey] = useState('')
   const [showFixedScoreBar, setShowFixedScoreBar] = useState(false)
+  const [exportError, setExportError] = useState('')
   const startedTracked = useRef(false)
   const reachedThresholds = useRef<Set<ThresholdKey>>(new Set())
   const scoreBarRef = useRef<HTMLDivElement | null>(null)
   const checklistEndRef = useRef<HTMLDivElement | null>(null)
 
   const selectedGradeBand = useMemo(
-    () => GRADE_BANDS.find((gradeBand) => gradeBand.id === gradeBandId) ?? GRADE_BANDS[0],
+    () =>
+      READINESS_GRADE_BANDS.find((gradeBand) => gradeBand.id === gradeBandId) ??
+      READINESS_GRADE_BANDS[0],
     [gradeBandId],
   )
 
-  const activeSectionIds = useMemo(
-    () => new Set<string>(selectedGradeBand.sectionIds),
-    [selectedGradeBand],
-  )
-
-  const activeItems = useMemo(
-    () => CHECKLIST_ITEMS.filter((item) => activeSectionIds.has(item.sectionId)),
-    [activeSectionIds],
-  )
-
+  const activeItems = useMemo(() => getReadinessActiveItems(gradeBandId), [gradeBandId])
   const activeTotal = activeItems.length
-
-  const handleToggle = (key: string, idx: number) => {
-    const newChecked = {
-      ...checked,
-      [key]: !checked[key],
-    }
-    setChecked(newChecked)
-    const nextCheckedCount = activeItems.filter((item) => newChecked[item.key]).length
-
-    trackChecklistEvent('checklist_item_toggled', {
-      checked_count: nextCheckedCount,
-      total_items: activeTotal,
-      grade_band: selectedGradeBand.label,
-      item_section: CHECKLIST_ITEMS[idx].section,
-      score_band: getScoreBand(nextCheckedCount, activeTotal),
-    })
-  }
-
   const checkedCount = activeItems.filter((item) => checked[item.key]).length
   const pct = getScoreRate(checkedCount, activeTotal)
+
   const selectedKeySignature = activeItems
     .filter((item) => checked[item.key])
     .map((item) => item.key)
@@ -301,48 +82,38 @@ export function ReadinessChecklistClient() {
   const sections = useMemo(() => {
     const grouped: Record<string, ChecklistSection> = {}
     activeItems.forEach((item) => {
-      const idx = CHECKLIST_ITEMS.findIndex((checklistItem) => checklistItem.key === item.key)
-      if (!grouped[item.section]) {
-        const sectionIndex = SECTIONS.findIndex((section) => section.title === item.section)
-        grouped[item.section] = {
-          id: SECTIONS[sectionIndex]?.id ?? item.section,
+      const idx = READINESS_CHECKLIST_ITEMS.findIndex((checklistItem) => checklistItem.key === item.key)
+      const sectionIndex = READINESS_SECTIONS.findIndex((section) => section.id === item.sectionId)
+      if (!grouped[item.sectionId]) {
+        grouped[item.sectionId] = {
+          id: item.sectionId,
           name: item.section,
           number: String(sectionIndex + 1).padStart(2, '0'),
-          max: SECTIONS[sectionIndex]?.max ?? 0,
           items: [],
         }
       }
-      grouped[item.section].items.push({ key: item.key, idx, text: item.text })
+      grouped[item.sectionId].items.push({ key: item.key, idx, text: item.text })
     })
     return Object.values(grouped)
   }, [activeItems])
 
-  const sectionScores = useMemo<Record<string, RankedSection>>(() => {
-    return Object.fromEntries(SECTIONS.filter((section) => activeSectionIds.has(section.id)).map((section) => {
-      const hits = section.items.filter((_, itemIndex) => checked[`${section.id}-${itemIndex}`]).length
-      const rate = Math.round((hits / section.max) * 100)
-      const score = {
-        id: section.id,
-        title: section.title,
-        hits,
-        max: section.max,
-        rate,
-        classification: classifySection(rate),
-      }
-      return [section.id, score]
-    }))
-  }, [activeSectionIds, checked])
+  const handleToggle = (key: string, idx: number) => {
+    const newChecked = {
+      ...checked,
+      [key]: !checked[key],
+    }
+    setChecked(newChecked)
+    setExportError('')
+    const nextCheckedCount = activeItems.filter((item) => newChecked[item.key]).length
 
-  const rankedSections = useMemo<RankedSection[]>(() => {
-    return Object.values(sectionScores)
-      .filter((section) => section.hits > 0)
-      .sort((a, b) => b.rate - a.rate || b.hits - a.hits)
-  }, [sectionScores])
-
-  const flaggedSections = useMemo(
-    () => rankedSections.filter((section) => section.classification !== 'strong').slice(0, 3),
-    [rankedSections],
-  )
+    trackChecklistEvent('checklist_item_toggled', {
+      checked_count: nextCheckedCount,
+      total_items: activeTotal,
+      grade_band: selectedGradeBand.label,
+      item_section: READINESS_CHECKLIST_ITEMS[idx]?.section ?? 'Unknown',
+      score_band: getScoreBand(nextCheckedCount, activeTotal),
+    })
+  }
 
   useEffect(() => {
     if (checkedCount < 2) {
@@ -378,141 +149,6 @@ export function ReadinessChecklistClient() {
     }
   }, [activeTotal, checkedCount, selectedGradeBand.label])
 
-  const scoreMessage = useMemo(() => {
-    if (checkedCount === 0) {
-      return { text: 'Check the signs that apply to your child.', alert: false }
-    } else if (pct < 15) {
-      const plural = checkedCount > 1 ? 's' : ''
-      return { text: `${checkedCount} sign${plural} identified — low concern. Monitor if it repeats.`, alert: false }
-    } else if (pct < 30) {
-      return { text: `${checkedCount} signs identified — watch for a repeated pattern.`, alert: true }
-    } else {
-      return { text: `${checkedCount} signs identified — a clear pattern has emerged.`, alert: true }
-    }
-  }, [checkedCount, pct])
-
-  const resultBlock = useMemo(() => {
-    if (checkedCount < 2) {
-      return null
-    }
-    const flaggedCount = flaggedSections.length
-    const hasPriorityArea = flaggedSections.some((section) => section.classification === 'high')
-    const highIntent = pct >= 30 || hasPriorityArea
-    const isEvaluating = evaluationStatus === 'evaluating'
-    const body = isEvaluating
-      ? 'Evaluating the selected signs across the relevant grade-band sections.'
-      : 'Your evaluation is ready. Export the report to see the detailed section interpretation and save it as a PDF.'
-
-    if (!highIntent) {
-      return {
-        title: isEvaluating ? 'Evaluating...' : 'Evaluation report ready',
-        text: body,
-        highIntent: false,
-        visible: true,
-      }
-    }
-
-    return {
-      title: isEvaluating
-        ? 'Evaluating...'
-        : `Evaluation report ready${flaggedCount > 0 ? ` · ${flaggedCount} area${flaggedCount > 1 ? 's' : ''} to review` : ''}`,
-      text: body,
-      highIntent: true,
-      visible: true,
-    }
-  }, [checkedCount, evaluationStatus, flaggedSections, pct])
-
-  const handleExportReport = () => {
-    const reportWindow = window.open('', '_blank')
-    if (!reportWindow) return
-
-    const selectedItems = activeItems.filter((item) => checked[item.key])
-    const overall = getOverallInterpretation(checkedCount, activeTotal)
-    const sectionRows = Object.values(sectionScores)
-      .map((section) => {
-        const interpretation = getSectionInterpretation(section)
-        const selectedInSection = selectedItems.filter((item) => item.sectionId === section.id)
-        const selectedList = selectedInSection.length
-          ? `<ul>${selectedInSection.map((item) => `<li>${escapeHtml(item.text)}</li>`).join('')}</ul>`
-          : '<p class="muted">No signs selected in this section.</p>'
-
-        return `
-          <section class="section">
-            <div class="section-head">
-              <h2>${escapeHtml(section.title)}</h2>
-              <span>${sectionPriorityLabel(section.classification)}</span>
-            </div>
-            <p>${section.hits} of ${section.max} signs selected · ${section.rate}% section concentration</p>
-            <p><strong>Interpretation:</strong> ${escapeHtml(interpretation.meaning)}</p>
-            <p><strong>Suggested next step:</strong> ${escapeHtml(interpretation.nextStep)}</p>
-            <p><strong>Selected signs:</strong></p>
-            ${selectedList}
-          </section>
-        `
-      })
-      .join('')
-
-    const generatedAt = new Date().toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    })
-
-    reportWindow.document.write(`<!doctype html>
-      <html>
-        <head>
-          <title>GrowWise Readiness Report</title>
-          <style>
-            body { font-family: Arial, sans-serif; color: #14213d; margin: 32px; line-height: 1.45; }
-            .eyebrow { color: #f97316; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
-            h1 { color: #1E3A5F; margin: 8px 0 10px; font-size: 30px; }
-            h2 { color: #1E3A5F; font-size: 18px; margin: 0; }
-            .summary { border: 1px solid #d9e2ef; border-radius: 14px; padding: 18px; margin: 22px 0; background: #f8fafc; }
-            .score { font-size: 34px; font-weight: 900; color: #f97316; margin: 6px 0; }
-            .section { border-top: 1px solid #d9e2ef; padding: 18px 0; break-inside: avoid; }
-            .section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-            .section-head span { border-radius: 999px; background: #fff7ed; color: #9a3412; padding: 5px 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
-            ul { margin: 10px 0 0 20px; padding: 0; }
-            li { margin: 6px 0; }
-            .muted { color: #64748b; }
-            .disclaimer { margin-top: 24px; padding-top: 14px; border-top: 1px solid #d9e2ef; color: #64748b; font-size: 12px; }
-            .actions { margin: 22px 0; }
-            button { border: 0; border-radius: 10px; background: #f97316; color: white; cursor: pointer; font-weight: 800; padding: 11px 18px; }
-            @media print { .actions { display: none; } body { margin: 20px; } }
-          </style>
-        </head>
-        <body>
-          <p class="eyebrow">GrowWise readiness report</p>
-          <h1>Math & Reading Readiness Checklist</h1>
-          <p class="muted">Generated ${escapeHtml(generatedAt)} · ${escapeHtml(selectedGradeBand.label)}</p>
-          <div class="summary">
-            <p class="eyebrow">Overall score</p>
-            <p class="score">${checkedCount}/${activeTotal}</p>
-            <p>${pct}% of grade-relevant signs were selected.</p>
-            <p><strong>${escapeHtml(overall.label)}:</strong> ${escapeHtml(overall.meaning)}</p>
-            <p><strong>Suggested next step:</strong> ${escapeHtml(overall.nextStep)}</p>
-          </div>
-          <div class="actions">
-            <button onclick="window.print()">Download / Save as PDF</button>
-          </div>
-          ${sectionRows}
-          <p class="disclaimer">
-            This report is an educational pattern-finding tool, not a diagnosis. Use it as a discussion aid with a teacher,
-            program lead, or qualified academic support provider.
-          </p>
-          <script>window.addEventListener('load', () => setTimeout(() => window.print(), 250));</script>
-        </body>
-      </html>`)
-    reportWindow.document.close()
-
-    trackChecklistEvent('readiness_report_export_clicked', {
-      checked_count: checkedCount,
-      total_items: activeTotal,
-      grade_band: selectedGradeBand.label,
-      score_band: getScoreBand(checkedCount, activeTotal),
-    })
-  }
-
   useEffect(() => {
     const updateFixedScoreBar = () => {
       const scoreBar = scoreBarRef.current
@@ -537,6 +173,77 @@ export function ReadinessChecklistClient() {
     }
   }, [activeTotal, checkedCount, gradeBandId])
 
+  const scoreMessage = useMemo(() => {
+    if (checkedCount === 0) {
+      return 'Check the signs that apply to your child.'
+    }
+    if (evaluationStatus === 'evaluating') {
+      return 'Evaluating selected signs for the report.'
+    }
+    if (evaluationStatus === 'ready') {
+      return 'Evaluation report ready.'
+    }
+    const plural = checkedCount > 1 ? 's' : ''
+    return `${checkedCount} sign${plural} selected. Continue checking if more apply.`
+  }, [checkedCount, evaluationStatus])
+
+  const resultBlock = useMemo(() => {
+    if (checkedCount < 2) return null
+    const isEvaluating = evaluationStatus === 'evaluating'
+    return {
+      title: isEvaluating ? 'Evaluating...' : 'Evaluation report ready',
+      text: isEvaluating
+        ? 'Processing the selected signs across the relevant grade-band sections.'
+        : 'Export the report to see the detailed interpretation and suggested next steps.',
+    }
+  }, [checkedCount, evaluationStatus])
+
+  const handleExportReport = async () => {
+    if (evaluationStatus !== 'ready') return
+
+    const reportWindow = window.open('', '_blank')
+    if (!reportWindow) {
+      setExportError('Please allow pop-ups to export the report.')
+      return
+    }
+
+    reportWindow.document.write(`<!doctype html><html><head><title>Preparing report</title></head><body style="font-family: Arial, sans-serif; padding: 32px;"><p>Preparing evaluation report...</p></body></html>`)
+    reportWindow.document.close()
+
+    try {
+      const response = await fetch('/api/readiness-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          gradeBandId,
+          selectedKeys: activeItems.filter((item) => checked[item.key]).map((item) => item.key),
+        }),
+      })
+      const payload = (await response.json()) as { success?: boolean; html?: string; error?: string }
+
+      if (!response.ok || !payload.success || typeof payload.html !== 'string') {
+        throw new Error(payload.error ?? 'Report generation failed')
+      }
+
+      reportWindow.document.open()
+      reportWindow.document.write(payload.html)
+      reportWindow.document.close()
+      setExportError('')
+
+      trackChecklistEvent('readiness_report_export_clicked', {
+        checked_count: checkedCount,
+        total_items: activeTotal,
+        grade_band: selectedGradeBand.label,
+        score_band: getScoreBand(checkedCount, activeTotal),
+      })
+    } catch {
+      reportWindow.document.open()
+      reportWindow.document.write(`<!doctype html><html><head><title>Report unavailable</title></head><body style="font-family: Arial, sans-serif; padding: 32px; color: #14213d;"><h1>Report unavailable</h1><p>Please return to the checklist and try exporting again.</p></body></html>`)
+      reportWindow.document.close()
+      setExportError('Could not generate the report. Please try again.')
+    }
+  }
+
   const scoreBarContent = (
     <>
       <div className="mb-3 flex items-center justify-between gap-4">
@@ -544,9 +251,7 @@ export function ReadinessChecklistClient() {
           <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
             {selectedGradeBand.label} score
           </span>
-          <span className="block text-sm font-semibold text-[#1E3A5F]">
-            {scoreMessage.text}
-          </span>
+          <span className="block text-sm font-semibold text-[#1E3A5F]">{scoreMessage}</span>
         </div>
         <span className="shrink-0 text-3xl font-black tabular-nums text-[#1E3A5F] sm:text-4xl">
           {checkedCount}
@@ -575,7 +280,7 @@ export function ReadinessChecklistClient() {
           The checklist and score will use only the sections that apply to that grade band.
         </p>
         <div className="mt-5 grid gap-3 md:grid-cols-3">
-          {GRADE_BANDS.map((gradeBand) => {
+          {READINESS_GRADE_BANDS.map((gradeBand) => {
             const isSelected = gradeBand.id === gradeBandId
             return (
               <button
@@ -583,9 +288,9 @@ export function ReadinessChecklistClient() {
                 type="button"
                 aria-pressed={isSelected}
                 onClick={() => {
-                  const nextSectionIds = new Set<string>(gradeBand.sectionIds)
-                  const nextActiveItems = CHECKLIST_ITEMS.filter((item) => nextSectionIds.has(item.sectionId))
+                  const nextActiveItems = getReadinessActiveItems(gradeBand.id)
                   setGradeBandId(gradeBand.id)
+                  setExportError('')
                   reachedThresholds.current.clear()
                   trackChecklistEvent('checklist_grade_band_selected', {
                     grade_band: gradeBand.label,
@@ -626,69 +331,45 @@ export function ReadinessChecklistClient() {
 
       <div className="space-y-8">
         {sections.map((section) => (
-          <div key={section.name} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div key={section.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
             <div className="relative overflow-hidden border-l-4 border-[#F97316] bg-[#1E3A5F] px-5 py-4 text-white">
               <span className="pointer-events-none absolute -right-2 -top-8 text-7xl font-black text-[#F97316]/20">
                 {section.number}
               </span>
-              <div className="relative space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <h2 className="text-sm font-black uppercase tracking-[0.12em]">
-                    {section.name}
-                  </h2>
-                  {sectionScores[section.id]?.hits > 0 ? (
-                    <span
-                      className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] ${sectionPriorityClass(sectionScores[section.id].classification)}`}
-                    >
-                      {sectionPriorityLabel(sectionScores[section.id].classification)}
-                    </span>
-                  ) : null}
-                </div>
-                {sectionScores[section.id]?.hits > 0 ? (
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/20">
-                      <div
-                        className="h-full rounded-full bg-[#F97316] transition-all duration-500 ease-out"
-                        style={{ width: `${sectionScores[section.id].rate}%` }}
-                      />
-                    </div>
-                    <span className="shrink-0 text-xs font-black tabular-nums text-white">
-                      {sectionScores[section.id].hits}/{sectionScores[section.id].max}
-                    </span>
-                  </div>
-                ) : null}
-              </div>
+              <h2 className="relative text-sm font-black uppercase tracking-[0.12em]">
+                {section.name}
+              </h2>
             </div>
             <div className="divide-y divide-slate-200 bg-white">
               {section.items.map(({ key, idx, text }) => {
                 const isChecked = Boolean(checked[key])
                 return (
-                <button
-                  type="button"
-                  key={key}
-                  onClick={() => handleToggle(key, idx)}
-                  aria-pressed={isChecked}
-                  className={`flex min-h-12 w-full items-start gap-3 p-4 text-left transition-colors duration-200 ease-out select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-inset ${
-                    isChecked ? 'bg-[#FFF7ED]' : 'hover:bg-slate-50'
-                  }`}
-                >
-                  <div
-                    className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border-2 transition-all duration-200 ease-out ${
-                      isChecked
-                        ? 'scale-110 border-[#F97316] bg-[#F97316]'
-                        : 'scale-100 border-[#1E3A5F] bg-white'
+                  <button
+                    type="button"
+                    key={key}
+                    onClick={() => handleToggle(key, idx)}
+                    aria-pressed={isChecked}
+                    className={`flex min-h-12 w-full select-none items-start gap-3 p-4 text-left transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-inset ${
+                      isChecked ? 'bg-[#FFF7ED]' : 'hover:bg-slate-50'
                     }`}
                   >
-                    {isChecked && <span className="text-white text-xs font-bold">✓</span>}
-                  </div>
-                  <span
-                    className={`flex-1 text-sm leading-normal ${
-                      isChecked ? 'text-[#1E3A5F] font-medium' : 'text-slate-900'
-                    }`}
-                  >
-                    {text}
-                  </span>
-                </button>
+                    <div
+                      className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border-2 transition-all duration-200 ease-out ${
+                        isChecked
+                          ? 'scale-110 border-[#F97316] bg-[#F97316]'
+                          : 'scale-100 border-[#1E3A5F] bg-white'
+                      }`}
+                    >
+                      {isChecked && <span className="text-xs font-bold text-white">✓</span>}
+                    </div>
+                    <span
+                      className={`flex-1 text-sm leading-normal ${
+                        isChecked ? 'font-medium text-[#1E3A5F]' : 'text-slate-900'
+                      }`}
+                    >
+                      {text}
+                    </span>
+                  </button>
                 )
               })}
             </div>
@@ -697,36 +378,28 @@ export function ReadinessChecklistClient() {
       </div>
       <div ref={checklistEndRef} aria-hidden="true" />
 
-      {/* Dynamic Result Block */}
-      {resultBlock && resultBlock.visible && (
-        <div
-          className={`rounded-2xl border-2 p-7 text-center shadow-sm transition-all ${
-            resultBlock.highIntent
-              ? 'border-[#F97316] bg-[#F97316] text-white'
-              : 'border-[#F97316]/30 bg-[#FFF7ED] text-[#1E3A5F]'
-          }`}
-        >
-          <p className={`mb-2 text-xs font-black uppercase tracking-[0.18em] ${resultBlock.highIntent ? 'text-white/80' : 'text-[#F97316]'}`}>
+      {resultBlock ? (
+        <div className="rounded-2xl border-2 border-[#F97316] bg-[#F97316] p-7 text-center text-white shadow-sm transition-all">
+          <p className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-white/80">
             Result
           </p>
           <h3 className="mb-2 text-2xl font-black">{resultBlock.title}</h3>
-          <p className={`mx-auto mb-5 max-w-2xl text-sm leading-relaxed ${resultBlock.highIntent ? 'text-white/90' : 'text-slate-700'}`}>
+          <p className="mx-auto mb-5 max-w-2xl text-sm leading-relaxed text-white/90">
             {resultBlock.text}
           </p>
           <button
             type="button"
             onClick={handleExportReport}
             disabled={evaluationStatus !== 'ready'}
-            className={`inline-flex min-h-11 items-center justify-center rounded-lg px-6 py-3 text-sm font-black transition-colors ${
-              resultBlock.highIntent
-                ? 'bg-white text-[#1E3A5F] hover:bg-[#EFF6FF] disabled:cursor-wait disabled:bg-white/70'
-                : 'bg-[#1E3A5F] text-white hover:bg-[#142b45] disabled:cursor-wait disabled:bg-[#1E3A5F]/60'
-            }`}
+            className="inline-flex min-h-11 items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-black text-[#1E3A5F] transition-colors hover:bg-[#EFF6FF] disabled:cursor-wait disabled:bg-white/70"
           >
-            {evaluationStatus === 'evaluating' ? 'Evaluating...' : 'Ready to export report'}
+            {evaluationStatus === 'evaluating' ? 'Evaluating...' : 'Export evaluation report'}
           </button>
+          {exportError ? (
+            <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold text-white">{exportError}</p>
+          ) : null}
         </div>
-      )}
+      ) : null}
     </div>
   )
 }
