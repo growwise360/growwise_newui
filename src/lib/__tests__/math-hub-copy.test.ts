@@ -5,16 +5,16 @@ describe('MATH_HUB_COPY pricing', () => {
     const lines = MATH_HUB_COPY.gradeBands.cards.map((c) => c.packageLine);
     expect(lines).toEqual([
       'From $169/month · 75 min, once a week · 3-month program',
-      'From $179/month · 75 min, once a week · 3-month program',
+      'From $289/month · 150 minutes per week · 3-month program',
       'From $189/month · 75 min, once a week · 3-month program',
     ]);
 
-    const onceAWeek = MATH_HUB_COPY.programOptions.cards.map(
+    const entrySchedules = MATH_HUB_COPY.programOptions.cards.map(
       (c) => c.options[0]?.schedule,
     );
-    expect(onceAWeek).toEqual([
+    expect(entrySchedules).toEqual([
       '75 min, once a week',
-      '75 min/week',
+      '150 minutes per week',
       '75 min/week',
     ]);
   });
@@ -23,25 +23,27 @@ describe('MATH_HUB_COPY pricing', () => {
     const entryPrices = MATH_HUB_COPY.programOptions.cards.map(
       (c) => c.options[0]?.price,
     );
-    expect(entryPrices).toEqual(['$169/mo', '$179/mo', '$189/mo']);
+    expect(entryPrices).toEqual(['$169/mo', '$289/mo', '$189/mo']);
 
-    const accelerated = MATH_HUB_COPY.programOptions.cards.find(
+    const middle = MATH_HUB_COPY.programOptions.cards.find(
       (c) => c.id === 'middle-school',
     );
-    expect(accelerated?.options.map((o) => o.price)).toEqual([
-      '$179/mo',
+    expect(middle?.options.map((o) => o.price)).toEqual([
       '$289/mo',
-      '$289/mo',
+      '$295/mo',
     ]);
-    expect(accelerated?.options.map((o) => o.name)).toEqual([
-      '1 Subject',
-      '2 Subject',
-      'Accelerated Math',
+    expect(middle?.options.map((o) => o.name)).toEqual([
+      'Regular Math Program',
+      'Advanced Math',
     ]);
+    expect(middle?.options[1]?.bestFor).toBe(
+      '4-6 students per group · Quarterly tests on all topics taught that quarter',
+    );
   });
 
-  it('middle and high program cards include complimentary weekly practice', () => {
-    const benefit =
+  it('middle and high program cards include current included benefits', () => {
+    const middleBenefit = 'Quarterly tests cover all topics taught during the quarter.';
+    const highBenefit =
       'Complimentary 60-minute weekly practice session included with every program';
 
     const elementary = MATH_HUB_COPY.programOptions.cards.find(
@@ -53,8 +55,8 @@ describe('MATH_HUB_COPY pricing', () => {
     const high = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school');
 
     expect(elementary?.includedBenefit).toBeUndefined();
-    expect(middle?.includedBenefit).toBe(benefit);
-    expect(high?.includedBenefit).toBe(benefit);
+    expect(middle?.includedBenefit).toBe(middleBenefit);
+    expect(high?.includedBenefit).toBe(highBenefit);
   });
 
   it('high school AP Math option includes school-aligned subtitle', () => {

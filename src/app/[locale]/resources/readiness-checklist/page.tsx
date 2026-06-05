@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { ComplianceDisclaimer } from '@/components/ComplianceDisclaimer'
 import { ReadinessChecklistClient } from '@/components/ReadinessChecklistClient'
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews'
@@ -6,7 +5,7 @@ import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews'
 const FAQ_ITEMS = [
   {
     q: 'Is this checklist a diagnosis?',
-    a: 'No. It is a pattern-finding tool. Only a qualified educator can assess the depth of an academic gap. This checklist helps you decide whether a more structured assessment is worth pursuing.',
+    a: 'No. It is a pattern-finding tool. Only a qualified educator can assess the depth of an academic gap. This checklist helps you decide whether a more structured academic review is worth pursuing.',
   },
   {
     q: "My child's grades are fine. Should I still use this?",
@@ -14,7 +13,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What does GrowWise do with the gaps identified?',
-    a: 'GrowWise runs a diagnostic session to pinpoint the specific missing concepts, then builds a structured practice plan that targets those gaps directly rather than re-teaching everything.',
+    a: 'This checklist groups repeated signs by learning area so families, schools, aftercare programs, and support providers can discuss the pattern more clearly.',
   },
   {
     q: 'How were the score thresholds chosen?',
@@ -26,7 +25,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How do I take the next step?',
-    a: 'Call or text (925) 456-4606 to book a free academic gap assessment. GrowWise is located at 4564 Dublin Blvd, Dublin, CA.',
+    a: 'Use the patterns you identify to decide whether to monitor, share observations with a teacher, or pursue a structured academic review.',
   },
 ]
 
@@ -40,7 +39,7 @@ export default function ReadinessChecklistPage() {
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-orange-100 ring-1 ring-white/15">
-              Free parent checklist · Dublin CA
+              Free readiness checklist
             </p>
             <h1 className="font-heading text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
               Find the academic gaps grades don’t always show.
@@ -63,10 +62,10 @@ export default function ReadinessChecklistPage() {
               </a>
             </div>
             <p className="mt-4 text-sm font-semibold text-blue-100">
-              Free · No signup · Used by Dublin & Tri-Valley families
+              Free · No signup · Useful for families, schools, and aftercare programs
             </p>
             <p className="mt-2 text-sm text-white/75">
-              Serving Dublin families since 2024 · Grades 1–12
+              Grades 1–12 · Math, reading, writing, and readiness
             </p>
           </div>
         </div>
@@ -77,7 +76,7 @@ export default function ReadinessChecklistPage() {
           {[
             ['3 minutes', 'Quick parent-friendly scan'],
             ['34 signs', 'Math, reading, writing, and readiness'],
-            ['45 minutes', 'Free assessment if a pattern emerges'],
+            ['5 areas', 'Pattern summary by learning area'],
           ].map(([stat, label]) => (
             <div key={stat} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
               <p className="text-2xl font-black text-[#1E3A5F]">{stat}</p>
@@ -98,14 +97,14 @@ export default function ReadinessChecklistPage() {
             </h2>
             <div className="mt-4 grid gap-4 text-sm leading-relaxed text-slate-700 sm:grid-cols-2">
               <p>
-                This is a <strong>pattern finder</strong>, not a diagnosis. Check every sign that applies to your child. The score helps you decide whether to monitor, act early, or book a structured assessment.
+                This is a <strong>pattern finder</strong>, not a diagnosis. Check every sign that applies to the student. The score helps you decide whether to monitor, act early, or request a structured academic review.
               </p>
               <p>
-                No email is required. Your score is calculated in your browser. If you choose to book, GrowWise uses the result only to understand the pattern before the free assessment.
+                No email is required. Your score is calculated in your browser, so families, schools, aftercare teams, and support providers can use the checklist as a neutral observation tool.
               </p>
             </div>
             <p className="mt-5 rounded-lg border-l-4 border-[#F97316] bg-[#FFF7ED] px-4 py-3 text-sm font-semibold leading-relaxed text-slate-800">
-              Inspired by MTSS/RtI pattern-based screening logic: one concern is not a diagnosis; repeated signs across learning areas may be a reason to schedule a deeper academic assessment.
+              Inspired by MTSS/RtI pattern-based screening logic: one concern is not a diagnosis; repeated signs across learning areas may be a reason to consider a deeper academic review.
             </p>
           </section>
 
@@ -137,7 +136,7 @@ export default function ReadinessChecklistPage() {
                 <p className="text-2xl font-black">6+</p>
                 <h3 className="mt-2 font-black">Clear pattern emerged</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/90">
-                  A clear pattern has emerged. At 10+ signs, the assessment CTA becomes more urgent because the pattern is likely spread across multiple skills.
+                  A clear pattern has emerged. At 10+ signs, the pattern is likely spread across multiple skills and may be worth discussing with an educator.
                 </p>
               </div>
             </div>
@@ -149,18 +148,18 @@ export default function ReadinessChecklistPage() {
                 What happens next
               </p>
               <h2 className="font-heading text-2xl font-black text-[#1E3A5F]">
-                The free assessment turns the pattern into a plan.
+                Turn the pattern into a practical next-step discussion.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-700">
-                A GrowWise educator checks the specific concepts behind the pattern, explains what is missing, and recommends whether your child needs support now or simply monitoring.
+                Use the section scores to guide a conversation with a teacher, program lead, or academic support provider. The checklist is designed to clarify where repeated signs are showing up before choosing a next step.
               </p>
             </div>
             <div className="rounded-xl bg-[#EFF6FF] p-5">
               <ul className="space-y-3 text-sm text-slate-700">
-                <li><strong>45 minutes</strong> with no commitment required</li>
-                <li><strong>Grades 1–12</strong> math and English readiness</li>
-                <li><strong>Dublin center</strong> at 4564 Dublin Blvd</li>
-                <li><strong>Parent takeaway</strong>: the next-step plan</li>
+                <li><strong>Review the highest section score</strong> first</li>
+                <li><strong>Compare patterns</strong> across math, reading, writing, and readiness</li>
+                <li><strong>Share observations</strong> with the adults supporting the student</li>
+                <li><strong>Choose a next step</strong> based on repeated signs, not one bad day</li>
               </ul>
             </div>
           </section>
@@ -176,12 +175,6 @@ export default function ReadinessChecklistPage() {
                   Families come to GrowWise when homework patterns, repeated mistakes, or confidence drops suggest something deeper than a bad week.
                 </p>
               </div>
-              <Link
-                href="/book-assessment?source=readiness-checklist-social-proof"
-                className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg bg-[#1E3A5F] px-6 py-3 text-sm font-black text-white hover:bg-[#142b45]"
-              >
-                Book Free Assessment
-              </Link>
             </div>
           </section>
 
@@ -223,32 +216,6 @@ export default function ReadinessChecklistPage() {
                 </details>
               ))}
             </div>
-          </section>
-
-          <section className="rounded-2xl bg-[#1E3A5F] p-7 text-center text-white shadow-sm sm:p-10">
-            <h2 className="font-heading text-3xl font-black">
-              Know what’s wrong. Now get a plan to fix it.
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-blue-50 sm:text-base">
-              Book a free 45-minute academic gap assessment. No commitment required.
-            </p>
-            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link
-                href="/book-assessment?source=readiness-checklist-final"
-                className="inline-flex min-h-12 items-center justify-center rounded-lg bg-[#F97316] px-7 py-3 text-sm font-black text-white hover:bg-orange-500"
-              >
-                Book Free Assessment
-              </Link>
-              <a
-                href="tel:9254564606"
-                className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/35 px-7 py-3 text-sm font-black text-white hover:bg-white/10"
-              >
-                Call (925) 456-4606
-              </a>
-            </div>
-            <p className="mt-4 text-xs text-white/70">
-              4564 Dublin Blvd, Dublin, CA
-            </p>
           </section>
 
           <ComplianceDisclaimer />

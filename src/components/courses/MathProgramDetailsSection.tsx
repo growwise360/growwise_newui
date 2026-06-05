@@ -8,6 +8,7 @@ export type MathProgramPricingTier = {
   readonly schedule: string;
   readonly price: string;
   readonly subtitle?: string;
+  readonly bestFor?: string;
   readonly featured?: boolean;
 };
 
@@ -78,6 +79,11 @@ export function MathProgramDetailsSection({
                         <p className="text-xs text-gray-500">{tier.subtitle}</p>
                       ) : null}
                       <p className="text-xs text-gray-500">{tier.schedule}</p>
+                      {tier.bestFor ? (
+                        <p className="mt-1 max-w-[220px] text-xs leading-snug text-gray-500">
+                          {tier.bestFor}
+                        </p>
+                      ) : null}
                     </div>
                     <p className="font-bold text-[#F16112] shrink-0 ml-3">{tier.price}</p>
                   </div>

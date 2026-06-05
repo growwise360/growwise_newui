@@ -120,7 +120,7 @@ export const MATH_HUB_COPY = {
           'Proportional reasoning',
           'Linear functions',
         ],
-        packageLine: 'From $179/month · 75 min, once a week · 3-month program',
+        packageLine: 'From $289/month · 150 minutes per week · 3-month program',
         ctaLabel: 'See middle school programs',
         imageSrc: '/assets/courses/math-band-middle-school.webp',
         imageAlt:
@@ -252,28 +252,22 @@ export const MATH_HUB_COPY = {
         ctaLabel: 'See full program',
         options: [
           {
-            name: '1 Subject',
-            schedule: '75 min/week',
-            price: '$179/mo',
-            bestFor: 'Students needing focused support in math only',
-          },
-          {
-            name: '2 Subject',
-            schedule: '2 × 60 min/week',
+            name: 'Regular Math Program',
+            schedule: '150 minutes per week',
             price: '$289/mo',
-            bestFor: 'Students needing math plus one additional subject',
+            bestFor: 'Small-group math support for the current course sequence',
             featured: true,
           },
           {
-            name: 'Accelerated Math',
-            schedule: '120 min/week',
-            price: '$289/mo',
+            name: 'Advanced Math',
+            schedule: '150 minutes per week',
+            price: '$295/mo',
             bestFor:
-              'Students on the accelerated track needing deeper curriculum coverage',
+              '4-6 students per group · Quarterly tests on all topics taught that quarter',
           },
         ],
         includedBenefit:
-          'Complimentary 60-minute weekly practice session included with every program',
+          'Quarterly tests cover all topics taught during the quarter.',
       },
       {
         id: 'high-school',
@@ -400,7 +394,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
     intro: 'Pre-Algebra, IM1, IM2 — including accelerated curriculum tracks.',
     body: 'The jump into Integrated Math catches many students off guard. We close the gaps before they compound across the year. Programs align with Common Core and local IM sequences.',
     coursesIncluded: MATH_HUB_COPY.gradeBands.cards[1].coursesIncluded,
-    packageLine: 'From $179/month · 75 min, once a week · 3-month program',
+    packageLine: 'From $289/month · 150 minutes per week · 3-month program',
     schemaCourseName: 'Middle School Math Program — Grades 6–8',
     schemaDescription:
       '3-month structured math program for Grades 6–8. Covers Pre-Algebra, Integrated Math 1, and Integrated Math 2. Live online small groups.',

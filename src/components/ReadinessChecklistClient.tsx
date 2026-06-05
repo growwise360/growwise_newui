@@ -1,9 +1,6 @@
 'use client'
 
 import { useState, useMemo, useEffect, useRef } from 'react'
-import Link from 'next/link'
-import { useLocale } from 'next-intl'
-import { publicPath } from '@/lib/publicPath'
 
 const SECTIONS = [
   {
@@ -107,37 +104,6 @@ type RankedSection = {
   classification: SectionClassification
 }
 
-const sectionToCTA: Record<string, { label: string; href: string }> = {
-  'math-1-4': {
-    label: 'Academic Summer Program',
-    href: '/camps/academic-summer-programs-dublin-ca',
-  },
-  'math-5-8': {
-    label: 'Academic Summer Program',
-    href: '/camps/academic-summer-programs-dublin-ca',
-  },
-  reading: {
-    label: 'Academic Summer Program',
-    href: '/camps/academic-summer-programs-dublin-ca',
-  },
-  writing: {
-    label: 'Academic Summer Program',
-    href: '/camps/academic-summer-programs-dublin-ca',
-  },
-  'middle-school': {
-    label: 'High School Intensive Prep',
-    href: '/camps/high-school-summer-intensive-dublin-ca',
-  },
-}
-
-const sectionShortName: Record<string, string> = {
-  'math-1-4': 'Math (Gr 1–4)',
-  'math-5-8': 'Math (Gr 5–8)',
-  reading: 'Reading',
-  writing: 'Writing',
-  'middle-school': 'Middle School Readiness',
-}
-
 function getScoreBand(count: number) {
   if (count >= 10) return '10_plus'
   if (count >= 6) return '6_plus'
@@ -182,16 +148,9 @@ function trackChecklistEvent(event: string, params: Record<string, string | numb
 }
 
 export function ReadinessChecklistClient() {
-  const locale = useLocale()
   const [checked, setChecked] = useState<Record<string, boolean>>({})
-  const [dismissedThreshold, setDismissedThreshold] = useState<ThresholdKey | null>(null)
   const startedTracked = useRef(false)
   const reachedThresholds = useRef<Set<ThresholdKey>>(new Set())
-
-  const assessmentHref = publicPath(
-    `/book-assessment?source=readiness-checklist&score=${Object.values(checked).filter(Boolean).length}`,
-    locale,
-  )
 
   const handleToggle = (key: string, idx: number) => {
     const newChecked = {
@@ -256,30 +215,10 @@ export function ReadinessChecklistClient() {
     () => rankedSections.filter((section) => section.classification !== 'strong').slice(0, 3),
     [rankedSections],
   )
-  const floatingCtaSections = useMemo(() => {
-    const source = flaggedSections.length > 0 ? flaggedSections : rankedSections
-    return source.slice(0, 2).map((section) => sectionShortName[section.id] ?? section.title)
-  }, [flaggedSections, rankedSections])
-  const floatingCtaLabel =
-    floatingCtaSections.length > 1
-      ? `${floatingCtaSections.join(' & ')} flagged.`
-      : floatingCtaSections.length === 1
-        ? `${floatingCtaSections[0]} flagged.`
-        : `${checkedCount} signs checked.`
   const strongSections = useMemo(
     () => rankedSections.filter((section) => section.classification === 'strong'),
     [rankedSections],
   )
-  const topFlaggedSection = flaggedSections[0] ?? rankedSections[0] ?? null
-  const resultCta = topFlaggedSection
-    ? sectionToCTA[topFlaggedSection.id] ?? {
-        label: 'Free Assessment',
-        href: '/book-assessment',
-      }
-    : {
-        label: 'Free Assessment',
-        href: '/book-assessment',
-      }
 
   useEffect(() => {
     if (checkedCount > 0 && !startedTracked.current) {
@@ -333,7 +272,6 @@ export function ReadinessChecklistClient() {
       return {
         title: priority ? `Gaps identified in ${priority.title}` : 'Gaps identified — early action helps.',
         text: body || `Your child shows ${checkedCount} signs. This pattern is worth checking before grades drop.`,
-        cta: `Book Free Assessment — ${resultCta.label} →`,
         highIntent: false,
         visible: true,
       }
@@ -342,7 +280,6 @@ export function ReadinessChecklistClient() {
       return {
         title: `Pattern identified across ${Math.max(flaggedCount, 1)} area${Math.max(flaggedCount, 1) > 1 ? 's' : ''}`,
         text: body || `Your child shows ${checkedCount} signs across the checklist. This pattern is worth reviewing with an educator.`,
-        cta: `Book Free Assessment — ${resultCta.label} →`,
         highIntent: true,
         visible: true,
       }
@@ -350,25 +287,10 @@ export function ReadinessChecklistClient() {
     return {
       title: `Significant pattern — ${Math.max(flaggedCount, 1)} area${Math.max(flaggedCount, 1) > 1 ? 's' : ''} flagged`,
       text: body || `Your child shows ${checkedCount} signs across the checklist. Gaps at this level typically compound — each layer builds on the one below.`,
-      cta: `Book Free Assessment — ${resultCta.label} →`,
       highIntent: true,
       visible: true,
     }
-  }, [checkedCount, flaggedSections, rankedSections, resultCta.label, strongSections])
-
-  const currentThreshold = getThresholdKey(checkedCount)
-  const showFloatingCta = currentThreshold !== null && dismissedThreshold !== currentThreshold
-  const isUrgent = checkedCount >= 10
-
-  const handleAssessmentClick = (location: string) => {
-    trackChecklistEvent('assessment_cta_clicked', {
-      location,
-      checked_count: checkedCount,
-      total_items: TOTAL,
-      score_band: getScoreBand(checkedCount),
-      destination: assessmentHref,
-    })
-  }
+  }, [checkedCount, flaggedSections, rankedSections, strongSections])
 
   return (
     <div id="checklist-start" className="space-y-10 scroll-mt-24">
@@ -472,7 +394,7 @@ export function ReadinessChecklistClient() {
         <div
           className={`rounded-2xl border-2 p-7 text-center shadow-sm transition-all ${
             resultBlock.highIntent
-              ? `border-[#F97316] bg-[#F97316] text-white ${isUrgent ? 'animate-pulse' : ''}`
+              ? 'border-[#F97316] bg-[#F97316] text-white'
               : 'border-[#F97316]/30 bg-[#FFF7ED] text-[#1E3A5F]'
           }`}
         >
@@ -500,53 +422,8 @@ export function ReadinessChecklistClient() {
               ))}
             </div>
           ) : null}
-          <Link
-            href={publicPath(
-              `/book-assessment?source=readiness-checklist&score=${checkedCount}&program=${encodeURIComponent(resultCta.label)}&next=${encodeURIComponent(resultCta.href)}`,
-              locale,
-            )}
-            onClick={() => handleAssessmentClick('result_block')}
-            className={`inline-flex min-h-11 items-center justify-center rounded-lg px-7 py-3 text-sm font-black transition-colors ${
-              resultBlock.highIntent
-                ? 'bg-white text-[#1E3A5F] hover:bg-[#EFF6FF]'
-                : 'bg-[#1E3A5F] text-white hover:bg-[#142b45]'
-            }`}
-          >
-            {resultBlock.cta}
-          </Link>
         </div>
       )}
-
-      {showFloatingCta ? (
-        <div className="fixed inset-x-3 bottom-4 z-50 rounded-2xl bg-[#F97316] p-4 text-white shadow-2xl sm:inset-x-auto sm:right-6 sm:w-80">
-          <button
-            type="button"
-            aria-label="Dismiss assessment prompt"
-            onClick={() => setDismissedThreshold(currentThreshold)}
-            className="absolute right-3 top-2 flex h-8 w-8 items-center justify-center rounded-full text-white/80 hover:bg-white/15 hover:text-white"
-          >
-            ×
-          </button>
-          <p className="pr-8 text-sm font-black">
-            {floatingCtaLabel}
-          </p>
-          <p className="mt-1 pr-8 text-xs text-white/90">
-            {checkedCount >= 6
-              ? 'This pattern is worth reviewing with an educator.'
-              : 'Want help interpreting the pattern?'}
-          </p>
-          <Link
-            href={publicPath(
-              `/book-assessment?source=readiness-checklist-floating&score=${checkedCount}&program=${encodeURIComponent(resultCta.label)}&next=${encodeURIComponent(resultCta.href)}`,
-              locale,
-            )}
-            onClick={() => handleAssessmentClick('floating_cta')}
-            className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-white px-4 py-2 text-sm font-black text-[#1E3A5F]"
-          >
-            Book free assessment →
-          </Link>
-        </div>
-      ) : null}
     </div>
   )
 }
