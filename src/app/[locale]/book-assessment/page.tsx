@@ -9,7 +9,6 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
   AlertDialog,
@@ -18,7 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog';
-import { BookOpen, BookMarked, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Star, Shield, ArrowRight, Calendar, Target, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Globe, Video, Calculator, X, AlertCircle, Megaphone } from 'lucide-react';
+import { BookOpen, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Star, Shield, ArrowRight, Calendar, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Calculator, X, AlertCircle } from 'lucide-react';
 import CountryCodeSelector from '@/components/CountryCodeSelector';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { useRouter } from 'next/navigation';
@@ -98,47 +97,6 @@ export default function BookAssessmentPage() {
     'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
   ];
 
-  const scheduleDayOptions = useMemo(
-    () => [
-      { value: 'weekdays', label: 'Monday – Friday' },
-      { value: 'sunday', label: 'Sunday' },
-      { value: 'either-day', label: 'Either / flexible' },
-    ],
-    []
-  );
-
-  const scheduleTimeOptions = useMemo(
-    () => [
-      { value: '3-7', label: '3:00 – 7:00 pm' },
-      { value: '11-1', label: '11:00 am – 1:00 pm' },
-      { value: 'either-time', label: 'Either / flexible' },
-    ],
-    []
-  );
-
-  const hearAboutOptions = useMemo(
-    () => [
-      { value: 'google', label: 'Google / web search' },
-      { value: 'nextdoor', label: 'Nextdoor' },
-      { value: 'social', label: 'Social media' },
-      { value: 'referral', label: 'Friend or family referral' },
-      { value: 'school', label: 'School or community' },
-      { value: 'walkin', label: 'Walk-in or drove by' },
-      { value: 'other', label: 'Other' },
-    ],
-    []
-  );
-
-  const assessmentTypes = useMemo(
-    () => [
-      { value: 'English Reading Assessment', icon: '📚', label: 'English Reading Assessment' },
-      { value: 'Math Skills Assessment', icon: '📐', label: 'Math Skills Assessment' },
-      { value: 'SAT/ACT', icon: '🎯', label: 'SAT/ACT' },
-      { value: 'Complete Academic Assessment', icon: '🎓', label: 'Complete academic (English + Math)' },
-    ],
-    []
-  );
-
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     
@@ -195,35 +153,9 @@ export default function BookAssessmentPage() {
       errors.phone = phoneValidation.errorMessage || 'Phone number is invalid';
     }
 
-    // Validate student name
-    if (!formData.studentName.trim()) {
-      errors.studentName = 'Student name is required';
-    }
-
     // Validate grade
     if (!formData.grade.trim()) {
       errors.grade = 'Grade level is required';
-    }
-
-    // Validate assessment type
-    if (!formData.assessmentType.trim()) {
-      errors.assessmentType = 'Please select an assessment type';
-    }
-
-    // Validate mode
-    if (!formData.mode.trim()) {
-      errors.mode = 'Please select a mode (Online or In-Person)';
-    }
-
-    if (!formData.scheduleDay.trim()) {
-      errors.scheduleDay = 'Select preferred days';
-    }
-    if (!formData.scheduleTime.trim()) {
-      errors.scheduleTime = 'Select preferred time';
-    }
-
-    if (!formData.hearAboutUs.trim()) {
-      errors.hearAboutUs = 'Please tell us how you heard about us';
     }
 
     // Validate communication consent
@@ -287,24 +219,20 @@ export default function BookAssessmentPage() {
     try {
       const recaptchaToken = await getRecaptchaToken('assessment_submit');
 
-      const dayLabel =
-        scheduleDayOptions.find((d) => d.value === formData.scheduleDay)?.label ?? formData.scheduleDay;
-      const timeLabel =
-        scheduleTimeOptions.find((t) => t.value === formData.scheduleTime)?.label ?? formData.scheduleTime;
-      const scheduleCombined = `${dayLabel} · ${timeLabel}`;
+      const scheduleCombined = 'Flexible - discuss during callback';
 
       const assessmentData = {
         parentName: formData.parentName,
         email: formData.email,
         countryCode: formData.countryCode,
         phone: phoneValidation.e164 || formData.phone, // Use E.164 format if available
-        studentName: formData.studentName,
+        studentName: formData.studentName.trim() || 'Not provided yet',
         grade: formData.grade,
         subjects: [],
-        assessmentType: formData.assessmentType,
-        mode: formData.mode,
+        assessmentType: formData.assessmentType || 'General Academic Assessment',
+        mode: formData.mode || 'Flexible',
         schedule: scheduleCombined,
-        hearAboutUs: hearAboutOptions.find((h) => h.value === formData.hearAboutUs)?.label ?? formData.hearAboutUs,
+        hearAboutUs: formData.hearAboutUs,
         notes: getStoredUtmNotesLine(),
         agreeToCommunications,
         recaptchaToken: recaptchaToken || undefined,
@@ -345,9 +273,6 @@ export default function BookAssessmentPage() {
     validateForm,
     router,
     locale,
-    hearAboutOptions,
-    scheduleDayOptions,
-    scheduleTimeOptions,
   ]);
 
   const assessmentFeatures = [
@@ -470,8 +395,37 @@ export default function BookAssessmentPage() {
               </span>{' '}
               Today
             </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Fill out the form below and our academic advisors will contact you within 24 hours</p>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              Tell us the basics. We&apos;ll call or text within 24 hours to confirm the best assessment time.
+            </p>
           </div>
+          <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[
+              ['Takes 30 seconds', '4 details plus consent'],
+              ['No commitment', 'Free first-step guidance'],
+              ['Clear next step', 'We confirm timing with you'],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-xl border border-[#1F396D]/10 bg-white px-4 py-3 text-center shadow-sm">
+                <p className="text-sm font-black text-[#1F396D]">{title}</p>
+                <p className="mt-1 text-xs text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
+          {testimonials[0] ? (
+            <div className="mb-6 rounded-2xl border border-[#F16112]/20 bg-[#FFF7ED] px-5 py-4 text-center shadow-sm">
+              <div className="mb-2 flex justify-center gap-1" aria-label={`${testimonials[0].rating} star Google review`}>
+                {[...Array(testimonials[0].rating)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-[#F16112] text-[#F16112]" aria-hidden />
+                ))}
+              </div>
+              <p className="mx-auto max-w-3xl text-sm leading-relaxed text-slate-700">
+                &quot;{testimonials[0].content}&quot;
+              </p>
+              <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1F396D]">
+                {testimonials[0].name} · Google review
+              </p>
+            </div>
+          ) : null}
           <div suppressHydrationWarning>
             <Card className="bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-xl md:rounded-3xl overflow-hidden" suppressHydrationWarning>
               <CardContent className="p-4 sm:p-6 md:p-8 lg:p-10 pt-4 sm:pt-6 md:pt-8 lg:pt-10" suppressHydrationWarning>
@@ -479,7 +433,7 @@ export default function BookAssessmentPage() {
                     <div className="space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#1F396D]/5 to-[#F16112]/5 rounded-xl md:rounded-2xl border-2 border-[#1F396D]/10">
                       <div className="flex items-center gap-2 sm:gap-3 pb-3 md:pb-4 border-b-2 border-[#1F396D]/20">
                         <div className="p-2 sm:p-3 bg-gradient-to-br from-[#1F396D] to-[#29335C] rounded-lg md:rounded-xl"><User className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></div>
-                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Parent Information</h3><p className="text-xs sm:text-sm text-gray-500">Tell us about yourself</p></div>
+                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Parent Information</h3><p className="text-xs sm:text-sm text-gray-500">So we can reach you quickly</p></div>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                         <div className="space-y-2">
@@ -534,12 +488,12 @@ export default function BookAssessmentPage() {
                     <div className="space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/5 rounded-xl md:rounded-2xl border-2 border-[#F16112]/10">
                       <div className="flex items-center gap-2 sm:gap-3 pb-3 md:pb-4 border-b-2 border-[#F16112]/20">
                         <div className="p-2 sm:p-3 bg-gradient-to-br from-[#F16112] to-[#F1894F] rounded-lg md:rounded-xl"><GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></div>
-                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Student Information</h3><p className="text-xs sm:text-sm text-gray-500">Tell us about your child</p></div>
+                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Student Information</h3><p className="text-xs sm:text-sm text-gray-500">Just enough to prepare the call</p></div>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                         <div className="space-y-2">
-                          <Label htmlFor="studentName" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><GraduationCap className="w-4 h-4 text-[#F16112]" />Student Name <span className="text-red-500">*</span></Label>
-                          <Input id="studentName" type="text" value={formData.studentName} onChange={(e) => handleInputChange('studentName', e.target.value)} onFocus={() => setFocusedField('studentName')} onBlur={() => setFocusedField(null)} className={cn("bg-white border-2 rounded-lg md:rounded-xl transition-all h-12 md:h-14 text-sm sm:text-base", focusedField === 'studentName' ? 'border-[#F16112] shadow-md ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="Jane Doe" required />
+                          <Label htmlFor="studentName" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><GraduationCap className="w-4 h-4 text-[#F16112]" />Student Name <span className="text-gray-400 text-xs">(optional)</span></Label>
+                          <Input id="studentName" type="text" value={formData.studentName} onChange={(e) => handleInputChange('studentName', e.target.value)} onFocus={() => setFocusedField('studentName')} onBlur={() => setFocusedField(null)} className={cn("bg-white border-2 rounded-lg md:rounded-xl transition-all h-12 md:h-14 text-sm sm:text-base", focusedField === 'studentName' ? 'border-[#F16112] shadow-md ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="Optional" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="grade" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Grade / Level <span className="text-red-500">*</span></Label>
@@ -557,164 +511,6 @@ export default function BookAssessmentPage() {
                             <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
                               {grades.map((grade) => (
                                 <SelectItem key={grade} value={grade} className="hover:bg-[#F16112]/10 py-3">{grade}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4 md:space-y-5 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#1F396D]/5 to-[#F16112]/5 rounded-xl md:rounded-2xl border-2 border-[#1F396D]/10">
-                      <div className="flex items-center gap-2 sm:gap-3 pb-2 border-b-2 border-[#1F396D]/20">
-                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#1F396D] to-[#F16112] rounded-lg md:rounded-xl"><BookMarked className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></div>
-                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Assessment preferences</h3><p className="text-xs sm:text-sm text-gray-500">Type, format, and availability</p></div>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><Target className="w-4 h-4 text-[#F16112] shrink-0" />Assessment type <span className="text-red-500">*</span></span>
-                        <Select
-                          onValueChange={(value) => handleInputChange('assessmentType', value)}
-                          value={formData.assessmentType || undefined}
-                          required
-                        >
-                          <SelectTrigger
-                            data-testid="assessment-type-trigger"
-                            id="assessmentType"
-                            className="bg-white border-2 border-gray-300 rounded-xl hover:border-gray-400 transition-all h-12 sm:h-14 text-sm sm:text-base"
-                          >
-                            <SelectValue placeholder="Select type" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl max-h-72">
-                            {assessmentTypes.map((type) => (
-                              <SelectItem key={type.value} value={type.value} className="hover:bg-[#F16112]/10 py-3 text-sm sm:text-base">
-                                <span className="flex items-center gap-2">
-                                  <span>{type.icon}</span>
-                                  {type.label}
-                                </span>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2" id="mode-label"><Globe className="w-4 h-4 text-[#1F396D] shrink-0" />Preferred format <span className="text-red-500">*</span></span>
-                        <RadioGroup
-                          value={formData.mode}
-                          onValueChange={(value) => handleInputChange('mode', value)}
-                          className="flex flex-col gap-2.5"
-                          aria-labelledby="mode-label"
-                        >
-                          <label
-                            data-testid="assessment-mode-in-person"
-                            className={cn(
-                              'flex w-full items-center gap-3 p-3 sm:p-3.5 rounded-lg md:rounded-xl border-2 transition-colors cursor-pointer',
-                              formData.mode === 'in-person'
-                                ? 'border-[#F16112] bg-gradient-to-r from-[#F16112]/5 to-[#F1894F]/5'
-                                : 'border-gray-200 bg-white hover:border-[#F16112]/30'
-                            )}
-                          >
-                            <RadioGroupItem value="in-person" id="assessment-mode-in-person-input" className="border-2 border-gray-400 text-[#F16112] shrink-0" />
-                            <span className="text-gray-800 text-sm sm:text-base font-medium">In-person at {CONTACT_INFO.city}</span>
-                          </label>
-                          <label
-                            data-testid="assessment-mode-online"
-                            className={cn(
-                              'flex w-full items-center gap-3 p-3 sm:p-3.5 rounded-lg md:rounded-xl border-2 transition-colors cursor-pointer',
-                              formData.mode === 'online'
-                                ? 'border-[#F16112] bg-gradient-to-r from-[#F16112]/5 to-[#F1894F]/5'
-                                : 'border-gray-200 bg-white hover:border-[#F16112]/30'
-                            )}
-                          >
-                            <RadioGroupItem value="online" id="assessment-mode-online-input" className="border-2 border-gray-400 text-[#F16112] shrink-0" />
-                            <span className="text-gray-800 text-sm sm:text-base font-medium inline-flex items-center gap-2"><Video className="w-4 h-4 opacity-80" />Online (virtual)</span>
-                          </label>
-                        </RadioGroup>
-                      </div>
-                      <div className="space-y-3 sm:space-y-4">
-                        <div>
-                          <span
-                            className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2 mb-2"
-                            id="availability-label"
-                          >
-                            <Calendar className="w-4 h-4 text-[#F16112] shrink-0" />
-                            Preferred availability <span className="text-red-500">*</span>
-                          </span>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="schedule-day" className="text-gray-600 text-xs sm:text-sm">
-                                Days
-                              </Label>
-                              <Select
-                                onValueChange={(value) => handleInputChange('scheduleDay', value)}
-                                value={formData.scheduleDay || undefined}
-                                required
-                              >
-                                <SelectTrigger
-                                  data-testid="assessment-schedule-day-trigger"
-                                  id="schedule-day"
-                                  className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl h-12 md:h-14 text-sm sm:text-base"
-                                  aria-labelledby="availability-label"
-                                >
-                                  <SelectValue placeholder="Select days" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {scheduleDayOptions.map((opt) => (
-                                    <SelectItem key={opt.value} value={opt.value} className="text-sm sm:text-base">
-                                      {opt.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="schedule-time" className="text-gray-600 text-xs sm:text-sm">
-                                Time
-                              </Label>
-                              <Select
-                                onValueChange={(value) => handleInputChange('scheduleTime', value)}
-                                value={formData.scheduleTime || undefined}
-                                required
-                              >
-                                <SelectTrigger
-                                  data-testid="assessment-schedule-time-trigger"
-                                  id="schedule-time"
-                                  className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl h-12 md:h-14 text-sm sm:text-base"
-                                  aria-labelledby="availability-label"
-                                >
-                                  <SelectValue placeholder="Select time" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {scheduleTimeOptions.map((opt) => (
-                                    <SelectItem key={opt.value} value={opt.value} className="text-sm sm:text-base">
-                                      {opt.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="hearAboutUs" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2">
-                            <Megaphone className="w-4 h-4 text-[#F16112] shrink-0" />
-                            How did you hear about us? <span className="text-red-500">*</span>
-                          </Label>
-                          <Select
-                            onValueChange={(value) => handleInputChange('hearAboutUs', value)}
-                            value={formData.hearAboutUs || undefined}
-                            required
-                          >
-                            <SelectTrigger
-                              data-testid="hear-about-trigger"
-                              id="hearAboutUs"
-                              className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl h-12 md:h-14 text-sm sm:text-base w-full"
-                            >
-                              <SelectValue placeholder="Select one" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {hearAboutOptions.map((opt) => (
-                                <SelectItem key={opt.value} value={opt.value} className="text-sm sm:text-base">
-                                  {opt.label}
-                                </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -768,12 +564,6 @@ export default function BookAssessmentPage() {
                                   <span><strong>Phone Number:</strong> {formErrors.phone}</span>
                                 </li>
                               )}
-                              {formErrors.studentName && (
-                                <li className="flex items-center gap-2">
-                                  <X className="w-4 h-4" />
-                                  <span><strong>Student Name:</strong> {formErrors.studentName}</span>
-                                </li>
-                              )}
                               {formErrors.grade && (
                                 <li className="flex items-center gap-2">
                                   <X className="w-4 h-4" />
@@ -784,30 +574,6 @@ export default function BookAssessmentPage() {
                                 <li className="flex items-center gap-2">
                                   <X className="w-4 h-4" />
                                   <span><strong>Assessment Type:</strong> {formErrors.assessmentType}</span>
-                                </li>
-                              )}
-                              {formErrors.mode && (
-                                <li className="flex items-center gap-2">
-                                  <X className="w-4 h-4" />
-                                  <span><strong>Mode:</strong> {formErrors.mode}</span>
-                                </li>
-                              )}
-                              {formErrors.scheduleDay && (
-                                <li className="flex items-center gap-2">
-                                  <X className="w-4 h-4" />
-                                  <span><strong>Days:</strong> {formErrors.scheduleDay}</span>
-                                </li>
-                              )}
-                              {formErrors.scheduleTime && (
-                                <li className="flex items-center gap-2">
-                                  <X className="w-4 h-4" />
-                                  <span><strong>Time:</strong> {formErrors.scheduleTime}</span>
-                                </li>
-                              )}
-                              {formErrors.hearAboutUs && (
-                                <li className="flex items-center gap-2">
-                                  <X className="w-4 h-4" />
-                                  <span><strong>How you heard about us:</strong> {formErrors.hearAboutUs}</span>
                                 </li>
                               )}
                               {formErrors.agreeToCommunications && (
@@ -853,11 +619,14 @@ export default function BookAssessmentPage() {
                         ) : (
                           <>
                             <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
-                            Book a Free Assessment Now
+                            Request Free Assessment Call
                             <Sparkles className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform" />
                           </>
                         )}
                       </Button>
+                      <p className="mt-3 text-center text-xs text-slate-500">
+                        We&apos;ll call or text within 24 hours. No payment. No commitment.
+                      </p>
                       {errorMessage && (
                         <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
                           <p className="text-red-700 text-sm flex items-center gap-2">

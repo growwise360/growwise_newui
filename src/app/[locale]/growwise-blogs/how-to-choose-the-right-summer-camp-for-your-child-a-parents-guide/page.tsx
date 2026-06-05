@@ -128,6 +128,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 . The earlier your child starts, the less ground they lose.
               </p>
 
+              <div className="bg-blue-50 border-l-4 border-[#1F396D] p-6 rounded-r-lg my-6">
+                <p className="text-gray-700 font-semibold mb-2">Looking for a detailed framework?</p>
+                <p className="text-gray-700 text-sm mb-3">
+                  We've created a comprehensive parent guide with our full checklist for evaluating and choosing summer camps based on your child's goals and needs.
+                </p>
+                <Link href={publicPath('/resources/how-to-choose-summer-camp', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112] text-sm">
+                  Read the full resource guide →
+                </Link>
+              </div>
+
               {/* Featured Image */}
               <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
