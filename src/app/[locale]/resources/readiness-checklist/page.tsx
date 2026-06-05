@@ -58,7 +58,7 @@ export default function ReadinessChecklistPage() {
                 href="#how-results-work"
                 className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/40 px-7 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"
               >
-                See Score Guide
+                How It Works
               </a>
             </div>
             <p className="mt-4 text-sm font-semibold text-blue-100">
@@ -112,34 +112,16 @@ export default function ReadinessChecklistPage() {
 
           <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-[#F97316]">
-              How to read your results
+              Report
             </p>
             <h2 className="font-heading text-2xl font-black text-[#1E3A5F]">
-              Use the score as a decision guide.
+              Export the detailed interpretation when you finish.
             </h2>
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-                <p className="text-2xl font-black text-[#1E3A5F]">0–2</p>
-                <h3 className="mt-2 font-black text-slate-900">Strong foundation</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Monitor at grade transitions — particularly at 5th grade entry into middle school and 8th grade entry into high school math.
-                </p>
-              </div>
-              <div className="rounded-xl border border-[#F97316]/30 bg-[#FFF7ED] p-5">
-                <p className="text-2xl font-black text-[#F97316]">3–5</p>
-                <h3 className="mt-2 font-black text-slate-900">Early action recommended</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                  Gaps are present. Early correction is faster and less disruptive than waiting for grades to drop. The result also highlights which section is most concentrated.
-                </p>
-              </div>
-              <div className="rounded-xl border border-[#F97316] bg-[#F97316] p-5 text-white">
-                <p className="text-2xl font-black">6+</p>
-                <h3 className="mt-2 font-black">Clear pattern emerged</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/90">
-                  A clear pattern has emerged. At 10+ signs, the pattern is likely spread across multiple skills and may be worth discussing with an educator.
-                </p>
-              </div>
-            </div>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
+              The on-page checklist keeps the scoring simple. Once you have checked the signs that apply,
+              use the export button in the result box to generate a print/PDF-ready report with the detailed
+              section interpretation.
+            </p>
           </section>
 
           <section className="grid gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:grid-cols-[1fr_0.9fr]">
@@ -156,8 +138,8 @@ export default function ReadinessChecklistPage() {
             </div>
             <div className="rounded-xl bg-[#EFF6FF] p-5">
               <ul className="space-y-3 text-sm text-slate-700">
-                <li><strong>Review the highest section score</strong> first</li>
-                <li><strong>Compare patterns</strong> across math, reading, writing, and readiness</li>
+                <li><strong>Export the report</strong> after checking every relevant sign</li>
+                <li><strong>Review patterns</strong> across math, reading, writing, and readiness</li>
                 <li><strong>Share observations</strong> with the adults supporting the student</li>
                 <li><strong>Choose a next step</strong> based on repeated signs, not one bad day</li>
               </ul>

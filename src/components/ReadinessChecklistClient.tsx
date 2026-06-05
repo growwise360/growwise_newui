@@ -173,6 +173,15 @@ function trackChecklistEvent(event: string, params: Record<string, string | numb
   analyticsWindow.dataLayer?.push({ event, ...params })
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
 export function ReadinessChecklistClient() {
   const [gradeBandId, setGradeBandId] = useState<GradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
@@ -304,21 +313,15 @@ export function ReadinessChecklistClient() {
     if (checkedCount < 2) {
       return null
     }
-    const priority = flaggedSections[0] ?? rankedSections[0]
     const flaggedCount = flaggedSections.length
     const hasPriorityArea = flaggedSections.some((section) => section.classification === 'high')
     const highIntent = pct >= 30 || hasPriorityArea
-    const priorityLine = priority
-      ? `Highest concentration: ${priority.title} — ${priority.hits} of ${priority.max} signs.`
-      : ''
-    const alsoFlagged = flaggedSections.slice(1).map((section) => section.title)
-    const alsoLine = alsoFlagged.length ? ` Also watch: ${alsoFlagged.join(', ')}.` : ''
-    const overallLine = `Overall score: ${checkedCount} of ${activeTotal} signs (${pct}%).`
-    const body = `${overallLine} ${priorityLine}${alsoLine}`.trim()
+    const body =
+      'Your score is ready. Export the report to see the detailed section interpretation and save it as a PDF.'
 
     if (!highIntent) {
       return {
-        title: priority ? `Early pattern worth watching in ${priority.title}` : 'Early pattern worth watching',
+        title: 'Report ready',
         text: body,
         highIntent: false,
         visible: true,
@@ -326,12 +329,96 @@ export function ReadinessChecklistClient() {
     }
 
     return {
-      title: `Clear pattern across ${Math.max(flaggedCount, 1)} area${Math.max(flaggedCount, 1) > 1 ? 's' : ''}`,
+      title: `Report ready${flaggedCount > 0 ? ` · ${flaggedCount} area${flaggedCount > 1 ? 's' : ''} to review` : ''}`,
       text: body,
       highIntent: true,
       visible: true,
     }
-  }, [activeTotal, checkedCount, flaggedSections, pct, rankedSections])
+  }, [checkedCount, flaggedSections, pct])
+
+  const handleExportReport = () => {
+    const reportWindow = window.open('', '_blank')
+    if (!reportWindow) return
+
+    const selectedItems = activeItems.filter((item) => checked[item.key])
+    const sectionRows = Object.values(sectionScores)
+      .map((section) => {
+        const selectedInSection = selectedItems.filter((item) => item.sectionId === section.id)
+        const selectedList = selectedInSection.length
+          ? `<ul>${selectedInSection.map((item) => `<li>${escapeHtml(item.text)}</li>`).join('')}</ul>`
+          : '<p class="muted">No signs selected in this section.</p>'
+
+        return `
+          <section class="section">
+            <div class="section-head">
+              <h2>${escapeHtml(section.title)}</h2>
+              <span>${sectionPriorityLabel(section.classification)}</span>
+            </div>
+            <p>${section.hits} of ${section.max} signs selected · ${section.rate}% section concentration</p>
+            ${selectedList}
+          </section>
+        `
+      })
+      .join('')
+
+    const generatedAt = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+
+    reportWindow.document.write(`<!doctype html>
+      <html>
+        <head>
+          <title>GrowWise Readiness Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; color: #14213d; margin: 32px; line-height: 1.45; }
+            .eyebrow { color: #f97316; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
+            h1 { color: #1E3A5F; margin: 8px 0 10px; font-size: 30px; }
+            h2 { color: #1E3A5F; font-size: 18px; margin: 0; }
+            .summary { border: 1px solid #d9e2ef; border-radius: 14px; padding: 18px; margin: 22px 0; background: #f8fafc; }
+            .score { font-size: 34px; font-weight: 900; color: #f97316; margin: 6px 0; }
+            .section { border-top: 1px solid #d9e2ef; padding: 18px 0; break-inside: avoid; }
+            .section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+            .section-head span { border-radius: 999px; background: #fff7ed; color: #9a3412; padding: 5px 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+            ul { margin: 10px 0 0 20px; padding: 0; }
+            li { margin: 6px 0; }
+            .muted { color: #64748b; }
+            .disclaimer { margin-top: 24px; padding-top: 14px; border-top: 1px solid #d9e2ef; color: #64748b; font-size: 12px; }
+            .actions { margin: 22px 0; }
+            button { border: 0; border-radius: 10px; background: #f97316; color: white; cursor: pointer; font-weight: 800; padding: 11px 18px; }
+            @media print { .actions { display: none; } body { margin: 20px; } }
+          </style>
+        </head>
+        <body>
+          <p class="eyebrow">GrowWise readiness report</p>
+          <h1>Math & Reading Readiness Checklist</h1>
+          <p class="muted">Generated ${escapeHtml(generatedAt)} · ${escapeHtml(selectedGradeBand.label)}</p>
+          <div class="summary">
+            <p class="eyebrow">Overall score</p>
+            <p class="score">${checkedCount}/${activeTotal}</p>
+            <p>${pct}% of grade-relevant signs were selected.</p>
+          </div>
+          <div class="actions">
+            <button onclick="window.print()">Download / Save as PDF</button>
+          </div>
+          ${sectionRows}
+          <p class="disclaimer">
+            This report is an educational pattern-finding tool, not a diagnosis. Use it as a discussion aid with a teacher,
+            program lead, or qualified academic support provider.
+          </p>
+          <script>window.addEventListener('load', () => setTimeout(() => window.print(), 250));</script>
+        </body>
+      </html>`)
+    reportWindow.document.close()
+
+    trackChecklistEvent('readiness_report_export_clicked', {
+      checked_count: checkedCount,
+      total_items: activeTotal,
+      grade_band: selectedGradeBand.label,
+      score_band: getScoreBand(checkedCount, activeTotal),
+    })
+  }
 
   useEffect(() => {
     const updateFixedScoreBar = () => {
@@ -533,23 +620,17 @@ export function ReadinessChecklistClient() {
           <p className={`mx-auto mb-5 max-w-2xl text-sm leading-relaxed ${resultBlock.highIntent ? 'text-white/90' : 'text-slate-700'}`}>
             {resultBlock.text}
           </p>
-          {flaggedSections.length > 0 ? (
-            <div className="mx-auto mb-5 grid max-w-2xl gap-2 sm:grid-cols-3">
-              {flaggedSections.map((section) => (
-                <div
-                  key={section.id}
-                  className={`rounded-lg px-3 py-2 text-left text-xs ${
-                    resultBlock.highIntent ? 'bg-white/15 text-white' : 'bg-white text-[#1E3A5F]'
-                  }`}
-                >
-                  <p className="font-black leading-snug">{section.title}</p>
-                  <p className={resultBlock.highIntent ? 'text-white/80' : 'text-slate-600'}>
-                    {section.hits}/{section.max} signs · {section.rate}%
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : null}
+          <button
+            type="button"
+            onClick={handleExportReport}
+            className={`inline-flex min-h-11 items-center justify-center rounded-lg px-6 py-3 text-sm font-black transition-colors ${
+              resultBlock.highIntent
+                ? 'bg-white text-[#1E3A5F] hover:bg-[#EFF6FF]'
+                : 'bg-[#1E3A5F] text-white hover:bg-[#142b45]'
+            }`}
+          >
+            Ready to export report
+          </button>
         </div>
       )}
     </div>
