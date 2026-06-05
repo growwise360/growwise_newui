@@ -24,12 +24,12 @@ export default async function EnglishCoursesLayout({
   const baseUrl = getCanonicalSiteUrl()
   
   const courseSchema = generateCourseSchema({
-    name: "English Language Arts Courses - Reading, Writing & Grammar | English Tutoring Dublin CA",
+    name: "English Tutoring Programs for Grades 1-8 | GrowWise Dublin CA",
     description:
-      "English and ELA tutoring for grades 1–12 in Dublin, CA. Reading, writing, and grammar in small groups. Book a free assessment.",
+      "Structured English programs for grades 1-8 in Dublin, CA and live online. Reading comprehension, writing, grammar, vocabulary, and essay writing in small groups.",
     provider: "GrowWise",
-    courseCode: "ELA-K12",
-    educationalLevel: "Grades 1-12",
+    courseCode: "ELA-1-8",
+    educationalLevel: "Grades 1-8",
     teaches: [
       "Reading Comprehension",
       "Vocabulary Development",
@@ -40,14 +40,14 @@ export default async function EnglishCoursesLayout({
       "Literary Analysis",
       "Writing Skills"
     ],
-    coursePrerequisites: "Placement assessment recommended to determine appropriate level",
+    coursePrerequisites: "Free assessment recommended to determine the right grade band and entry point",
     url: absoluteSiteUrl('/academic/english', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {
-      price: "35",
+      price: "289",
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/enroll', locale, baseUrl),
+      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
     }
   })
 

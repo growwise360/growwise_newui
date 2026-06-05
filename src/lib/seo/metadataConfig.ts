@@ -132,11 +132,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/english': {
-    title: 'English Tutoring Dublin CA | ELA | GrowWise',
+    title: 'English Tutoring Programs Grades 1-8 | Dublin CA | GrowWise',
     description:
-      'English and ELA tutoring for grades 1–12 in Dublin, CA. Reading, writing, and grammar in small groups. Book a free assessment.',
+      'Structured English tutoring for Grades 1-8 in Dublin, CA and live online. Reading comprehension, writing, grammar, vocabulary, and essay writing in small groups.',
     keywords:
-      'English tutoring Dublin CA, English tutor Dublin, reading comprehension, essay writing, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, writing tutor, reading tutor, English classes Dublin CA, English help Dublin, English tutoring near me, Grades 1-12 English courses',
+      'English tutoring Dublin CA, English tutor Dublin, reading comprehension tutoring, essay writing help, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, writing tutor, reading tutor, English classes Dublin CA, English help Dublin, English tutoring near me, Grades 1-8 English programs',
     path: '/academic/english',
   },
 
