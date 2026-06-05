@@ -172,8 +172,11 @@ function trackChecklistEvent(event: string, params: Record<string, string | numb
 export function ReadinessChecklistClient() {
   const [gradeBandId, setGradeBandId] = useState<GradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
+  const [showFixedScoreBar, setShowFixedScoreBar] = useState(false)
   const startedTracked = useRef(false)
   const reachedThresholds = useRef<Set<ThresholdKey>>(new Set())
+  const scoreBarRef = useRef<HTMLDivElement | null>(null)
+  const checklistEndRef = useRef<HTMLDivElement | null>(null)
 
   const selectedGradeBand = useMemo(
     () => GRADE_BANDS.find((gradeBand) => gradeBand.id === gradeBandId) ?? GRADE_BANDS[0],
@@ -336,6 +339,55 @@ export function ReadinessChecklistClient() {
     }
   }, [checkedCount, flaggedSections, rankedSections, strongSections])
 
+  useEffect(() => {
+    const updateFixedScoreBar = () => {
+      const scoreBar = scoreBarRef.current
+      const checklistEnd = checklistEndRef.current
+      if (!scoreBar || !checklistEnd) {
+        setShowFixedScoreBar(false)
+        return
+      }
+
+      const scoreBarTop = scoreBar.getBoundingClientRect().top
+      const checklistEndBottom = checklistEnd.getBoundingClientRect().bottom
+      setShowFixedScoreBar(scoreBarTop <= 12 && checklistEndBottom > 120)
+    }
+
+    updateFixedScoreBar()
+    window.addEventListener('scroll', updateFixedScoreBar, { passive: true })
+    window.addEventListener('resize', updateFixedScoreBar)
+
+    return () => {
+      window.removeEventListener('scroll', updateFixedScoreBar)
+      window.removeEventListener('resize', updateFixedScoreBar)
+    }
+  }, [activeTotal, checkedCount, gradeBandId])
+
+  const scoreBarContent = (
+    <>
+      <div className="mb-3 flex items-center justify-between gap-4">
+        <div>
+          <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
+            {selectedGradeBand.label} score
+          </span>
+          <span className="block text-sm font-semibold text-[#1E3A5F]">
+            {scoreMessage.text}
+          </span>
+        </div>
+        <span className="shrink-0 text-3xl font-black tabular-nums text-[#1E3A5F] sm:text-4xl">
+          {checkedCount}
+          <span className="text-base font-bold text-slate-400">/{activeTotal}</span>
+        </span>
+      </div>
+      <div className="h-3 overflow-hidden rounded-full bg-slate-100">
+        <div
+          className="h-full rounded-full bg-[#F97316] transition-all duration-500 ease-out"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </>
+  )
+
   return (
     <div id="checklist-start" className="space-y-10 scroll-mt-24">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="grade-band-heading">
@@ -383,28 +435,20 @@ export function ReadinessChecklistClient() {
         </div>
       </section>
 
-      <div className="sticky top-3 z-40 rounded-2xl border border-[#1E3A5F]/20 bg-white/95 p-4 shadow-lg backdrop-blur sm:p-5">
-        <div className="mb-3 flex items-center justify-between gap-4">
-          <div>
-            <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-              {selectedGradeBand.label} score
-            </span>
-            <span className="block text-sm font-semibold text-[#1E3A5F]">
-              {scoreMessage.text}
-            </span>
-          </div>
-          <span className="shrink-0 text-3xl font-black tabular-nums text-[#1E3A5F] sm:text-4xl">
-            {checkedCount}
-            <span className="text-base font-bold text-slate-400">/{activeTotal}</span>
-          </span>
-        </div>
-        <div className="h-3 overflow-hidden rounded-full bg-slate-100">
-          <div
-            className="h-full rounded-full bg-[#F97316] transition-all duration-500 ease-out"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
+      <div
+        ref={scoreBarRef}
+        className="rounded-2xl border border-[#1E3A5F]/20 bg-white p-4 shadow-lg sm:p-5"
+      >
+        {scoreBarContent}
       </div>
+
+      {showFixedScoreBar ? (
+        <div className="fixed inset-x-0 top-3 z-50 px-4 sm:px-6 lg:px-8" aria-live="polite">
+          <div className="mx-auto max-w-5xl rounded-2xl border border-[#1E3A5F]/20 bg-white/95 p-4 shadow-xl backdrop-blur sm:p-5">
+            {scoreBarContent}
+          </div>
+        </div>
+      ) : null}
 
       <div className="space-y-8">
         {sections.map((section) => (
@@ -477,6 +521,7 @@ export function ReadinessChecklistClient() {
           </div>
         ))}
       </div>
+      <div ref={checklistEndRef} aria-hidden="true" />
 
       {/* Dynamic Result Block */}
       {resultBlock && resultBlock.visible && (
