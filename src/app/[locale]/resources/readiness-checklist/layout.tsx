@@ -18,7 +18,7 @@ export async function generateMetadata({
     meta ?? {
       title: 'Free Math & Reading Readiness Checklist for Parents | GrowWise School Dublin CA',
       description:
-        'Free downloadable checklist for Dublin and Tri-Valley parents. Identify math gaps, reading comprehension issues, and writing weaknesses in grades 1–8. No signup required.',
+        'Free interactive checklist for Dublin and Tri-Valley parents. Identify math gaps, reading comprehension issues, and writing weaknesses in grades 1–8. No signup required.',
       keywords: [
         'math readiness checklist',
         'reading comprehension assessment',
@@ -81,6 +81,14 @@ export default async function ReadinessChecklistLayout({
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'GrowWise runs a diagnostic session to pinpoint the specific missing concepts — not just the subject. Then a structured practice plan targets those gaps directly, rather than re-teaching everything.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How were the score thresholds chosen?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The thresholds are inspired by MTSS/RtI pattern-based screening logic: one concern by itself does not define readiness, but repeated signs across learning areas may indicate a pattern worth discussing. This checklist is parent-facing and non-diagnostic.',
         },
       },
       {

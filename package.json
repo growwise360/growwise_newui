@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev --webpack",
+    "dev": "lsof -ti:3000 | xargs kill -9 2>/dev/null; next dev --turbo",
     "dev:clean": "bash scripts/dev-kill.sh && rm -rf .next node_modules/.cache",
     "dev:kill": "bash scripts/dev-kill.sh",
     "dev:fix": "bash scripts/dev-fix.sh",

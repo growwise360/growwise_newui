@@ -21,7 +21,7 @@ export function buildHowToChooseSummerCampArticleGraphSchema(baseUrl: string, lo
       dateModified: HOW_TO_CHOOSE_SUMMER_CAMP_META.dateModified,
     }),
     '@id': `${pageUrl}#article`,
-    articleSection: 'Summer Learning',
+    articleSection: 'Parent Resources',
     keywords: HOW_TO_CHOOSE_SUMMER_CAMP_META.keywords,
     isAccessibleForFree: true,
     inLanguage: 'en-US',

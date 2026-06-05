@@ -72,14 +72,18 @@ export function EnrollmentCompactAddButton({
   ariaLabel,
   onClick,
   variant = 'default',
+  disabled = false,
 }: {
   label: string;
   ariaLabel: string;
   onClick: () => void;
   variant?: 'default' | 'green' | 'remove';
+  disabled?: boolean;
 }) {
   const variantClass =
-    variant === 'green'
+    disabled
+      ? 'cursor-not-allowed bg-slate-200 text-slate-500'
+      : variant === 'green'
       ? 'bg-[#0F6E56] text-white hover:bg-[#0B5A46]'
       : variant === 'remove'
         ? 'text-red-600 hover:bg-red-50'
@@ -89,6 +93,7 @@ export function EnrollmentCompactAddButton({
     <button
       type="button"
       aria-label={ariaLabel}
+      disabled={disabled}
       onClick={onClick}
       className={cn(
         'flex h-[26px] min-w-[26px] shrink-0 items-center justify-center rounded-full px-1.5 text-[10px] font-bold leading-none',

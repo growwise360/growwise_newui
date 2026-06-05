@@ -141,11 +141,11 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
   },
   {
     id: 'how-to-choose-summer-camp',
-    category: 'summer-learning',
-    categoryLabel: 'SUMMER LEARNING',
+    category: 'parent-resources',
+    categoryLabel: 'PARENT RESOURCES',
     title: 'How to Choose the Right Summer Camp for Your Child',
-    description: "A practical guide to matching camp programs with your child's interests, schedule, and learning goals.",
-    readTime: '8 min read',
+    description: "Interactive parent guide to choose between academic sprint, STEAM coding, and enrichment based on your child's goal.",
+    readTime: 'Interactive',
     href: '/resources/how-to-choose-summer-camp',
   },
   {

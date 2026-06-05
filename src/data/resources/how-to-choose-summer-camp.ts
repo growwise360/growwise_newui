@@ -4,16 +4,16 @@ export const HOW_TO_CHOOSE_SUMMER_CAMP_PATH = '/resources/how-to-choose-summer-c
 
 export const HOW_TO_CHOOSE_SUMMER_CAMP_META: ResourceArticleMeta = {
   path: HOW_TO_CHOOSE_SUMMER_CAMP_PATH,
-  category: 'summer-learning',
-  categoryLabel: 'SUMMER LEARNING',
-  h1: "How to Choose the Right Summer Camp for Your Child: A Parent's Guide",
-  readTime: '8 min read',
+  category: 'parent-resources',
+  categoryLabel: 'PARENT RESOURCES',
+  h1: 'Find the Right Summer Camp for Your Child',
+  readTime: 'Interactive',
   updated: 'Updated June 2026',
-  title: 'How to Choose a Summer Camp | Parents Guide | GrowWise',
+  title: 'How to Choose the Right Summer Camp | Parent Guide | GrowWise',
   description:
-    "Pick a summer camp that fits your child's interests, schedule, safety, and learning outcomes. A practical guide for Dublin parents comparing options.",
+    "Interactive parent guide for choosing between academic sprint, STEAM coding, and enrichment camps based on your child's grade, goal, and gaps.",
   keywords:
-    'how to choose summer camp, summer camp for kids, best summer camps Dublin CA, academic summer camp, STEM summer camp, summer camp selection, summer programs for children, summer learning camps',
+    'how to choose summer camp, parent summer camp guide, summer camp for kids, best summer camps Dublin CA, academic summer camp, STEM summer camp, STEAM summer camp, summer camp selection',
   datePublished: '2026-06-03',
   dateModified: '2026-06-03',
 }

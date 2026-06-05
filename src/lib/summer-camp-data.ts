@@ -275,6 +275,13 @@ export function getDefaultSummerCampData(): ReturnType<typeof hydrateSummerCampD
   return _defaultData;
 }
 
+const SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS = new Set(['adv-math', 'math-olympiad']);
+
+/** Programs shown on the summer camp hub grid; dedicated SEO landings handle excluded programs. */
+export function filterSummerCampHubPrograms(programs: Program[]): Program[] {
+  return programs.filter((program) => !SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS.has(program.id));
+}
+
 /**
  * Lowest published USD price across default camp data (all slot prices, per-format prices, and Olympiad tiers).
  * Used for Event JSON-LD `Offer.price` (e.g. GSC) so the value matches on-page pricing, not GTM or data layer.

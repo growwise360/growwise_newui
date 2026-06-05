@@ -13,18 +13,18 @@ describe('resources-hub categories', () => {
     expect(filterIds).not.toContain('steam')
   })
 
-  it('tags eight summer guides as summer-learning', () => {
+  it('tags seven summer guides as summer-learning', () => {
     const summerGuides = RESOURCE_GUIDES.filter((guide) => guide.category === 'summer-learning')
-    expect(summerGuides).toHaveLength(8)
+    expect(summerGuides).toHaveLength(7)
     expect(summerGuides.every((guide) => guide.categoryLabel === 'SUMMER LEARNING')).toBe(true)
   })
 
-  it('tags parent resources including readiness checklist and self-check', () => {
+  it('tags parent resources including readiness checklist, self-check, and camp guide', () => {
     const parentResources = RESOURCE_GUIDES.filter((guide) => guide.category === 'parent-resources')
-    expect(parentResources).toHaveLength(2)
+    expect(parentResources).toHaveLength(3)
     expect(parentResources.every((guide) => guide.categoryLabel === 'PARENT RESOURCES')).toBe(true)
     expect(parentResources.map((guide) => guide.id)).toEqual(
-      expect.arrayContaining(['math-reading-readiness-checklist', 'self-check']),
+      expect.arrayContaining(['math-reading-readiness-checklist', 'self-check', 'how-to-choose-summer-camp']),
     )
   })
 

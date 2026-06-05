@@ -5,6 +5,7 @@ import {
   getMathOlympiadTier2SlotLabel,
   getSummerCampWeekIsoRange,
   getSummerCampWeekLabel,
+  isJune8SummerCampRegistrationClosed,
   MATH_OLYMPIAD_TIER2_ISO_RANGES_2026,
   SUMMER_CAMP_EVENT_END_ISO,
   SUMMER_CAMP_EVENT_START_ISO,
@@ -58,6 +59,13 @@ describe('summer-camp-week-calendar', () => {
     expect(formatOlympiadTier2SlotHeading(0)).toBe(
       `Weeks 1-2 (${getMathOlympiadTier2SlotLabel(0)})`
     );
+  });
+
+  it('identifies Jun 8-starting slots as closed for registration', () => {
+    expect(isJune8SummerCampRegistrationClosed('Week 1 (Jun 8–12, 2026)')).toBe(true);
+    expect(isJune8SummerCampRegistrationClosed('Weeks 1-2 (Jun 8 – Jun 19, 2026)')).toBe(true);
+    expect(isJune8SummerCampRegistrationClosed('Week 1 (Jun 9, 10, 11)')).toBe(false);
+    expect(isJune8SummerCampRegistrationClosed('Week 2 (Jun 15–19, 2026)')).toBe(false);
   });
 
   it('ISO week ranges align with week labels', () => {
