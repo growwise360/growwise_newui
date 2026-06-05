@@ -519,11 +519,14 @@ export function ReadinessChecklistClient() {
               </div>
 
               {feedbackRating ? (
-                <div className="mt-4 border-t border-slate-200 pt-4">
+                <div className="mt-4 border-t border-slate-200 pt-4" aria-live="polite">
+                  <p className="mb-2 text-xs font-black uppercase tracking-[0.14em] text-[#F97316]">
+                    Rating saved
+                  </p>
                   {feedbackRating >= 4 ? (
                     <>
                       <p className="text-sm font-semibold text-[#1E3A5F]">
-                        Thank you. Want to share it with another parent or program?
+                        Thank you. Want to share it with another parent or academic support institution?
                       </p>
                       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                         <input
