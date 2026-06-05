@@ -114,7 +114,7 @@ interface ChecklistSection {
   items: Array<{ key: string; idx: number; text: string }>
 }
 
-type ThresholdKey = '3' | '6' | '10'
+type ThresholdKey = 'watch' | 'clear'
 type SectionClassification = 'high' | 'monitor' | 'strong'
 
 type RankedSection = {
@@ -126,30 +126,34 @@ type RankedSection = {
   classification: SectionClassification
 }
 
-function getScoreBand(count: number) {
-  if (count >= 10) return '10_plus'
-  if (count >= 6) return '6_plus'
-  if (count >= 3) return '3_to_5'
-  if (count >= 1) return '1_to_2'
+function getScoreRate(count: number, total: number) {
+  return total > 0 ? Math.round((count / total) * 100) : 0
+}
+
+function getScoreBand(count: number, total: number) {
+  const rate = getScoreRate(count, total)
+  if (rate >= 30) return 'clear_pattern'
+  if (rate >= 15) return 'watch'
+  if (count >= 1) return 'low'
   return '0'
 }
 
-function getThresholdKey(count: number): ThresholdKey | null {
-  if (count >= 10) return '10'
-  if (count >= 6) return '6'
-  if (count >= 3) return '3'
+function getThresholdKey(count: number, total: number): ThresholdKey | null {
+  const rate = getScoreRate(count, total)
+  if (rate >= 30) return 'clear'
+  if (rate >= 15) return 'watch'
   return null
 }
 
 function classifySection(rate: number): SectionClassification {
-  if (rate >= 60) return 'high'
-  if (rate >= 30) return 'monitor'
+  if (rate >= 40) return 'high'
+  if (rate >= 20) return 'monitor'
   return 'strong'
 }
 
 function sectionPriorityLabel(classification: SectionClassification): string {
-  if (classification === 'high') return 'High priority'
-  if (classification === 'monitor') return 'Monitor'
+  if (classification === 'high') return 'Priority'
+  if (classification === 'monitor') return 'Watch'
   return 'Strong'
 }
 
@@ -208,12 +212,12 @@ export function ReadinessChecklistClient() {
       total_items: activeTotal,
       grade_band: selectedGradeBand.label,
       item_section: CHECKLIST_ITEMS[idx].section,
-      score_band: getScoreBand(nextCheckedCount),
+      score_band: getScoreBand(nextCheckedCount, activeTotal),
     })
   }
 
   const checkedCount = activeItems.filter((item) => checked[item.key]).length
-  const pct = activeTotal > 0 ? Math.round((checkedCount / activeTotal) * 100) : 0
+  const pct = getScoreRate(checkedCount, activeTotal)
 
   const sections = useMemo(() => {
     const grouped: Record<string, ChecklistSection> = {}
@@ -260,10 +264,6 @@ export function ReadinessChecklistClient() {
     () => rankedSections.filter((section) => section.classification !== 'strong').slice(0, 3),
     [rankedSections],
   )
-  const strongSections = useMemo(
-    () => rankedSections.filter((section) => section.classification === 'strong'),
-    [rankedSections],
-  )
 
   useEffect(() => {
     if (checkedCount > 0 && !startedTracked.current) {
@@ -275,14 +275,14 @@ export function ReadinessChecklistClient() {
       })
     }
 
-    const threshold = getThresholdKey(checkedCount)
+    const threshold = getThresholdKey(checkedCount, activeTotal)
     if (threshold && !reachedThresholds.current.has(threshold)) {
       reachedThresholds.current.add(threshold)
       trackChecklistEvent(`score_${threshold}_reached`, {
         checked_count: checkedCount,
         total_items: activeTotal,
         grade_band: selectedGradeBand.label,
-        score_band: getScoreBand(checkedCount),
+        score_band: getScoreBand(checkedCount, activeTotal),
       })
     }
   }, [activeTotal, checkedCount, selectedGradeBand.label])
@@ -290,54 +290,48 @@ export function ReadinessChecklistClient() {
   const scoreMessage = useMemo(() => {
     if (checkedCount === 0) {
       return { text: 'Check the signs that apply to your child.', alert: false }
-    } else if (checkedCount <= 2) {
+    } else if (pct < 15) {
       const plural = checkedCount > 1 ? 's' : ''
-      return { text: `${checkedCount} sign${plural} identified — strong foundation. Monitor at grade transitions.`, alert: false }
-    } else if (checkedCount <= 5) {
-      return { text: `${checkedCount} signs identified — gaps present. Early correction is faster.`, alert: true }
+      return { text: `${checkedCount} sign${plural} identified — low concern. Monitor if it repeats.`, alert: false }
+    } else if (pct < 30) {
+      return { text: `${checkedCount} signs identified — watch for a repeated pattern.`, alert: true }
     } else {
       return { text: `${checkedCount} signs identified — a clear pattern has emerged.`, alert: true }
     }
-  }, [checkedCount])
+  }, [checkedCount, pct])
 
   const resultBlock = useMemo(() => {
-    if (checkedCount < 3) {
+    if (checkedCount < 2) {
       return null
     }
     const priority = flaggedSections[0] ?? rankedSections[0]
     const flaggedCount = flaggedSections.length
-    const strongSection = strongSections[0]
+    const hasPriorityArea = flaggedSections.some((section) => section.classification === 'high')
+    const highIntent = pct >= 30 || hasPriorityArea
     const priorityLine = priority
-      ? `Highest priority: ${priority.title} — ${priority.hits} of ${priority.max} signs.`
+      ? `Highest concentration: ${priority.title} — ${priority.hits} of ${priority.max} signs.`
       : ''
     const alsoFlagged = flaggedSections.slice(1).map((section) => section.title)
-    const alsoLine = alsoFlagged.length ? ` Also flagged: ${alsoFlagged.join(', ')}.` : ''
-    const strongLine = strongSection ? ` Appears strong: ${strongSection.title}.` : ''
-    const body = `${priorityLine}${alsoLine}${strongLine}`.trim()
+    const alsoLine = alsoFlagged.length ? ` Also watch: ${alsoFlagged.join(', ')}.` : ''
+    const overallLine = `Overall score: ${checkedCount} of ${activeTotal} signs (${pct}%).`
+    const body = `${overallLine} ${priorityLine}${alsoLine}`.trim()
 
-    if (checkedCount <= 5) {
+    if (!highIntent) {
       return {
-        title: priority ? `Gaps identified in ${priority.title}` : 'Gaps identified — early action helps.',
-        text: body || `Your child shows ${checkedCount} signs. This pattern is worth checking before grades drop.`,
+        title: priority ? `Early pattern worth watching in ${priority.title}` : 'Early pattern worth watching',
+        text: body,
         highIntent: false,
         visible: true,
       }
     }
-    if (checkedCount <= 9) {
-      return {
-        title: `Pattern identified across ${Math.max(flaggedCount, 1)} area${Math.max(flaggedCount, 1) > 1 ? 's' : ''}`,
-        text: body || `Your child shows ${checkedCount} signs across the checklist. This pattern is worth reviewing with an educator.`,
-        highIntent: true,
-        visible: true,
-      }
-    }
+
     return {
-      title: `Significant pattern — ${Math.max(flaggedCount, 1)} area${Math.max(flaggedCount, 1) > 1 ? 's' : ''} flagged`,
-      text: body || `Your child shows ${checkedCount} signs across the checklist. Gaps at this level typically compound — each layer builds on the one below.`,
+      title: `Clear pattern across ${Math.max(flaggedCount, 1)} area${Math.max(flaggedCount, 1) > 1 ? 's' : ''}`,
+      text: body,
       highIntent: true,
       visible: true,
     }
-  }, [checkedCount, flaggedSections, rankedSections, strongSections])
+  }, [activeTotal, checkedCount, flaggedSections, pct, rankedSections])
 
   useEffect(() => {
     const updateFixedScoreBar = () => {
