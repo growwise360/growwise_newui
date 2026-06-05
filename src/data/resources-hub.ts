@@ -52,7 +52,7 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     description:
       'Quick interactive tool to identify academic gaps in grades 1–8. No signup required. Takes 3 minutes.',
     readTime: 'Interactive',
-    href: '/resources/readiness-checklist',
+    href: '/readinesschecklist',
   },
   {
     id: 'self-check',

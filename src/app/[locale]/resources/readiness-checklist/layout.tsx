@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { absoluteSiteUrl } from '@/lib/publicPath'
+import { READINESS_CHECKLIST_PATH } from '@/data/resources/readiness-checklist'
 
 export async function generateMetadata({
   params,
@@ -9,7 +10,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const path = '/resources/readiness-checklist'
+  const path = READINESS_CHECKLIST_PATH
   const meta = generateMetadataFromPath(path, locale)
   const baseUrl = getCanonicalSiteUrl()
   const pageUrl = absoluteSiteUrl(path, locale, baseUrl)
@@ -52,7 +53,7 @@ export default async function ReadinessChecklistLayout({
 }) {
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
-  const path = '/resources/readiness-checklist'
+  const path = READINESS_CHECKLIST_PATH
   const pageUrl = absoluteSiteUrl(path, locale, baseUrl)
 
   const faqSchema = {
@@ -64,7 +65,7 @@ export default async function ReadinessChecklistLayout({
         name: 'Is this checklist a diagnosis?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'No. It is a pattern-finding tool. Only a qualified educator can assess the depth of an academic gap. This checklist helps you decide whether a more structured assessment is worth pursuing.',
+          text: 'No. It is a pattern-finding tool. Only a qualified educator can assess the depth of an academic gap. This checklist helps you decide whether a more structured academic review is worth pursuing.',
         },
       },
       {
@@ -80,7 +81,7 @@ export default async function ReadinessChecklistLayout({
         name: 'What does GrowWise do with the gaps identified?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'GrowWise runs a diagnostic session to pinpoint the specific missing concepts — not just the subject. Then a structured practice plan targets those gaps directly, rather than re-teaching everything.',
+          text: 'This checklist groups repeated signs by learning area so families, schools, aftercare programs, and support providers can discuss the pattern more clearly.',
         },
       },
       {
@@ -104,7 +105,7 @@ export default async function ReadinessChecklistLayout({
         name: 'How do I take the next step?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Call or text (925) 456-4606 to book a free academic gap assessment. GrowWise will review the patterns from this checklist with you before the session.',
+          text: 'Use the patterns you identify to decide whether to monitor, share observations with a teacher, or pursue a structured academic review.',
         },
       },
     ],

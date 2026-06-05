@@ -101,7 +101,7 @@ const RECOMMENDATIONS: Record<GoalId, Recommendation> = {
       'Choose enrichment when foundations are strong and your child needs variety. If they also like technology, a beginner STEAM camp can serve this goal while still building a useful skill.',
     href: '/camps/summer',
     cta: 'Explore Programs',
-    secondaryHref: '/resources/readiness-checklist',
+    secondaryHref: '/readinesschecklist',
     secondaryCta: 'Check for Hidden Gaps',
   },
 }
