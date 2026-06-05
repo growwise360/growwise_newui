@@ -19,6 +19,116 @@ interface SectionScore {
   selectedSigns: string[]
 }
 
+interface RubricRow {
+  skill: string
+  whenStrong: string
+  whenWeak: string
+  firstStep: string
+}
+
+const SECTION_RUBRICS: Record<string, RubricRow[]> = {
+  'math-1-4': [
+    {
+      skill: 'Number Facts',
+      whenStrong: 'Recalls addition, subtraction, and multiplication facts with increasing automaticity.',
+      whenWeak: 'Counts on fingers, uses tally marks, or takes extra time on facts that should be automatic.',
+      firstStep: 'Use 5 minutes of daily verbal recall and short games. Speed matters after accuracy is stable.',
+    },
+    {
+      skill: 'Place Value',
+      whenStrong: 'Explains the position and value of each digit in a number.',
+      whenWeak: 'Treats digits as separate numbers or reverses values in word problems.',
+      firstStep: 'Use coins, blocks, or place-value charts before moving back to abstract notation.',
+    },
+    {
+      skill: 'Word Problems',
+      whenStrong: 'Identifies the operation before calculating and can explain the reasoning.',
+      whenWeak: 'Guesses operations or skips word problems even when computation is possible.',
+      firstStep: 'Have the student underline the question, circle numbers, and say the operation aloud first.',
+    },
+  ],
+  'math-5-8': [
+    {
+      skill: 'Fractions & Decimals',
+      whenStrong: 'Moves between fractions, decimals, and percentages with flexible understanding.',
+      whenWeak: 'Memorizes procedures but cannot explain what the numbers represent.',
+      firstStep: 'Use number lines and benchmark values such as 1/2, 0.5, and 50% before formulas.',
+    },
+    {
+      skill: 'Ratios & Proportions',
+      whenStrong: 'Sets up equivalent relationships from word problems and explains units.',
+      whenWeak: 'Places numbers randomly or cross-multiplies without understanding the relationship.',
+      firstStep: 'Write units next to every number and ask what is being compared before solving.',
+    },
+    {
+      skill: 'Pre-Algebra Readiness',
+      whenStrong: 'Understands variables as unknown values and follows multi-step logic.',
+      whenWeak: 'Shuts down when letters appear or loses track across several steps.',
+      firstStep: 'Translate each equation into a sentence before solving. Keep steps visible on paper.',
+    },
+  ],
+  reading: [
+    {
+      skill: 'Main Idea',
+      whenStrong: 'Separates the central point from supporting details.',
+      whenWeak: 'Retells facts from the passage but cannot say what the passage is mostly about.',
+      firstStep: 'After each paragraph, ask for a 7-word summary before moving on.',
+    },
+    {
+      skill: 'Inference',
+      whenStrong: 'Uses clues from the text to explain what is implied.',
+      whenWeak: 'Only answers questions when the answer is stated directly.',
+      firstStep: 'Ask, "What clue made you think that?" and require a text detail with every answer.',
+    },
+    {
+      skill: 'Text Stamina',
+      whenStrong: 'Maintains comprehension as passages get longer or more complex.',
+      whenWeak: 'Understands short text but loses meaning across longer assignments.',
+      firstStep: 'Chunk reading into sections and pause for brief written summaries.',
+    },
+  ],
+  writing: [
+    {
+      skill: 'Paragraph Structure',
+      whenStrong: 'Writes a clear topic sentence, supporting details, and a closing idea.',
+      whenWeak: 'Ideas appear in a list or run together without a clear point.',
+      firstStep: 'Use a one-paragraph frame before asking for longer essays.',
+    },
+    {
+      skill: 'Evidence',
+      whenStrong: 'Uses text evidence and explains how it supports the claim.',
+      whenWeak: 'Makes claims without proof or drops quotes without explanation.',
+      firstStep: 'Teach claim, evidence, explanation as three separate sentences first.',
+    },
+    {
+      skill: 'Revision',
+      whenStrong: 'Can reread, find unclear parts, and improve a draft independently.',
+      whenWeak: 'Turns in first drafts or says the work is finished after spelling fixes only.',
+      firstStep: 'Revise one target at a time: clarity first, then structure, then grammar.',
+    },
+  ],
+  'middle-school': [
+    {
+      skill: 'Assignment Independence',
+      whenStrong: 'Breaks multi-day work into steps and tracks what is due.',
+      whenWeak: 'Depends on parent reminders or starts only when the deadline is close.',
+      firstStep: 'Create a visible three-step checklist: start date, midpoint check, final review.',
+    },
+    {
+      skill: 'Test Reflection',
+      whenStrong: 'Reviews mistakes and can name the concept behind each error.',
+      whenWeak: 'Moves on after a grade without correcting the source of mistakes.',
+      firstStep: 'After each quiz, sort mistakes into concept, careless, or directions.',
+    },
+    {
+      skill: 'Self-Advocacy',
+      whenStrong: 'Can identify what is confusing and ask a specific question.',
+      whenWeak: 'Says "I get it" but cannot explain the skill or repeat it independently.',
+      firstStep: 'Have the student write one specific question before asking for help.',
+    },
+  ],
+}
+
 function jsonError(message: string, status: number) {
   return NextResponse.json({ success: false, error: message }, { status })
 }
@@ -47,6 +157,12 @@ function sectionPriorityLabel(classification: SectionClassification) {
   if (classification === 'priority') return 'Review first'
   if (classification === 'watch') return 'Watch closely'
   return 'Normal monitoring'
+}
+
+function sectionPriorityClass(classification: SectionClassification) {
+  if (classification === 'priority') return 'badge-priority'
+  if (classification === 'watch') return 'badge-watch'
+  return 'badge-steady'
 }
 
 function getOverallInterpretation(count: number, total: number) {
@@ -131,24 +247,67 @@ function buildReportHtml({
     day: 'numeric',
   }).format(new Date())
 
-  const sectionRows = sectionScores
+  const visibleSections = sectionScores.filter((section) => section.hits > 0)
+  const sectionsToRender = visibleSections.length ? visibleSections : sectionScores
+  const highestSection = visibleSections
+    .slice()
+    .sort((a, b) => b.rate - a.rate || b.hits - a.hits)[0]
+  const concentrationText = highestSection
+    ? `Highest concentration: ${highestSection.title} - ${highestSection.hits} of ${highestSection.max} signs.`
+    : 'No section concentration identified.'
+
+  const sectionRows = sectionsToRender
     .map((section) => {
       const interpretation = getSectionInterpretation(section)
       const selectedList = section.selectedSigns.length
-        ? `<ul>${section.selectedSigns.map((sign) => `<li>${escapeHtml(sign)}</li>`).join('')}</ul>`
+        ? `<ul class="sign-list">${section.selectedSigns.map((sign) => `<li>${escapeHtml(sign)}</li>`).join('')}</ul>`
         : '<p class="muted">No signs selected in this section.</p>'
+      const rubricRows = (SECTION_RUBRICS[section.id] ?? [])
+        .map(
+          (row) => `
+            <tr>
+              <th scope="row">${escapeHtml(row.skill)}</th>
+              <td>${escapeHtml(row.whenStrong)}</td>
+              <td>${escapeHtml(row.whenWeak)}</td>
+              <td>${escapeHtml(row.firstStep)}</td>
+            </tr>
+          `,
+        )
+        .join('')
 
       return `
-        <section class="section">
+        <section class="section-card">
           <div class="section-head">
-            <h2>${escapeHtml(section.title)}</h2>
-            <span>${escapeHtml(sectionPriorityLabel(section.classification))}</span>
+            <div>
+              <p class="section-kicker">Section breakdown</p>
+              <h2>${escapeHtml(section.title)}</h2>
+            </div>
+            <span class="badge ${sectionPriorityClass(section.classification)}">${escapeHtml(sectionPriorityLabel(section.classification))}</span>
           </div>
-          <p>${section.hits} of ${section.max} signs selected (${section.rate}% section concentration).</p>
-          <p><strong>Interpretation:</strong> ${escapeHtml(interpretation.meaning)}</p>
-          <p><strong>Suggested next step:</strong> ${escapeHtml(interpretation.nextStep)}</p>
-          <p><strong>Selected signs:</strong></p>
+          <div class="section-score-row">
+            <div class="mini-progress" aria-hidden="true"><span style="width: ${section.rate}%"></span></div>
+            <strong>${section.hits} of ${section.max} signs - ${section.rate}%</strong>
+          </div>
+          <p class="section-copy"><strong>Interpretation:</strong> ${escapeHtml(interpretation.meaning)}</p>
+          <p class="section-copy"><strong>What this may point toward:</strong> ${escapeHtml(interpretation.nextStep)}</p>
+          <p class="list-label">Signs selected:</p>
           ${selectedList}
+          ${rubricRows ? `
+            <div class="rubric">
+              <p class="rubric-title">Skill rubric</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Skill</th>
+                    <th scope="col">When strong</th>
+                    <th scope="col">When weak</th>
+                    <th scope="col">What to try first</th>
+                  </tr>
+                </thead>
+                <tbody>${rubricRows}</tbody>
+              </table>
+            </div>
+          ` : ''}
         </section>
       `
     })
@@ -161,43 +320,325 @@ function buildReportHtml({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>GrowWise Readiness Evaluation Report</title>
         <style>
-          body { font-family: Arial, sans-serif; color: #14213d; margin: 32px; line-height: 1.45; }
-          .eyebrow { color: #f97316; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
-          h1 { color: #1E3A5F; margin: 8px 0 10px; font-size: 30px; }
-          h2 { color: #1E3A5F; font-size: 18px; margin: 0; }
-          .summary { border: 1px solid #d9e2ef; border-radius: 14px; padding: 18px; margin: 22px 0; background: #f8fafc; }
-          .score { font-size: 34px; font-weight: 900; color: #f97316; margin: 6px 0; }
-          .section { border-top: 1px solid #d9e2ef; padding: 18px 0; break-inside: avoid; }
-          .section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-          .section-head span { border-radius: 999px; background: #fff7ed; color: #9a3412; padding: 5px 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
-          ul { margin: 10px 0 0 20px; padding: 0; }
-          li { margin: 6px 0; }
-          .muted { color: #64748b; }
-          .disclaimer { margin-top: 24px; padding-top: 14px; border-top: 1px solid #d9e2ef; color: #64748b; font-size: 12px; }
-          .actions { margin: 22px 0; }
-          button { border: 0; border-radius: 10px; background: #f97316; color: white; cursor: pointer; font-weight: 800; padding: 11px 18px; }
-          @media print { .actions { display: none; } body { margin: 20px; } }
+          :root {
+            --navy: #1E3A5F;
+            --navy-dark: #102542;
+            --orange: #F97316;
+            --orange-light: #FFF7ED;
+            --border: #D9E2EF;
+            --text: #14213D;
+            --muted: #64748B;
+          }
+          * { box-sizing: border-box; }
+          body {
+            margin: 0;
+            background: #eef3f8;
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+          }
+          .page {
+            width: min(820px, calc(100% - 32px));
+            margin: 24px auto;
+            background: white;
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 45px rgba(15, 35, 71, 0.14);
+            padding: 34px 42px 38px;
+          }
+          .topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            border-bottom: 4px solid var(--orange);
+            padding-bottom: 12px;
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 800;
+          }
+          .report-title {
+            padding: 22px 0 14px;
+          }
+          .eyebrow {
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+          }
+          h1 {
+            color: var(--navy);
+            font-size: 28px;
+            line-height: 1.1;
+            margin: 6px 0 4px;
+          }
+          h2 {
+            color: var(--navy);
+            font-size: 17px;
+            line-height: 1.2;
+            margin: 0;
+          }
+          .muted { color: var(--muted); }
+          .score-panel {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0 20px;
+          }
+          .score-grid {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 20px;
+            align-items: end;
+          }
+          .score-label {
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+          }
+          .score {
+            color: var(--navy);
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1;
+            margin-top: 4px;
+          }
+          .score small {
+            color: var(--muted);
+            font-size: 18px;
+          }
+          .score-meta {
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+          }
+          .progress,
+          .mini-progress {
+            overflow: hidden;
+            background: #E9EEF5;
+          }
+          .progress {
+            height: 18px;
+            margin-top: 8px;
+          }
+          .progress span,
+          .mini-progress span {
+            display: block;
+            height: 100%;
+            background: var(--orange);
+          }
+          .callout {
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--orange);
+            background: #FFFFFF;
+            margin-top: 14px;
+            padding: 13px 16px;
+          }
+          .callout.next {
+            border-left-color: var(--navy);
+            background: #F8FAFC;
+          }
+          .callout strong {
+            color: var(--navy);
+          }
+          .actions {
+            margin: 20px 0;
+            text-align: right;
+          }
+          button {
+            border: 0;
+            border-radius: 8px;
+            background: var(--orange);
+            color: white;
+            cursor: pointer;
+            font-weight: 900;
+            padding: 10px 16px;
+          }
+          .divider {
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin: 24px 0 18px;
+          }
+          .section-card {
+            break-inside: avoid;
+            border: 1px solid var(--border);
+            margin-top: 18px;
+            background: white;
+          }
+          .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: center;
+            background: #F8FAFC;
+            border-left: 4px solid var(--orange);
+            padding: 14px 16px;
+          }
+          .section-kicker {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            margin: 0 0 5px;
+            text-transform: uppercase;
+          }
+          .badge {
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 112px;
+            padding: 6px 10px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+          }
+          .badge-priority { background: var(--orange); color: white; }
+          .badge-watch { background: #FEF3C7; color: #92400E; }
+          .badge-steady { background: #DCFCE7; color: #166534; }
+          .section-score-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: center;
+            padding: 12px 16px 0;
+            color: var(--navy);
+          }
+          .mini-progress { height: 12px; }
+          .section-copy,
+          .list-label {
+            margin: 10px 16px 0;
+          }
+          .list-label {
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+          }
+          .sign-list {
+            list-style: none;
+            margin: 8px 16px 14px;
+            padding: 0;
+          }
+          .sign-list li {
+            border-top: 1px solid #EDF2F7;
+            padding: 8px 0 8px 18px;
+            position: relative;
+          }
+          .sign-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 16px;
+            width: 9px;
+            border-top: 2px solid var(--navy);
+          }
+          .rubric {
+            border-top: 1px solid var(--border);
+            margin-top: 14px;
+            padding: 14px 16px 16px;
+          }
+          .rubric-title {
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            margin: 0 0 8px;
+            text-transform: uppercase;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+          }
+          th,
+          td {
+            border: 1px solid var(--border);
+            padding: 9px 10px;
+            text-align: left;
+            vertical-align: top;
+          }
+          thead th {
+            background: var(--navy);
+            color: white;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+          }
+          tbody th {
+            color: var(--navy);
+            font-size: 12px;
+            width: 22%;
+          }
+          tbody td {
+            font-size: 11px;
+          }
+          .disclaimer {
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 24px;
+            padding-top: 14px;
+          }
+          @page { size: letter; margin: 0.5in; }
+          @media print {
+            body { background: white; }
+            .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 0; }
+            .actions { display: none; }
+          }
+          @media (max-width: 640px) {
+            .page { width: 100%; margin: 0; padding: 24px 18px; }
+            .score-grid,
+            .section-score-row { grid-template-columns: 1fr; }
+            table { table-layout: auto; }
+          }
         </style>
       </head>
       <body>
-        <p class="eyebrow">GrowWise evaluation report</p>
-        <h1>Math & Reading Readiness Checklist</h1>
-        <p class="muted">Generated ${escapeHtml(generatedAt)} · ${escapeHtml(gradeBandLabel)}</p>
-        <div class="summary">
-          <p class="eyebrow">Overall score</p>
-          <p class="score">${checkedCount}/${activeTotal}</p>
-          <p>${pct}% of grade-relevant signs were selected.</p>
-          <p><strong>${escapeHtml(overall.label)}:</strong> ${escapeHtml(overall.meaning)}</p>
-          <p><strong>Suggested next step:</strong> ${escapeHtml(overall.nextStep)}</p>
+        <div class="page">
+          <header class="topline">
+            <span>GrowWise School - Readiness Evaluation Report</span>
+            <span>Generated ${escapeHtml(generatedAt)}</span>
+          </header>
+          <section class="report-title">
+            <p class="eyebrow">Academic readiness screen</p>
+            <h1>Math & Reading Readiness Checklist</h1>
+            <p class="muted">${escapeHtml(gradeBandLabel)}</p>
+          </section>
+          <section class="score-panel">
+            <div class="score-grid">
+              <div>
+                <div class="score-label">Overall score</div>
+                <div class="score">${checkedCount}<small>/${activeTotal}</small></div>
+              </div>
+              <div>
+                <p class="score-meta">${pct}% of grade-relevant signs selected. ${escapeHtml(concentrationText)}</p>
+                <div class="progress" aria-hidden="true"><span style="width: ${pct}%"></span></div>
+              </div>
+            </div>
+            <div class="callout">
+              <strong>${escapeHtml(overall.label)}:</strong> ${escapeHtml(overall.meaning)}
+            </div>
+            <div class="callout next">
+              <strong>Suggested next step:</strong> ${escapeHtml(overall.nextStep)}
+            </div>
+          </section>
+          <div class="actions">
+            <button onclick="window.print()">Download / Save as PDF</button>
+          </div>
+          <hr class="divider" />
+          ${sectionRows}
+          <p class="disclaimer">
+            This report is an educational pattern-finding tool, not a diagnosis. Use it as a discussion aid with a teacher,
+            school program lead, aftercare director, or qualified academic support provider.
+          </p>
         </div>
-        <div class="actions">
-          <button onclick="window.print()">Download / Save as PDF</button>
-        </div>
-        ${sectionRows}
-        <p class="disclaimer">
-          This report is an educational pattern-finding tool, not a diagnosis. Use it as a discussion aid with a teacher,
-          school program lead, aftercare director, or qualified academic support provider.
-        </p>
         <script>window.addEventListener('load', () => setTimeout(() => window.print(), 250));</script>
       </body>
     </html>`
