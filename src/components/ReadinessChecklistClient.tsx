@@ -437,7 +437,7 @@ export function ReadinessChecklistClient() {
 
       <div
         ref={scoreBarRef}
-        className="rounded-2xl border border-[#1E3A5F]/20 bg-white p-4 shadow-lg sm:p-5"
+        className="sticky top-3 z-40 rounded-2xl border border-[#1E3A5F]/20 bg-white/95 p-4 shadow-lg backdrop-blur sm:p-5"
       >
         {scoreBarContent}
       </div>
