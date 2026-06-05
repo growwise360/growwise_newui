@@ -116,7 +116,6 @@ interface ChecklistSection {
 
 type ThresholdKey = 'watch' | 'clear'
 type SectionClassification = 'high' | 'monitor' | 'strong'
-
 type RankedSection = {
   id: string
   title: string
@@ -163,6 +162,69 @@ function sectionPriorityClass(classification: SectionClassification): string {
   return 'bg-green-600 text-white'
 }
 
+function getOverallInterpretation(count: number, total: number) {
+  const rate = getScoreRate(count, total)
+  if (count === 0) {
+    return {
+      label: 'No pattern selected yet',
+      meaning:
+        'No readiness signs were selected for this grade band. This usually means there is no obvious pattern from this checklist alone.',
+      nextStep:
+        'Continue normal monitoring, especially during grade transitions or when homework suddenly becomes harder.',
+    }
+  }
+  if (rate < 15) {
+    return {
+      label: 'Low concern',
+      meaning:
+        'Only a small number of signs were selected. This does not suggest a broad readiness pattern, but repeated signs are still worth watching.',
+      nextStep:
+        'Monitor the selected signs for two to three weeks. If the same signs keep appearing, discuss them with the adult supporting the student.',
+    }
+  }
+  if (rate < 30) {
+    return {
+      label: 'Watch pattern',
+      meaning:
+        'Several signs were selected across the grade-relevant checklist. This may indicate an emerging pattern rather than a one-off bad day.',
+      nextStep:
+        'Review which section has the highest concentration and compare it with homework, classwork, and teacher observations.',
+    }
+  }
+  return {
+    label: 'Clear pattern',
+    meaning:
+      'The selected signs are concentrated enough to suggest a clear academic readiness pattern for this grade band.',
+    nextStep:
+      'Use this report to guide a structured conversation with a teacher, program lead, or academic support provider.',
+  }
+}
+
+function getSectionInterpretation(section: RankedSection) {
+  if (section.classification === 'high') {
+    return {
+      meaning:
+        'This area has the strongest concentration of selected signs and should be reviewed first.',
+      nextStep:
+        'Look for recent assignments or tests connected to this area, then choose one or two specific skills to investigate before adding more practice.',
+    }
+  }
+  if (section.classification === 'monitor') {
+    return {
+      meaning:
+        'This area shows enough signs to watch. It may be an emerging gap or a support habit that has not fully settled yet.',
+      nextStep:
+        'Track whether the same signs repeat over the next few assignments. Repetition matters more than a single difficult day.',
+    }
+  }
+  return {
+    meaning:
+      'This area does not currently show a concentrated pattern based on the selected signs.',
+    nextStep:
+      'Keep this area in normal monitoring unless new signs appear or school feedback points in the same direction.',
+  }
+}
+
 function trackChecklistEvent(event: string, params: Record<string, string | number | boolean>) {
   if (typeof window === 'undefined') return
   const analyticsWindow = window as typeof window & {
@@ -185,6 +247,7 @@ function escapeHtml(value: string) {
 export function ReadinessChecklistClient() {
   const [gradeBandId, setGradeBandId] = useState<GradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
+  const [evaluationReadyKey, setEvaluationReadyKey] = useState('')
   const [showFixedScoreBar, setShowFixedScoreBar] = useState(false)
   const startedTracked = useRef(false)
   const reachedThresholds = useRef<Set<ThresholdKey>>(new Set())
@@ -227,6 +290,13 @@ export function ReadinessChecklistClient() {
 
   const checkedCount = activeItems.filter((item) => checked[item.key]).length
   const pct = getScoreRate(checkedCount, activeTotal)
+  const selectedKeySignature = activeItems
+    .filter((item) => checked[item.key])
+    .map((item) => item.key)
+    .join('|')
+  const evaluationKey = `${gradeBandId}:${selectedKeySignature}`
+  const evaluationStatus =
+    checkedCount < 2 ? 'idle' : evaluationReadyKey === evaluationKey ? 'ready' : 'evaluating'
 
   const sections = useMemo(() => {
     const grouped: Record<string, ChecklistSection> = {}
@@ -275,6 +345,18 @@ export function ReadinessChecklistClient() {
   )
 
   useEffect(() => {
+    if (checkedCount < 2) {
+      return undefined
+    }
+
+    const timer = window.setTimeout(() => {
+      setEvaluationReadyKey(evaluationKey)
+    }, 700)
+
+    return () => window.clearTimeout(timer)
+  }, [checkedCount, evaluationKey])
+
+  useEffect(() => {
     if (checkedCount > 0 && !startedTracked.current) {
       startedTracked.current = true
       trackChecklistEvent('checklist_started', {
@@ -316,12 +398,14 @@ export function ReadinessChecklistClient() {
     const flaggedCount = flaggedSections.length
     const hasPriorityArea = flaggedSections.some((section) => section.classification === 'high')
     const highIntent = pct >= 30 || hasPriorityArea
-    const body =
-      'Your score is ready. Export the report to see the detailed section interpretation and save it as a PDF.'
+    const isEvaluating = evaluationStatus === 'evaluating'
+    const body = isEvaluating
+      ? 'Evaluating the selected signs across the relevant grade-band sections.'
+      : 'Your evaluation is ready. Export the report to see the detailed section interpretation and save it as a PDF.'
 
     if (!highIntent) {
       return {
-        title: 'Report ready',
+        title: isEvaluating ? 'Evaluating...' : 'Evaluation report ready',
         text: body,
         highIntent: false,
         visible: true,
@@ -329,20 +413,24 @@ export function ReadinessChecklistClient() {
     }
 
     return {
-      title: `Report ready${flaggedCount > 0 ? ` · ${flaggedCount} area${flaggedCount > 1 ? 's' : ''} to review` : ''}`,
+      title: isEvaluating
+        ? 'Evaluating...'
+        : `Evaluation report ready${flaggedCount > 0 ? ` · ${flaggedCount} area${flaggedCount > 1 ? 's' : ''} to review` : ''}`,
       text: body,
       highIntent: true,
       visible: true,
     }
-  }, [checkedCount, flaggedSections, pct])
+  }, [checkedCount, evaluationStatus, flaggedSections, pct])
 
   const handleExportReport = () => {
     const reportWindow = window.open('', '_blank')
     if (!reportWindow) return
 
     const selectedItems = activeItems.filter((item) => checked[item.key])
+    const overall = getOverallInterpretation(checkedCount, activeTotal)
     const sectionRows = Object.values(sectionScores)
       .map((section) => {
+        const interpretation = getSectionInterpretation(section)
         const selectedInSection = selectedItems.filter((item) => item.sectionId === section.id)
         const selectedList = selectedInSection.length
           ? `<ul>${selectedInSection.map((item) => `<li>${escapeHtml(item.text)}</li>`).join('')}</ul>`
@@ -355,6 +443,9 @@ export function ReadinessChecklistClient() {
               <span>${sectionPriorityLabel(section.classification)}</span>
             </div>
             <p>${section.hits} of ${section.max} signs selected · ${section.rate}% section concentration</p>
+            <p><strong>Interpretation:</strong> ${escapeHtml(interpretation.meaning)}</p>
+            <p><strong>Suggested next step:</strong> ${escapeHtml(interpretation.nextStep)}</p>
+            <p><strong>Selected signs:</strong></p>
             ${selectedList}
           </section>
         `
@@ -398,6 +489,8 @@ export function ReadinessChecklistClient() {
             <p class="eyebrow">Overall score</p>
             <p class="score">${checkedCount}/${activeTotal}</p>
             <p>${pct}% of grade-relevant signs were selected.</p>
+            <p><strong>${escapeHtml(overall.label)}:</strong> ${escapeHtml(overall.meaning)}</p>
+            <p><strong>Suggested next step:</strong> ${escapeHtml(overall.nextStep)}</p>
           </div>
           <div class="actions">
             <button onclick="window.print()">Download / Save as PDF</button>
@@ -623,13 +716,14 @@ export function ReadinessChecklistClient() {
           <button
             type="button"
             onClick={handleExportReport}
+            disabled={evaluationStatus !== 'ready'}
             className={`inline-flex min-h-11 items-center justify-center rounded-lg px-6 py-3 text-sm font-black transition-colors ${
               resultBlock.highIntent
-                ? 'bg-white text-[#1E3A5F] hover:bg-[#EFF6FF]'
-                : 'bg-[#1E3A5F] text-white hover:bg-[#142b45]'
+                ? 'bg-white text-[#1E3A5F] hover:bg-[#EFF6FF] disabled:cursor-wait disabled:bg-white/70'
+                : 'bg-[#1E3A5F] text-white hover:bg-[#142b45] disabled:cursor-wait disabled:bg-[#1E3A5F]/60'
             }`}
           >
-            Ready to export report
+            {evaluationStatus === 'evaluating' ? 'Evaluating...' : 'Ready to export report'}
           </button>
         </div>
       )}
