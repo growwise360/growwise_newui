@@ -369,12 +369,34 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
           </div>
         </section>
 
+        <section className="bg-slate-50 px-5 py-14 md:px-12 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <SectionIntro
+              eyebrow="Start with the job"
+              title="What are you trying to solve?"
+              body="Most families arrive with a symptom. We use that symptom to identify the skill gap, then recommend the right English path."
+            />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {situations.map(({ icon: Icon, title, symptom, body }) => (
+                <article key={title} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#FFF7ED] text-[#F16112]">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </div>
+                  <h3 className="mt-4 text-base font-black text-[#1F396D]">{title}</h3>
+                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.1em] text-[#F16112]">{symptom}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="px-5 py-14 md:px-12 md:py-20">
           <div className="mx-auto max-w-6xl">
             <SectionIntro
-              eyebrow="Choose the right path"
-              title="One core English program. One specialist program for young writers."
-              body="English Mastery runs grades 1-8. Young Authors is a separate 12-session creative writing cohort for grades 3-5."
+              eyebrow="Program paths"
+              title="Two English paths after the diagnostic."
+              body="English Mastery is the core grades 1-8 program. Young Authors is a separate creative writing cohort for grades 3-5."
             />
             <div className="grid gap-5 md:grid-cols-2">
               {programCards.map((program) => (
@@ -406,28 +428,6 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
                     <span className="text-right text-xs font-semibold leading-relaxed text-slate-600">{program.detail}</span>
                   </div>
                 </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-slate-50 px-5 py-14 md:px-12 md:py-20">
-          <div className="mx-auto max-w-6xl">
-            <SectionIntro
-              eyebrow="Find your situation"
-              title="What problem are we solving?"
-              body="Most families arrive with a symptom. We turn that symptom into a specific English skill plan."
-            />
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {situations.map(({ icon: Icon, title, symptom, body }) => (
-                <article key={title} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#FFF7ED] text-[#F16112]">
-                    <Icon className="h-5 w-5" aria-hidden />
-                  </div>
-                  <h3 className="mt-4 text-base font-black text-[#1F396D]">{title}</h3>
-                  <p className="mt-2 text-xs font-bold uppercase tracking-[0.1em] text-[#F16112]">{symptom}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{body}</p>
-                </article>
               ))}
             </div>
           </div>
