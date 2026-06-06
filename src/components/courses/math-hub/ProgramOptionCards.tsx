@@ -45,6 +45,11 @@ export function ProgramOptionCards({ locale }: ProgramOptionCardsProps) {
                     </span>
                     <span className="font-semibold text-[#1F396D]">{option.price}</span>
                   </p>
+                  {option.bestFor ? (
+                    <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                      {option.bestFor}
+                    </p>
+                  ) : null}
                 </li>
               ))}
             </ul>

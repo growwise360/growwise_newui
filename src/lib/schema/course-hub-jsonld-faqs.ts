@@ -23,12 +23,12 @@ export const ENGLISH_COURSE_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Does GrowWise offer English tutoring in Dublin CA?',
     answer:
-      'Yes. GrowWise offers in-person English, reading, and writing classes for grades 1–12 in Dublin, CA at 4564 Dublin Blvd.',
+      'Yes. GrowWise offers in-person English, reading, and writing programs for grades 1-8 in Dublin, CA at 4564 Dublin Blvd. Live online options are also available.',
   },
   {
     question: 'What English programs does GrowWise offer?',
     answer:
-      'GrowWise offers reading comprehension, essay writing, grammar, creative writing, and English Language Arts tutoring for grades 1–12 in the Tri-Valley area.',
+      'GrowWise offers two separate English programs: English Mastery for grades 1-8 and Young Authors, a creative writing cohort for grades 3-5.',
   },
 ]
 
@@ -73,38 +73,39 @@ export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
 /** Visible accordion FAQs on /academic/english */
 export const ENGLISH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
-    question: 'What English courses do you offer at GrowWise?',
+    question: 'Do I have to commit to 3 months upfront?',
     answer:
-      'We offer comprehensive English Language Arts courses for Grades 1-12 students, including reading comprehension, vocabulary development, grammar and mechanics, essay writing, creative writing, and literary analysis. All courses are aligned with California Common Core Standards.',
+      'English Mastery and Essay Writing Focus use a 3-month program structure. That gives enough time to assess, teach the primary gap, build consistent habits, and verify progress. Young Authors is a separate fixed 12-session cohort.',
   },
   {
-    question: 'How do I know which English course is right for my child?',
+    question: 'Is Young Authors the same as English Mastery?',
     answer:
-      "We offer a free 60-minute placement assessment to evaluate your child's current English level, reading comprehension, and writing skills. Our education experts will recommend the perfect English program based on the assessment results and your child's grade level.",
+      'No. English Mastery is the core grades 1-8 English program covering reading comprehension, writing, grammar, vocabulary, and essay skills. Young Authors is a separate creative writing program for grades 3-5.',
   },
   {
-    question: 'Are your English courses aligned with school curriculum?',
+    question: 'How much does Young Authors cost?',
     answer:
-      'Yes, our English Language Arts courses are aligned with California Common Core Standards, ensuring your child\'s learning at GrowWise complements their school curriculum. We also align with Dublin Unified School District (DUSD) and Pleasanton Unified School District (PUSD) standards.',
+      'Young Authors is $295 total for a fixed 12-session cohort. Contact GrowWise for the current schedule and availability.',
   },
   {
-    question: 'What is included in your English tutoring program?',
+    question: 'Can my child join English Mastery mid-year?',
     answer:
-      'Our English programs cover reading comprehension strategies, vocabulary building, grammar and mechanics, essay writing (narrative, expository, persuasive), creative writing, literary analysis, and test preparation. We provide personalized instruction tailored to each student\'s needs.',
+      'Yes. English Mastery starts monthly. The assessment helps identify the right grade band and entry point regardless of where the school year is.',
   },
   {
-    question: 'How much does English tutoring cost at GrowWise?',
-    answer: `Our English courses start at $35 per session. Pricing may vary based on the specific program, class size, and duration. We offer flexible scheduling options and packages. Contact us at ${CONTACT_INFO.phone} or ${CONTACT_INFO.email} for detailed pricing information.`,
+    question: 'What is the difference between elementary and middle school English?',
+    answer:
+      'Elementary English focuses on reading comprehension, paragraph writing, grammar mechanics, and vocabulary. Middle school English builds toward essay writing, literary analysis, argument structure, and evidence integration.',
   },
   {
-    question: 'Do you help with college application essays?',
+    question: 'Is this in-person or online?',
     answer:
-      'Yes, our high school English programs include college application essay writing support. We help students craft compelling personal statements and essays that showcase their unique strengths and experiences.',
+      'Both. In-person sessions are available at the GrowWise Dublin, CA center, and live online sessions are available nationwide. Both formats use small groups and the same curriculum standards.',
   },
   {
-    question: 'What makes GrowWise English tutoring different?',
+    question: 'What if my child is between grade levels?',
     answer:
-      'GrowWise offers personalized English instruction with expert tutors, small class sizes, and curriculum alignment with local school districts. We focus on building strong reading and writing skills through proven methodologies, providing detailed feedback, and creating a supportive learning environment.',
+      'Placement is based on the assessment, not only the grade on a report card. We match the student to the right skill entry point while keeping the grade band appropriate.',
   },
 ]
 

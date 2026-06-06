@@ -9,6 +9,7 @@ export function mapHubOptionsToPricingTiers(
     schedule: option.schedule,
     price: option.price,
     subtitle: option.subtitle,
+    bestFor: option.bestFor,
     featured: option.featured,
   }));
 }
