@@ -52,6 +52,14 @@ function trackChecklistEvent(event: string, params: Record<string, string | numb
   analyticsWindow.dataLayer?.push({ event, ...params })
 }
 
+function shouldUseInlineReportWindow() {
+  if (typeof window === 'undefined') return false
+  const ua = window.navigator.userAgent
+  const isMobileUa = /Android|iPhone|iPad|iPod|Mobile/i.test(ua)
+  const isCoarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false
+  return isMobileUa || isCoarsePointer
+}
+
 export function ReadinessChecklistClient() {
   const [gradeBandId, setGradeBandId] = useState<ReadinessGradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
@@ -303,9 +311,15 @@ export function ReadinessChecklistClient() {
         throw new Error(payload.error ?? 'Report generation failed')
       }
 
-      const reportUrl = URL.createObjectURL(new Blob([payload.html], { type: 'text/html' }))
-      reportWindow.location.href = reportUrl
-      window.setTimeout(() => URL.revokeObjectURL(reportUrl), 60000)
+      if (shouldUseInlineReportWindow()) {
+        reportWindow.document.open()
+        reportWindow.document.write(payload.html)
+        reportWindow.document.close()
+      } else {
+        const reportUrl = URL.createObjectURL(new Blob([payload.html], { type: 'text/html' }))
+        reportWindow.location.href = reportUrl
+        window.setTimeout(() => URL.revokeObjectURL(reportUrl), 60000)
+      }
       setExportError('')
 
       trackChecklistEvent('readiness_report_export_clicked', {
