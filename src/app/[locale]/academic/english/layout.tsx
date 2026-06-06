@@ -40,7 +40,7 @@ export default async function EnglishCoursesLayout({
       "Literary Analysis",
       "Writing Skills"
     ],
-    coursePrerequisites: "Free assessment recommended to determine the right grade band and entry point",
+    coursePrerequisites: "Free assessment recommended to understand the student's current reading and writing level before enrollment",
     url: absoluteSiteUrl('/academic/english', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {

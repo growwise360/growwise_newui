@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
+import { ENGLISH_COURSE_VISIBLE_FAQS } from '@/lib/schema/course-hub-jsonld-faqs'
 import { CONTACT_INFO } from '@/lib/constants'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 
@@ -65,7 +66,7 @@ const programCards = [
       'Revision and editing habits',
       'Complete published piece at the end',
     ],
-    price: '$349 total',
+    price: '$295 total',
     detail: '12 sessions - fixed cohort',
     featured: false,
   },
@@ -125,9 +126,9 @@ const steps = [
   },
   {
     eyebrow: 'Placement',
-    title: 'Right grade band and entry point',
+    title: 'Program fit and entry point',
     body:
-      'Your child is placed by assessment results, not by assumptions. A student can stay with their grade band while receiving support at the right skill level.',
+      'Assessment results help clarify current reading and writing level, so families can choose the right program and start at an appropriate skill entry point.',
   },
   {
     eyebrow: '3-month program',
@@ -193,7 +194,7 @@ const pricingOptions = [
     name: 'Young Authors',
     grade: 'Grades 3-5',
     track: 'Creative Writing - Story Structure - Voice - Publishing',
-    price: '$349',
+    price: '$295',
     per: 'total',
     schedule: '12 sessions - fixed cohort',
     note: 'Best for creative writers who want to complete and polish one full piece.',
@@ -237,34 +238,6 @@ const resources = [
     title: 'How to Build Homework Independence',
     body: 'A practical system for fewer nightly battles without sitting through every problem.',
     href: '/resources/homework-independence',
-  },
-]
-
-const faqs = [
-  {
-    question: 'Do I have to commit to 3 months upfront?',
-    answer:
-      'Yes. The 3-month minimum gives enough time to assess, teach the primary gap, build consistent habits, and verify progress. One-off sessions rarely produce the same result in skill-building subjects like writing.',
-  },
-  {
-    question: 'Can my child join mid-year?',
-    answer:
-      'Yes. Programs start monthly. The assessment sets the right entry point regardless of where the school year is.',
-  },
-  {
-    question: 'What is the difference between elementary and middle school English?',
-    answer:
-      'Elementary English focuses on reading comprehension, paragraph writing, grammar mechanics, and vocabulary. Middle school English builds toward essay writing, literary analysis, argument structure, and evidence integration.',
-  },
-  {
-    question: 'Is this in-person or online?',
-    answer:
-      'Both. In-person sessions are available at our Dublin, CA center, and live online sessions are available nationwide. Both formats use small groups and the same curriculum standards.',
-  },
-  {
-    question: 'What if my child is between grade levels?',
-    answer:
-      'Placement is based on the assessment, not only the grade on a report card. We match the student to the right skill entry point while keeping the grade band appropriate.',
   },
 ]
 
@@ -374,7 +347,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
             <SectionIntro
               eyebrow="Start with the job"
               title="What are you trying to solve?"
-              body="Most families arrive with a symptom. We use that symptom to identify the skill gap, then recommend the right English path."
+              body="Most families arrive with a symptom. We use that symptom to identify the skill gap, then show which program is built for that need."
             />
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {situations.map(({ icon: Icon, title, symptom, body }) => (
@@ -394,8 +367,8 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
         <section className="px-5 py-14 md:px-12 md:py-20">
           <div className="mx-auto max-w-6xl">
             <SectionIntro
-              eyebrow="Program paths"
-              title="Two English paths after the diagnostic."
+              eyebrow="Programs"
+              title="Two separate English programs."
               body="English Mastery is the core grades 1-8 program. Young Authors is a separate creative writing cohort for grades 3-5."
             />
             <div className="grid gap-5 md:grid-cols-2">
@@ -529,7 +502,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
             </div>
             <p className="mx-auto mt-5 max-w-3xl text-center text-xs leading-relaxed text-slate-500">
               English Mastery and Essay Writing Focus are $289/month with a 3-month program and 120 minutes per week.
-              Young Authors is a fixed 12-session program at $349 total. Contact us for schedule and availability:
+              Young Authors is a fixed 12-session program at $295 total. Contact us for schedule and availability:
               {' '}
               {CONTACT_INFO.phone}
             </p>
@@ -587,7 +560,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
           <div className="mx-auto max-w-4xl">
             <SectionIntro eyebrow="Common questions" title="English program FAQs" />
             <div className="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
-              {faqs.map((faq) => (
+              {ENGLISH_COURSE_VISIBLE_FAQS.map((faq) => (
                 <details key={faq.question} className="group p-5 open:bg-white">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-base font-black text-[#1F396D]">
                     {faq.question}
