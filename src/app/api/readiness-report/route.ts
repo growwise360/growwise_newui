@@ -600,11 +600,77 @@ function buildReportHtml({
             color: var(--navy);
             font-weight: 800;
           }
+          .report-feedback-top {
+            margin: -6px 0 18px;
+          }
+          .report-survey {
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--orange);
+            background: white;
+            box-shadow: 0 10px 28px rgba(15, 35, 71, 0.1);
+            margin: -4px 0 20px;
+            padding: 16px;
+          }
+          .report-survey[hidden] {
+            display: none;
+          }
+          .survey-head {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 16px;
+          }
+          .survey-head h2 {
+            font-size: 15px;
+            margin: 0;
+          }
+          .survey-head p {
+            color: var(--muted);
+            font-size: 12px;
+            margin: 3px 0 0;
+          }
+          .survey-close {
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: white;
+            color: var(--muted);
+            min-width: 28px;
+            padding: 3px 8px;
+          }
+          .survey-stars {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+          }
+          .survey-stars button {
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: white;
+            color: #94A3B8;
+            min-height: 38px;
+            min-width: 38px;
+            padding: 0 10px;
+            font-size: 20px;
+          }
+          .survey-stars button.is-selected {
+            border-color: var(--orange);
+            color: var(--orange);
+          }
+          .survey-response {
+            border-top: 1px solid var(--border);
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 14px;
+            padding-top: 12px;
+          }
           @page { size: letter; margin: 0.5in; }
           @media print {
             body { background: white; }
             .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 0; }
-            .actions { display: none; }
+            .actions,
+            .report-survey { display: none; }
           }
           @media (max-width: 640px) {
             .page { width: 100%; margin: 0; padding: 24px 18px; }
@@ -644,8 +710,29 @@ function buildReportHtml({
             </div>
           </section>
           <div class="actions">
-            <button onclick="window.print()">Download / Save as PDF</button>
+            <button onclick="handleReportDownload()">Download / Save as PDF</button>
           </div>
+          <p class="report-feedback report-feedback-top">
+            If something in this report does not look correct, please email
+            <a href="mailto:${REPORT_FEEDBACK_EMAIL}">${REPORT_FEEDBACK_EMAIL}</a>.
+          </p>
+          <aside id="report-survey" class="report-survey" hidden aria-live="polite">
+            <div class="survey-head">
+              <div>
+                <h2>Was this helpful?</h2>
+                <p>Your rating helps us improve this free resource. No email required.</p>
+              </div>
+              <button type="button" class="survey-close" aria-label="Dismiss survey" onclick="dismissReportSurvey()">×</button>
+            </div>
+            <div class="survey-stars" role="radiogroup" aria-label="Rate this report">
+              <button type="button" data-rating="1" onclick="rateReportSurvey(1)" aria-label="1 star">★</button>
+              <button type="button" data-rating="2" onclick="rateReportSurvey(2)" aria-label="2 stars">★</button>
+              <button type="button" data-rating="3" onclick="rateReportSurvey(3)" aria-label="3 stars">★</button>
+              <button type="button" data-rating="4" onclick="rateReportSurvey(4)" aria-label="4 stars">★</button>
+              <button type="button" data-rating="5" onclick="rateReportSurvey(5)" aria-label="5 stars">★</button>
+            </div>
+            <div id="survey-response" class="survey-response" hidden></div>
+          </aside>
           <hr class="divider" />
           ${sectionRows}
           <p class="disclaimer">
@@ -657,7 +744,58 @@ function buildReportHtml({
             <a href="mailto:${REPORT_FEEDBACK_EMAIL}">${REPORT_FEEDBACK_EMAIL}</a>.
           </p>
         </div>
-        <script>window.addEventListener('load', () => setTimeout(() => window.print(), 250));</script>
+        <script>
+          const reportSurveyKey = 'growwise_readiness_report_survey_state';
+          let reportSurveyTimer = null;
+
+          function hasReportSurveyState() {
+            try {
+              return Boolean(window.sessionStorage.getItem(reportSurveyKey));
+            } catch {
+              return false;
+            }
+          }
+
+          function scheduleReportSurvey() {
+            if (hasReportSurveyState()) return;
+            if (reportSurveyTimer !== null) window.clearTimeout(reportSurveyTimer);
+            reportSurveyTimer = window.setTimeout(() => {
+              if (hasReportSurveyState()) return;
+              const survey = document.getElementById('report-survey');
+              if (survey) survey.hidden = false;
+            }, 5000);
+          }
+
+          function handleReportDownload() {
+            window.print();
+            scheduleReportSurvey();
+          }
+
+          function dismissReportSurvey() {
+            try {
+              window.sessionStorage.setItem(reportSurveyKey, 'dismissed');
+            } catch {}
+            const survey = document.getElementById('report-survey');
+            if (survey) survey.hidden = true;
+          }
+
+          function rateReportSurvey(rating) {
+            try {
+              window.sessionStorage.setItem(reportSurveyKey, 'rated:' + rating);
+            } catch {}
+            document.querySelectorAll('[data-rating]').forEach((button) => {
+              button.classList.toggle('is-selected', Number(button.dataset.rating) === rating);
+            });
+            const response = document.getElementById('survey-response');
+            if (!response) return;
+            response.hidden = false;
+            response.textContent = rating >= 4
+              ? 'Thank you. Want to share it with another parent or academic support institution? https://growwiseschool.org/readinesschecklist'
+              : 'Thank you. If something in the report does not look correct, email ${REPORT_FEEDBACK_EMAIL}.';
+          }
+
+          window.addEventListener('load', () => setTimeout(handleReportDownload, 250));
+        </script>
       </body>
     </html>`
 }

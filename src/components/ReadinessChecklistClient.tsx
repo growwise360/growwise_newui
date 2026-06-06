@@ -234,7 +234,7 @@ export function ReadinessChecklistClient() {
         total_items: activeTotal,
         grade_band: selectedGradeBand.label,
       })
-    }, 1200)
+    }, 5000)
   }
 
   const handleDismissFeedback = () => {
@@ -303,9 +303,9 @@ export function ReadinessChecklistClient() {
         throw new Error(payload.error ?? 'Report generation failed')
       }
 
-      reportWindow.document.open()
-      reportWindow.document.write(payload.html)
-      reportWindow.document.close()
+      const reportUrl = URL.createObjectURL(new Blob([payload.html], { type: 'text/html' }))
+      reportWindow.location.href = reportUrl
+      window.setTimeout(() => URL.revokeObjectURL(reportUrl), 60000)
       setExportError('')
       scheduleFeedbackPrompt()
 
