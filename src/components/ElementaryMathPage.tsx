@@ -516,9 +516,14 @@ const ElementaryMathPage: React.FC = () => {
         outcomes={PROGRAM_OUTCOMES}
         fromMonthlyLabel="From $169/month"
         tiers={[
-          { name: '1 Subject', schedule: '75 min/week', price: '$169/mo' },
-          { name: '2 Subject', schedule: '2 × 60 min/week', price: '$279/mo' },
-          { name: 'Academic + Coding', schedule: '2 × 60 min/week', price: '$279/mo' },
+          { name: 'Grade 1&2 Math', schedule: '75 minutes per week', price: '$169/mo' },
+          { name: 'Grade 3-5 Math', schedule: '2 × 60 min/week', price: '$289/mo' },
+          {
+            name: 'Math + Coding',
+            schedule: '2 × 60 min/week',
+            price: '$295/mo',
+            bestFor: 'Scratch or Roblox',
+          },
         ]}
         onBookAssessment={openAssessment}
       />

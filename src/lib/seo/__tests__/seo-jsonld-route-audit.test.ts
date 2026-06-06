@@ -69,6 +69,7 @@ const ROUTE_JSON_LD_AUDIT: Array<{ route: string; schemas: unknown[] }> = [
     schemas: [
       { '@type': 'Course' },
       { '@type': 'BreadcrumbList' },
+      generateFAQPageSchema([]),
     ],
   },
   {
@@ -129,6 +130,7 @@ describe('SEO JSON-LD route audit', () => {
         '/steam',
         '/programs',
         '/academic/math',
+        '/academic/english',
         '/dublin-ca',
         '/resources/tutoring-dublin-ca',
         '/resources/careless-math-mistakes',

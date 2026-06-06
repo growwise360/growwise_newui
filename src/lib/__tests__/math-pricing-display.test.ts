@@ -11,13 +11,13 @@ import {
 describe('math-pricing-display', () => {
   it('parses monthly USD from hub price labels', () => {
     expect(parseMonthlyUsdFromLabel('$189/mo')).toBe(189);
-    expect(parseMonthlyUsdFromLabel('From $179/month · 75 min')).toBe(179);
+    expect(parseMonthlyUsdFromLabel('From $289/month · 150 minutes')).toBe(289);
   });
 
   it('derives min monthly and schema offer price from MATH_HUB_COPY', () => {
     expect(getMathHubMinMonthlyUsd('high-school')).toBe(189);
     expect(getMathHubSchemaOfferPrice('high-school')).toBe('189');
-    expect(getMathHubMinMonthlyUsd('middle-school')).toBe(179);
+    expect(getMathHubMinMonthlyUsd('middle-school')).toBe(289);
   });
 
   it('trial fee label matches constant', () => {

@@ -73,7 +73,7 @@ describe('resources internal links', () => {
   });
 
   it('links courses/english to reading-fluency-vs-comprehension', () => {
-    const source = readComponent('components/EnglishCoursesPage.tsx');
+    const source = readComponent('components/courses/EnglishHubPage.tsx');
     expect(source).toContain('/resources/reading-fluency-vs-comprehension');
   });
 

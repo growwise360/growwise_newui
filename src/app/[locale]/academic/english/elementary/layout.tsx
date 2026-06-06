@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { ELEMENTARY_ENGLISH_VISIBLE_FAQS } from '@/lib/schema/elementary-english-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
@@ -57,6 +59,7 @@ export default async function ElementaryEnglishLayout({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <FAQSchema faqs={ELEMENTARY_ENGLISH_VISIBLE_FAQS} />
       {children}
     </>
   )
