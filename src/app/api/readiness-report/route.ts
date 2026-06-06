@@ -756,13 +756,70 @@ function buildReportHtml({
             }
           }
 
+          function reportSurveyPayload(extra) {
+            return {
+              grade_band: ${JSON.stringify(gradeBandLabel)},
+              checked_count: ${checkedCount},
+              total_items: ${activeTotal},
+              score_rate: ${pct},
+              source: 'report_tab',
+              ...extra,
+            };
+          }
+
+          function trackReportSurveyEvent(eventName, params) {
+            const payload = reportSurveyPayload(params || {});
+            try {
+              window.opener?.gtag?.('event', eventName, payload);
+            } catch {}
+            try {
+              if (window.opener) {
+                window.opener.dataLayer = window.opener.dataLayer || [];
+                window.opener.dataLayer.push({ event: eventName, ...payload });
+              }
+            } catch {}
+          }
+
+          async function sendReportSurveyActivity(rating) {
+            const activityPayload = {
+              rating,
+              gradeBand: ${JSON.stringify(gradeBandLabel)},
+              checkedCount: ${checkedCount},
+              activeTotal: ${activeTotal},
+              source: 'report_tab',
+              pageUrl: '',
+            };
+
+            try {
+              activityPayload.pageUrl = window.opener?.location?.href || '';
+            } catch {}
+
+            try {
+              const sender = window.opener?.fetch?.bind(window.opener) || window.fetch.bind(window);
+              const endpoint = window.opener?.location?.origin
+                ? window.opener.location.origin + '/api/readiness-report-activity'
+                : '/api/readiness-report-activity';
+              await sender(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(activityPayload),
+                keepalive: true,
+              });
+            } catch (error) {
+              console.warn('[readiness-report] survey activity not sent', error);
+            }
+          }
+
           function scheduleReportSurvey() {
             if (hasReportSurveyState()) return;
             if (reportSurveyTimer !== null) window.clearTimeout(reportSurveyTimer);
             reportSurveyTimer = window.setTimeout(() => {
               if (hasReportSurveyState()) return;
               const survey = document.getElementById('report-survey');
-              if (survey) survey.hidden = false;
+              if (survey) {
+                survey.hidden = false;
+                trackReportSurveyEvent('readiness_report_survey_shown');
+              }
             }, 5000);
           }
 
@@ -786,6 +843,8 @@ function buildReportHtml({
             document.querySelectorAll('[data-rating]').forEach((button) => {
               button.classList.toggle('is-selected', Number(button.dataset.rating) === rating);
             });
+            trackReportSurveyEvent('readiness_report_survey_rated', { rating });
+            void sendReportSurveyActivity(rating);
             const response = document.getElementById('survey-response');
             if (!response) return;
             response.hidden = false;

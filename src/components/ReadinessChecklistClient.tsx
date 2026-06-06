@@ -307,7 +307,6 @@ export function ReadinessChecklistClient() {
       reportWindow.location.href = reportUrl
       window.setTimeout(() => URL.revokeObjectURL(reportUrl), 60000)
       setExportError('')
-      scheduleFeedbackPrompt()
 
       trackChecklistEvent('readiness_report_export_clicked', {
         checked_count: checkedCount,
