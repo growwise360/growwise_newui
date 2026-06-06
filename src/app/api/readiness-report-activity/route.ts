@@ -7,7 +7,7 @@ import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit'
 import { isOriginAllowed } from '@/lib/requestGuard'
 
 const MAX_BODY_BYTES = 4096
-const ACTIVITY_EMAIL = 'connect@thegrowwsie.com'
+const ACTIVITY_EMAIL = 'connect@thegrowwise.com'
 
 function escapeHtml(value: string) {
   return value
