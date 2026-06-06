@@ -44,7 +44,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
       packages.getByText(
         'Complimentary 60-minute weekly practice session included with every program',
       ),
-    ).toHaveCount(2);
+    ).toHaveCount(1);
   });
 
   test('JTBD selector reveals resolution on click', async ({ page }) => {

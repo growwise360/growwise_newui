@@ -39,10 +39,11 @@ test.describe('Middle school math page', { tag: '@critical' }, () => {
     await expect(page.getByText('This is usually a gap from 1–2 years back')).toBeVisible();
 
     await expect(page.getByRole('heading', { name: 'Middle School Math — 3-Month Program' })).toBeVisible();
-    await expect(page.getByText('From $179/month', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('$179/mo', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('Accelerated Math', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('From $289/month', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Regular Math Program', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('$289/mo', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Advanced Math', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('$295/mo', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('Free Sunday practice sessions — included for all Grades 6–12 students')).toBeVisible();
     await expect(page.getByText('Trial session — Grades 6–8')).toBeVisible();
   });
