@@ -4,7 +4,7 @@ describe('MATH_HUB_COPY pricing', () => {
   it('grade-band cards use current monthly from-prices', () => {
     const lines = MATH_HUB_COPY.gradeBands.cards.map((c) => c.packageLine);
     expect(lines).toEqual([
-      'From $169/month · 75 min, once a week · 3-month program',
+      'From $169/month · Grade 1-2 Math · 75 minutes per week',
       'From $289/month · 150 minutes per week · 3-month program',
       'From $189/month · 75 min, once a week · 3-month program',
     ]);
@@ -13,7 +13,7 @@ describe('MATH_HUB_COPY pricing', () => {
       (c) => c.options[0]?.schedule,
     );
     expect(entrySchedules).toEqual([
-      '75 min, once a week',
+      '75 minutes per week',
       '150 minutes per week',
       '75 min/week',
     ]);
@@ -24,6 +24,21 @@ describe('MATH_HUB_COPY pricing', () => {
       (c) => c.options[0]?.price,
     );
     expect(entryPrices).toEqual(['$169/mo', '$289/mo', '$189/mo']);
+
+    const elementary = MATH_HUB_COPY.programOptions.cards.find(
+      (c) => c.id === 'elementary',
+    );
+    expect(elementary?.options.map((o) => o.name)).toEqual([
+      'Grade 1&2 Math',
+      'Grade 3-5 Math',
+      'Math + Coding',
+    ]);
+    expect(elementary?.options.map((o) => o.price)).toEqual([
+      '$169/mo',
+      '$289/mo',
+      '$295/mo',
+    ]);
+    expect(elementary?.options[2]?.bestFor).toBe('Scratch or Roblox');
 
     const middle = MATH_HUB_COPY.programOptions.cards.find(
       (c) => c.id === 'middle-school',

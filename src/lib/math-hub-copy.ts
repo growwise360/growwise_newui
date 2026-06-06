@@ -98,7 +98,7 @@ export const MATH_HUB_COPY = {
           'Word problem structure',
           'Intro geometry',
         ],
-        packageLine: 'From $169/month · 75 min, once a week · 3-month program',
+        packageLine: 'From $169/month · Grade 1-2 Math · 75 minutes per week',
         ctaLabel: 'See elementary programs',
         imageSrc: '/assets/courses/math-band-elementary.webp',
         imageAlt:
@@ -239,8 +239,14 @@ export const MATH_HUB_COPY = {
         tracks: 'Beginner · Champ · Pro',
         ctaLabel: 'See full program',
         options: [
-          { name: '1 Subject', schedule: '75 min, once a week', price: '$169/mo' },
-          { name: '2 Subject', schedule: '2×60 min/week', price: '$279/mo' },
+          { name: 'Grade 1&2 Math', schedule: '75 minutes per week', price: '$169/mo' },
+          { name: 'Grade 3-5 Math', schedule: '2 × 60 min/week', price: '$289/mo' },
+          {
+            name: 'Math + Coding',
+            schedule: '2 × 60 min/week',
+            price: '$295/mo',
+            bestFor: 'Scratch or Roblox',
+          },
         ],
       },
       {
@@ -381,7 +387,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
       'Number sense, fractions, and reasoning — before the gaps compound.',
     body: 'Most elementary math struggles trace back to one unaddressed concept from 6–12 months ago. We find it before it becomes a pattern. Live online small groups with a defined 3-month curriculum.',
     coursesIncluded: MATH_HUB_COPY.gradeBands.cards[0].coursesIncluded,
-    packageLine: 'From $169/month · 75 min, once a week · 3-month program',
+    packageLine: 'From $169/month · Grade 1-2 Math · 75 minutes per week',
     schemaCourseName: 'Elementary Math Program — Grades 1–5',
     schemaDescription:
       '3-month structured math program for Grades 1–5. Covers number sense, fractions, operations, and word problem reasoning. Live online small groups.',
