@@ -21,6 +21,7 @@ type ThresholdKey = 'watch' | 'clear'
 
 const READINESS_FEEDBACK_SESSION_KEY = 'growwise_readiness_feedback_state'
 const READINESS_SHARE_URL = 'https://growwiseschool.org/readinesschecklist'
+const REPORT_FEEDBACK_EMAIL = 'contact@growwiseschool.org'
 
 function getScoreRate(count: number, total: number) {
   return total > 0 ? Math.round((count / total) * 100) : 0
@@ -545,9 +546,18 @@ export function ReadinessChecklistClient() {
                       </div>
                     </>
                   ) : (
-                    <p className="text-sm font-semibold text-[#1E3A5F]">
-                      Thank you. We&apos;ll use this to make the report clearer.
-                    </p>
+                    <div className="space-y-2">
+                      <p className="text-sm font-semibold text-[#1E3A5F]">
+                        Thank you. We&apos;ll use this to make the report clearer.
+                      </p>
+                      <p className="text-sm leading-relaxed text-slate-600">
+                        If something in the report does not look correct, email us at{' '}
+                        <a href={`mailto:${REPORT_FEEDBACK_EMAIL}`} className="font-bold text-[#1E3A5F] underline underline-offset-2">
+                          {REPORT_FEEDBACK_EMAIL}
+                        </a>
+                        .
+                      </p>
+                    </div>
                   )}
                 </div>
               ) : null}

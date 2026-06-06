@@ -9,6 +9,8 @@ import {
 
 type SectionClassification = 'priority' | 'watch' | 'steady'
 
+const REPORT_FEEDBACK_EMAIL = 'contact@growwiseschool.org'
+
 interface SectionScore {
   id: string
   title: string
@@ -586,6 +588,18 @@ function buildReportHtml({
             margin-top: 24px;
             padding-top: 14px;
           }
+          .report-feedback {
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--orange);
+            color: var(--navy);
+            font-size: 11px;
+            margin-top: 14px;
+            padding: 10px 12px;
+          }
+          .report-feedback a {
+            color: var(--navy);
+            font-weight: 800;
+          }
           @page { size: letter; margin: 0.5in; }
           @media print {
             body { background: white; }
@@ -637,6 +651,10 @@ function buildReportHtml({
           <p class="disclaimer">
             This report is an educational pattern-finding tool, not a diagnosis. Use it as a discussion aid with a teacher,
             school program lead, aftercare director, or qualified academic support provider.
+          </p>
+          <p class="report-feedback">
+            If something in this report does not look correct, please email
+            <a href="mailto:${REPORT_FEEDBACK_EMAIL}">${REPORT_FEEDBACK_EMAIL}</a>.
           </p>
         </div>
         <script>window.addEventListener('load', () => setTimeout(() => window.print(), 250));</script>
