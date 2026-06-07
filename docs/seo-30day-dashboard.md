@@ -62,10 +62,10 @@
 # GSC → URL Inspection → paste URL → check "Last crawl" date
 
 Pages to inspect:
-- https://www.growwiseschool.org/camps/summer
-- https://www.growwiseschool.org/courses/math
-- https://www.growwiseschool.org/about
-- https://www.growwiseschool.org/steam/ml-ai-coding
+- https://growwiseschool.org/camps/summer
+- https://growwiseschool.org/academic/math
+- https://growwiseschool.org/about
+- https://growwiseschool.org/steam/ml-ai-coding
 ```
 
 ---
