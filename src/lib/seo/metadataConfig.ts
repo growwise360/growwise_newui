@@ -341,7 +341,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer': {
-    title: 'Math, Robotics, Coding & AI Summer Camps Dublin CA | GrowWise',
+    title: 'Math, Robotics, Coding & AI Camps Dublin CA | GrowWise',
     description:
       'Summer camps in Dublin, CA for Grades 1–12: Math, Robotics, Coding, AI, game development, and writing. Weekly June–August 2026. Reserve a spot.',
     keywords:
