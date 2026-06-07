@@ -1,10 +1,10 @@
 const SMS_TEMPLATES = {
   contact: (name: string) =>
-    `GrowWise School: Got your inquiry ${name}! We'll reach out within 1 business day. Call: (925) 456-4606 or visit https://www.growwiseschool.org. Reply STOP to opt out.`,
+    `GrowWise School: Got your inquiry ${name}! We'll reach out within 1 business day. Call: (925) 456-4606 or visit https://growwiseschool.org. Reply STOP to opt out.`,
   assessment: (name: string) =>
     `GrowWise School: Hi ${name}, your free assessment request is confirmed! We'll contact you within 24 hrs to schedule. Call (925) 456-4606. Reply STOP to opt out.`,
   enrollment: (name: string) =>
-    `GrowWise School: Hi ${name}, your enrollment inquiry is received! Our team will reach out within 1 business day. Visit: https://www.growwiseschool.org. Reply STOP to opt out.`,
+    `GrowWise School: Hi ${name}, your enrollment inquiry is received! Our team will reach out within 1 business day. Visit: https://growwiseschool.org. Reply STOP to opt out.`,
   workshop: (name: string, eventTitle?: string) =>
     `GrowWise School: Hi ${name}, your spot for ${eventTitle || 'our upcoming event'} is confirmed! Check your email for details. Reply STOP to opt out.`,
 };

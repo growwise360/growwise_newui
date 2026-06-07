@@ -160,6 +160,6 @@ In Ahrefs after re-crawl:
 - Check sitemap route handler returns the URL in correct format
 
 **OG tags still flagged:**
-- Fetch the raw HTML: `curl -s https://www.growwiseschool.org/page | grep og:`
+- Fetch the raw HTML: `curl -s https://growwiseschool.org/page | grep og:`
 - Verify `og:image` URL is absolute (not relative)
 - Verify image dimensions ≥ 1200×630 (Ahrefs checks this)
