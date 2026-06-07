@@ -99,7 +99,7 @@ INDEXNOW_KEY=your_key_here node scripts/indexnow-submit.mjs
 ## 4. Bing Webmaster Tools
 
 1. Verify site at https://www.bing.com/webmasters if not already done
-2. Submit sitemap: `https://www.growwiseschool.org/sitemap.xml`
+2. Submit sitemap: `https://growwiseschool.org/sitemap.xml`
 3. Check **SEO Reports** → Site Scan after 48h
 4. Fix any Bing-specific issues (often mirrors GSC issues)
 
@@ -129,7 +129,7 @@ Paste the full page URL and check for:
 Ahrefs flagged 1 redirect warning. Find and fix:
 
 1. GSC → Pages → Excluded → "Redirect"
-2. Or run: `curl -sI https://www.growwiseschool.org/<suspect-path> | grep -i location`
+2. Or run: `curl -sI https://growwiseschool.org/<suspect-path> | grep -i location`
 3. Common culprit: trailing slash redirects (`/camps/summer` → `/camps/summer/`)
 4. Fix by ensuring internal links match the canonical URL exactly (no trailing slash difference)
 

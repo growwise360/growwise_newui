@@ -5,19 +5,19 @@ const BODY = `# GrowWise School
 > K-12 tutoring and STEAM enrichment in Dublin, CA. Math, English, coding, AI, robotics, SAT prep, and summer camps for Grades 1–12 in the Tri-Valley.
 
 ## Programs
-- [Academic (Math & English)](https://www.growwiseschool.org/academic)
-- [STEAM (Coding, AI, Game Dev)](https://www.growwiseschool.org/steam)
-- [Summer Camps](https://www.growwiseschool.org/camps/summer)
-- [Academic Summer Programs](https://www.growwiseschool.org/camps/academic-summer-programs-dublin-ca)
-- [SAT Prep](https://www.growwiseschool.org/courses/sat-prep)
-- [Workshops](https://www.growwiseschool.org/workshop-calendar)
+- [Academic (Math & English)](https://growwiseschool.org/academic)
+- [STEAM (Coding, AI, Game Dev)](https://growwiseschool.org/steam)
+- [Summer Camps](https://growwiseschool.org/camps/summer)
+- [Academic Summer Programs](https://growwiseschool.org/camps/academic-summer-programs-dublin-ca)
+- [SAT Prep](https://growwiseschool.org/courses/sat-prep)
+- [Workshops](https://growwiseschool.org/workshop-calendar)
 
 ## Info
-- [K-12 Tutoring in Dublin, CA](https://www.growwiseschool.org/dublin-ca)
-- [About](https://www.growwiseschool.org/about)
-- [Contact](https://www.growwiseschool.org/contact)
-- [Blog](https://www.growwiseschool.org/growwise-blogs)
-- [Parent Guides & Resources](https://www.growwiseschool.org/resources)
+- [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/dublin-ca)
+- [About](https://growwiseschool.org/about)
+- [Contact](https://growwiseschool.org/contact)
+- [Blog](https://growwiseschool.org/growwise-blogs)
+- [Parent Guides & Resources](https://growwiseschool.org/resources)
 
 Location: 4564 Dublin Blvd, Dublin, CA 94568
 Phone: (925) 456-4606

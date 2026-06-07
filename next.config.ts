@@ -5,6 +5,13 @@ import { LEGACY_PATH_REDIRECTS } from './src/lib/seo/legacy-path-redirects';
 const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
 
 const isProd = process.env.NODE_ENV === 'production';
+const retiredLocale = 'hi|zh|es';
+
+const LEGACY_ACADEMIC_REDIRECTS = [
+  { from: '/courses/math', to: '/academic/math' },
+  { from: '/courses/english', to: '/academic/english' },
+  { from: '/courses/high-school-math', to: '/academic/math/high-school' },
+] as const;
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -214,12 +221,28 @@ const nextConfig: NextConfig = {
   // Legacy `/camp/*` SEO landings → `/camps/*` (canonical namespace aligns with /camps/summer, /camps/winter).
   // `/en/camp/*` listed before `/en/:path*` so one redirect hop to `/camps/*`.
   async redirects() {
+    const legacyAcademicRedirects = LEGACY_ACADEMIC_REDIRECTS.flatMap(({ from, to }) => [
+      { source: from, destination: to, permanent: true as const },
+      { source: `${from}/`, destination: to, permanent: true as const },
+      { source: `/en${from}`, destination: to, permanent: true as const },
+      { source: `/en${from}/`, destination: to, permanent: true as const },
+      {
+        source: `/:locale(${retiredLocale})${from}`,
+        destination: to,
+        permanent: true as const,
+      },
+      {
+        source: `/:locale(${retiredLocale})${from}/`,
+        destination: to,
+        permanent: true as const,
+      },
+    ]);
+
     const legacyMarketingRedirects = LEGACY_PATH_REDIRECTS.flatMap(({ from, to }) => [
       { source: from, destination: to, permanent: true as const },
       { source: `${from}/`, destination: to, permanent: true as const },
     ]);
 
-    const retiredLocale = 'hi|zh|es';
     const localePrefixedLegacyRedirects = LEGACY_PATH_REDIRECTS.flatMap(({ from, to }) => [
       {
         source: `/:locale(${retiredLocale})${from}`,
@@ -234,6 +257,7 @@ const nextConfig: NextConfig = {
     ]);
 
     return [
+      ...legacyAcademicRedirects,
       ...localePrefixedLegacyRedirects,
       ...legacyMarketingRedirects,
       { source: '/camp', destination: '/camps/summer', permanent: true },
