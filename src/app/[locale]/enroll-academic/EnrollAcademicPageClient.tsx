@@ -16,6 +16,7 @@ import { PHONE_PLACEHOLDER } from '@/lib/constants';
 import { validatePhoneSimple } from '@/lib/phoneValidation';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { getRecaptchaToken } from '@/lib/recaptcha';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 
 interface EnrollFormData {
   parentName: string;
@@ -146,6 +147,11 @@ export default function EnrollAcademicPageClient() {
       }
 
       if (result.success) {
+        trackGenerateLead('enroll_academic', {
+          form_name: 'enroll_academic',
+          subject: formData.subject,
+          grade: formData.grade,
+        });
         router.replace(publicPath("/enroll-academic/thank-you", locale));
         return;
       } else {

@@ -149,6 +149,24 @@ const gameDevCourses: GameDevCourse[] = [
   }
 ];
 
+const FLOATING_GAME_SYMBOLS = [
+  { symbol: '🎮', left: '9.7%', top: '41.1%', duration: '11.7s', size: '20px' },
+  { symbol: '🎯', left: '18.2%', top: '14.5%', duration: '9.4s', size: '24px' },
+  { symbol: '🚀', left: '27.8%', top: '68.3%', duration: '10.8s', size: '29px' },
+  { symbol: '💎', left: '36.6%', top: '28.9%', duration: '8.9s', size: '21px' },
+  { symbol: '⭐', left: '44.9%', top: '52.7%', duration: '12s', size: '31px' },
+  { symbol: '🎨', left: '52.3%', top: '18.6%', duration: '10.2s', size: '25px' },
+  { symbol: '🎵', left: '61.8%', top: '33.8%', duration: '10.7s', size: '27px' },
+  { symbol: '🏆', left: '69.5%', top: '72.4%', duration: '9.8s', size: '22px' },
+  { symbol: '💡', left: '76.4%', top: '21.5%', duration: '11.3s', size: '30px' },
+  { symbol: '⚡', left: '84.1%', top: '57.2%', duration: '8.6s', size: '23px' },
+  { symbol: '🔧', left: '13.6%', top: '79.8%', duration: '12.1s', size: '26px' },
+  { symbol: '🎪', left: '31.4%', top: '8.7%', duration: '9.1s', size: '28px' },
+  { symbol: '🌟', left: '48.7%', top: '83.5%', duration: '10.5s', size: '24px' },
+  { symbol: '🎲', left: '73.9%', top: '9.6%', duration: '11.6s', size: '21px' },
+  { symbol: '🎊', left: '91.2%', top: '39.4%', duration: '9.7s', size: '29px' },
+] as const;
+
 // Component that handles search params - wrapped separately for Suspense
 function SearchParamsHandler({ 
   onLevelFound,
@@ -401,20 +419,20 @@ const GameDevelopmentPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-blue-50 via-purple-50 to-pink-50">
           {/* Floating game symbols */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+            {FLOATING_GAME_SYMBOLS.map((item, i) => (
               <div
                 key={i}
                 className="absolute text-gray-500/60 animate-float-gentle font-semibold"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: item.left,
+                  top: item.top,
                   transform: `translateY(${scrollY * 0.05}px)`,
                   animationDelay: `${i * 1.2}s`,
-                  animationDuration: `${8 + Math.random() * 4}s`,
-                  fontSize: `${Math.random() * 15 + 18}px`
+                  animationDuration: item.duration,
+                  fontSize: item.size
                 }}
               >
-                {['🎮', '🎯', '🚀', '💎', '⭐', '🎨', '🎵', '🏆', '💡', '⚡', '🔧', '🎪', '🌟', '🎲', '🎊'][Math.floor(Math.random() * 15)]}
+                {item.symbol}
               </div>
             ))}
           </div>
@@ -963,4 +981,3 @@ const GameDevelopmentPage: React.FC = () => {
 };
 
 export default GameDevelopmentPage;
-

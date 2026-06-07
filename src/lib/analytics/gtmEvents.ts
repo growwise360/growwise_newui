@@ -1,5 +1,14 @@
 type DataLayerWindow = Window & { dataLayer?: Record<string, unknown>[] }
 
+type LeadSource =
+  | 'book_assessment'
+  | 'free_assessment_modal'
+  | 'contact_form'
+  | 'enroll'
+  | 'enroll_academic'
+  | 'summer_camp_guide'
+  | 'math_finals_practice'
+
 export function pushDataLayer(payload: Record<string, unknown>): void {
   if (typeof window === 'undefined') return
   const w = window as DataLayerWindow
@@ -27,5 +36,18 @@ export function trackAssessmentFormSubmitted(pagePath: string): void {
   pushDataLayer({
     event: 'assessment_form_submitted',
     page_path: pagePath,
+  })
+}
+
+export function trackGenerateLead(
+  leadSource: LeadSource,
+  params: Record<string, unknown> = {},
+): void {
+  pushDataLayer({
+    event: 'generate_lead',
+    lead_source: leadSource,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+    ...params,
   })
 }

@@ -4,8 +4,8 @@ import { AnalyticsAfterConsent } from '@/components/analytics/AnalyticsAfterCons
 import { CookieConsentBanner } from '@/components/analytics/CookieConsentBanner';
 
 /**
- * Loads GTM / GA / Meta Pixel only after analytics consent (localStorage).
- * Keeps third-party cookies off the critical path until the user accepts — improves Lighthouse Best Practices.
+ * Loads measurement scripts and consent-sensitive marketing tools.
+ * GTM / GA4 load for all users; ad pixels and session tools remain consent-gated here or in GTM.
  */
 export function ConsentAndAnalytics() {
   return (

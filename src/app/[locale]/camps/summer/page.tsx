@@ -35,6 +35,7 @@ import { SummerCampTrustBlock } from '@/components/camps/SummerCampTrustBlock';
 import { FeaturedCampGuidesSection } from '@/components/camps/FeaturedCampGuidesSection';
 import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
 import { SummerCampEmptySlotsPanel } from '@/components/camps/SummerCampUI';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 const SummerCampGuideLeadDialog = dynamic(
   () => import('./SummerCampGuideLeadDialog').then((m) => ({ default: m.SummerCampGuideLeadDialog })),
   { ssr: false },
@@ -347,6 +348,11 @@ export default function SummerCampPage() {
           ...(phoneTrim ? { ph: phoneTrim } : {}),
         })
       );
+      trackGenerateLead('summer_camp_guide', {
+        form_name: 'summer_camp_guide',
+        camp_interest: summerCampInterest,
+        grade: summerCampChildGrade,
+      });
       const qs = new URLSearchParams({
         interest: summerCampInterest,
         grade: summerCampChildGrade,

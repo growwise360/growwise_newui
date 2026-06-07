@@ -43,6 +43,7 @@ import { useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchContactRequested } from '@/store/slices/contactSlice';
 import { getIconComponent } from '@/lib/iconMap';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { contactService } from '@/lib/contactService';
 import { CONTACT_INFO } from '@/lib/constants';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
@@ -126,6 +127,9 @@ export default function Contact() {
       });
 
       if (result.success) {
+        trackGenerateLead('contact_form', {
+          form_name: 'contact',
+        });
         router.replace(publicPath('/contact/thank-you', locale));
         return;
       } else {

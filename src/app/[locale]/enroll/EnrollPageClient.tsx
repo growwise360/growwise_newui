@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, AlertCircle, User, Mail, Phone as PhoneIcon, GraduationCap, MapPin, Target, BookOpen, Code } from 'lucide-react';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { useFormTracking, usePageTracking } from '@/lib/analytics/hooks';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { TrackedForm } from '@/lib/analytics/components';
 import Phase3EnrollPage from '@/components/enroll/EnrollPhase3Page';
 import { useSearchParams } from 'next/navigation';
@@ -106,6 +107,12 @@ function EnrollPageInner() {
 
       if (result.success) {
         trackFormSubmit('enrollment_form', true);
+        trackGenerateLead('enroll', {
+          form_name: 'enrollment_form',
+          program_type: programType ?? 'unknown',
+          course: course ?? '',
+          bootcamp: bootcamp ?? '',
+        });
         router.replace(publicPath('/enroll/thank-you', locale));
         return;
       } else {
@@ -352,5 +359,4 @@ export default function EnrollPageClient() {
     </Suspense>
   );
 }
-
 
