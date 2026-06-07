@@ -176,31 +176,25 @@ export const ProgramList = memo(function ProgramList({
 
   const renderCardListItem = (
     program: Program,
-    layout: 'mobile' | 'desktop',
     idx: number,
     groupLength: number,
   ) => {
     const isSelected = selectedProgramId === program.id;
     const hasOddCount = groupLength % 2 !== 0;
-    const isLastAndAlone = layout === 'desktop' && hasOddCount && idx === groupLength - 1;
+    const isLastAndAlone = hasOddCount && idx === groupLength - 1;
     const seo = getSummerCampProgramSeoLink(program.id);
 
-    const imageSizes =
-      layout === 'mobile'
-        ? '(max-width:768px) 96vw, 100vw'
-        : '(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
+    const imageSizes = '(max-width:768px) 96vw, (min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
 
     const imageWrapperClassName =
-      layout === 'mobile'
-        ? 'aspect-[650/270]'
-        : isLastAndAlone
-          ? 'h-[120px]'
-          : 'aspect-[650/270]';
+      isLastAndAlone
+        ? 'aspect-[650/270] min-[769px]:aspect-auto min-[769px]:h-[120px]'
+        : 'aspect-[650/270]';
 
     return (
       <li
         key={program.id}
-        className={`[content-visibility:auto] [contain-intrinsic-size:auto_420px] flex flex-col gap-2 ${isLastAndAlone ? 'col-span-2' : ''}`}
+        className={`[content-visibility:auto] [contain-intrinsic-size:auto_420px] flex flex-col gap-2 ${isLastAndAlone ? 'min-[769px]:col-span-2' : ''}`}
       >
         <SummerCampProgramPickCard
           program={program}
@@ -223,7 +217,7 @@ export const ProgramList = memo(function ProgramList({
 
   return (
     <div className="space-y-8" role="group" aria-label={t('page.title')}>
-      <div className="min-[769px]:hidden space-y-8">
+      <div className="space-y-8">
         {groups.map((group) => (
           <Fragment key={group.track}>
             <section className="space-y-3">
@@ -231,11 +225,11 @@ export const ProgramList = memo(function ProgramList({
                 {sectionHeading(group.track)}
               </h3>
               <ul
-                className="m-0 grid list-none grid-cols-1 gap-3 p-0"
+                className="m-0 grid list-none grid-cols-1 gap-3 p-0 min-[769px]:grid-cols-2"
                 aria-label={sectionHeading(group.track)}
               >
                 {group.programs.map((program, idx) =>
-                  renderCardListItem(program, 'mobile', idx, group.programs.length),
+                  renderCardListItem(program, idx, group.programs.length),
                 )}
               </ul>
             </section>
@@ -247,37 +241,11 @@ export const ProgramList = memo(function ProgramList({
             ) : null}
           </Fragment>
         ))}
-        <p className="text-center">
+        <p className="text-center min-[769px]:hidden">
           <a href="#lead-capture" className="text-[13px] font-medium text-[#065f46]">
             {t('mobile.summercampLink')}
           </a>
         </p>
-      </div>
-
-      <div className="hidden min-[769px]:block space-y-8">
-        {groups.map((group) => (
-          <Fragment key={`d-${group.track}`}>
-            <section className="space-y-3">
-              <h3 className="font-heading text-base font-black uppercase tracking-tight text-slate-800">
-                {sectionHeading(group.track)}
-              </h3>
-              <ul
-                className="m-0 grid list-none grid-cols-2 gap-3 p-0"
-                aria-label={sectionHeading(group.track)}
-              >
-                {group.programs.map((program, idx) =>
-                  renderCardListItem(program, 'desktop', idx, group.programs.length),
-                )}
-              </ul>
-            </section>
-            {group.track === 'aiGameDev' && showAcademicTeaser ? (
-              <>
-                <HighSchoolSummerIntensiveTeaserBand locale={locale} />
-                <AcademicSummerProgramsTeaserBand locale={locale} />
-              </>
-            ) : null}
-          </Fragment>
-        ))}
       </div>
 
       <div className="max-[768px]:hidden">

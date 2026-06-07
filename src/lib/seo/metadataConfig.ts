@@ -341,9 +341,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer': {
-    title: 'Summer STEAM Camps 2026 in Dublin, CA | GrowWise',
+    title: 'Math, Robotics, Coding & AI Camps Dublin CA | GrowWise',
     description:
-      'Top-rated summer STEAM camps in Dublin, CA for Grades 3–12. Math, Coding, Robotics & AI. Weekly sessions June–August. Limited spots — enroll now.',
+      'Summer camps in Dublin, CA for Grades 1–12: Math, Robotics, Coding, AI, game development, and writing. Weekly June–August 2026. Reserve a spot.',
     keywords:
       'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',

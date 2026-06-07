@@ -28,7 +28,7 @@ import { validatePhoneWithCountryCode, getPhonePlaceholder, getCallingCode, DIAL
 import { getRecaptchaToken } from '@/lib/recaptcha';
 import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
-import { trackAssessmentFormSubmitted } from '@/lib/analytics/gtmEvents';
+import { trackAssessmentFormSubmitted, trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
 
 interface FormData {
@@ -256,6 +256,11 @@ export default function BookAssessmentPage() {
 
       if (result.success) {
         trackAssessmentFormSubmitted(window.location.pathname);
+        trackGenerateLead('book_assessment', {
+          form_name: 'book_assessment',
+          assessment_type: assessmentData.assessmentType,
+          grade: assessmentData.grade,
+        });
         router.replace(publicPath('/book-assessment/thank-you', locale));
         return;
       } else {

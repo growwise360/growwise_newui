@@ -26,6 +26,7 @@ import {
 import { PHONE_PLACEHOLDER } from '@/lib/constants'
 import { publicPath } from '@/lib/publicPath'
 import { cn } from '@/lib/utils'
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents'
 import {
   BookOpen,
   Calculator,
@@ -154,6 +155,11 @@ export function MathFinalsPracticeLanding() {
         return
       }
       if (data.success) {
+        trackGenerateLead('math_finals_practice', {
+          form_name: 'math_finals_practice',
+          subject: form.subject,
+          grade: form.grade,
+        })
         setForm(initialForm)
         if (agendaInputRef.current) agendaInputRef.current.value = ''
         router.push(publicPath('/math-finals-practice-session/thank-you', locale))

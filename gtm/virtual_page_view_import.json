@@ -65,6 +65,57 @@
           }
         ],
         "firingTriggerId": ["2147483647"]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "tagId": "3",
+        "name": "GA4 - generate_lead",
+        "type": "ga4event",
+        "parameter": [
+          {
+            "key": "event_name",
+            "value": "generate_lead"
+          },
+          {
+            "key": "event_parameters",
+            "map": [
+              {
+                "key": "lead_source",
+                "value": "{{DL - lead_source}}"
+              },
+              {
+                "key": "form_name",
+                "value": "{{DL - form_name}}"
+              },
+              {
+                "key": "page_path",
+                "value": "{{DL - page_path}}"
+              },
+              {
+                "key": "page_location",
+                "value": "{{DL - page_location}}"
+              },
+              {
+                "key": "grade",
+                "value": "{{DL - grade}}"
+              },
+              {
+                "key": "camp_interest",
+                "value": "{{DL - camp_interest}}"
+              },
+              {
+                "key": "program_type",
+                "value": "{{DL - program_type}}"
+              }
+            ]
+          },
+          {
+            "key": "measurementId",
+            "value": "G-HP143C77W2"
+          }
+        ],
+        "firingTriggerId": ["2147483646"]
       }
     ],
     "trigger": [
@@ -86,6 +137,23 @@
                 "key": "arg0",
                 "type": "template",
                 "value": "virtual_page_view"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "triggerId": "2147483646",
+        "name": "generate_lead",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "equals",
+            "parameter": [
+              {
+                "key": "arg0",
+                "type": "template",
+                "value": "generate_lead"
               }
             ]
           }
@@ -141,6 +209,108 @@
           {
             "key": "name",
             "value": "debug_mode"
+          }
+        ]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "variableId": "4",
+        "name": "DL - lead_source",
+        "type": "vtdlvar",
+        "parameter": [
+          {
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "key": "name",
+            "value": "lead_source"
+          }
+        ]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "variableId": "5",
+        "name": "DL - form_name",
+        "type": "vtdlvar",
+        "parameter": [
+          {
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "key": "name",
+            "value": "form_name"
+          }
+        ]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "variableId": "6",
+        "name": "DL - page_location",
+        "type": "vtdlvar",
+        "parameter": [
+          {
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "key": "name",
+            "value": "page_location"
+          }
+        ]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "variableId": "7",
+        "name": "DL - grade",
+        "type": "vtdlvar",
+        "parameter": [
+          {
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "key": "name",
+            "value": "grade"
+          }
+        ]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "variableId": "8",
+        "name": "DL - camp_interest",
+        "type": "vtdlvar",
+        "parameter": [
+          {
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "key": "name",
+            "value": "camp_interest"
+          }
+        ]
+      },
+      {
+        "accountId": "",
+        "containerId": "GTM-TNFBBQJM",
+        "variableId": "9",
+        "name": "DL - program_type",
+        "type": "vtdlvar",
+        "parameter": [
+          {
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "key": "name",
+            "value": "program_type"
           }
         ]
       }

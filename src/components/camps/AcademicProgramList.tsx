@@ -252,7 +252,6 @@ function renderProgramGrid(
   programs: Program[],
   selectedProgramId: string | null,
   onSelectProgram: (program: Program) => void,
-  layout: 'mobile' | 'desktop',
   locale: string,
 ) {
   return programs.map((program, idx) => {
@@ -261,26 +260,19 @@ function renderProgramGrid(
     const isGetReady = isAcademicGetReadyProgram(program.id);
     const isEnhancedCard = isSprint || isGetReady;
     const hasOddCount = programs.length % 2 !== 0;
-    const isLastAndAlone = layout === 'desktop' && hasOddCount && idx === programs.length - 1;
+    const isLastAndAlone = hasOddCount && idx === programs.length - 1;
     const seo = getAcademicProgramSeoLink(program.id);
     const seoLabel = seo ? academicSeoLinkLabel(seo.labelKey) : undefined;
 
-    const imageSizes =
-      layout === 'mobile'
-        ? '(max-width:768px) 96vw, 100vw'
-        : '(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
+    const imageSizes = '(max-width:768px) 96vw, (min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
 
     const imageWrapperClassName = isEnhancedCard
-      ? layout === 'mobile'
-        ? 'aspect-[650/270]'
-        : isLastAndAlone
-          ? 'h-[120px]'
-          : 'aspect-[650/270]'
-      : layout === 'mobile'
-        ? 'aspect-[650/450]'
-        : isLastAndAlone
-          ? 'h-[200px]'
-          : 'aspect-[650/450]';
+      ? isLastAndAlone
+        ? 'aspect-[650/270] min-[769px]:aspect-auto min-[769px]:h-[120px]'
+        : 'aspect-[650/270]'
+      : isLastAndAlone
+        ? 'aspect-[650/450] min-[769px]:aspect-auto min-[769px]:h-[200px]'
+        : 'aspect-[650/450]';
 
     const CardComponent = isSprint
       ? AcademicSprintPickCard
@@ -294,7 +286,7 @@ function renderProgramGrid(
         id={`track-${program.id}`}
         className={`flex flex-col gap-2 scroll-mt-28 [content-visibility:auto] ${
           isEnhancedCard ? '[contain-intrinsic-size:auto_420px]' : '[contain-intrinsic-size:auto_300px]'
-        } ${isLastAndAlone ? 'col-span-2' : ''}`}
+        } ${isLastAndAlone ? 'min-[769px]:col-span-2' : ''}`}
       >
         <CardComponent
           program={program}
@@ -334,7 +326,7 @@ export const AcademicProgramList = memo(function AcademicProgramList({
 
   return (
     <div className="space-y-8" role="group" aria-label={COPY.ariaLabel}>
-      <div className="min-[769px]:hidden space-y-8">
+      <div className="space-y-8">
         {groups.map((groupEntry) => (
           <section key={groupEntry.group} className="space-y-3">
             <h3 className="font-heading text-base font-black uppercase tracking-tight text-slate-800">
@@ -342,43 +334,15 @@ export const AcademicProgramList = memo(function AcademicProgramList({
             </h3>
             <p className="text-xs text-slate-500">{COPY.groups[groupEntry.group].subtext}</p>
             <ul
-              className="m-0 grid list-none grid-cols-1 gap-3 p-0"
+              className="m-0 grid list-none grid-cols-1 gap-3 p-0 min-[769px]:grid-cols-2"
               aria-label={sectionHeading(groupEntry.group)}
             >
-              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, 'mobile', locale)}
+              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, locale)}
             </ul>
           </section>
         ))}
         {onInquire ? (
-          <p className="text-center">
-            <button
-              type="button"
-              onClick={onInquire}
-              className="text-[13px] font-medium text-[#065f46] underline-offset-2 hover:underline"
-            >
-              {COPY.inquireLink}
-            </button>
-          </p>
-        ) : null}
-      </div>
-
-      <div className="hidden min-[769px]:block space-y-8">
-        {groups.map((groupEntry) => (
-          <section key={`d-${groupEntry.group}`} className="space-y-3">
-            <h3 className="font-heading text-base font-black uppercase tracking-tight text-slate-800">
-              {sectionHeading(groupEntry.group)}
-            </h3>
-            <p className="text-xs text-slate-500">{COPY.groups[groupEntry.group].subtext}</p>
-            <ul
-              className="m-0 grid list-none grid-cols-2 gap-3 p-0"
-              aria-label={sectionHeading(groupEntry.group)}
-            >
-              {renderProgramGrid(groupEntry.programs, selectedProgramId, onSelectProgram, 'desktop', locale)}
-            </ul>
-          </section>
-        ))}
-        {onInquire ? (
-          <p className="text-center">
+          <p className="text-center min-[769px]:hidden">
             <button
               type="button"
               onClick={onInquire}

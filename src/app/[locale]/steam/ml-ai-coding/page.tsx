@@ -120,6 +120,24 @@ const mlaiCourses: MLAICourse[] = [
   }
 ];
 
+const FLOATING_AI_SYMBOLS = [
+  { symbol: '🤖', left: '8.5%', top: '44.2%', duration: '11.4s', size: '22px' },
+  { symbol: '🧠', left: '16.9%', top: '17.8%', duration: '9.5s', size: '28px' },
+  { symbol: '💻', left: '24.7%', top: '69.6%', duration: '10.9s', size: '24px' },
+  { symbol: '⚡', left: '33.1%', top: '29.4%', duration: '8.7s', size: '30px' },
+  { symbol: '🔬', left: '41.5%', top: '55.3%', duration: '12.1s', size: '21px' },
+  { symbol: '📊', left: '50.2%', top: '13.6%', duration: '10.4s', size: '26px' },
+  { symbol: '🎯', left: '58.8%', top: '34.9%', duration: '11s', size: '23px' },
+  { symbol: '🚀', left: '67.4%', top: '75.1%', duration: '9.9s', size: '31px' },
+  { symbol: '💡', left: '75.6%', top: '22.4%', duration: '11.5s', size: '27px' },
+  { symbol: '⚙️', left: '83.3%', top: '59.8%', duration: '8.8s', size: '25px' },
+  { symbol: '🔍', left: '12.9%', top: '80.5%', duration: '12s', size: '24px' },
+  { symbol: '📈', left: '30.6%', top: '7.9%', duration: '9.2s', size: '29px' },
+  { symbol: '🌟', left: '47.8%', top: '84.1%', duration: '10.6s', size: '22px' },
+  { symbol: '🎨', left: '72.5%', top: '10.7%', duration: '11.8s', size: '26px' },
+  { symbol: '🔮', left: '90.4%', top: '38.6%', duration: '9.6s', size: '28px' },
+] as const;
+
 // Component that handles search params - wrapped separately for Suspense
 function SearchParamsHandler({ 
   onGradeFound,
@@ -374,20 +392,20 @@ const MLAICoursesPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 via-indigo-50 to-teal-50">
           {/* Floating AI/tech symbols */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+            {FLOATING_AI_SYMBOLS.map((item, i) => (
               <div
                 key={i}
                 className="absolute text-gray-500/60 animate-float-gentle font-semibold"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: item.left,
+                  top: item.top,
                   transform: `translateY(${scrollY * 0.05}px)`,
                   animationDelay: `${i * 1.2}s`,
-                  animationDuration: `${8 + Math.random() * 4}s`,
-                  fontSize: `${Math.random() * 15 + 18}px`
+                  animationDuration: item.duration,
+                  fontSize: item.size
                 }}
               >
-                {['🤖', '🧠', '💻', '⚡', '🔬', '📊', '🎯', '🚀', '💡', '⚙️', '🔍', '📈', '🌟', '🎨', '🔮'][Math.floor(Math.random() * 15)]}
+                {item.symbol}
               </div>
             ))}
           </div>
@@ -935,4 +953,3 @@ const MLAICoursesPage: React.FC = () => {
 };
 
 export default MLAICoursesPage;
-
