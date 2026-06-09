@@ -161,4 +161,16 @@ describe('resources internal links', () => {
       expect(source).toContain('/book-assessment');
     }
   });
+
+  it('connects additional summer guides to relevant camp and assessment paths', () => {
+    const source = readComponent('components/resources/AdditionalSummerGuidesPages.tsx');
+    const data = readComponent('data/resources/additional-summer-guides.ts');
+
+    expect(source).toContain('/camps/academic-summer-programs-dublin-ca');
+    expect(source).toContain('/camps/summer-reading-writing-dublin-ca');
+    expect(source).toContain('/resources/tutoring-dublin-ca');
+    expect(data).toContain('/resources/im1-summer-prep-dublin-ca');
+    expect(source).toContain('/self-check');
+    expect(source).toContain('/book-assessment');
+  });
 });

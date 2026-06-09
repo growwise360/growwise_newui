@@ -21,6 +21,8 @@ export interface FormPrivacyConsentProps {
   required?: boolean;
   /** Show the "By submitting, you agree to be contacted..." line below the checkbox block */
   showSubmitDisclaimer?: boolean;
+  /** Optional per-form consent label override for channel-specific legal copy. */
+  agreeLabel?: React.ReactNode;
   /** Layout variant: default (full blocks), compact (single block, smaller spacing) */
   variant?: 'default' | 'compact';
   /** When true, one card: privacy + consent share column alignment; smaller privacy text (math-finals style). */
@@ -63,6 +65,7 @@ export default function FormPrivacyConsent({
   error = null,
   required = true,
   showSubmitDisclaimer = true,
+  agreeLabel,
   variant = 'default',
   alignPrivacyWithConsent = false,
   className,
@@ -114,7 +117,7 @@ export default function FormPrivacyConsent({
                 id={`${checkboxId}-label`}
                 className="flex-1 cursor-pointer text-sm leading-relaxed text-gray-700"
               >
-                {t('agreeLabel')}
+                {agreeLabel ?? t('agreeLabel')}
               </Label>
             </div>
             {error && (
@@ -185,7 +188,7 @@ export default function FormPrivacyConsent({
             id={`${checkboxId}-label`}
             className="cursor-pointer text-gray-700 text-sm sm:text-base leading-relaxed flex-1"
           >
-            {t('agreeLabel')}
+            {agreeLabel ?? t('agreeLabel')}
           </Label>
         </div>
         {error && (

@@ -16,7 +16,7 @@
       "category": "Half-Day Camps",
       "hoursPerWeek": "30 hours a week",
       "ageGroup": "Grades 8-12",
-      "startingPrice": 349,
+      "startingPrice": 399,
       "image": "/images/camps/banners/ai-entrepreneur-banner.webp",
       "details": {
         "schedule": "Monday – Friday",
@@ -32,6 +32,15 @@
           "Mentor feedback sessions"
         ]
       },
+      "addOns": [
+        {
+          "id": "ai-profile-building",
+          "name": "Profile Building Add-on",
+          "description": "Polished project summary and portfolio-ready talking points from the AI product students build.",
+          "price": 75,
+          "active": true
+        }
+      ],
       "levels": [
         {
           "id": "ai-weekly",
@@ -42,7 +51,7 @@
             "count": 8,
             "defaultFormat": "Online",
             "priceByProgramAndFormat": {
-              "default": { "In-Person": 399, "Online": 349 }
+              "default": { "In-Person": 399, "Online": 399 }
             }
           }
         }

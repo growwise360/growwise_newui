@@ -8,81 +8,55 @@ export const IM1_SUMMER_PREP_DUBLIN_CA_META: ResourceArticleMeta = {
   categoryLabel: 'SUMMER LEARNING',
   h1: 'Is Your Child Ready for IM1? An Honest Summer Prep Guide for Dublin & Tri-Valley Families',
   readTime: '6 min read',
-  updated: 'Updated May 2026',
-  title: 'IM1 Summer Prep Guide | Dublin & Tri-Valley | GrowWise',
+  updated: 'Updated June 2026',
+  title: 'IM1 Summer Prep Dublin CA | Readiness Guide | GrowWise',
   description:
-    'IM1 starts in September. Skills students need before day one — and gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
+    'Integrated Math 1 starts fast. Learn the pre-algebra, ratio, graphing, and equation skills Dublin students need before day one.',
   keywords:
-    'IM1 math prep, integrated math 1, IM1 summer prep Dublin CA, IM1 readiness Tri-Valley, IM1 summer program, math prep Dublin California, Pleasanton math prep, DUSD IM1 prep, PUSD IM1, summer math program Dublin',
+    'IM1 summer prep Dublin CA, integrated math 1 prep Tri-Valley, IM1 readiness checklist, DUSD math prep, PUSD IM1 prep, summer math program Dublin, pre-algebra prep, math camp Dublin CA',
   datePublished: '2026-06-04',
-  dateModified: '2026-06-04',
+  dateModified: '2026-06-09',
 }
 
 export const IM1_SUMMER_PREP_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
   {
     question: 'What is IM1 math?',
     answer:
-      'Integrated Math 1 is the first course in California\'s Integrated Math pathway. It combines algebra, geometry, and statistics in a single course rather than treating them separately. Most DUSD students take it in 7th grade accelerated or 8th grade standard track.',
-  },
-  {
-    question: 'Is IM1 harder than regular 7th grade math?',
-    answer:
-      'Yes. The content is more advanced, the pacing is faster, and the reasoning demands are higher. Students in the accelerated track are expected to handle abstract concepts earlier.',
+      'Integrated Math 1 is the first course in California\'s Integrated Math pathway. It combines algebra, geometry, statistics, and mathematical reasoning in a single course rather than treating them as separate subjects.',
   },
   {
     question: 'What skills does my child need before starting IM1?',
     answer:
-      'Fraction and decimal fluency, proportional reasoning, basic algebraic thinking, coordinate plane literacy, and the ability to approach multi-step problems systematically.',
+      'Students should be fluent with fractions, ratios, proportions, negative numbers, basic equations, graphing points, and multi-step problem solving before the first unit begins.',
+  },
+  {
+    question: 'How do I know if my child needs IM1 summer prep?',
+    answer:
+      'Ask them to solve a fraction division problem, explain what x means in a two-step equation, and graph a line from two points. Hesitation, guessing, or calculator dependence usually means the foundation needs work.',
   },
   {
     question: 'When should my child start IM1 prep?',
     answer:
-      'Ideally 4–6 weeks before school starts — enough time to close gaps without being so early that skills fade again before September.',
+      'Ideally four to six weeks before school starts. That gives enough time to close priority gaps without waiting until those gaps are already affecting grades.',
   },
   {
     question: 'Does the GrowWise IM1 program align to DUSD curriculum?',
     answer:
-      'Yes. The program is built around the IM1 scope and sequence as implemented in Dublin Unified and Pleasanton Unified school districts.',
+      'GrowWise IM1 prep is built around the skills local Integrated Math pathways expect: rational number fluency, proportional reasoning, algebraic translation, graphing, and organized multi-step work.',
   },
 ] as const
 
-export const IM1_SUMMER_PREP_DUBLIN_CA_JSONLD_FAQS: readonly ResourceArticleFaq[] = [
-  {
-    question: 'What is IM1 math?',
-    answer:
-      'Integrated Math 1 is the first course in California\'s Integrated Math pathway. It combines algebra, geometry, and statistics in a single course rather than treating them separately. Most DUSD students take it in 7th grade accelerated or 8th grade standard track.',
-  },
-  {
-    question: 'Is IM1 harder than regular 7th grade math?',
-    answer:
-      'Yes. The content is more advanced, the pacing is faster, and the reasoning demands are higher. Students in the accelerated track are expected to handle abstract concepts earlier.',
-  },
-  {
-    question: 'What skills does my child need before starting IM1?',
-    answer:
-      'Fraction and decimal fluency, proportional reasoning, basic algebraic thinking, coordinate plane literacy, and the ability to approach multi-step problems systematically.',
-  },
-  {
-    question: 'When should my child start IM1 prep?',
-    answer:
-      'Ideally 4–6 weeks before school starts — enough time to close gaps without being so early that skills fade again before September.',
-  },
-  {
-    question: 'Does the GrowWise IM1 program align to DUSD curriculum?',
-    answer:
-      'Yes. The program is built around the IM1 scope and sequence as implemented in Dublin Unified and Pleasanton Unified school districts.',
-  },
-] as const
+export const IM1_SUMMER_PREP_DUBLIN_CA_JSONLD_FAQS = IM1_SUMMER_PREP_DUBLIN_CA_FAQS
 
 export const IM1_SUMMER_PREP_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
-    title: 'Self-Check: Is Your Child Ready for IM1?',
-    href: '/self-check',
-    description: '10-minute assessment to identify specific skill gaps.',
+    title: 'IM1 Get Ready Program',
+    href: '/camps/summer-im1-get-ready-dublin-ca',
+    description: 'Focused summer prep for the skills Integrated Math 1 assumes on day one.',
   },
   {
-    title: 'How to Prevent Summer Slide',
-    href: '/resources/summer-slide-prevention',
-    description: 'Maintain skills over the summer break.',
+    title: 'Self-Check: Is Your Child Ready for IM1?',
+    href: '/self-check',
+    description: 'Quick assessment to identify specific skill gaps.',
   },
 ]

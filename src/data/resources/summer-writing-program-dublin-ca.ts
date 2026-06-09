@@ -8,36 +8,36 @@ export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_META: ResourceArticleMeta = {
   categoryLabel: 'SUMMER LEARNING',
   h1: 'Summer Writing Programs in Dublin, CA: What to Expect and How to Choose',
   readTime: '6 min read',
-  updated: 'Updated May 2026',
-  title: 'Summer Writing Programs Dublin CA | Tri-Valley | GrowWise',
+  updated: 'Updated June 2026',
+  title: 'Summer Writing Program Dublin CA | Parent Guide | GrowWise',
   description:
-    'Most kids never receive direct writing instruction. What good writing programs teach — and what to look for in Tri-Valley summer options.',
+    'Compare Dublin CA writing camps by structure, feedback, revision, and outcomes so your child builds a writing system before school starts.',
   keywords:
-    'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 2-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
+    'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 1-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
   datePublished: '2026-06-06',
-  dateModified: '2026-06-06',
+  dateModified: '2026-06-09',
 }
 
 export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
   {
     question: 'What is a summer writing program?',
     answer:
-      'A structured program that teaches students how to write — not just assigns writing. Good programs cover planning, structure, evidence use, and revision in a sequential curriculum.',
+      'A strong summer writing program teaches students how to plan, structure, draft, revise, and write for a reader. It should do more than assign prompts or correct grammar after the fact.',
   },
   {
     question: 'What ages are summer writing programs for?',
     answer:
-      'Most structured writing programs target Grades 2–8. GrowWise Writing Sprints serve students in that range, with instruction adjusted by grade level and skill profile.',
+      'GrowWise summer reading and writing programs serve elementary and middle school students, with instruction adjusted by grade level and skill profile.',
   },
   {
     question: 'How do I know if my child needs a writing program?',
     answer:
-      'Look for signs like avoiding written work, very short answers, restating questions instead of answering them, or submitting first drafts as finals without attempting revision.',
+      'Look for blank page freeze, avoidance, weak paragraph structure, good verbal ideas that become thin writing, or first drafts submitted as finals without meaningful revision.',
   },
   {
     question: 'What is the difference between a creative writing camp and an academic writing program?',
     answer:
-      'Creative writing camps focus on storytelling, personal expression, and genre exploration. Academic writing programs focus on argument structure, evidence use, and clarity — the skills students need on essays, exams, and reports.',
+      'Creative writing camps often emphasize storytelling and expression. Academic writing programs emphasize structure, evidence, revision, clarity, and the writing skills students need for essays, exams, and reports.',
   },
   {
     question: 'Where is GrowWise located?',
@@ -46,39 +46,13 @@ export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[
   },
 ] as const
 
-export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_JSONLD_FAQS: readonly ResourceArticleFaq[] = [
-  {
-    question: 'What is a summer writing program?',
-    answer:
-      'A structured program that teaches students how to write — not just assigns writing. Good programs cover planning, structure, evidence use, and revision in a sequential curriculum.',
-  },
-  {
-    question: 'What ages are summer writing programs for?',
-    answer:
-      'Most structured writing programs target Grades 2–8. GrowWise Writing Sprints serve students in that range, with instruction adjusted by grade level and skill profile.',
-  },
-  {
-    question: 'How do I know if my child needs a writing program?',
-    answer:
-      'Look for signs like avoiding written work, very short answers, restating questions instead of answering them, or submitting first drafts as finals without attempting revision.',
-  },
-  {
-    question: 'What is the difference between a creative writing camp and an academic writing program?',
-    answer:
-      'Creative writing camps focus on storytelling, personal expression, and genre exploration. Academic writing programs focus on argument structure, evidence use, and clarity — the skills students need on essays, exams, and reports.',
-  },
-  {
-    question: 'Where is GrowWise located?',
-    answer:
-      '4564 Dublin Blvd, Dublin, CA. Programs serve families from Dublin, Pleasanton, San Ramon, and Livermore.',
-  },
-] as const
+export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_JSONLD_FAQS = SUMMER_WRITING_PROGRAM_DUBLIN_CA_FAQS
 
 export const SUMMER_WRITING_PROGRAM_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
-    title: 'Affordable Summer Academic Programs in Dublin, CA',
-    href: '/resources/affordable-summer-academic-programs-dublin-ca',
-    description: 'Compare Tri-Valley summer academic options and value.',
+    title: 'Summer Reading & Writing Sprint',
+    href: '/camps/summer-reading-writing-dublin-ca',
+    description: 'See the current reading and writing summer program options.',
   },
   {
     title: 'Self-Check: Is Your Child Ready?',

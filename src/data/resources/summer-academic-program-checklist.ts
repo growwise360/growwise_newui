@@ -8,26 +8,26 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_META: ResourceArticleMeta = {
   categoryLabel: 'SUMMER LEARNING',
   h1: '5 Things to Look for in a Summer Academic Program (Before You Pay)',
   readTime: '5 min read',
-  updated: 'Updated May 2026',
-  title: '5 Things to Evaluate in Summer Academic Programs | GrowWise',
+  updated: 'Updated June 2026',
+  title: 'Best Summer Academic Program Dublin CA | 5 Checks',
   description:
-    'Not all summer academic programs produce results. Five things to evaluate before you enroll — and questions most programs cannot answer.',
+    'Before you enroll, check class size, instructor expertise, curriculum, outcomes, and school-year alignment for Dublin CA summer programs.',
   keywords:
-    'summer academic program, summer school, summer tutoring program, summer math camp, summer reading program, best summer academic program, summer learning programs, program evaluation, class size summer camp, summer curriculum',
+    'best summer academic program Dublin CA, summer academic program Dublin CA, summer enrichment Tri-Valley, academic summer camp Dublin, summer reading writing math program Dublin, how to choose summer program Dublin CA',
   datePublished: '2026-06-05',
-  dateModified: '2026-06-05',
+  dateModified: '2026-06-09',
 }
 
 export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_FAQS: readonly ResourceArticleFaq[] = [
   {
     question: 'What class size should I look for in a summer academic program?',
     answer:
-      'Six to ten students per instructor is a meaningful small group. Anything above fifteen starts to limit the instructor\'s ability to track individual students and adjust in real time.',
+      'Look for a true small-group model where the instructor can notice errors, answer individual questions, and adjust pacing. Ask for both the maximum class size and the typical group size.',
   },
   {
     question: 'How do I know if a summer program actually works?',
     answer:
-      'Ask what your child should be able to do at the end of the program. If the program can\'t give you a specific answer, it hasn\'t been designed around outcomes.',
+      'Ask what your child should be able to do, make, solve, or explain by the end. If the answer is vague, the program may not be designed around measurable outcomes.',
   },
   {
     question: 'Does curriculum alignment to school standards really matter?',
@@ -37,32 +37,11 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_FAQS: readonly ResourceArticleFaq
   {
     question: 'What questions should I ask before enrolling in a summer academic program?',
     answer:
-      'Maximum and average class size, instructor subject background, week-by-week curriculum, measurable outcomes, and district-specific alignment.',
+      'Ask about class size, instructor subject background, the curriculum sequence, measurable student outcomes, and whether the program connects to California standards or your local school pathway.',
   },
 ] as const
 
-export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_JSONLD_FAQS: readonly ResourceArticleFaq[] = [
-  {
-    question: 'What class size should I look for in a summer academic program?',
-    answer:
-      'Six to ten students per instructor is a meaningful small group. Anything above fifteen starts to limit the instructor\'s ability to track individual students and adjust in real time.',
-  },
-  {
-    question: 'How do I know if a summer program actually works?',
-    answer:
-      'Ask what your child should be able to do at the end of the program. If the program can\'t give you a specific answer, it hasn\'t been designed around outcomes.',
-  },
-  {
-    question: 'Does curriculum alignment to school standards really matter?',
-    answer:
-      'Yes, especially in math. Districts using Integrated Math pathways have a specific sequence that differs from traditional math tracks. A program not aware of that difference may cover content your child won\'t use, or miss what they actually need.',
-  },
-  {
-    question: 'What questions should I ask before enrolling in a summer academic program?',
-    answer:
-      'Maximum and average class size, instructor subject background, week-by-week curriculum, measurable outcomes, and district-specific alignment.',
-  },
-] as const
+export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_JSONLD_FAQS = SUMMER_ACADEMIC_PROGRAM_CHECKLIST_FAQS
 
 export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED: readonly ResourceArticleRelated[] = [
   {
@@ -76,8 +55,8 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED: readonly ResourceArticle
     description: 'Self-paced learning has a completion problem.',
   },
   {
-    title: 'GrowWise Summer Programs',
-    href: '/camps',
+    title: 'GrowWise Academic Summer Programs',
+    href: '/camps/academic-summer-programs-dublin-ca',
     description: 'See how GrowWise answers each evaluation question.',
   },
 ]

@@ -212,6 +212,17 @@ describe('hydrateSummerCampData (programs)', () => {
     expect(roblox).toBeDefined();
     expect(roblox!.category).toBe('Half-Day Camps');
   });
+
+  it('AI Entrepreneur includes the active profile building add-on at $75', () => {
+    const aiEntrepreneur = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'ai-entrepreneur');
+    const profileAddOn = aiEntrepreneur?.addOns.find((addOn) => addOn.id === 'ai-profile-building');
+
+    expect(profileAddOn).toMatchObject({
+      name: 'Profile Building Add-on',
+      price: 75,
+      active: true,
+    });
+  });
 });
 
 describe('getMinimumPublishedSummerCampPriceUsd', () => {
