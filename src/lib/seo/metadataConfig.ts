@@ -527,11 +527,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/summer-academic-program-checklist': {
-    title: '5 Things to Evaluate in Summer Academic Programs | GrowWise',
+    title: 'Best Summer Academic Program Dublin CA | 5 Checks',
     description:
-      'Not all summer academic programs produce results. Five things to evaluate before you enroll — and questions most programs cannot answer.',
+      'Before you enroll, check class size, instructor expertise, curriculum, outcomes, and school-year alignment for Dublin CA summer programs.',
     keywords:
-      'summer academic program, summer school, summer tutoring program, summer math camp, summer reading program, best summer academic program, summer learning programs, program evaluation, class size summer camp, summer curriculum',
+      'best summer academic program Dublin CA, summer academic program Dublin CA, summer enrichment Tri-Valley, academic summer camp Dublin, summer reading writing math program Dublin, how to choose summer program Dublin CA',
     path: '/resources/summer-academic-program-checklist',
     type: 'article',
   },
@@ -546,22 +546,72 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
-  '/resources/im1-summer-prep-dublin-ca': {
-    title: 'IM1 Summer Prep Guide | Dublin & Tri-Valley | GrowWise',
+  '/resources/math-summer-program-dublin-ca-math-sprint-breakdown': {
+    title: 'Math Summer Program Dublin CA | Week-by-Week Guide',
     description:
-      'IM1 starts in September. Skills students need before day one — and gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
+      'See what students do in GrowWise Math Sprint: baseline assessment, core skill building, problem solving, and confidence-building review.',
     keywords:
-      'IM1 math prep, integrated math 1, IM1 summer prep Dublin CA, IM1 readiness Tri-Valley, IM1 summer program, math prep Dublin California, Pleasanton math prep, DUSD IM1 prep, PUSD IM1, summer math program Dublin',
+      'math summer program Dublin CA, Math Sprint Dublin CA, summer math program Tri-Valley, math sprint grades 1-10, math enrichment Dublin',
+    path: '/resources/math-summer-program-dublin-ca-math-sprint-breakdown',
+    type: 'article',
+  },
+
+  '/resources/reading-program-grades-1-2-dublin-ca': {
+    title: 'Reading Program Grades 1-2 Dublin CA | Parent Guide',
+    description:
+      'Early reading gaps get harder after Grade 2. Learn what phonics, fluency, and comprehension support should look like.',
+    keywords:
+      'reading program grades 1-2 Dublin CA, early reading support summer Dublin, summer reading program Tri-Valley, grade 1 reading help Dublin, grade 2 reading help Dublin',
+    path: '/resources/reading-program-grades-1-2-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/small-group-tutoring-vs-1-on-1': {
+    title: 'Small Group vs 1-on-1 Tutoring | Dublin CA Guide',
+    description:
+      'Private tutoring is not always the best fit. Learn when small-group instruction helps students build independence and confidence.',
+    keywords:
+      'small group tutoring vs 1-on-1, summer tutoring Dublin CA, small group learning Tri-Valley, tutoring alternatives Dublin CA, best tutoring format kids',
+    path: '/resources/small-group-tutoring-vs-1-on-1',
+    type: 'article',
+  },
+
+  '/resources/california-math-standards-by-grade': {
+    title: 'California Math Standards by Grade | Parent Guide',
+    description:
+      'A parent-friendly grade-by-grade math standards snapshot for Grades 1-10, with red flags that can reveal hidden gaps.',
+    keywords:
+      'California math standards by grade, CA math standards Tri-Valley, DUSD math standards, PUSD math expectations, math gap assessment Dublin CA',
+    path: '/resources/california-math-standards-by-grade',
+    type: 'article',
+  },
+
+  '/resources/child-struggles-with-writing-dublin-ca': {
+    title: 'Child Struggles With Writing | Dublin CA Parent Guide',
+    description:
+      'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both. Learn what helps.',
+    keywords:
+      'child struggles with writing, writing help Dublin CA, child avoids writing, blank page freeze writing, writing confidence kids, summer writing program Dublin CA',
+    path: '/resources/child-struggles-with-writing-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/im1-summer-prep-dublin-ca': {
+    title: 'IM1 Summer Prep Dublin CA | Readiness Guide | GrowWise',
+    description:
+      'Integrated Math 1 starts fast. Learn the pre-algebra, ratio, graphing, and equation skills Dublin students need before day one.',
+    keywords:
+      'IM1 summer prep Dublin CA, integrated math 1 prep Tri-Valley, IM1 readiness checklist, DUSD math prep, PUSD IM1 prep, summer math program Dublin, pre-algebra prep, math camp Dublin CA',
     path: '/resources/im1-summer-prep-dublin-ca',
     type: 'article',
   },
 
   '/resources/summer-writing-program-dublin-ca': {
-    title: 'Summer Writing Programs Dublin CA | Tri-Valley | GrowWise',
+    title: 'Summer Writing Program Dublin CA | Parent Guide | GrowWise',
     description:
-      'Most kids never receive direct writing instruction. What good writing programs teach — and what to look for in Tri-Valley summer options.',
+      'Compare Dublin CA writing camps by structure, feedback, revision, and outcomes so your child builds a writing system before school starts.',
     keywords:
-      'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 2-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
+      'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 1-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
     path: '/resources/summer-writing-program-dublin-ca',
     type: 'article',
   },

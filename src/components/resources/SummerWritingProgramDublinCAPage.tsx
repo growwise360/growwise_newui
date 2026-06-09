@@ -12,7 +12,7 @@ import { publicPath } from '@/lib/publicPath'
 
 export function SummerWritingProgramDublinCAPage() {
   const locale = useLocale()
-  const writingSprintHref = publicPath('/camps/summer-writing-dublin-ca', locale)
+  const writingSprintHref = publicPath('/camps/summer-reading-writing-dublin-ca', locale)
   const selfCheckHref = publicPath('/self-check', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
 
@@ -26,33 +26,33 @@ export function SummerWritingProgramDublinCAPage() {
       updated={SUMMER_WRITING_PROGRAM_DUBLIN_CA_META.updated}
       faqs={SUMMER_WRITING_PROGRAM_DUBLIN_CA_FAQS}
       relatedArticles={SUMMER_WRITING_PROGRAM_DUBLIN_CA_RELATED}
-      ctaHeading="Enroll in Writing Sprint"
-      ctaSubtext="Sessions run at GrowWise's Dublin Blvd location, serving families from Dublin, Pleasanton, San Ramon, Livermore, and across the Tri-Valley."
+      ctaHeading="Enroll in Summer Reading & Writing"
+      ctaSubtext="Build structure, evidence, revision, and confidence before school writing demands rise again."
       ctas={[
-        { href: writingSprintHref, label: 'Enroll in Writing Sprint' },
+        { href: writingSprintHref, label: 'See Reading & Writing Sprint' },
         { href: selfCheckHref, label: 'Self-Check' },
         { href: bookAssessmentHref, label: 'Book Assessment' },
       ]}
     >
       <p>
-        Writing is the skill that shows up everywhere — in math explanations, science lab reports, history essays,
-        English exams, and every standardized test your child will face from Grade 3 through college applications.
-        And it's the one skill most students never receive direct instruction in.
+        Writing is the skill that shows up everywhere — in science lab reports, history essays, English exams, math
+        explanations, and eventually college applications. It is also the skill many students are assigned more often
+        than they are directly taught.
       </p>
 
       <p>
-        Being taught to write is different from being assigned to write. Most kids get the second without the first.
-        A focused summer writing program changes that — if it's the right kind.
+        Being taught to write is different from being assigned to write. A focused summer writing program can change
+        that — if it teaches structure, voice, evidence, and revision instead of only correcting grammar.
       </p>
 
       <h2>Why Parents Underestimate Writing</h2>
 
-      <p>Reading gets flagged early. Math scores are visible. Writing problems are quieter.</p>
+      <p>Reading gaps get flagged early. Math scores are visible. Writing problems are quieter.</p>
 
       <p>
-        A student who avoids writing avoids being judged on it. They keep sentences short. They summarize instead
-        of analyzing. They restate the question as the answer. Teachers often mark it as "needs development" —
-        which tells the parent very little about what's actually wrong.
+        A student can technically produce a paragraph and still have no reliable system for organizing ideas. They
+        keep sentences short. They summarize instead of analyzing. They restate the question as the answer. A note
+        like "needs development" tells the parent very little about what is actually missing.
       </p>
 
       <p>The real writing gap is usually not grammar. It's structure, specificity, and reasoning on the page.</p>
@@ -67,15 +67,16 @@ export function SummerWritingProgramDublinCAPage() {
           organizing ideas before drafting
         </li>
         <li>
-          <strong>Short, safe answers</strong> — three sentences when eight are needed, because more writing means
-          more exposure to being wrong
+          <strong>Avoidance and resistance</strong> — writing assignments create stress because the student lacks a
+          repeatable process, not because they are lazy
         </li>
         <li>
-          <strong>Restating the question</strong> — describing what the prompt asked instead of responding to it
+          <strong>Weak or absent structure</strong> — ideas are present, but paragraphs wander instead of building
+          toward a clear point
         </li>
         <li>
-          <strong>No evidence use</strong> — writing opinions without grounding them in the text or data they're
-          given
+          <strong>Good ideas, poor execution</strong> — the student can explain a topic out loud, but the writing on
+          the page is thin or disconnected
         </li>
         <li>
           <strong>Weak revision</strong> — treating the first draft as the final draft because they don't know what
@@ -83,21 +84,20 @@ export function SummerWritingProgramDublinCAPage() {
         </li>
       </ul>
 
-      <p>These are learnable. They're also teachable in a focused multi-week sprint.</p>
+      <p>Any two of these patterns are worth taking seriously before the next school year starts.</p>
 
       <h2>What a Good Writing Program Actually Teaches</h2>
 
       <p>
-        Grammar instruction alone doesn't produce better writers. Students who can name a dependent clause often
-        can't write a coherent paragraph.
+        Grammar correction alone does not produce better writers. Students need a system for planning, drafting,
+        revising, and making choices for a reader.
       </p>
 
       <p>Strong writing programs focus on:</p>
 
       <p>
-        <strong>Structure first.</strong> How does an argument move? What comes before a claim, and what must
-        follow it? Students who understand structure can plan before they write — which is what separates organized
-        writing from stream-of-consciousness.
+        <strong>Structure first.</strong> How does a piece open, develop, and close? What comes before a claim, and
+        what must follow it? Students who understand structure can plan before they write.
       </p>
 
       <p>
@@ -117,31 +117,36 @@ export function SummerWritingProgramDublinCAPage() {
         because they think it sounds smarter. It doesn't.
       </p>
 
+      <p>
+        <strong>Audience awareness.</strong> Students also need to ask who is reading, what that reader needs to
+        know, and what cannot be assumed. That shift turns writing from word count into communication.
+      </p>
+
       <h2>What GrowWise Writing Sprints Cover</h2>
 
       <p>
-        GrowWise Writing Sprints are designed for students in Grades 2–8 who need more than red pen corrections on a
-        submitted draft.
+        GrowWise summer reading and writing sprints are designed for students who need more than red pen corrections
+        on a submitted draft.
       </p>
 
       <p>Sessions work through:</p>
 
       <ul>
-        <li>Prewriting and planning systems — so students don't face a blank page</li>
-        <li>Paragraph construction and transition logic</li>
+        <li>Pre-writing and planning systems — so students do not face a blank page without a process</li>
+        <li>Paragraph construction, transitions, and sentence variety</li>
         <li>Evidence-based response writing aligned to CA ELA Standards</li>
         <li>Revision using structured criteria, not vague feedback</li>
-        <li>Short daily writing practice with instructor response</li>
+        <li>Voice, clarity, and word choice that make writing sound like a real student with a real point</li>
       </ul>
 
       <p>
-        The program is not a creative writing camp. It's a structured academic writing intervention designed to
-        produce students who can write clearly and specifically under the conditions school requires.
+        The goal is not just a stack of completed prompts. It is a writing system students can use after summer,
+        when assignments become longer and less forgiving.
       </p>
 
       <p>
         <Link href={writingSprintHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
-          Enroll in Writing Sprint
+          See the Summer Reading & Writing Sprint
         </Link>
       </p>
 
@@ -150,7 +155,7 @@ export function SummerWritingProgramDublinCAPage() {
         Livermore, and across the Tri-Valley.
       </p>
 
-      <h2>What to Look for When Choosing a Writing Program</h2>
+      <h2>How to Choose a Summer Writing Program in Dublin, CA</h2>
 
       <p>Before enrolling your child in any writing program, ask:</p>
 

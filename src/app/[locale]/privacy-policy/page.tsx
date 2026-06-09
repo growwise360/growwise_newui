@@ -106,6 +106,9 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
                   <li><strong>HubSpot</strong> — CRM and lead management</li>
                   <li><strong>Google, Meta, and Microsoft</strong> — analytics and advertising measurement (with consent where required)</li>
                 </ul>
+                <p className="text-gray-700 mt-4">
+                  SMS consent and phone numbers collected for SMS communication purposes will not be shared, sold, rented, or disclosed to third parties or affiliates for marketing purposes.
+                </p>
               </section>
 
               <section className="mb-8">

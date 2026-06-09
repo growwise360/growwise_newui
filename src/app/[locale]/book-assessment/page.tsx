@@ -539,6 +539,7 @@ export default function BookAssessmentPage() {
                       error={formErrors.agreeToCommunications}
                       required
                       showSubmitDisclaimer
+                      agreeLabel="I agree to receive SMS messages from GrowWise School about my inquiry, assessment, enrollment, class scheduling, reminders, and related program updates. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase."
                     />
 
                     {/* Form Validation Errors Summary */}
