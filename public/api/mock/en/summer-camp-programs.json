@@ -32,6 +32,15 @@
           "Mentor feedback sessions"
         ]
       },
+      "addOns": [
+        {
+          "id": "ai-profile-building",
+          "name": "Profile Building Add-on",
+          "description": "Polished project summary and portfolio-ready talking points from the AI product students build.",
+          "price": 75,
+          "active": true
+        }
+      ],
       "levels": [
         {
           "id": "ai-weekly",
