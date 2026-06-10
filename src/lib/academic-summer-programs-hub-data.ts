@@ -391,7 +391,6 @@ export function buildGetReadySummerPrograms(): Program[] {
       bullets: [
         `${instructionMinutes} min instruction + ${practiceLabMinutes} min practice lab`,
         'In-person · Dublin campus',
-        hub.getReadySprintFormat.schedule,
         'DUSD & PUSD aligned',
       ],
       icon: Calculator,
