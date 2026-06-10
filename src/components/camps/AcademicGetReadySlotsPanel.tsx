@@ -118,12 +118,6 @@ function GetReadySlotRow({
   );
 }
 
-function buildBothUpfrontNote(panelMeta: GetReadyPanelMeta): string {
-  const { both } = panelMeta;
-  return COPY.getReadyBothUpfrontNote
-    .replace('{upfront}', formatAcademicSprintUsd(both.upfrontAmount))
-    .replace('{saveAmount}', formatAcademicSprintUsd(both.upfrontSaveAmount));
-}
 
 export function AcademicGetReadySlotsPanel({
   program,
@@ -149,15 +143,6 @@ export function AcademicGetReadySlotsPanel({
   const slots = level?.slots ?? [];
   const cohort1Slot = findSlot(slots, '-cohort1');
   const cohort2Slot = findSlot(slots, '-cohort2');
-  const bothSlot = findSlot(slots, '-both');
-
-  const saveLabel = COPY.getReadySaveBadge.replace(
-    '{amount}',
-    formatAcademicSprintUsd(saveAmount),
-  );
-  const bothUpfrontNote = panelMeta ? buildBothUpfrontNote(panelMeta) : '';
-  const compareAtPrice =
-    cohort1Slot && bothSlot ? cohort1Slot.price * 2 : null;
 
   const handleAdd = (slotLevel: Level, slot: Slot) => {
     if (summerCampItemIds.has(slot.id)) return;
@@ -171,7 +156,7 @@ export function AcademicGetReadySlotsPanel({
     removeItem(slotId);
   };
 
-  if (!level || !panelMeta || !cohort1Slot || !cohort2Slot || !bothSlot) {
+  if (!level || !panelMeta || !cohort1Slot || !cohort2Slot) {
     return null;
   }
 
@@ -219,20 +204,6 @@ export function AcademicGetReadySlotsPanel({
             level={level}
             variant="standard"
             footnote={panelMeta.cohort2HolidayNote}
-            cartItemIds={summerCampItemIds}
-            onAdd={handleAdd}
-            onRemove={handleRemove}
-          />
-        </EnrollmentPanelSlotList>
-        <div className="h-px bg-slate-200" aria-hidden />
-        <EnrollmentPanelSlotList>
-          <GetReadySlotRow
-            slot={bothSlot}
-            level={level}
-            variant="both"
-            saveLabel={saveLabel}
-            upfrontNote={bothUpfrontNote}
-            compareAtPrice={compareAtPrice}
             cartItemIds={summerCampItemIds}
             onAdd={handleAdd}
             onRemove={handleRemove}

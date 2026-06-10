@@ -178,10 +178,82 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/coding': {
     title: 'Coding Classes Kids | Dublin CA | GrowWise',
     description:
-      'Coding classes for ages 10–18 in Dublin, CA. Python, JavaScript, and web development basics in small groups with expert instructors. Book a free trial.',
+      'Coding classes for Grades 5-12 in Dublin, CA. Explore Python, AI, and app development paths. Build real projects and book a trial class.',
     keywords:
-      'coding classes Dublin CA, coding for kids Dublin, Python classes kids, JavaScript course kids, web development course Dublin, coding programs Grades 1-12, coding tutor Dublin, learn to code Dublin CA, kids coding near me, programming classes Dublin CA, coding classes near me',
+      'coding classes Dublin CA, coding for kids Dublin, Python coding classes Dublin CA, AI coding classes kids, app development classes kids, Python programming for high school students, Python programming for middle school students, high school computer science preparation, AP Computer Science preparation, Python for AI and machine learning, text-based coding for kids, beginner Python course for students',
     path: '/coding',
+  },
+
+  '/coding/python': {
+    title: 'Python Coding Classes Kids | Dublin CA | GrowWise',
+    description:
+      'Python coding classes for Grades 5-12 in Dublin, CA. Build real projects and prepare for high school computer science, AI, and data science. Book a trial class.',
+    keywords:
+      'Python coding classes Dublin CA, Python programming for kids Dublin, Python programming for high school students, Python programming for middle school students, high school computer science preparation, AP Computer Science preparation, text-based coding for kids, beginner Python course for students, Python for AI and machine learning',
+    path: '/coding/python',
+  },
+
+  '/coding/ml-ai': {
+    title: 'ML & AI Coding Classes Kids | Dublin CA | GrowWise',
+    description:
+      'Machine learning and AI coding classes for Grades 7-12 in Dublin, CA. Build AI projects after Python foundations and book a trial class.',
+    keywords:
+      'AI coding classes Dublin CA, machine learning classes for kids, ML AI coding for students, Python AI course for students, generative AI classes for kids, high school AI course, machine learning for middle school students, AI projects for students',
+    path: '/coding/ml-ai',
+  },
+
+  '/coding/app-development': {
+    title: 'App Development Classes Kids | Dublin CA | GrowWise',
+    description:
+      'App development coding classes for Grades 6-12 in Dublin, CA. Build webpages, interfaces, and interactive portfolio projects. Book a trial class.',
+    keywords:
+      'app development classes Dublin CA, coding apps for kids, web development for students, app development for middle school, app development for high school, coding portfolio projects, programming classes Dublin CA',
+    path: '/coding/app-development',
+  },
+
+  '/future-skills': {
+    title: 'Future Skills Certification Pathways | GrowWise',
+    description:
+      'Premium 90-minute certification pathways for Grades 6-12: creative media, Python coding, AI and machine learning, and AI entrepreneurship. Build projects before external exams.',
+    keywords:
+      'future skills classes for students, certification pathways for kids, creative media certification, Python certification for students, AI machine learning classes students, AI entrepreneurship for teens, Adobe Certified Professional prep, PCEP prep students, Dublin CA coding certification, online future skills classes',
+    path: '/future-skills',
+  },
+
+  '/future-skills/design-creative-media': {
+    title: 'Design & Creative Media Certification Pathway | GrowWise',
+    description:
+      'Design and creative media classes for Grades 5-10. Build posters, flyers, presentations, social media creatives, short videos, and prepare for Adobe certification pathways.',
+    keywords:
+      'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
+    path: '/future-skills/design-creative-media',
+  },
+
+  '/future-skills/python-certification': {
+    title: 'Python Coding Certification Pathway | GrowWise',
+    description:
+      'Python certification pathway for Grades 7-12. Build Python fluency, projects, PCEP readiness, and PCAP prep through 90-minute sessions.',
+    keywords:
+      'Python certification for students, PCEP prep for kids, PCAP prep students, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python exam prep for teens',
+    path: '/future-skills/python-certification',
+  },
+
+  '/future-skills/ai-machine-learning': {
+    title: 'AI & Machine Learning Certification Pathway | GrowWise',
+    description:
+      'AI and machine learning pathway for Grades 8-12. Learn AI literacy, Python for AI, datasets, model basics, responsible AI, and certification readiness.',
+    keywords:
+      'AI classes for students, machine learning classes for teens, AI certification pathway, Python for AI students, ML project builder, NVIDIA DLI students, AWS Educate badge, Microsoft AI Fundamentals prep',
+    path: '/future-skills/ai-machine-learning',
+  },
+
+  '/future-skills/ai-entrepreneurship': {
+    title: 'AI Entrepreneur & Business Pathway | GrowWise',
+    description:
+      'AI entrepreneurship pathway for Grades 7-12. Turn ideas into validated products, landing pages, pitch decks, business models, and certification readiness.',
+    keywords:
+      'AI entrepreneurship for teens, business classes for students, startup pitch class, AI product builder, ESB certification prep, entrepreneurship certification students, digital marketing exam prep students',
+    path: '/future-skills/ai-entrepreneurship',
   },
 
   '/game-dev': {

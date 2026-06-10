@@ -30,8 +30,8 @@
     {
       "id": "get-ready-sprint",
       "href": "/camps/get-ready-sprint-dublin-ca",
-      "startDateIso": "2026-07-20",
-      "trackIds": ["im1", "im2", "algebra-1", "geometry"],
+      "startDateIso": "2026-07-06",
+      "trackIds": ["im1", "im2"],
       "pricing": null
     }
   ],
@@ -45,7 +45,7 @@
       "cohort2": "June 30–July 11"
     },
     "getReadySprint": {
-      "startLabel": "Starts July 20, 2026"
+      "startLabel": "Starts July 6, 2026"
     }
   },
   "cohortDateLabels": {
@@ -58,10 +58,10 @@
     "schedule": "Mon/Wed/Fri · 5:00–6:30 PM"
   },
   "getReadyCohortDateLabels": {
-    "cohort1TwoWeek": "July 20–31",
-    "cohort1FourWeek": "July 20–Aug 14",
-    "cohort2TwoWeek": "Aug 4–15",
-    "cohort2FourWeek": "Aug 4–Aug 29"
+    "cohort1TwoWeek": "July 6–31",
+    "cohort1FourWeek": "July 6–31",
+    "cohort2TwoWeek": "July 6–31",
+    "cohort2FourWeek": "July 6–31"
   },
   "getReadyUpsellSaveAmount": 50,
   "getReadyPricing": {
@@ -84,7 +84,6 @@
   "getReadyPricingGroups": {
     "im1": "im1",
     "im2": "im1",
-    "algebra-1": "standard",
     "geometry": "geometry"
   },
   "tracks": {
@@ -123,13 +122,6 @@
       "ctaType": "phone",
       "ctaHref": null
     },
-    "algebra-1": {
-      "sprintId": "get-ready-sprint",
-      "section": "math",
-      "gradeBadge": "Grades 1–10",
-      "ctaType": "phone",
-      "ctaHref": null
-    },
     "geometry": {
       "sprintId": "get-ready-sprint",
       "section": "math",
@@ -153,9 +145,6 @@
     },
     "im2": {
       "image": "/images/camps/banners/im1_get_ready_04d2d274_web.webp"
-    },
-    "algebra-1": {
-      "image": "/images/camps/banners/algebra_1_get_ready_3572836f_web.webp"
     },
     "geometry": {
       "image": "/images/camps/banners/geometry_get_ready_girl_2409911a_web.webp"

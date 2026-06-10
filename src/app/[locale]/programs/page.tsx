@@ -33,7 +33,7 @@ export default function ProgramsPage() {
             <Link href={createLocaleUrl('/enroll')}>Enroll Now</Link>
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <Link href={createLocaleUrl('/academic')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100 group">
             <div className="text-strong text-lg mb-2">Academic</div>
             <div className="text-muted mb-4">Grades 1-12 Math and English programs</div>
@@ -43,6 +43,11 @@ export default function ProgramsPage() {
             <div className="text-strong text-lg mb-2">STEAM</div>
             <div className="text-muted mb-4">ML/AI, Game Development and more</div>
             <span className="text-[#F16112] font-semibold group-hover:underline">Explore STEAM programs →</span>
+          </Link>
+          <Link href={createLocaleUrl('/future-skills')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100 group">
+            <div className="text-strong text-lg mb-2">Future Skills</div>
+            <div className="text-muted mb-4">Grades 6-12 certification pathways with 90-minute sessions</div>
+            <span className="text-[#F16112] font-semibold group-hover:underline">Explore Future Skills →</span>
           </Link>
         </div>
 
@@ -89,6 +94,5 @@ export default function ProgramsPage() {
     </main>
   );
 }
-
 
 

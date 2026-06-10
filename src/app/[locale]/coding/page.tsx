@@ -1,16 +1,15 @@
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import { EnrollProvider } from '@/contexts/EnrollContext';
-import { CodingHero } from '@/components/coding/CodingHero';
-import { CodingPrograms } from '@/components/coding/CodingPrograms';
+import { CodingOverviewHero } from '@/components/coding/CodingOverviewHero';
+import { CodingPathCards } from '@/components/coding/CodingPathCards';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   return generateMetadataFromPath('/coding', locale) ?? {
-    title: 'Coding Classes Kids | Dublin CA | GrowWise',
-    description: 'Coding classes for ages 10–18 in Dublin, CA. Python, JavaScript, and web basics in small groups. Book a free trial.',
+    title: 'Coding Classes for Kids | Dublin CA | GrowWise',
+    description: 'Coding paths for Grades 5-12 in Dublin, CA: Python, AI, and app development. Start with the right program and book a trial class.',
   };
 }
 
@@ -23,12 +22,10 @@ export default function CodingPage() {
         </div>
       }
     >
-      <EnrollProvider>
-        <main className="min-h-screen page-bg-coding">
-          <CodingHero />
-          <CodingPrograms />
-        </main>
-      </EnrollProvider>
+      <main className="min-h-screen page-bg-coding">
+        <CodingOverviewHero />
+        <CodingPathCards />
+      </main>
     </Suspense>
   );
 }
