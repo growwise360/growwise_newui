@@ -550,7 +550,9 @@ export function getAcademicProgramCardDisplayMap(): Record<
   AcademicSprintTrackId,
   AcademicProgramCardDisplay
 > {
-  const ids: AcademicSprintTrackId[] = [
+  const hub = getAcademicSummerProgramsHubData();
+  const availableTrackIds = hub.sprints.flatMap((s) => s.trackIds);
+  const allTrackIds: AcademicSprintTrackId[] = [
     'read-to-prove',
     'write-to-explain',
     'bridge-the-gap-math',
@@ -559,6 +561,7 @@ export function getAcademicProgramCardDisplayMap(): Record<
     'algebra-1',
     'geometry',
   ];
+  const ids = allTrackIds.filter((id) => availableTrackIds.includes(id));
   return Object.fromEntries(ids.map((id) => [id, getAcademicProgramCardDisplay(id)])) as Record<
     AcademicSprintTrackId,
     AcademicProgramCardDisplay
@@ -720,8 +723,10 @@ function buildAcademicTrackCard(
 
 export function getAcademicTrackCards(): AcademicTrackCardModel[] {
   const hub = getAcademicSummerProgramsHubData();
+  const availableTrackIds = new Set(hub.sprints.flatMap((s) => s.trackIds));
   const order: AcademicSprintTrackId[] = [...READING_WRITING_TRACKS, ...MATH_TRACKS];
   return order
+    .filter((id) => availableTrackIds.has(id))
     .map((id) => buildAcademicTrackCard(id, hub))
     .filter((card): card is AcademicTrackCardModel => card !== null);
 }
