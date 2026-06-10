@@ -476,7 +476,7 @@ export type GetReadyPanelBothRow = GetReadyPanelCohortRow & {
 export type GetReadyPanelMeta = {
   readonly cohort1: GetReadyPanelCohortRow;
   readonly cohort2: GetReadyPanelCohortRow;
-  readonly both: GetReadyPanelBothRow;
+  readonly both?: GetReadyPanelBothRow;
   readonly cohort2HolidayNote: string | null;
 };
 
@@ -507,7 +507,7 @@ export function getGetReadyPanelMeta(trackId: AcademicGetReadyTrackId): GetReady
   return {
     cohort1: track.cohort1,
     cohort2: track.cohort2,
-    both: track.both,
+    ...(track.both && { both: track.both }),
     cohort2HolidayNote: track.cohort2HolidayNote,
   };
 }
