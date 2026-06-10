@@ -2,7 +2,7 @@
   "programList": {
     "ariaLabel": "Academic summer programs",
     "juneStartLabel": "Starts June 15",
-    "julyStartLabel": "Starts July 20",
+    "julyStartLabel": "Starts July 6",
     "fromPricePrefix": "From",
     "groups": {
       "junePrograms": {
@@ -11,7 +11,7 @@
       },
       "julyPrograms": {
         "heading": "Math Get Ready programs",
-        "subtext": "IM1, IM2, Algebra, and Geometry prep · Starts July 20"
+        "subtext": "IM1, IM2, Algebra, and Geometry prep · Starts July 6"
       }
     },
     "sprintPickCard": {
@@ -49,7 +49,7 @@
       "tracks": {
         "im1": {
           "gradeBadge": "Grade 7 accelerated",
-          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 20",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 6",
           "bestFor": [
             "Starting Grade 7 accelerated math in fall",
             "Needs a head start on IM1 curriculum",
@@ -58,7 +58,7 @@
         },
         "im2": {
           "gradeBadge": "Grade 8 / entering IM2",
-          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 20",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 6",
           "bestFor": [
             "Starting Grade 8 Integrated Math 2 in fall",
             "Needs a head start on IM2 curriculum",
@@ -98,8 +98,8 @@
     "sprintBothUpfrontNote": "Pay upfront: {upfront} · saving {saveAmount} vs enrolling separately",
     "getReadyBothHolidaySuffix": " · July 4th holiday observed",
     "getReadyLevelName": "Choose duration & cohort",
-    "getReadyCohort1Header": "Cohort 1 · July 20",
-    "getReadyCohort2Header": "Cohort 2 · Aug 4",
+    "getReadyCohort1Header": "Cohort 1 · July 6",
+    "getReadyCohort2Header": "Cohort 2 · July 6",
     "getReadyUpfrontLink": "Save {amount} — pay {upfront} upfront →",
     "sprintDurationLabel": "Sprint duration",
     "sprintChooseCohortGradeHeader": "Choose your cohort & grade band",
@@ -114,53 +114,15 @@
       "tracks": {
         "im1": {
           "rowTimeLabel": "5–6:30 PM",
-          "cohort1": { "title": "Cohort 1 (July 20–31)", "sessions": 6 },
-          "cohort2": { "title": "Cohort 2 (Aug 4–15)", "sessions": 6 },
-          "both": {
-            "title": "Both cohorts (July 20–Aug 15)",
-            "sessions": 12,
-            "upfrontAmount": 399,
-            "upfrontSaveAmount": 99,
-            "includeHolidaySuffix": false
-          },
+          "cohort1": { "title": "Cohort 1 (July 6–31 · M/W/F)", "sessions": 12, "schedule": "IN-PERSON · Mon/Wed/Fri · 5:00–6:30 PM", "price": 579 },
+          "cohort2": { "title": "Cohort 2 (July 6–31 · Tue/Thu)", "sessions": 8, "schedule": "IN-PERSON · Tue/Thu · 4:30–6:30 PM", "price": 549 },
           "cohort2HolidayNote": null
         },
         "im2": {
           "rowTimeLabel": "5–6:30 PM",
-          "cohort1": { "title": "Cohort 1 (July 20–31)", "sessions": 6 },
-          "cohort2": { "title": "Cohort 2 (Aug 4–15)", "sessions": 6 },
-          "both": {
-            "title": "Both cohorts (July 20–Aug 15)",
-            "sessions": 12,
-            "upfrontAmount": 399,
-            "upfrontSaveAmount": 99,
-            "includeHolidaySuffix": false
-          },
+          "cohort1": { "title": "Cohort 1 (July 6–31 · M/W/F)", "sessions": 12, "schedule": "IN-PERSON · Mon/Wed/Fri · 5:00–6:30 PM", "price": 579 },
+          "cohort2": { "title": "Cohort 2 (July 6–31 · Tue/Thu)", "sessions": 8, "schedule": "IN-PERSON · Tue/Thu · 4:30–6:30 PM", "price": 549 },
           "cohort2HolidayNote": null
-        },
-        "algebra-1": {
-          "cohort1": { "title": "Cohort 1 (June 15–26)", "sessions": 6 },
-          "cohort2": { "title": "Cohort 2 (June 30–July 11)", "sessions": 6 },
-          "both": {
-            "title": "Both cohorts (June 15–July 11)",
-            "sessions": 11,
-            "upfrontAmount": 399,
-            "upfrontSaveAmount": 99,
-            "includeHolidaySuffix": true
-          },
-          "cohort2HolidayNote": "July 4th — no class (Independence Day)"
-        },
-        "geometry": {
-          "cohort1": { "title": "Cohort 1 (June 15–26)", "sessions": 6 },
-          "cohort2": { "title": "Cohort 2 (June 30–July 11)", "sessions": 6 },
-          "both": {
-            "title": "Both cohorts (June 15–July 11)",
-            "sessions": 11,
-            "upfrontAmount": 449,
-            "upfrontSaveAmount": 109,
-            "includeHolidaySuffix": true
-          },
-          "cohort2HolidayNote": "July 4th — no class (Independence Day)"
         }
       }
     }

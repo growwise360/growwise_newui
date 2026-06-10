@@ -324,27 +324,27 @@ function buildGetReadyTrackSlots(
   prices: GetReadyPricing,
   panelMeta: GetReadyPanelMeta,
 ): Slot[] {
+  const cohort1Time = panelMeta.cohort1.schedule
+    ? `${panelMeta.cohort1.schedule} · ${panelMeta.cohort1.sessions} sessions`
+    : formatGetReadyRowSubline(trackId, panelMeta.cohort1.sessions);
+  const cohort2Time = panelMeta.cohort2.schedule
+    ? `${panelMeta.cohort2.schedule} · ${panelMeta.cohort2.sessions} sessions`
+    : formatGetReadyRowSubline(trackId, panelMeta.cohort2.sessions);
+
   return [
     {
       id: `${trackId}-cohort1`,
       label: panelMeta.cohort1.title,
-      time: formatGetReadyRowSubline(trackId, panelMeta.cohort1.sessions),
+      time: cohort1Time,
       format: 'In-Person',
-      price: prices.twoWeek,
+      price: panelMeta.cohort1.price ?? prices.twoWeek,
     },
     {
       id: `${trackId}-cohort2`,
       label: panelMeta.cohort2.title,
-      time: formatGetReadyRowSubline(trackId, panelMeta.cohort2.sessions),
+      time: cohort2Time,
       format: 'In-Person',
-      price: prices.twoWeek,
-    },
-    {
-      id: `${trackId}-both`,
-      label: panelMeta.both.title,
-      time: formatGetReadyRowSubline(trackId, panelMeta.both.sessions),
-      format: 'In-Person',
-      price: prices.fourWeek,
+      price: panelMeta.cohort2.price ?? prices.twoWeek,
     },
   ];
 }
@@ -353,8 +353,10 @@ function buildGetReadyTrackSlots(
 export function buildGetReadySummerPrograms(): Program[] {
   const hub = getAcademicSummerProgramsHubData();
   const { instructionMinutes, practiceLabMinutes } = hub.howItWorks;
+  const sprint = getAcademicSprintById('get-ready-sprint');
+  const trackIds = (sprint?.trackIds ?? []) as AcademicGetReadyTrackId[];
 
-  return GET_READY_TRACK_IDS.map((trackId) => {
+  return trackIds.map((trackId) => {
     const trackCopy = hubCopy.tracks[trackId];
     const groupId = hub.getReadyPricingGroups[trackId];
     const prices = hub.getReadyPricing[groupId];
@@ -364,6 +366,10 @@ export function buildGetReadySummerPrograms(): Program[] {
       throw new Error(`Missing Get Ready panel meta for track: ${trackId}`);
     }
     const slots = buildGetReadyTrackSlots(trackId, prices, panelMeta);
+    const startingPrice = Math.min(
+      panelMeta.cohort1.price ?? prices.twoWeek,
+      panelMeta.cohort2.price ?? prices.twoWeek,
+    );
 
     const includes = [
       'Small groups (8–12 students max)',
@@ -392,7 +398,7 @@ export function buildGetReadySummerPrograms(): Program[] {
       category: 'Half-Day Camps' as const,
       hoursPerWeek: hub.getReadySprintFormat.schedule,
       ageGroup: 'Grades 1-10',
-      startingPrice: prices.twoWeek,
+      startingPrice,
       image,
       levels: [
         {
@@ -458,6 +464,8 @@ export type AcademicGetReadyPickCardMeta = {
 export type GetReadyPanelCohortRow = {
   readonly title: string;
   readonly sessions: number;
+  readonly schedule?: string;
+  readonly price?: number;
 };
 
 export type GetReadyPanelBothRow = GetReadyPanelCohortRow & {
