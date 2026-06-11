@@ -78,6 +78,9 @@ const steamPages: SitemapEntry[] = [
   { path: '/steam/ml-ai-coding', priority: 0.85, changefreq: 'monthly' },
   { path: '/steam/game-development', priority: 0.85, changefreq: 'monthly' },
   { path: '/coding', priority: 0.85, changefreq: 'monthly' },
+  { path: '/coding/python', priority: 0.75, changefreq: 'monthly' },
+  { path: '/coding/ml-ai', priority: 0.75, changefreq: 'monthly' },
+  { path: '/coding/app-development', priority: 0.75, changefreq: 'monthly' },
   { path: '/game-dev', priority: 0.85, changefreq: 'monthly' },
 ]
 

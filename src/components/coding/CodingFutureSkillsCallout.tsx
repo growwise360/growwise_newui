@@ -15,8 +15,9 @@ export function CodingFutureSkillsCallout() {
         <p className="text-sm font-bold uppercase tracking-wider text-[#F16112]">Looking for certification pathways?</p>
         <h2 className="mt-2 text-2xl font-bold text-[#1F396D]">Future Skills is separate from these coding class pages.</h2>
         <p className="mt-4 max-w-3xl text-base leading-7 text-gray-600">
-          Coding pages are for foundations and trial classes. Future Skills adds structured multi-level pathways with
-          optional Adobe, Python Institute, and Certiport credentials when students are ready.
+          Coding pages are for foundations and trial classes. The STEAM catalog is for browsing and enrolling. Future
+          Skills adds structured multi-level pathways with optional Adobe, Python Institute, and Certiport credentials
+          when students are ready.
         </p>
         <Link
           href={publicPath('/future-skills', locale)}

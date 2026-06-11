@@ -187,11 +187,11 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
       subtitle: 'Explore science, technology, and creativity',
       items: [
         {
-          key: 'mlAi',
-          title: 'ML/AI Coding',
-          description: 'Explore artificial intelligence and machine learning',
-          icon: 'Brain',
-          href: '/steam/ml-ai-coding',
+          key: 'futureSkills',
+          title: 'Future Ready Skills',
+          description: 'Certification pathways in Python, AI/ML, design, and entrepreneurship',
+          icon: 'GraduationCap',
+          href: '/future-skills',
           gradient: 'from-[#1F396D] to-[#F16112]',
         },
         {

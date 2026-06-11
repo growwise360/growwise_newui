@@ -6,7 +6,7 @@ export const PROGRAMS_FAQS: readonly FAQItem[] = [
   {
     question: 'What programs does GrowWise offer?',
     answer:
-      'GrowWise offers two main program categories: Academic Programs (Grades 1-12 Math and English courses aligned with DUSD & PUSD standards) and STEAM Programs (ML/AI, Game Development, Python coding, and more). We also offer SAT Prep courses and specialized high school math programs.',
+      'GrowWise offers Academic Programs (Grades 1-12 Math and English), STEAM Programs (ML/AI, Game Development, Python coding, and more), and Future Skills certification pathways (Grades 6-12 design, Python, AI/ML, and entrepreneurship). We also offer SAT Prep and specialized high school math programs.',
   },
   {
     question: 'What is the difference between Academic and STEAM programs?',

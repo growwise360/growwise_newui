@@ -14,6 +14,7 @@ import {
   futureSkillsHeroStats,
   futureSkillsPathways,
 } from '@/lib/futureSkillsPathways';
+import { FutureSkillsHubFaqSection } from '@/components/future-skills/FutureSkillsHubFaqSection';
 import { FutureSkillsStickyCta } from '@/components/future-skills/detail/FutureSkillsStickyCta';
 
 export function FutureSkillsHubPage() {
@@ -30,11 +31,15 @@ export function FutureSkillsHubPage() {
               GrowWise Future Skills
             </div>
             <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-              Certification pathways for students who need more than random classes.
+              Build it.
+              <br />
+              Certify it.
+              <br />
+              Own it.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-white/82 md:text-xl">
-              Four premium 90-minute pathways that turn interest into outcomes: creative media portfolios, Python fluency,
-              AI/ML projects, and AI entrepreneurship. Students build first, then prepare for external certifications when ready.
+              Four pathways. Real projects at every stage. External certifications when you&apos;re ready. Assessment places
+              your child at exactly the right level.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -268,6 +273,8 @@ export function FutureSkillsHubPage() {
           </div>
         </div>
       </section>
+
+      <FutureSkillsHubFaqSection />
 
       <FutureSkillsStickyCta assessmentHref={assessmentHref} />
     </main>

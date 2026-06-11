@@ -176,7 +176,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding': {
-    title: 'Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'Coding Classes Kids | Trial Class | Dublin CA',
     description:
       'Coding classes for Grades 5-12 in Dublin, CA. Explore Python, AI, and app development paths. Build real projects and book a trial class.',
     keywords:
@@ -185,7 +185,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding/python': {
-    title: 'Python Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'Python Classes Kids | Book Trial | Dublin CA',
     description:
       'Python coding classes for Grades 5-12 in Dublin, CA. Build real projects and prepare for high school computer science, AI, and data science. Book a trial class.',
     keywords:
@@ -194,7 +194,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding/ml-ai': {
-    title: 'ML & AI Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'ML and AI Classes | After Python | Dublin CA',
     description:
       'Machine learning and AI coding classes for Grades 7-12 in Dublin, CA. Build AI projects after Python foundations and book a trial class.',
     keywords:
@@ -275,7 +275,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/steam/ml-ai-coding': {
-    title: 'ML & AI Coding for Kids | Dublin CA | GrowWise',
+    title: 'STEAM Python and AI Courses | Enroll | Dublin CA',
     description:
       'ML and AI coding in Dublin, CA. Hands-on projects for students. Small classes and expert instructors. Book a free trial.',
     keywords:

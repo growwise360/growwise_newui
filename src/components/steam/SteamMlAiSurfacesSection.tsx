@@ -5,19 +5,16 @@ import { ArrowRight, Award, BookOpen, Layers3 } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
 import { publicPath } from '@/lib/publicPath';
-
-const codingLinks = [
-  { href: '/coding/python', label: 'Python coding classes' },
-  { href: '/coding/ml-ai', label: 'ML & AI coding classes' },
-] as const;
-
-const certificationLinks = [
-  { href: '/future-skills/python-certification', label: 'Python certification pathway' },
-  { href: '/future-skills/ai-machine-learning', label: 'AI & ML certification pathway' },
-] as const;
+import {
+  CODING_SURFACES,
+  getCodingCertificationLinks,
+  getCodingDiscoveryLinks,
+} from '@/lib/codingProgramSurfaces';
 
 export function SteamMlAiSurfacesSection() {
   const locale = useLocale();
+  const codingLinks = getCodingDiscoveryLinks();
+  const certificationLinks = getCodingCertificationLinks();
 
   return (
     <section className="border-y border-[#1F396D]/10 bg-white px-4 py-16 lg:px-8">
@@ -42,7 +39,7 @@ export function SteamMlAiSurfacesSection() {
             <p className="text-xs font-bold uppercase tracking-wider text-[#F16112]">You are here</p>
             <h3 className="mt-2 text-xl font-bold text-gray-950">STEAM course catalog</h3>
             <p className="mt-3 text-sm leading-7 text-gray-600">
-              Python, app development, and ML/AI courses with filters and enrollment on this page.
+              {CODING_SURFACES.map((surface) => surface.shortTitle).join(', ')} — filters and enrollment on this page.
             </p>
             <a
               href="#courses"
@@ -74,6 +71,15 @@ export function SteamMlAiSurfacesSection() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href={publicPath('/coding', locale)}
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-gray-600 hover:text-[#F16112]"
+                >
+                  All coding paths overview
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </li>
             </ul>
           </article>
 

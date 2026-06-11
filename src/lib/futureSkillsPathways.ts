@@ -1,6 +1,8 @@
 import type { LucideIcon } from 'lucide-react';
 import { Award, Bot, Brain, BriefcaseBusiness, Code2, Palette } from 'lucide-react';
 
+import { getFutureSkillsDiscoveryPage } from './codingProgramSurfaces';
+
 export type FutureSkillsSlug =
   | 'design-creative-media'
   | 'python-certification'
@@ -408,7 +410,7 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       'Clear separation between Certiport and Python Institute exam paths',
     ],
     relatedPathwaySlugs: ['design-creative-media', 'ai-machine-learning', 'ai-entrepreneurship'],
-    discoveryPage: {
+    discoveryPage: getFutureSkillsDiscoveryPage('python-certification') ?? {
       href: '/coding/python',
       title: 'Python coding classes',
       description: 'Start with foundations, projects, and trial classes before committing to a certification pathway.',
@@ -565,11 +567,11 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       'Capstone presentations families can understand',
     ],
     relatedPathwaySlugs: ['python-certification', 'design-creative-media', 'ai-entrepreneurship'],
-    discoveryPage: {
-      href: '/steam/ml-ai-coding',
-      title: 'STEAM ML & AI course catalog',
+    discoveryPage: getFutureSkillsDiscoveryPage('ai-machine-learning') ?? {
+      href: '/coding/ml-ai',
+      title: 'ML and AI coding classes',
       description:
-        'Browse Python, app development, and ML/AI courses on our STEAM catalog first — or start on the simpler Coding pages if you prefer trial-first exploration.',
+        'Start with trial-first ML and AI classes before committing to a structured certification pathway.',
     },
   },
   {
@@ -772,10 +774,10 @@ export function getRelatedFutureSkillsPathways(slug: FutureSkillsSlug): FutureSk
 }
 
 export const futureSkillsHeroStats = [
-  { label: 'Grades', value: '5-12' },
+  { label: 'Grades', value: '6–12' },
   { label: 'Session length', value: '90 minutes' },
-  { label: 'Mode', value: 'Online + local support' },
-  { label: 'Pathways', value: '4 certification tracks' },
+  { label: 'Mode', value: 'Online + Dublin support' },
+  { label: 'Pathways', value: '4 pathways' },
 ];
 
 export const futureSkillsHubIcon = Bot;
