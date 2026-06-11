@@ -21,6 +21,7 @@
         { "label": "Math Tutoring · Grades 1–12", "href": "/academic/math", "active": true },
         { "label": "English & Writing", "href": "/academic/english", "active": true },
         { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true },
+        { "label": "Future Ready Skills · Grades 6–12", "href": "/future-skills", "active": true },
         { "label": "Coding & AI · Ages 10–18", "href": "/steam/ml-ai-coding", "active": true },
         { "label": "Summer Camps", "href": "/camps/summer", "active": true },
         { "label": "Robotics & STEAM", "href": "/steam", "active": true },

@@ -176,12 +176,84 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding': {
-    title: 'Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'Coding Classes Kids | Trial Class | Dublin CA',
     description:
-      'Coding classes for ages 10–18 in Dublin, CA. Python, JavaScript, and web development basics in small groups with expert instructors. Book a free trial.',
+      'Coding classes for Grades 5-12 in Dublin, CA. Explore Python, AI, and app development paths. Build real projects and book a trial class.',
     keywords:
-      'coding classes Dublin CA, coding for kids Dublin, Python classes kids, JavaScript course kids, web development course Dublin, coding programs Grades 1-12, coding tutor Dublin, learn to code Dublin CA, kids coding near me, programming classes Dublin CA, coding classes near me',
+      'coding classes Dublin CA, coding for kids Dublin, Python coding classes Dublin CA, AI coding classes kids, app development classes kids, Python programming for high school students, Python programming for middle school students, high school computer science preparation, AP Computer Science preparation, Python for AI and machine learning, text-based coding for kids, beginner Python course for students',
     path: '/coding',
+  },
+
+  '/coding/python': {
+    title: 'Python Classes Kids | Book Trial | Dublin CA',
+    description:
+      'Python coding classes for Grades 5-12 in Dublin, CA. Build real projects and prepare for high school computer science, AI, and data science. Book a trial class.',
+    keywords:
+      'Python coding classes Dublin CA, Python programming for kids Dublin, Python programming for high school students, Python programming for middle school students, high school computer science preparation, AP Computer Science preparation, text-based coding for kids, beginner Python course for students, Python for AI and machine learning',
+    path: '/coding/python',
+  },
+
+  '/coding/ml-ai': {
+    title: 'ML and AI Classes | After Python | Dublin CA',
+    description:
+      'Machine learning and AI coding classes for Grades 7-12 in Dublin, CA. Build AI projects after Python foundations and book a trial class.',
+    keywords:
+      'AI coding classes Dublin CA, machine learning classes for kids, ML AI coding for students, Python AI course for students, generative AI classes for kids, high school AI course, machine learning for middle school students, AI projects for students',
+    path: '/coding/ml-ai',
+  },
+
+  '/coding/app-development': {
+    title: 'App Development Classes Kids | Dublin CA | GrowWise',
+    description:
+      'App development coding classes for Grades 6-12 in Dublin, CA. Build webpages, interfaces, and interactive portfolio projects. Book a trial class.',
+    keywords:
+      'app development classes Dublin CA, coding apps for kids, web development for students, app development for middle school, app development for high school, coding portfolio projects, programming classes Dublin CA',
+    path: '/coding/app-development',
+  },
+
+  '/future-skills': {
+    title: 'Future Skills Certification Pathways | GrowWise',
+    description:
+      'Future Skills pathways for Grades 6-12. Python, creative media, AI/ML, and entrepreneurship. Project-first learning before optional external exams.',
+    keywords:
+      'future skills classes for students, certification pathways for kids, creative media certification, Python certification for students, AI machine learning classes students, AI entrepreneurship for teens, Adobe Certified Professional prep, PCEP prep students, Python Institute prep, Certiport Authorized Testing Center Dublin, optional external certification prep, online future skills classes',
+    path: '/future-skills',
+  },
+
+  '/future-skills/design-creative-media': {
+    title: 'Design & Creative Media Certification Pathway | GrowWise',
+    description:
+      'Design and creative media for Grades 5-10. Posters, presentations, social media, short video, and Adobe certification pathway prep.',
+    keywords:
+      'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Certiport Authorized Testing Center Dublin, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
+    path: '/future-skills/design-creative-media',
+  },
+
+  '/future-skills/python-certification': {
+    title: 'Python Coding Certification Pathway | GrowWise',
+    description:
+      'Python certification pathway for Grades 7-12. Build Python fluency, projects, PCEP readiness, and PCAP prep through 90-minute sessions.',
+    keywords:
+      'Python certification for students, PCEP prep for kids, PCAP prep students, Python Institute PCEP, Python Institute PCAP, ITS Python Certiport Dublin, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python exam prep for teens',
+    path: '/future-skills/python-certification',
+  },
+
+  '/future-skills/ai-machine-learning': {
+    title: 'AI & Machine Learning Certification Pathway | GrowWise',
+    description:
+      'AI and machine learning pathway for Grades 8-12. Learn AI literacy, Python for AI, datasets, model basics, responsible AI, and certification readiness.',
+    keywords:
+      'AI classes for students, machine learning classes for teens, AI certification pathway, Python for AI students, ML project builder, NVIDIA DLI students, AWS Educate badge, Microsoft Certified Fundamentals AI-900 prep',
+    path: '/future-skills/ai-machine-learning',
+  },
+
+  '/future-skills/ai-entrepreneurship': {
+    title: 'AI Entrepreneur & Business Pathway | GrowWise',
+    description:
+      'AI entrepreneurship pathway for Grades 7-12. Turn ideas into validated products, landing pages, pitch decks, business models, and certification readiness.',
+    keywords:
+      'AI entrepreneurship for teens, business classes for students, startup pitch class, AI product builder, ESB certification prep, Meta certification prep Certiport Dublin, entrepreneurship certification students, digital marketing exam prep students',
+    path: '/future-skills/ai-entrepreneurship',
   },
 
   '/game-dev': {
@@ -203,7 +275,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/steam/ml-ai-coding': {
-    title: 'ML & AI Coding for Kids | Dublin CA | GrowWise',
+    title: 'STEAM Python and AI Courses | Enroll | Dublin CA',
     description:
       'ML and AI coding in Dublin, CA. Hands-on projects for students. Small classes and expert instructors. Book a free trial.',
     keywords:
@@ -341,9 +413,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer': {
-    title: 'Summer STEAM Camps 2026 in Dublin, CA | GrowWise',
+    title: 'Math, Robotics, Coding & AI Camps Dublin CA | GrowWise',
     description:
-      'Top-rated summer STEAM camps in Dublin, CA for Grades 3–12. Math, Coding, Robotics & AI. Weekly sessions June–August. Limited spots — enroll now.',
+      'Summer camps in Dublin, CA for Grades 1–12: Math, Robotics, Coding, AI, game development, and writing. Weekly June–August 2026. Reserve a spot.',
     keywords:
       'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',
@@ -527,11 +599,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/summer-academic-program-checklist': {
-    title: '5 Things to Evaluate in Summer Academic Programs | GrowWise',
+    title: 'Best Summer Academic Program Dublin CA | 5 Checks',
     description:
-      'Not all summer academic programs produce results. Five things to evaluate before you enroll — and questions most programs cannot answer.',
+      'Before you enroll, check class size, instructor expertise, curriculum, outcomes, and school-year alignment for Dublin CA summer programs.',
     keywords:
-      'summer academic program, summer school, summer tutoring program, summer math camp, summer reading program, best summer academic program, summer learning programs, program evaluation, class size summer camp, summer curriculum',
+      'best summer academic program Dublin CA, summer academic program Dublin CA, summer enrichment Tri-Valley, academic summer camp Dublin, summer reading writing math program Dublin, how to choose summer program Dublin CA',
     path: '/resources/summer-academic-program-checklist',
     type: 'article',
   },
@@ -546,22 +618,72 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
-  '/resources/im1-summer-prep-dublin-ca': {
-    title: 'IM1 Summer Prep Guide | Dublin & Tri-Valley | GrowWise',
+  '/resources/math-summer-program-dublin-ca-math-sprint-breakdown': {
+    title: 'Math Summer Program Dublin CA | Week-by-Week Guide',
     description:
-      'IM1 starts in September. Skills students need before day one — and gaps most Dublin and Pleasanton kids arrive with. Prep starts July 20.',
+      'See what students do in GrowWise Math Sprint: baseline assessment, core skill building, problem solving, and confidence-building review.',
     keywords:
-      'IM1 math prep, integrated math 1, IM1 summer prep Dublin CA, IM1 readiness Tri-Valley, IM1 summer program, math prep Dublin California, Pleasanton math prep, DUSD IM1 prep, PUSD IM1, summer math program Dublin',
+      'math summer program Dublin CA, Math Sprint Dublin CA, summer math program Tri-Valley, math sprint grades 1-10, math enrichment Dublin',
+    path: '/resources/math-summer-program-dublin-ca-math-sprint-breakdown',
+    type: 'article',
+  },
+
+  '/resources/reading-program-grades-1-2-dublin-ca': {
+    title: 'Reading Program Grades 1-2 Dublin CA | Parent Guide',
+    description:
+      'Early reading gaps get harder after Grade 2. Learn what phonics, fluency, and comprehension support should look like.',
+    keywords:
+      'reading program grades 1-2 Dublin CA, early reading support summer Dublin, summer reading program Tri-Valley, grade 1 reading help Dublin, grade 2 reading help Dublin',
+    path: '/resources/reading-program-grades-1-2-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/small-group-tutoring-vs-1-on-1': {
+    title: 'Small Group vs 1-on-1 Tutoring | Dublin CA Guide',
+    description:
+      'Private tutoring is not always the best fit. Learn when small-group instruction helps students build independence and confidence.',
+    keywords:
+      'small group tutoring vs 1-on-1, summer tutoring Dublin CA, small group learning Tri-Valley, tutoring alternatives Dublin CA, best tutoring format kids',
+    path: '/resources/small-group-tutoring-vs-1-on-1',
+    type: 'article',
+  },
+
+  '/resources/california-math-standards-by-grade': {
+    title: 'California Math Standards by Grade | Parent Guide',
+    description:
+      'A parent-friendly grade-by-grade math standards snapshot for Grades 1-10, with red flags that can reveal hidden gaps.',
+    keywords:
+      'California math standards by grade, CA math standards Tri-Valley, DUSD math standards, PUSD math expectations, math gap assessment Dublin CA',
+    path: '/resources/california-math-standards-by-grade',
+    type: 'article',
+  },
+
+  '/resources/child-struggles-with-writing-dublin-ca': {
+    title: 'Child Struggles With Writing | Dublin CA Parent Guide',
+    description:
+      'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both. Learn what helps.',
+    keywords:
+      'child struggles with writing, writing help Dublin CA, child avoids writing, blank page freeze writing, writing confidence kids, summer writing program Dublin CA',
+    path: '/resources/child-struggles-with-writing-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/im1-summer-prep-dublin-ca': {
+    title: 'IM1 Summer Prep Dublin CA | Readiness Guide | GrowWise',
+    description:
+      'Integrated Math 1 starts fast. Learn the pre-algebra, ratio, graphing, and equation skills Dublin students need before day one.',
+    keywords:
+      'IM1 summer prep Dublin CA, integrated math 1 prep Tri-Valley, IM1 readiness checklist, DUSD math prep, PUSD IM1 prep, summer math program Dublin, pre-algebra prep, math camp Dublin CA',
     path: '/resources/im1-summer-prep-dublin-ca',
     type: 'article',
   },
 
   '/resources/summer-writing-program-dublin-ca': {
-    title: 'Summer Writing Programs Dublin CA | Tri-Valley | GrowWise',
+    title: 'Summer Writing Program Dublin CA | Parent Guide | GrowWise',
     description:
-      'Most kids never receive direct writing instruction. What good writing programs teach — and what to look for in Tri-Valley summer options.',
+      'Compare Dublin CA writing camps by structure, feedback, revision, and outcomes so your child builds a writing system before school starts.',
     keywords:
-      'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 2-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
+      'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 1-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
     path: '/resources/summer-writing-program-dublin-ca',
     type: 'article',
   },

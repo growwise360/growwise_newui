@@ -15,6 +15,7 @@ export function PythonVsScratchPage() {
   const gameDevHref = publicPath('/steam/game-development', locale)
   const codingHref = publicPath('/coding', locale)
   const mlAiHref = publicPath('/steam/ml-ai-coding', locale)
+  const futureSkillsPythonHref = publicPath('/future-skills/python-certification', locale)
 
   return (
     <ResourceArticlePage
@@ -31,6 +32,7 @@ export function PythonVsScratchPage() {
       ctas={[
         { href: '/steam/game-development', label: 'Explore Game Development (Scratch, Roblox, Unity) →' },
         { href: '/coding', label: 'Explore Python & AI Programs →' },
+        { href: '/future-skills/python-certification', label: 'Explore Python Certification Pathway →' },
         { href: '/coding', label: 'Book a Free Trial Class →' },
       ]}
     >
@@ -194,6 +196,12 @@ export function PythonVsScratchPage() {
       <p>
         <Link href={codingHref}>Python &amp; AI programs</Link> start from first script and progress to real apps,
         APIs, and machine learning basics — for students ages 10 and above who are ready for text-based coding.
+      </p>
+
+      <p>
+        Families ready for structured certification prep can explore the{' '}
+        <Link href={futureSkillsPythonHref}>Python certification pathway</Link> on Future Ready Skills — project-first,
+        with optional PCEP, PCAP, or Certiport ITS Python when students are ready.
       </p>
 
       <p>

@@ -12,7 +12,7 @@ import { publicPath } from '@/lib/publicPath'
 
 export function SummerAcademicProgramChecklistPage() {
   const locale = useLocale()
-  const summerProgramsHref = publicPath('/camps', locale)
+  const summerProgramsHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
   const selfCheckHref = publicPath('/self-check', locale)
   const contactHref = publicPath('/contact', locale)
 
@@ -27,7 +27,7 @@ export function SummerAcademicProgramChecklistPage() {
       faqs={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_FAQS}
       relatedArticles={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED}
       ctaHeading="See GrowWise Summer Programs"
-      ctaSubtext="See how GrowWise answers each evaluation question."
+      ctaSubtext="Compare class size, curriculum, outcomes, and school-year alignment before you enroll."
       ctas={[
         { href: summerProgramsHref, label: 'GrowWise Summer Programs' },
         { href: selfCheckHref, label: 'Self-Check' },
@@ -36,25 +36,29 @@ export function SummerAcademicProgramChecklistPage() {
       ]}
     >
       <p>
-        Many summer programs look similar from the outside. Small class size. Experienced instructors. Curriculum
-        aligned to school standards. Results guaranteed.
+        Dublin, Pleasanton, and San Ramon families have no shortage of summer options: camp-style, tutoring-style,
+        enrichment-style, and everything in between. Many use the same words — fun, educational, engaging,
+        experienced.
       </p>
 
       <p>
-        Most of those claims are hard to verify before you enroll. These five questions make them easy to test.
+        The words are easy to say. The details are harder to fake. These five questions help separate programs that
+        produce real learning from programs that mostly provide supervised seat time.
       </p>
 
-      <h2>1. What Is the Maximum Class Size — and What Is It Usually?</h2>
+      <h2>1. Class Size: How Many Students Per Instructor?</h2>
 
-      <p>The number that matters is not the advertised maximum. It's the average real enrollment per session.</p>
+      <p>Class size is one of the clearest signals of whether your child will get real instruction or just a seat.</p>
 
       <p>
-        A class capped at 12 that typically runs at 6–8 students is a fundamentally different learning environment
-        from one capped at 12 that consistently runs at 11–12.
+        In a true small group, an instructor can notice when a student is stuck, ask a follow-up question, and catch
+        a misconception before it becomes a habit. In a large group, the instructor is often managing pacing and
+        behavior for the room.
       </p>
 
       <p>
-        <strong>Ask:</strong> "What's your average class size over the last two summers?"
+        <strong>Ask:</strong> "What is the maximum number of students per instructor in any session, and what is the
+        typical group size?"
       </p>
 
       <p>
@@ -62,21 +66,21 @@ export function SummerAcademicProgramChecklistPage() {
       </p>
 
       <p>
-        <strong>Why it matters:</strong> In a group of 6–10 students, a skilled instructor can track individual
-        mistake patterns, redirect a student who's lost, and adjust pacing in real time. In a group of 20+,
-        instruction becomes broadcast — it reaches whoever was already close to understanding.
+        <strong>Why it matters:</strong> In a small group, a skilled instructor can track individual mistake patterns,
+        redirect a student who is lost, and adjust pacing in real time. In a group of 20 or more, instruction becomes
+        broadcast — it reaches whoever was already close to understanding.
       </p>
 
-      <h2>2. What Is Your Instructor's Subject Background?</h2>
+      <h2>2. Instructor Background: Subject-Trained or Generalist?</h2>
 
-      <p>A summer program's quality is almost entirely determined by the people in the room.</p>
+      <p>The person leading the session matters more than the curriculum binder.</p>
 
       <p>There is a significant difference between:</p>
 
       <ul>
-        <li>A college student who was good at math in high school</li>
-        <li>A credentialed teacher who knows how to teach a subject</li>
-        <li>A subject-matter specialist who understands the curriculum sequence deeply enough to know which gaps matter and which can wait</li>
+        <li>A generalist who can supervise activities</li>
+        <li>An instructor who was strong in the subject as a student</li>
+        <li>A subject-trained instructor who can explain a concept several ways and spot deeper gaps</li>
       </ul>
 
       <p>
@@ -84,11 +88,10 @@ export function SummerAcademicProgramChecklistPage() {
       </p>
 
       <p>
-        Programs that can't answer clearly are usually staffed by generalists — people who can supervise homework,
-        not identify mistake patterns.
+        "Great with kids" is valuable, but it is not the same as subject expertise.
       </p>
 
-      <h2>3. What Is the Curriculum Sequence?</h2>
+      <h2>3. Curriculum Structure: Defined Scope or Improvised?</h2>
 
       <p>"We cover math" is not a curriculum.</p>
 
@@ -104,12 +107,12 @@ export function SummerAcademicProgramChecklistPage() {
 
       <p>
         If the answer is "we assess each student and customize," ask what the customization looks like in practice.
-        Real customization requires a diagnostic system, not just an intent.
+        Real customization requires a diagnostic system, not just a good intention.
       </p>
 
       <p>If the answer is "we follow the textbook," ask which one and verify it aligns to where your child actually is.</p>
 
-      <h2>4. What Does My Child Leave With?</h2>
+      <h2>4. Measurable Outcomes: What Does My Child Leave With?</h2>
 
       <p>This is the most important question — and the one most programs answer worst.</p>
 
@@ -121,12 +124,12 @@ export function SummerAcademicProgramChecklistPage() {
       </p>
 
       <p>
-        Strong programs can tell you at the start what students will be able to do at the end, because they've
-        designed backward from that outcome. Programs that can't answer this question haven't thought carefully
-        about results.
+        Strong programs can tell you at the start what students will be able to do, make, solve, or explain at the
+        end, because they have designed backward from that outcome. Programs that cannot answer this question have
+        not thought carefully enough about results.
       </p>
 
-      <h2>5. Is the Curriculum Aligned to CA Standards — and Specifically to Your Child's School?</h2>
+      <h2>5. CA Standards Alignment: Does This Connect to the School Year?</h2>
 
       <p>
         Aligned to "CA Standards" is a low bar. Most programs can claim it and mean very little.
@@ -146,16 +149,17 @@ export function SummerAcademicProgramChecklistPage() {
       <h2>How GrowWise Answers These Questions</h2>
 
       <p>
-        <strong>Class size:</strong> Small groups, typically 6–10 students per session
+        <strong>Class size:</strong> Small groups, capped by program design
         <br />
         <strong>Instructors:</strong> Subject-trained instructors with structured onboarding and session review
         <br />
         <strong>Curriculum:</strong> Defined scope and sequence, built around district curriculum where applicable
         <br />
-        <strong>Outcomes:</strong> End-of-program summary of skills covered, patterns identified, and next steps
+        <strong>Outcomes:</strong> Clear skill milestones, projects, writing pieces, or next-step recommendations by
+        program
         <br />
-        <strong>Alignment:</strong> Programs built specifically around Integrated Math curriculum sequences for DUSD
-        and PUSD
+        <strong>Alignment:</strong> Academic programs built to connect with California standards and local school
+        expectations
       </p>
 
       <p>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import React, { useState, useEffect, Suspense, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { CONTACT_INFO } from '@/lib/constants';
 import { useLocale } from 'next-intl';
@@ -15,110 +15,31 @@ import { ML_AI_CODING_FAQ_JSONLD } from "@/lib/schema/course-hub-jsonld-faqs";
 import { useCart } from '@/components/gw/CartContext';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import CourseCustomizationModal from '@/components/gw/CourseCustomizationModal';
+import { SteamMlAiSurfacesSection } from '@/components/steam/SteamMlAiSurfacesSection';
 import { useSearchParams } from 'next/navigation';
+import { usePricingConfig } from '@/hooks/usePricingConfig';
+import {
+  buildCatalogCoursesFromPricing,
+  type CatalogCourseDisplay,
+} from '@/lib/codingProgramSurfaces';
 
-// ML/AI Programming Course Data
-interface MLAICourse {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  priceRange: string;
-  duration: string;
-  level: string;
-  gradeLevel: string[];
-  courseType: string[];
-  alignment: string[];
-  features: string[];
-  image: string;
-  originalPrice?: number;
-  instructor: string;
-  rating: number;
-  studentsEnrolled: number;
-  tags: string[];
-}
-
-const mlaiCourses: MLAICourse[] = [
-  {
-    id: 'python-programming',
-    name: 'Python Programming',
-    description: 'Master Python Programming - From Beginner to Advanced',
-    price: 460,
-    priceRange: '$460–$650',
-    duration: '12 weeks',
-    level: 'All Levels',
-    gradeLevel: ['Elementary', 'Middle School', 'High School'],
-    courseType: ['Programming', 'STEAM'],
-    alignment: ['CSTA Standards', 'Computer Science'],
-    features: [
-      'Complete Python programming curriculum',
-      'Hands-on coding projects and exercises',
-      'Interactive learning environment',
-      'Real-world application development',
-      'Portfolio building opportunities',
-      'Industry-standard tools and practices'
-    ],
-    image: '/assets/photos/photo-1526379095098-d400fd0bf935.jpg',
-    instructor: 'Dr. Alex Martinez',
-    rating: 4.9,
-    studentsEnrolled: 156,
-    tags: ['Python', 'Programming', 'STEAM']
-  },
-  {
-    id: 'appspark-app-development',
-    name: 'AppSpark - App Development',
-    description: 'App development - Learn to Code & Build Apps',
-    price: 480,
-    priceRange: '$480–$1260',
-    duration: '12 weeks',
-    level: 'Beginner to Advanced',
-    gradeLevel: ['Middle School', 'High School'],
-    courseType: ['App Development', 'Programming', 'STEAM'],
-    alignment: ['CSTA Standards', 'Computer Science', 'Mobile Development'],
-    features: [
-      'Cross-platform mobile app development',
-      'iOS and Android app creation',
-      'User interface and experience design',
-      'Database integration and API usage',
-      'App store deployment strategies',
-      'Real-world project portfolio',
-      'Industry-standard development tools',
-      'Collaborative coding practices'
-    ],
-    image: '/assets/photos/photo-1551650975-87deedd944c3.jpg',
-    instructor: 'Sarah Chen',
-    rating: 4.8,
-    studentsEnrolled: 89,
-    tags: ['App Development', 'Mobile', 'Programming', 'STEAM']
-  },
-  {
-    id: 'machine-learning-generative-ai',
-    name: 'Machine Learning and Generative AI',
-    description: 'Learn real-world AI and machine learning for middle and high school',
-    price: 499,
-    priceRange: '$499–$799',
-    duration: '14 weeks',
-    level: 'Intermediate to Advanced',
-    gradeLevel: ['Middle School', 'High School'],
-    courseType: ['Machine Learning', 'AI', 'Programming', 'STEAM'],
-    alignment: ['CSTA Standards', 'Computer Science', 'AI/ML Standards'],
-    features: [
-      'Introduction to machine learning concepts',
-      'Hands-on experience with AI tools',
-      'Generative AI and large language models',
-      'Computer vision and neural networks',
-      'Real-world AI project development',
-      'Ethical AI and responsible development',
-      'Industry-standard ML frameworks',
-      'Portfolio of AI/ML projects'
-    ],
-    image: '/assets/photos/photo-1555949963-aa79dcee981c.jpg',
-    instructor: 'Dr. Priya Patel',
-    rating: 4.9,
-    studentsEnrolled: 124,
-    tags: ['Machine Learning', 'AI', 'Generative AI', 'STEAM']
-  }
-];
+const FLOATING_AI_SYMBOLS = [
+  { symbol: '🤖', left: '8.5%', top: '44.2%', duration: '11.4s', size: '22px' },
+  { symbol: '🧠', left: '16.9%', top: '17.8%', duration: '9.5s', size: '28px' },
+  { symbol: '💻', left: '24.7%', top: '69.6%', duration: '10.9s', size: '24px' },
+  { symbol: '⚡', left: '33.1%', top: '29.4%', duration: '8.7s', size: '30px' },
+  { symbol: '🔬', left: '41.5%', top: '55.3%', duration: '12.1s', size: '21px' },
+  { symbol: '📊', left: '50.2%', top: '13.6%', duration: '10.4s', size: '26px' },
+  { symbol: '🎯', left: '58.8%', top: '34.9%', duration: '11s', size: '23px' },
+  { symbol: '🚀', left: '67.4%', top: '75.1%', duration: '9.9s', size: '31px' },
+  { symbol: '💡', left: '75.6%', top: '22.4%', duration: '11.5s', size: '27px' },
+  { symbol: '⚙️', left: '83.3%', top: '59.8%', duration: '8.8s', size: '25px' },
+  { symbol: '🔍', left: '12.9%', top: '80.5%', duration: '12s', size: '24px' },
+  { symbol: '📈', left: '30.6%', top: '7.9%', duration: '9.2s', size: '29px' },
+  { symbol: '🌟', left: '47.8%', top: '84.1%', duration: '10.6s', size: '22px' },
+  { symbol: '🎨', left: '72.5%', top: '10.7%', duration: '11.8s', size: '26px' },
+  { symbol: '🔮', left: '90.4%', top: '38.6%', duration: '9.6s', size: '28px' },
+] as const;
 
 // Component that handles search params - wrapped separately for Suspense
 function SearchParamsHandler({ 
@@ -159,6 +80,11 @@ const MLAICoursesPage: React.FC = () => {
   const locale = useLocale();
   const { addItem } = useCart();
   const { openChatbot } = useChatbot();
+  const { data: pricingData } = usePricingConfig();
+  const catalogCourses = useMemo(
+    () => buildCatalogCoursesFromPricing(pricingData?.programs ?? []),
+    [pricingData?.programs],
+  );
   const [selectedGradeLevels, setSelectedGradeLevels] = useState<string[]>([]);
   const [selectedCourseTypes, setSelectedCourseTypes] = useState<string[]>([]);
   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
@@ -166,7 +92,7 @@ const MLAICoursesPage: React.FC = () => {
   const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
   const [scrollY, setScrollY] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [selectedCourse, setSelectedCourse] = useState<CatalogCourseDisplay | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Handlers for search params
@@ -266,7 +192,7 @@ const MLAICoursesPage: React.FC = () => {
   };
 
   // Filter and sort courses
-  const filteredAndSortedCourses = mlaiCourses.filter(course => {
+  const filteredAndSortedCourses = catalogCourses.filter(course => {
     const gradeMatch = selectedGradeLevels.length === 0 || 
       selectedGradeLevels.some(grade => course.gradeLevel.includes(grade));
     
@@ -290,36 +216,8 @@ const MLAICoursesPage: React.FC = () => {
     }
   });
 
-  const openCustomizationModal = (course: any) => {
-    let modalCourse;
-    
-    if (course.id === 'python-programming') {
-      modalCourse = {
-        id: 'python-programming',
-        name: 'Python Programming',
-        description: 'Choose your Python learning path - from complete beginner to advanced programming mastery.',
-      };
-    } else if (course.id === 'appspark-app-development') {
-      modalCourse = {
-        id: 'appspark-app-development',
-        name: 'AppSpark - App Development',
-        description: 'Choose your app development journey - from beginner mobile apps to advanced cross-platform development.',
-      };
-    } else if (course.id === 'machine-learning-generative-ai') {
-      modalCourse = {
-        id: 'machine-learning-generative-ai',
-        name: 'Machine Learning and Generative AI',
-        description: 'Choose your AI learning path - from AI fundamentals to advanced machine learning mastery.',
-      };
-    } else {
-      modalCourse = {
-        id: course.id,
-        name: course.name,
-        description: course.description,
-      };
-    }
-    
-    setSelectedCourse(modalCourse);
+  const openCustomizationModal = (course: CatalogCourseDisplay) => {
+    setSelectedCourse(course);
     setModalOpen(true);
   };
 
@@ -374,20 +272,20 @@ const MLAICoursesPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 via-indigo-50 to-teal-50">
           {/* Floating AI/tech symbols */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+            {FLOATING_AI_SYMBOLS.map((item, i) => (
               <div
                 key={i}
                 className="absolute text-gray-500/60 animate-float-gentle font-semibold"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: item.left,
+                  top: item.top,
                   transform: `translateY(${scrollY * 0.05}px)`,
                   animationDelay: `${i * 1.2}s`,
-                  animationDuration: `${8 + Math.random() * 4}s`,
-                  fontSize: `${Math.random() * 15 + 18}px`
+                  animationDuration: item.duration,
+                  fontSize: item.size
                 }}
               >
-                {['🤖', '🧠', '💻', '⚡', '🔬', '📊', '🎯', '🚀', '💡', '⚙️', '🔍', '📈', '🌟', '🎨', '🔮'][Math.floor(Math.random() * 15)]}
+                {item.symbol}
               </div>
             ))}
           </div>
@@ -454,6 +352,8 @@ const MLAICoursesPage: React.FC = () => {
         </div>
       </section>
 
+      <SteamMlAiSurfacesSection />
+
       {/* Enhanced Courses Section */}
       <section 
         id="courses"
@@ -475,6 +375,20 @@ const MLAICoursesPage: React.FC = () => {
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Choose from our comprehensive range of ML, AI, and programming courses designed for every skill level and goal.
+            </p>
+          </div>
+
+          <div className="mx-auto mb-8 max-w-3xl rounded-2xl border border-[#1F396D]/10 bg-[#f8fafc] p-5 text-center">
+            <p className="text-sm leading-7 text-gray-700">
+              Starting rates shown by tier — final tuition depends on format and placement. Families exploring certification
+              pathways should start with a{' '}
+              <Link
+                href={publicPath('/book-assessment?interest=future-skills', locale)}
+                className="font-semibold text-[#1F396D] underline underline-offset-2 hover:text-[#F16112]"
+              >
+                Future Skills pathway assessment
+              </Link>
+              , where pricing is shared after placement.
             </p>
           </div>
 
@@ -597,7 +511,8 @@ const MLAICoursesPage: React.FC = () => {
                 return (
                   <div
                     key={course.id}
-                    className={`relative h-[450px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
+                    id={course.id}
+                    className={`relative h-[450px] cursor-pointer group scroll-mt-24 ${!isTouchDevice ? 'perspective-1000' : ''}`}
                     onMouseEnter={() => setHoveredCourse(course.id)}
                     onMouseLeave={() => setHoveredCourse(null)}
                   >
@@ -701,7 +616,14 @@ const MLAICoursesPage: React.FC = () => {
                           </div>
 
                           {/* Bottom Section - CTA */}
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0 space-y-2">
+                            <Link
+                              href={publicPath(course.discoveryPath, locale)}
+                              className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#1F396D]/15 bg-white/80 px-4 py-2 text-xs font-bold text-[#1F396D] transition hover:border-[#F16112]/30 hover:text-[#F16112]"
+                            >
+                              {course.discoveryLinkLabel}
+                              <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                            </Link>
                             <Button 
                               onClick={() => openCustomizationModal(course)}
                               className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
@@ -743,19 +665,7 @@ const MLAICoursesPage: React.FC = () => {
                             {/* Condensed Learning Steps */}
                             <div className="flex-grow mb-6">
                               <div className="space-y-3">
-                                {(course.id === 'python-programming' ? [
-                                  'Master Python fundamentals',
-                                  'Build real applications',
-                                  'Create project portfolio'
-                                ] : course.id === 'appspark-app-development' ? [
-                                  'Design app interfaces',
-                                  'Code mobile apps',
-                                  'Deploy to app stores'
-                                ] : [
-                                  'Learn AI/ML concepts',
-                                  'Use real AI tools',
-                                  'Build smart apps'
-                                ]).map((step, idx) => (
+                                {course.learningPathSteps.map((step, idx) => (
                                   <div key={idx} className="flex items-start gap-3 p-3 bg-white/60 rounded-lg border border-white/40">
                                     <div className="w-5 h-5 bg-gradient-to-br from-[#F16112] to-[#F1894F] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                                       <span className="text-white text-xs font-bold">{idx + 1}</span>
@@ -935,4 +845,3 @@ const MLAICoursesPage: React.FC = () => {
 };
 
 export default MLAICoursesPage;
-

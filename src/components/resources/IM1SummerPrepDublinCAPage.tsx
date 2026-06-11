@@ -13,7 +13,8 @@ import { publicPath } from '@/lib/publicPath'
 export function IM1SummerPrepDublinCAPage() {
   const locale = useLocale()
   const selfCheckHref = publicPath('/self-check', locale)
-  const im1GetReadyHref = publicPath('/camps/summer-algebra-dublin-ca', locale)
+  const im1GetReadyHref = publicPath('/camps/summer-im1-get-ready-dublin-ca', locale)
+  const academicSummerHref = publicPath('/camps/academic-summer-programs-dublin-ca', locale)
 
   return (
     <ResourceArticlePage
@@ -26,7 +27,7 @@ export function IM1SummerPrepDublinCAPage() {
       faqs={IM1_SUMMER_PREP_DUBLIN_CA_FAQS}
       relatedArticles={IM1_SUMMER_PREP_DUBLIN_CA_RELATED}
       ctaHeading="Reserve an IM1 Get Ready Spot"
-      ctaSubtext="Not sure if your child is ready? Use the Self-Check — it takes 10 minutes and shows you exactly where the gaps are."
+      ctaSubtext="Not sure if your child is ready? Use the Self-Check or book a free assessment before the school-year pace starts."
       ctas={[
         { href: im1GetReadyHref, label: 'IM1 Get Ready Program' },
         { href: selfCheckHref, label: 'Use the Self-Check' },
@@ -34,20 +35,21 @@ export function IM1SummerPrepDublinCAPage() {
       ]}
     >
       <p>
-        IM1 starts in September. The students who struggle are almost never the ones who couldn't do the math —
-        they're the ones who arrived without the foundational reasoning the course assumes they already have.
+        IM1 starts in September. The students who struggle are often not the ones who "cannot do math" — they are
+        the ones who arrive without the fraction, ratio, graphing, and algebra habits the course assumes they already
+        have.
       </p>
 
       <p>
-        This guide breaks down exactly what IM1 covers, what students need before day one, and what the most common
-        gaps look like.
+        This guide breaks down what Integrated Math 1 asks of students, which gaps show up most often, and how
+        Dublin and Tri-Valley families can use summer to close the right gaps before day one.
       </p>
 
       <h2>What IM1 Actually Covers</h2>
 
       <p>
-        Integrated Math 1 is not Pre-Algebra with a different name. It's a restructured course that weaves algebra,
-        geometry, statistics, and mathematical reasoning together from the first unit.
+        Integrated Math 1 is not Pre-Algebra with a different name. It blends algebra, geometry, statistics, and
+        mathematical reasoning into one course, and the first units move quickly.
       </p>
 
       <p>Students encounter:</p>
@@ -60,7 +62,10 @@ export function IM1SummerPrepDublinCAPage() {
         <li>Algebraic structure and formal mathematical argument</li>
       </ul>
 
-      <p>The pace is faster than most 6th graders expect. The first unit doesn't wait for students to get comfortable.</p>
+      <p>
+        The course assumes pre-algebra fluency. It does not stop for long reteaching cycles on fractions, ratios,
+        negative numbers, or basic equation structure.
+      </p>
 
       <h2>The Skills Students Need Before Day One</h2>
 
@@ -69,18 +74,19 @@ export function IM1SummerPrepDublinCAPage() {
       <ul>
         <li>
           <strong>Rational number fluency</strong> — fractions, decimals, percents, and operations with negatives,
-          done accurately and without a calculator crutch.
+          done accurately without relying on a calculator.
         </li>
         <li>
           <strong>Proportional reasoning</strong> — ratios, rates, unit conversion, and the ability to set up and
           solve proportions in context.
         </li>
         <li>
-          <strong>Pre-algebraic thinking</strong> — evaluating and simplifying expressions, solving one- and
-          two-step equations, understanding variables as quantities.
+          <strong>Introductory algebra</strong> — evaluating and simplifying expressions, solving one- and
+          two-step equations, combining like terms, and understanding variables as quantities.
         </li>
         <li>
-          <strong>Coordinate plane literacy</strong> — plotting points, understanding slope as a rate, reading graphs.
+          <strong>Graphing basics</strong> — plotting points, reading coordinate planes, and understanding slope as a
+          rate of change.
         </li>
         <li>
           <strong>Logical structure</strong> — following a multi-step problem, keeping track of what's known, working
@@ -96,33 +102,34 @@ export function IM1SummerPrepDublinCAPage() {
       <h2>The Gaps Most Students Arrive With</h2>
 
       <p>
-        After working with students entering IM1 across DUSD and PUSD, the same gaps appear repeatedly:
+        In IM1 prep, the same gap patterns appear repeatedly:
       </p>
 
       <ul>
-        <li>Operations with negatives — reliable in isolation, fall apart inside larger problems</li>
-        <li>Fraction-to-decimal-to-percent conversion under pressure</li>
-        <li>Setting up equations from word problems (translation gap, not computation gap)</li>
-        <li>Graphing linear relationships without a table as a crutch</li>
-        <li>Multi-step problems abandoned midway — not from inability, from disorganized approach</li>
+        <li>Fraction and ratio weakness inside word problems or equations with fractional coefficients</li>
+        <li>Negative number operations that work in isolation but fall apart inside larger problems</li>
+        <li>Algebraic language confusion — knowing steps without understanding equality or inverse operations</li>
+        <li>Graphing linear relationships only when a table is provided</li>
+        <li>Multi-step problems abandoned midway because the work is not organized</li>
       </ul>
 
       <p>
-        None of these are insurmountable. All of them are fixable in a focused summer window.
+        These gaps are fixable. They need direct, focused instruction — not more worksheets on material the student
+        already found confusing.
       </p>
 
       <h2>Why Summer Is the Right Time</h2>
 
-      <p>August is low stakes. September is not.</p>
+      <p>Summer is low stakes. September is not.</p>
 
       <p>
-        A student who closes a fraction gap in August closes it before it costs them points on a unit test, before
-        it compounds with new material, and before they develop the narrative that IM1 is just hard for them.
+        A student who closes a fraction or ratio gap in July closes it before it costs points on an IM1 unit test,
+        before it compounds with new material, and before they start believing that high school math is simply not
+        for them.
       </p>
 
       <p>
-        The same gap fixed in October — after three weeks of struggle — takes longer and costs more confidence to
-        repair.
+        The same gap fixed in October — after weeks of struggle — takes longer and costs more confidence to repair.
       </p>
 
       <p>Summer is the cheapest time, academically, to close a gap.</p>
@@ -130,8 +137,8 @@ export function IM1SummerPrepDublinCAPage() {
       <h2>GrowWise IM1 Get Ready Program</h2>
 
       <p>
-        The IM1 Get Ready program is built specifically around the skills above — not general math review, but
-        targeted preparation for what IM1 assumes on day one.
+        GrowWise IM1 Get Ready is built around the skills above — not general math review, but targeted preparation
+        for what Integrated Math 1 assumes on day one.
       </p>
 
       <p>
@@ -145,15 +152,23 @@ export function IM1SummerPrepDublinCAPage() {
       </p>
 
       <p>
-        Sessions target identified gaps, not a fixed curriculum everyone follows regardless of what they already
-        know. Students who come in strong on fractions spend more time on algebraic translation. Students who are
-        solid on equations get more proportional reasoning and graphing.
+        Sessions target identified gaps rather than forcing every student through the same worksheet path. Students
+        who are strong on fractions can spend more time on algebraic translation. Students who are solid on equations
+        can get more proportional reasoning and graphing.
       </p>
 
       <p>
         <Link href={im1GetReadyHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
           Reserve an IM1 Get Ready spot
         </Link>
+      </p>
+
+      <p>
+        Families comparing summer math options can also review the{' '}
+        <Link href={academicSummerHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          academic summer program hub
+        </Link>{' '}
+        to see related math, reading, and writing sprints.
       </p>
 
       <p>

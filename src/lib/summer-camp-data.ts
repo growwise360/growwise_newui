@@ -37,6 +37,14 @@ export type ProgramDetails = {
   deliverySummary?: string;
 };
 
+export type ProgramAddOn = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  active: boolean;
+};
+
 /** Programs kept in data for landing-page JSON-LD but hidden from `/camps/summer` booking grid. */
 export const SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS = new Set<string>([
   'adv-math',
@@ -45,6 +53,17 @@ export const SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS = new Set<string>([
 
 export function filterSummerCampHubPrograms(programs: Program[]): Program[] {
   return programs.filter((p) => !SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS.has(p.id));
+}
+
+/** Programs visible on the hub but not accepting self-serve enrollments. */
+export const SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS = new Set<string>([
+  'young-authors',
+  'roblox-in-person',
+  'robotics-camp',
+]);
+
+export function isSummerCampApplicationsClosed(programId: string): boolean {
+  return SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS.has(programId);
 }
 
 export type Program = {
@@ -65,6 +84,7 @@ export type Program = {
   image: string;
   levels: Level[];
   details: ProgramDetails;
+  addOns: ProgramAddOn[];
 };
 
 // ---------------------------------------------------------------------------
@@ -157,6 +177,7 @@ type ProgramJson = {
   startingPrice: number;
   image: string;
   details: ProgramDetails;
+  addOns?: ProgramAddOn[];
   /** Tier definitions for Math Olympiad (tier1, tier2). Pricing in level.priceByProgramAndFormat. */
   tiers?: ProgramTierJson[];
   levels: LevelJson[];
@@ -226,6 +247,7 @@ function hydrateProgram(program: ProgramJson): Program {
     startingPrice: program.startingPrice,
     image: program.image,
     details: program.details,
+    addOns: program.addOns ?? [],
     levels: program.levels.map(hydrateLevel),
   };
 }

@@ -28,7 +28,7 @@ import { validatePhoneWithCountryCode, getPhonePlaceholder, getCallingCode, DIAL
 import { getRecaptchaToken } from '@/lib/recaptcha';
 import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
-import { trackAssessmentFormSubmitted } from '@/lib/analytics/gtmEvents';
+import { trackAssessmentFormSubmitted, trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
 
 interface FormData {
@@ -256,6 +256,11 @@ export default function BookAssessmentPage() {
 
       if (result.success) {
         trackAssessmentFormSubmitted(window.location.pathname);
+        trackGenerateLead('book_assessment', {
+          form_name: 'book_assessment',
+          assessment_type: assessmentData.assessmentType,
+          grade: assessmentData.grade,
+        });
         router.replace(publicPath('/book-assessment/thank-you', locale));
         return;
       } else {
@@ -534,6 +539,7 @@ export default function BookAssessmentPage() {
                       error={formErrors.agreeToCommunications}
                       required
                       showSubmitDisclaimer
+                      agreeLabel="I agree to receive SMS messages from GrowWise School about my inquiry, assessment, enrollment, class scheduling, reminders, and related program updates. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase."
                     />
 
                     {/* Form Validation Errors Summary */}

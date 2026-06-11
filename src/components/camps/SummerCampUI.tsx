@@ -16,9 +16,12 @@ import {
   type AdvMathProgramKey,
   type OlympiadTierId,
   type OlympiadTierConfig,
+  type ProgramAddOn,
 } from '@/lib/summer-camp-data';
-import { useCart } from '@/components/gw/CartContext';
+import { isSummerCampApplicationsClosed } from '@/lib/summer-camp-data';
+import { type CartItem, useCart } from '@/components/gw/CartContext';
 import { X, Clock, CalendarDays, CheckCircle2, MapPin } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -55,6 +58,12 @@ import {
   SUMMER_CAMP_JULY4_NOTE,
   SUMMER_CAMP_SEASON_RANGE_TEXT,
 } from '@/lib/summer-camp-week-calendar';
+
+const AI_PROFILE_BUILDING_ADDON_ID = 'ai-profile-building';
+
+function summerCampAddOnCartItemId(slotId: string, addOnId: string): string {
+  return `${slotId}-${addOnId}`;
+}
 
 function InfoModal({
   program,
@@ -219,6 +228,7 @@ export function SlotRow({
   cartItemIds,
   onAdd,
   onRemove,
+  applicationsClosed = false,
 }: {
   slot: Slot;
   level: Level;
@@ -226,10 +236,12 @@ export function SlotRow({
   cartItemIds: Set<string>;
   onAdd: (level: Level, slot: Slot) => void;
   onRemove: (slotId: string) => void;
+  applicationsClosed?: boolean;
 }) {
   const t = useTranslations('summerCamp');
   const inCart = cartItemIds.has(slot.id);
-  const registrationClosed = isJune8SummerCampRegistrationClosed(slot.label);
+  const registrationClosed =
+    applicationsClosed || isJune8SummerCampRegistrationClosed(slot.label);
 
   return (
     <div
@@ -255,7 +267,9 @@ export function SlotRow({
           </span>
           <span className="text-slate-700">{slot.time}</span>
           {registrationClosed ? (
-            <span className="font-bold text-slate-500">Registration closed</span>
+            <span className="font-bold text-slate-500">
+              {applicationsClosed ? 'Applications closed' : 'Registration closed'}
+            </span>
           ) : null}
         </div>
       </div>
@@ -300,6 +314,23 @@ function toGlobalCartItem(program: Program, level: Level, slot: Slot) {
   };
 }
 
+function toSummerCampAddOnCartItem(
+  program: Program,
+  slot: Slot,
+  addOn: ProgramAddOn
+): CartItem {
+  return {
+    id: summerCampAddOnCartItemId(slot.id, addOn.id),
+    name: `${program.title} — ${addOn.name} — ${slot.label}`,
+    price: addOn.price,
+    quantity: 1,
+    image: program.image,
+    category: `${program.category} Add-on`,
+    type: 'summer-camp',
+    level: 'Add-on',
+  };
+}
+
 export function SummerCampEmptySlotsPanel() {
   const t = useTranslations('summerCamp.enrollmentPanel');
 
@@ -335,6 +366,7 @@ export function SlotsPanel({
   const [olympiadMode, setOlympiadMode] = useState<LearningModeKey>('inPerson');
   const [olympiadTier, setOlympiadTier] = useState<OlympiadTierId>('tier1');
   const [aiEntrepreneurMode, setAiEntrepreneurMode] = useState<LearningModeKey>('online');
+  const [includeAiProfileAddOn, setIncludeAiProfileAddOn] = useState(false);
   const [scratchMode, setScratchMode] = useState<LearningModeKey>('online');
   const [robloxMode, setRobloxMode] = useState<LearningModeKey>('inPerson');
   const [showInfo, setShowInfo] = useState(false);
@@ -369,25 +401,40 @@ export function SlotsPanel({
     [t]
   );
 
-  const handleAdd = (level: Level, slot: Slot) => {
-    if (summerCampItemIds.has(slot.id)) return;
-    if (isJune8SummerCampRegistrationClosed(slot.label)) return;
-    void import('@/lib/meta-pixel').then(({ trackEnrollClick }) =>
-      trackEnrollClick(program.title, slot.price)
-    );
-    addItem(toGlobalCartItem(program, level, slot));
-  };
-
-  const handleRemove = (slotId: string) => {
-    removeItem(slotId);
-  };
-
   const isAdvMath = program.id === 'adv-math';
   const isMathOlympiad = program.id === 'math-olympiad';
   const isAiEntrepreneur = program.id === 'ai-entrepreneur';
   const isScratch = program.id === 'scratch-online' || program.id === 'scratch';
   const isRoblox = program.id === 'roblox-in-person';
   const isRoboticsCamp = program.id === 'robotics-camp';
+  const applicationsClosed = isSummerCampApplicationsClosed(program.id);
+  const aiProfileBuildingAddOn = useMemo(
+    () =>
+      isAiEntrepreneur
+        ? program.addOns.find((addOn) => addOn.id === AI_PROFILE_BUILDING_ADDON_ID && addOn.active)
+        : undefined,
+    [isAiEntrepreneur, program.addOns]
+  );
+
+  const handleAdd = (level: Level, slot: Slot) => {
+    if (applicationsClosed) return;
+    if (summerCampItemIds.has(slot.id)) return;
+    if (isJune8SummerCampRegistrationClosed(slot.label)) return;
+    void import('@/lib/meta-pixel').then(({ trackEnrollClick }) =>
+      trackEnrollClick(program.title, slot.price)
+    );
+    addItem(toGlobalCartItem(program, level, slot));
+    if (isAiEntrepreneur && includeAiProfileAddOn && aiProfileBuildingAddOn) {
+      addItem(toSummerCampAddOnCartItem(program, slot, aiProfileBuildingAddOn));
+    }
+  };
+
+  const handleRemove = (slotId: string) => {
+    removeItem(slotId);
+    if (isAiEntrepreneur && aiProfileBuildingAddOn) {
+      removeItem(summerCampAddOnCartItemId(slotId, aiProfileBuildingAddOn.id));
+    }
+  };
 
   const programSeoLink = useMemo(
     () => getSummerCampProgramSeoLink(program.id),
@@ -542,6 +589,7 @@ export function SlotsPanel({
           cartItemIds={summerCampItemIds}
           onAdd={handleAdd}
           onRemove={handleRemove}
+          applicationsClosed={applicationsClosed}
         />
       ))}
     </EnrollmentPanelSlotList>
@@ -596,6 +644,12 @@ export function SlotsPanel({
         }
         footer={seoFooter}
       />
+
+      {applicationsClosed ? (
+        <div className="border-b border-slate-200 bg-slate-50 px-4 py-3 text-center text-[13px] font-semibold leading-snug text-slate-600">
+          {t('slots.applicationsClosedBanner')}
+        </div>
+      ) : null}
 
       {isScratch && program.levels[0] ? (
         <>
@@ -698,6 +752,29 @@ export function SlotsPanel({
                 </SelectContent>
               </Select>
             </EnrollmentPanelDropdownsRow>
+            {aiProfileBuildingAddOn ? (
+              <label
+                htmlFor="ai-profile-building-addon"
+                className="mt-2 flex cursor-pointer items-start gap-2 rounded-lg border border-[#1F396D]/15 bg-[#1F396D]/5 px-3 py-2 text-left"
+              >
+                <Checkbox
+                  id="ai-profile-building-addon"
+                  checked={includeAiProfileAddOn}
+                  onCheckedChange={(checked) => setIncludeAiProfileAddOn(checked === true)}
+                  className="mt-0.5"
+                  aria-label={`Add ${aiProfileBuildingAddOn.name}`}
+                />
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center justify-between gap-2 text-[12px] font-black text-slate-900">
+                    <span>{aiProfileBuildingAddOn.name}</span>
+                    <span className="tabular-nums">+${aiProfileBuildingAddOn.price}</span>
+                  </span>
+                  <span className="mt-0.5 block text-[11px] leading-snug text-slate-600">
+                    {aiProfileBuildingAddOn.description}
+                  </span>
+                </span>
+              </label>
+            ) : null}
           </EnrollmentPanelControls>
           <EnrollmentPanelScrollBody>
             {renderSlotList(aiEntrepreneurSlots, program.levels[0])}

@@ -46,10 +46,10 @@ export default async function SummerCampLayout({
   const { locale } = await params;
   const baseUrl = getCanonicalSiteUrl();
   const summerEventDescription =
-    'Standards-aligned summer STEAM camps in Dublin, CA for Grades K-12. Weekly sessions in Math, Coding, Robotics, and AI. June through August 2026.';
+    'Weekly 2026 summer camps in Dublin, CA for Grades 1-12: Math, Robotics, Coding, AI, game development, and writing. Online and in-person options available June through August.';
 
   const eventSchema = generateEventSchema({
-    name: 'Summer STEAM Camp 2026 — Dublin, CA',
+    name: 'Math, Robotics, Coding & AI Summer Camps 2026 — Dublin, CA',
     description: summerEventDescription,
     startDate: SUMMER_CAMP_EVENT_START_ISO,
     endDate: SUMMER_CAMP_EVENT_END_ISO,
@@ -91,7 +91,7 @@ export default async function SummerCampLayout({
 
   const pageUrl = absoluteSiteUrl('/camps/summer', locale, baseUrl);
   const webPageSchema = generateWebPageJsonLd({
-    name: 'Summer STEAM Camps 2026 in Dublin, CA | GrowWise',
+    name: 'Math, Robotics, Coding & AI Summer Camps Dublin CA | GrowWise',
     description: summerEventDescription,
     url: pageUrl,
   });

@@ -21,7 +21,7 @@ export default function ProgramsLayout({
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Grades 1-12 Academic & STEAM Programs | GrowWise Dublin CA",
-    "description": "All GrowWise programs for Grades 1-12 students in Dublin, CA: Math tutoring, English tutoring, SAT prep, ML/AI coding, game development, and summer camps.",
+    "description": "All GrowWise programs for Grades 1-12 students in Dublin, CA: Math tutoring, English tutoring, SAT prep, Future Skills certification pathways, ML/AI coding, game development, and summer camps.",
     "url": `${baseUrl}/programs`,
     "serviceType": "Grades 1-12 Educational Programs",
     "provider": {
@@ -37,6 +37,7 @@ export default function ProgramsLayout({
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Math Tutoring", "url": `${baseUrl}/academic/math` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "English Tutoring", "url": `${baseUrl}/academic/english` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "SAT Prep", "url": `${baseUrl}/courses/sat-prep` } },
+        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Future Skills Pathways", "url": `${baseUrl}/future-skills` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "ML/AI Coding", "url": `${baseUrl}/steam/ml-ai-coding` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Game Development", "url": `${baseUrl}/steam/game-development` } },
       ],

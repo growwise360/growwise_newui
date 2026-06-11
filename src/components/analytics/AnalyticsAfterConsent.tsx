@@ -82,32 +82,31 @@ export function AnalyticsAfterConsent() {
 
   return (
     <>
-      {/* Meta Pixel loads without a consent gate so Meta's Event Setup Tool can detect it.
-          Custom events (Lead, Purchase, etc.) are fired explicitly from user actions and are
-          unaffected by this change. Suppress during automated audits and when explicitly
-          disabled (e.g. pixel is already loaded via GTM). */}
-      {!isAudit && !isAppMetaPixelScriptDisabled() && env.pixelId ? (
+      {/* Standalone app Meta Pixel stays consent-gated. If Pixel is configured in GTM,
+          block that GTM tag with a consent trigger and set NEXT_PUBLIC_META_PIXEL_DISABLE_APP=true. */}
+      {consentAccepted && !isAudit && !isAppMetaPixelScriptDisabled() && env.pixelId ? (
         <MetaPixel pixelId={env.pixelId} />
       ) : null}
 
-      {/* GTM and GA remain behind the consent gate. */}
+      {/* GTM loads for all real users. Consent-sensitive tags must be blocked inside GTM. */}
+      {!isAudit && env.gtmId ? (
+        <>
+          <GTMHead gtmId={env.gtmId} strategy="afterInteractive" />
+          <GTMNoScript gtmId={env.gtmId} />
+        </>
+      ) : null}
+
+      {/* GA fallback only when GTM isn't configured; it follows the same all-users measurement policy. */}
+      {!isAudit && !env.gtmId && env.gaId ? (
+        <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${env.gaId}`} strategy="lazyOnload" />
+          <Script id="gtag-inline" strategy="lazyOnload" dangerouslySetInnerHTML={{ __html: buildGtagInline(env.gaId) }} />
+        </>
+      ) : null}
+
+      {/* Consent-sensitive non-GTM tools remain behind the cookie consent gate. */}
       {consentAccepted && !isAudit ? (
         <>
-          {env.gtmId ? (
-            <>
-              <GTMHead gtmId={env.gtmId} strategy="afterInteractive" />
-              <GTMNoScript gtmId={env.gtmId} />
-            </>
-          ) : null}
-
-          {/* GA fallback only when GTM isn't configured */}
-          {!env.gtmId && env.gaId ? (
-            <>
-              <Script src={`https://www.googletagmanager.com/gtag/js?id=${env.gaId}`} strategy="lazyOnload" />
-              <Script id="gtag-inline" strategy="lazyOnload" dangerouslySetInnerHTML={{ __html: buildGtagInline(env.gaId) }} />
-            </>
-          ) : null}
-
           {env.hubspotHubId ? <HubSpotSpaTracker hubId={env.hubspotHubId} /> : null}
           {env.clarityProjectId && !isClarityExcludedPath(pathname) ? (
             <MicrosoftClarity projectId={env.clarityProjectId} pathname={pathname} />

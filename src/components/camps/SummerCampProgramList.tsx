@@ -9,6 +9,7 @@ import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSum
 import { HighSchoolSummerIntensiveTeaserBand } from '@/components/camps/HighSchoolSummerIntensiveTeaserBand';
 import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
 import type { Program } from '@/lib/summer-camp-data';
+import { isSummerCampApplicationsClosed } from '@/lib/summer-camp-data';
 import {
   getSummerCampProgramTrack,
   orderProgramsBySummerCampTrack,
@@ -64,25 +65,22 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
   imageWrapperClassName: string;
 }) {
   const t = useTranslations('summerCamp');
+  const locale = useLocale();
   const cardMeta = getSummerCampPickCardMeta(program.id);
+  const applicationsClosed = isSummerCampApplicationsClosed(program.id);
 
   const handleEnroll = useCallback(() => {
+    if (applicationsClosed) return;
     void import('@/lib/meta-pixel').then(({ trackCampView }) =>
       trackCampView(program.title, program.category),
     );
     onSelect(program);
-  }, [onSelect, program]);
+  }, [applicationsClosed, onSelect, program]);
 
   if (!cardMeta) return null;
 
-  return (
-    <button
-      type="button"
-      aria-pressed={isSelected}
-      aria-label={cardMeta.title}
-      onClick={handleEnroll}
-      className={CARD_SHELL_CLASS(isSelected)}
-    >
+  const cardBody = (
+    <>
       <div className={`relative w-full shrink-0 overflow-hidden bg-slate-200 ${imageWrapperClassName}`}>
         <Image
           src={program.image}
@@ -128,7 +126,18 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
           <span aria-hidden="true">✓ </span>
           {cardMeta.outcome}
         </p>
-        {isSelected ? (
+        {applicationsClosed ? (
+          <div className="mt-2 rounded-md bg-slate-100 px-2 py-1.5 text-[11px] font-semibold text-slate-600">
+            <p>{cardMeta.applicationsClosedNote}</p>
+            <Link
+              href={createLocaleUrl(cardMeta.applicationsClosedLinkHref, locale)}
+              className="mt-1 inline-block font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
+            >
+              {cardMeta.applicationsClosedLinkLabel}
+            </Link>
+          </div>
+        ) : null}
+        {isSelected && !applicationsClosed ? (
           <div
             aria-live="polite"
             className="mt-1.5 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-[#1F396D]"
@@ -138,11 +147,38 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
         ) : null}
         <span
           aria-hidden="true"
-          className="mt-2 flex h-8 w-full shrink-0 items-center justify-center rounded-full bg-[#1A2B4A] px-3.5 text-[10px] font-bold text-white min-[769px]:group-hover:bg-[#1F396D]"
+          className={`mt-2 flex h-8 w-full shrink-0 items-center justify-center rounded-full px-3.5 text-[10px] font-bold text-white ${
+            applicationsClosed
+              ? 'bg-slate-400'
+              : 'bg-[#1A2B4A] min-[769px]:group-hover:bg-[#1F396D]'
+          }`}
         >
-          {cardMeta.ctaLabel}
+          {applicationsClosed ? cardMeta.ctaLabelClosed : cardMeta.ctaLabel}
         </span>
       </div>
+    </>
+  );
+
+  if (applicationsClosed) {
+    return (
+      <div
+        className={`${CARD_SHELL_CLASS(false)} cursor-default opacity-95`}
+        aria-label={`${cardMeta.title} — ${cardMeta.ctaLabelClosed}`}
+      >
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      aria-pressed={isSelected}
+      aria-label={cardMeta.title}
+      onClick={handleEnroll}
+      className={CARD_SHELL_CLASS(isSelected)}
+    >
+      {cardBody}
     </button>
   );
 });
@@ -176,31 +212,25 @@ export const ProgramList = memo(function ProgramList({
 
   const renderCardListItem = (
     program: Program,
-    layout: 'mobile' | 'desktop',
     idx: number,
     groupLength: number,
   ) => {
     const isSelected = selectedProgramId === program.id;
     const hasOddCount = groupLength % 2 !== 0;
-    const isLastAndAlone = layout === 'desktop' && hasOddCount && idx === groupLength - 1;
+    const isLastAndAlone = hasOddCount && idx === groupLength - 1;
     const seo = getSummerCampProgramSeoLink(program.id);
 
-    const imageSizes =
-      layout === 'mobile'
-        ? '(max-width:768px) 96vw, 100vw'
-        : '(min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
+    const imageSizes = '(max-width:768px) 96vw, (min-width: 1024px) 24vw, (min-width: 769px) 42vw, 100vw';
 
     const imageWrapperClassName =
-      layout === 'mobile'
-        ? 'aspect-[650/270]'
-        : isLastAndAlone
-          ? 'h-[120px]'
-          : 'aspect-[650/270]';
+      isLastAndAlone
+        ? 'aspect-[650/270] min-[769px]:aspect-auto min-[769px]:h-[120px]'
+        : 'aspect-[650/270]';
 
     return (
       <li
         key={program.id}
-        className={`[content-visibility:auto] [contain-intrinsic-size:auto_420px] flex flex-col gap-2 ${isLastAndAlone ? 'col-span-2' : ''}`}
+        className={`[content-visibility:auto] [contain-intrinsic-size:auto_420px] flex flex-col gap-2 ${isLastAndAlone ? 'min-[769px]:col-span-2' : ''}`}
       >
         <SummerCampProgramPickCard
           program={program}
@@ -223,7 +253,7 @@ export const ProgramList = memo(function ProgramList({
 
   return (
     <div className="space-y-8" role="group" aria-label={t('page.title')}>
-      <div className="min-[769px]:hidden space-y-8">
+      <div className="space-y-8">
         {groups.map((group) => (
           <Fragment key={group.track}>
             <section className="space-y-3">
@@ -231,11 +261,11 @@ export const ProgramList = memo(function ProgramList({
                 {sectionHeading(group.track)}
               </h3>
               <ul
-                className="m-0 grid list-none grid-cols-1 gap-3 p-0"
+                className="m-0 grid list-none grid-cols-1 gap-3 p-0 min-[769px]:grid-cols-2"
                 aria-label={sectionHeading(group.track)}
               >
                 {group.programs.map((program, idx) =>
-                  renderCardListItem(program, 'mobile', idx, group.programs.length),
+                  renderCardListItem(program, idx, group.programs.length),
                 )}
               </ul>
             </section>
@@ -247,37 +277,11 @@ export const ProgramList = memo(function ProgramList({
             ) : null}
           </Fragment>
         ))}
-        <p className="text-center">
+        <p className="text-center min-[769px]:hidden">
           <a href="#lead-capture" className="text-[13px] font-medium text-[#065f46]">
             {t('mobile.summercampLink')}
           </a>
         </p>
-      </div>
-
-      <div className="hidden min-[769px]:block space-y-8">
-        {groups.map((group) => (
-          <Fragment key={`d-${group.track}`}>
-            <section className="space-y-3">
-              <h3 className="font-heading text-base font-black uppercase tracking-tight text-slate-800">
-                {sectionHeading(group.track)}
-              </h3>
-              <ul
-                className="m-0 grid list-none grid-cols-2 gap-3 p-0"
-                aria-label={sectionHeading(group.track)}
-              >
-                {group.programs.map((program, idx) =>
-                  renderCardListItem(program, 'desktop', idx, group.programs.length),
-                )}
-              </ul>
-            </section>
-            {group.track === 'aiGameDev' && showAcademicTeaser ? (
-              <>
-                <HighSchoolSummerIntensiveTeaserBand locale={locale} />
-                <AcademicSummerProgramsTeaserBand locale={locale} />
-              </>
-            ) : null}
-          </Fragment>
-        ))}
       </div>
 
       <div className="max-[768px]:hidden">

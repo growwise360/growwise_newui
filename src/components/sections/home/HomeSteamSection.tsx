@@ -10,8 +10,10 @@ const STEAM_CARDS = [
     title: 'Python & AI',
     description:
       'Python is the #1 language for kids aged 10–18 and the foundation of every major AI system. Students progress from first script to building real apps, working with APIs, and training ML models. No ceiling. No switching languages.',
-    tag: 'Start with Python →',
+    tag: 'Browse courses & enroll →',
     href: '/steam/ml-ai-coding',
+    secondaryHref: '/coding',
+    secondaryLabel: 'Explore coding classes (trial-first) →',
     analyticsEvent: 'steam_card_python_click',
   },
   {
@@ -51,21 +53,49 @@ export function HomeSteamSection() {
         </p>
 
         <div className="home-cards-grid">
-          {STEAM_CARDS.map((card) => (
-            <Link
-              key={card.title}
-              href={publicPath(card.href, locale)}
-              className="home-card"
-              onClick={() => trackCTAClick(card.analyticsEvent, 'homepage_steam')}
-            >
-              <div className="home-card-icon home-icon-steam" aria-hidden>
-                ✦
-              </div>
-              <h3 className="home-card-title">{card.title}</h3>
-              <p className="home-card-desc">{card.description}</p>
-              <span className="home-card-tag home-card-tag-steam">{card.tag}</span>
-            </Link>
-          ))}
+          {STEAM_CARDS.map((card) => {
+            if ('secondaryHref' in card && card.secondaryHref) {
+              return (
+                <article key={card.title} className="home-card flex flex-col">
+                  <div className="home-card-icon home-icon-steam" aria-hidden>
+                    ✦
+                  </div>
+                  <h3 className="home-card-title">{card.title}</h3>
+                  <p className="home-card-desc flex-grow">{card.description}</p>
+                  <Link
+                    href={publicPath(card.href, locale)}
+                    className="home-card-tag home-card-tag-steam mt-4 inline-block"
+                    onClick={() => trackCTAClick(card.analyticsEvent, 'homepage_steam')}
+                  >
+                    {card.tag}
+                  </Link>
+                  <Link
+                    href={publicPath(card.secondaryHref, locale)}
+                    className="mt-3 text-sm font-semibold text-[#1F396D] underline underline-offset-2 hover:text-[#F16112]"
+                    onClick={() => trackCTAClick('steam_card_coding_overview_click', 'homepage_steam')}
+                  >
+                    {card.secondaryLabel}
+                  </Link>
+                </article>
+              );
+            }
+
+            return (
+              <Link
+                key={card.title}
+                href={publicPath(card.href, locale)}
+                className="home-card"
+                onClick={() => trackCTAClick(card.analyticsEvent, 'homepage_steam')}
+              >
+                <div className="home-card-icon home-icon-steam" aria-hidden>
+                  ✦
+                </div>
+                <h3 className="home-card-title">{card.title}</h3>
+                <p className="home-card-desc">{card.description}</p>
+                <span className="home-card-tag home-card-tag-steam">{card.tag}</span>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="home-section-cta">

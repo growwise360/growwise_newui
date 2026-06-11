@@ -13,6 +13,7 @@ import { publicPath } from '@/lib/publicPath'
 export function WhatIsVibeCodingPage() {
   const locale = useLocale()
   const codingHref = publicPath('/coding', locale)
+  const futureSkillsHref = publicPath('/future-skills', locale)
   const mlAiHref = publicPath('/steam/ml-ai-coding', locale)
   const gameDevHref = publicPath('/steam/game-development', locale)
   const pythonVsScratchHref = publicPath('/resources/python-vs-scratch', locale)
@@ -31,6 +32,7 @@ export function WhatIsVibeCodingPage() {
       ctaSubtext="Students build real projects from day one — with the Python foundation that makes vibe coding powerful."
       ctas={[
         { href: '/coding', label: 'Explore GrowWise Coding & AI Programs →' },
+        { href: '/future-skills', label: 'Explore Future Ready Skills Pathways →' },
         { href: '/coding', label: 'Book a Free Trial Class →' },
       ]}
     >
@@ -98,7 +100,8 @@ export function WhatIsVibeCodingPage() {
       </p>
 
       <p>
-        GrowWise programs in <Link href={mlAiHref}>ML/AI coding</Link> and{' '}
+        GrowWise programs in <Link href={codingHref}>coding classes</Link>,{' '}
+        <Link href={futureSkillsHref}>Future Ready Skills pathways</Link>, and{' '}
         <Link href={gameDevHref}>game development</Link> apply this approach — real projects students choose, with
         structured instruction so they understand what the AI produces.
       </p>

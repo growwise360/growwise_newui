@@ -34,7 +34,8 @@ describe('summer hub FAQ (UI + JSON-LD single source)', () => {
     const offer = SUMMER_HUB_PRIORITY_FAQS.find((f) =>
       f.question.includes('book on this page'),
     );
-    expect(offer?.answer).toContain('AI Entrepreneur Studio');
+    expect(offer?.answer).toContain('Scratch coding');
+    expect(offer?.answer).toContain('not accepting applications');
     expect(offer?.answer).toContain('dedicated camp pages');
     expect(offer?.answer).not.toContain('Math Olympiad, and Young Authors');
   });

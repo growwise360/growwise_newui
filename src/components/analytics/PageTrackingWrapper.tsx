@@ -21,9 +21,12 @@ export function PageTrackingWrapper({ children }: PageTrackingWrapperProps) {
     const w = window as any;
     const isDev = process.env.NODE_ENV !== 'production';
 
-    // If Google Tag Manager is present, push a custom event to dataLayer to avoid duplicate automatic page_view sends.
-    // Configure your GTM workspace with a GA4 Event tag that listens for 'virtual_page_view' (or disable automatic page_view in the GA4 Configuration tag).
-    if (w.dataLayer) {
+    const gtmConfigured = Boolean(process.env.NEXT_PUBLIC_GTM_ID?.trim());
+
+    // If Google Tag Manager is configured, queue the event immediately. GTM will consume it
+    // once the container loads, which avoids missing initial page views during script startup.
+    if (gtmConfigured || Array.isArray(w.dataLayer)) {
+      w.dataLayer = w.dataLayer || [];
       const payload: Record<string, any> = {
         event: 'virtual_page_view',
         page_path: pathname,

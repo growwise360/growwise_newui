@@ -16,10 +16,15 @@ import CountryCodeSelector from '../CountryCodeSelector';
 import { PHONE_PLACEHOLDER } from '@/lib/constants';
 import { validatePhoneWithCountryCode } from '@/lib/phoneValidation';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 
 interface BookTrialModalProps {
   isOpen: boolean;
   onClose: () => void;
+  /** CRM/source label sent with the contact payload. */
+  source?: string;
+  /** Page or program context included in the lead message body. */
+  programContext?: string;
 }
 
 interface FormData {
@@ -36,7 +41,12 @@ interface FormData {
   notes: string;
 }
 
-const BookTrialModal: React.FC<BookTrialModalProps> = ({ isOpen, onClose }) => {
+const BookTrialModal: React.FC<BookTrialModalProps> = ({
+  isOpen,
+  onClose,
+  source = 'book-trial-modal',
+  programContext = 'STEAM trial request',
+}) => {
   const t = useTranslations();
   const [formData, setFormData] = useState<FormData>({
     parentName: '',
@@ -54,6 +64,7 @@ const BookTrialModal: React.FC<BookTrialModalProps> = ({ isOpen, onClose }) => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [agreeToCommunications, setAgreeToCommunications] = useState(false);
   const [phoneError, setPhoneError] = useState<string | null>(null);
 
@@ -106,6 +117,7 @@ const BookTrialModal: React.FC<BookTrialModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError('');
 
     const phoneResult = validatePhoneWithCountryCode(formData.countryCode, formData.phone);
     if (!phoneResult.isValid) {
@@ -113,13 +125,64 @@ const BookTrialModal: React.FC<BookTrialModalProps> = ({ isOpen, onClose }) => {
       return;
     }
 
+    if (formData.subjects.length === 0) {
+      setSubmitError('Please select at least one subject of interest.');
+      return;
+    }
+
+    if (!formData.mode || !formData.contactMethod || !formData.grade) {
+      setSubmitError('Please complete all required fields.');
+      return;
+    }
+
+    const messageBody = [
+      `Trial request: 30-minute STEAM trial`,
+      `Context: ${programContext}`,
+      `Student: ${formData.studentName.trim()} (${formData.grade})`,
+      `School district: ${formData.schoolDistrict.trim()}`,
+      `Subjects: ${formData.subjects.join(', ')}`,
+      `Mode: ${formData.mode}`,
+      `Preferred contact: ${formData.contactMethod}`,
+      formData.notes.trim() ? `Notes: ${formData.notes.trim()}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.parentName.trim(),
+          email: formData.email.trim(),
+          phone: phoneResult.e164 ?? `${formData.countryCode}${formData.phone.trim()}`,
+          message: messageBody,
+          source,
+          sms_consent: agreeToCommunications,
+          _hp: '',
+        }),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      const result: { success?: boolean; error?: string; message?: string } = await response.json();
+
+      if (!response.ok || result.success === false) {
+        setSubmitError(result.message || result.error || `Request failed (${response.status})`);
+        return;
+      }
+
+      trackGenerateLead('contact_form', {
+        form_name: source,
+        program_type: programContext,
+        grade: formData.grade,
+      });
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetAndClose = () => {
@@ -138,6 +201,7 @@ const BookTrialModal: React.FC<BookTrialModalProps> = ({ isOpen, onClose }) => {
     });
     setIsSubmitted(false);
     setIsSubmitting(false);
+    setSubmitError('');
     setAgreeToCommunications(false);
     setPhoneError(null);
     onClose();
@@ -395,6 +459,12 @@ const BookTrialModal: React.FC<BookTrialModalProps> = ({ isOpen, onClose }) => {
                       showSubmitDisclaimer
                       variant="compact"
                     />
+
+                    {submitError ? (
+                      <p className="text-sm text-red-600" role="alert">
+                        {submitError}
+                      </p>
+                    ) : null}
 
                     <div className="pt-6">
                       <Button

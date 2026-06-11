@@ -724,6 +724,7 @@
       "selectProgram": "Select program",
       "selectTier": "Select tier",
       "weeklyIntensiveNote": "Weekly intensive — same pricing for all combinations",
+      "applicationsClosedBanner": "This program is not accepting applications for Summer 2026. Submit an inquiry below or explore open programs.",
       "remove": "Remove",
       "add": "Add"
     },
@@ -1007,18 +1008,257 @@
       "brand": "GrowWise",
       "crossLink": "Explore game development"
     },
+    "overviewHero": {
+      "badge": "Coding programs · Grades 5–12",
+      "title": "Choose the right coding path before choosing a plan.",
+      "subtitle": "GrowWise coding programs are organized by student goal: Python foundations, AI readiness, or app development. Start with the path that matches how your child wants to build.",
+      "ctaPaths": "Explore coding paths",
+      "ctaTrial": "Book a Trial Class",
+      "outcomes": {
+        "python": {
+          "href": "/coding/python",
+          "title": "Python foundations",
+          "body": "The main starting point for real syntax, school readiness, and future AI/data work."
+        },
+        "ai": {
+          "href": "/coding/ml-ai",
+          "title": "ML / AI",
+          "body": "For students ready to use Python concepts in machine learning and generative AI projects."
+        },
+        "apps": {
+          "href": "/coding/app-development",
+          "title": "App development",
+          "body": "For students who want to build webpages, interfaces, and shareable applications."
+        }
+      }
+    },
+    "paths": {
+      "eyebrow": "Coding paths",
+      "title": "One overview page. A detail page for each program.",
+      "subtitle": "Each program has a different job. Python builds the foundation, ML/AI extends it into modern tools, and app development turns ideas into visible products.",
+      "cta": "View details",
+      "items": {
+        "python": {
+          "href": "/coding/python",
+          "bestFor": "Best first serious path",
+          "title": "Python Programming",
+          "body": "For students who need real text-based coding foundations before high school computer science, AP-level work, AI, or data science.",
+          "artifactLabel": "Students build",
+          "artifact": "Quiz games, calculators, and application-style projects"
+        },
+        "ai": {
+          "href": "/coding/ml-ai",
+          "bestFor": "For Python-ready builders",
+          "title": "Machine Learning & AI",
+          "body": "For students ready to connect coding fundamentals to models, datasets, prompting, and AI projects they can explain.",
+          "artifactLabel": "Students build",
+          "artifact": "AI mini-projects, model experiments, and capstones"
+        },
+        "appdev": {
+          "href": "/coding/app-development",
+          "bestFor": "For product-minded students",
+          "title": "App Development",
+          "body": "For students who want to make visible, shareable work while learning web, interface, and application fundamentals.",
+          "artifactLabel": "Students build",
+          "artifact": "Webpages, interactive apps, and portfolio projects"
+        }
+      }
+    },
+    "pythonDetail": {
+      "hero": {
+        "badge": "Python programming · Grades 5–12",
+        "headlineLine1": "Turn screen time into",
+        "headlineLine2": "real Python projects.",
+        "subtext": "A Python-first coding program for students preparing for high school computer science, AI, data science, and real text-based programming. Students start at the right stage and build working programs from the beginning.",
+        "ctaTrial": "Book a Trial Class",
+        "ctaPrograms": "See Python stages",
+        "facts": {
+          "grades": {
+            "label": "Grades",
+            "value": "5–12"
+          },
+          "level": {
+            "label": "Skill level",
+            "value": "Beginner–Advanced"
+          },
+          "format": {
+            "label": "Class size",
+            "value": "Small groups of 8–12"
+          },
+          "mode": {
+            "label": "Options",
+            "value": "Dublin center + live online"
+          }
+        }
+      }
+    },
+    "appDevDetail": {
+      "hero": {
+        "badge": "App development · Grades 6–12",
+        "headlineLine1": "Build apps students",
+        "headlineLine2": "can actually show.",
+        "subtext": "A project-based app development path for students who want to turn ideas into webpages, interfaces, and interactive products while learning modern coding fundamentals.",
+        "ctaTrial": "Book a Trial Class",
+        "ctaPrograms": "See app stages",
+        "facts": {
+          "grades": {
+            "label": "Grades",
+            "value": "6–12"
+          },
+          "level": {
+            "label": "Skill level",
+            "value": "Beginner–Advanced"
+          },
+          "format": {
+            "label": "Class size",
+            "value": "Small groups"
+          },
+          "mode": {
+            "label": "Options",
+            "value": "Dublin center + live online"
+          }
+        }
+      }
+    },
+    "mlAiDetail": {
+      "hero": {
+        "badge": "ML / AI coding · Grades 7–12",
+        "headlineLine1": "Move from Python into",
+        "headlineLine2": "real AI projects.",
+        "subtext": "A machine learning and AI coding path for students who are ready to apply Python concepts to datasets, models, generative AI tools, and explainable capstone projects.",
+        "ctaTrial": "Book a Trial Class",
+        "ctaPrograms": "See AI stages",
+        "facts": {
+          "grades": {
+            "label": "Grades",
+            "value": "7–12"
+          },
+          "level": {
+            "label": "Skill level",
+            "value": "Python-ready"
+          },
+          "format": {
+            "label": "Class size",
+            "value": "Small groups"
+          },
+          "mode": {
+            "label": "Options",
+            "value": "Dublin center + live online"
+          }
+        }
+      }
+    },
     "hero": {
-      "badge": "Coding programs · Ages 10–18",
-      "headline": "Real skills. Real projects. A journey that lasts years.",
-      "headlineLine1": "Real skills. Real projects.",
-      "headlineLine2": "A journey that lasts years.",
-      "subtext": "Structured coding journeys for parents who want serious skills for their 10–18 year olds—from first Python scripts to building ML/AI and full applications.",
-      "ctaPrograms": "See coding programs",
-      "ctaAlt": "Looking for game dev?"
+      "badge": "Python programming · Grades 5–12",
+      "headline": "Turn screen time into real Python projects.",
+      "headlineLine1": "Turn screen time into",
+      "headlineLine2": "real Python projects.",
+      "subtext": "A Python-first coding program for students preparing for high school computer science, AI, data science, and real text-based programming. Students start at the right stage and build working programs from the beginning.",
+      "ctaTrial": "Book a Trial Class",
+      "ctaPrograms": "See Python stages",
+      "ctaAlt": "Looking for game dev?",
+      "facts": {
+        "grades": {
+          "label": "Grades",
+          "value": "5–12"
+        },
+        "level": {
+          "label": "Skill level",
+          "value": "Beginner–Advanced"
+        },
+        "format": {
+          "label": "Class size",
+          "value": "Small groups of 8–12"
+        },
+        "mode": {
+          "label": "Options",
+          "value": "Dublin center + live online"
+        }
+      }
+    },
+    "why": {
+      "eyebrow": "Why Python first",
+      "title": "Python is the practical bridge into high school computer science.",
+      "subtitle": "Parents do not need another vague coding class. They need a path that helps students become comfortable with real syntax, debugging, and computational thinking before CS courses, AI projects, and college-prep expectations get more serious.",
+      "items": {
+        "school": {
+          "title": "Built for school readiness",
+          "body": "Python reinforces variables, expressions, order of operations, ratios, percents, and the logical thinking students need before high school computer science."
+        },
+        "syntax": {
+          "title": "Real code from session one",
+          "body": "Students write text-based Python, not block-only projects, with enough structure for beginners to avoid getting stuck silently."
+        },
+        "ai": {
+          "title": "The on-ramp to AI and data science",
+          "body": "Python is the language students will keep seeing in machine learning, automation, data work, and modern AI projects."
+        }
+      }
+    },
+    "pathway": {
+      "eyebrow": "Python pathway",
+      "title": "One program, three stages, clear proof of progress.",
+      "subtitle": "Students do not all start in the same place. The trial helps us understand the right stage, then students keep advancing inside the same Python path.",
+      "placement": "Start by skill, not just age",
+      "stageLabel": "Stage {number}",
+      "buildLabel": "They build",
+      "stages": {
+        "beginner": {
+          "title": "First Real Code",
+          "body": "For first-time coders ready to move into real Python syntax with guided practice.",
+          "build": "A playable quiz game with scoring"
+        },
+        "intermediate": {
+          "title": "Structured Programs",
+          "body": "For students who know basics and need stronger logic, functions, and data handling.",
+          "build": "A savings and interest calculator"
+        },
+        "advanced": {
+          "title": "Real Applications",
+          "body": "For students ready to organize larger programs and build application-level projects.",
+          "build": "A records-management application"
+        }
+      },
+      "skillsTitle": "What students learn along the way",
+      "skillsBody": "The curriculum moves from first scripts into structured programming and application design, while keeping each milestone tied to something students can run, test, and improve.",
+      "skills": {
+        "scripts": "Variables, data types, input/output",
+        "logic": "Conditionals and loops",
+        "functions": "Functions and reusable code",
+        "data": "Lists, dictionaries, sets, tuples",
+        "files": "File handling with real data",
+        "oop": "Object-oriented programming",
+        "architecture": "Modules and program architecture",
+        "algorithms": "Algorithms and problem decomposition"
+      }
+    },
+    "jobs": {
+      "eyebrow": "Built around the parent job",
+      "title": "Why parents choose a Python trial first.",
+      "subtitle": "The first decision is not which tier to buy. It is whether this is the right level, right motivation, and right kind of coding for your child.",
+      "items": {
+        "futureReady": {
+          "title": "I want screen time to become skill time.",
+          "body": "Python gives students a productive way to use technology: writing, testing, debugging, and improving programs they made themselves."
+        },
+        "rightLevel": {
+          "title": "I need to know where they should start.",
+          "body": "A trial class helps us see whether your child belongs in first real code, structured programs, or advanced applications."
+        },
+        "motivation": {
+          "title": "I want them to stay interested long enough to improve.",
+          "body": "Each stage connects Python concepts to visible projects, so students can show progress at home instead of only talking about syntax."
+        },
+        "proof": {
+          "title": "I want evidence this is more than screen time.",
+          "body": "Working projects, stage milestones, and parent updates make growth visible as students move from first scripts to stronger independent builds."
+        }
+      }
     },
     "programs": {
-      "title": "Coding learning journeys",
-      "subtitle": "Choose a track to see the full journey, tiers, and optional add-ons.",
+      "eyebrow": "After the Python foundation",
+      "title": "Continue into AI, app development, or deeper Python.",
+      "subtitle": "Python is the main entry point. As students advance, they can keep building in Python or branch into machine learning, generative AI, and application development.",
       "error": "We couldn’t load program pricing. Please refresh or try again later."
     }
   },
@@ -1070,4 +1310,3 @@
     "backToHome": "Back to home"
   }
 }
-

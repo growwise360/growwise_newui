@@ -207,6 +207,46 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     href: '/resources/affordable-summer-academic-programs-dublin-ca',
   },
   {
+    id: 'math-summer-program-dublin-ca-math-sprint-breakdown',
+    category: 'summer-learning',
+    categoryLabel: 'SUMMER LEARNING',
+    title: 'What Happens in a GrowWise Math Sprint: A Week-by-Week Breakdown',
+    description:
+      'What students actually do each week: baseline checks, core skills, problem solving, and confidence-building review.',
+    readTime: '6 min read',
+    href: '/resources/math-summer-program-dublin-ca-math-sprint-breakdown',
+  },
+  {
+    id: 'reading-program-grades-1-2-dublin-ca',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'How to Close Reading Gaps Before Second Grade',
+    description:
+      'Early reading gaps get harder after Grade 2. Learn what structured phonics, fluency, and comprehension support looks like.',
+    readTime: '6 min read',
+    href: '/resources/reading-program-grades-1-2-dublin-ca',
+  },
+  {
+    id: 'small-group-tutoring-vs-1-on-1',
+    category: 'parent-resources',
+    categoryLabel: 'PARENT RESOURCES',
+    title: 'Small Group vs. 1-on-1 Tutoring: Which Works Better?',
+    description:
+      'Private tutoring is not always the right fit. Learn when small-group instruction builds better independence and confidence.',
+    readTime: '6 min read',
+    href: '/resources/small-group-tutoring-vs-1-on-1',
+  },
+  {
+    id: 'california-math-standards-by-grade',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: "The Parent's Guide to California Math Standards by Grade",
+    description:
+      'A parent-friendly standards snapshot for Grades 1-10, with red flags that can reveal hidden math gaps.',
+    readTime: '7 min read',
+    href: '/resources/california-math-standards-by-grade',
+  },
+  {
     id: 'summer-writing-program-dublin-ca',
     category: 'summer-learning',
     categoryLabel: 'SUMMER LEARNING',
@@ -215,6 +255,16 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
       "Most kids never receive direct writing instruction. Here's what good writing programs actually teach — and what to look for in Tri-Valley summer options.",
     readTime: '6 min read',
     href: '/resources/summer-writing-program-dublin-ca',
+  },
+  {
+    id: 'child-struggles-with-writing-dublin-ca',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'Does Your Child Have a Writing Problem — or a Confidence Problem?',
+    description:
+      'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both.',
+    readTime: '6 min read',
+    href: '/resources/child-struggles-with-writing-dublin-ca',
   },
 ]
 
