@@ -46,7 +46,7 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     shortTitle: 'Design & Creative Media',
     eyebrow: 'Creative media pathway',
     bestFor: 'Grades 5-10',
-    mode: 'Online classes + optional in-person certification testing in Dublin',
+    mode: 'Online classes + optional external certification prep',
     sessionLength: '90 minutes',
     problem: 'Students consume digital content but cannot create strong visual communication.',
     hero: 'Turn digital creativity into a real design portfolio.',
@@ -96,12 +96,11 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
     ],
     externalFees: [
-      { item: 'Adobe exam voucher', fee: 'Confirm current Certiport price' },
-      { item: 'GrowWise proctor/admin support', fee: '$50' },
+      { item: 'Adobe exam voucher (Certiport, optional)', fee: 'Quoted at placement' },
     ],
     buildList: ['Brand board', 'Poster set', 'Presentation deck', 'Short video', 'Final portfolio'],
     certificationFit:
-      'Best external fit: Adobe Certified Professional through Certiport, including Photoshop, Illustrator, Premiere Pro, and specialty credential combinations.',
+      'Students can opt for Adobe Certified Professional (Certiport) when ready — for example Photoshop, Illustrator, Premiere Pro, or specialty combinations. GrowWise focuses on portfolio and exam-style prep; credentials are issued by the exam provider after separate registration and fees.',
     faq: [
       {
         question: 'Is this a Canva course or an Adobe course?',
@@ -121,7 +120,7 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     shortTitle: 'Python Certification',
     eyebrow: 'Python coding pathway',
     bestFor: 'Grades 7-12',
-    mode: 'Online learning + project review + optional certification support',
+    mode: 'Online learning + project review + optional external exam prep',
     sessionLength: '90 minutes',
     problem: 'Students learn coding randomly but do not build fluency, projects, or credential-ready skills.',
     hero: 'Build Python fluency, real projects, and certification readiness.',
@@ -170,14 +169,13 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
     ],
     externalFees: [
-      { item: 'PCEP exam voucher', fee: 'About $69-$95' },
-      { item: 'PCEP practice test', fee: 'About $29' },
-      { item: 'PCAP exam voucher', fee: 'Confirm current price before publishing' },
-      { item: 'GrowWise exam-readiness/admin support', fee: '$50-$75' },
+      { item: 'PCEP exam voucher (Python Institute, optional)', fee: 'About $69-$95' },
+      { item: 'PCEP practice test (Python Institute, optional)', fee: 'About $29' },
+      { item: 'PCAP exam voucher (Python Institute, optional)', fee: 'Quoted at placement' },
     ],
     buildList: ['Quiz game', 'Calculator', 'Automation script', 'Data mini-project', 'Mock exam plan'],
     certificationFit:
-      'Best external fit: Python Institute PCEP for entry-level Python and PCAP for students ready for intermediate Python concepts.',
+      'Students can opt for Python Institute PCEP (entry-level) and, when ready, PCAP (intermediate). Each exam requires its own voucher and registration through the Python Institute — separate from GrowWise enrollment and from Certiport exams.',
     faq: [
       {
         question: 'Is this only test prep?',
@@ -189,6 +187,16 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
         answer:
           'Yes, if they already know Python basics. We recommend a placement conversation or trial class before skipping the project stages.',
       },
+      {
+        question: 'Do PCEP and PCAP require separate registration?',
+        answer:
+          'Yes. Each is a separate Python Institute exam with its own voucher and scheduling. GrowWise prep does not include exam registration. Families opt in when the student is ready.',
+      },
+      {
+        question: 'Are PCEP and PCAP taken through GrowWise?',
+        answer:
+          'No. These are Python Institute exams. Students register and take them through OpenEDG/TestNow or Pearson VUE after purchasing the appropriate voucher.',
+      },
     ],
   },
   {
@@ -197,7 +205,7 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     shortTitle: 'AI & Machine Learning',
     eyebrow: 'AI and data pathway',
     bestFor: 'Grades 8-12',
-    mode: 'Online learning + project review + optional badge/certification support',
+    mode: 'Online learning + project review + optional external credential prep',
     sessionLength: '90 minutes',
     problem: 'Students use AI tools but do not understand AI, data, models, limitations, or responsible use.',
     hero: 'Go beyond prompting into data, models, and real AI projects.',
@@ -246,14 +254,13 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
     ],
     externalFees: [
-      { item: 'AWS Educate badge', fee: 'Usually free' },
-      { item: 'NVIDIA DLI course', fee: 'Often around $90, depending on course' },
-      { item: 'Microsoft AI Fundamentals exam', fee: 'Confirm current regional price' },
-      { item: 'GrowWise project review/admin support', fee: '$50-$75' },
+      { item: 'AWS Educate badge (third-party, optional)', fee: 'Usually free' },
+      { item: 'NVIDIA DLI course (third-party, optional)', fee: 'Often around $90, depending on course' },
+      { item: 'Microsoft Certified Fundamentals AI-900 exam (Certiport, optional)', fee: 'Quoted at placement' },
     ],
     buildList: ['Prompting lab', 'Data analysis notebook', 'Classifier project', 'AI ethics review', 'Capstone presentation'],
     certificationFit:
-      'Best external fit depends on student goal: AWS Educate for cloud awareness, NVIDIA DLI for applied AI learning, or Microsoft AI Fundamentals for concept validation.',
+      'Students can opt for third-party credentials when aligned with their goal: AWS Educate (cloud awareness), NVIDIA DLI (applied AI learning), or Microsoft Certified Fundamentals AI-900 (Certiport). GrowWise prepares projects and readiness; each credential is registered and billed separately.',
     faq: [
       {
         question: 'Does my child need Python first?',
@@ -273,7 +280,7 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     shortTitle: 'AI Entrepreneur',
     eyebrow: 'AI business pathway',
     bestFor: 'Grades 7-12',
-    mode: 'Online learning + pitch feedback + optional certification support',
+    mode: 'Online learning + pitch feedback + optional external exam prep',
     sessionLength: '90 minutes',
     problem: 'Students have ideas but cannot turn them into a product, pitch, business model, or market-ready presentation.',
     hero: 'Turn ideas into AI products, pitches, and business-ready stories.',
@@ -322,13 +329,12 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
     ],
     externalFees: [
-      { item: 'ESB exam voucher', fee: 'About $84-$109' },
-      { item: 'Meta Certification exam', fee: 'Confirm current price' },
-      { item: 'GrowWise proctor/admin support', fee: '$50' },
+      { item: 'ESB exam voucher (Certiport, optional)', fee: 'About $84-$109' },
+      { item: 'Meta Certification exam (Certiport, optional)', fee: 'Quoted at placement' },
     ],
     buildList: ['Problem brief', 'User research notes', 'AI product concept', 'Landing page', 'Pitch deck'],
     certificationFit:
-      'Best external fit: Entrepreneurship and Small Business certification for business foundations, with Meta certification considered after digital marketing readiness.',
+      'Students can opt for Entrepreneurship and Small Business (Certiport) and Meta Certification (Certiport) when ready. GrowWise covers prep and presentation skills; exams are optional and registered separately with the exam provider.',
     faq: [
       {
         question: 'Is this for students who already have a business?',
@@ -347,28 +353,28 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
 export const futureSkillsBundles = [
   {
     name: 'Starter Track',
-    includes: 'Any Level 1',
-    sessions: '8 sessions',
+    includes: 'One Level 1 course',
+    sessions: 'From 8 sessions',
     price: '$599',
   },
   {
     name: 'Builder Track',
     includes: 'Level 1 + Level 2',
     sessions: '20 sessions',
-    price: '$1,399',
+    price: '$1,499',
     featured: true,
   },
   {
     name: 'Advanced Track',
     includes: 'Level 1 + Level 2 + Level 3',
-    sessions: '32-36 sessions',
-    price: '$2,199-$2,499',
+    sessions: '32–36 sessions',
+    price: '$2,499',
   },
   {
     name: 'Certification Track',
-    includes: 'Full pathway through certification prep',
-    sessions: '44-60 sessions',
-    price: '$3,199-$3,799',
+    includes: 'Full pathway + certification prep',
+    sessions: '44–60 sessions',
+    price: 'Starting at $3,199',
   },
 ];
 
@@ -379,7 +385,7 @@ export function getFutureSkillsPathway(slug: string): FutureSkillsPathway | unde
 export const futureSkillsHeroStats = [
   { label: 'Grades', value: '6-12' },
   { label: 'Session length', value: '90 minutes' },
-  { label: 'Mode', value: 'Online + Dublin support' },
+  { label: 'Mode', value: 'Online + local support' },
   { label: 'Pathways', value: '4 certification tracks' },
 ];
 

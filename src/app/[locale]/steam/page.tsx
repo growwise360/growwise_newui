@@ -161,7 +161,7 @@ export default function SteamPage() {
     id: 'design-creative-media',
     title: 'Design & Creative Media Certification Pathway',
     bestFor: 'Grades 5-10',
-    mode: 'Online classes + optional in-person certification testing in Dublin',
+    mode: 'Online classes + optional external certification prep',
     outcome:
       'Students design real posters, flyers, presentations, social media creatives, short videos, and a final brand/project portfolio.',
     description:
@@ -172,7 +172,7 @@ export default function SteamPage() {
       'Social media creative and event assets',
       'Short video and visual storytelling',
       'Final brand/project portfolio',
-      'Adobe certification pathway guidance',
+      'Optional Adobe certification prep guidance',
     ],
     levels: [
       {

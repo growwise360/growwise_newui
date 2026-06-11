@@ -81,6 +81,14 @@ const steamPages: SitemapEntry[] = [
   { path: '/game-dev', priority: 0.85, changefreq: 'monthly' },
 ]
 
+const futureSkillsPages: SitemapEntry[] = [
+  { path: '/future-skills', priority: 0.85, changefreq: 'monthly' },
+  { path: '/future-skills/design-creative-media', priority: 0.8, changefreq: 'monthly' },
+  { path: '/future-skills/python-certification', priority: 0.8, changefreq: 'monthly' },
+  { path: '/future-skills/ai-machine-learning', priority: 0.8, changefreq: 'monthly' },
+  { path: '/future-skills/ai-entrepreneurship', priority: 0.8, changefreq: 'monthly' },
+]
+
 const legalPages: SitemapEntry[] = [
   { path: '/privacy-policy', priority: 0.4, changefreq: 'yearly' },
   { path: '/terms-conditions', priority: 0.4, changefreq: 'yearly' },
@@ -184,7 +192,7 @@ ${body}
 /** Build all non-blog page URLs across enabled locales. */
 export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
   const urls: SitemapUrl[] = []
-  const localeRoutes = [...corePages, ...coursePages, ...steamPages, ...campPages, ...legalPages]
+  const localeRoutes = [...corePages, ...coursePages, ...steamPages, ...futureSkillsPages, ...campPages, ...legalPages]
 
   locales.forEach((locale) => {
     localeRoutes.forEach((page) => {

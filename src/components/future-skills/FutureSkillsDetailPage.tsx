@@ -17,6 +17,7 @@ export function FutureSkillsDetailPage({ slug }: FutureSkillsDetailPageProps) {
   const locale = useLocale();
   const [isTrialOpen, setIsTrialOpen] = useState(false);
   const pathway = getFutureSkillsPathway(slug);
+  const assessmentHref = publicPath(`/book-assessment?interest=future-skills-${slug}`, locale);
 
   if (!pathway) {
     return null;
@@ -47,14 +48,13 @@ export function FutureSkillsDetailPage({ slug }: FutureSkillsDetailPageProps) {
               {pathway.summary}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                onClick={() => setIsTrialOpen(true)}
+              <Link
+                href={assessmentHref}
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f]"
               >
-                Book a Trial Class
+                Book a Pathway Assessment
                 <ArrowRight className="h-5 w-5" aria-hidden />
-              </button>
+              </Link>
               <Link
                 href="#levels"
                 className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 font-bold text-white transition hover:bg-white/15"
@@ -166,7 +166,8 @@ export function FutureSkillsDetailPage({ slug }: FutureSkillsDetailPageProps) {
             <p className="mt-4 leading-7 text-white/82">{pathway.certificationFit}</p>
             <p className="mt-4 leading-7 text-white/70">
               GrowWise course fees include instruction, projects, feedback, portfolio review, and GrowWise certificates.
-              External exam vouchers, retakes, practice tests, and proctoring fees are confirmed separately.
+              GrowWise does not issue third-party certifications. External exam vouchers, retakes, practice tests, and
+              proctoring fees are confirmed separately when families opt in.
             </p>
           </div>
           <div className="rounded-2xl border border-[#1F396D]/10 bg-white p-8">
@@ -212,17 +213,31 @@ export function FutureSkillsDetailPage({ slug }: FutureSkillsDetailPageProps) {
               A trial class helps confirm whether your child should begin at Level 1, skip ahead, or choose a different Future Skills pathway.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setIsTrialOpen(true)}
-            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f]"
-          >
-            Book a Trial Class
-          </button>
+          <div className="flex flex-col gap-3 sm:flex-row sm:shrink-0">
+            <Link
+              href={assessmentHref}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f]"
+            >
+              Book a Pathway Assessment
+              <ArrowRight className="h-5 w-5" aria-hidden />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setIsTrialOpen(true)}
+              className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 font-bold text-white transition hover:bg-white/15"
+            >
+              Book a Trial Class
+            </button>
+          </div>
         </div>
       </section>
 
-      <BookTrialModal isOpen={isTrialOpen} onClose={() => setIsTrialOpen(false)} />
+      <BookTrialModal
+        isOpen={isTrialOpen}
+        onClose={() => setIsTrialOpen(false)}
+        source="book-trial-modal-future-skills"
+        programContext={`Future Skills: ${pathway.shortTitle}`}
+      />
     </main>
   );
 }

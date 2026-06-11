@@ -35,6 +35,11 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       ['/academic/math/high-school'],
       ['/academic/math/high-school'],
       ['/enroll'],
+      ['/future-skills'],
+      ['/future-skills/design-creative-media'],
+      ['/future-skills/python-certification'],
+      ['/future-skills/ai-machine-learning'],
+      ['/future-skills/ai-entrepreneurship'],
     ] as const)('title + description for %s', (path) => {
       const config = getMetadataConfig(path)
       expect(config).not.toBeNull()

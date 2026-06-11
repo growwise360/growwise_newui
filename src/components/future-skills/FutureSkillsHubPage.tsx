@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Award, CheckCircle2, Clock, GraduationCap, Layers3, MapPin } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
-import BookTrialModal from '@/components/ui/BookTrialModal';
 import { publicPath } from '@/lib/publicPath';
 import {
   futureSkillsBundles,
@@ -15,7 +14,7 @@ import {
 
 export function FutureSkillsHubPage() {
   const locale = useLocale();
-  const [isTrialOpen, setIsTrialOpen] = useState(false);
+  const assessmentHref = publicPath('/book-assessment?interest=future-skills', locale);
 
   return (
     <main className="min-h-screen bg-[#f8fafc]">
@@ -35,19 +34,18 @@ export function FutureSkillsHubPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="#pathways"
+                href={assessmentHref}
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f]"
               >
-                Compare pathways
+                Book a Pathway Assessment
                 <ArrowRight className="h-5 w-5" aria-hidden />
               </Link>
-              <button
-                type="button"
-                onClick={() => setIsTrialOpen(true)}
+              <Link
+                href="#pathways"
                 className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 font-bold text-white transition hover:bg-white/15"
               >
-                Book a Trial Class
-              </button>
+                Compare pathways
+              </Link>
             </div>
           </div>
 
@@ -132,11 +130,15 @@ export function FutureSkillsHubPage() {
           <div className="mb-10 max-w-3xl">
             <p className="mb-3 text-sm font-bold uppercase tracking-wider text-[#F16112]">Bundle pricing</p>
             <h2 className="text-3xl font-bold text-[#1F396D] md:text-4xl">
-              Public pricing that increases commitment without hiding the outcome.
+              Clear pricing at every stage — before you commit.
             </h2>
             <p className="mt-4 text-lg leading-8 text-gray-600">
-              GrowWise course fees include live instruction, projects, feedback, portfolio review, and GrowWise certificates.
-              External certification fees are optional and billed separately.
+              GrowWise course fees include live 90-minute sessions, projects, feedback, portfolio review, and GrowWise
+              certificates. External certification exams are optional and billed separately. We confirm your child&apos;s
+              starting level before enrollment.
+            </p>
+            <p className="mt-4 text-sm font-semibold text-[#1F396D]">
+              387+ students enrolled · 4.9★ Google · 98% parent satisfaction
             </p>
           </div>
 
@@ -152,7 +154,7 @@ export function FutureSkillsHubPage() {
               >
                 {bundle.featured && (
                   <p className="mb-3 inline-flex rounded-full bg-[#F16112] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Most useful start
+                    Recommended Start
                   </p>
                 )}
                 <h3 className="text-xl font-bold text-gray-950">{bundle.name}</h3>
@@ -162,6 +164,21 @@ export function FutureSkillsHubPage() {
               </div>
             ))}
           </div>
+
+          <p className="mt-8 max-w-3xl text-sm leading-7 text-gray-600">
+            Final pricing may vary by pathway and certification target. External certification exam fees are not included
+            unless clearly stated.
+          </p>
+
+          <div className="mt-6">
+            <Link
+              href={assessmentHref}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f]"
+            >
+              Book a Pathway Assessment
+              <ArrowRight className="h-5 w-5" aria-hidden />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -169,16 +186,17 @@ export function FutureSkillsHubPage() {
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-2xl bg-[#1F396D] p-8 text-white">
             <MapPin className="mb-4 h-8 w-8 text-[#F8B34C]" aria-hidden />
-            <h2 className="text-3xl font-bold">Online learning with Dublin certification support.</h2>
+            <h2 className="text-3xl font-bold">Online learning with optional local support.</h2>
             <p className="mt-4 leading-7 text-white/80">
-              Students can join online, build projects live, and use optional in-person support for certification readiness,
-              portfolio review, or testing logistics when appropriate.
+              Students join live online sessions and build real projects. Optional in-person support in Dublin can help with
+              portfolio review and progress check-ins. External certifications are optional — families register and pay exam
+              providers separately when students are ready.
             </p>
           </div>
           <div className="rounded-2xl border border-[#1F396D]/10 bg-white p-8">
-            <h2 className="text-3xl font-bold text-gray-950">What families get before an exam voucher.</h2>
+            <h2 className="text-3xl font-bold text-gray-950">What families get before external certification.</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {['Live 90-minute sessions', 'Project feedback', 'Portfolio review', 'GrowWise certificate', 'Readiness guidance', 'Optional external exam support'].map((item) => (
+              {['Live 90-minute sessions', 'Project feedback', 'Portfolio review', 'GrowWise certificate', 'Readiness guidance', 'Guidance on optional external exams'].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <CheckCircle2 className="h-5 w-5 shrink-0 text-[#F16112]" aria-hidden />
                   <span className="font-semibold text-gray-700">{item}</span>
@@ -188,8 +206,6 @@ export function FutureSkillsHubPage() {
           </div>
         </div>
       </section>
-
-      <BookTrialModal isOpen={isTrialOpen} onClose={() => setIsTrialOpen(false)} />
     </main>
   );
 }
