@@ -144,8 +144,20 @@ describe('HomeSteamSection redirect links (OASC STEAM)', () => {
   it('each STEAM card links to the expected route', () => {
     render(<HomeSteamSection />);
     cards.forEach(({ title, href }) => {
-      const cardRoot = screen.getByRole('heading', { name: title }).closest('a');
-      expect(cardRoot).toHaveAttribute('href', publicPath(href, locale));
+      const heading = screen.getByRole('heading', { name: title });
+      const cardRoot = heading.closest('article') ?? heading.closest('a');
+      expect(cardRoot).toBeTruthy();
+
+      const expectedHref = publicPath(href, locale);
+      if (cardRoot?.tagName === 'A') {
+        expect(cardRoot).toHaveAttribute('href', expectedHref);
+        return;
+      }
+
+      const primaryLink = within(cardRoot as HTMLElement)
+        .getAllByRole('link')
+        .find((link) => link.getAttribute('href') === expectedHref);
+      expect(primaryLink).toBeTruthy();
     });
   });
 
