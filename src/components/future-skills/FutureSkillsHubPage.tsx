@@ -7,6 +7,7 @@ import { useLocale } from 'next-intl';
 
 import { publicPath } from '@/lib/publicPath';
 import {
+  CERTIPORT_ATC_DISPLAY,
   CERTIPORT_PARENT_VALUE,
   FUTURE_SKILLS_PRICING_NOTE,
   futureSkillsBundles,
@@ -83,7 +84,7 @@ export function FutureSkillsHubPage() {
           <span className="hidden text-gray-300 sm:inline" aria-hidden>
             ·
           </span>
-          <span>Certiport Authorized Testing Center · Dublin, CA</span>
+          <span>{CERTIPORT_ATC_DISPLAY}</span>
         </div>
       </section>
 
@@ -232,9 +233,10 @@ export function FutureSkillsHubPage() {
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-2xl bg-[#1F396D] p-8 text-white">
             <MapPin className="mb-4 h-8 w-8 text-[#F8B34C]" aria-hidden />
-            <h2 className="text-3xl font-bold">Certiport Authorized Testing Center in Dublin</h2>
+            <h2 className="text-3xl font-bold">On-site Certiport exams</h2>
+            <p className="mt-2 text-sm font-bold uppercase tracking-wider text-[#F8B34C]">{CERTIPORT_ATC_DISPLAY}</p>
             <p className="mt-4 leading-7 text-white/80">
-              GrowWise Dublin is a Certiport Authorized Testing Center. Students who complete a pathway and are ready to
+              Students who complete a pathway and are ready to
               sit their certification exam can do so on-site. Exam vouchers are purchased separately at{' '}
               <a
                 href="https://www.certiport.com"

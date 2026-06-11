@@ -75,11 +75,15 @@ export interface FutureSkillsPathway {
 
 export const FUTURE_SKILLS_PRICING_NOTE = 'Shared at pathway assessment';
 
+/** Single source for Certiport ATC identity — hub trust strip, footer badge, FAQ. */
+export const CERTIPORT_ATC_DISPLAY =
+  'Certiport Authorized Testing Center · ID 90097702 · Dublin, CA';
+
 export const CERTIPORT_PARENT_VALUE =
   'Certiport certifications provide students and professionals with an industry-leading assessment of skills, knowledge, and understanding of their area of interest — students who become certified will be better prepared for college and career success.';
 
 export const CERTIPORT_ON_SITE_NOTE =
-  'On-site exam delivery available at GrowWise Dublin (Certiport Authorized Testing Center) when the student is ready. Exam vouchers are purchased separately at certiport.com. Certiport certificates are issued by Certiport upon passing — not by GrowWise.';
+  `On-site exam delivery available at GrowWise (${CERTIPORT_ATC_DISPLAY}) when the student is ready. Exam vouchers are purchased separately at certiport.com. Certiport certificates are issued by Certiport upon passing — not by GrowWise.`;
 
 export const futureSkillsCertiportHubRoster = [
   { pathway: 'Design', credential: 'Adobe Certified Professional' },

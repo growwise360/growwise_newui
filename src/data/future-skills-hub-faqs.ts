@@ -1,4 +1,5 @@
 import type { FAQItem } from '@/components/schema/FAQSchema';
+import { CERTIPORT_ATC_DISPLAY } from '@/lib/futureSkillsPathways';
 
 /** Visible hub FAQ accordion + FAQPage JSON-LD — single source of truth. */
 export const FUTURE_SKILLS_HUB_FAQS: readonly FAQItem[] = [
@@ -25,7 +26,7 @@ export const FUTURE_SKILLS_HUB_FAQS: readonly FAQItem[] = [
   {
     question: 'Can students take Certiport exams at GrowWise Dublin?',
     answer:
-      'Yes. GrowWise Dublin is a Certiport Authorized Testing Center. Eligible students can sit on-site exams when ready. Exam vouchers are purchased separately at certiport.com.',
+      `Yes. GrowWise is a ${CERTIPORT_ATC_DISPLAY}. Eligible students can sit on-site exams when ready. Exam vouchers are purchased separately at certiport.com.`,
   },
   {
     question: 'Which pathways are available?',
