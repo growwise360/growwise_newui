@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
+import { CodingCertPathwayBanner } from '@/components/coding/CodingCertPathwayBanner';
 import { CodingJTBDSection } from '@/components/coding/CodingJTBDSection';
 import { CodingProgramDetailHero } from '@/components/coding/CodingProgramDetailHero';
 import { PythonPathwaySection } from '@/components/coding/PythonPathwaySection';
@@ -30,6 +31,7 @@ export default function PythonCodingPage() {
         <PythonWhySection />
         <PythonPathwaySection />
         <CodingJTBDSection />
+        <CodingCertPathwayBanner slug="python-certification" />
       </main>
     </Suspense>
   );

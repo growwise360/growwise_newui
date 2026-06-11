@@ -78,7 +78,18 @@ const steamPages: SitemapEntry[] = [
   { path: '/steam/ml-ai-coding', priority: 0.85, changefreq: 'monthly' },
   { path: '/steam/game-development', priority: 0.85, changefreq: 'monthly' },
   { path: '/coding', priority: 0.85, changefreq: 'monthly' },
+  { path: '/coding/python', priority: 0.75, changefreq: 'monthly' },
+  { path: '/coding/ml-ai', priority: 0.75, changefreq: 'monthly' },
+  { path: '/coding/app-development', priority: 0.75, changefreq: 'monthly' },
   { path: '/game-dev', priority: 0.85, changefreq: 'monthly' },
+]
+
+const futureSkillsPages: SitemapEntry[] = [
+  { path: '/future-skills', priority: 0.85, changefreq: 'monthly' },
+  { path: '/future-skills/design-creative-media', priority: 0.8, changefreq: 'monthly' },
+  { path: '/future-skills/python-certification', priority: 0.8, changefreq: 'monthly' },
+  { path: '/future-skills/ai-machine-learning', priority: 0.8, changefreq: 'monthly' },
+  { path: '/future-skills/ai-entrepreneurship', priority: 0.8, changefreq: 'monthly' },
 ]
 
 const legalPages: SitemapEntry[] = [
@@ -184,7 +195,7 @@ ${body}
 /** Build all non-blog page URLs across enabled locales. */
 export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
   const urls: SitemapUrl[] = []
-  const localeRoutes = [...corePages, ...coursePages, ...steamPages, ...campPages, ...legalPages]
+  const localeRoutes = [...corePages, ...coursePages, ...steamPages, ...futureSkillsPages, ...campPages, ...legalPages]
 
   locales.forEach((locale) => {
     localeRoutes.forEach((page) => {

@@ -32,6 +32,7 @@ export default function SteamLayout({
       "@type": "OfferCatalog",
       "name": "STEAM Programs",
       "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Future Skills Pathways", "url": `${baseUrl}/future-skills` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "ML/AI Coding", "url": `${baseUrl}/steam/ml-ai-coding` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Game Development", "url": `${baseUrl}/steam/game-development` } },
         { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Coding Programs", "url": `${baseUrl}/coding` } },

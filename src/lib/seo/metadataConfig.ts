@@ -176,7 +176,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding': {
-    title: 'Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'Coding Classes Kids | Trial Class | Dublin CA',
     description:
       'Coding classes for Grades 5-12 in Dublin, CA. Explore Python, AI, and app development paths. Build real projects and book a trial class.',
     keywords:
@@ -185,7 +185,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding/python': {
-    title: 'Python Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'Python Classes Kids | Book Trial | Dublin CA',
     description:
       'Python coding classes for Grades 5-12 in Dublin, CA. Build real projects and prepare for high school computer science, AI, and data science. Book a trial class.',
     keywords:
@@ -194,7 +194,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/coding/ml-ai': {
-    title: 'ML & AI Coding Classes Kids | Dublin CA | GrowWise',
+    title: 'ML and AI Classes | After Python | Dublin CA',
     description:
       'Machine learning and AI coding classes for Grades 7-12 in Dublin, CA. Build AI projects after Python foundations and book a trial class.',
     keywords:
@@ -214,18 +214,18 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/future-skills': {
     title: 'Future Skills Certification Pathways | GrowWise',
     description:
-      'Premium 90-minute certification pathways for Grades 6-12: creative media, Python coding, AI and machine learning, and AI entrepreneurship. Build projects before external exams.',
+      'Future Skills pathways for Grades 6-12. Python, creative media, AI/ML, and entrepreneurship. Project-first learning before optional external exams.',
     keywords:
-      'future skills classes for students, certification pathways for kids, creative media certification, Python certification for students, AI machine learning classes students, AI entrepreneurship for teens, Adobe Certified Professional prep, PCEP prep students, Dublin CA coding certification, online future skills classes',
+      'future skills classes for students, certification pathways for kids, creative media certification, Python certification for students, AI machine learning classes students, AI entrepreneurship for teens, Adobe Certified Professional prep, PCEP prep students, Python Institute prep, Certiport Authorized Testing Center Dublin, optional external certification prep, online future skills classes',
     path: '/future-skills',
   },
 
   '/future-skills/design-creative-media': {
     title: 'Design & Creative Media Certification Pathway | GrowWise',
     description:
-      'Design and creative media classes for Grades 5-10. Build posters, flyers, presentations, social media creatives, short videos, and prepare for Adobe certification pathways.',
+      'Design and creative media for Grades 5-10. Posters, presentations, social media, short video, and Adobe certification pathway prep.',
     keywords:
-      'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
+      'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Certiport Authorized Testing Center Dublin, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
     path: '/future-skills/design-creative-media',
   },
 
@@ -234,7 +234,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'Python certification pathway for Grades 7-12. Build Python fluency, projects, PCEP readiness, and PCAP prep through 90-minute sessions.',
     keywords:
-      'Python certification for students, PCEP prep for kids, PCAP prep students, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python exam prep for teens',
+      'Python certification for students, PCEP prep for kids, PCAP prep students, Python Institute PCEP, Python Institute PCAP, ITS Python Certiport Dublin, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python exam prep for teens',
     path: '/future-skills/python-certification',
   },
 
@@ -243,7 +243,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'AI and machine learning pathway for Grades 8-12. Learn AI literacy, Python for AI, datasets, model basics, responsible AI, and certification readiness.',
     keywords:
-      'AI classes for students, machine learning classes for teens, AI certification pathway, Python for AI students, ML project builder, NVIDIA DLI students, AWS Educate badge, Microsoft AI Fundamentals prep',
+      'AI classes for students, machine learning classes for teens, AI certification pathway, Python for AI students, ML project builder, NVIDIA DLI students, AWS Educate badge, Microsoft Certified Fundamentals AI-900 prep',
     path: '/future-skills/ai-machine-learning',
   },
 
@@ -252,7 +252,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     description:
       'AI entrepreneurship pathway for Grades 7-12. Turn ideas into validated products, landing pages, pitch decks, business models, and certification readiness.',
     keywords:
-      'AI entrepreneurship for teens, business classes for students, startup pitch class, AI product builder, ESB certification prep, entrepreneurship certification students, digital marketing exam prep students',
+      'AI entrepreneurship for teens, business classes for students, startup pitch class, AI product builder, ESB certification prep, Meta certification prep Certiport Dublin, entrepreneurship certification students, digital marketing exam prep students',
     path: '/future-skills/ai-entrepreneurship',
   },
 
@@ -275,7 +275,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/steam/ml-ai-coding': {
-    title: 'ML & AI Coding for Kids | Dublin CA | GrowWise',
+    title: 'STEAM Python and AI Courses | Enroll | Dublin CA',
     description:
       'ML and AI coding in Dublin, CA. Hands-on projects for students. Small classes and expert instructors. Book a free trial.',
     keywords:

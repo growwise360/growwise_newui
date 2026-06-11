@@ -13,6 +13,8 @@ import {
   filterSummerCampHubPrograms,
   hydrateSummerCampData,
   getMinimumPublishedSummerCampPriceUsd,
+  isSummerCampApplicationsClosed,
+  SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS,
   LEARNING_MODE_KEYS,
   LEARNING_MODE_FORMAT,
   LEARNING_MODE_TIME,
@@ -205,6 +207,14 @@ describe('hydrateSummerCampData (programs)', () => {
     expect(hub.find((p) => p.id === 'math-olympiad')).toBeUndefined();
     expect(hub).toHaveLength(5);
     expect(SUMMER_CAMP_PROGRAMS).toHaveLength(7);
+  });
+
+  it('applications closed set covers Young Authors, Roblox, and Robotics only', () => {
+    expect([...SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS].sort()).toEqual(
+      ['roblox-in-person', 'robotics-camp', 'young-authors'].sort(),
+    );
+    expect(isSummerCampApplicationsClosed('scratch-online')).toBe(false);
+    expect(isSummerCampApplicationsClosed('ai-entrepreneur')).toBe(false);
   });
 
   it('roblox in-person program is in Half-Day Camps (moved from Full Day)', () => {

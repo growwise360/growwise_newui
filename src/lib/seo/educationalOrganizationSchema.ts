@@ -58,6 +58,13 @@ const OFFER_CATALOG_COURSES: CatalogCourse[] = [
     educationalLevel: 'High School',
   },
   {
+    name: 'Future Skills Certification Pathways',
+    description: 'Structured certification pathways for Grades 6-12: design, Python, AI/ML, and entrepreneurship in Dublin, CA',
+    path: '/future-skills',
+    typicalAgeRange: '11-18',
+    educationalLevel: 'Grades 6-12',
+  },
+  {
     name: 'Python Coding',
     description: 'Python programming classes for kids and teens in Dublin, CA',
     path: '/steam/ml-ai-coding',

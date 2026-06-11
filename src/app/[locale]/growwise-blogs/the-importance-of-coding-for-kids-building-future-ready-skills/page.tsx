@@ -248,8 +248,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
               <p className="text-gray-700 leading-relaxed">
                 Give your child future-ready coding skills now.{' '}
-                <Link href={publicPath('/steam/ml-ai-coding', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
-                  Explore GrowWise ML/AI &amp; Python coding classes
+                <Link href={publicPath('/future-skills', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore Future Ready Skills pathways
                 </Link>{' '}
                 — beginner to advanced, Grades 1–12 in Dublin, CA.
               </p>
@@ -270,8 +270,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <BlogPostConversionSection
           locale={locale}
-          programHref="/steam/ml-ai-coding"
-          programLabel="Explore ML/AI & Coding Classes"
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
         />
       </div>
     </>

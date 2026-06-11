@@ -49,7 +49,7 @@ Use this for any new page under `src/app/[locale]/`:
 
 | Intent | `programHref` | `programLabel` |
 |--------|---------------|----------------|
-| Coding / Python / Java / AI / career | `/steam/ml-ai-coding` | Explore ML/AI & Coding Classes |
+| Coding / Python / Java / AI / career | `/future-skills` | Explore Future Ready Skills Pathways |
 | Game dev / Roblox | `/steam/game-development` | Explore Game Development |
 | Summer camps | `/camps/summer` | View Summer Camp Programs |
 | Academic / learning gaps / focus | `/academic` | Explore Academic Programs |
@@ -63,8 +63,8 @@ import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversion
 
 <BlogPostConversionSection
   locale={locale}
-  programHref="/steam/ml-ai-coding"
-  programLabel="Explore ML/AI & Coding Classes"
+  programHref="/future-skills"
+  programLabel="Explore Future Ready Skills Pathways"
 />
 ```
 

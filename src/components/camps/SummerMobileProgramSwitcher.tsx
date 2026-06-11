@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import type { Program } from '@/lib/summer-camp-data';
+import { isSummerCampApplicationsClosed } from '@/lib/summer-camp-data';
 import { getSummerCampPickCardMeta } from '@/lib/summer-camp-pick-card-meta';
 import { cn } from '@/lib/utils';
 import styles from '@/components/camps/academic-mobile-program-switcher.module.css';
@@ -25,6 +26,7 @@ export function SummerMobileProgramSwitcher({
           const meta = getSummerCampPickCardMeta(program.id);
           const label = meta?.title ?? program.title;
           const isActive = selectedProgramId === program.id;
+          const applicationsClosed = isSummerCampApplicationsClosed(program.id);
 
           return (
             <button
@@ -32,10 +34,18 @@ export function SummerMobileProgramSwitcher({
               type="button"
               role="tab"
               aria-selected={isActive}
+              aria-label={
+                applicationsClosed ? `${label} — applications closed` : label
+              }
               onClick={() => onSelectProgram(program)}
-              className={cn(styles.pill, isActive && styles.pillActive)}
+              className={cn(
+                styles.pill,
+                isActive && styles.pillActive,
+                applicationsClosed && !isActive && 'opacity-60',
+              )}
             >
               {label}
+              {applicationsClosed ? ' · Closed' : ''}
             </button>
           );
         })}

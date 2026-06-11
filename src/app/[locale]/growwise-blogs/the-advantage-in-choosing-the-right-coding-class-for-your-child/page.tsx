@@ -274,8 +274,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <BlogPostConversionSection
           locale={locale}
-          programHref="/steam/ml-ai-coding"
-          programLabel="Explore ML/AI & Coding Classes"
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
         />
       </div>
     </>

@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 
 import { CodingOverviewHero } from '@/components/coding/CodingOverviewHero';
 import { CodingPathCards } from '@/components/coding/CodingPathCards';
+import { CodingFutureSkillsCallout } from '@/components/coding/CodingFutureSkillsCallout';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -25,6 +26,7 @@ export default function CodingPage() {
       <main className="min-h-screen page-bg-coding">
         <CodingOverviewHero />
         <CodingPathCards />
+        <CodingFutureSkillsCallout />
       </main>
     </Suspense>
   );
