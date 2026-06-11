@@ -15,6 +15,7 @@ import { ML_AI_CODING_FAQ_JSONLD } from "@/lib/schema/course-hub-jsonld-faqs";
 import { useCart } from '@/components/gw/CartContext';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import CourseCustomizationModal from '@/components/gw/CourseCustomizationModal';
+import { SteamMlAiSurfacesSection } from '@/components/steam/SteamMlAiSurfacesSection';
 import { useSearchParams } from 'next/navigation';
 
 // ML/AI Programming Course Data
@@ -861,6 +862,8 @@ const MLAICoursesPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <SteamMlAiSurfacesSection />
 
       {/* FAQ Section */}
       <section className="py-16 px-4 lg:px-8 bg-gray-50">

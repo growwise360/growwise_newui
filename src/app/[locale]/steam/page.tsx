@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { getFutureSkillsPathway } from '@/lib/futureSkillsPathways';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
@@ -157,50 +158,7 @@ export default function SteamPage() {
     ]
   };
 
-  const designCreativePathway = {
-    id: 'design-creative-media',
-    title: 'Design & Creative Media Certification Pathway',
-    bestFor: 'Grades 5-10',
-    mode: 'Online classes + optional external certification prep',
-    outcome:
-      'Students design real posters, flyers, presentations, social media creatives, short videos, and a final brand/project portfolio.',
-    description:
-      'A portfolio-first creative media path for students who want practical design skills, polished school projects, and a bridge toward Adobe Certified Professional credentials.',
-    features: [
-      'Canva design foundations',
-      'Posters, flyers, and presentations',
-      'Social media creative and event assets',
-      'Short video and visual storytelling',
-      'Final brand/project portfolio',
-      'Optional Adobe certification prep guidance',
-    ],
-    levels: [
-      {
-        level: 'Level 1',
-        course: 'Canva Design Foundations',
-        outcome: 'Posters, flyers, school presentation slides, basic branding',
-        certificate: 'GrowWise Canva Design Certificate',
-      },
-      {
-        level: 'Level 2',
-        course: 'Creative Media Builder',
-        outcome: 'Social media posts, event flyers, short video, visual storytelling',
-        certificate: 'GrowWise Creative Media Portfolio Certificate',
-      },
-      {
-        level: 'Level 3',
-        course: 'Adobe / Visual Design Prep',
-        outcome: 'Photoshop, Illustrator, or Premiere basics depending on student track',
-        certificate: 'Adobe Certified Professional pathway',
-      },
-    ],
-    externalCertifications: [
-      'Visual Design Using Adobe Photoshop',
-      'Graphic Design & Illustration Using Adobe Illustrator',
-      'Digital Video Using Adobe Premiere Pro',
-      'Visual Design Specialty Credential with qualifying Adobe exam combinations',
-    ],
-  };
+  const designPathway = getFutureSkillsPathway('design-creative-media');
 
   // Game Development Detailed Programs
   const gameDevelopmentPrograms = [
@@ -642,80 +600,51 @@ export default function SteamPage() {
               );
             })()}
 
-            {/* Design & Creative Media Certification Pathway */}
-            {(() => {
-              const isHovered = hoveredProgram === designCreativePathway.id;
-              return (
-                <Card
-                  className={`bg-white/35 backdrop-blur-3xl rounded-[32px] shadow-[0px_25px_60px_0px_rgba(31,57,109,0.18)] border-2 border-white/50 transition-all duration-700 cursor-pointer group overflow-hidden relative ring-1 ring-white/30 lg:col-span-2 ${
-                    isHovered ? 'shadow-[0px_40px_120px_0px_rgba(31,57,109,0.35)] scale-[1.01]' : ''
-                  }`}
-                  onMouseEnter={() => setHoveredProgram(designCreativePathway.id)}
-                  onMouseLeave={() => setHoveredProgram(null)}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#F1894F]/10 via-white/30 to-[#1F396D]/10"></div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/25 via-transparent to-white/5"></div>
-
-                  <CardContent className="p-10 relative z-10">
-                    <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-                      <div>
-                        <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-4 py-2 text-sm font-bold text-white">
-                          <Award className="h-4 w-4 text-[#F8B34C]" />
-                          Revised Course 1
+            {/* Design certification pathway — full curriculum lives on Future Skills */}
+            {designPathway && (
+              <Card className="relative overflow-hidden rounded-[32px] border-2 border-white/50 bg-white/35 shadow-[0px_25px_60px_0px_rgba(31,57,109,0.18)] ring-1 ring-white/30 backdrop-blur-3xl lg:col-span-2">
+                <CardContent className="relative z-10 p-8 sm:p-10">
+                  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="max-w-2xl">
+                      <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-4 py-2 text-sm font-bold text-white">
+                        <Award className="h-4 w-4 text-[#F8B34C]" />
+                        Future Skills certification pathway
+                      </div>
+                      <div className="mb-4 flex items-center gap-4">
+                        <div className="rounded-2xl bg-gradient-to-br from-[#F1894F] to-[#F16112] p-4 shadow-xl ring-2 ring-white/50">
+                          <Palette className="h-8 w-8 text-white" />
                         </div>
-                        <div className="mb-6 flex items-center gap-4">
-                          <div className="p-5 rounded-2xl bg-gradient-to-br from-[#F1894F] to-[#F16112] shadow-xl ring-2 ring-white/50">
-                            <Palette className="w-8 h-8 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="text-2xl font-bold text-[#1F396D] mb-2">
-                              {designCreativePathway.title}
-                            </h3>
-                            <p className="text-gray-600">
-                              {designCreativePathway.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="grid gap-3 sm:grid-cols-2">
-                          <div className="rounded-2xl border border-[#1F396D]/10 bg-white/60 p-4">
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#F16112]">Best for</p>
-                            <p className="mt-1 font-bold text-gray-900">{designCreativePathway.bestFor}</p>
-                          </div>
-                          <div className="rounded-2xl border border-[#1F396D]/10 bg-white/60 p-4">
-                            <p className="text-xs font-bold uppercase tracking-wider text-[#F16112]">Mode</p>
-                            <p className="mt-1 font-bold text-gray-900">Online + Dublin testing option</p>
-                          </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-[#1F396D]">{designPathway.shortTitle}</h3>
+                          <p className="mt-1 text-sm font-semibold text-[#F16112]">{designPathway.bestFor}</p>
                         </div>
                       </div>
-
-                      <div>
-                        <p className="mb-4 text-sm font-bold uppercase tracking-wider text-[#1F396D]">
-                          Students create
-                        </p>
-                        <div className="grid gap-3 sm:grid-cols-2">
-                          {designCreativePathway.features.map((feature) => (
-                            <div key={feature} className="flex items-center gap-3 rounded-xl bg-white/60 p-3">
-                              <CheckCircle className="h-5 w-5 shrink-0 text-[#F16112]" />
-                              <span className="text-sm font-medium text-gray-700">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                        <p className="mt-5 rounded-2xl border-l-4 border-[#F16112] bg-white/70 p-4 text-gray-700">
-                          {designCreativePathway.outcome}
-                        </p>
-                        <Link href={createLocaleUrl('/future-skills/design-creative-media')}>
-                          <Button className="mt-5 w-full rounded-xl bg-gradient-to-r from-[#F1894F] to-[#F16112] py-4 text-white hover:shadow-2xl">
-                            View creative media pathway
-                            <ChevronRight className="ml-2 h-5 w-5" />
-                          </Button>
-                        </Link>
-                      </div>
+                      <p className="text-base leading-7 text-gray-700">{designPathway.hero}</p>
+                      <p className="mt-3 text-sm leading-7 text-gray-600">
+                        Full curriculum, levels, and optional Adobe Certiport prep are on the dedicated Future Skills page
+                        — not duplicated here.
+                      </p>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })()}
+                    <div className="flex w-full flex-col gap-3 sm:w-auto sm:min-w-[260px]">
+                      <Link href={createLocaleUrl(designPathway.href)}>
+                        <Button className="w-full rounded-xl bg-gradient-to-r from-[#F1894F] to-[#F16112] py-4 text-white hover:shadow-2xl">
+                          View certification pathway
+                          <ChevronRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </Link>
+                      <Link href={createLocaleUrl('/book-assessment?interest=future-skills-design-creative-media')}>
+                        <Button
+                          variant="outline"
+                          className="w-full rounded-xl border-[#1F396D]/20 py-4 font-bold text-[#1F396D]"
+                        >
+                          Book a pathway assessment
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </section>

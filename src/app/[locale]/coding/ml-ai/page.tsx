@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
+import { CodingCertPathwayBanner } from '@/components/coding/CodingCertPathwayBanner';
 import { CodingProgramDetailHero } from '@/components/coding/CodingProgramDetailHero';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
 
@@ -61,6 +62,8 @@ export default function MlAiCodingPage() {
             </div>
           </div>
         </section>
+
+        <CodingCertPathwayBanner slug="ai-machine-learning" />
       </main>
     </Suspense>
   );
