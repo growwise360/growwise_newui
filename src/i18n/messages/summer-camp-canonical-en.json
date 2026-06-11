@@ -96,7 +96,11 @@
   "pickCardsCommon": {
     "workOnLabel": "What Students Work On",
     "priceLine": "From $XXX — contact us",
-    "ctaLabel": "View & Enroll"
+    "ctaLabel": "View & Enroll",
+    "ctaLabelClosed": "Applications closed",
+    "applicationsClosedNote": "Applications are closed for Summer 2026.",
+    "applicationsClosedLinkLabel": "Explore our year-round programs →",
+    "applicationsClosedLinkHref": "/academic"
   },
   "pickCards": {
     "ai-entrepreneur": {

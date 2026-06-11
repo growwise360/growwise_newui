@@ -9,6 +9,7 @@ import { AcademicSummerProgramsTeaserBand } from '@/components/camps/AcademicSum
 import { HighSchoolSummerIntensiveTeaserBand } from '@/components/camps/HighSchoolSummerIntensiveTeaserBand';
 import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
 import type { Program } from '@/lib/summer-camp-data';
+import { isSummerCampApplicationsClosed } from '@/lib/summer-camp-data';
 import {
   getSummerCampProgramTrack,
   orderProgramsBySummerCampTrack,
@@ -64,25 +65,22 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
   imageWrapperClassName: string;
 }) {
   const t = useTranslations('summerCamp');
+  const locale = useLocale();
   const cardMeta = getSummerCampPickCardMeta(program.id);
+  const applicationsClosed = isSummerCampApplicationsClosed(program.id);
 
   const handleEnroll = useCallback(() => {
+    if (applicationsClosed) return;
     void import('@/lib/meta-pixel').then(({ trackCampView }) =>
       trackCampView(program.title, program.category),
     );
     onSelect(program);
-  }, [onSelect, program]);
+  }, [applicationsClosed, onSelect, program]);
 
   if (!cardMeta) return null;
 
-  return (
-    <button
-      type="button"
-      aria-pressed={isSelected}
-      aria-label={cardMeta.title}
-      onClick={handleEnroll}
-      className={CARD_SHELL_CLASS(isSelected)}
-    >
+  const cardBody = (
+    <>
       <div className={`relative w-full shrink-0 overflow-hidden bg-slate-200 ${imageWrapperClassName}`}>
         <Image
           src={program.image}
@@ -128,7 +126,18 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
           <span aria-hidden="true">✓ </span>
           {cardMeta.outcome}
         </p>
-        {isSelected ? (
+        {applicationsClosed ? (
+          <div className="mt-2 rounded-md bg-slate-100 px-2 py-1.5 text-[11px] font-semibold text-slate-600">
+            <p>{cardMeta.applicationsClosedNote}</p>
+            <Link
+              href={createLocaleUrl(cardMeta.applicationsClosedLinkHref, locale)}
+              className="mt-1 inline-block font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
+            >
+              {cardMeta.applicationsClosedLinkLabel}
+            </Link>
+          </div>
+        ) : null}
+        {isSelected && !applicationsClosed ? (
           <div
             aria-live="polite"
             className="mt-1.5 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-[#1F396D]"
@@ -138,11 +147,38 @@ const SummerCampProgramPickCard = memo(function SummerCampProgramPickCard({
         ) : null}
         <span
           aria-hidden="true"
-          className="mt-2 flex h-8 w-full shrink-0 items-center justify-center rounded-full bg-[#1A2B4A] px-3.5 text-[10px] font-bold text-white min-[769px]:group-hover:bg-[#1F396D]"
+          className={`mt-2 flex h-8 w-full shrink-0 items-center justify-center rounded-full px-3.5 text-[10px] font-bold text-white ${
+            applicationsClosed
+              ? 'bg-slate-400'
+              : 'bg-[#1A2B4A] min-[769px]:group-hover:bg-[#1F396D]'
+          }`}
         >
-          {cardMeta.ctaLabel}
+          {applicationsClosed ? cardMeta.ctaLabelClosed : cardMeta.ctaLabel}
         </span>
       </div>
+    </>
+  );
+
+  if (applicationsClosed) {
+    return (
+      <div
+        className={`${CARD_SHELL_CLASS(false)} cursor-default opacity-95`}
+        aria-label={`${cardMeta.title} — ${cardMeta.ctaLabelClosed}`}
+      >
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      aria-pressed={isSelected}
+      aria-label={cardMeta.title}
+      onClick={handleEnroll}
+      className={CARD_SHELL_CLASS(isSelected)}
+    >
+      {cardBody}
     </button>
   );
 });

@@ -11,6 +11,7 @@ import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
 import {
   filterSummerCampHubPrograms,
   getDefaultSummerCampData,
+  isSummerCampApplicationsClosed,
   type Level,
   type Program,
 } from '@/lib/summer-camp-data';
@@ -35,6 +36,7 @@ export const CAMP_SLUG_TO_PROGRAM_ID: Record<string, string> = {
 
 const PT_OFFSET = '-08:00';
 const IN_STOCK = 'https://schema.org/InStock';
+const SOLD_OUT = 'https://schema.org/SoldOut';
 const EVENT_SCHEDULED = 'https://schema.org/EventScheduled';
 const OFFLINE_MODE = 'https://schema.org/OfflineEventAttendanceMode';
 
@@ -113,6 +115,10 @@ function defaultSlotTime(program: Program): string {
 
 const GROWWISE_PERFORMER = { name: 'GrowWise School', type: 'Organization' as const };
 
+function offerAvailabilityForProgram(programId: string | undefined): string {
+  return programId && isSummerCampApplicationsClosed(programId) ? SOLD_OUT : IN_STOCK;
+}
+
 function buildEventNode({
   name,
   description,
@@ -121,6 +127,7 @@ function buildEventNode({
   price,
   pageUrl,
   baseUrl,
+  availability,
 }: {
   name: string;
   description: string;
@@ -129,6 +136,7 @@ function buildEventNode({
   price: number;
   pageUrl: string;
   baseUrl: string;
+  availability?: string;
 }): Record<string, unknown> {
   return stripJsonLdContext(
     generateEventSchema({
@@ -141,7 +149,7 @@ function buildEventNode({
       offers: {
         price: String(price),
         priceCurrency: 'USD',
-        availability: IN_STOCK,
+        availability: availability ?? IN_STOCK,
         url: pageUrl,
         validFrom: '2026-01-01',
       },
@@ -178,6 +186,7 @@ function buildWeeklySlotEvents(
           price,
           pageUrl,
           baseUrl,
+          availability: offerAvailabilityForProgram(program.id),
         }),
       );
     }
@@ -252,7 +261,7 @@ function buildCampCourseNode(
       offers: {
         price: String(program.startingPrice),
         priceCurrency: 'USD',
-        availability: IN_STOCK,
+        availability: offerAvailabilityForProgram(program.id),
         url: pageUrl,
         validFrom: '2026-01-01',
       },

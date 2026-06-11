@@ -57,6 +57,11 @@ const SUMMER_CAMP_ENROLL_CTA = {
   href: "/camps/summer",
 } as const;
 
+const SUMMER_CAMP_ENROLL_CTA_CLOSED = {
+  label: "Summer hub (applications closed)",
+  href: "/camps/summer",
+} as const;
+
 const BASE_TRUST = [
   { text: "One Dublin, CA campus — clear, consistent operations" },
   { text: "Structured curriculum with accountable outcomes" },
@@ -195,7 +200,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Robotics — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
-      enrollCta: SUMMER_CAMP_ENROLL_CTA,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Discuss robotics placement with our team.",
     stickyCtaButton: { label: "Inquiry form", href: "#inquiry" },
@@ -261,7 +266,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Game Development — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
-      enrollCta: SUMMER_CAMP_ENROLL_CTA,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Ask about game dev cohort placement.",
     stickyCtaButton: { label: "Submit inquiry", href: "#inquiry" },
@@ -398,6 +403,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Robotics Full Day — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Ask about full-day robotics availability.",
     stickyCtaButton: { label: "Inquiry form", href: "#inquiry" },
@@ -463,7 +469,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Young Authors — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
-      enrollCta: SUMMER_CAMP_ENROLL_CTA,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Discuss Young Authors placement.",
     stickyCtaButton: { label: "Go to inquiry", href: "#inquiry" },

@@ -18,6 +18,7 @@ import {
   type OlympiadTierConfig,
   type ProgramAddOn,
 } from '@/lib/summer-camp-data';
+import { isSummerCampApplicationsClosed } from '@/lib/summer-camp-data';
 import { type CartItem, useCart } from '@/components/gw/CartContext';
 import { X, Clock, CalendarDays, CheckCircle2, MapPin } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -227,6 +228,7 @@ export function SlotRow({
   cartItemIds,
   onAdd,
   onRemove,
+  applicationsClosed = false,
 }: {
   slot: Slot;
   level: Level;
@@ -234,10 +236,12 @@ export function SlotRow({
   cartItemIds: Set<string>;
   onAdd: (level: Level, slot: Slot) => void;
   onRemove: (slotId: string) => void;
+  applicationsClosed?: boolean;
 }) {
   const t = useTranslations('summerCamp');
   const inCart = cartItemIds.has(slot.id);
-  const registrationClosed = isJune8SummerCampRegistrationClosed(slot.label);
+  const registrationClosed =
+    applicationsClosed || isJune8SummerCampRegistrationClosed(slot.label);
 
   return (
     <div
@@ -263,7 +267,9 @@ export function SlotRow({
           </span>
           <span className="text-slate-700">{slot.time}</span>
           {registrationClosed ? (
-            <span className="font-bold text-slate-500">Registration closed</span>
+            <span className="font-bold text-slate-500">
+              {applicationsClosed ? 'Applications closed' : 'Registration closed'}
+            </span>
           ) : null}
         </div>
       </div>
@@ -401,6 +407,7 @@ export function SlotsPanel({
   const isScratch = program.id === 'scratch-online' || program.id === 'scratch';
   const isRoblox = program.id === 'roblox-in-person';
   const isRoboticsCamp = program.id === 'robotics-camp';
+  const applicationsClosed = isSummerCampApplicationsClosed(program.id);
   const aiProfileBuildingAddOn = useMemo(
     () =>
       isAiEntrepreneur
@@ -410,6 +417,7 @@ export function SlotsPanel({
   );
 
   const handleAdd = (level: Level, slot: Slot) => {
+    if (applicationsClosed) return;
     if (summerCampItemIds.has(slot.id)) return;
     if (isJune8SummerCampRegistrationClosed(slot.label)) return;
     void import('@/lib/meta-pixel').then(({ trackEnrollClick }) =>
@@ -581,6 +589,7 @@ export function SlotsPanel({
           cartItemIds={summerCampItemIds}
           onAdd={handleAdd}
           onRemove={handleRemove}
+          applicationsClosed={applicationsClosed}
         />
       ))}
     </EnrollmentPanelSlotList>
@@ -635,6 +644,12 @@ export function SlotsPanel({
         }
         footer={seoFooter}
       />
+
+      {applicationsClosed ? (
+        <div className="border-b border-slate-200 bg-slate-50 px-4 py-3 text-center text-[13px] font-semibold leading-snug text-slate-600">
+          {t('slots.applicationsClosedBanner')}
+        </div>
+      ) : null}
 
       {isScratch && program.levels[0] ? (
         <>

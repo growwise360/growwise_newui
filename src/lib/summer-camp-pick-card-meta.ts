@@ -10,6 +10,10 @@ export type SummerCampPickCardMeta = {
   outcome: string;
   priceLine: string;
   ctaLabel: string;
+  ctaLabelClosed: string;
+  applicationsClosedNote: string;
+  applicationsClosedLinkLabel: string;
+  applicationsClosedLinkHref: string;
 };
 
 const pickCards = canonical.pickCards as Record<
@@ -27,5 +31,9 @@ export function getSummerCampPickCardMeta(programId: string): SummerCampPickCard
     workOnLabel: common.workOnLabel,
     priceLine: common.priceLine,
     ctaLabel: common.ctaLabel,
+    ctaLabelClosed: common.ctaLabelClosed,
+    applicationsClosedNote: common.applicationsClosedNote,
+    applicationsClosedLinkLabel: common.applicationsClosedLinkLabel,
+    applicationsClosedLinkHref: common.applicationsClosedLinkHref,
   };
 }

@@ -86,12 +86,49 @@ describe('camp-landing-jsonld', () => {
       expect(event.location).toMatchObject({ '@type': 'Place', name: 'GrowWise' });
       expect(event.offers).toMatchObject({
         '@type': 'Offer',
-        availability: 'https://schema.org/InStock',
+        availability: 'https://schema.org/SoldOut',
         priceCurrency: 'USD',
       });
       expect(event.performer).toMatchObject({
         '@type': 'Organization',
         name: 'GrowWise School',
+      });
+    });
+
+    it('closed camp landing pages use SoldOut availability on Course and Event offers', () => {
+      for (const slug of [
+        'young-authors-camp-dublin-ca',
+        'game-development-camp-dublin-ca',
+        'robotics-camp-dublin-ca',
+        'robotics-full-day-dublin-ca',
+      ] as const) {
+        const page = getCampPage(slug);
+        expect(page).toBeDefined();
+        const graph = buildCampLandingJsonLdGraph(page!, LOCALE) as Record<string, unknown>;
+        const nodes = graph['@graph'] as Array<Record<string, unknown>>;
+        const course = nodes.find((n) => n['@type'] === 'Course');
+        const event = nodes.find((n) => n['@type'] === 'Event');
+        expect(course?.offers).toMatchObject({
+          availability: 'https://schema.org/SoldOut',
+        });
+        expect(event?.offers).toMatchObject({
+          availability: 'https://schema.org/SoldOut',
+        });
+      }
+    });
+
+    it('open camp landing pages keep InStock availability', () => {
+      const page = getCampPage('ai-studio-dublin-ca');
+      expect(page).toBeDefined();
+      const graph = buildCampLandingJsonLdGraph(page!, LOCALE) as Record<string, unknown>;
+      const nodes = graph['@graph'] as Array<Record<string, unknown>>;
+      const course = nodes.find((n) => n['@type'] === 'Course')!;
+      const event = nodes.find((n) => n['@type'] === 'Event')!;
+      expect(course.offers).toMatchObject({
+        availability: 'https://schema.org/InStock',
+      });
+      expect(event.offers).toMatchObject({
+        availability: 'https://schema.org/InStock',
       });
     });
 

@@ -7,7 +7,7 @@ export const SUMMER_HUB_PRIORITY_FAQS: FAQItem[] = [
   {
     question: 'What grades are GrowWise summer STEAM camps for?',
     answer:
-      'The summer booking grid on this page serves Grades 3–6 for Robotics, Young Authors, Scratch, Roblox, and AI Entrepreneur Studio. AI Entrepreneur may accept older students by placement. For academic sprints (Grades 1–10) or high school math intensives (Grades 8–12), see the links on this page.',
+      'The summer booking grid on this page serves Grades 3–6 for Robotics, Young Authors, Scratch, Roblox, and AI Entrepreneur Studio. AI Entrepreneur may accept older students by placement. Robotics, Roblox game development, and Young Authors are not currently accepting applications for Summer 2026. Scratch and AI Entrepreneur Studio remain open for self-serve enrollment. For academic sprints (Grades 1–10) or high school math intensives (Grades 8–12), see the links on this page.',
   },
   {
     question: 'Where are GrowWise summer camps held?',
@@ -16,7 +16,7 @@ export const SUMMER_HUB_PRIORITY_FAQS: FAQItem[] = [
   {
     question: 'What summer camps can I book on this page?',
     answer:
-      'On this hub you can reserve weeks for AI Entrepreneur Studio, Scratch coding, Roblox game development, Robotics, and Young Authors. Math Olympiad and Advanced Math have dedicated camp pages linked from our site—not this booking grid.',
+      'On this hub you can reserve weeks for Scratch coding and AI Entrepreneur Studio. Robotics, Roblox game development, and Young Authors are visible but not accepting applications for Summer 2026. Math Olympiad and Advanced Math have dedicated camp pages linked from our site—not this booking grid.',
   },
   {
     question: 'How do I enroll my child in a GrowWise summer camp?',

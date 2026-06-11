@@ -55,6 +55,17 @@ export function filterSummerCampHubPrograms(programs: Program[]): Program[] {
   return programs.filter((p) => !SUMMER_CAMP_HUB_EXCLUDED_PROGRAM_IDS.has(p.id));
 }
 
+/** Programs visible on the hub but not accepting self-serve enrollments. */
+export const SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS = new Set<string>([
+  'young-authors',
+  'roblox-in-person',
+  'robotics-camp',
+]);
+
+export function isSummerCampApplicationsClosed(programId: string): boolean {
+  return SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS.has(programId);
+}
+
 export type Program = {
   id: string;
   title: string;
