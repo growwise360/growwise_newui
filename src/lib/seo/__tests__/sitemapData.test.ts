@@ -46,13 +46,21 @@ describe('sitemapData', () => {
     });
   });
 
-  it('includes resources hub and all articles in blogs sitemap', () => {
+  it('keeps the resources hub out of the blogs sitemap while including all resource articles', () => {
     const blogLocs = buildBlogUrls(BASE, LASTMOD).map((u) => u.loc);
-    expect(blogLocs).toContain(`${BASE}/resources`);
+    expect(blogLocs).not.toContain(`${BASE}/resources`);
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       expect(blogLocs).toContain(`${BASE}${path}`);
     });
     expect(blogLocs).toContain(`${BASE}/resources/python-vs-scratch`);
+  });
+
+  it('does not duplicate any URL across page and blog sitemaps', () => {
+    const allLocs = [
+      ...buildPagesUrls(BASE, LASTMOD).map((u) => u.loc),
+      ...buildBlogUrls(BASE, LASTMOD).map((u) => u.loc),
+    ];
+    expect(new Set(allLocs).size).toBe(allLocs.length);
   });
 
   it('does not include retired locale prefixes in sitemap URLs', () => {
