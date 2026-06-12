@@ -567,7 +567,7 @@ const ElementaryMathPage: React.FC = () => {
               </p>
             </div>
             <Link
-              href={publicPath('/math-tutoring-dublin-ca/elementary', locale)}
+              href={publicPath('/academic/math/elementary', locale)}
               className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#1F396D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#162850] transition-colors whitespace-nowrap"
             >
               See local programs
