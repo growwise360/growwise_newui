@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { ENABLED_LOCALES, DEFAULT_LOCALE } from '@/i18n/localeConfig';
+import { buildBlogPaths, buildPagesPaths } from '@/lib/seo/sitemapData';
 
 /**
  * Strip www subdomain to enforce single canonical domain (301 redirect).
@@ -81,6 +82,62 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'never',
 });
 
+const EXTRA_PUBLIC_PATHS = [
+  '/book-assessment/thank-you',
+  '/camps/academic-summer-sprint-dublin-ca',
+  '/camps/summer/guide-success',
+  '/camps/summer/lottery-success',
+  '/camps/summer/summercamp-success',
+  '/cart',
+  '/checkout',
+  '/checkout/success',
+  '/contact/thank-you',
+  '/courses/english',
+  '/courses/high-school-math',
+  '/courses/math',
+  '/courses/math/elementary',
+  '/courses/math/high-school',
+  '/courses/math/middle-school',
+  '/dashboard',
+  '/detective',
+  '/enroll/confirmation',
+  '/enroll/thank-you',
+  '/enroll-academic/thank-you',
+  '/login',
+  '/math-finals-practice-session/thank-you',
+  '/results',
+  '/self-check/done',
+  '/student-login',
+  '/testimonials-test',
+] as const;
+
+const KNOWN_PUBLIC_PATHS = new Set([
+  ...buildPagesPaths(),
+  ...buildBlogPaths(),
+  ...EXTRA_PUBLIC_PATHS,
+]);
+
+function notFoundResponse(): NextResponse {
+  return new NextResponse(
+    '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><title>Page not found | GrowWise</title></head><body><main><h1>Page not found</h1><p>The page you are looking for does not exist or may have been moved.</p><p><a href="/">Back to home</a></p></main></body></html>',
+    {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'private, no-cache, no-store, max-age=0, must-revalidate',
+      },
+    },
+  );
+}
+
+function hard404UnknownPublicPath(request: NextRequest): NextResponse | null {
+  const pathname = request.nextUrl.pathname;
+  if (pathname === '/' || KNOWN_PUBLIC_PATHS.has(pathname)) {
+    return null;
+  }
+  return notFoundResponse();
+}
+
 /** Locales that may prefix `/_next/*` asset paths (enabled + retired). */
 const assetLocalePattern = [
   ...new Set([...ENABLED_LOCALES, ...LEGACY_LOCALE_PREFIXES]),
@@ -130,6 +187,8 @@ export default function middleware(request: NextRequest) {
   if (rewritten) return rewritten;
   const legacyLocale = redirectLegacyLocalePrefix(request);
   if (legacyLocale) return legacyLocale;
+  const hard404 = hard404UnknownPublicPath(request);
+  if (hard404) return hard404;
   return intlMiddleware(request);
 }
 

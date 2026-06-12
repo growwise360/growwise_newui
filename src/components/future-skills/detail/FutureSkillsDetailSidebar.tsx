@@ -34,7 +34,7 @@ export function FutureSkillsDetailSidebar({ pathway, assessmentHref, onTrialClic
           href={assessmentHref}
           className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#F16112] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#d9550f]"
         >
-          Book a Pathway Assessment
+          Book a Free Assessment
           <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>
         <button

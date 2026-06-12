@@ -1,17 +1,8 @@
-import { redirect } from 'next/navigation';
-import { DEFAULT_LOCALE } from '@/i18n/localeConfig';
-import { publicPath } from '@/lib/publicPath';
+import { notFound } from 'next/navigation';
 
-/** Non-locale paths redirect into `[locale]`; skip static path generation for this catch-all. */
+/** Root unknown paths are real 404s; known root routes have explicit pages or middleware handling. */
 export const dynamic = 'force-dynamic';
 
-export default async function CatchAllRedirectPage({
-  params,
-}: {
-  params: Promise<{ catchAll?: string[] }>;
-}) {
-  const { catchAll } = await params;
-  const rest = Array.isArray(catchAll) ? catchAll.join('/') : '';
-  const path = rest ? `/${rest}` : '/';
-  redirect(publicPath(path, DEFAULT_LOCALE));
+export default function CatchAllPage() {
+  notFound();
 }

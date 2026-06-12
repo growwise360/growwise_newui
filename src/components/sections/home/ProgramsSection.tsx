@@ -30,7 +30,7 @@ export function ProgramsSection({
   steam: ProgramVM[];
 }) {
   const locale = useLocale();
-  const ProgramGrid = ({ items, accent }: { items: ProgramVM[]; accent: 'blue' | 'orange' }) => (
+  const renderProgramGrid = (items: ProgramVM[]) => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       {items.map((program) => {
         const Icon = program.IconComponent as any;
@@ -201,7 +201,7 @@ export function ProgramsSection({
             <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">Grades 1-12 Academic Programs</h3>
             <div className="flex-1 h-px bg-gradient-to-r from-[#1F396D]/30 via-[#F16112]/20 to-transparent"></div>
           </div>
-          <ProgramGrid items={k12} accent="blue" />
+          {renderProgramGrid(k12)}
         </div>
         <AcademicSummerProgramsTeaserBand locale={locale} variant="homepage" />
         <div className="mb-16">
@@ -209,11 +209,10 @@ export function ProgramsSection({
             <h3 className="text-3xl lg:text-4xl font-bold text-gray-900">STEAM Programs</h3>
             <div className="flex-1 h-px bg-gradient-to-r from-[#F16112]/30 via-[#1F396D]/20 to-transparent"></div>
           </div>
-          <ProgramGrid items={steam} accent="orange" />
+          {renderProgramGrid(steam)}
         </div>
       </div>
     </section>
   );
 }
-
 

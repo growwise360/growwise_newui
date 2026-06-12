@@ -2,7 +2,7 @@ import robots from '@/app/robots'
 
 /** TC-07 — robots.txt policy (merged static + programmatic rules). */
 describe('robots() — GWA-192 / TC-07', () => {
-  it('allows all, disallows legacy locale prefixes, query URLs, and auth/cart paths', () => {
+  it('allows all, keeps crawl exceptions, and disallows legacy/auth/cart paths', () => {
     const r = robots()
     expect(r.sitemap).toMatch(/sitemap\.xml$/)
 
@@ -11,7 +11,11 @@ describe('robots() — GWA-192 / TC-07', () => {
       throw new Error('Expected single rules object for this policy')
     }
     expect(rules.userAgent).toBe('*')
-    expect(rules.allow).toBe('/')
+    expect(rules.allow).toEqual([
+      '/',
+      '/_next/image?*',
+      '/growwise-blogs?page=*',
+    ])
     expect(rules.disallow).toEqual([
       '/en/',
       '/hi/',

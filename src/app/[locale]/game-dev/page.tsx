@@ -5,6 +5,7 @@ import { EnrollProvider } from '@/contexts/EnrollContext';
 import { GameDevHero } from '@/components/game-dev/GameDevHero';
 import { GameDevPrograms } from '@/components/game-dev/GameDevPrograms';
 import { generateMetadataFromPath } from '@/lib/seo/metadata';
+import { SeoPageFallback } from '@/components/seo/SeoPageFallback';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -18,9 +19,17 @@ export default function GameDevPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen page-bg-gamedev flex items-center justify-center text-[#1F396D]">
-          Loading…
-        </div>
+        <SeoPageFallback
+          eyebrow="Game development"
+          title="Game Development for Kids in Dublin, CA"
+          description="GrowWise game development classes help kids move from playing games to building them through Scratch, Roblox, Minecraft, and project-based coding. This page remains live for families looking for creative coding and game design programs."
+          links={[
+            { href: '/en/future-skills', label: 'Future Skills pathways' },
+            { href: '/en/coding/python', label: 'Python coding' },
+            { href: '/en/book-assessment', label: 'Book a free assessment' },
+          ]}
+          className="page-bg-gamedev"
+        />
       }
     >
       <EnrollProvider>

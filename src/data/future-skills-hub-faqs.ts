@@ -6,12 +6,12 @@ export const FUTURE_SKILLS_HUB_FAQS: readonly FAQItem[] = [
   {
     question: 'What is GrowWise Future Skills?',
     answer:
-      'Future Skills is GrowWise’s certification pathway program for Grades 6–12. Students build real projects at every level, then prepare for optional external credentials — Adobe, Python Institute, Certiport, and more — when they are ready.',
+      'Future Skills is GrowWise’s certification pathway program for Grades 6–12. Students build real projects at every level, then prepare for optional external credentials through Certiport-approved pathways and other provider pathways when ready.',
   },
   {
-    question: 'How is Future Skills different from Coding or STEAM classes?',
+    question: 'How is Future Skills different from coding classes?',
     answer:
-      'Coding and STEAM pages are for exploring foundations and trial classes. Future Skills is a structured multi-level pathway with placement, portfolio review, and optional external exam prep. Families who want certifications and a clear level progression start here.',
+      'Coding pages are for exploring foundations and trial classes. Future Skills is a structured multi-level pathway with placement, portfolio review, and optional external exam prep. Families who want certifications and a clear level progression start here.',
   },
   {
     question: 'Does my child need a pathway assessment before enrolling?',
@@ -31,6 +31,11 @@ export const FUTURE_SKILLS_HUB_FAQS: readonly FAQItem[] = [
   {
     question: 'Which pathways are available?',
     answer:
-      'Four pathways: Design & Creative Media, Python Certification, AI & Machine Learning, and AI Entrepreneurship. Each has four levels with 90-minute live online sessions and optional certification prep at the top level.',
+      'Four pathways: Design & Creative Media, Python Certification, AI & Data / Artificial Intelligence, and AI Entrepreneurship. Each has four levels with 90-minute live online sessions and optional certification prep at the top level.',
+  },
+  {
+    question: 'Is GrowWise approved for PCEP or OpenEDG?',
+    answer:
+      'Not yet. GrowWise is approved for Certiport. The PCEP/OpenEDG pathway is in process, so we describe it only as a pathway in progress and do not claim OpenEDG academy or PCEP testing-center approval.',
   },
 ] as const;

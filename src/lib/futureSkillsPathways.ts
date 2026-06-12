@@ -88,7 +88,7 @@ export const CERTIPORT_ON_SITE_NOTE =
 export const futureSkillsCertiportHubRoster = [
   { pathway: 'Design', credential: 'Adobe Certified Professional' },
   { pathway: 'Python', credential: 'ITS Python (Certiport)' },
-  { pathway: 'AI & ML', credential: 'Microsoft AI-900 Fundamentals' },
+  { pathway: 'AI & Data', credential: 'Microsoft AI-900 Fundamentals' },
   { pathway: 'Entrepreneurship', credential: 'ESB · Meta Certification' },
 ] as const;
 
@@ -244,9 +244,9 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     ],
     relatedPathwaySlugs: ['python-certification', 'ai-machine-learning', 'ai-entrepreneurship'],
     discoveryPage: {
-      href: '/steam',
-      title: 'STEAM programs hub',
-      description: 'Explore our broader STEAM catalog first if your child is still choosing between coding, design, and project-based tracks.',
+      href: '/coding',
+      title: 'Coding classes',
+      description: 'Explore coding foundations and trial classes first if your child is still choosing between introductory projects and a certification pathway.',
     },
   },
   {
@@ -255,14 +255,14 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     shortTitle: 'Python Certification',
     eyebrow: 'Python coding pathway',
     bestFor: 'Grades 7-12',
-    mode: 'Online learning + project review + optional external exam prep',
+    mode: 'Online learning + project review + optional certification readiness',
     sessionLength: '90 minutes',
     problem: 'Students learn coding randomly but do not build fluency, projects, or credential-ready skills.',
     hero: 'Build Python fluency, real projects, and certification readiness.',
     formatShort: 'Live online · 90-minute sessions · code review',
     summary:
-      'A structured path from Python fundamentals to project fluency, PCEP readiness, and intermediate PCAP concepts for serious computer science preparation.',
-    outcome: 'Games, calculators, mini tools, automation scripts, mock exams, and a certification-readiness plan.',
+      'A structured path from Python fundamentals to project fluency, Certiport Python readiness, and a PCEP/OpenEDG pathway that is currently in process.',
+    outcome: 'Games, calculators, mini tools, automation scripts, Certiport Python readiness, and a certification-readiness plan.',
     icon: Code2,
     accent: '#1F396D',
     href: '/future-skills/python-certification',
@@ -287,31 +287,30 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
       {
         label: 'Stage 3',
-        course: 'PCEP Prep',
+        course: 'Python Certification Readiness',
         sessions: 8,
         hours: '12 hrs',
         fee: '$599',
-        outcome: 'Exam-style review + mock test',
-        topics: ['PCEP domains', 'Timed practice', 'Concept review', 'Readiness feedback'],
+        outcome: 'Certiport Python review + PCEP/OpenEDG pathway map',
+        topics: ['Certiport Python concepts', 'Timed practice', 'Concept review', 'PCEP/OpenEDG pathway in process'],
       },
       {
         label: 'Stage 4',
-        course: 'PCAP Prep',
+        course: 'Intermediate Python Projects',
         sessions: 20,
         hours: '30 hrs',
         fee: '$1,299',
         outcome: 'OOP, modules, exceptions, intermediate Python',
-        topics: ['Object-oriented programming', 'Exceptions', 'Packages', 'Intermediate syntax', 'Mock review'],
+        topics: ['Object-oriented programming', 'Exceptions', 'Packages', 'Intermediate syntax', 'Portfolio review'],
       },
     ],
     externalFees: [
-      { item: 'PCEP exam voucher (Python Institute, optional)', fee: 'Quoted at placement' },
-      { item: 'PCEP practice test (Python Institute, optional)', fee: 'Quoted at placement' },
-      { item: 'PCAP exam voucher (Python Institute, optional)', fee: 'Quoted at placement' },
+      { item: 'ITS Python exam voucher (Certiport, optional)', fee: 'Quoted at placement' },
+      { item: 'PCEP/OpenEDG pathway (in process)', fee: 'Not yet available through GrowWise' },
     ],
     buildList: ['Quiz game', 'Calculator', 'Automation script', 'Data mini-project', 'Mock exam plan'],
     certificationFit:
-      'Optional Certiport ITS Python on-site at Dublin, or Python Institute PCEP/PCAP through separate registration when students are ready.',
+      'Optional Certiport ITS Python on-site at Dublin when students are ready. The PCEP/OpenEDG pathway is in process; GrowWise does not yet claim PCEP approval, OpenEDG academy status, or official PCEP testing-center status.',
     certiportOnSite: [{ credential: 'Information Technology Specialist (Python)' }],
     faq: [
       {
@@ -320,38 +319,38 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
           'No. The first two stages build fluency through projects. Certification prep comes after students have enough syntax and debugging confidence.',
       },
       {
-        question: 'Can a student start directly in PCEP prep?',
+        question: 'Can a student start directly in certification readiness?',
         answer:
-          'Yes, if they already know Python basics. We recommend a placement conversation or trial class before skipping the project stages.',
+          'Yes, if they already know Python basics. We recommend a placement conversation before skipping the project stages.',
       },
       {
-        question: 'Do PCEP and PCAP require separate registration?',
+        question: 'Is the PCEP/OpenEDG pathway available now?',
         answer:
-          'Yes. Each is a separate Python Institute exam with its own voucher and scheduling. GrowWise prep does not include exam registration. Families opt in when the student is ready.',
+          'Not yet. GrowWise is approved for Certiport, and the PCEP/OpenEDG pathway is in process. We do not describe GrowWise as approved for PCEP, an OpenEDG academy, or an official PCEP testing center.',
       },
       {
-        question: 'Are PCEP and PCAP taken through GrowWise?',
+        question: 'Are PCEP/OpenEDG exams taken through GrowWise?',
         answer:
-          'No. These are Python Institute exams. Students register and take them through OpenEDG/TestNow or Pearson VUE after purchasing the appropriate voucher.',
+          'No. GrowWise does not currently offer PCEP/OpenEDG exam delivery. We will update families only after the pathway status changes.',
       },
       {
-        question: 'What is the difference between ITS Python and PCEP/PCAP?',
+        question: 'What is the difference between ITS Python and PCEP/OpenEDG?',
         answer:
-          'ITS Python is a Certiport exam that eligible students can take on-site at GrowWise Dublin after purchasing a voucher at certiport.com. PCEP and PCAP are Python Institute exams with separate registration and are not Certiport or on-site at GrowWise.',
+          'ITS Python is a Certiport exam that eligible students can take on-site at GrowWise Dublin after purchasing a voucher at certiport.com. PCEP/OpenEDG is a separate pathway that is still in process for GrowWise.',
       },
     ],
     skillLevel: 'Beginner–Advanced (placement-based)',
     programLabel: 'Python coding · Grades 7-12',
     programStory: [
       'Students build Python fluency through projects first — games, tools, and automation — before any certification conversation.',
-      'When ready, families can choose Certiport ITS Python on-site at GrowWise Dublin, or Python Institute PCEP and PCAP through separate registration. GrowWise prepares; exam providers issue credentials.',
+      'When ready, families can choose Certiport ITS Python on-site at GrowWise Dublin. The PCEP/OpenEDG pathway is in process and is not presented as approved or available through GrowWise yet.',
       'The pathway is structured for serious CS preparation: syntax confidence, debugging habits, and mock exams — not random tutorial hopping.',
     ],
     learningOutcomes: [
       'Write Python with variables, loops, functions, and basic data structures',
       'Build mini apps, games, calculators, and automation scripts',
       'Prepare for optional Certiport ITS Python on-site at GrowWise Dublin',
-      'Prepare for optional Python Institute PCEP and PCAP (separate registration)',
+      'Understand the PCEP/OpenEDG pathway status as in process, with no approval claim',
       'Complete mock exams and a certification-readiness plan with instructor feedback',
     ],
     courseFormat:
@@ -379,39 +378,39 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
       {
         stage: 'Stage 3',
-        title: 'PCEP Prep',
+        title: 'Python Certification Readiness',
         sessions: [
-          { label: 'Session 1', title: 'PCEP domain review', description: 'Cover entry-level Python exam domains with timed practice.' },
-          { label: 'Session 2', title: 'Mock exam + feedback', description: 'Sit a mock PCEP-style test and review gaps with the instructor.' },
+          { label: 'Session 1', title: 'Certiport Python review', description: 'Cover entry-level Python concepts with timed practice.' },
+          { label: 'Session 2', title: 'Readiness feedback', description: 'Review project and practice gaps with the instructor.' },
         ],
       },
       {
         stage: 'Stage 4',
-        title: 'PCAP Prep',
+        title: 'Intermediate Python Projects',
         sessions: [
           { label: 'Session 1', title: 'Object-oriented Python', description: 'Classes, objects, and inheritance with practical examples.' },
           { label: 'Session 2', title: 'Exceptions and packages', description: 'Handle errors and structure code for intermediate exam topics.' },
-          { label: 'Session 3', title: 'Mock review', description: 'Timed PCAP-style practice and a readiness plan for optional registration.' },
+          { label: 'Session 3', title: 'Portfolio review', description: 'Review project quality and map next steps for advanced Python growth.' },
         ],
       },
     ],
     credentialHighlight: {
       title: 'Project proof and optional Python credentials',
-      body: 'Students earn GrowWise level completion certificates at each stage. Optional paths include Certiport ITS Python on-site at Dublin, or Python Institute PCEP/PCAP through separate registration — each with its own voucher and scheduling.',
+      body: 'Students earn GrowWise level completion certificates at each stage. Optional Certiport ITS Python can be taken on-site at Dublin when ready. The PCEP/OpenEDG pathway is in process and is not yet offered or described as approved.',
     },
     advisorCta: {
       title: 'Get advice from our team',
-      body: 'A pathway assessment confirms whether your child should start at foundations, project builder, or certification prep — and which external credential track fits their goals.',
+      body: 'A pathway assessment confirms whether your child should start at foundations, project builder, or Certiport Python readiness.',
     },
     closingCta: {
       title: 'Start with the right Python stage — not the longest track.',
-      body: 'A pathway assessment confirms whether your child should begin at foundations, project builder, or certification prep — and whether Certiport ITS Python or Python Institute exams fit their goals.',
+      body: 'A pathway assessment confirms whether your child should begin at foundations, project builder, or Certiport Python readiness, with the PCEP/OpenEDG pathway described only as in process.',
     },
     trustHighlights: [
       'Project-first Python — not test-only cramming',
       '387+ students enrolled · 4.9★ Google · 98% parent satisfaction',
       'Certiport ITS Python available on-site at GrowWise Dublin',
-      'Clear separation between Certiport and Python Institute exam paths',
+      'PCEP/OpenEDG pathway clearly described as in process',
     ],
     relatedPathwaySlugs: ['design-creative-media', 'ai-machine-learning', 'ai-entrepreneurship'],
     discoveryPage: getFutureSkillsDiscoveryPage('python-certification') ?? {
@@ -422,18 +421,18 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
   },
   {
     slug: 'ai-machine-learning',
-    title: 'AI & Machine Learning Pathway',
-    shortTitle: 'AI & Machine Learning',
-    eyebrow: 'AI and data pathway',
+    title: 'AI & Data Certification Pathway',
+    shortTitle: 'AI & Data / Artificial Intelligence',
+    eyebrow: 'AI & data certification pathway',
     bestFor: 'Grades 8-12',
-    mode: 'Online learning + project review + optional external credential prep',
+    mode: 'Online learning + project review + optional certification readiness',
     sessionLength: '90 minutes',
     problem: 'Students use AI tools but do not understand AI, data, models, limitations, or responsible use.',
-    hero: 'Go beyond prompting into data, models, and real AI projects.',
+    hero: 'Build AI literacy, data fluency, and responsible artificial intelligence projects.',
     formatShort: 'Live online · 90-minute sessions · project review',
     summary:
-      'Students learn AI literacy, Python for AI, model basics, datasets, responsible use, and certification/badge readiness through explainable projects.',
-    outcome: 'AI literacy projects, Python data analysis, classification projects, model reviews, and readiness for AWS/NVIDIA/Microsoft pathways.',
+      'AI literacy, responsible AI use, data concepts, Python for AI, and artificial intelligence certification readiness through explainable projects.',
+    outcome: 'AI literacy projects, Python data analysis, classification projects, model reviews, and artificial intelligence certification readiness.',
     icon: Brain,
     accent: '#29335C',
     href: '/future-skills/ai-machine-learning',
@@ -471,18 +470,17 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
         sessions: 12,
         hours: '18 hrs',
         fee: '$999',
-        outcome: 'Microsoft AI / AWS / NVIDIA pathway readiness',
+        outcome: 'Artificial intelligence certification readiness',
         topics: ['Certification map', 'Concept review', 'Practice tasks', 'Project presentation'],
       },
     ],
     externalFees: [
-      { item: 'AWS Educate badge (third-party, optional)', fee: 'Quoted at placement' },
-      { item: 'NVIDIA DLI course (third-party, optional)', fee: 'Quoted at placement' },
       { item: 'Microsoft Certified Fundamentals AI-900 exam (Certiport, optional)', fee: 'Quoted at placement' },
+      { item: 'Additional AI/data badges or courses (third-party, optional)', fee: 'Quoted at placement' },
     ],
     buildList: ['Prompting lab', 'Data analysis notebook', 'Classifier project', 'AI ethics review', 'Capstone presentation'],
     certificationFit:
-      'Optional AWS Educate, NVIDIA DLI, or Microsoft AI-900 (Certiport) when aligned with student goals — each registered separately.',
+      'Optional Microsoft AI-900 (Certiport) when aligned with student goals. Additional AI/data badges or courses may be discussed separately, but Certiport is the approved on-site pathway.',
     certiportOnSite: [{ credential: 'Microsoft Certified: Azure AI Fundamentals (AI-900)' }],
     faq: [
       {
@@ -497,17 +495,17 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
       },
     ],
     skillLevel: 'Beginner–Advanced (placement-based)',
-    programLabel: 'AI & machine learning · Grades 8-12',
+    programLabel: 'AI & data · Grades 8-12',
     programStory: [
       'Students go beyond prompting into how AI systems work — data, models, evaluation, and responsible use — through projects they can explain to a parent or teacher.',
-      'The pathway builds toward optional third-party credentials when aligned with student goals: AWS Educate, NVIDIA DLI learning paths, or Microsoft Certified Fundamentals AI-900 through Certiport. GrowWise prepares readiness; each provider handles registration separately.',
+      'The pathway builds toward artificial intelligence certification readiness when aligned with student goals, with Microsoft Certified Fundamentals AI-900 through Certiport as the approved on-site credential option.',
       'Every level produces explainable work: notebooks, classifiers, ethics reviews, and a capstone presentation — not black-box demos.',
     ],
     learningOutcomes: [
       'Understand AI concepts, limitations, bias, and responsible use',
       'Use Python for data handling, analysis, and simple ML projects',
       'Build and evaluate classification and prediction projects',
-      'Prepare for optional AWS Educate, NVIDIA DLI, or Microsoft AI-900 pathways',
+      'Prepare for optional Microsoft AI-900 (Certiport) or other AI/data credential conversations when appropriate',
       'Present an AI capstone with clear problem, method, and results',
     ],
     courseFormat:
@@ -546,19 +544,19 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
         stage: 'Level 4',
         title: 'AI Certification Prep',
         sessions: [
-          { label: 'Session 1', title: 'Credential map', description: 'Compare optional AWS, NVIDIA, and Microsoft paths to student goals.' },
-          { label: 'Session 2', title: 'Concept review', description: 'Review exam or badge domains with practice tasks.' },
+          { label: 'Session 1', title: 'Credential map', description: 'Compare optional artificial intelligence certification options to student goals.' },
+          { label: 'Session 2', title: 'Concept review', description: 'Review AI literacy, data, and responsible-use concepts with practice tasks.' },
           { label: 'Session 3', title: 'Capstone presentation', description: 'Present an AI project with clear problem, method, and results.' },
         ],
       },
     ],
     credentialHighlight: {
       title: 'Explainable AI projects and optional credentials',
-      body: 'Students earn GrowWise level completion certificates at each stage. Optional third-party credentials — AWS Educate, NVIDIA DLI, or Microsoft Certified Fundamentals AI-900 — are pursued separately when aligned with the student goal. GrowWise does not issue those credentials.',
+      body: 'Students earn GrowWise level completion certificates at each stage. Optional Microsoft Certified Fundamentals AI-900 through Certiport can be pursued when aligned with the student goal. GrowWise prepares readiness; Certiport issues the credential upon passing.',
     },
     advisorCta: {
       title: 'Get advice from our team',
-      body: 'We help families choose the right starting level and whether an external credential path (AWS, NVIDIA, Microsoft) fits your child’s timeline and interests.',
+      body: 'We help families choose the right starting level and whether an artificial intelligence certification path fits your child’s timeline and interests.',
     },
     closingCta: {
       title: 'Start with the right AI level — not the longest track.',
@@ -573,9 +571,9 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     relatedPathwaySlugs: ['python-certification', 'design-creative-media', 'ai-entrepreneurship'],
     discoveryPage: getFutureSkillsDiscoveryPage('ai-machine-learning') ?? {
       href: '/coding/ml-ai',
-      title: 'ML and AI coding classes',
+      title: 'AI and data coding classes',
       description:
-        'Start with trial-first ML and AI classes before committing to a structured certification pathway.',
+        'Start with trial-first AI and data classes before committing to a structured certification pathway.',
     },
   },
   {
@@ -734,7 +732,7 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     discoveryPage: {
       href: '/programs',
       title: 'All GrowWise programs',
-      description: 'Compare academic, STEAM, and Future Skills offerings before choosing an entrepreneurship pathway.',
+      description: 'Compare academic, coding, and certification pathway offerings before choosing an entrepreneurship pathway.',
     },
   },
 ];

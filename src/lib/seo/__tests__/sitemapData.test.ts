@@ -1,5 +1,10 @@
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources';
-import { buildBlogUrls, buildPagesUrls } from '@/lib/seo/sitemapData';
+import {
+  buildBlogUrls,
+  buildPagesUrls,
+  getChildSitemaps,
+  renderSitemapIndex,
+} from '@/lib/seo/sitemapData';
 
 const BASE = 'https://growwiseschool.org';
 const LASTMOD = '2026-05-20';
@@ -41,13 +46,21 @@ describe('sitemapData', () => {
     });
   });
 
-  it('includes resources hub and all articles in blogs sitemap', () => {
+  it('keeps the resources hub out of the blogs sitemap while including all resource articles', () => {
     const blogLocs = buildBlogUrls(BASE, LASTMOD).map((u) => u.loc);
-    expect(blogLocs).toContain(`${BASE}/resources`);
+    expect(blogLocs).not.toContain(`${BASE}/resources`);
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       expect(blogLocs).toContain(`${BASE}${path}`);
     });
     expect(blogLocs).toContain(`${BASE}/resources/python-vs-scratch`);
+  });
+
+  it('does not duplicate any URL across page and blog sitemaps', () => {
+    const allLocs = [
+      ...buildPagesUrls(BASE, LASTMOD).map((u) => u.loc),
+      ...buildBlogUrls(BASE, LASTMOD).map((u) => u.loc),
+    ];
+    expect(new Set(allLocs).size).toBe(allLocs.length);
   });
 
   it('does not include retired locale prefixes in sitemap URLs', () => {
@@ -59,5 +72,13 @@ describe('sitemapData', () => {
     for (const loc of allLocs) {
       expect(loc).not.toMatch(localePrefixPattern);
     }
+  });
+
+  it('renders a sitemap index for child sitemaps', () => {
+    const xml = renderSitemapIndex(getChildSitemaps(BASE, LASTMOD));
+    expect(xml).toContain('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(xml).toContain(`<loc>${BASE}/sitemap-pages.xml</loc>`);
+    expect(xml).toContain(`<loc>${BASE}/sitemap-blogs.xml</loc>`);
+    expect(xml).not.toContain('<urlset');
   });
 });
