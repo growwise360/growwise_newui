@@ -32,7 +32,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/': {
     title: 'K-12 Online Tutoring & Coding Classes | GrowWise',
     description:
-      'GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.',
+      'GrowWise helps Grades 1-12 students build confidence with math, English, coding, STEAM, and SAT prep online or in Dublin, CA. Book a free assessment.',
     keywords:
       'tutoring Dublin CA, Grades 1-12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning',
     path: '',
@@ -59,7 +59,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/bulletin': {
-    title: "How to Support Your K–12 Child's Learning | GrowWise Bulletin",
+    title: "Support your K-12 Child's Learning | GrowWise Bulletin",
     description:
       "What I learn teaching students every day, I share with you. Every Tuesday, Thursday and Saturday. Free. Why this works for both:",
     keywords:
@@ -134,7 +134,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/academic/english': {
     title: 'English Tutoring Programs Grades 1-8 | Dublin CA | GrowWise',
     description:
-      'Structured English tutoring for Grades 1-8 in Dublin, CA and live online. Reading comprehension, writing, grammar, vocabulary, and essay writing in small groups.',
+      'English tutoring for Grades 1-8 in Dublin, CA and online. Reading comprehension, writing, grammar, vocabulary, and essays in small groups.',
     keywords:
       'English tutoring Dublin CA, English tutor Dublin, reading comprehension tutoring, essay writing help, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, writing tutor, reading tutor, English classes Dublin CA, English help Dublin, English tutoring near me, Grades 1-8 English programs',
     path: '/academic/english',
@@ -143,7 +143,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/academic/english/elementary': {
     title: 'Elementary English Tutoring Online — Grades 1–5 | GrowWise',
     description:
-      'Structured English program for Grades 1–5. Reading fluency, vocabulary, grammar, and writing. Live online small groups. Diagnostic-first. 3-month programs. Dublin, CA.',
+      'English for Grades 1-5: reading fluency, vocabulary, grammar, and writing in live small groups. Diagnostic-first, online or in Dublin, CA.',
     keywords:
       'elementary English tutoring online, reading below grade level grades 1-5, my child hates writing, child reads but does not understand, California Common Core ELA, English tutoring Dublin CA, Pleasanton San Ramon Tri-Valley',
     path: '/academic/english/elementary',
@@ -152,7 +152,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/courses/sat-prep': {
     title: 'SAT Prep Tutoring in Dublin, CA | GrowWise',
     description:
-      'Score higher on the SAT with personalized prep in Dublin, CA. Practice tests, proven strategies & expert tutors. Small groups. Book a free assessment today.',
+      'SAT prep in Dublin, CA with practice tests, proven strategies, and expert tutors. Small groups. Book a free assessment today.',
     keywords:
       'SAT prep Dublin CA, SAT preparation, SAT course, SAT tutoring Dublin, SAT test prep, SAT strategies, SAT practice tests, SAT classes Dublin CA, SAT help, SAT tutor near me, SAT prep course, SAT score improvement, college entrance exam prep',
     path: '/courses/sat-prep',
@@ -187,7 +187,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/coding/python': {
     title: 'Python Classes Kids | Book Trial | Dublin CA',
     description:
-      'Python coding classes for Grades 5-12 in Dublin, CA. Build real projects and prepare for high school computer science, AI, and data science. Book a trial class.',
+      'Python coding for Grades 5-12 in Dublin, CA. Build real projects and prepare for high school computer science, AI, and data science.',
     keywords:
       'Python coding classes Dublin CA, Python programming for kids Dublin, Python programming for high school students, Python programming for middle school students, high school computer science preparation, AP Computer Science preparation, text-based coding for kids, beginner Python course for students, Python for AI and machine learning',
     path: '/coding/python',
@@ -313,23 +313,23 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/self-check': {
     title: 'Academic Self-Check for Students | GrowWise Dublin CA',
     description:
-      'Answer 8 questions to find out where you stand in math or English. Get a clear picture of your strengths and the gaps holding you back — in under 10 minutes.',
+      'Answer 8 questions to see your math or English strengths and the gaps holding you back - in under 10 minutes.',
     keywords:
       'math self-check, free math diagnostic, math mistake patterns, math tutoring Dublin CA, child math assessment, math gap finder, GrowWise School',
     path: '/self-check',
   },
 
   '/readinesschecklist': {
-    title: 'Free Math & Reading Readiness Checklist for Parents | GrowWise School Dublin CA',
+    title: 'Free Math & Reading Checklist | GrowWise Dublin CA',
     description:
-      'Free interactive checklist for Dublin and Tri-Valley parents. Identify math gaps, reading comprehension issues, and writing weaknesses in grades 1–8. No signup required.',
+      'Free checklist for Dublin and Tri-Valley parents. Find math, reading comprehension, and writing gaps in Grades 1-8. No signup required.',
     keywords:
       'math readiness checklist, reading comprehension assessment, academic gap finder, learning gaps checklist, Dublin math tutor, Tri-Valley education, parent resources, grades 1-8',
     path: '/readinesschecklist',
   },
 
   '/resources/how-to-choose-summer-camp': {
-    title: 'How to Choose the Right Summer Camp | Parent Guide | GrowWise',
+    title: 'How to Choose Summer Camp | Parent Guide | GrowWise',
     description:
       "Interactive parent guide for choosing between academic sprint, STEAM coding, and enrichment camps based on your child's grade, goal, and gaps.",
     keywords:
@@ -559,9 +559,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/tutoring-dublin-ca': {
-    title: 'K-12 Tutoring in Dublin, CA: How to Choose the Right Program (2026) | GrowWise',
+    title: 'K-12 Tutoring in Dublin CA | 2026 Parent Guide',
     description:
-      'Looking for tutoring in Dublin, CA for your Grade 1–12 student? This guide helps Tri-Valley parents choose between program types — and the questions to ask before enrolling.',
+      'Dublin, CA tutoring guide for Grades 1-12. Compare program types and learn what Tri-Valley parents should ask before enrolling.',
     keywords:
       'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
     path: '/resources/tutoring-dublin-ca',
@@ -689,9 +689,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/python-vs-scratch': {
-    title: 'Python vs Scratch for Kids: Which Should Your Child Learn First? | GrowWise',
+    title: 'Python vs Scratch for Kids | Parent Guide | GrowWise',
     description:
-      "Scratch or Python? The honest, age-by-age answer for parents — including when to switch, what Scratch can't do, and why most kids need both in the right order.",
+      'Scratch or Python? An age-by-age parent guide: when to switch, what Scratch cannot do, and why many kids need both in order.',
     keywords:
       'Python vs Scratch for kids, should kids learn Scratch or Python first, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14',
     path: '/resources/python-vs-scratch',
@@ -709,16 +709,16 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/why-growwise': {
-    title: 'Why GrowWise | Structured, School-Aligned Programs for Grades 1–12',
+    title: 'Why GrowWise | School-Aligned Programs for Grades 1-12',
     description:
-      'GrowWise uses a diagnostic-first, 3-level progression model with monthly progress reports and school-aligned curriculum. See how it compares to traditional tutoring programs.',
+      'Diagnostic-first tutoring with 3-level progression, school-aligned curriculum, and monthly progress reports for Grades 1-12.',
     keywords:
       'tutoring programs, structured tutoring, diagnostic assessment, school-aligned curriculum, diagnostic-first learning, small group tutoring, monthly progress reports, diagnostic learning model',
     path: '/why-growwise',
   },
 
   '/resources/why-grades-hide-learning-gaps': {
-    title: "Why Your Child's A Grade May Be Hiding a Learning Gap | GrowWise",
+    title: 'Why an A Grade May Hide a Learning Gap | GrowWise',
     description:
       "A grade measures performance on one day — not understanding. Here are three signs your child's grade is hiding a gap, and what to do about it.",
     keywords:
@@ -730,7 +730,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/careless-math-mistakes': {
     title: 'Why Kids Make Careless Math Mistakes on Tests | GrowWise',
     description:
-      "Your child knows the material but still loses points. Careless math mistakes follow specific patterns — and each pattern has a fix. Here's how to find the real blocker.",
+      'Careless math mistakes follow specific patterns. Learn how to spot the real blocker and help your child stop losing points.',
     keywords:
       'careless mistakes in math, why kids lose points on math tests, child makes careless math mistakes, how to stop careless mistakes in math, child understands math but gets wrong answers, math mistake patterns, procedural errors in math',
     path: '/resources/careless-math-mistakes',
@@ -740,7 +740,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/what-is-vibe-coding': {
     title: "What Is Vibe Coding? A Parent's Guide (2026) | GrowWise",
     description:
-      "Vibe coding is the fastest-growing way kids learn to build real apps in 2026. Here's what it actually is, why it matters, and the one risk most parents miss.",
+      'Vibe coding helps kids build real apps with AI. Learn what it is, why it matters in 2026, and the risk parents should watch.',
     keywords:
       'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
     path: '/resources/what-is-vibe-coding',
@@ -748,9 +748,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/homework-independence': {
-    title: 'How to Stop Sitting Next to Your Child Every Homework Night | GrowWise',
+    title: 'Build Homework Independence | Parent Guide | GrowWise',
     description:
-      "If you have to sit with your child every night for homework to get done, that's a system problem — not a character flaw. Here's how to build real homework independence in 6–8 weeks.",
+      'If homework only gets done when you sit nearby, the system needs work. Learn how to build real independence in 6-8 weeks.',
     keywords:
       'how to get child to do homework independently, child won\'t do homework without me, homework independence kids, stop sitting with child for homework, homework battles every night, building homework routine kids, child procrastinates homework',
     path: '/resources/homework-independence',
@@ -758,7 +758,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/when-to-start-sat-prep': {
-    title: 'When Should My Child Start SAT Prep? Grade-by-Grade Guide | GrowWise',
+    title: 'When Should My Child Start SAT Prep? | GrowWise',
     description:
       "Grade 8, 9, or 10? Most parents ask too late. Here's the honest, grade-by-grade answer — including the one thing most SAT prep programs don't check first.",
     keywords:

@@ -14,7 +14,7 @@ import { RESOURCES_PATH } from '@/data/resources-hub'
 import { locales } from '@/i18n/config'
 import { DEFAULT_LOCALE } from '@/i18n/localeConfig'
 import { getCampSlugs } from '@/lib/camps/get-camp-page'
-import { absoluteSiteUrl } from '@/lib/publicPath'
+import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export type ChangeFreq =
@@ -228,6 +228,27 @@ export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
   return urls
 }
 
+/** Build public paths represented by the non-blog sitemap. */
+export function buildPagesPaths(): string[] {
+  const paths: string[] = []
+  const localeRoutes = [...corePages, ...coursePages, ...steamPages, ...futureSkillsPages, ...campPages, ...legalPages]
+
+  locales.forEach((locale) => {
+    localeRoutes.forEach((page) => {
+      paths.push(publicPath(page.path, locale))
+    })
+
+    if (locale === DEFAULT_LOCALE) {
+      paths.push(publicPath(campLandingHub.path, locale))
+      getCampSlugs().forEach((slug) => {
+        paths.push(publicPath(`/camps/${slug}`, locale))
+      })
+    }
+  })
+
+  return Array.from(new Set(paths))
+}
+
 /** Build blog post and resource guide URLs across enabled locales. */
 export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
   const urls: SitemapUrl[] = []
@@ -257,6 +278,21 @@ export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
     })
   })
   return urls
+}
+
+/** Build public paths represented by the blog/resource sitemap. */
+export function buildBlogPaths(): string[] {
+  const paths: string[] = []
+  locales.forEach((locale) => {
+    paths.push(publicPath(RESOURCES_PATH, locale))
+    blogPostPaths.forEach((path) => {
+      paths.push(publicPath(path, locale))
+    })
+    RESOURCE_ARTICLE_PATHS.forEach((path) => {
+      paths.push(publicPath(path, locale))
+    })
+  })
+  return Array.from(new Set(paths))
 }
 
 /** Child sitemap descriptors listed in the sitemap index. */

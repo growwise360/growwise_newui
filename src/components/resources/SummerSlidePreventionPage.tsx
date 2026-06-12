@@ -15,7 +15,7 @@ export function SummerSlidePreventionPage() {
   const selfCheckHref = publicPath('/self-check', locale)
   const contactHref = publicPath('/contact', locale)
   const mathFoundationsHref = publicPath('/camps/summer-math-foundations-dublin-ca', locale)
-  const readingHref = publicPath('/academic/reading', locale)
+  const readingHref = publicPath('/academic/english', locale)
 
   return (
     <ResourceArticlePage

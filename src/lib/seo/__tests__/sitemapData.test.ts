@@ -1,5 +1,10 @@
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources';
-import { buildBlogUrls, buildPagesUrls } from '@/lib/seo/sitemapData';
+import {
+  buildBlogUrls,
+  buildPagesUrls,
+  getChildSitemaps,
+  renderSitemapIndex,
+} from '@/lib/seo/sitemapData';
 
 const BASE = 'https://growwiseschool.org';
 const LASTMOD = '2026-05-20';
@@ -59,5 +64,13 @@ describe('sitemapData', () => {
     for (const loc of allLocs) {
       expect(loc).not.toMatch(localePrefixPattern);
     }
+  });
+
+  it('renders a sitemap index for child sitemaps', () => {
+    const xml = renderSitemapIndex(getChildSitemaps(BASE, LASTMOD));
+    expect(xml).toContain('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(xml).toContain(`<loc>${BASE}/sitemap-pages.xml</loc>`);
+    expect(xml).toContain(`<loc>${BASE}/sitemap-blogs.xml</loc>`);
+    expect(xml).not.toContain('<urlset');
   });
 });
