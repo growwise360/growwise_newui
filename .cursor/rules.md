@@ -100,7 +100,7 @@ Act as: Principal Engineer + Senior QA Engineer + Senior UX Designer.
 
 ## 7. SEO & CONTENT INTEGRITY
 
-**Full checklist → [`.cursor/SEO.md`](SEO.md)** (read before any new route, blog, resource, or metadata change).  
+**Implementation rules → [`.cursor/SEO.md`](SEO.md)** (read before any new route, blog, resource, or metadata change).  
 Architecture hub → [`docs/SEO.md`](../docs/SEO.md).
 
 1. Never remove or weaken SEO metadata — page titles, descriptions, keywords, JSON-LD structured data, and canonical URLs are intentional. Changes require approval.
@@ -198,7 +198,7 @@ Before final output, verify:
 - [ ] Primary CTA is visually dominant — no competing actions at equal weight
 - [ ] Only existing color palette, font scale, and component patterns used
 - [ ] Heading hierarchy is correct (`h1` → `h2` → `h3`, one `h1` per page)
-- [ ] SEO checklist (`.cursor/SEO.md` §9): sitemap, metadata, conversion path, no route shadowing, blog CTA pattern
+- [ ] SEO Implementation Rules (`.cursor/SEO.md` §17 validation table, §19 merge gate): sitemap, metadata, conversion path, no route shadowing, blog CTA pattern
 - [ ] Targeted E2E run when change touches conversion/enrollment/routes (see §17; not full suite unless requested)
 
 State **PASS** or **FAIL**. If FAIL: fix or refuse and explain.

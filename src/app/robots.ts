@@ -13,11 +13,9 @@ export default function robots(): MetadataRoute.Robots {
         '/_next/image?*',
         '/growwise-blogs?page=*',
       ],
+      // Do not disallow /en/, /hi/, /zh/, /es/ — middleware 301s those to prefix-free
+      // English URLs; Googlebot must fetch them to process redirects (.cursor/SEO.md §5).
       disallow: [
-        '/en/',
-        '/hi/',
-        '/zh/',
-        '/es/',
         '/*?*',
         '/favicon.ico',
         '/student-login',

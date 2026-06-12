@@ -18,7 +18,7 @@ This is **not** the same as “Page with redirect.” Google fetched the URL but
 
 | URL pattern | Why |
 |-------------|-----|
-| `/en/...`, `/hi/...`, `/zh/...`, `/es/...` | Retired locale prefixes **301** to prefix-free English URLs (`localePrefix: 'never'`). Google should not index prefixed URLs. |
+| `/en/...`, `/hi/...`, `/zh/...`, `/es/...` | Retired locale prefixes **301** to prefix-free English URLs (`localePrefix: 'never'`). Google should not index prefixed URLs. See [`.cursor/SEO.md`](../.cursor/SEO.md) §3 and §5. `robots.ts` must **not** disallow these paths — Googlebot needs to fetch them to process redirects. |
 | `sitemap.xml` | Sitemaps are for discovery, not search results. |
 | `api.growwiseschool.org` | API host should not rank. Block on the API service (`robots.txt` disallow or `noindex`). |
 
