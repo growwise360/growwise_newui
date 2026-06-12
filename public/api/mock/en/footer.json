@@ -31,21 +31,12 @@
     {
       "title": "RESOURCES",
       "links": [
+        { "label": "View all guides →", "href": "/resources", "active": true, "highlight": true },
         { "label": "Why Kids Make Careless Math Mistakes", "href": "/resources/careless-math-mistakes", "active": true },
         { "label": "Reading Fluency vs. Comprehension", "href": "/resources/reading-fluency-vs-comprehension", "active": true },
         { "label": "How to Build Homework Independence", "href": "/resources/homework-independence", "active": true },
-        { "label": "When to Start SAT Prep", "href": "/resources/when-to-start-sat-prep", "active": true },
-        { "label": "What is Vibe Coding?", "href": "/resources/what-is-vibe-coding", "active": true },
-        { "label": "Python vs Scratch for Kids", "href": "/resources/python-vs-scratch", "active": true },
         { "label": "K-12 Tutoring in Dublin, CA", "href": "/resources/tutoring-dublin-ca", "active": true },
-        { "label": "Summer Slide: Dublin Parent Guide", "href": "/resources/summer-slide-dublin-ca", "active": true },
-        { "label": "How to Prevent Summer Slide", "href": "/resources/summer-slide-prevention", "active": true },
-        { "label": "Why Khan Academy Summer Plans Fail", "href": "/resources/khan-academy-summer-doesnt-work", "active": true },
-        { "label": "Summer Academic Program Checklist", "href": "/resources/summer-academic-program-checklist", "active": true },
-        { "label": "Affordable Summer Programs Dublin", "href": "/resources/affordable-summer-academic-programs-dublin-ca", "active": true },
-        { "label": "IM1 Summer Prep (Dublin)", "href": "/resources/im1-summer-prep-dublin-ca", "active": true },
-        { "label": "Summer Writing Programs Dublin", "href": "/resources/summer-writing-program-dublin-ca", "active": true },
-        { "label": "View all guides →", "href": "/resources", "active": true, "highlight": true }
+        { "label": "Summer Slide: Dublin Parent Guide", "href": "/resources/summer-slide-dublin-ca", "active": true }
       ]
     },
     {

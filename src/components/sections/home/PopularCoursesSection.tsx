@@ -40,7 +40,7 @@ export function PopularCoursesSection({ courses, error, onRetry }: { courses: Po
               {courses.map((course) => {
                 if (!course || !course.IconComponent) {
                   return (
-                    <ItemError key={`err-${Math.random()}`} title="Course unavailable" message="Failed to load this course." />
+                    <ItemError key={`err-${course?.id ?? 'missing-course'}`} title="Course unavailable" message="Failed to load this course." />
                   );
                 }
                 const Icon = course.IconComponent as any;
@@ -106,5 +106,4 @@ export function PopularCoursesSection({ courses, error, onRetry }: { courses: Po
     </section>
   );
 }
-
 

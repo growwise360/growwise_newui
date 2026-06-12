@@ -14,6 +14,21 @@ import { getParentGuidesForSatPrepPage } from '@/lib/academic-seo-parent-guides'
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 
+const SAT_FLOATING_SYMBOLS = [
+  { symbol: 'SAT', left: 8, top: 12, duration: 8 },
+  { symbol: '1400+', left: 22, top: 30, duration: 10 },
+  { symbol: 'Math', left: 38, top: 16, duration: 9 },
+  { symbol: 'Reading', left: 54, top: 34, duration: 11 },
+  { symbol: 'Score', left: 70, top: 18, duration: 8 },
+  { symbol: 'Prep', left: 86, top: 38, duration: 10 },
+  { symbol: 'Practice', left: 14, top: 58, duration: 12 },
+  { symbol: 'Strategy', left: 30, top: 76, duration: 9 },
+  { symbol: 'Timing', left: 46, top: 62, duration: 11 },
+  { symbol: 'Focus', left: 62, top: 80, duration: 8 },
+  { symbol: 'College', left: 78, top: 64, duration: 10 },
+  { symbol: 'Growth', left: 92, top: 82, duration: 12 },
+] as const;
+
 const SATPage: React.FC = () => {
   const locale = useLocale();
   const { addItem } = useCart();
@@ -191,20 +206,20 @@ const SATPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100">
           {/* Floating SAT symbols */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+            {SAT_FLOATING_SYMBOLS.map((item, i) => (
               <div
-                key={i}
+                key={item.symbol}
                 className="absolute text-gray-500/60 animate-float-gentle font-semibold"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: `${item.left}%`,
+                  top: `${item.top}%`,
                   transform: `translateY(${scrollY * 0.05}px)`,
                   animationDelay: `${i * 1.2}s`,
-                  animationDuration: `${8 + Math.random() * 4}s`,
-                  fontSize: `${Math.random() * 15 + 18}px`
+                  animationDuration: `${item.duration}s`,
+                  fontSize: `${18 + (i % 4) * 3}px`
                 }}
               >
-                {['🎯', '📊', '📈', '🧮', '📚', '✍️', '💯', '🏆', '⭐', '✅', '📝', '🎓', '💡', '🔍', '📖'][Math.floor(Math.random() * 15)]}
+                {item.symbol}
               </div>
             ))}
           </div>
@@ -659,4 +674,3 @@ const SATPage: React.FC = () => {
 };
 
 export default SATPage;
-
