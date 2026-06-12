@@ -25,7 +25,7 @@ export function FutureSkillsClosingCta({ pathway, assessmentHref }: FutureSkills
             href={assessmentHref}
             className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 text-base font-bold text-white transition hover:bg-[#d9550f] lg:w-auto lg:px-8"
           >
-            Book a Pathway Assessment
+            Start Certification Readiness
             <ArrowRight className="h-5 w-5" aria-hidden />
           </Link>
         </div>

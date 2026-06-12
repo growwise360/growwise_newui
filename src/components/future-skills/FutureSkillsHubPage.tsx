@@ -44,17 +44,17 @@ export function FutureSkillsHubPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href={assessmentHref}
+                href="#pathways"
                 className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f] sm:w-auto"
               >
-                Book a Pathway Assessment
+                Explore Certification Pathways
                 <ArrowRight className="h-5 w-5" aria-hidden />
               </Link>
               <Link
-                href="#pathways"
+                href={assessmentHref}
                 className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/25 bg-white/10 px-6 py-3 font-bold text-white transition hover:bg-white/15 sm:w-auto"
               >
-                Compare pathways
+                Book a Free Assessment
               </Link>
             </div>
           </div>
@@ -92,16 +92,12 @@ export function FutureSkillsHubPage() {
         <div className="mx-auto max-w-6xl rounded-2xl border border-[#1F396D]/10 bg-white p-6 sm:p-8">
           <p className="text-sm font-bold uppercase tracking-wider text-[#F16112]">How this relates to other program pages</p>
           <h2 className="mt-2 text-2xl font-bold text-[#1F396D] sm:text-3xl">
-            Future Skills is for certification pathways — not the same as Coding or STEAM class pages.
+            Future Skills is for certification pathways — not the same as introductory coding class pages.
           </h2>
           <p className="mt-4 max-w-3xl text-base leading-7 text-gray-600 sm:text-lg">
             Use{' '}
             <Link href={publicPath('/coding', locale)} className="font-semibold text-[#1F396D] underline underline-offset-2">
               Coding
-            </Link>{' '}
-            or{' '}
-            <Link href={publicPath('/steam', locale)} className="font-semibold text-[#1F396D] underline underline-offset-2">
-              STEAM
             </Link>{' '}
             when your child is exploring foundations and trial classes. Choose Future Skills when you want a structured
             multi-level pathway with optional external credentials and Dublin Certiport testing.
@@ -114,11 +110,11 @@ export function FutureSkillsHubPage() {
           <div className="mb-10 max-w-3xl">
             <p className="mb-3 text-sm font-bold uppercase tracking-wider text-[#F16112]">Choose by student goal</p>
             <h2 className="text-3xl font-bold text-[#1F396D] md:text-4xl">
-              Four pathways. One goal: skills and projects you can see.
+              Four certification pathways. One goal: readiness you can see.
             </h2>
             <p className="mt-4 text-lg leading-8 text-gray-600">
               Choose the track that matches your child&apos;s goal — creative portfolio, Python fluency, AI projects, or
-              entrepreneurship. Each pathway includes live instruction, portfolio-ready work, optional external credentials,
+              entrepreneurship. Each pathway includes live instruction, portfolio-ready work, optional certification readiness,
               and placement before enrollment.
             </p>
           </div>
@@ -222,7 +218,7 @@ export function FutureSkillsHubPage() {
               href={assessmentHref}
               className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f] sm:w-auto"
             >
-              Book a Pathway Assessment
+              Book a Free Assessment
               <ArrowRight className="h-5 w-5" aria-hidden />
             </Link>
           </div>

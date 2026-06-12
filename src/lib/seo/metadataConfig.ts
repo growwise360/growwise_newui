@@ -212,45 +212,45 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/future-skills': {
-    title: 'Future Skills Certification Pathways | GrowWise',
+    title: 'Coding & Certification Pathways | GrowWise',
     description:
-      'Future Skills pathways for Grades 6-12. Python, creative media, AI/ML, and entrepreneurship. Project-first learning before optional external exams.',
+      'Certification-based pathways for Grades 6-12: design, Python, AI and data, and AI entrepreneurship. Project-first readiness with optional exams.',
     keywords:
-      'future skills classes for students, certification pathways for kids, creative media certification, Python certification for students, AI machine learning classes students, AI entrepreneurship for teens, Adobe Certified Professional prep, PCEP prep students, Python Institute prep, Certiport Authorized Testing Center Dublin, optional external certification prep, online future skills classes',
+      'future skills classes for students, certification pathways for kids, creative media certification, Python certification for students, AI and data classes students, AI entrepreneurship for teens, Adobe Certified Professional prep, Certiport Python readiness, PCEP OpenEDG pathway in progress, Certiport Authorized Testing Center Dublin, optional external certification prep, online future skills classes',
     path: '/future-skills',
   },
 
   '/future-skills/design-creative-media': {
-    title: 'Design & Creative Media Certification Pathway | GrowWise',
+    title: 'Design & Creative Media Certification Pathway',
     description:
-      'Design and creative media for Grades 5-10. Posters, presentations, social media, short video, and Adobe certification pathway prep.',
+      'Creative design, visual communication, portfolio projects, and Adobe certification readiness for Grades 5-10.',
     keywords:
       'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Certiport Authorized Testing Center Dublin, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
     path: '/future-skills/design-creative-media',
   },
 
   '/future-skills/python-certification': {
-    title: 'Python Coding Certification Pathway | GrowWise',
+    title: 'Python Certification Pathway | GrowWise',
     description:
-      'Python certification pathway for Grades 7-12. Build Python fluency, projects, PCEP readiness, and PCAP prep through 90-minute sessions.',
+      'Python fundamentals, project fluency, Certiport Python readiness, and PCEP/OpenEDG pathway in progress for Grades 7-12.',
     keywords:
-      'Python certification for students, PCEP prep for kids, PCAP prep students, Python Institute PCEP, Python Institute PCAP, ITS Python Certiport Dublin, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python exam prep for teens',
+      'Python certification for students, Certiport Python readiness, PCEP OpenEDG pathway in progress, ITS Python Certiport Dublin, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python certification readiness for teens',
     path: '/future-skills/python-certification',
   },
 
   '/future-skills/ai-machine-learning': {
-    title: 'AI & Machine Learning Certification Pathway | GrowWise',
+    title: 'AI & Data Certification Pathway | GrowWise',
     description:
-      'AI and machine learning pathway for Grades 8-12. Learn AI literacy, Python for AI, datasets, model basics, responsible AI, and certification readiness.',
+      'AI literacy, responsible AI use, data concepts, Python for AI, and artificial intelligence certification readiness for Grades 8-12.',
     keywords:
-      'AI classes for students, machine learning classes for teens, AI certification pathway, Python for AI students, ML project builder, NVIDIA DLI students, AWS Educate badge, Microsoft Certified Fundamentals AI-900 prep',
+      'AI classes for students, data classes for teens, artificial intelligence certification pathway, Python for AI students, AI data projects, responsible AI classes, Microsoft Certified Fundamentals AI-900 prep, Certiport AI certification readiness',
     path: '/future-skills/ai-machine-learning',
   },
 
   '/future-skills/ai-entrepreneurship': {
-    title: 'AI Entrepreneur & Business Pathway | GrowWise',
+    title: 'AI Entrepreneur Certification Pathway | GrowWise',
     description:
-      'AI entrepreneurship pathway for Grades 7-12. Turn ideas into validated products, landing pages, pitch decks, business models, and certification readiness.',
+      'Problem discovery, AI product thinking, landing pages, business models, pitch practice, and entrepreneurship certification readiness.',
     keywords:
       'AI entrepreneurship for teens, business classes for students, startup pitch class, AI product builder, ESB certification prep, Meta certification prep Certiport Dublin, entrepreneurship certification students, digital marketing exam prep students',
     path: '/future-skills/ai-entrepreneurship',
