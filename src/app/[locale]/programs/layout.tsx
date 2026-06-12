@@ -30,18 +30,6 @@ export default function ProgramsLayout({
       "url": baseUrl,
     },
     "areaServed": ["Dublin, CA", "Pleasanton, CA", "San Ramon, CA", "Tri-Valley, CA"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "All Programs",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Math Tutoring", "url": `${baseUrl}/academic/math` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "English Tutoring", "url": `${baseUrl}/academic/english` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "SAT Prep", "url": `${baseUrl}/courses/sat-prep` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Future Skills Pathways", "url": `${baseUrl}/future-skills` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "ML/AI Coding", "url": `${baseUrl}/steam/ml-ai-coding` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Game Development", "url": `${baseUrl}/steam/game-development` } },
-      ],
-    },
   }
 
   return (
