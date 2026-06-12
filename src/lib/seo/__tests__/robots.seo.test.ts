@@ -2,7 +2,7 @@ import robots from '@/app/robots'
 
 /** TC-07 — robots.txt policy (merged static + programmatic rules). */
 describe('robots() — GWA-192 / TC-07', () => {
-  it('allows all, keeps crawl exceptions, and disallows legacy/auth/cart paths', () => {
+  it('allows all, keeps crawl exceptions, and does not block locale redirect paths', () => {
     const r = robots()
     expect(r.sitemap).toMatch(/sitemap\.xml$/)
 
@@ -17,15 +17,19 @@ describe('robots() — GWA-192 / TC-07', () => {
       '/growwise-blogs?page=*',
     ])
     expect(rules.disallow).toEqual([
-      '/en/',
-      '/hi/',
-      '/zh/',
-      '/es/',
       '/*?*',
       '/favicon.ico',
       '/student-login',
       '/cart',
     ])
+  })
+
+  it('does not disallow retired locale prefixes so Googlebot can follow redirects', () => {
+    const serialized = JSON.stringify(robots())
+    expect(serialized).not.toContain('/en/')
+    expect(serialized).not.toContain('/hi/')
+    expect(serialized).not.toContain('/zh/')
+    expect(serialized).not.toContain('/es/')
   })
 
   it('does not disallow marketing program paths', () => {

@@ -8,7 +8,7 @@ alwaysApply: true
 **Canonical sources (read before non-trivial work):**
 - [.cursorrules](../.cursorrules) — approval workflow, git safety, code quality
 - [.cursor/rules.md](../rules.md) — engineering, UX, Lighthouse, conversion, routes, SEO, testing
-- [.cursor/SEO.md](../SEO.md) — new routes, metadata, sitemap, blogs, conversion paths
+- [.cursor/SEO.md](../SEO.md) — SEO implementation rules (strategy, validation, merge gate)
 - [docs/SEO.md](../../docs/SEO.md) — SEO architecture hub + GSC runbooks
 
 Violations = incorrect solution. If a constraint cannot be met, STOP and explain — do not guess.
@@ -40,7 +40,7 @@ Act as **Principal Engineer + Senior QA + Senior UX Designer** for a parent-faci
 
 ## Self-review before finishing
 
-State **PASS** or **FAIL** against `rules.md` §15 checklist (git, build, lint, routes, tracking, mobile, CTA hierarchy, headings, SEO items in `.cursor/SEO.md` §9).
+State **PASS** or **FAIL** against `rules.md` §15 checklist (git, build, lint, routes, tracking, mobile, CTA hierarchy, headings, SEO items per `.cursor/SEO.md` §17 and §19).
 
 ## Timing copy (homepage PR context)
 
