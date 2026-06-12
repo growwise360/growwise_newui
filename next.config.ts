@@ -212,8 +212,10 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    // Legacy camp guide POST path → canonical API route.
     return [
+      // Next.js reserves `/sitemap.xml` for `app/sitemap.ts`; route the index via rewrite.
+      { source: '/sitemap.xml', destination: '/sitemap-index.xml' },
+      // Legacy camp guide POST path → canonical API route.
       { source: '/api/summer-camp-lottery', destination: '/api/summer-camp-summercamp' },
     ];
   },
