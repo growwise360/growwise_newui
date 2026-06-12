@@ -46,14 +46,14 @@ export function FutureSkillsStickyCta({
       <div
         className="pointer-events-none fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur supports-[backdrop-filter]:bg-white/85 shadow-[0_-8px_30px_rgba(15,23,42,0.08)] lg:hidden"
         role="region"
-        aria-label="Book a pathway assessment"
+        aria-label="Start certification readiness"
       >
         <div className="pointer-events-auto mx-auto max-w-6xl px-4">
           <Link
             href={assessmentHref}
             className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#F16112] px-4 py-3 text-sm font-bold text-white hover:bg-[#d9550f]"
           >
-            Book a Pathway Assessment
+            Start Certification Readiness
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>

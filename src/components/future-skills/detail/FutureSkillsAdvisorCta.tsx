@@ -23,7 +23,7 @@ export function FutureSkillsAdvisorCta({ pathway, assessmentHref, onTrialClick }
             href={assessmentHref}
             className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-bold text-white transition hover:bg-[#d9550f] sm:w-auto"
           >
-            Book a Pathway Assessment
+            Book a Free Assessment
             <ArrowRight className="h-5 w-5" aria-hidden />
           </Link>
           <a
