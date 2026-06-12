@@ -50,6 +50,7 @@ export default async function FutureSkillsLayout({
           '@type': 'Course',
           name: pathway.title,
           description: pathway.summary,
+          provider: { '@type': 'Organization', name: 'GrowWise School' },
           url: absoluteSiteUrl(pathway.href, locale, baseUrl),
         },
       })),
