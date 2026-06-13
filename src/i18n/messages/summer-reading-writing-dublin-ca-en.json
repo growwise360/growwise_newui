@@ -81,7 +81,7 @@
     "items": {
       "mathFoundations": {
         "label": "Summer Math Foundations",
-        "description": "Bridge the Gap Math · Grades 1–8 · mornings"
+        "description": "Bridge the Gap Math · Grades 1–8 · evenings"
       },
       "algebra": {
         "label": "Algebra 1 Get Ready",
@@ -96,7 +96,7 @@
   "faq": [
     {
       "question": "What is the difference between Read to Prove and Write to Explain?",
-      "answer": "Read to Prove focuses on reading comprehension — finding the main idea, making inferences, and using text evidence to support answers. Write to Explain focuses on writing — sentence structure, paragraph writing, essays, and revision. Both run at different morning times so students can enroll in one or both."
+      "answer": "Read to Prove focuses on reading comprehension — finding the main idea, making inferences, and using text evidence to support answers. Write to Explain focuses on writing — sentence structure, paragraph writing, essays, and revision. Both run at the same evening time, so students enroll in one or both across different cohorts."
     },
     {
       "question": "Are these programs DUSD aligned?",
@@ -108,7 +108,7 @@
     },
     {
       "question": "Can my child enroll in both Read to Prove and Write to Explain?",
-      "answer": "Yes. Both tracks run at different times — Read to Prove runs 10:00–11:30 AM and Write to Explain runs 10:30 AM–12:00 PM. The schedules overlap by 30 minutes so a student cannot attend both in the same session. However, a student can enroll in Read to Prove for Cohort 1 and Write to Explain for Cohort 2, or alternate based on which skill needs more support."
+      "answer": "Yes — but not in the same session. Read to Prove and Write to Explain both run 4:30–6:00 PM daily, so a student cannot attend both on the same day. However, a student can enroll in Read to Prove for Cohort 1 and Write to Explain for Cohort 2, or alternate based on which skill needs more support."
     },
     {
       "question": "What if my child is in a different grade than listed?",
