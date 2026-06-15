@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile.webp'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Java Skills on LinkedIn | GrowWise', 
-    description: 'Java remains a powerful and widely-used programming language. See how Java skills can make your LinkedIn profile stand out.',
+    description: 'Learn why Java coding strengthens a student profile by showing object-oriented thinking, backend foundations, and project-ready technical skill.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile', locale, baseUrl)
     }
@@ -55,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="why-learning-java-coding-is-impressive-on-your-linkedin-profile" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -104,6 +106,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Java remains one of the most powerful and widely-used programming languages in the industry. Having Java skills on your LinkedIn profile can significantly boost your professional presence and attract opportunities from top employers.
               </p>
 
+              <LegacyBlogAeoBlock slug="why-learning-java-coding-is-impressive-on-your-linkedin-profile" />
+
               <p className="text-gray-700 mb-8">
                 Discover why Java coding skills make your LinkedIn profile stand out and how they can advance your career.
               </p>
@@ -116,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -127,7 +131,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  why learning java coding is impressive on your linkedin profile visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Java is Still Relevant</h2>
 

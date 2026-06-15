@@ -6,6 +6,13 @@ const BODY = `# GrowWise School
 
 ## Programs
 - [Academic (Math & English)](https://growwiseschool.org/academic)
+- [Math Programs](https://growwiseschool.org/academic/math)
+- [English Reading & Writing](https://growwiseschool.org/academic/english)
+- [Future Skills](https://growwiseschool.org/future-skills)
+- [Design & Creative Media](https://growwiseschool.org/future-skills/design-creative-media)
+- [Python Certification](https://growwiseschool.org/future-skills/python-certification)
+- [AI & Machine Learning](https://growwiseschool.org/future-skills/ai-machine-learning)
+- [AI Entrepreneurship](https://growwiseschool.org/future-skills/ai-entrepreneurship)
 - [STEAM (Coding, AI, Game Dev)](https://growwiseschool.org/steam)
 - [Summer Camps](https://growwiseschool.org/camps/summer)
 - [Academic Summer Programs](https://growwiseschool.org/camps/academic-summer-programs-dublin-ca)
@@ -14,7 +21,9 @@ const BODY = `# GrowWise School
 
 ## High-Value Parent Guides
 - [Math & Reading Readiness Checklist](https://growwiseschool.org/readinesschecklist)
+- [Reading Help Checklist](https://growwiseschool.org/growwise-blogs/does-my-child-need-reading-help-checklist)
 - [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/resources/tutoring-dublin-ca)
+- [Reading Fluency vs Comprehension](https://growwiseschool.org/resources/reading-fluency-vs-comprehension)
 - [Summer Slide: Dublin Parent Guide](https://growwiseschool.org/resources/summer-slide-dublin-ca)
 - [How to Prevent Summer Slide](https://growwiseschool.org/resources/summer-slide-prevention)
 - [Why Khan Academy Summer Plans Fail](https://growwiseschool.org/resources/khan-academy-summer-doesnt-work)

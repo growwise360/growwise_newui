@@ -26,6 +26,10 @@ export function WhatIsVibeCodingPage() {
       h1={WHAT_IS_VIBE_CODING_META.h1}
       readTime={WHAT_IS_VIBE_CODING_META.readTime}
       updated={WHAT_IS_VIBE_CODING_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Vibe coding means building software with AI by describing intent in natural language, then testing, refining, and debugging the generated code. It is useful for students only when paired with coding fundamentals.',
+      }}
       faqs={WHAT_IS_VIBE_CODING_FAQS}
       relatedArticles={WHAT_IS_VIBE_CODING_RELATED}
       ctaHeading="Explore GrowWise coding programs"
@@ -49,7 +53,7 @@ export function WhatIsVibeCodingPage() {
 
       <p>This is no longer a fringe topic. Here&apos;s what it actually means for your child.</p>
 
-      <h2>What Vibe Coding Actually Is</h2>
+      <h2>What is vibe coding?</h2>
 
       <p>
         Vibe coding is the practice of building software using AI tools through natural language — describing what you
@@ -80,7 +84,7 @@ export function WhatIsVibeCodingPage() {
 
       <p>This is why vibe coding is a real skill, not a shortcut.</p>
 
-      <h2>Why It Matters in 2026</h2>
+      <h2>Why does vibe coding matter in 2026?</h2>
 
       <p>
         The reason vibe coding has become a major topic in 2026 is straightforward: the tools that professionals use
@@ -106,7 +110,7 @@ export function WhatIsVibeCodingPage() {
         structured instruction so they understand what the AI produces.
       </p>
 
-      <h2>The One Risk Most Parents Miss</h2>
+      <h2>What risk do most parents miss?</h2>
 
       <p>
         Vibe coding has a real upside — but it has one significant risk that most articles don&apos;t address clearly.
@@ -141,7 +145,7 @@ export function WhatIsVibeCodingPage() {
         students control the AI — not the other way around.
       </p>
 
-      <h2>What Age Is Appropriate for Vibe Coding?</h2>
+      <h2>What age is appropriate for vibe coding?</h2>
 
       <p>
         Published guidance from coding educators in 2026 generally places meaningful vibe coding at age 10 and above —
@@ -169,7 +173,7 @@ export function WhatIsVibeCodingPage() {
         </li>
       </ul>
 
-      <h2>What to Look for in a Vibe Coding Program</h2>
+      <h2>What should parents look for in a vibe coding program?</h2>
 
       <p>Not all programs labeled &quot;vibe coding&quot; are equal. Questions to ask:</p>
 

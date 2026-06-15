@@ -1,0 +1,25 @@
+=== HARD 404 (DEV) ===
+--- /random-test-url ---
+HTTP/1.1 404 Not Found
+X-Content-Type-Options: nosniff
+content-type: text/html; charset=utf-8
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><title>Page not found | GrowWise</title></head><body><main><h1>Page not found</h1><p>The page you are looking for does not exist or may have been moved.</p><p><a href="/">Back to home</a></p></mai
+HAS: Page not found
+NO homepage title
+
+--- /abc123 ---
+HTTP/1.1 404 Not Found
+X-Content-Type-Options: nosniff
+content-type: text/html; charset=utf-8
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><title>Page not found | GrowWise</title></head><body><main><h1>Page not found</h1><p>The page you are looking for does not exist or may have been moved.</p><p><a href="/">Back to home</a></p></mai
+HAS: Page not found
+NO homepage title
+
+--- /academic/not-real-page ---
+HTTP/1.1 404 Not Found
+X-Content-Type-Options: nosniff
+content-type: text/html; charset=utf-8
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><title>Page not found | GrowWise</title></head><body><main><h1>Page not found</h1><p>The page you are looking for does not exist or may have been moved.</p><p><a href="/">Back to home</a></p></mai
+HAS: Page not found
+NO homepage title
+

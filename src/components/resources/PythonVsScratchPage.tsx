@@ -25,6 +25,10 @@ export function PythonVsScratchPage() {
       h1={PYTHON_VS_SCRATCH_META.h1}
       readTime={PYTHON_VS_SCRATCH_META.readTime}
       updated={PYTHON_VS_SCRATCH_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Most children should start with Scratch around ages 6-9, transition to Python around ages 10-12, and begin directly with Python as teens if they are ready for text-based syntax and debugging.',
+      }}
       faqs={PYTHON_VS_SCRATCH_FAQS}
       relatedArticles={PYTHON_VS_SCRATCH_RELATED}
       ctaHeading="Find the right coding path for your child"
@@ -49,7 +53,7 @@ export function PythonVsScratchPage() {
 
       <p>Here&apos;s the honest breakdown.</p>
 
-      <h2>What Each One Actually Is</h2>
+      <h2>What are Scratch and Python?</h2>
 
       <p>
         <strong>Scratch</strong> is a visual, block-based programming language developed by MIT&apos;s Lifelong
@@ -74,7 +78,7 @@ export function PythonVsScratchPage() {
         <Link href={mlAiHref}>AI and machine learning</Link>.
       </p>
 
-      <h2>The Critical Difference: Ceiling</h2>
+      <h2>What is the biggest difference between Scratch and Python?</h2>
 
       <p>The most important practical difference between Scratch and Python is where each one stops.</p>
 
@@ -94,7 +98,7 @@ export function PythonVsScratchPage() {
         on the same material.
       </p>
 
-      <h2>The Age-by-Age Guide</h2>
+      <h2>Which coding language fits each age?</h2>
 
       <h3>Ages 6–9: Scratch first</h3>
 
@@ -163,7 +167,7 @@ export function PythonVsScratchPage() {
         classrooms worldwide (ScratchEd Research). Both tools have genuine educational credibility.
       </p>
 
-      <h2>The Honest Answer: It&apos;s Not Either/Or</h2>
+      <h2>Should kids learn Scratch or Python first?</h2>
 
       <p>
         For most children, the best path is Scratch first, then Python — in sequence, not as alternatives.

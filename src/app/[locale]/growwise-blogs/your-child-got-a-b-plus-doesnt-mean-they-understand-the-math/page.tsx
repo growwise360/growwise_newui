@@ -25,7 +25,7 @@ const CANONICAL_SITE_URL = getCanonicalSiteUrl()
 const HEADLINE = "Your Child Got a B+. That Doesn't Mean They Understand the Math."
 
 const DESCRIPTION =
-  'Why a B+ can hide math gaps in Tri-Valley schools—and how Dublin parents spot real understanding vs. memorization before algebra.'
+  'Why a B+ can hide math gaps in Tri-Valley schools and how Dublin parents can spot real understanding, mistake patterns, and memorization before algebra.'
 
 /** BlogPosting description (JSON-LD) — fuller than meta description for AEO. */
 const ARTICLE_SCHEMA_DESCRIPTION =
@@ -218,6 +218,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Your child brings home a B+ in math. You feel good. They feel okay about it. Life moves on.
               </p>
 
+              <div className="llm-answer-block not-prose mb-8 rounded-xl border-l-4 border-[#F16112] bg-[#F7FAFC] p-5 text-gray-800">
+                A B+ can still hide a math learning gap because grades measure performance on recent work, not
+                always conceptual understanding. Parents should look for repeated mistake patterns, confident wrong
+                explanations, and memorized steps that break when problems change.
+              </div>
+
               <p className="text-gray-700 mb-6">
                 But here&apos;s what the B+ doesn&apos;t tell you: whether your child actually{' '}
                 <em>understands</em> the math, or whether they&apos;ve learned to work around the parts they
@@ -230,7 +236,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image — same pattern as other GrowWise blog posts */}
-              <div className="not-prose my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full h-[220px] sm:h-[260px] md:h-[300px]">
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -240,10 +246,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  your child got a b plus doesnt mean they understand the math visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="not-prose text-3xl font-bold text-[#1F396D] mt-12 mb-6">
-                Grades measure performance. Not understanding.
+                What do grades measure, and what do they miss?
               </h2>
 
               <p className="text-gray-700 mb-6">

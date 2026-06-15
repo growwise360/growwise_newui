@@ -51,6 +51,15 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'reading-help-checklist-2026',
+    category: 'academic',
+    title: 'Does My Child Need Reading Help This Summer?',
+    excerpt:
+      'A 5-minute reading checklist for Dublin and Tri-Valley parents to spot decoding, fluency, and comprehension warning signs before summer gaps grow.',
+    href: '/growwise-blogs/does-my-child-need-reading-help-checklist',
+    readMore: 'Read checklist »',
+  },
+  {
     id: 'b-plus-math-understanding',
     category: 'academic',
     title: "Your Child Got a B+. That Doesn't Mean They Understand the Math.",

@@ -1,0 +1,19 @@
+=== / === count=5
+  script[0]: valid JSON, types=['EducationalOrganization,LocalBusiness']
+  script[1]: valid JSON, types=['WebSite']
+
+=== /readinesschecklist === count=3
+  script[0]: valid JSON, types=['EducationalOrganization,LocalBusiness']
+  script[1]: valid JSON, types=['WebSite']
+
+=== /camps/summer === count=7
+  script[0]: valid JSON, types=['EducationalOrganization,LocalBusiness']
+  script[1]: valid JSON, types=['WebSite']
+
+=== /academic/math === count=4
+  script[0]: valid JSON, types=['EducationalOrganization,LocalBusiness']
+  script[1]: valid JSON, types=['WebSite']
+
+=== /workshop-calendar === count=3
+  script[0]: valid JSON, types=['EducationalOrganization,LocalBusiness']
+  script[1]: valid JSON, types=['WebSite']

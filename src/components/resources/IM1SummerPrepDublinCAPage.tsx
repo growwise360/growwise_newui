@@ -24,6 +24,10 @@ export function IM1SummerPrepDublinCAPage() {
       h1={IM1_SUMMER_PREP_DUBLIN_CA_META.h1}
       readTime={IM1_SUMMER_PREP_DUBLIN_CA_META.readTime}
       updated={IM1_SUMMER_PREP_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'A student is ready for Integrated Math 1 when fractions, ratios, negative numbers, equations, graphing, and multi-step reasoning are fluent enough to use inside new problems without stopping the lesson.',
+      }}
       faqs={IM1_SUMMER_PREP_DUBLIN_CA_FAQS}
       relatedArticles={IM1_SUMMER_PREP_DUBLIN_CA_RELATED}
       ctaHeading="Reserve an IM1 Get Ready Spot"
@@ -45,7 +49,7 @@ export function IM1SummerPrepDublinCAPage() {
         Dublin and Tri-Valley families can use summer to close the right gaps before day one.
       </p>
 
-      <h2>What IM1 Actually Covers</h2>
+      <h2>What does IM1 actually cover?</h2>
 
       <p>
         Integrated Math 1 is not Pre-Algebra with a different name. It blends algebra, geometry, statistics, and
@@ -67,7 +71,7 @@ export function IM1SummerPrepDublinCAPage() {
         negative numbers, or basic equation structure.
       </p>
 
-      <h2>The Skills Students Need Before Day One</h2>
+      <h2>What skills do students need before day one?</h2>
 
       <p>To enter IM1 without immediately falling behind, a student needs:</p>
 
@@ -99,7 +103,7 @@ export function IM1SummerPrepDublinCAPage() {
         impossible even for mathematically capable students.
       </p>
 
-      <h2>The Gaps Most Students Arrive With</h2>
+      <h2>What gaps do students most often bring into IM1?</h2>
 
       <p>
         In IM1 prep, the same gap patterns appear repeatedly:
@@ -118,7 +122,7 @@ export function IM1SummerPrepDublinCAPage() {
         already found confusing.
       </p>
 
-      <h2>Why Summer Is the Right Time</h2>
+      <h2>Why is summer the right time to prepare?</h2>
 
       <p>Summer is low stakes. September is not.</p>
 

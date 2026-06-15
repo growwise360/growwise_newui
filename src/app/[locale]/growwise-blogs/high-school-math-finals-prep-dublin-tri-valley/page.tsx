@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { generateArticleSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
-import { ArrowLeft, Calendar, User } from 'lucide-react'
+import { ArrowLeft, Calendar, ClipboardCheck, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { BlogFaqAccordion } from '@/components/blogs/BlogFaqAccordion'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
@@ -153,6 +153,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <time dateTime="2026-04-27">April 27, 2026</time>
               </div>
             </div>
+            <div className="llm-answer-block mt-6 rounded-2xl border-l-4 border-[#1D9E75] bg-white/95 p-6 text-slate-900 shadow-lg">
+              <h2 className="flex items-center gap-3 text-xl font-bold">
+                <ClipboardCheck className="h-6 w-6 text-[#1D9E75]" aria-hidden />
+                Quick Answer
+              </h2>
+              <p className="mt-3 text-slate-800">
+                The best way to prepare for a high school math final is mixed-topic practice, mistake correction,
+                timed review, and targeted weak-area support. Students should start two to three weeks before finals
+                so older Algebra, Precalculus, or AP Precalculus topics can be rebuilt before exam week.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -173,6 +184,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 At <strong>GrowWise Math Finals Prep in Dublin, CA</strong>, students work through structured review
                 and practice designed to help them prepare more confidently for high school math finals.
               </p>
+
+              <figure className="not-prose my-8 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+                <BlogImage
+                  src={BLOG_IMAGE_URL}
+                  alt="High school math finals prep study plan for Algebra, Precalculus, and AP Precalculus students"
+                  width={1200}
+                  height={675}
+                  className="h-auto w-full"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                />
+                <figcaption className="px-5 py-3 text-sm text-slate-600">
+                  High school math finals prep should combine mixed Algebra, Precalculus, and AP-style practice with
+                  mistake correction.
+                </figcaption>
+              </figure>
 
               <h2 className="not-prose text-2xl font-bold text-gray-900 mt-10 mb-4">
                 What is the best way to study for a high school math final?

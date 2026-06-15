@@ -331,7 +331,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/how-to-choose-summer-camp': {
     title: 'How to Choose Summer Camp | Parent Guide | GrowWise',
     description:
-      "Interactive parent guide for choosing between academic sprint, STEAM coding, and enrichment camps based on your child's grade, goal, and gaps.",
+      "Choose the right summer camp by matching your child's goal, gaps, grade, and readiness. Compare academic, STEAM, and enrichment options before enrolling.",
     keywords:
       'how to choose summer camp, parent summer camp guide, Dublin CA summer camp, academic summer camp, STEAM summer camp, kids camp selection',
     path: '/resources/how-to-choose-summer-camp',
@@ -561,7 +561,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/tutoring-dublin-ca': {
     title: 'K-12 Tutoring in Dublin CA | 2026 Parent Guide',
     description:
-      'Dublin, CA tutoring guide for Grades 1-12. Compare program types and learn what Tri-Valley parents should ask before enrolling.',
+      'Dublin, CA tutoring guide for Grades 1-12. Compare program types, diagnostic depth, class size, and what Tri-Valley parents should ask before enrolling.',
     keywords:
       'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
     path: '/resources/tutoring-dublin-ca',
@@ -581,7 +581,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/summer-slide-prevention': {
     title: 'How to Prevent Summer Slide in Math & Reading | GrowWise',
     description:
-      "Summer learning loss is real. Here's what actually prevents it — and why most summer plans fail by July.",
+      'Summer learning loss is real. Learn what actually prevents it: targeted gap practice, steady routines, feedback, and skill-specific review before fall.',
     keywords:
       'summer slide, prevent summer learning loss, summer academic skills, summer math review, summer reading practice, kids learning over summer break, summer academic program, how to prevent summer slide, summer tutoring, summer learning activities',
     path: '/resources/summer-slide-prevention',
@@ -591,7 +591,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/khan-academy-summer-doesnt-work': {
     title: 'Why Khan Academy Summer Plans Fail | GrowWise',
     description:
-      "Self-paced online learning has a completion problem. Here's why most at-home summer plans fail by July — and what research says works.",
+      'Self-paced online learning has a completion problem. Here is why most at-home summer plans fail by July, and what structured support does better.',
     keywords:
       'Khan Academy summer, self-paced learning completion, summer learning at home, math tutoring summer, online learning fail, summer learning plan, at-home learning, summer academic programs, structured summer learning, completion rates online learning',
     path: '/resources/khan-academy-summer-doesnt-work',
@@ -601,7 +601,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/summer-academic-program-checklist': {
     title: 'Best Summer Academic Program Dublin CA | 5 Checks',
     description:
-      'Before you enroll, check class size, instructor expertise, curriculum, outcomes, and school-year alignment for Dublin CA summer programs.',
+      'Before enrolling, check class size, instructor expertise, curriculum, outcomes, and school-year alignment for Dublin CA summer programs and camps.',
     keywords:
       'best summer academic program Dublin CA, summer academic program Dublin CA, summer enrichment Tri-Valley, academic summer camp Dublin, summer reading writing math program Dublin, how to choose summer program Dublin CA',
     path: '/resources/summer-academic-program-checklist',
@@ -611,7 +611,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/affordable-summer-academic-programs-dublin-ca': {
     title: 'Affordable Summer Programs Dublin CA | Parent Guide',
     description:
-      'Compare summer academic programs in Dublin, CA and learn how to evaluate true value based on class size, outcomes, structure, and skill-building.',
+      'Compare affordable summer academic programs in Dublin, CA by class size, outcomes, structure, instructor quality, and real skill-building value.',
     keywords:
       'affordable summer programs Dublin CA, academic summer camp Dublin Pleasanton, summer academic programs Tri-Valley, summer tutoring Dublin CA, affordable summer academic programs, summer camp value Dublin, Tri-Valley summer programs',
     path: '/resources/affordable-summer-academic-programs-dublin-ca',
@@ -621,7 +621,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/math-summer-program-dublin-ca-math-sprint-breakdown': {
     title: 'Math Summer Program Dublin CA | Week-by-Week Guide',
     description:
-      'See what students do in GrowWise Math Sprint: baseline assessment, core skill building, problem solving, and confidence-building review.',
+      'See what students do in a GrowWise Math Sprint: baseline checks, core skill building, problem solving, confidence review, and next-step planning.',
     keywords:
       'math summer program Dublin CA, Math Sprint Dublin CA, summer math program Tri-Valley, math sprint grades 1-10, math enrichment Dublin',
     path: '/resources/math-summer-program-dublin-ca-math-sprint-breakdown',
@@ -631,7 +631,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/reading-program-grades-1-2-dublin-ca': {
     title: 'Reading Program Grades 1-2 Dublin CA | Parent Guide',
     description:
-      'Early reading gaps get harder after Grade 2. Learn what phonics, fluency, and comprehension support should look like.',
+      'Early reading gaps get harder after Grade 2. Learn what phonics, fluency, comprehension, and confidence support should look like at home and in class.',
     keywords:
       'reading program grades 1-2 Dublin CA, early reading support summer Dublin, summer reading program Tri-Valley, grade 1 reading help Dublin, grade 2 reading help Dublin',
     path: '/resources/reading-program-grades-1-2-dublin-ca',
@@ -641,7 +641,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/small-group-tutoring-vs-1-on-1': {
     title: 'Small Group vs 1-on-1 Tutoring | Dublin CA Guide',
     description:
-      'Private tutoring is not always the best fit. Learn when small-group instruction helps students build independence and confidence.',
+      'Private tutoring is not always best. Learn when small-group instruction builds independence, confidence, and transferable academic skills for students.',
     keywords:
       'small group tutoring vs 1-on-1, summer tutoring Dublin CA, small group learning Tri-Valley, tutoring alternatives Dublin CA, best tutoring format kids',
     path: '/resources/small-group-tutoring-vs-1-on-1',
@@ -651,7 +651,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/california-math-standards-by-grade': {
     title: 'California Math Standards by Grade | Parent Guide',
     description:
-      'A parent-friendly grade-by-grade math standards snapshot for Grades 1-10, with red flags that can reveal hidden gaps.',
+      'A parent-friendly California math standards snapshot for Grades 1-10, with red flags that reveal hidden math gaps before the next course starts.',
     keywords:
       'California math standards by grade, CA math standards Tri-Valley, DUSD math standards, PUSD math expectations, math gap assessment Dublin CA',
     path: '/resources/california-math-standards-by-grade',
@@ -661,7 +661,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/child-struggles-with-writing-dublin-ca': {
     title: 'Child Struggles With Writing | Dublin CA Parent Guide',
     description:
-      'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both. Learn what helps.',
+      'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both. Learn what helps students move forward.',
     keywords:
       'child struggles with writing, writing help Dublin CA, child avoids writing, blank page freeze writing, writing confidence kids, summer writing program Dublin CA',
     path: '/resources/child-struggles-with-writing-dublin-ca',
@@ -671,7 +671,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/im1-summer-prep-dublin-ca': {
     title: 'IM1 Summer Prep Dublin CA | Readiness Guide | GrowWise',
     description:
-      'Integrated Math 1 starts fast. Learn the pre-algebra, ratio, graphing, and equation skills Dublin students need before day one.',
+      'Integrated Math 1 starts fast. Learn the pre-algebra, ratio, graphing, and equation skills Dublin students need before the first unit begins.',
     keywords:
       'IM1 summer prep Dublin CA, integrated math 1 prep Tri-Valley, IM1 readiness checklist, DUSD math prep, PUSD IM1 prep, summer math program Dublin, pre-algebra prep, math camp Dublin CA',
     path: '/resources/im1-summer-prep-dublin-ca',
@@ -681,7 +681,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/summer-writing-program-dublin-ca': {
     title: 'Summer Writing Program Dublin CA | Parent Guide | GrowWise',
     description:
-      'Compare Dublin CA writing camps by structure, feedback, revision, and outcomes so your child builds a writing system before school starts.',
+      'Compare Dublin summer writing programs by structure, feedback, revision, and outcomes so your child builds a writing system before school starts.',
     keywords:
       'summer writing program Dublin CA, writing camp Tri-Valley, summer writing classes Dublin, writing instruction grades 1-8, academic writing camp, writing sprint, essay writing program, summer writing camp Pleasanton, San Ramon writing program',
     path: '/resources/summer-writing-program-dublin-ca',
@@ -691,7 +691,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/python-vs-scratch': {
     title: 'Python vs Scratch for Kids | Parent Guide | GrowWise',
     description:
-      'Scratch or Python? An age-by-age parent guide: when to switch, what Scratch cannot do, and why many kids need both in order.',
+      'Scratch or Python? Use this age-by-age parent guide to know when to start, when to switch, and why many kids benefit from learning both in order.',
     keywords:
       'Python vs Scratch for kids, should kids learn Scratch or Python first, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14',
     path: '/resources/python-vs-scratch',
@@ -730,7 +730,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/careless-math-mistakes': {
     title: 'Why Kids Make Careless Math Mistakes on Tests | GrowWise',
     description:
-      'Careless math mistakes follow specific patterns. Learn how to spot the real blocker and help your child stop losing points.',
+      'Careless math mistakes follow specific patterns. Learn how to spot the real blocker, fix the habit, and help your child stop losing points on tests.',
     keywords:
       'careless mistakes in math, why kids lose points on math tests, child makes careless math mistakes, how to stop careless mistakes in math, child understands math but gets wrong answers, math mistake patterns, procedural errors in math',
     path: '/resources/careless-math-mistakes',
@@ -740,7 +740,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/what-is-vibe-coding': {
     title: "What Is Vibe Coding? A Parent's Guide (2026) | GrowWise",
     description:
-      'Vibe coding helps kids build real apps with AI. Learn what it is, why it matters in 2026, and the risk parents should watch.',
+      'Vibe coding helps kids build apps with AI, but fundamentals still matter. Learn the benefits, risks, right age, and what programs should teach.',
     keywords:
       'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
     path: '/resources/what-is-vibe-coding',
@@ -750,7 +750,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/homework-independence': {
     title: 'Build Homework Independence | Parent Guide | GrowWise',
     description:
-      'If homework only gets done when you sit nearby, the system needs work. Learn how to build real independence in 6-8 weeks.',
+      'If homework only gets done when you sit nearby, the system needs work. Learn how to build real homework independence with a 6-8 week parent plan.',
     keywords:
       'how to get child to do homework independently, child won\'t do homework without me, homework independence kids, stop sitting with child for homework, homework battles every night, building homework routine kids, child procrastinates homework',
     path: '/resources/homework-independence',
@@ -760,7 +760,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/when-to-start-sat-prep': {
     title: 'When Should My Child Start SAT Prep? | GrowWise',
     description:
-      "Grade 8, 9, or 10? Most parents ask too late. Here's the honest, grade-by-grade answer — including the one thing most SAT prep programs don't check first.",
+      'Grade 8, 9, or 10? Learn when SAT prep should start, why foundations come first, and how to build the right grade-by-grade test prep timeline.',
     keywords:
       'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
     path: '/resources/when-to-start-sat-prep',

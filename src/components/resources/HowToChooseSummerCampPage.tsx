@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import {
@@ -247,6 +248,29 @@ export function HowToChooseSummerCampPage() {
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-blue-50">
               Academic sprint, STEAM coding, or enrichment? The right choice depends on your child&apos;s gap, grade, and goal. Use this parent guide to narrow the decision in a few minutes.
             </p>
+            <div className="llm-answer-block mt-6 rounded-xl border-l-4 border-[#1D9E75] bg-white/95 p-5 text-slate-900 shadow-lg">
+              <h2 className="font-heading text-lg font-bold text-[#1E3A5F]">Quick Answer</h2>
+              <p className="mt-2 text-base leading-relaxed text-slate-700">
+                Choose a summer camp by matching the program to your child&apos;s primary need: academic gap support,
+                transition preparation, STEAM skill-building, or enrichment. Then verify class size, instructor
+                background, curriculum, and outcomes before enrolling.
+              </p>
+            </div>
+            <figure className="mt-8 overflow-hidden rounded-xl border border-white/15 bg-white/95 shadow-lg">
+              <div className="relative h-56 w-full sm:h-64">
+                <Image
+                  src="/images/camps/banners/acabanner.webp"
+                  alt="Choose summer camp visual guide for comparing academic, STEAM, and enrichment programs"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 896px"
+                  priority
+                />
+              </div>
+              <figcaption className="px-5 py-3 text-sm text-slate-700">
+                Choose summer camp options by matching each program to your child&apos;s goal, gap, and summer schedule.
+              </figcaption>
+            </figure>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#camp-decision-tool"

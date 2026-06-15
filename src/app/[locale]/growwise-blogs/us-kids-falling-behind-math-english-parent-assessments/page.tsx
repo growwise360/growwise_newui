@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/firstBlog.webp'
@@ -21,8 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'US Kids & Core Skills | Parent Guide | GrowWise', 
-    description:
-      'Why math and English gaps widen—and how Tri-Valley families use assessments and routines to rebuild skills and confidence.',
+    description: 'Learn how parents can use low-pressure math and English assessments to spot mistake patterns, rebuild confidence, and act before gaps widen.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/us-kids-falling-behind-math-english-parent-assessments', locale, baseUrl)
     }
@@ -57,6 +57,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="us-kids-falling-behind-math-english-parent-assessments" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -109,6 +110,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 When your child brings home a low grade in math or English, it's more than a number — it hurts. You see their confidence fade, homework turns into tears, and you wonder, <em>"Where did we go wrong?"</em>
               </p>
 
+              <LegacyBlogAeoBlock slug="us-kids-falling-behind-math-english-parent-assessments" />
+
               <p className="text-gray-700 mb-6">
                 Across the U.S., millions of children are falling behind — not from lack of ability, but because small learning gaps go unnoticed until they become big obstacles. Studies show that post-pandemic, students in grades 3–8 are scoring significantly lower in math and reading than before.
               </p>
@@ -134,7 +137,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -145,7 +148,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  us kids falling behind math english parent assessments visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">The Eye-Opening Truth</h2>
 

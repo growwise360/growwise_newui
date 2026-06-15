@@ -1,0 +1,72 @@
+URL: http://localhost:3000/
+<title>K-12 Online Tutoring &amp; Coding Classes | GrowWise</title>
+name="description" content="GrowWise helps Grades 1-12 students build confidence with math, English, coding, STEAM, and SAT prep online or in Dublin, CA. Book a free assessment."
+rel="canonical" href="http://localhost:3000"
+property="og:title" content="K-12 Online Tutoring &amp; Coding Classes | GrowWise"
+property="og:description" content="GrowWise helps Grades 1-12 students build confidence with math, English, coding, STEAM, and SAT prep online or in Dublin, CA. Book a free assessment."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/readinesschecklist
+<title>Free Math &amp; Reading Checklist | GrowWise Dublin CA</title>
+name="description" content="Free checklist for Dublin and Tri-Valley parents. Find math, reading comprehension, and writing gaps in Grades 1-8. No signup required."
+rel="canonical" href="http://localhost:3000/readinesschecklist"
+property="og:title" content="Free Math &amp; Reading Checklist | GrowWise Dublin CA"
+property="og:description" content="Free checklist for Dublin and Tri-Valley parents. Find math, reading comprehension, and writing gaps in Grades 1-8. No signup required."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/academic/english
+<title>English Tutoring Programs Grades 1-8 | Dublin CA | GrowWise</title>
+name="description" content="English tutoring for Grades 1-8 in Dublin, CA and online. Reading comprehension, writing, grammar, vocabulary, and essays in small groups."
+rel="canonical" href="http://localhost:3000/academic/english"
+property="og:title" content="English Tutoring Programs Grades 1-8 | Dublin CA | GrowWise"
+property="og:description" content="English tutoring for Grades 1-8 in Dublin, CA and online. Reading comprehension, writing, grammar, vocabulary, and essays in small groups."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/workshop-calendar
+<title>Free Workshop Calendar | GrowWise Dublin</title>
+name="description" content="Free Saturday workshops in Dublin, CA: reading, math, coding, AI studio, and parent webinars. View upcoming dates and register your spot at GrowWise."
+rel="canonical" href="http://localhost:3000/workshop-calendar"
+property="og:title" content="Free Workshop Calendar | GrowWise Dublin"
+property="og:description" content="Free Saturday workshops in Dublin, CA: reading, math, coding, AI studio, and parent webinars. View upcoming dates and register your spot at GrowWise."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/resources/tutoring-dublin-ca
+<title>K-12 Tutoring in Dublin CA | 2026 Parent Guide</title>
+name="description" content="Dublin, CA tutoring guide for Grades 1-12. Compare program types and learn what Tri-Valley parents should ask before enrolling."
+rel="canonical" href="http://localhost:3000/resources/tutoring-dublin-ca"
+property="og:title" content="K-12 Tutoring in Dublin CA | 2026 Parent Guide"
+property="og:description" content="Dublin, CA tutoring guide for Grades 1-12. Compare program types and learn what Tri-Valley parents should ask before enrolling."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/enroll
+<title>Enroll at GrowWise School | Dublin, CA</title>
+name="description" content="Enroll your child at GrowWise — grades 1–12 tutoring and STEAM programs in Dublin, CA. Fill out the form and we&#x27;ll respond within 24 hours."
+rel="canonical" href="http://localhost:3000/enroll"
+property="og:title" content="Enroll at GrowWise School | Dublin, CA"
+property="og:description" content="Enroll your child at GrowWise — grades 1–12 tutoring and STEAM programs in Dublin, CA. Fill out the form and we&#x27;ll respond within 24 hours."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/game-dev
+<title>Game Dev for Kids | Dublin CA | GrowWise</title>
+name="description" content="Game dev for ages 6–16 in Dublin, CA. Scratch, Roblox, and project builds. Hands-on classes with expert coaches. Book a free trial."
+rel="canonical" href="http://localhost:3000/game-dev"
+property="og:title" content="Game Dev for Kids | Dublin CA | GrowWise"
+property="og:description" content="Game dev for ages 6–16 in Dublin, CA. Scratch, Roblox, and project builds. Hands-on classes with expert coaches. Book a free trial."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---
+URL: http://localhost:3000/camps/academic-summer-programs-dublin-ca
+<title>Academic Summer Programs Dublin CA | GrowWise</title>
+name="description" content="Affordable small-group reading, writing, and math summer programs in Dublin, CA. Daily focused instruction plus guided practice. Grades 1–10."
+rel="canonical" href="http://localhost:3000/camps/academic-summer-programs-dublin-ca"
+property="og:title" content="Academic Summer Programs Dublin CA | GrowWise"
+property="og:description" content="Affordable small-group reading, writing, and math summer programs in Dublin, CA. Daily focused instruction plus guided practice. Grades 1–10."
+property="og:image" content="http://localhost:3000/assets/camps/acabanner.webp"
+---
+URL: http://localhost:3000/camps/winter/calendar
+<title>Winter Camp Schedule 2025 | GrowWise</title>
+name="description" content="Winter camp workshop schedule in Dublin, CA. View all dates, times, and weekly themes for coding, math, and STEAM. Reserve your spot early."
+rel="canonical" href="http://localhost:3000/camps/winter/calendar"
+property="og:title" content="Winter Camp Schedule 2025 | GrowWise"
+property="og:description" content="Winter camp workshop schedule in Dublin, CA. View all dates, times, and weekly themes for coding, math, and STEAM. Reserve your spot early."
+property="og:image" content="http://localhost:3000/og-image.jpg"
+---

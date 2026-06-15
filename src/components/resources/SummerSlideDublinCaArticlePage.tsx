@@ -24,6 +24,10 @@ export function SummerSlideDublinCaArticlePage() {
       h1={SUMMER_SLIDE_DUBLIN_CA_META.h1}
       readTime={SUMMER_SLIDE_DUBLIN_CA_META.readTime}
       updated={SUMMER_SLIDE_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'The summer slide is measurable academic skill loss during summer break. Dublin and Tri-Valley students can reduce it with structured review, live instruction, regular practice, and feedback on mistake patterns.',
+      }}
       faqs={SUMMER_SLIDE_DUBLIN_CA_FAQS}
       relatedArticles={SUMMER_SLIDE_DUBLIN_CA_RELATED}
       ctaHeading="Ready to find your child's actual gaps before June ends?"

@@ -27,6 +27,10 @@ export function TutoringDublinCaArticlePage() {
       h1={TUTORING_DUBLIN_CA_META.h1}
       readTime={TUTORING_DUBLIN_CA_META.readTime}
       updated={TUTORING_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'The best tutoring program for a Dublin student depends on the root cause: repeated practice helps some students, homework help supports current assignments, and diagnostic-first tutoring is best when a hidden learning gap or mistake pattern is driving the struggle.',
+      }}
       faqs={TUTORING_DUBLIN_CA_FAQS}
       relatedArticles={TUTORING_DUBLIN_CA_RELATED}
       ctaHeading="Not sure which program fits your child?"
@@ -48,7 +52,7 @@ export function TutoringDublinCaArticlePage() {
         child actually needs.
       </p>
 
-      <h2>The Three Types of Tutoring Programs in the Tri-Valley</h2>
+      <h2>What are the three types of tutoring programs in the Tri-Valley?</h2>
       <p>
         Most tutoring options in the Dublin area fall into one of three categories. Understanding which type
         you&apos;re looking at before you enroll saves time, money, and frustration.
@@ -97,7 +101,7 @@ export function TutoringDublinCaArticlePage() {
         should produce a written plan with specific identified gaps, not just a general placement level.
       </p>
 
-      <h2>Questions to Ask Any Program Before Enrolling</h2>
+      <h2>What questions should parents ask before enrolling?</h2>
       <p>Regardless of which program type you&apos;re considering, these questions surface important differences.</p>
       <ol>
         <li>
@@ -129,7 +133,7 @@ export function TutoringDublinCaArticlePage() {
         </li>
       </ol>
 
-      <h2>What Dublin and Tri-Valley Parents Should Know</h2>
+      <h2>What should Dublin and Tri-Valley parents know?</h2>
 
       <h3>Tri-Valley schools are academically demanding.</h3>
       <p>
@@ -164,7 +168,7 @@ export function TutoringDublinCaArticlePage() {
         programming is on your radar, the right time to look is late winter/early spring.
       </p>
 
-      <h2>What GrowWise Offers Dublin Families</h2>
+      <h2>What does GrowWise offer Dublin families?</h2>
       <p>
         GrowWise is located at {CONTACT_INFO.address} — serving families from Dublin, Pleasanton, San Ramon, and
         Livermore. Visit our <ArticleLink href="/dublin-ca">Dublin center page</ArticleLink> for directions, hours, and
@@ -237,7 +241,7 @@ export function TutoringDublinCaArticlePage() {
         <ArticleLink href="/academic">View All Programs →</ArticleLink>
       </p>
 
-      <h2>When to Start Looking</h2>
+      <h2>When should parents start looking?</h2>
 
       <p>
         <strong>For school-year support:</strong> The best time to start is before a student falls significantly

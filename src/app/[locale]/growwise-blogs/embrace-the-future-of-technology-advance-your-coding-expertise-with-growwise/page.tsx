@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise.webp'
@@ -21,8 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Coding & Tech Skills | GrowWise', 
-    description:
-      'Level up coding with structured paths in Dublin—projects, mentorship, and skills that map to real tech roles.',
+    description: 'Learn how GrowWise builds future-ready coding skills through structured paths, hands-on projects, mentor feedback, and emerging tech practice.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise', locale, baseUrl)
     }
@@ -56,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -108,6 +109,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Technology is evolving faster than ever, and coding has become the foundation of innovation. But with so many languages, tools, and frameworks emerging, how can developers keep up?
               </p>
 
+              <LegacyBlogAeoBlock slug="embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise" />
+
               <p className="text-gray-700 mb-8">
                 Enter <strong>GrowWise</strong>—an AI-powered learning platform designed to personalize your coding journey, provide instant feedback, and accelerate your growth. Whether you're a beginner or a seasoned programmer, GrowWise ensures you stay ahead in the ever-changing world of technology.
               </p>
@@ -120,19 +123,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 {' '}for hands-on weeks in Dublin.
               </p>
 
-              {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden rounded-xl bg-gray-50 shadow-lg">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
-                    alt="Embrace the Future of Technology: Elevate Your Coding Skills with GrowWise"
+                    alt="Future technology coding skills illustration with an AI robot and digital learning theme"
                     fill
                     className="object-cover rounded-xl"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  Future technology and coding skills become easier to build when students practice with
+                  structured projects, feedback, and hands-on problem solving.
+                </figcaption>
+              </figure>
 
               <p className="text-gray-700 mb-8">
                 Let's explore how this cutting-edge platform can transform the way you learn and master coding.
@@ -345,4 +351,3 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     </>
   )
 }
-

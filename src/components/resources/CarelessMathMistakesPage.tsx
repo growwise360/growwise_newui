@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, GraduationCap } from 'lucide-react'
 import { useLocale } from 'next-intl'
@@ -86,6 +87,28 @@ export function CarelessMathMistakesPage() {
             {CARELESS_MATH_MISTAKES_HERO.h1}
           </h1>
           <p className="mt-4 text-sm font-medium text-slate-500">{CARELESS_MATH_MISTAKES_HERO.meta}</p>
+          <div className="llm-answer-block mt-6 rounded-xl border-l-4 border-[#1D9E75] bg-white p-5 shadow-sm">
+            <h2 className="font-heading text-lg font-bold text-[#1F396D]">Quick Answer</h2>
+            <p className="mt-2 text-base leading-relaxed text-slate-700">
+              Careless math mistakes are usually not random. They often follow a repeatable mistake pattern, such as a
+              transfer error, formula confusion, pacing issue, or checking gap, and each pattern needs a different fix.
+            </p>
+          </div>
+          <figure className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <div className="relative h-56 w-full sm:h-64">
+              <Image
+                src="/images/camps/banners/mistake_proof_math_3968b793_web.webp"
+                alt="Careless math mistakes visual guide showing how students can find mistake patterns"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 896px"
+                priority
+              />
+            </div>
+            <figcaption className="px-5 py-3 text-sm text-slate-600">
+              Careless math mistakes are easier to fix when students identify the repeated mistake pattern.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -108,7 +131,7 @@ export function CarelessMathMistakesPage() {
             </p>
           </div>
 
-          <h2 className={cn(h2Class, 'mt-12 mb-4')}>Careless Mistakes Are Not Random</h2>
+          <h2 className={cn(h2Class, 'mt-12 mb-4')}>Are careless math mistakes random?</h2>
           <div className="space-y-4">
             <p className={bodyClass}>
               The first thing to understand: what looks like random carelessness is almost never random.
@@ -141,7 +164,7 @@ export function CarelessMathMistakesPage() {
             </p>
           </div>
 
-          <h2 className={cn(h2Class, 'mt-12 mb-4')}>Why &quot;Slow Down&quot; Doesn&apos;t Fix It</h2>
+          <h2 className={cn(h2Class, 'mt-12 mb-4')}>Why doesn&apos;t &quot;slow down&quot; fix careless mistakes?</h2>
           <div className="space-y-4">
             <p className={bodyClass}>
               Most parents and teachers respond to careless mistakes with the same instruction: slow down and check your
@@ -160,7 +183,7 @@ export function CarelessMathMistakesPage() {
             </p>
           </div>
 
-          <h2 className={cn(h2Class, 'mt-12 mb-4')}>The 4 Most Common Careless Mistake Patterns in Kids</h2>
+          <h2 className={cn(h2Class, 'mt-12 mb-4')}>What are the 4 most common careless mistake patterns?</h2>
           <p className={cn(bodyClass, 'mb-8')}>
             Understanding which pattern your child has is the first step to fixing it.
           </p>
@@ -187,7 +210,7 @@ export function CarelessMathMistakesPage() {
             ))}
           </div>
 
-          <h2 className={cn(h2Class, 'mt-12 mb-4')}>What Most Tutoring Programs Miss</h2>
+          <h2 className={cn(h2Class, 'mt-12 mb-4')}>What do most tutoring programs miss?</h2>
           <div className="space-y-4">
             <p className={bodyClass}>
               Most tutoring adds more practice. More worksheets. More of the same type of problem.
@@ -214,7 +237,7 @@ export function CarelessMathMistakesPage() {
             </p>
           </div>
 
-          <h2 className={cn(h2Class, 'mt-12 mb-4')}>The GrowWise Approach to Careless Mistakes</h2>
+          <h2 className={cn(h2Class, 'mt-12 mb-4')}>How does GrowWise approach careless mistakes?</h2>
           <div className="space-y-4">
             <p className={bodyClass}>
               At GrowWise, we start with a mistake pattern diagnostic before prescribing any practice.

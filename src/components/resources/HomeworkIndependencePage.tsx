@@ -26,6 +26,10 @@ export function HomeworkIndependencePage() {
       h1={HOMEWORK_INDEPENDENCE_META.h1}
       readTime={HOMEWORK_INDEPENDENCE_META.readTime}
       updated={HOMEWORK_INDEPENDENCE_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'If homework only gets done when you sit beside your child, the issue is usually a routine and independence system, not laziness. Build a consistent trigger, structured workspace, task-initiation habit, and gradual step-back plan over 6-8 weeks.',
+      }}
       faqs={HOMEWORK_INDEPENDENCE_FAQS}
       relatedArticles={HOMEWORK_INDEPENDENCE_RELATED}
       ctaHeading="Is it a routine problem or a skill gap?"
@@ -49,7 +53,7 @@ export function HomeworkIndependencePage() {
 
       <p>What&apos;s happening is a systems problem. And like most systems problems, it has a specific fix.</p>
 
-      <h2>Why Hovering Makes It Worse</h2>
+      <h2>Why does hovering make homework dependence worse?</h2>
 
       <p>
         Research published in November 2025 in the journal <em>Behavioral Sciences</em> found that parental
@@ -74,7 +78,7 @@ export function HomeworkIndependencePage() {
         <em>system builder</em>.
       </p>
 
-      <h2>The Real Problem Behind the Homework Battle</h2>
+      <h2>What is the real problem behind homework battles?</h2>
 
       <p>
         Most parents assume the issue is motivation — the child doesn&apos;t want to do homework. But motivation is
@@ -107,7 +111,7 @@ export function HomeworkIndependencePage() {
 
       <p>Once these three are in place, the resistance drops significantly — without nagging.</p>
 
-      <h2>The 6–8 Week System That Builds Real Independence</h2>
+      <h2>How can parents build homework independence in 6-8 weeks?</h2>
 
       {HOMEWORK_INDEPENDENCE_WEEK_PHASES.map((phase) => (
         <div key={phase.weeks}>
@@ -127,7 +131,7 @@ export function HomeworkIndependencePage() {
         </div>
       ))}
 
-      <h2>When the System Doesn&apos;t Work</h2>
+      <h2>When does the home system need outside support?</h2>
 
       <p>
         If your child has been homework-dependent for more than one academic year, the habit is established — and a home
@@ -158,7 +162,7 @@ export function HomeworkIndependencePage() {
         it can be practiced without the emotional weight of the parent-child dynamic.
       </p>
 
-      <h2>What Not to Do</h2>
+      <h2>What should parents avoid during homework time?</h2>
 
       <p>
         <strong>Don&apos;t bribe for homework completion.</strong>

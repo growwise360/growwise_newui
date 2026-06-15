@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-go-from-roblox-player-to-game-developer-and-earn-real-robux.webp'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Roblox to Game Developer | GrowWise', 
-    description: 'Transform your child\'s gaming passion into valuable coding and development skills. Learn Roblox game development and turn screen time into productive skill time.',
+    description: 'Help a Roblox player become a game developer with Roblox Studio, Lua scripting, game design, testing, and productive project-based screen time.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-to-go-from-roblox-player-to-game-developer-and-earn-real-robux', locale, baseUrl)
     }
@@ -55,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-to-go-from-roblox-player-to-game-developer-and-earn-real-robux" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -107,6 +109,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 If your child can't stop talking about Roblox, they're not alone. With over <strong>200 million monthly users</strong> and millions of user-generated games, Roblox has become more than a trend — it's a universe kids live in. But what if this obsession could become something meaningful?
               </p>
 
+              <LegacyBlogAeoBlock slug="how-to-go-from-roblox-player-to-game-developer-and-earn-real-robux" />
+
               <p className="text-gray-700 mb-8">
                 Instead of just playing games, your child could <strong>start creating them</strong>. Learning Roblox game development turns screen time into <strong>productive skill time,</strong> where fun meets future-ready learning.
               </p>
@@ -119,7 +123,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -130,7 +134,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  how to go from roblox player to game developer and earn real robux visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <p className="text-gray-700 mb-8">
                 At <strong>GrowWise</strong>, we turn Roblox enthusiasm into real-world confidence through our Roblox Coding Summer Camp, designed for students who love the game and are ready to start building.

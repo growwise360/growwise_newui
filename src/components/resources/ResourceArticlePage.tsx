@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, GraduationCap } from 'lucide-react'
 import { useLocale } from 'next-intl'
@@ -22,6 +23,29 @@ const sectionClass = 'mx-auto max-w-3xl px-4 sm:px-6'
 const h2Class = 'font-heading text-2xl font-bold text-[#1F396D] sm:text-3xl'
 const bodyClass = 'text-base leading-relaxed text-slate-700 sm:text-lg'
 
+const resourceFigureImages: Record<ResourceCategory, string> = {
+  academic: '/assets/courses/math-hub-banner.webp',
+  stem: '/assets/photos/photo-1526379095098-d400fd0bf935.jpg',
+  'sat-prep': '/assets/courses/math-band-high-school.webp',
+  local: '/assets/hero-one-on-one.jpg',
+  'summer-learning': '/images/camps/banners/acabanner.webp',
+  'parent-resources': '/assets/hero-one-on-one.jpg',
+}
+
+const resourceFigureImagesBySlug: Record<string, string> = {
+  'summer-academic-program-checklist': '/images/resources/growwise-summer-academic-checklist.webp',
+  'summer-slide-dublin-ca': '/images/resources/growwise-summer-slide-dublin.webp',
+  'summer-slide-prevention': '/images/resources/growwise-summer-slide-prevention.webp',
+  'summer-writing-program-dublin-ca': '/images/resources/growwise-summer-writing-program.webp',
+  'tutoring-dublin-ca': '/images/resources/growwise-tutoring-dublin-ca.webp',
+  'what-is-vibe-coding': '/images/resources/growwise-what-is-vibe-coding.webp',
+  'when-to-start-sat-prep': '/images/resources/growwise-when-to-start-sat-prep.webp',
+}
+
+function readableSlug(slug: string) {
+  return slug.replace(/-/g, ' ')
+}
+
 type Props = {
   slug: string
   category: ResourceCategory
@@ -29,6 +53,10 @@ type Props = {
   h1: string
   readTime: string
   updated: string
+  answerBlock?: {
+    heading?: string
+    text: string
+  }
   faqs: readonly ResourceArticleFaq[]
   relatedArticles?: readonly ResourceArticleRelated[]
   ctaHeading?: string
@@ -44,6 +72,7 @@ export function ResourceArticlePage({
   h1,
   readTime,
   updated,
+  answerBlock,
   faqs,
   relatedArticles = [],
   ctaHeading,
@@ -54,6 +83,8 @@ export function ResourceArticlePage({
   const locale = useLocale()
   const resourcesHref = publicPath(RESOURCES_PATH, locale)
   const defaultOpenFaqs = getDefaultOpenFaqValues(faqs.length, (idx) => `${slug}-faq-${idx}`)
+  const figureKeyword = readableSlug(slug)
+  const figureImage = resourceFigureImagesBySlug[slug] ?? resourceFigureImages[category]
 
   return (
     <main data-resource-article={slug} className="min-h-screen bg-background font-sans">
@@ -86,6 +117,29 @@ export function ResourceArticlePage({
           <p className="mt-3 text-sm font-medium text-slate-500">
             {readTime} · {updated}
           </p>
+          {answerBlock ? (
+            <div className="llm-answer-block mt-6 rounded-xl border-l-4 border-[#1D9E75] bg-white p-5 shadow-sm">
+              {answerBlock.heading ? (
+                <h2 className="font-heading text-lg font-bold text-[#1F396D]">{answerBlock.heading}</h2>
+              ) : null}
+              <p className="mt-2 text-base leading-relaxed text-slate-700">{answerBlock.text}</p>
+            </div>
+          ) : null}
+          <figure className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <div className="relative h-56 w-full sm:h-64">
+              <Image
+                src={figureImage}
+                alt={`${h1} visual guide for ${figureKeyword}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+            <figcaption className="px-5 py-3 text-sm text-slate-600">
+              {h1} — a GrowWise parent guide for {figureKeyword}.
+            </figcaption>
+          </figure>
         </div>
       </section>
 

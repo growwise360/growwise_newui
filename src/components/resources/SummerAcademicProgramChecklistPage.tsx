@@ -24,6 +24,10 @@ export function SummerAcademicProgramChecklistPage() {
       h1={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_META.h1}
       readTime={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_META.readTime}
       updated={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Before paying for a summer academic program, ask about class size, instructor background, curriculum sequence, measurable outcomes, and whether the program aligns with the school-year skills your child needs next.',
+      }}
       faqs={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_FAQS}
       relatedArticles={SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED}
       ctaHeading="See GrowWise Summer Programs"
@@ -46,7 +50,7 @@ export function SummerAcademicProgramChecklistPage() {
         produce real learning from programs that mostly provide supervised seat time.
       </p>
 
-      <h2>1. Class Size: How Many Students Per Instructor?</h2>
+      <h2>1. Class Size: How many students per instructor?</h2>
 
       <p>Class size is one of the clearest signals of whether your child will get real instruction or just a seat.</p>
 
@@ -71,7 +75,7 @@ export function SummerAcademicProgramChecklistPage() {
         broadcast — it reaches whoever was already close to understanding.
       </p>
 
-      <h2>2. Instructor Background: Subject-Trained or Generalist?</h2>
+      <h2>2. Instructor Background: Is the instructor subject-trained?</h2>
 
       <p>The person leading the session matters more than the curriculum binder.</p>
 
@@ -91,7 +95,7 @@ export function SummerAcademicProgramChecklistPage() {
         "Great with kids" is valuable, but it is not the same as subject expertise.
       </p>
 
-      <h2>3. Curriculum Structure: Defined Scope or Improvised?</h2>
+      <h2>3. Curriculum Structure: Is the scope defined or improvised?</h2>
 
       <p>"We cover math" is not a curriculum.</p>
 
@@ -112,7 +116,7 @@ export function SummerAcademicProgramChecklistPage() {
 
       <p>If the answer is "we follow the textbook," ask which one and verify it aligns to where your child actually is.</p>
 
-      <h2>4. Measurable Outcomes: What Does My Child Leave With?</h2>
+      <h2>4. Measurable Outcomes: What does my child leave with?</h2>
 
       <p>This is the most important question — and the one most programs answer worst.</p>
 
@@ -129,7 +133,7 @@ export function SummerAcademicProgramChecklistPage() {
         not thought carefully enough about results.
       </p>
 
-      <h2>5. CA Standards Alignment: Does This Connect to the School Year?</h2>
+      <h2>5. CA Standards Alignment: Does this connect to the school year?</h2>
 
       <p>
         Aligned to "CA Standards" is a low bar. Most programs can claim it and mean very little.
@@ -146,7 +150,7 @@ export function SummerAcademicProgramChecklistPage() {
         <strong>Ask:</strong> "Is your program aligned to [district name]'s math curriculum specifically?"
       </p>
 
-      <h2>How GrowWise Answers These Questions</h2>
+      <h2>How does GrowWise answer these questions?</h2>
 
       <p>
         <strong>Class size:</strong> Small groups, capped by program design

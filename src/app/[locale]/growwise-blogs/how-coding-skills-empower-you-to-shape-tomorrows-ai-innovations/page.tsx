@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-coding-skills-empower-you-to-shape-tomorrows-ai-innovations.webp'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Coding Skills & AI Innovation | GrowWise', 
-    description: 'Learn how mastering coding today positions you to be at the forefront of tomorrow\'s AI-driven innovations. Discover the connection between coding and AI development.',
+    description: 'Learn how coding skills prepare students to understand AI, build smarter projects, test ideas, and shape tomorrow\'s technology responsibly in class.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-coding-skills-empower-you-to-shape-tomorrows-ai-innovations', locale, baseUrl)
     }
@@ -55,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-coding-skills-empower-you-to-shape-tomorrows-ai-innovations" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -107,6 +109,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 You're a working adult with kids, a busy schedule, and a desire to stay ahead in today's rapidly changing tech world. The ability to code brings us to a crossroads: will we simply spectate or lead the charge in shaping tomorrow's AI innovations?
               </p>
 
+              <LegacyBlogAeoBlock slug="how-coding-skills-empower-you-to-shape-tomorrows-ai-innovations" />
+
               <p className="text-gray-700 mb-8">
                 It seems every headline screams about artificial intelligence replacing jobs. AI's future isn't just influenced by coding skills – it's actually being written by them, and this sea change is quietly gaining momentum.
               </p>
@@ -119,7 +123,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -130,7 +134,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  how coding skills empower you to shape tomorrows ai innovations visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <p className="text-gray-700 mb-8">
                 Whether you're just starting out or already established, recognizing the role coding skills play in AI can be a major breakthrough. To truly come out on top in this whirlwind of technological progress, you need to be more than just proficient in programming – you need to be a master of your craft. Can you imagine doing work that makes your heart skip a beat? Coding skills can make that a reality.

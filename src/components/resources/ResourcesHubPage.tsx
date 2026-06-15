@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -30,12 +31,27 @@ export function ResourcesHubPage() {
   return (
     <main data-resources-hub className="min-h-screen bg-background font-sans">
       <section className="border-b border-slate-200/80 bg-slate-50 py-14 sm:py-20" aria-labelledby="resources-hero-title">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-wide text-[#F16112] sm:text-sm">{RESOURCES_HERO.preLabel}</p>
           <h1 id="resources-hero-title" className="font-heading mt-3 text-3xl font-bold leading-tight text-[#1F396D] sm:text-4xl md:text-5xl">
             {RESOURCES_HERO.h1}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">{RESOURCES_HERO.subtext}</p>
+          <figure className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="relative aspect-[16/9] w-full">
+              <Image
+                src="/images/resources/california-math-standards-resource-home.png"
+                alt="The Parent's Guide to California Math Standards by Grade with a parent and child studying math"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 92vw, 896px"
+                priority
+              />
+            </div>
+            <figcaption className="px-5 py-3 text-left text-sm text-slate-600">
+              Parent-friendly guides for California math standards, learning gaps, summer planning, and academic support.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
