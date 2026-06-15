@@ -20,7 +20,7 @@ export function SeoPageFallback({
 }: SeoPageFallbackProps) {
   return (
     <section className={`min-h-[68vh] bg-white px-4 py-20 text-[#1F396D] ${className}`}>
-      <section className="mx-auto flex max-w-4xl flex-col gap-6">
+      <div className="mx-auto flex max-w-4xl flex-col gap-6">
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#F16112]">{eyebrow}</p>
         <h1 className="text-4xl font-bold leading-tight md:text-5xl">{title}</h1>
         <p className="max-w-3xl text-lg leading-8 text-slate-700">{description}</p>
@@ -37,7 +37,7 @@ export function SeoPageFallback({
             ))}
           </nav>
         )}
-      </section>
+      </div>
     </section>
   );
 }
