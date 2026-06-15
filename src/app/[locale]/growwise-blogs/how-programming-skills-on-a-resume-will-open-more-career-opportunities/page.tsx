@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities.webp'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Programming Skills on a Resume | GrowWise', 
-    description: 'Programming skills are increasingly valuable across industries. Learn how they can enhance your resume and career prospects.',
+    description: 'Programming skills strengthen resumes by showing problem-solving, technical fluency, automation ability, and project-based career readiness.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities', locale, baseUrl)
     }
@@ -55,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-programming-skills-on-a-resume-will-open-more-career-opportunities" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -104,6 +106,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 In today's competitive job market, programming skills are increasingly valuable across industries. Whether you're in tech, finance, healthcare, or marketing, coding abilities can significantly enhance your resume and open doors to new career opportunities.
               </p>
 
+              <LegacyBlogAeoBlock slug="how-programming-skills-on-a-resume-will-open-more-career-opportunities" />
+
               <p className="text-gray-700 mb-8">
                 Learn how programming skills can transform your career prospects and make you stand out to employers.
               </p>
@@ -116,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -127,7 +131,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  how programming skills on a resume will open more career opportunities visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Programming Skills Matter</h2>
 

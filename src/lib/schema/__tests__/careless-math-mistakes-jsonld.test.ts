@@ -11,16 +11,23 @@ describe('careless-math-mistakes-jsonld', () => {
   const graph = buildCarelessMathMistakesPageGraphSchema(BASE_URL, 'en') as Record<string, unknown>
   const nodes = graph['@graph'] as Array<Record<string, unknown>>
 
-  it('emits WebPage, FAQPage, and BreadcrumbList in @graph', () => {
+  it('emits WebPage, BlogPosting, FAQPage, and BreadcrumbList in @graph', () => {
     expect(graph['@context']).toBe('https://schema.org')
-    expect(nodes).toHaveLength(3)
-    expect(nodes.map((n) => n['@type'])).toEqual(['WebPage', 'FAQPage', 'BreadcrumbList'])
+    expect(nodes).toHaveLength(4)
+    expect(nodes.map((n) => n['@type'])).toEqual(['WebPage', 'BlogPosting', 'FAQPage', 'BreadcrumbList'])
   })
 
   it('uses page title and path', () => {
     const webPage = nodes.find((n) => n['@type'] === 'WebPage') as Record<string, unknown>
     expect(webPage.name).toBe(CARELESS_MATH_MISTAKES_TITLE)
     expect(String(webPage.url)).toContain(CARELESS_MATH_MISTAKES_PATH)
+  })
+
+  it('includes article schema for AI citation context', () => {
+    const article = nodes.find((n) => n['@type'] === 'BlogPosting') as Record<string, unknown>
+    expect(article.headline).toBe(CARELESS_MATH_MISTAKES_TITLE)
+    expect(article['@id']).toBe(`${BASE_URL}${CARELESS_MATH_MISTAKES_PATH}#article`)
+    expect(article.isAccessibleForFree).toBe(true)
   })
 
   it('includes all 5 FAQs in FAQPage schema', () => {

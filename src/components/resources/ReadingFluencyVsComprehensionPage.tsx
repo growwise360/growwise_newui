@@ -25,6 +25,10 @@ export function ReadingFluencyVsComprehensionPage() {
       h1={READING_FLUENCY_VS_COMPREHENSION_META.h1}
       readTime={READING_FLUENCY_VS_COMPREHENSION_META.readTime}
       updated={READING_FLUENCY_VS_COMPREHENSION_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Reading fluency is accurate, paced, expressive reading. Reading comprehension is understanding and using meaning. A child can be strong in one and weak in the other, so support should begin by identifying which gap is primary.',
+      }}
       faqs={READING_FLUENCY_VS_COMPREHENSION_FAQS}
       relatedArticles={READING_FLUENCY_VS_COMPREHENSION_RELATED}
       ctaHeading="Not sure which gap your child has?"

@@ -1,0 +1,14 @@
+User-Agent: *
+Allow: /
+Allow: /_next/image?*
+Allow: /growwise-blogs?page=*
+Disallow: /en/
+Disallow: /hi/
+Disallow: /zh/
+Disallow: /es/
+Disallow: /*?*
+Disallow: /favicon.ico
+Disallow: /student-login
+Disallow: /cart
+
+Sitemap: http://localhost:3000/sitemap.xml

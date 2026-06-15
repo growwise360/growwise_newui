@@ -25,6 +25,10 @@ export function SummerSlidePreventionPage() {
       h1={SUMMER_SLIDE_PREVENTION_META.h1}
       readTime={SUMMER_SLIDE_PREVENTION_META.readTime}
       updated={SUMMER_SLIDE_PREVENTION_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Summer slide is preventable when parents identify specific gaps, practice consistently in short sessions, and use feedback that corrects mistake patterns instead of assigning random worksheets.',
+      }}
       faqs={SUMMER_SLIDE_PREVENTION_FAQS}
       relatedArticles={SUMMER_SLIDE_PREVENTION_RELATED}
       ctaHeading="What to Do Right Now"
@@ -51,7 +55,7 @@ export function SummerSlidePreventionPage() {
 
       <p>It requires one thing: consistency.</p>
 
-      <h2>Why Summer Slide Happens</h2>
+      <h2>Why does summer slide happen?</h2>
 
       <p>
         Skills that aren't used atrophy. This is true in music, sports, and academics. A pianist who stops
@@ -71,7 +75,7 @@ export function SummerSlidePreventionPage() {
         gap has widened.
       </p>
 
-      <h2>The Prevention Strategy That Works</h2>
+      <h2>What summer slide prevention strategy works?</h2>
 
       <p>
         Most parents understand summer slide in theory but try to prevent it in ways that don't work: assuming
@@ -128,7 +132,7 @@ export function SummerSlidePreventionPage() {
         spirals through random topics. The medium is less important than the focus.
       </p>
 
-      <h2>What a Summer Maintenance Plan Looks Like</h2>
+      <h2>What does a summer maintenance plan look like?</h2>
 
       <p>
         Here's a concrete example: a 3rd grader who struggled with multi-digit subtraction all year.
@@ -151,7 +155,7 @@ export function SummerSlidePreventionPage() {
         prevent backsliding.
       </p>
 
-      <h2>How to Implement This</h2>
+      <h2>How should parents implement this plan?</h2>
 
       <p>Start now — before summer begins:</p>
 
@@ -170,7 +174,7 @@ export function SummerSlidePreventionPage() {
         results than those who realize the problem in mid-July and scramble to find a program.
       </p>
 
-      <h2>Summer Programs That Prevent Slide</h2>
+      <h2>Which summer programs prevent slide?</h2>
 
       <p>
         If you prefer structured support over at-home practice, the programs that work share these

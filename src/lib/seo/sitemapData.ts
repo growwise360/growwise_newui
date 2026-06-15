@@ -121,6 +121,7 @@ const campLandingHub: SitemapEntry = {
 
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
+  '/growwise-blogs/does-my-child-need-reading-help-checklist',
   '/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math',
   '/growwise-blogs/high-school-math-finals-prep-dublin-tri-valley',
   '/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise',

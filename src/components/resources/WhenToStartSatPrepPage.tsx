@@ -27,6 +27,10 @@ export function WhenToStartSatPrepPage() {
       h1={WHEN_TO_START_SAT_PREP_META.h1}
       readTime={WHEN_TO_START_SAT_PREP_META.readTime}
       updated={WHEN_TO_START_SAT_PREP_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Most students should build foundations in Grade 8, use Grade 9 for low-stakes exposure, begin focused SAT prep in Grade 10, and use Grade 11 for targeted test dates and retake planning.',
+      }}
       faqs={WHEN_TO_START_SAT_PREP_FAQS}
       relatedArticles={WHEN_TO_START_SAT_PREP_RELATED}
       ctaHeading="What to Do Right Now"
@@ -50,7 +54,7 @@ export function WhenToStartSatPrepPage() {
         Here&apos;s the honest, grade-by-grade breakdown — and the one question most programs don&apos;t ask first.
       </p>
 
-      <h2>The Question Most Programs Skip</h2>
+      <h2>What question do most SAT prep programs skip?</h2>
 
       <p>
         Before asking <em>when</em> to start SAT prep, the more important question is:{' '}
@@ -79,7 +83,7 @@ export function WhenToStartSatPrepPage() {
         strategy on top of an unfixed gap.
       </p>
 
-      <h2>Grade-by-Grade Breakdown</h2>
+      <h2>When should students start SAT prep by grade?</h2>
 
       <h3>Grade 8: Foundation, Not Prep</h3>
 
@@ -209,7 +213,7 @@ export function WhenToStartSatPrepPage() {
         most schools.
       </p>
 
-      <h2>The Three-Level Approach</h2>
+      <h2>What are the three levels of SAT readiness?</h2>
 
       <p>Most students need one of three starting points, not a single generic SAT course:</p>
 
@@ -239,7 +243,7 @@ export function WhenToStartSatPrepPage() {
         with a diagnostic to identify which level applies before any prep begins.
       </p>
 
-      <h2>What to Do Right Now</h2>
+      <h2>What should parents do right now?</h2>
 
       <p>
         The most useful thing you can do today — regardless of your child&apos;s grade — is establish a baseline.

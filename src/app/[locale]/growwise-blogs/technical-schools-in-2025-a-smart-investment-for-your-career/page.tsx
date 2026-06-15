@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/technical-schools-in-2025-a-smart-investment-for-your-career.webp'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Technical Schools 2025 | Career | GrowWise', 
-    description: 'Explore why technical education and coding skills are becoming essential investments for career success in 2025.',
+    description: 'Explore why technical education in 2025 can build practical skills, portfolio evidence, career confidence, and readiness for a changing job market.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/technical-schools-in-2025-a-smart-investment-for-your-career', locale, baseUrl)
     }
@@ -55,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="technical-schools-in-2025-a-smart-investment-for-your-career" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -104,6 +106,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 In 2025, technical education has become more valuable than ever. As technology continues to reshape industries, technical schools and coding programs offer a direct pathway to in-demand careers.
               </p>
 
+              <LegacyBlogAeoBlock slug="technical-schools-in-2025-a-smart-investment-for-your-career" />
+
               <p className="text-gray-700 mb-8">
                 Explore why technical education and coding skills are becoming essential investments for career success in 2025.
               </p>
@@ -116,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -127,7 +131,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  technical schools in 2025 a smart investment for your career visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Technical Education Matters in 2025</h2>
 

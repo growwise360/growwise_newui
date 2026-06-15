@@ -24,6 +24,10 @@ export function KhanAcademySummerDoesntWorkPage() {
       h1={KHAN_ACADEMY_SUMMER_DOESNT_WORK_META.h1}
       readTime={KHAN_ACADEMY_SUMMER_DOESNT_WORK_META.readTime}
       updated={KHAN_ACADEMY_SUMMER_DOESNT_WORK_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Khan Academy can help as a review tool, but it usually does not work as a standalone summer plan because most students need structure, live feedback, accountability, and a clear sequence to make steady progress.',
+      }}
       faqs={KHAN_ACADEMY_SUMMER_DOESNT_WORK_FAQS}
       relatedArticles={KHAN_ACADEMY_SUMMER_DOESNT_WORK_RELATED}
       ctaHeading="Compare Your Options"
@@ -45,7 +49,7 @@ export function KhanAcademySummerDoesntWorkPage() {
         choose something that actually works.
       </p>
 
-      <h2>The Completion Problem Is Well-Documented</h2>
+      <h2>Why do self-paced summer learning plans break down?</h2>
 
       <p>
         Self-paced online learning has a persistent completion problem. Across virtually every category — MOOCs,
@@ -68,7 +72,7 @@ export function KhanAcademySummerDoesntWorkPage() {
         structure around it, it almost never produces the outcome parents expect.
       </p>
 
-      <h2>What Kids Actually Need</h2>
+      <h2>What do kids actually need instead?</h2>
 
       <p>
         The conditions that produce real academic progress over a summer are not complicated, but they require more
@@ -96,7 +100,7 @@ export function KhanAcademySummerDoesntWorkPage() {
         sequence that builds skills in the right order. Real learning compounds. Scattered review doesn't.
       </p>
 
-      <h2>The Small Group Dynamic</h2>
+      <h2>Why does small-group learning help?</h2>
 
       <p>
         One underestimated factor: peer learning. In a small group of 6–10 students working on the same material,
@@ -109,7 +113,7 @@ export function KhanAcademySummerDoesntWorkPage() {
         that screen-based solo learning can't replicate.
       </p>
 
-      <h2>What to Use Khan Academy For</h2>
+      <h2>What should parents use Khan Academy for?</h2>
 
       <p>Khan Academy works well when:</p>
 
