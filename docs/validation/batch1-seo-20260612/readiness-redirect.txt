@@ -1,0 +1,9 @@
+=== /readinesschecklist ===
+HEAD status: 200
+canonical: http://localhost:3000/readinesschecklist
+body has Page not found: True
+
+=== /resources/readiness-checklist ===
+HEAD status: 404
+canonical: none
+body has Page not found: True

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, GraduationCap } from 'lucide-react'
 import { useLocale } from 'next-intl'
@@ -58,6 +59,29 @@ export function WhyGradesHideLearningGapsPage() {
             {WHY_GRADES_HERO.h1}
           </h1>
           <p className="mt-4 text-sm font-medium text-slate-500">{WHY_GRADES_HERO.meta}</p>
+          <div className="llm-answer-block mt-6 rounded-xl border-l-4 border-[#1D9E75] bg-white p-5 shadow-sm">
+            <h2 className="font-heading text-lg font-bold text-[#1F396D]">Quick Answer</h2>
+            <p className="mt-2 text-base leading-relaxed text-slate-700">
+              Yes, a good grade can hide a learning gap when a student memorizes a procedure but cannot explain,
+              transfer, or apply the concept in a new context.
+            </p>
+          </div>
+          <figure className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <div className="relative h-56 w-full sm:h-64">
+              <Image
+                src="/images/resources/growwise-why-grades-hide-gaps.webp"
+                alt="Grades hide learning gaps visual guide for parents reviewing hidden academic understanding"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 896px"
+                priority
+              />
+            </div>
+            <figcaption className="px-5 py-3 text-sm text-slate-600">
+              Grades hide learning gaps when students can perform a procedure but cannot explain or transfer the
+              underlying idea.
+            </figcaption>
+          </figure>
         </div>
       </section>
 

@@ -75,6 +75,15 @@ function redirectLegacyLocalePrefix(request: NextRequest): NextResponse | null {
   return null;
 }
 
+function redirectLegacyResourceAliases(request: NextRequest): NextResponse | null {
+  if (request.nextUrl.pathname === '/resources/readiness-checklist') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/readinesschecklist';
+    return NextResponse.redirect(url, 301);
+  }
+  return null;
+}
+
 const intlMiddleware = createMiddleware({
   locales: [...ENABLED_LOCALES],
   defaultLocale: DEFAULT_LOCALE,
@@ -187,6 +196,8 @@ export default function middleware(request: NextRequest) {
   if (rewritten) return rewritten;
   const legacyLocale = redirectLegacyLocalePrefix(request);
   if (legacyLocale) return legacyLocale;
+  const legacyResourceAlias = redirectLegacyResourceAliases(request);
+  if (legacyResourceAlias) return legacyResourceAlias;
   const hard404 = hard404UnknownPublicPath(request);
   if (hard404) return hard404;
   return intlMiddleware(request);

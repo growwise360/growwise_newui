@@ -1,0 +1,37 @@
+=== 1. WWW REDIRECT (LIVE) ===
+HTTP/2 301 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain
+date: Fri, 12 Jun 2026 20:49:11 GMT
+location: https://growwiseschool.org/
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-id: sfo1::z92tm-1781297351596-28f9bc500774
+
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 126244
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline
+content-type: text/html; charset=utf-8
+date: Fri, 12 Jun 2026 20:49:11 GMT
+etag: "f9540fd64ecf019ed2c799f8a6e46790"
+referrer-policy: strict-origin-when-cross-origin
+server: Vercel
+set-cookie: NEXT_LOCALE=en; Path=/; SameSite=lax
+strict-transport-security: max-age=63072000
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+x-content-type-options: nosniff
+x-dns-prefetch-control: on
+x-frame-options: SAMEORIGIN
+x-matched-path: /en
+x-nextjs-prerender: 1
+x-nextjs-stale-time: 300
+x-vercel-cache: HIT
+x-vercel-id: sfo1::9bbrk-1781297351795-16f43310c18b
+content-length: 927414
+
+
+=== First hop only ===
+location: https://growwiseschool.org/

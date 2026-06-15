@@ -32,6 +32,10 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
       h1={AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_META.h1}
       readTime={AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_META.readTime}
       updated={AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'An affordable summer academic program is not simply the lowest-priced option. It should offer clear instructional value through small groups, defined outcomes, skill-focused curriculum, and feedback tied to your child\'s actual needs.',
+      }}
       faqs={AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_FAQS}
       relatedArticles={AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_RELATED}
       ctaHeading="Review GrowWise academic summer programs"
@@ -63,7 +67,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         investing.
       </p>
 
-      <h2>What Summer Academic Programs Usually Include</h2>
+      <h2>What do summer academic programs usually include?</h2>
 
       <p>Academic summer programs may focus on:</p>
 
@@ -83,7 +87,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         sprints. The right fit depends on your child&apos;s age, current academic needs, and summer schedule.
       </p>
 
-      <h2>The False Economy of Cheap Programs</h2>
+      <h2>Why can the cheapest summer program cost more later?</h2>
 
       <p>
         A lower-cost program can be a good choice if it is safe, structured, and aligned with your goals. But cheap
@@ -112,7 +116,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         to compare options before you enroll.
       </p>
 
-      <h2>What &quot;Affordable&quot; Should Actually Mean</h2>
+      <h2>What should &quot;affordable&quot; actually mean?</h2>
 
       <p>A good value program is not always the cheapest one. When comparing summer programs, look at:</p>
 
@@ -132,7 +136,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         structured instruction, smaller groups, and targeted academic support.
       </p>
 
-      <h2>Childcare vs. Academic Support</h2>
+      <h2>Is it childcare or academic support?</h2>
 
       <p>Some parents need summer coverage. That is valid. But if the goal is academic growth, parents should look for more than supervision.</p>
 
@@ -154,7 +158,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         <ArticleLink href="/resources/summer-slide-dublin-ca">the summer slide in Dublin, CA</ArticleLink>.
       </p>
 
-      <h2>Why Class Size Matters</h2>
+      <h2>Why does class size matter?</h2>
 
       <p>Class size affects attention. A large group may be fine for general activities, but academic support requires visibility.</p>
 
@@ -170,7 +174,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
 
       <p>Smaller academic groups make this more possible.</p>
 
-      <h2>Why Outcomes Matter More Than Activities</h2>
+      <h2>Why do outcomes matter more than activities?</h2>
 
       <p>A summer academic program should be able to explain its purpose clearly. For example:</p>
 
@@ -190,7 +194,8 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
 
       <h2>GrowWise Academic Summer Programs</h2>
 
-      <div className="relative my-8 aspect-[16/9] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+      <figure className="my-8 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+        <div className="relative aspect-[16/9]">
         <Image
           src={ARTICLE_HERO_IMAGE}
           alt="Small-group academic summer program for K-12 students in Dublin, CA"
@@ -198,7 +203,11 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
           sizes="(max-width: 768px) 100vw, 672px"
           className="object-cover"
         />
-      </div>
+        </div>
+        <figcaption className="px-5 py-3 text-sm text-slate-600">
+          A structured academic summer program should show small-group instruction, defined outcomes, and skill-specific support.
+        </figcaption>
+      </figure>
 
       <p>
         GrowWise offers academic summer programs in Dublin, CA for students who need focused support in math,
@@ -216,7 +225,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         <ArticleLink href="/book-assessment">book a free assessment</ArticleLink>.
       </p>
 
-      <h2>How to Evaluate the Best Fit</h2>
+      <h2>How should parents evaluate the best fit?</h2>
 
       <p>Before enrolling, ask yourself:</p>
 
@@ -231,7 +240,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
 
       <p>The right summer program should feel clear, structured, and purposeful.</p>
 
-      <h2>Final Thought</h2>
+      <h2>What is the final takeaway?</h2>
 
       <p>Affordable does not mean low-quality. And expensive does not automatically mean better.</p>
 

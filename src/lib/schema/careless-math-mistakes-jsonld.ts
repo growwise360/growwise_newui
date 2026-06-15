@@ -1,11 +1,12 @@
 import {
   CARELESS_MATH_MISTAKES_DESCRIPTION,
   CARELESS_MATH_MISTAKES_FAQS,
+  CARELESS_MATH_MISTAKES_KEYWORDS,
   CARELESS_MATH_MISTAKES_PATH,
   CARELESS_MATH_MISTAKES_TITLE,
 } from '@/data/resources/careless-math-mistakes-copy'
 import { absoluteSiteUrl } from '@/lib/publicPath'
-import { generateBreadcrumbSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
+import { generateArticleSchema, generateBreadcrumbSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
 
 export function buildCarelessMathMistakesPageGraphSchema(baseUrl: string, locale: string) {
   const pageUrl = absoluteSiteUrl(CARELESS_MATH_MISTAKES_PATH, locale, baseUrl)
@@ -17,6 +18,20 @@ export function buildCarelessMathMistakesPageGraphSchema(baseUrl: string, locale
     name: CARELESS_MATH_MISTAKES_TITLE,
     description: CARELESS_MATH_MISTAKES_DESCRIPTION,
     isPartOf: { '@type': 'WebSite', url: baseUrl, name: 'GrowWise School' },
+  }
+
+  const article = {
+    ...generateArticleSchema({
+      headline: CARELESS_MATH_MISTAKES_TITLE,
+      description: CARELESS_MATH_MISTAKES_DESCRIPTION,
+      url: pageUrl,
+      author: { name: 'GrowWise School', type: 'Organization' },
+    }),
+    '@id': `${pageUrl}#article`,
+    articleSection: 'Academic support',
+    keywords: CARELESS_MATH_MISTAKES_KEYWORDS,
+    isAccessibleForFree: true,
+    inLanguage: 'en-US',
   }
 
   const faqPage = {
@@ -33,6 +48,6 @@ export function buildCarelessMathMistakesPageGraphSchema(baseUrl: string, locale
 
   return {
     '@context': 'https://schema.org',
-    '@graph': [webPage, faqPage, breadcrumbList],
+    '@graph': [webPage, article, faqPage, breadcrumbList],
   }
 }

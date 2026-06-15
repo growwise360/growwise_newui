@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/harnessing-the-power-of-code-a-skill-for-the-modern-era.webp'
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Code as a Modern Skill | GrowWise', 
-    description: 'Explore why coding has become an essential skill in today\'s digital world and how it opens doors to innovation and opportunity.',
+    description: 'See why coding is a modern literacy for students, building digital confidence, logical thinking, career-ready projects, and problem-solving skills.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/harnessing-the-power-of-code-a-skill-for-the-modern-era', locale, baseUrl)
     }
@@ -55,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="harnessing-the-power-of-code-a-skill-for-the-modern-era" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -104,6 +106,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 In today's digital world, coding has evolved from a niche technical skill to an essential literacy. Understanding code is no longer just for computer scientists – it's becoming fundamental for success across industries and careers.
               </p>
 
+              <LegacyBlogAeoBlock slug="harnessing-the-power-of-code-a-skill-for-the-modern-era" />
+
               <p className="text-gray-700 mb-8">
                 Explore why coding has become an essential skill in today's digital world and how it opens doors to innovation and opportunity.
               </p>
@@ -115,19 +119,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </Link> that emphasize coding and problem-solving.
               </p>
 
-              {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden rounded-xl bg-gray-50 shadow-lg">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
-                    alt="Harnessing the Power of Code: A Skill for the Modern Era"
+                    alt="Harnessing the power of code illustration with students coding and an AI robot"
                     fill
                     className="object-cover rounded-xl"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  Coding gives students a modern skill for digital literacy, problem-solving, and career-ready
+                  project work across industries.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Coding Matters in the Modern Era</h2>
 
@@ -239,4 +246,3 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     </>
   )
 }
-

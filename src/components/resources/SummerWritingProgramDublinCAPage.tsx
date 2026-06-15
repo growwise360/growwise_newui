@@ -24,6 +24,10 @@ export function SummerWritingProgramDublinCAPage() {
       h1={SUMMER_WRITING_PROGRAM_DUBLIN_CA_META.h1}
       readTime={SUMMER_WRITING_PROGRAM_DUBLIN_CA_META.readTime}
       updated={SUMMER_WRITING_PROGRAM_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'A strong summer writing program should directly teach planning, paragraph structure, evidence use, revision, voice, and audience awareness, not just correct grammar after a draft is written.',
+      }}
       faqs={SUMMER_WRITING_PROGRAM_DUBLIN_CA_FAQS}
       relatedArticles={SUMMER_WRITING_PROGRAM_DUBLIN_CA_RELATED}
       ctaHeading="Enroll in Summer Reading & Writing"
@@ -45,7 +49,7 @@ export function SummerWritingProgramDublinCAPage() {
         that — if it teaches structure, voice, evidence, and revision instead of only correcting grammar.
       </p>
 
-      <h2>Why Parents Underestimate Writing</h2>
+      <h2>Why do parents underestimate writing gaps?</h2>
 
       <p>Reading gaps get flagged early. Math scores are visible. Writing problems are quieter.</p>
 
@@ -57,7 +61,7 @@ export function SummerWritingProgramDublinCAPage() {
 
       <p>The real writing gap is usually not grammar. It's structure, specificity, and reasoning on the page.</p>
 
-      <h2>Signs Your Child Needs a Writing Sprint</h2>
+      <h2>What signs show a child needs a writing sprint?</h2>
 
       <p>Look for these patterns:</p>
 
@@ -86,7 +90,7 @@ export function SummerWritingProgramDublinCAPage() {
 
       <p>Any two of these patterns are worth taking seriously before the next school year starts.</p>
 
-      <h2>What a Good Writing Program Actually Teaches</h2>
+      <h2>What should a good writing program teach?</h2>
 
       <p>
         Grammar correction alone does not produce better writers. Students need a system for planning, drafting,
@@ -122,7 +126,7 @@ export function SummerWritingProgramDublinCAPage() {
         know, and what cannot be assumed. That shift turns writing from word count into communication.
       </p>
 
-      <h2>What GrowWise Writing Sprints Cover</h2>
+      <h2>What do GrowWise writing sprints cover?</h2>
 
       <p>
         GrowWise summer reading and writing sprints are designed for students who need more than red pen corrections

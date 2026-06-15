@@ -20,12 +20,19 @@ const RELATED_POSTS = [
   },
 ] as const;
 
+type RelatedPost = {
+  title: string;
+  href: string;
+  description: string;
+};
+
 type BlogPostConversionSectionProps = {
   locale: string;
   programHref: string;
   programLabel: string;
   headline?: string;
   subtext?: string;
+  relatedPosts?: readonly RelatedPost[];
 };
 
 export function BlogPostConversionSection({
@@ -34,6 +41,7 @@ export function BlogPostConversionSection({
   programLabel,
   headline = 'Find the right program for your child',
   subtext = 'Explore our programs, then book a free assessment — we will recommend the best fit.',
+  relatedPosts = RELATED_POSTS,
 }: BlogPostConversionSectionProps) {
   const programUrl = publicPath(programHref, locale);
   const assessmentUrl = publicPath('/book-assessment', locale);
@@ -47,7 +55,7 @@ export function BlogPostConversionSection({
             Related parent guides
           </h2>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {RELATED_POSTS.map((post) => (
+            {relatedPosts.map((post) => (
               <Link
                 key={post.href}
                 href={publicPath(post.href, locale)}

@@ -1,6 +1,7 @@
 import { CONTACT_INFO } from '@/lib/constants'
 import {
   TUTORING_DUBLIN_CA_FAQS,
+  TUTORING_DUBLIN_CA_META,
   TUTORING_DUBLIN_CA_PATH,
 } from '@/data/resources/tutoring-dublin-ca'
 import { buildTutoringDublinCaArticleGraphSchema } from '@/lib/schema/tutoring-dublin-ca-jsonld'
@@ -11,10 +12,10 @@ describe('tutoring-dublin-ca-jsonld', () => {
   const graph = buildTutoringDublinCaArticleGraphSchema(BASE_URL, 'en') as Record<string, unknown>
   const nodes = graph['@graph'] as Array<Record<string, unknown>>
 
-  it('emits LocalBusiness + FAQPage @graph', () => {
+  it('emits LocalBusiness, BlogPosting, and FAQPage @graph', () => {
     expect(graph['@context']).toBe('https://schema.org')
-    expect(nodes).toHaveLength(2)
-    expect(nodes.map((n) => n['@type'])).toEqual(['LocalBusiness', 'FAQPage'])
+    expect(nodes).toHaveLength(3)
+    expect(nodes.map((n) => n['@type'])).toEqual(['LocalBusiness', 'BlogPosting', 'FAQPage'])
   })
 
   it('reuses Dublin LocalBusiness address and contact fields', () => {
@@ -43,5 +44,15 @@ describe('tutoring-dublin-ca-jsonld', () => {
 
     expect(mainEntity).toHaveLength(TUTORING_DUBLIN_CA_FAQS.length)
     expect(mainEntity.map((q) => q.name)).toEqual(TUTORING_DUBLIN_CA_FAQS.map((faq) => faq.question))
+  })
+
+  it('includes article schema connected to the local business', () => {
+    const article = nodes.find((n) => n['@type'] === 'BlogPosting') as Record<string, unknown>
+    const about = article.about as Record<string, unknown>
+
+    expect(article.headline).toBe(TUTORING_DUBLIN_CA_META.h1)
+    expect(article.datePublished).toBe(TUTORING_DUBLIN_CA_META.datePublished)
+    expect(article.isAccessibleForFree).toBe(true)
+    expect(about['@id']).toBe(`${BASE_URL}${TUTORING_DUBLIN_CA_PATH}#localbusiness`)
   })
 })

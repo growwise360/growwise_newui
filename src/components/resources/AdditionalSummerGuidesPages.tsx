@@ -40,6 +40,10 @@ export function MathSprintBreakdownPage() {
       h1={MATH_SPRINT_BREAKDOWN_META.h1}
       readTime={MATH_SPRINT_BREAKDOWN_META.readTime}
       updated={MATH_SPRINT_BREAKDOWN_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'A GrowWise Math Sprint starts with baseline checks, then moves through core skill building, applied problem solving, and final consolidation so students can see what changed before the next school year starts.',
+      }}
       faqs={MATH_SPRINT_BREAKDOWN_FAQS}
       relatedArticles={MATH_SPRINT_BREAKDOWN_RELATED}
       ctaHeading="See Math Sprint Options"
@@ -60,7 +64,7 @@ export function MathSprintBreakdownPage() {
         rebuild or extend core skills, apply those skills to unfamiliar problems, and finish with consolidation.
       </p>
 
-      <h2>Week 1: Baseline Assessment</h2>
+      <h2>What happens in Week 1?</h2>
       <p>
         Week 1 is not about rushing into new content. It is about finding out where each student actually stands.
         Grade level is a label, not a diagnosis. One student may be strong in arithmetic but shaky on fractions;
@@ -72,7 +76,7 @@ export function MathSprintBreakdownPage() {
         skill work.
       </p>
 
-      <h2>Week 2: Core Skill Building</h2>
+      <h2>What happens in Week 2?</h2>
       <p>
         Week 2 focuses on direct instruction and immediate feedback. For younger students, that may mean place
         value, number sense, multiplication, and fluency. For upper elementary students, it often means fractions,
@@ -84,7 +88,7 @@ export function MathSprintBreakdownPage() {
         feedback while the work is happening.
       </p>
 
-      <h2>Week 3: Application and Problem Solving</h2>
+      <h2>What happens in Week 3?</h2>
       <p>
         Week 3 asks students to use skills in less predictable situations. Multi-step word problems, peer
         explanation, error analysis, and challenge extensions show whether the skill transfers beyond a worksheet
@@ -95,7 +99,7 @@ export function MathSprintBreakdownPage() {
         it works or when to use it. That is exactly the kind of gap summer is built to address.
       </p>
 
-      <h2>Week 4: Consolidation and Confidence</h2>
+      <h2>What happens in Week 4?</h2>
       <p>
         The final week mixes prior skills so students do not only remember a concept immediately after learning it.
         Mixed practice, fluency work, and student reflection help students see what changed from the first week to
@@ -120,6 +124,10 @@ export function ReadingProgramGrades12DublinCAPage() {
       h1={READING_PROGRAM_GRADES_1_2_DUBLIN_CA_META.h1}
       readTime={READING_PROGRAM_GRADES_1_2_DUBLIN_CA_META.readTime}
       updated={READING_PROGRAM_GRADES_1_2_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Early reading gaps are easiest to address before the end of Grade 2. Parents should look for guessing, skipped words, choppy reading, weak recall, and frustration, then identify whether the gap is phonics, fluency, comprehension, or confidence.',
+      }}
       faqs={READING_PROGRAM_GRADES_1_2_DUBLIN_CA_FAQS}
       relatedArticles={READING_PROGRAM_GRADES_1_2_DUBLIN_CA_RELATED}
       ctaHeading="Check Reading Readiness"
@@ -134,14 +142,14 @@ export function ReadingProgramGrades12DublinCAPage() {
         sounding out words slowly toward reading with enough fluency that comprehension can take over.
       </p>
 
-      <h2>Why Early Reading Gaps Matter</h2>
+      <h2>Why do early reading gaps matter?</h2>
       <p>
         Starting in Grade 3, schoolwork assumes students can read independently. Science passages, social studies
         texts, math word problems, and directions all require reading fluency. A child who is still decoding every
         word may start falling behind in subjects that do not look like reading at first.
       </p>
 
-      <h2>Reading Delay vs. Reading Gap</h2>
+      <h2>Is it a reading delay or a reading gap?</h2>
       <p>
         A delay means the student is progressing through the normal sequence, just more slowly. A gap means a
         specific skill is missing and blocking progress. Common early reading gaps include phonemic awareness,
@@ -152,14 +160,14 @@ export function ReadingProgramGrades12DublinCAPage() {
         passage. Those are signals to investigate, not reasons to panic.
       </p>
 
-      <h2>Why Home Reading Alone May Not Be Enough</h2>
+      <h2>Why is home reading alone sometimes not enough?</h2>
       <p>
         Reading with your child builds vocabulary, background knowledge, and love of stories. That matters. But a
         child with a specific decoding or fluency gap often needs explicit instruction, immediate correction, and a
         sequence that targets the missing skill.
       </p>
 
-      <h2>What Structured Reading Support Looks Like</h2>
+      <h2>What does structured reading support look like?</h2>
       <p>
         A strong session may include phonemic awareness warm-ups, phonics instruction, decodable text practice,
         sight word work, and a short comprehension check. The goal is not just more reading time. The goal is
@@ -182,6 +190,10 @@ export function SmallGroupTutoringVsOneOnOnePage() {
       h1={SMALL_GROUP_TUTORING_VS_ONE_ON_ONE_META.h1}
       readTime={SMALL_GROUP_TUTORING_VS_ONE_ON_ONE_META.readTime}
       updated={SMALL_GROUP_TUTORING_VS_ONE_ON_ONE_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'Small-group tutoring can work better than 1-on-1 when the goal is transferable skill-building, peer discussion, confidence, and independence. One-on-one tutoring is better for highly individualized needs, severe anxiety, or a narrow short-term goal.',
+      }}
       faqs={SMALL_GROUP_TUTORING_VS_ONE_ON_ONE_FAQS}
       relatedArticles={SMALL_GROUP_TUTORING_VS_ONE_ON_ONE_RELATED}
       ctaHeading="Find the Right Learning Format"
@@ -197,7 +209,7 @@ export function SmallGroupTutoringVsOneOnOnePage() {
         match.
       </p>
 
-      <h2>Why 1-on-1 Is Not Always Better</h2>
+      <h2>Why is 1-on-1 not always better?</h2>
       <p>
         One-on-one support can create high social pressure for students who already feel anxious. It can also make
         help arrive too quickly, which sometimes builds dependence instead of independence.
@@ -207,7 +219,7 @@ export function SmallGroupTutoringVsOneOnOnePage() {
         that confusion is a normal part of learning rather than a private failure.
       </p>
 
-      <h2>When 1-on-1 Tutoring Makes Sense</h2>
+      <h2>When does 1-on-1 tutoring make sense?</h2>
       <ul>
         <li>A diagnosed learning difference requires highly individualized support</li>
         <li>The student has severe anxiety in group settings</li>
@@ -215,7 +227,7 @@ export function SmallGroupTutoringVsOneOnOnePage() {
         <li>The student needs short-term remediation on a narrow skill</li>
       </ul>
 
-      <h2>When Small Group Instruction Works Well</h2>
+      <h2>When does small-group instruction work well?</h2>
       <ul>
         <li>The goal is transferable skill-building, not only homework completion</li>
         <li>The student benefits from peer discussion and accountability</li>
@@ -240,6 +252,10 @@ export function CaliforniaMathStandardsByGradePage() {
       h1={CALIFORNIA_MATH_STANDARDS_BY_GRADE_META.h1}
       readTime={CALIFORNIA_MATH_STANDARDS_BY_GRADE_META.readTime}
       updated={CALIFORNIA_MATH_STANDARDS_BY_GRADE_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'California math standards build year by year, so weak place value, fraction, ratio, equation, or graphing skills can hide until later courses. Parents should ask children to explain concepts, not just solve examples.',
+      }}
       faqs={CALIFORNIA_MATH_STANDARDS_BY_GRADE_FAQS}
       relatedArticles={CALIFORNIA_MATH_STANDARDS_BY_GRADE_RELATED}
       ctaHeading="Check for Math Gaps Before Fall"
@@ -255,28 +271,28 @@ export function CaliforniaMathStandardsByGradePage() {
         disappears on its own. It usually hides until a later course asks for that skill at a faster pace.
       </p>
 
-      <h2>Elementary Math: Grades 1-5</h2>
+      <h2>What should parents watch in elementary math?</h2>
       <p>
         Early grades build number sense, place value, operations, measurement, and fractions. Red flags include
         finger-counting for basic facts, weak place value, multiplication facts that are still slow by Grade 3, or
         fraction concepts that feel memorized rather than understood.
       </p>
 
-      <h2>Middle School Math: Grades 6-8</h2>
+      <h2>What should parents watch in middle school math?</h2>
       <p>
         Middle school introduces ratios, negative numbers, expressions, equations, proportional relationships,
         functions, and more formal graphing. Gaps often show up when students cannot explain why a procedure works
         or cannot translate a word problem into an equation.
       </p>
 
-      <h2>Integrated Math Readiness: IM1 and IM2</h2>
+      <h2>What readiness skills matter for IM1 and IM2?</h2>
       <p>
         Integrated Math courses assume students can handle fraction operations, proportional reasoning, negative
         numbers, graphing, and multi-step problem solving. Students who are shaky on those foundations often feel
         like the new content is the problem, when the real issue is prerequisite fluency.
       </p>
 
-      <h2>The Best At-Home Diagnostic Question</h2>
+      <h2>What is the best at-home diagnostic question?</h2>
       <p>
         Ask your child to explain a concept, not just solve an example. "Why are 1/2 and 2/4 the same amount?"
         "What does it mean to divide by a fraction?" "What does slope tell us?" Explanations reveal gaps that
@@ -295,6 +311,10 @@ export function ChildStrugglesWithWritingDublinCAPage() {
       h1={CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_META.h1}
       readTime={CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_META.readTime}
       updated={CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_META.updated}
+      answerBlock={{
+        heading: 'Quick Answer',
+        text: 'A child who struggles with writing may have a skill gap, a confidence gap, or both. The practical fix is explicit instruction in planning, structure, development, and revision, paired with a repeatable writing process.',
+      }}
       faqs={CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_FAQS}
       relatedArticles={CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_RELATED}
       ctaHeading="Get a Clearer Writing Read"
@@ -309,7 +329,7 @@ export function ChildStrugglesWithWritingDublinCAPage() {
         forty-five minutes may be struggling with skill, confidence, or both.
       </p>
 
-      <h2>Writing Skill Gap vs. Confidence Gap</h2>
+      <h2>Is it a writing skill gap or a confidence gap?</h2>
       <p>
         A skill gap means the student does not yet have the tools: planning, topic sentences, paragraph development,
         evidence, sentence variety, or revision. A confidence gap means the student may have ideas but feels blocked
@@ -320,7 +340,7 @@ export function ChildStrugglesWithWritingDublinCAPage() {
         create avoidance. Avoidance then makes it harder to build the skill.
       </p>
 
-      <h2>Signs of a Writing Skill Gap</h2>
+      <h2>What are signs of a writing skill gap?</h2>
       <ul>
         <li>No clear structure or paragraph focus</li>
         <li>Thin development with little evidence or explanation</li>
@@ -328,7 +348,7 @@ export function ChildStrugglesWithWritingDublinCAPage() {
         <li>No meaningful revision beyond spelling or punctuation</li>
       </ul>
 
-      <h2>Signs of a Confidence Gap</h2>
+      <h2>What are signs of a confidence gap?</h2>
       <ul>
         <li>Blank-page freeze before writing starts</li>
         <li>Writing and deleting repeatedly</li>
@@ -336,7 +356,7 @@ export function ChildStrugglesWithWritingDublinCAPage() {
         <li>Strong verbal ideas that disappear on the page</li>
       </ul>
 
-      <h2>What Actually Helps</h2>
+      <h2>What actually helps struggling writers?</h2>
       <p>
         Encouragement matters, but confidence in writing usually follows competence. Students need explicit
         instruction in how to start, organize, develop, and revise. Once the process becomes repeatable, the blank
@@ -345,4 +365,3 @@ export function ChildStrugglesWithWritingDublinCAPage() {
     </ResourceArticlePage>
   )
 }
-

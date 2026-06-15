@@ -1,0 +1,15 @@
+sitemapindex present: True
+pages urlset: True
+blogs urlset: True
+www URLs: 0
+/resources in pages only: True
+readinesschecklist in sitemap: True
+resources/readiness-checklist in sitemap: False
+page URL count: 59
+blog URL count: 41
+duplicate URLs: none
+key page coding: FOUND
+key page game-dev: FOUND
+key page camps/academic-summer-programs-dublin-ca: FOUND
+key page readinesschecklist: FOUND
+key page workshop-calendar: FOUND

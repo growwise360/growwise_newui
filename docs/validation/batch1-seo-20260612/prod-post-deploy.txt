@@ -1,0 +1,34 @@
+# Production Post-Deploy Validation (2026-06-12)
+Base: https://growwiseschool.org
+PR #346 merged: 2026-06-12T20:55:45Z
+
+## Summary: 11/12 PASS — 1 production issue
+
+| Check | Result | Detail |
+|-------|--------|--------|
+| Hard 404 `/random-test-url` | PASS | HTTP 404, Page not found, no homepage leak |
+| Hard 404 `/abc123` | PASS | HTTP 404 |
+| Hard 404 `/academic/not-real-page` | PASS | HTTP 404 |
+| OG image `/og-image.jpg` | PASS | 200, image/webp, magic=52494646 |
+| Sitemap index `/sitemap.xml` | **FAIL** | Returns homepage HTML (200 text/html), not sitemapindex XML |
+| Child `/sitemap-pages.xml` | PASS | 200 application/xml, 59 URLs |
+| Child `/sitemap-blogs.xml` | PASS | 200 application/xml, 41 URLs |
+| `/resources` dedup | PASS | In pages only, not blogs; no duplicate locs |
+| robots.txt | PASS | Allows `/_next/image?*`, blog pagination; sitemap line present |
+| llms.txt | PASS | Includes readinesschecklist link |
+| `/readinesschecklist` | PASS | 200, canonical, updated Batch 1 title |
+| `/resources/readiness-checklist` | PASS (404 dedup) | 404 — canonical dedup, no 301 |
+| Canonicals non-www | PASS | Verified on /, /readinesschecklist, /academic/english |
+| www redirect | PASS | 301 → https://growwiseschool.org/ |
+
+## Production issue
+
+`/sitemap.xml` serves the **homepage** instead of the sitemap index route.
+Child sitemaps (`/sitemap-pages.xml`, `/sitemap-blogs.xml`) work correctly.
+Likely cause: Next.js reserved `/sitemap.xml` path conflicts with `app/sitemap.xml/route.ts` on Vercel
+(deleting `app/sitemap.ts` may leave the path unresolved → homepage fallback).
+
+## Recommendation
+
+Fix `/sitemap.xml` routing before GSC recrawl — restore `app/sitemap.ts` as MetadataRoute
+or add a rewrite. All other Batch 1 SEO fixes are live on production.

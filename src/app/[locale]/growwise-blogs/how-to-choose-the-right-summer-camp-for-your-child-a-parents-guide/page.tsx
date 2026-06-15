@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide.webp'
@@ -21,8 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Choosing a Summer Camp | Parents | GrowWise', 
-    description:
-      'Pick a summer camp that fits your child: interests, schedule, safety, and learning outcomes—before you pay a deposit.',
+    description: 'A parent guide to choosing the right summer camp by matching interests, safety, structure, challenge level, and confidence-building activities.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide', locale, baseUrl)
     }
@@ -57,6 +57,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -109,6 +110,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Choosing the right summer camp for your child can feel overwhelming, but it doesn't have to be. With so many programs out there, it's important to find a camp that matches your child's <strong>interests, learning goals, and personality</strong>.
               </p>
 
+              <LegacyBlogAeoBlock slug="how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide" />
+
               <p className="text-gray-700 mb-8">
                 Here's a quick guide to help you make the best choice for a meaningful and memorable summer.
               </p>
@@ -139,7 +142,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </div>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -150,7 +153,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  how to choose the right summer camp for your child a parents guide visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Identify Your Goals</h2>
 
