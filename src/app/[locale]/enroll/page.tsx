@@ -14,9 +14,9 @@ export default function EnrollPage() {
             title="Enroll at GrowWise"
             description="Start a GrowWise enrollment for tutoring, academic programs, coding, camps, and readiness support in Dublin, CA. Families can review the next steps, share student details, and choose the right program path."
             links={[
-              { href: '/en/programs', label: 'Explore programs' },
-              { href: '/en/book-assessment', label: 'Book a free assessment' },
-              { href: '/en/contact', label: 'Contact GrowWise' },
+              { href: '/programs', label: 'Explore programs' },
+              { href: '/book-assessment', label: 'Book a free assessment' },
+              { href: '/contact', label: 'Contact GrowWise' },
             ]}
           />
         }

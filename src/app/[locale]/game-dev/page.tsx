@@ -24,9 +24,9 @@ export default function GameDevPage() {
           title="Game Development for Kids in Dublin, CA"
           description="GrowWise game development classes help kids move from playing games to building them through Scratch, Roblox, Minecraft, and project-based coding. This page remains live for families looking for creative coding and game design programs."
           links={[
-            { href: '/en/future-skills', label: 'Future Skills pathways' },
-            { href: '/en/coding/python', label: 'Python coding' },
-            { href: '/en/book-assessment', label: 'Book a free assessment' },
+            { href: '/future-skills', label: 'Future Skills pathways' },
+            { href: '/coding/python', label: 'Python coding' },
+            { href: '/book-assessment', label: 'Book a free assessment' },
           ]}
           className="page-bg-gamedev"
         />
