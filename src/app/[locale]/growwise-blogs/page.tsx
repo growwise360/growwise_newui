@@ -137,7 +137,7 @@ const blogPosts: BlogPost[] = [
     id: '7',
     category: 'Coding',
     title: 'Coding & Tech Skills',
-    excerpt: 'Discover how coding skills can transform your future and open doors to exciting career opportunities in technology.',
+    excerpt: 'Discover how coding skills help students build problem-solving confidence and create with technology.',
     href: '/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise',
     readMore: 'Read article »'
   },
@@ -152,40 +152,40 @@ const blogPosts: BlogPost[] = [
   {
     id: '9',
     category: 'Coding',
-    title: 'Python for In-Demand Careers',
-    excerpt: 'Python is one of the most sought-after programming languages. Discover why it\'s the key to unlocking career opportunities.',
+    title: 'Python for Future-Ready Students',
+    excerpt: 'Why Python is a practical first text-based language for students building AI, data, automation, and project confidence.',
     href: '/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers',
     readMore: 'Read article »'
   },
   {
     id: '10',
     category: 'Coding',
-    title: 'Technical Schools in 2025',
-    excerpt: 'Explore why technical education and coding skills are becoming essential investments for career success in 2025.',
+    title: 'Technical Skills Before College',
+    excerpt: 'How early technical projects help students test interests, build confidence, and create proof of future-ready skills.',
     href: '/growwise-blogs/technical-schools-in-2025-a-smart-investment-for-your-career',
     readMore: 'Read article »'
   },
   {
     id: '11',
     category: 'Coding',
-    title: 'Programming Skills on a Resume',
-    excerpt: 'Programming skills are increasingly valuable across industries. Learn how they can enhance your resume and career prospects.',
+    title: 'Programming Skills for Student Profiles',
+    excerpt: 'How coding projects help students show problem-solving, technical fluency, and builder confidence before college.',
     href: '/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities',
     readMore: 'Read article »'
   },
   {
     id: '12',
     category: 'Coding',
-    title: 'Java Skills on LinkedIn',
-    excerpt: 'Java remains a powerful and widely-used programming language. See how Java skills can make your LinkedIn profile stand out.',
+    title: 'Java Skills for Student Profiles',
+    excerpt: 'When Java makes sense for students ready for object-oriented thinking, deeper projects, and CS foundations.',
     href: '/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile',
     readMore: 'Read article »'
   },
   {
     id: '13',
     category: 'Coding',
-    title: 'Best Programming Languages for Careers',
-    excerpt: 'Discover which programming languages offer the best career opportunities and how to choose the right one for your goals.',
+    title: 'Best Programming Languages for Students',
+    excerpt: 'A parent-friendly comparison of Python, JavaScript, Java, and project goals so students choose the right path.',
     href: '/growwise-blogs/unlock-your-future-the-best-programming-languages-for-career-advancement',
     readMore: 'Read article »'
   },
@@ -193,7 +193,7 @@ const blogPosts: BlogPost[] = [
     id: '14',
     category: 'Coding',
     title: 'Choosing the Right Coding Class',
-    excerpt: 'Learn how selecting the right coding class can set your child up for success in technology and future career opportunities.',
+    excerpt: 'Learn how selecting the right coding class gives your child structure, feedback, and real project progress.',
     href: '/growwise-blogs/the-advantage-in-choosing-the-right-coding-class-for-your-child',
     readMore: 'Read article »'
   },
