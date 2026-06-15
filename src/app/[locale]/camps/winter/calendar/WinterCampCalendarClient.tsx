@@ -179,7 +179,7 @@ function WinterCampCalendarContent() {
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </Button>
           </Link>
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold truncate ml-2 sm:ml-4">Calendar Week</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold truncate ml-2 sm:ml-4">Winter Camp Calendar</h1>
         </div>
       </div>
 

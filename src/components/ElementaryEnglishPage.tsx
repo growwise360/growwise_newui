@@ -31,6 +31,7 @@ import {
 } from '@/lib/english-pricing-display'
 import { usePricingConfig } from '@/hooks/usePricingConfig'
 import { CONTACT_INFO } from '@/lib/constants'
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { useLocale } from 'next-intl'
 
@@ -50,7 +51,7 @@ export default function ElementaryEnglishPage() {
         noSchema
         items={[
           { name: COPY.breadcrumb.academic, url: absoluteSiteUrl('/academic', locale) },
-          { name: COPY.breadcrumb.englishPrograms, url: absoluteSiteUrl('/courses/english', locale) },
+          { name: COPY.breadcrumb.englishPrograms, url: absoluteSiteUrl(MATH_COURSE_PATHS.english, locale) },
           { name: COPY.breadcrumb.elementary, url: absoluteSiteUrl('/academic/english/elementary', locale) },
         ]}
       />

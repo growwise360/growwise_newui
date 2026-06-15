@@ -19,7 +19,7 @@
       "bestForLabel": "Best for:",
       "tracks": {
         "read-to-prove": {
-          "scheduleLine": "Daily · Mon–Fri · 10:00–11:30 AM · Starts June 15",
+          "scheduleLine": "Daily · Mon–Fri · 4:30–6:00 PM · Starts June 15",
           "bestFor": [
             "Struggles to find the main idea",
             "Guesses on comprehension questions",
@@ -27,7 +27,7 @@
           ]
         },
         "write-to-explain": {
-          "scheduleLine": "Daily · Mon–Fri · 10:30 AM–12:00 PM · Starts June 15",
+          "scheduleLine": "Daily · Mon–Fri · 4:30–6:00 PM · Starts June 15",
           "bestFor": [
             "Has ideas but can't put them on paper",
             "Writes incomplete sentences or short paragraphs",
@@ -35,7 +35,7 @@
           ]
         },
         "bridge-the-gap-math": {
-          "scheduleLine": "Daily · Mon–Fri · 9:00–10:30 AM · Starts June 15",
+          "scheduleLine": "Daily · Mon–Fri · 4:30–6:00 PM · Starts June 15",
           "bestFor": [
             "Has gaps in fractions or multi-step math",
             "Gets stuck on word problems",

@@ -4,28 +4,16 @@ import { WinterCampCalendarClient } from './WinterCampCalendarClient';
 
 export default function WinterCampCalendarPage() {
   return (
-    <>
-      <SeoPageFallback
-        eyebrow="Winter camps"
-        title="Winter Camp Calendar"
-        description="Review GrowWise winter camp dates, one-day camp options, and creative technology programs for students in Dublin, CA. Families can compare Roblox, Scratch, and Minecraft camp sessions before adding a date to the cart."
-        links={[
-          { href: '/en/camps/winter', label: 'Winter camps' },
-          { href: '/en/camps/summer', label: 'Summer camps' },
-          { href: '/en/contact', label: 'Contact GrowWise' },
-        ]}
-        className="sr-only"
-      />
-      <Suspense
+    <Suspense
         fallback={
           <SeoPageFallback
             eyebrow="Winter camps"
             title="Winter Camp Calendar"
             description="Review GrowWise winter camp dates, one-day camp options, and creative technology programs for students in Dublin, CA. Families can compare Roblox, Scratch, and Minecraft camp sessions before adding a date to the cart."
             links={[
-              { href: '/en/camps/winter', label: 'Winter camps' },
-              { href: '/en/camps/summer', label: 'Summer camps' },
-              { href: '/en/contact', label: 'Contact GrowWise' },
+              { href: '/camps/winter', label: 'Winter camps' },
+              { href: '/camps/summer', label: 'Summer camps' },
+              { href: '/contact', label: 'Contact GrowWise' },
             ]}
             className="bg-[#ebebeb]"
           />
@@ -33,6 +21,5 @@ export default function WinterCampCalendarPage() {
       >
         <WinterCampCalendarClient />
       </Suspense>
-    </>
   );
 }
