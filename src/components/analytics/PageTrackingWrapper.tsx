@@ -20,33 +20,64 @@ export function PageTrackingWrapper({ children }: PageTrackingWrapperProps) {
     if (typeof window === 'undefined') return;
     const w = window as any;
     const isDev = process.env.NODE_ENV !== 'production';
+    const search = window.location.search.replace(/^\?/, '');
+    const params = new URLSearchParams(search);
+    const community = params.get('community') || undefined;
+    const isDoorHangerAssessment = pathname.endsWith('/book-assessment') && Boolean(community);
+    const utmSource = params.get('utm_source') || (isDoorHangerAssessment ? 'door-hanger' : undefined);
+    const utmMedium = params.get('utm_medium') || (isDoorHangerAssessment ? 'physical-drop' : undefined);
+    const utmCampaign = params.get('utm_campaign') || community;
+    const pagePathWithQuery = search ? `${pathname}?${search}` : pathname;
 
     const gtmConfigured = Boolean(process.env.NEXT_PUBLIC_GTM_ID?.trim());
+    const pageViewParams: Record<string, any> = {
+      page_path: pagePathWithQuery,
+      page_title: document.title,
+      page_location: window.location.href,
+      ...(community ? { community } : {}),
+      ...(utmSource ? { utm_source: utmSource } : {}),
+      ...(utmMedium ? { utm_medium: utmMedium } : {}),
+      ...(utmCampaign ? { utm_campaign: utmCampaign } : {}),
+      ...(isDev ? { debug_mode: true } : {}),
+    };
+    const dataLayerPayload: Record<string, any> = {
+      event: 'virtual_page_view',
+      ...pageViewParams,
+    };
+    const doorHangerParams: Record<string, any> | null = isDoorHangerAssessment
+      ? {
+          page_path: pagePathWithQuery,
+          page_title: document.title,
+          page_location: window.location.href,
+          community,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          ...(isDev ? { debug_mode: true } : {}),
+        }
+      : null;
+    const doorHangerDataLayerPayload = doorHangerParams
+      ? {
+          event: 'door_hanger_assessment_page_view',
+          ...doorHangerParams,
+        }
+      : null;
 
     // If Google Tag Manager is configured, queue the event immediately. GTM will consume it
     // once the container loads, which avoids missing initial page views during script startup.
     if (gtmConfigured || Array.isArray(w.dataLayer)) {
       w.dataLayer = w.dataLayer || [];
-      const payload: Record<string, any> = {
-        event: 'virtual_page_view',
-        page_path: pathname,
-        page_title: document.title,
-        ...(isDev ? { debug_mode: true } : {}),
-      };
-      w.dataLayer.push(payload);
-      if (isDev) console.debug('[Analytics][dataLayer] pushed', payload);
+      w.dataLayer.push(dataLayerPayload);
+      if (doorHangerDataLayerPayload) w.dataLayer.push(doorHangerDataLayerPayload);
+      if (isDev) console.debug('[Analytics][dataLayer] pushed', dataLayerPayload);
       return;
     }
 
     // fallback to gtag if available (include debug_mode in dev)
     if (w.gtag) {
-      const payload = {
-        page_path: pathname,
-        page_title: document.title,
-        debug_mode: isDev,
-      };
-      w.gtag('event', 'page_view', payload);
-      if (isDev) console.debug('[Analytics][gtag] event', 'page_view', payload);
+      w.gtag('event', 'page_view', pageViewParams);
+      if (doorHangerParams) w.gtag('event', 'door_hanger_assessment_page_view', doorHangerParams);
+      if (isDev) console.debug('[Analytics][gtag] event', 'page_view', pageViewParams);
     }
   }, [pathname]);
 

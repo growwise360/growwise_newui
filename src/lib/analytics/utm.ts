@@ -5,6 +5,11 @@ export const NEXTDOOR_UTM = {
   utm_campaign: 'dublin_community',
 } as const
 
+export const DOOR_HANGER_UTM = {
+  utm_source: 'door-hanger',
+  utm_medium: 'physical-drop',
+} as const
+
 const UTM_STORAGE_KEY = 'growwise_attribution_utms'
 
 export type StoredUtm = {
@@ -35,13 +40,20 @@ export function appendUtm(href: string, utm: StoredUtm = getStoredUtm() ?? NEXTD
 export function captureUtmFromSearchParams(search?: string): void {
   if (!isBrowser()) return
   const params = new URLSearchParams(search ?? window.location.search)
-  const source = params.get('utm_source')
+  const community = params.get('community')
+  const source =
+    params.get('utm_source') ||
+    (community && window.location.pathname.endsWith('/book-assessment')
+      ? DOOR_HANGER_UTM.utm_source
+      : null)
   if (!source) return
 
   const stored: StoredUtm = {
     utm_source: source,
-    utm_medium: params.get('utm_medium') ?? undefined,
-    utm_campaign: params.get('utm_campaign') ?? undefined,
+    utm_medium:
+      params.get('utm_medium') ??
+      (source === DOOR_HANGER_UTM.utm_source ? DOOR_HANGER_UTM.utm_medium : undefined),
+    utm_campaign: params.get('utm_campaign') ?? community ?? undefined,
   }
   try {
     sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(stored))

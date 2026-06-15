@@ -6,7 +6,9 @@ jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
 }))
 
-const { usePathname } = require('next/navigation') as { usePathname: jest.Mock }
+const { usePathname } = require('next/navigation') as {
+  usePathname: jest.Mock
+}
 
 describe('PageTrackingWrapper', () => {
   beforeEach(() => {
@@ -15,6 +17,7 @@ describe('PageTrackingWrapper', () => {
     ;(global as any).gtag = undefined
     document.title = 'Test Page'
     usePathname.mockReset()
+    window.history.pushState({}, '', '/')
   })
 
   it('pushes virtual_page_view to dataLayer on pathname changes', () => {
@@ -69,7 +72,46 @@ describe('PageTrackingWrapper', () => {
     expect(gtag).toHaveBeenCalledWith('event', 'page_view', {
       page_path: '/only',
       page_title: 'Test Page',
+      page_location: 'http://localhost/',
       debug_mode: true,
+    })
+  })
+
+  it('pushes door hanger community attribution for assessment URLs', () => {
+    const mockDL: any[] = []
+    ;(global as any).dataLayer = mockDL
+    window.history.pushState(
+      {},
+      '',
+      '/book-assessment?community=dublin-ranch',
+    )
+
+    usePathname.mockReturnValue('/book-assessment')
+
+    render(
+      <PageTrackingWrapper>
+        <div>child</div>
+      </PageTrackingWrapper>
+    )
+
+    expect(mockDL).toHaveLength(2)
+    expect(mockDL[0]).toMatchObject({
+      event: 'virtual_page_view',
+      page_path: '/book-assessment?community=dublin-ranch',
+      page_title: 'Test Page',
+      page_location: 'http://localhost/book-assessment?community=dublin-ranch',
+      community: 'dublin-ranch',
+      utm_source: 'door-hanger',
+      utm_medium: 'physical-drop',
+      utm_campaign: 'dublin-ranch',
+    })
+    expect(mockDL[1]).toMatchObject({
+      event: 'door_hanger_assessment_page_view',
+      page_path: '/book-assessment?community=dublin-ranch',
+      community: 'dublin-ranch',
+      utm_source: 'door-hanger',
+      utm_medium: 'physical-drop',
+      utm_campaign: 'dublin-ranch',
     })
   })
 })

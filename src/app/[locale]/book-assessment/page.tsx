@@ -20,7 +20,7 @@ import {
 import { BookOpen, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Star, Shield, ArrowRight, Calendar, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Calculator, X, AlertCircle } from 'lucide-react';
 import CountryCodeSelector from '@/components/CountryCodeSelector';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { PHONE_PLACEHOLDER, CONTACT_INFO } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -45,10 +45,54 @@ interface FormData {
   hearAboutUs: string;
 }
 
+const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
+  'dublin-ranch': {
+    name: 'Dublin Ranch',
+    headline: 'Advanced Math & English Pathways for Dublin Ranch Families.',
+  },
+  'wallis-ranch': {
+    name: 'Wallis Ranch',
+    headline: 'Empowering Wallis Ranch Students to Lead in Advanced Tracks.',
+  },
+  'schaefer-ranch': {
+    name: 'Schaefer Ranch',
+    headline: 'Elite Acceleration & AP Prep for Schaefer Ranch Scholars.',
+  },
+  'tassajara-hills': {
+    name: 'Tassajara Hills',
+    headline: 'Exceeding Classroom Pacing for Tassajara Hills Families.',
+  },
+};
+
+const DEFAULT_ASSESSMENT_HEADLINE =
+  'Advanced After-School Math & English Enrichment (Grades 1-12).';
+
+const ASSESSMENT_CALENDLY_URL =
+  process.env.NEXT_PUBLIC_ASSESSMENT_CALENDLY_URL ||
+  'https://calendly.com/connect-thegrowwise/new-meeting';
+const CALENDLY_NEIGHBORHOOD_PARAM =
+  process.env.NEXT_PUBLIC_CALENDLY_NEIGHBORHOOD_PARAM || 'a1';
+
 export default function BookAssessmentPage() {
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const communitySlug = searchParams.get('community') || '';
+  const neighborhood = NEIGHBORHOODS[communitySlug] || {
+    name: 'Dublin',
+    headline: DEFAULT_ASSESSMENT_HEADLINE,
+  };
+  const calendlyUrl = useMemo(() => {
+    const url = new URL(ASSESSMENT_CALENDLY_URL);
+    if (communitySlug) {
+      url.searchParams.set('utm_source', 'door-hanger');
+      url.searchParams.set('utm_medium', 'physical-drop');
+      url.searchParams.set('utm_campaign', communitySlug);
+      url.searchParams.set(CALENDLY_NEIGHBORHOOD_PARAM, neighborhood.name);
+    }
+    return url.toString();
+  }, [communitySlug, neighborhood.name]);
   const [scrollY, setScrollY] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -93,7 +137,7 @@ export default function BookAssessmentPage() {
   }, []);
 
   const grades = [
-    'Kindergarten', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
+    'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
     'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
   ];
 
@@ -221,6 +265,15 @@ export default function BookAssessmentPage() {
 
       const scheduleCombined = 'Flexible - discuss during callback';
 
+      const storedUtmNotes = getStoredUtmNotesLine();
+      const notes = [
+        storedUtmNotes,
+        communitySlug && `Neighborhood: ${neighborhood.name}`,
+        communitySlug && `Community slug: ${communitySlug}`,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
       const assessmentData = {
         parentName: formData.parentName,
         email: formData.email,
@@ -233,7 +286,7 @@ export default function BookAssessmentPage() {
         mode: formData.mode || 'Flexible',
         schedule: scheduleCombined,
         hearAboutUs: formData.hearAboutUs,
-        notes: getStoredUtmNotesLine(),
+        notes,
         agreeToCommunications,
         recaptchaToken: recaptchaToken || undefined,
       };
@@ -278,6 +331,8 @@ export default function BookAssessmentPage() {
     validateForm,
     router,
     locale,
+    neighborhood.name,
+    communitySlug,
   ]);
 
   const assessmentFeatures = [
@@ -394,14 +449,10 @@ export default function BookAssessmentPage() {
               id="book-assessment-hero-h1"
               className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance text-gray-900 mb-4"
             >
-              Book Your{' '}
-              <span className="bg-gradient-to-r from-[#F16112] to-[#F1894F] bg-clip-text text-transparent">
-                Free Academic Assessment
-              </span>{' '}
-              Today
+              {neighborhood.headline}
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Tell us the basics. We&apos;ll call or text within 24 hours to confirm the best assessment time.
+              Capped at 8 students per class | 4564 Dublin Blvd
             </p>
           </div>
           <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -501,7 +552,7 @@ export default function BookAssessmentPage() {
                           <Input id="studentName" type="text" value={formData.studentName} onChange={(e) => handleInputChange('studentName', e.target.value)} onFocus={() => setFocusedField('studentName')} onBlur={() => setFocusedField(null)} className={cn("bg-white border-2 rounded-lg md:rounded-xl transition-all h-12 md:h-14 text-sm sm:text-base", focusedField === 'studentName' ? 'border-[#F16112] shadow-md ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="Optional" />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="grade" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Grade / Level <span className="text-red-500">*</span></Label>
+                          <Label htmlFor="grade" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Child&apos;s Current Grade <span className="text-red-500">*</span></Label>
                           <Select
                             onValueChange={(value) => handleInputChange('grade', value)}
                             value={formData.grade || undefined}
@@ -663,6 +714,23 @@ export default function BookAssessmentPage() {
                 </div>
               );
             })}
+          </div>
+
+          <div className="mt-12 rounded-2xl border border-[#1F396D]/10 bg-white p-4 shadow-xl sm:p-6">
+            <div className="mb-4 text-center">
+              <h2 className="text-xl font-bold text-[#1F396D]">Prefer to choose a time now?</h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Calendly receives the same neighborhood tracking automatically.
+              </p>
+            </div>
+            <div className="min-h-[700px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+              <iframe
+                title="Schedule a GrowWise academic assessment"
+                src={calendlyUrl}
+                className="h-[700px] w-full"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
       </section>
