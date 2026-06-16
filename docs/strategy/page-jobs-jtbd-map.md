@@ -52,7 +52,6 @@ This map keeps each public page honest about its job. A page should not be only 
 - `/camps`
 - `/camps/summer`
 - `/camps/academic-summer-programs-dublin-ca`
-- `/camps/academic-summer-sprint-dublin-ca`
 - `/camps/high-school-summer-intensive-dublin-ca`
 - `/camps/summer-reading-writing-dublin-ca`
 - `/camps/summer-math-foundations-dublin-ca`
@@ -67,6 +66,8 @@ This map keeps each public page honest about its job. A page should not be only 
 - `/contact`
 - `/dublin-ca`
 - `/math-finals-practice-session`
+
+Legacy or redirect URLs, such as `/camps/academic-summer-sprint-dublin-ca`, should resolve into the closest active money page instead of being optimized as standalone conversion pages.
 
 ### Traffic Pages
 
@@ -112,4 +113,3 @@ Before a page is written, assign:
 4. Proof needed: example, diagnostic, testimonial, schema, comparison, or local signal.
 
 If a page cannot answer those four items, it should not ship as a standalone page.
-

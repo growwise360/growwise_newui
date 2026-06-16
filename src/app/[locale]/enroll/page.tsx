@@ -7,6 +7,7 @@ export default function EnrollPage() {
   return (
     <>
       <EnrollPageJsonLd />
+      <h1 className="sr-only">Enroll at GrowWise School in Dublin, CA</h1>
       <Suspense
         fallback={
           <SeoPageFallback

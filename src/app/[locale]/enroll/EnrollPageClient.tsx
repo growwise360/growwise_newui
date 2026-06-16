@@ -142,7 +142,7 @@ function EnrollPageInner() {
       <section className="relative overflow-hidden bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <h1 className="text-white text-4xl md:text-5xl font-bold mb-3">{t('h1')}</h1>
+            <p className="text-white text-4xl md:text-5xl font-bold mb-3">{t('h1')}</p>
             <p className="text-white/90 max-w-2xl mx-auto">Choose from academic and STEM programs. Fill out the form and our advisors will guide you within 24 hours.</p>
           </div>
         </div>
@@ -359,4 +359,3 @@ export default function EnrollPageClient() {
     </Suspense>
   );
 }
-
