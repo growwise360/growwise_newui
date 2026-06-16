@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return { 
-    title: 'Java Skills on LinkedIn | GrowWise', 
-    description: 'Learn why Java coding strengthens a student profile by showing object-oriented thinking, backend foundations, and project-ready technical skill.',
+    title: 'Java Coding for Student Profiles | GrowWise', 
+    description: 'Learn why Java coding helps students show object-oriented thinking, backend foundations, and project-ready technical skill.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile', locale, baseUrl)
     }
@@ -36,13 +36,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
     { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
-    { name: 'Why Learning Java Coding is Impressive on Your LinkedIn Profile', url: absoluteSiteUrl('/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile', locale, baseUrl) },
+    { name: 'Why Java Coding Strengthens a Student Profile', url: absoluteSiteUrl('/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile', locale, baseUrl) },
   ]
 
   const pageUrl = absoluteSiteUrl('/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile', locale, baseUrl)
   const articleSchema = generateArticleSchema({
-    headline: 'Why Learning Java Coding is Impressive on Your LinkedIn Profile',
-    description: 'Java remains a powerful and widely-used programming language. See how Java skills can make your LinkedIn profile stand out.',
+    headline: 'Why Java Coding Strengthens a Student Profile',
+    description: 'Java remains a powerful programming language for students who are ready for object-oriented thinking and deeper projects.',
     url: pageUrl,
     image: `${baseUrl}${BLOG_IMAGE_URL}`,
     datePublished: '2024-11-07',
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="absolute inset-0 opacity-20 overflow-hidden">
             <BlogImage
               src={BLOG_IMAGE_URL}
-              alt="Why Learning Java Coding is Impressive on Your LinkedIn Profile"
+              alt="Java coding projects that strengthen a student profile"
               fill
               className="object-cover"
               priority
@@ -73,7 +73,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
           <div className="relative max-w-4xl mx-auto z-10">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-              Why Learning Java Coding is Impressive on Your LinkedIn Profile
+              Why Java Coding Strengthens a Student Profile
             </h1>
 
             <Link 
@@ -103,13 +103,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 prose prose-lg max-w-none">
               
               <p className="lead text-xl text-gray-700 mb-8">
-                Java remains one of the most powerful and widely-used programming languages in the industry. Having Java skills on your LinkedIn profile can significantly boost your professional presence and attract opportunities from top employers.
+                Java is not usually the first language for every child, but it can be a strong next step for students who are ready for structured, object-oriented programming. It helps learners move beyond simple scripts into larger projects that show technical maturity.
               </p>
 
               <LegacyBlogAeoBlock slug="why-learning-java-coding-is-impressive-on-your-linkedin-profile" />
 
               <p className="text-gray-700 mb-8">
-                Discover why Java coding skills make your LinkedIn profile stand out and how they can advance your career.
+                The parent job is to know when Java is worth the effort and how a student can use it to show real project ability, not just another class completed.
               </p>
 
               <p className="text-gray-700 mb-6 text-sm">
@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
-                    alt="Why Learning Java Coding is Impressive on Your LinkedIn Profile"
+                    alt="Java coding projects that strengthen a student profile"
                     fill
                     className="object-cover rounded-xl"
                     priority
@@ -132,66 +132,66 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                   />
                 </div>
                 <figcaption className="px-5 py-4 text-sm text-gray-600">
-                  why learning java coding is impressive on your linkedin profile visual guide for GrowWise families.
+                  Java helps ready students practice structured programming and show deeper project ability.
                 </figcaption>
               </figure>
 
-              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Java is Still Relevant</h2>
+              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Java Is Still Relevant for Students</h2>
 
               <p className="text-gray-700 mb-6">
-                Java continues to be a cornerstone of enterprise software development:
+                Java continues to be valuable because it teaches habits students need for larger technical work:
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 my-6">
                 <div className="bg-blue-50 p-6 rounded-lg">
                   <Code className="w-8 h-8 text-[#1F396D] mb-3" />
-                  <h3 className="font-bold text-[#1F396D] mb-2">Enterprise Standard</h3>
+                  <h3 className="font-bold text-[#1F396D] mb-2">Structured Thinking</h3>
                   <p className="text-gray-700 text-sm">
-                    Used by major corporations worldwide for large-scale applications.
+                    Java pushes students to organize code carefully and think in systems.
                   </p>
                 </div>
 
                 <div className="bg-orange-50 p-6 rounded-lg">
                   <Linkedin className="w-8 h-8 text-[#F16112] mb-3" />
-                  <h3 className="font-bold text-[#1F396D] mb-2">High Demand</h3>
+                  <h3 className="font-bold text-[#1F396D] mb-2">College Readiness</h3>
                   <p className="text-gray-700 text-sm">
-                    Consistently ranked among the most in-demand programming languages.
+                    Object-oriented foundations help with future computer science coursework.
                   </p>
                 </div>
 
                 <div className="bg-green-50 p-6 rounded-lg">
                   <TrendingUp className="w-8 h-8 text-green-600 mb-3" />
-                  <h3 className="font-bold text-[#1F396D] mb-2">Versatile</h3>
+                  <h3 className="font-bold text-[#1F396D] mb-2">Project Depth</h3>
                   <p className="text-gray-700 text-sm">
-                    Powers everything from mobile apps to enterprise systems.
+                    Java projects can show more advanced logic, architecture, and debugging.
                   </p>
                 </div>
               </div>
 
-              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">How Java Skills Enhance Your LinkedIn Profile</h2>
+              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">How Java Skills Strengthen a Student Profile</h2>
 
               <p className="text-gray-700 mb-6">
-                Java skills on your LinkedIn profile demonstrate:
+                Java skills become meaningful when students can point to what they built. A strong student profile shows:
               </p>
 
               <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-8">
-                <li><strong>Technical expertise</strong> in a proven, enterprise-grade language</li>
-                <li><strong>Problem-solving abilities</strong> through object-oriented programming</li>
-                <li><strong>Industry relevance</strong> in finance, healthcare, and technology sectors</li>
-                <li><strong>Career readiness</strong> for high-paying software development roles</li>
-                <li><strong>Professional credibility</strong> that attracts recruiters and employers</li>
+                <li><strong>Object-oriented thinking</strong> through classes, methods, and data modeling</li>
+                <li><strong>Problem-solving ability</strong> through debugging and multi-step logic</li>
+                <li><strong>Project completion</strong> through games, tools, or backend-style applications</li>
+                <li><strong>Computer science readiness</strong> for more formal coursework</li>
+                <li><strong>Technical confidence</strong> that carries into future coding paths</li>
               </ul>
 
               <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
                 <p className="text-xl font-bold mb-4">
-                  Make Your LinkedIn Profile Stand Out with Java Skills
+                  Help Your Child Move Beyond Beginner Coding
                 </p>
                 <p className="mb-6">
-                  Learn Java with GrowWise and enhance your professional profile. Start your journey today.
+                  GrowWise helps students build the foundations, projects, and confidence needed for deeper programming.
                 </p>
-                <Link href="/enroll">
+                <Link href={publicPath('/coding', locale)}>
                   <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
+                    Explore Coding Paths
                   </Button>
                 </Link>
               </div>
@@ -231,4 +231,3 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     </>
   )
 }
-
