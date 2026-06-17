@@ -21,6 +21,7 @@ const BODY = `# GrowWise School
 
 ## High-Value Parent Guides
 - [Math & Reading Readiness Checklist](https://growwiseschool.org/readinesschecklist)
+- [Can ChatGPT Replace a Tutor?](https://growwiseschool.org/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help)
 - [Reading Help Checklist](https://growwiseschool.org/growwise-blogs/does-my-child-need-reading-help-checklist)
 - [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/resources/tutoring-dublin-ca)
 - [Reading Fluency vs Comprehension](https://growwiseschool.org/resources/reading-fluency-vs-comprehension)
