@@ -49,6 +49,9 @@ describe('sitemapData', () => {
   it('keeps the resources hub out of the blogs sitemap while including all resource articles', () => {
     const blogLocs = buildBlogUrls(BASE, LASTMOD).map((u) => u.loc);
     expect(blogLocs).not.toContain(`${BASE}/resources`);
+    expect(blogLocs).toContain(
+      `${BASE}/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help`,
+    );
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       expect(blogLocs).toContain(`${BASE}${path}`);
     });

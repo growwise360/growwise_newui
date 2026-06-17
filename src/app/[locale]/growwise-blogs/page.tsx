@@ -51,6 +51,15 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'ai-homework-help-2026',
+    category: 'academic',
+    title: 'Can ChatGPT Replace a Tutor?',
+    excerpt:
+      'A parent guide to AI homework help, cheating boundaries, hidden learning gaps, and when children still need human support.',
+    href: '/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help',
+    readMore: 'Read parent guide »',
+  },
+  {
     id: 'reading-help-checklist-2026',
     category: 'academic',
     title: 'Does My Child Need Reading Help This Summer?',
