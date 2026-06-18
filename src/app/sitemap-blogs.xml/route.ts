@@ -4,8 +4,7 @@ import { buildBlogUrls, renderUrlset } from '@/lib/seo/sitemapData'
 /** Blog-only URLs, kept separate so Search Console can slice blog performance. */
 export async function GET(): Promise<Response> {
   const baseUrl = getCanonicalSiteUrl()
-  const lastmod = new Date().toISOString()
-  const xml = renderUrlset(buildBlogUrls(baseUrl, lastmod))
+  const xml = renderUrlset(buildBlogUrls(baseUrl))
 
   return new Response(xml, {
     headers: {

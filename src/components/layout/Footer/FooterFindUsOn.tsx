@@ -4,9 +4,13 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { getFooterTrustBadges } from '@/data/footerTrustBadges';
 import { isCampSeoLandingPath } from '@/lib/camps/camp-seo-landing-slugs';
+import { ENABLED_LOCALES } from '@/i18n/localeConfig';
 
 function isHomePath(pathname: string): boolean {
-  return pathname === '/';
+  if (pathname === '/') return true;
+  return ENABLED_LOCALES.some(
+    (locale) => pathname === `/${locale}` || pathname === `/${locale}/`,
+  );
 }
 
 function shouldShowAllTrustBadges(pathname: string): boolean {

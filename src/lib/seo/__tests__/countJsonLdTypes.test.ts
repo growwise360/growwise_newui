@@ -8,7 +8,7 @@ import { buildPythonVsScratchPageGraphSchema } from '@/lib/schema/python-vs-scra
 describe('countSchemaType', () => {
   it('counts FAQPage in @graph', () => {
     expect(countSchemaType(HOME_GRAPH_JSON_LD, 'FAQPage')).toBe(1)
-    expect(countSchemaType(HOME_GRAPH_JSON_LD, 'EducationalOrganization')).toBe(1)
+    expect(countSchemaType(HOME_GRAPH_JSON_LD, 'EducationalOrganization')).toBe(0)
   })
 
   it('counts multiple FAQPage across scripts', () => {

@@ -6,7 +6,7 @@
  * tracking per content type:
  *   - `/sitemap-pages.xml`  — core site (home, academic, courses, STEAM, camps)
  *   - `/sitemap-blogs.xml`  — blog posts + resource guide articles
- * Index at `/sitemap.xml` references both (`src/app/sitemap-index.xml/route.ts` + rewrite).
+ * Index at `/sitemap.xml` references both (`src/app/sitemap.xml/route.ts`).
  */
 
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources'
@@ -36,7 +36,7 @@ export interface SitemapEntry {
 
 export interface SitemapUrl {
   loc: string
-  lastmod: string
+  lastmod?: string
   changefreq: ChangeFreq
   priority: number
 }
@@ -108,8 +108,6 @@ const campPages: SitemapEntry[] = [
   { path: '/camps/summer-im-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-im1-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
   { path: '/camps/summer-im2-get-ready-dublin-ca', priority: 0.9, changefreq: 'weekly' },
-  { path: '/camps/winter', priority: 0.7, changefreq: 'weekly' },
-  { path: '/camps/winter/calendar', priority: 0.6, changefreq: 'weekly' },
 ]
 
 /** SEO camp hub + landings — single Dublin campus, default-locale only. */
@@ -160,7 +158,7 @@ function renderUrl(u: SitemapUrl): string {
   return [
     '  <url>',
     `    <loc>${escapeXml(u.loc)}</loc>`,
-    `    <lastmod>${u.lastmod}</lastmod>`,
+    ...(u.lastmod ? [`    <lastmod>${u.lastmod}</lastmod>`] : []),
     `    <changefreq>${u.changefreq}</changefreq>`,
     `    <priority>${u.priority.toFixed(2)}</priority>`,
     '  </url>',
@@ -177,14 +175,14 @@ ${body}
 }
 
 export function renderSitemapIndex(
-  entries: Array<{ loc: string; lastmod: string }>,
+  entries: Array<{ loc: string; lastmod?: string }>,
 ): string {
   const body = entries
     .map(
-      (e) =>
-        `  <sitemap>\n    <loc>${escapeXml(e.loc)}</loc>\n    <lastmod>${
-          e.lastmod
-        }</lastmod>\n  </sitemap>`,
+      (e) => {
+        const lastmod = e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ''
+        return `  <sitemap>\n    <loc>${escapeXml(e.loc)}</loc>${lastmod}\n  </sitemap>`
+      },
     )
     .join('\n')
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -195,7 +193,7 @@ ${body}
 }
 
 /** Build all non-blog page URLs across enabled locales. */
-export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
+export function buildPagesUrls(baseUrl: string, fallbackLastmod?: string): SitemapUrl[] {
   const urls: SitemapUrl[] = []
   const localeRoutes = [...corePages, ...coursePages, ...steamPages, ...futureSkillsPages, ...campPages, ...legalPages]
 
@@ -203,7 +201,7 @@ export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
     localeRoutes.forEach((page) => {
       urls.push({
         loc: absoluteSiteUrl(page.path, locale, baseUrl),
-        lastmod: page.lastmod ?? lastmod,
+        lastmod: page.lastmod ?? fallbackLastmod,
         changefreq: page.changefreq,
         priority: page.priority,
       })
@@ -212,14 +210,14 @@ export function buildPagesUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
     if (locale === DEFAULT_LOCALE) {
       urls.push({
         loc: absoluteSiteUrl(campLandingHub.path, locale, baseUrl),
-        lastmod: campLandingHub.lastmod ?? lastmod,
+        lastmod: campLandingHub.lastmod ?? fallbackLastmod,
         changefreq: campLandingHub.changefreq,
         priority: campLandingHub.priority,
       })
       getCampSlugs().forEach((slug) => {
         urls.push({
           loc: absoluteSiteUrl(`/camps/${slug}`, locale, baseUrl),
-          lastmod,
+          lastmod: fallbackLastmod,
           changefreq: 'weekly',
           priority: 0.9,
         })
@@ -252,13 +250,13 @@ export function buildPagesPaths(): string[] {
 }
 
 /** Build blog post and resource guide URLs across enabled locales. */
-export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
+export function buildBlogUrls(baseUrl: string, fallbackLastmod?: string): SitemapUrl[] {
   const urls: SitemapUrl[] = []
   locales.forEach((locale) => {
     blogPostPaths.forEach((path) => {
       urls.push({
         loc: absoluteSiteUrl(path, locale, baseUrl),
-        lastmod,
+        lastmod: fallbackLastmod,
         changefreq: 'monthly',
         priority: 0.75,
       })
@@ -266,7 +264,7 @@ export function buildBlogUrls(baseUrl: string, lastmod: string): SitemapUrl[] {
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       urls.push({
         loc: absoluteSiteUrl(path, locale, baseUrl),
-        lastmod,
+        lastmod: fallbackLastmod,
         changefreq: 'monthly',
         priority:
           path === '/resources/tutoring-dublin-ca' || path === '/resources/summer-slide-dublin-ca' ? 0.85 : 0.8,
@@ -291,7 +289,7 @@ export function buildBlogPaths(): string[] {
 }
 
 /** Child sitemap descriptors listed in the sitemap index. */
-export function getChildSitemaps(baseUrl: string, lastmod: string) {
+export function getChildSitemaps(baseUrl: string, lastmod?: string) {
   return [
     { loc: `${baseUrl}/sitemap-pages.xml`, lastmod },
     { loc: `${baseUrl}/sitemap-blogs.xml`, lastmod },

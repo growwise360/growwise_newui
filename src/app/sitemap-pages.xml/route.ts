@@ -4,8 +4,7 @@ import { buildPagesUrls, renderUrlset } from '@/lib/seo/sitemapData'
 /** Non-blog URLs: core, courses, STEAM, camps, and the `/camps` landing hub. */
 export async function GET(): Promise<Response> {
   const baseUrl = getCanonicalSiteUrl()
-  const lastmod = new Date().toISOString()
-  const xml = renderUrlset(buildPagesUrls(baseUrl, lastmod))
+  const xml = renderUrlset(buildPagesUrls(baseUrl))
 
   return new Response(xml, {
     headers: {

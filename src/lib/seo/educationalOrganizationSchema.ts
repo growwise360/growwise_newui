@@ -1,4 +1,4 @@
-import { CONTACT_INFO } from '@/lib/constants'
+import { CONTACT_INFO, OFFICE_HOURS } from '@/lib/constants'
 import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
@@ -100,6 +100,7 @@ export function buildEducationalOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': ['EducationalOrganization', 'LocalBusiness'],
+    '@id': `${base}#organization`,
     name: 'GrowWise',
     alternateName: 'GrowWise School',
     url: base,
@@ -123,20 +124,7 @@ export function buildEducationalOrganizationSchema() {
       longitude: -121.9358,
     },
     hasMap: `https://maps.google.com/?q=${mapQuery}`,
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '18:00',
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Saturday'],
-        opens: '09:00',
-        closes: '14:00',
-      },
-    ],
+    openingHours: [...OFFICE_HOURS.schema],
     priceRange: '$$',
     currenciesAccepted: 'USD',
     paymentAccepted: 'Cash, Credit Card',

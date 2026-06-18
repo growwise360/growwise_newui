@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+
 import { buildNoIndexMetadata } from '@/lib/seo/noIndexMetadata';
 
 export async function generateMetadata({
@@ -9,13 +9,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return buildNoIndexMetadata({
-    title: 'Camp guide sent | GrowWise Summer Camp',
-    description: 'Thank you — your camp guide PDF is on the way by email.',
-    path: '/camps/summer/guide-success',
+    title: 'Self-check complete | GrowWise',
+    description: 'Your GrowWise self-check report has been prepared.',
+    path: '/self-check/done',
     locale,
   });
 }
 
-export default function GuideSuccessLayout({ children }: { children: ReactNode }) {
+export default function SelfCheckDoneLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

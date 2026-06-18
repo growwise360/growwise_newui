@@ -523,7 +523,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                   <Link href={publicPath('/future-skills/ai-machine-learning', locale)}>
                     AI and machine learning pathway
                   </Link>
-                  .
+                  . Dublin and Tri-Valley families can also review our{' '}
+                  <Link href={publicPath('/dublin-ca', locale)}>local tutoring and coding programs</Link>.
                 </p>
 
                 <h2>A five-step AI homework routine</h2>
@@ -597,8 +598,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <BlogPostConversionSection
           locale={locale}
-          programHref="/future-skills/ai-machine-learning"
-          programLabel="Explore Responsible AI Skills"
+          programHref="/future-skills"
+          programLabel="Explore Certification Pathways"
           headline="Is AI helping your child learn, or hiding the gap?"
           subtext="A GrowWise assessment can identify the skill your child needs to strengthen before more tools become the answer."
           relatedPosts={RELATED_GUIDES}

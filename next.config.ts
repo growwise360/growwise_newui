@@ -213,8 +213,6 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
-      // Next.js reserves `/sitemap.xml` for `app/sitemap.ts`; route the index via rewrite.
-      { source: '/sitemap.xml', destination: '/sitemap-index.xml' },
       // Legacy camp guide POST path → canonical API route.
       { source: '/api/summer-camp-lottery', destination: '/api/summer-camp-summercamp' },
     ];
@@ -262,6 +260,35 @@ const nextConfig: NextConfig = {
       ...legacyAcademicRedirects,
       ...localePrefixedLegacyRedirects,
       ...legacyMarketingRedirects,
+      {
+        source: '/camps/academic-summer-sprint-dublin-ca',
+        destination: '/camps/academic-summer-programs-dublin-ca',
+        permanent: true,
+      },
+      {
+        source: '/en/camps/academic-summer-sprint-dublin-ca',
+        destination: '/camps/academic-summer-programs-dublin-ca',
+        permanent: true,
+      },
+      {
+        source: `/:locale(${retiredLocale})/camps/academic-summer-sprint-dublin-ca`,
+        destination: '/camps/academic-summer-programs-dublin-ca',
+        permanent: true,
+      },
+      { source: '/detective', destination: '/self-check', permanent: true },
+      { source: '/results', destination: '/self-check', permanent: true },
+      { source: '/en/detective', destination: '/self-check', permanent: true },
+      { source: '/en/results', destination: '/self-check', permanent: true },
+      {
+        source: `/:locale(${retiredLocale})/detective`,
+        destination: '/self-check',
+        permanent: true,
+      },
+      {
+        source: `/:locale(${retiredLocale})/results`,
+        destination: '/self-check',
+        permanent: true,
+      },
       { source: '/camp', destination: '/camps/summer', permanent: true },
       { source: '/camp/:slug', destination: '/camps/:slug', permanent: true },
       { source: '/en/camp', destination: '/camps/summer', permanent: true },

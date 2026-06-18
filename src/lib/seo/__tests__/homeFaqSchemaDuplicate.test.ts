@@ -27,7 +27,8 @@ describe('homepage FAQPage JSON-LD', () => {
   })
 
   it('HOME_GRAPH_JSON_LD FAQ matches visible homepage copy', () => {
-    const faqNode = HOME_GRAPH_JSON_LD['@graph'][1]
+    const faqNode = HOME_GRAPH_JSON_LD['@graph'].find((node) => node['@type'] === 'FAQPage')
+    expect(faqNode).toBeDefined()
     expect(faqNode.mainEntity).toHaveLength(HOME_VISIBLE_FAQS.length)
     HOME_VISIBLE_FAQS.forEach((faq, i) => {
       expect(faqNode.mainEntity[i].name).toBe(faq.question)

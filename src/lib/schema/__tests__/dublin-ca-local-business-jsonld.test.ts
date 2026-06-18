@@ -36,10 +36,11 @@ describe('dublin-ca-local-business-jsonld', () => {
     const graph = buildDublinCaPageGraphSchema(BASE_URL, 'en') as Record<string, unknown>
     const nodes = graph['@graph'] as Array<Record<string, unknown>>
 
-    it('emits a four-node @graph', () => {
+    it('references the site-wide organization without duplicating LocalBusiness', () => {
       expect(graph['@context']).toBe('https://schema.org')
-      expect(nodes).toHaveLength(4)
-      expect(nodes.map((n) => n['@type'])).toEqual(['LocalBusiness', 'WebPage', 'FAQPage', 'BreadcrumbList'])
+      expect(nodes).toHaveLength(3)
+      expect(nodes.map((n) => n['@type'])).toEqual(['WebPage', 'FAQPage', 'BreadcrumbList'])
+      expect(nodes[0].about).toEqual({ '@id': `${BASE_URL}#organization` })
     })
 
     it('includes all Dublin FAQs in FAQPage schema', () => {
