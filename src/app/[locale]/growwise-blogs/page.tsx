@@ -3,6 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { notFound } from 'next/navigation'
 
 import Link from 'next/link'
 import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
@@ -17,7 +18,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const { page } = (await searchParams) ?? {}
-  const pageNum = Number.parseInt(page ?? '1', 10)
+  const pageNum = parsePageNumber(page)
 
   const metadata = generateMetadataFromPath('/growwise-blogs', locale)
   const baseMetadata =
@@ -27,12 +28,12 @@ export async function generateMetadata({
         'Practical articles on tutoring, English, coding, and STEAM for Dublin and Tri-Valley families.',
     }
 
-  // Paginated URLs consolidate to page 1 via canonical; indexable so crawlers align with default metadata.
-  if (Number.isFinite(pageNum) && pageNum > 1) {
+  if (pageNum && pageNum > 1) {
     return {
       ...baseMetadata,
+      title: `GrowWise Blog — Page ${pageNum} | GrowWise`,
       alternates: {
-        canonical: absoluteSiteUrl('/growwise-blogs', locale, getCanonicalSiteUrl()),
+        canonical: absoluteSiteUrl(`/growwise-blogs?page=${pageNum}`, locale, getCanonicalSiteUrl()),
       },
     }
   }
@@ -224,6 +225,14 @@ const blogPosts: BlogPost[] = [
   }
 ];
 
+const POSTS_PER_PAGE = 6
+
+function parsePageNumber(page: string | undefined): number | null {
+  if (page === undefined) return 1
+  if (!/^[1-9]\d*$/.test(page)) return null
+  return Number.parseInt(page, 10)
+}
+
 interface PageProps {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ page?: string }>;
@@ -232,11 +241,13 @@ interface PageProps {
 export default async function GrowWiseBlogsPage({ params, searchParams }: PageProps) {
   const { locale } = await params
   const { page } = await searchParams
-  const currentPage = parseInt(page || '1', 10)
-  const postsPerPage = 6
-  const totalPages = Math.ceil(blogPosts.length / postsPerPage)
-  const startIndex = (currentPage - 1) * postsPerPage
-  const endIndex = startIndex + postsPerPage
+  const currentPage = parsePageNumber(page)
+  const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE)
+  if (!currentPage || currentPage > totalPages) {
+    notFound()
+  }
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE
+  const endIndex = startIndex + POSTS_PER_PAGE
   const currentPosts = blogPosts.slice(startIndex, endIndex)
   
   const baseUrl = getCanonicalSiteUrl()

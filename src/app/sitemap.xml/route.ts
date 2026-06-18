@@ -4,8 +4,7 @@ import { getChildSitemaps, renderSitemapIndex } from '@/lib/seo/sitemapData'
 /** Sitemap index. Child sitemap routes emit urlsets. */
 export async function GET(): Promise<Response> {
   const baseUrl = getCanonicalSiteUrl()
-  const lastmod = new Date().toISOString()
-  const xml = renderSitemapIndex(getChildSitemaps(baseUrl, lastmod))
+  const xml = renderSitemapIndex(getChildSitemaps(baseUrl))
 
   return new Response(xml, {
     headers: {

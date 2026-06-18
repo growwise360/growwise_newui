@@ -403,6 +403,16 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
                 </Link>
               ))}
             </div>
+            <p className="mt-6 text-center text-sm text-slate-600">
+              Looking for a grade-specific starting point?{' '}
+              <Link
+                href={publicPath('/academic/english/elementary', locale)}
+                className="font-bold text-[#1F396D] underline decoration-[#F16112]/60 underline-offset-4 hover:text-[#F16112]"
+              >
+                Explore elementary reading and writing support
+              </Link>
+              .
+            </p>
           </div>
         </section>
 

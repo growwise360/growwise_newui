@@ -395,18 +395,18 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/winter': {
-    title: 'Winter Camp 2025 | Dublin CA | GrowWise',
+    title: 'Winter Camps in Dublin, CA | GrowWise',
     description:
-      'GrowWise Winter Camp: academic and STEAM workshops during winter break in Dublin, CA. Coding, math, and writing for grades 1–12. Reserve your week.',
+      'GrowWise winter camp dates are not yet published. Explore current academic and STEAM camps in Dublin, CA or join the bulletin for updates.',
     keywords:
-      'winter camp 2025, winter break programs, academic winter camp, STEAM winter camp, winter tutoring Dublin CA, December camp, kids spring break camps Dublin California',
+      'winter camp Dublin CA, winter break programs, academic winter camp, STEAM winter camp, winter tutoring Dublin CA',
     path: '/camps/winter',
   },
 
   '/camps/winter/calendar': {
-    title: 'Winter Camp Schedule 2025 | GrowWise',
+    title: 'Winter Camp Schedule | Dublin, CA | GrowWise',
     description:
-      'Winter camp workshop schedule in Dublin, CA. View all dates, times, and weekly themes for coding, math, and STEAM. Reserve your spot early.',
+      'GrowWise winter camp dates are not yet published. Explore current Dublin camp programs and subscribe for future schedule updates.',
     keywords:
       'winter camp schedule, winter camp calendar, workshop schedule, December camp schedule, winter break activities',
     path: '/camps/winter/calendar',

@@ -39,9 +39,7 @@ export function buildDublinCaLocalBusinessSchema(baseUrl: string, pageUrl?: stri
 
 export function buildDublinCaPageGraphSchema(baseUrl: string, locale: string) {
   const pageUrl = absoluteSiteUrl(DUBLIN_CA_PATH, locale, baseUrl)
-  const localBusinessId = `${pageUrl}${LOCAL_BUSINESS_ID_SUFFIX}`
-
-  const localBusiness = buildDublinCaLocalBusinessSchema(baseUrl, pageUrl)
+  const organizationId = `${baseUrl}#organization`
 
   const webPage = {
     '@type': 'WebPage',
@@ -49,7 +47,7 @@ export function buildDublinCaPageGraphSchema(baseUrl: string, locale: string) {
     url: pageUrl,
     name: DUBLIN_CA_COPY.hero.h1,
     description: DUBLIN_CA_COPY.hero.subtext,
-    about: { '@id': localBusinessId },
+    about: { '@id': organizationId },
     isPartOf: { '@type': 'WebSite', url: baseUrl, name: 'GrowWise School' },
   }
 
@@ -66,6 +64,6 @@ export function buildDublinCaPageGraphSchema(baseUrl: string, locale: string) {
 
   return {
     '@context': 'https://schema.org',
-    '@graph': [localBusiness, webPage, faqPage, breadcrumbList],
+    '@graph': [webPage, faqPage, breadcrumbList],
   }
 }

@@ -66,6 +66,12 @@ describe('sitemapData', () => {
     expect(new Set(allLocs).size).toBe(allLocs.length);
   });
 
+  it('excludes expired winter camp pages until a current schedule is published', () => {
+    const pageLocs = buildPagesUrls(BASE, LASTMOD).map((u) => u.loc);
+    expect(pageLocs).not.toContain(`${BASE}/camps/winter`);
+    expect(pageLocs).not.toContain(`${BASE}/camps/winter/calendar`);
+  });
+
   it('does not include retired locale prefixes in sitemap URLs', () => {
     const allLocs = [
       ...buildPagesUrls(BASE, LASTMOD).map((u) => u.loc),

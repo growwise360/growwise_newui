@@ -2,7 +2,6 @@ import createMiddleware from 'next-intl/middleware';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { ENABLED_LOCALES, DEFAULT_LOCALE } from '@/i18n/localeConfig';
-import { buildBlogPaths, buildPagesPaths } from '@/lib/seo/sitemapData';
 
 /**
  * Strip www subdomain to enforce single canonical domain (301 redirect).
@@ -91,39 +90,16 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'never',
 });
 
-const EXTRA_PUBLIC_PATHS = [
-  '/book-assessment/thank-you',
-  '/camps/academic-summer-sprint-dublin-ca',
-  '/camps/summer/guide-success',
-  '/camps/summer/lottery-success',
-  '/camps/summer/summercamp-success',
-  '/cart',
-  '/checkout',
-  '/checkout/success',
-  '/contact/thank-you',
-  '/courses/english',
-  '/courses/high-school-math',
-  '/courses/math',
-  '/courses/math/elementary',
-  '/courses/math/high-school',
-  '/courses/math/middle-school',
-  '/dashboard',
-  '/detective',
-  '/enroll/confirmation',
-  '/enroll/thank-you',
-  '/enroll-academic/thank-you',
-  '/login',
-  '/math-finals-practice-session/thank-you',
-  '/results',
-  '/self-check/done',
-  '/student-login',
-  '/testimonials-test',
-] as const;
-
-const KNOWN_PUBLIC_PATHS = new Set([
-  ...buildPagesPaths(),
-  ...buildBlogPaths(),
-  ...EXTRA_PUBLIC_PATHS,
+const ROOT_PUBLIC_FILES = new Set([
+  '/favicon.ico',
+  '/file.svg',
+  '/globe.svg',
+  '/icon.png',
+  '/manifest.json',
+  '/next.svg',
+  '/og-image.jpg',
+  '/vercel.svg',
+  '/window.svg',
 ]);
 
 function notFoundResponse(): NextResponse {
@@ -139,9 +115,9 @@ function notFoundResponse(): NextResponse {
   );
 }
 
-function hard404UnknownPublicPath(request: NextRequest): NextResponse | null {
+function hard404UnknownDottedPath(request: NextRequest): NextResponse | null {
   const pathname = request.nextUrl.pathname;
-  if (pathname === '/' || KNOWN_PUBLIC_PATHS.has(pathname)) {
+  if (!pathname.includes('.') || ROOT_PUBLIC_FILES.has(pathname)) {
     return null;
   }
   return notFoundResponse();
@@ -198,7 +174,10 @@ export default function middleware(request: NextRequest) {
   if (legacyLocale) return legacyLocale;
   const legacyResourceAlias = redirectLegacyResourceAliases(request);
   if (legacyResourceAlias) return legacyResourceAlias;
-  const hard404 = hard404UnknownPublicPath(request);
+  if (ROOT_PUBLIC_FILES.has(pathname)) {
+    return NextResponse.next();
+  }
+  const hard404 = hard404UnknownDottedPath(request);
   if (hard404) return hard404;
   return intlMiddleware(request);
 }
@@ -206,6 +185,6 @@ export default function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
-    '/((?!api|_next|_vercel|sitemap\\.xml|sitemap-pages\\.xml|sitemap-blogs\\.xml|robots\\.txt|llms\\.txt|.*\\..*).*)',
+    '/((?!api|_next|_vercel|assets|downloads|images|sitemap\\.xml|sitemap-pages\\.xml|sitemap-blogs\\.xml|robots\\.txt|llms\\.txt).*)',
   ],
 };

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
+import { buildNoIndexMetadata } from '@/lib/seo/noIndexMetadata'
 import { generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
@@ -7,7 +8,20 @@ import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const metadata = generateMetadataFromPath('/camps/winter', locale)
-  return metadata || { title: 'Winter Camp | GrowWise', description: 'Winter camp programs' }
+  return {
+    ...(metadata ??
+      buildNoIndexMetadata({
+        title: 'Winter Camps in Dublin, CA | GrowWise',
+        description: 'GrowWise winter camp dates are not yet published.',
+        path: '/camps/winter',
+        locale,
+      })),
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: { index: false, follow: true },
+    },
+  }
 }
 
 export default async function WinterCampLayout({
@@ -38,4 +52,3 @@ export default async function WinterCampLayout({
     </>
   )
 }
-
