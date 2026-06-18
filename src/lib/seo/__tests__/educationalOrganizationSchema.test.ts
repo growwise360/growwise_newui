@@ -1,4 +1,4 @@
-import { CONTACT_INFO } from '@/lib/constants'
+import { CONTACT_INFO, OFFICE_HOURS } from '@/lib/constants'
 import { buildEducationalOrganizationSchema } from '@/lib/seo/educationalOrganizationSchema'
 
 /** TC-09 — JSON-LD shape (automated); Rich Results UI remains manual. */
@@ -27,6 +27,10 @@ describe('buildEducationalOrganizationSchema — GWA-192 / TC-09', () => {
 
   it('uses CONTACT_INFO for telephone (single source of truth)', () => {
     expect(schema.telephone).toBe(CONTACT_INFO.phone)
+  })
+
+  it('uses canonical office hours from the shared constants', () => {
+    expect(schema.openingHours).toEqual([...OFFICE_HOURS.schema])
   })
 
   it('includes Dublin street address and geo', () => {

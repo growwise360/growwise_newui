@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import ContentProvider from "@/components/providers/ContentProvider";
@@ -10,6 +11,7 @@ import { locales } from '@/i18n/config';
 import { PageTrackingWrapper } from '@/components/analytics/PageTrackingWrapper';
 import { HomeCampsStripSlot } from '@/components/sections/home/HomeCampsStripSlot';
 import { websiteSchema } from '@/lib/seo/structuredData';
+import { isLocaleEnabled } from '@/i18n/localeConfig';
 
 const Header = dynamic(() => import("@/components/layout/Header/Header"));
 const Footer = dynamic(() => import("@/components/layout/Footer/Footer"));
@@ -39,6 +41,9 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  if (!isLocaleEnabled(locale)) {
+    notFound();
+  }
   const messages = await getMessages({ locale });
 
   return (

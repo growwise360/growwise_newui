@@ -38,7 +38,7 @@ flowchart LR
 | Page titles, descriptions, keywords | `src/lib/seo/metadataConfig.ts`, `src/lib/seo/metadata.ts` |
 | Canonical site URL | `src/lib/seo/siteUrl.ts` → `getCanonicalSiteUrl()` |
 | Sitemap entries + XML helpers | `src/lib/seo/sitemapData.ts` |
-| Sitemap route handlers | `src/app/sitemap-index.xml/route.ts`, `sitemap-pages.xml/`, `sitemap-blogs.xml/` (+ rewrite in `next.config.ts`) |
+| Sitemap route handlers | `src/app/sitemap.xml/route.ts`, `sitemap-pages.xml/`, `sitemap-blogs.xml/` |
 | Crawl policy | `src/app/robots.ts` (no `public/robots.txt`) |
 | Legacy path redirects | `src/lib/seo/legacy-path-redirects.ts`, `next.config.ts` |
 | JSON-LD helpers | `src/lib/seo/structuredData.ts` |
@@ -213,7 +213,7 @@ Component: `src/components/camps/FeaturedCampGuidesSection.tsx`
 | Readiness URL duplicate | Canonical is `/readinesschecklist`. `/resources/readiness-checklist` still exists — resolve per `.cursor/SEO.md` §7. |
 | Locale robots + redirects | Do **not** `Disallow` `/en/`, `/hi/`, `/zh/`, `/es/` in `robots.ts` — Googlebot must crawl prefixed URLs to process middleware redirects (`.cursor/SEO.md` §5). |
 | `/en/` legacy URLs | Middleware 301s to prefix-free canonical. Do not make `/en/*` return 200. |
-| Sitemap index | `/sitemap.xml` is a rewrite to `/sitemap-index.xml` — do not add conflicting `app/sitemap.xml/route.ts`. |
+| Sitemap index | `/sitemap.xml` is served directly by `app/sitemap.xml/route.ts`; do not add a competing rewrite or index route. |
 | Parallel STEAM URLs | `/coding` and `/game-dev` coexist with `/steam/*` — cross-link; non-priority for new SEO work. |
 | Robots conflict | Only `app/robots.ts`. Never reintroduce `public/robots.txt`. |
 | FAQ JSON-LD | Visible FAQ text must match `FAQPage` schema exactly (AEO + Rich Results). |

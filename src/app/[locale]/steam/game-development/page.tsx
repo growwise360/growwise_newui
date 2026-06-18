@@ -895,6 +895,16 @@ const GameDevelopmentPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Frequently Asked Questions</h2>
           <p className="text-gray-600 text-center mb-10">Common questions from parents about our game development courses</p>
+          <p className="mb-8 text-center text-sm text-gray-600">
+            Want a simpler age-based overview before comparing courses?{' '}
+            <Link
+              href={publicPath('/game-dev', locale)}
+              className="font-semibold text-[#1F396D] underline decoration-[#F16112]/60 underline-offset-4 hover:text-[#F16112]"
+            >
+              View Game Development for Kids
+            </Link>
+            .
+          </p>
           <Accordion
             type="multiple"
             className="space-y-4"

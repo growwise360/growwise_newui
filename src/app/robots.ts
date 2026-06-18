@@ -8,15 +8,10 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
-      allow: [
-        '/',
-        '/_next/image?*',
-        '/growwise-blogs?page=*',
-      ],
+      allow: ['/'],
       // Do not disallow /en/, /hi/, /zh/, /es/ — middleware 301s those to prefix-free
       // English URLs; Googlebot must fetch them to process redirects (.cursor/SEO.md §5).
       disallow: [
-        '/*?*',
         '/favicon.ico',
         '/student-login',
         '/cart',

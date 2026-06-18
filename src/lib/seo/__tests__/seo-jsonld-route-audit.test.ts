@@ -172,7 +172,8 @@ describe('SEO JSON-LD route audit', () => {
 
   it('HOME_GRAPH FAQ matches HOME_VISIBLE_FAQS count', () => {
     expect(countSchemaType(HOME_GRAPH_JSON_LD, 'FAQPage')).toBe(1)
-    const faqNode = HOME_GRAPH_JSON_LD['@graph'][1]
+    const faqNode = HOME_GRAPH_JSON_LD['@graph'].find((node) => node['@type'] === 'FAQPage')
+    expect(faqNode).toBeDefined()
     expect(faqNode.mainEntity).toHaveLength(HOME_VISIBLE_FAQS.length)
   })
 })

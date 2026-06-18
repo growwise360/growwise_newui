@@ -11,13 +11,8 @@ describe('robots() — GWA-192 / TC-07', () => {
       throw new Error('Expected single rules object for this policy')
     }
     expect(rules.userAgent).toBe('*')
-    expect(rules.allow).toEqual([
-      '/',
-      '/_next/image?*',
-      '/growwise-blogs?page=*',
-    ])
+    expect(rules.allow).toEqual(['/'])
     expect(rules.disallow).toEqual([
-      '/*?*',
       '/favicon.ico',
       '/student-login',
       '/cart',
