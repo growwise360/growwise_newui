@@ -14,7 +14,7 @@
     "start": "next start",
     "lint": "eslint src",
     "test": "jest",
-    "test:indexnow": "node --test scripts/indexnow-lib.test.mjs",
+    "test:indexnow": "node --test scripts/indexnow-lib.node-test.mjs",
     "indexnow:dry-run": "node scripts/indexnow-submit.mjs --all --dry-run",
     "indexnow:submit": "node scripts/indexnow-submit.mjs",
     "indexnow:submit:all": "node scripts/indexnow-submit.mjs --all",
