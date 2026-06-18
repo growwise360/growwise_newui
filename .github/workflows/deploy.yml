@@ -18,13 +18,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Trigger Vercel production deployment
-        run: |
-          curl --fail --silent --show-error -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_PROD }}"
-          echo "Vercel production deployment triggered."
-
       - name: Wait for production and verify discovery endpoints
         run: |
+          # Vercel's Git integration deploys pushes to main automatically.
           KEY="$(tr -d '\r\n' < public/9bdcae9db63f4f39996f3ad38cc52d32.txt)"
           sleep 120
           for attempt in {1..30}; do
@@ -64,5 +60,5 @@ jobs:
           curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
             -H 'Content-type: application/json' \
             --data '{
-              "text": "❌ *Production deploy failed* — Vercel deploy hook did not respond\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
+              "text": "❌ *Production discovery verification failed* — check Vercel deployment, sitemap, robots, and IndexNow logs\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
             }'

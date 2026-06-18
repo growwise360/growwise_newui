@@ -213,6 +213,9 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
+      // Next.js reserves `/sitemap.xml`; keep the index on a non-reserved
+      // internal route and expose the standard public URL through a rewrite.
+      { source: '/sitemap.xml', destination: '/sitemap-index.xml' },
       // Legacy camp guide POST path → canonical API route.
       { source: '/api/summer-camp-lottery', destination: '/api/summer-camp-summercamp' },
     ];

@@ -1,7 +1,7 @@
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { getChildSitemaps, renderSitemapIndex } from '@/lib/seo/sitemapData'
 
-/** Sitemap index. Child sitemap routes emit urlsets. */
+/** Internal sitemap index route. `/sitemap.xml` rewrites here on Vercel. */
 export async function GET(): Promise<Response> {
   const baseUrl = getCanonicalSiteUrl()
   const xml = renderSitemapIndex(getChildSitemaps(baseUrl))
