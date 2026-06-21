@@ -10,6 +10,7 @@ import enMessages from '@/i18n/messages/en.json';
 import { ReviewStep } from '@/app/enroll/steps/ReviewStep';
 import { ChildStep } from '@/app/enroll/steps/ChildStep';
 import { PaymentStep } from '@/app/enroll/steps/PaymentStep';
+import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
 
 function EnrollPhase3Inner() {
   const searchParams = useSearchParams();
@@ -118,6 +119,7 @@ function EnrollPhase3Inner() {
           </div>
         </div>
       </div>
+      <PartnerTrustStrip />
     </div>
   );
 }

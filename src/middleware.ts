@@ -95,6 +95,7 @@ const ROOT_PUBLIC_FILES = new Set([
   '/file.svg',
   '/globe.svg',
   '/icon.png',
+  '/9bdcae9db63f4f39996f3ad38cc52d32.txt',
   '/manifest.json',
   '/next.svg',
   '/og-image.jpg',

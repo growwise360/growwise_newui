@@ -17,8 +17,18 @@ function shouldShowAllTrustBadges(pathname: string): boolean {
   return !isHomePath(pathname) || isCampSeoLandingPath(pathname);
 }
 
+export function hasDedicatedPartnerStrip(pathname: string): boolean {
+  if (isHomePath(pathname)) return true;
+
+  const normalized = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/';
+  return normalized === '/book-assessment' || normalized === '/enroll';
+}
+
 export default function FooterFindUsOn() {
   const pathname = usePathname();
+
+  if (hasDedicatedPartnerStrip(pathname)) return null;
+
   const badges = getFooterTrustBadges(!shouldShowAllTrustBadges(pathname));
 
   return (
