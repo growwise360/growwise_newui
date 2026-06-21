@@ -21,6 +21,9 @@ const BODY = `# GrowWise School
 
 ## High-Value Parent Guides
 - [Math & Reading Readiness Checklist](https://growwiseschool.org/readinesschecklist)
+- [Child Reads but Does Not Understand the Passage](https://growwiseschool.org/growwise-blogs/child-reads-but-doesnt-understand-passage)
+- [Why Is My Child Struggling With Fractions?](https://growwiseschool.org/growwise-blogs/why-is-my-child-struggling-with-fractions)
+- [Common Core Math Strategies for Parents](https://growwiseschool.org/growwise-blogs/common-core-math-strategies-parents)
 - [Can ChatGPT Replace a Tutor?](https://growwiseschool.org/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help)
 - [Reading Help Checklist](https://growwiseschool.org/growwise-blogs/does-my-child-need-reading-help-checklist)
 - [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/resources/tutoring-dublin-ca)

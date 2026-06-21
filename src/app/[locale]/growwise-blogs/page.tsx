@@ -52,6 +52,33 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'reading-comprehension-words-no-understanding-2026',
+    category: 'academic',
+    title: 'My Child Can Read the Words but Doesn’t Understand the Passage',
+    excerpt:
+      'Why fluent reading can hide a comprehension gap—and how parents can check retelling, main idea, vocabulary, inference, and evidence.',
+    href: '/growwise-blogs/child-reads-but-doesnt-understand-passage',
+    readMore: 'Read parent guide »',
+  },
+  {
+    id: 'fractions-parent-guide-2026',
+    category: 'academic',
+    title: 'Why Is My Child Struggling With Fractions?',
+    excerpt:
+      'A parent guide to fraction meaning, number lines, visual models, equivalent fractions, and the mistakes that memorized rules often hide.',
+    href: '/growwise-blogs/why-is-my-child-struggling-with-fractions',
+    readMore: 'Read parent guide »',
+  },
+  {
+    id: 'common-core-math-strategies-2026',
+    category: 'academic',
+    title: 'Common Core Math Strategies Parents Can Use at Home',
+    excerpt:
+      'A practical parent guide to number lines, area models, bar models, place value, and helping with math homework without taking over.',
+    href: '/growwise-blogs/common-core-math-strategies-parents',
+    readMore: 'Read parent guide »',
+  },
+  {
     id: 'ai-homework-help-2026',
     category: 'academic',
     title: 'Can ChatGPT Replace a Tutor?',

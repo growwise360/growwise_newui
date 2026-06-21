@@ -52,6 +52,15 @@ describe('sitemapData', () => {
     expect(blogLocs).toContain(
       `${BASE}/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help`,
     );
+    expect(blogLocs).toContain(
+      `${BASE}/growwise-blogs/common-core-math-strategies-parents`,
+    );
+    expect(blogLocs).toContain(
+      `${BASE}/growwise-blogs/why-is-my-child-struggling-with-fractions`,
+    );
+    expect(blogLocs).toContain(
+      `${BASE}/growwise-blogs/child-reads-but-doesnt-understand-passage`,
+    );
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       expect(blogLocs).toContain(`${BASE}${path}`);
     });
