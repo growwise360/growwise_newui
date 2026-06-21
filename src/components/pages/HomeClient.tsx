@@ -13,6 +13,7 @@ import { HomeDiagnosticSection } from '../sections/home/HomeDiagnosticSection';
 import { HomeFaqSection } from '../sections/home/HomeFaqSection';
 import { HomeSteamSection } from '../sections/home/HomeSteamSection';
 import { HomeFinalAssessmentCta } from '../sections/home/HomeFinalAssessmentCta';
+import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
 import type { HomeContentData } from '@/store/slices/homeSlice';
 
 interface HomeClientProps {
@@ -36,6 +37,7 @@ function HomeFunnelSections() {
       <HomeSocialProofSection />
       <HomeSteamSection />
       <HomeDiagnosticSection />
+      <PartnerTrustStrip />
       <HomeFaqSection />
       <HomeFinalAssessmentCta />
     </>

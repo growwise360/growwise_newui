@@ -17,6 +17,7 @@ import { TrackedForm } from '@/lib/analytics/components';
 import Phase3EnrollPage from '@/components/enroll/EnrollPhase3Page';
 import { useSearchParams } from 'next/navigation';
 import { getRecaptchaToken } from '@/lib/recaptcha';
+import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
 
 function EnrollPageInner() {
   const router = useRouter();
@@ -348,6 +349,7 @@ function EnrollPageInner() {
           ))}
         </div>
       </div>
+      <PartnerTrustStrip />
     </div>
   );
 }

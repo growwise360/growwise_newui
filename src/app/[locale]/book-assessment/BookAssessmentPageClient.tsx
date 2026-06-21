@@ -30,6 +30,7 @@ import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
 import { trackAssessmentFormSubmitted, trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
+import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
 
 interface FormData {
   parentName: string;
@@ -785,6 +786,8 @@ export default function BookAssessmentPageClient() {
           </div>
         </div>
       </section>
+
+      <PartnerTrustStrip />
 
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
