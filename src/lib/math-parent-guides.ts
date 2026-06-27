@@ -27,6 +27,42 @@ export const MATH_CARELESS_MISTAKES_GUIDE: MathParentGuideLink = {
   readTime: '6 min read',
 };
 
+export const MATH_BACK_TO_SCHOOL_ASSESSMENT_GUIDE: MathParentGuideLink = {
+  key: 'back-to-school-math-assessment',
+  href: '/resources/back-to-school-math-assessment-dublin-ca',
+  title: 'Back-to-School Math Assessment Guide',
+  description:
+    'What to check before August: fractions, ratios, equations, word problems, Algebra, Geometry, and IM readiness.',
+  readTime: '6 min read',
+};
+
+export const MIDDLE_SCHOOL_MATH_READINESS_GUIDE: MathParentGuideLink = {
+  key: 'middle-school-math-readiness-checklist',
+  href: '/resources/middle-school-math-readiness-checklist',
+  title: 'Middle School Math Readiness Checklist',
+  description:
+    'A Grades 6-8 checklist for ratios, integers, equations, graphing, word problems, and IM1 prep.',
+  readTime: '6 min read',
+};
+
+export const CALIFORNIA_MATH_STANDARDS_GUIDE: MathParentGuideLink = {
+  key: 'california-math-standards-by-grade',
+  href: '/resources/california-math-standards-by-grade',
+  title: 'California Math Standards by Grade',
+  description:
+    'A parent-friendly view of what each grade builds on, plus red flags that reveal hidden math gaps.',
+  readTime: '7 min read',
+};
+
+export const MATH_TUTORING_COMPARISON_GUIDE: MathParentGuideLink = {
+  key: 'kumon-vs-mathnasium-vs-private-tutor',
+  href: '/resources/math-tutoring-options-dublin-ca',
+  title: 'Compare Math Tutoring Options',
+  description:
+    'How Dublin families should compare worksheet practice, math centers, private tutors, and diagnostic-first tutoring.',
+  readTime: '7 min read',
+};
+
 export const MATH_HOMEWORK_INDEPENDENCE_GUIDE: MathParentGuideLink = {
   key: 'homework-independence',
   href: '/resources/homework-independence',
@@ -91,7 +127,9 @@ export const MATH_PARENT_GUIDES_BY_PAGE: Record<
 > = {
   hub: [
     MATH_GAP_SELF_CHECK,
+    MATH_BACK_TO_SCHOOL_ASSESSMENT_GUIDE,
     MATH_CARELESS_MISTAKES_GUIDE,
+    MATH_TUTORING_COMPARISON_GUIDE,
     MATH_B_PLUS_BLOG,
     MATH_LEARNING_GAPS_BLOG,
     MATH_HOMEWORK_INDEPENDENCE_GUIDE,
@@ -99,23 +137,24 @@ export const MATH_PARENT_GUIDES_BY_PAGE: Record<
   ],
   elementary: [
     MATH_GAP_SELF_CHECK,
+    MATH_BACK_TO_SCHOOL_ASSESSMENT_GUIDE,
     MATH_CARELESS_MISTAKES_GUIDE,
+    CALIFORNIA_MATH_STANDARDS_GUIDE,
     MATH_B_PLUS_BLOG,
-    MATH_LEARNING_GAPS_BLOG,
-    MATH_HOMEWORK_INDEPENDENCE_GUIDE,
   ],
   'middle-school': [
     MATH_GAP_SELF_CHECK,
+    MATH_BACK_TO_SCHOOL_ASSESSMENT_GUIDE,
+    MIDDLE_SCHOOL_MATH_READINESS_GUIDE,
     MATH_CARELESS_MISTAKES_GUIDE,
-    MATH_HOMEWORK_INDEPENDENCE_GUIDE,
-    MATH_LEARNING_GAPS_BLOG,
+    CALIFORNIA_MATH_STANDARDS_GUIDE,
   ],
   'high-school-math': [
     MATH_GAP_SELF_CHECK,
+    MATH_BACK_TO_SCHOOL_ASSESSMENT_GUIDE,
     MATH_CARELESS_MISTAKES_GUIDE,
+    MATH_TUTORING_COMPARISON_GUIDE,
     MATH_SAT_PREP_GUIDE,
-    MATH_FINALS_PREP_BLOG,
-    MATH_B_PLUS_BLOG,
   ],
 };
 

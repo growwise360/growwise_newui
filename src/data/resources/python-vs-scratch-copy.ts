@@ -9,9 +9,9 @@ export const PYTHON_VS_SCRATCH_META: ResourceArticleMeta = {
   h1: 'Python vs Scratch: Which Should Your Child Learn First?',
   readTime: '4 min read',
   updated: 'Updated May 2026',
-  title: 'Python vs Scratch for Kids: Which Should Your Child Learn First? | GrowWise',
+  title: 'Python vs Scratch for Kids: Which to Learn First',
   description:
-    "Scratch or Python? The honest, age-by-age answer for parents — including when to switch, what Scratch can't do, and why most kids need both in the right order.",
+    'Scratch or Python? Compare the best starting age, when to switch, what each language teaches, and how kids move toward real coding.',
   keywords:
     'Python vs Scratch for kids, should kids learn Scratch or Python first, Scratch or Python which is better for kids, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14, coding for kids beginners, MIT Scratch programming children',
   datePublished: '2026-05-01',
@@ -51,5 +51,16 @@ export const PYTHON_VS_SCRATCH_RELATED: readonly ResourceArticleRelated[] = [
   {
     href: '/resources/what-is-vibe-coding',
     title: 'What Is Vibe Coding — And Should Your Child Learn It?',
+    description: 'How AI-assisted coding fits once a student has enough programming foundation.',
+  },
+  {
+    href: '/steam/game-development',
+    title: 'Game Development Programs',
+    description: 'Project-based Scratch, Roblox, and game design paths for younger coders.',
+  },
+  {
+    href: '/future-skills/python-certification',
+    title: 'Python Certification Pathway',
+    description: 'A structured path for students ready to move into text-based Python and projects.',
   },
 ] as const

@@ -193,6 +193,24 @@ const NOT_ITEMS = [
   'Operate as homework completion supervision',
 ]
 
+const AUGUST_ELEMENTARY_READINESS = [
+  {
+    grade: 'Grades 1-2',
+    focus: 'Place value, composing and decomposing numbers, addition/subtraction meaning',
+    redFlag: 'Your child can count or calculate but cannot explain what the numbers mean.',
+  },
+  {
+    grade: 'Grades 3-4',
+    focus: 'Multiplication, division, early fractions, and two-step word problems',
+    redFlag: 'Facts are slow, fractions feel random, or word problems fall apart after one step.',
+  },
+  {
+    grade: 'Grade 5',
+    focus: 'Fraction operations, decimals, order of operations, and pre-algebra habits',
+    redFlag: 'Unlike denominators, decimals, or multi-step problems create inconsistent errors.',
+  },
+] as const
+
 // ─────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────
@@ -323,6 +341,46 @@ const ElementaryMathPage: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-8 py-4 text-base font-semibold text-[#1F396D] hover:bg-[#1F396D]/5 transition-colors"
             >
               Try the free Self-Check
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#ebebeb] py-14 lg:py-20" aria-labelledby="elementary-august-readiness-heading">
+        <div className="max-w-5xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+            August readiness by grade
+          </p>
+          <h2 id="elementary-august-readiness-heading" className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+            Before school starts, check the elementary math skills the next grade assumes.
+          </h2>
+          <p className="text-gray-600 leading-relaxed max-w-3xl mb-8">
+            Parents searching for elementary math tutoring in Dublin, CA are usually seeing one of three patterns:
+            weak number sense, fraction confusion, or word-problem avoidance. A short readiness check shows whether
+            your child needs targeted review, a full math program, or enrichment.
+          </p>
+          <div className="grid gap-5 md:grid-cols-3">
+            {AUGUST_ELEMENTARY_READINESS.map((item) => (
+              <article key={item.grade} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h3 className="text-lg font-bold text-[#1F396D] mb-2">{item.grade}</h3>
+                <p className="text-sm font-semibold text-gray-800 mb-2">{item.focus}</p>
+                <p className="text-sm leading-relaxed text-gray-600">{item.redFlag}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={publicPath('/resources/back-to-school-math-assessment-dublin-ca', locale)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-6 py-3 text-sm font-semibold text-white hover:bg-[#162850]"
+            >
+              Read the math assessment guide
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href={publicPath('/resources/careless-math-mistakes', locale)}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-6 py-3 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+            >
+              Fix careless math mistakes
             </Link>
           </div>
         </div>

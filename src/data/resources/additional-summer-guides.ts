@@ -234,14 +234,14 @@ export const CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_META: ResourceArticleMeta = 
   path: CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_PATH,
   category: 'academic',
   categoryLabel: 'ACADEMIC',
-  h1: 'Does Your Child Have a Writing Problem — or a Confidence Problem?',
+  h1: 'Why Your Child Struggles With Writing: Skill Gap or Confidence Gap?',
   readTime: '6 min read',
   updated: 'Updated June 2026',
-  title: 'Child Struggles With Writing | Dublin CA Parent Guide',
+  title: 'Why Your Child Struggles With Writing | Dublin CA',
   description:
-    'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both. Learn what helps.',
+    'Blank-page freeze, short answers, weak paragraphs, and writing avoidance can signal skill gaps, confidence gaps, or both.',
   keywords:
-    'child struggles with writing, writing help Dublin CA, child avoids writing, blank page freeze writing, writing confidence kids, summer writing program Dublin CA',
+    'child struggles with writing, writing tutor near me, middle school writing tutor, writing help Dublin CA, English writing classes near me, child avoids writing, blank page freeze writing, writing confidence kids',
   datePublished: '2026-06-09',
   dateModified: '2026-06-09',
 }
@@ -271,6 +271,11 @@ export const CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_FAQS: readonly ResourceArtic
 
 export const CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
+    title: 'English Tutor vs. Reading Tutor vs. Writing Class',
+    href: '/resources/english-tutor-vs-reading-tutor-vs-writing-class',
+    description: 'How to choose the right English support before August.',
+  },
+  {
     title: 'Summer Writing Programs in Dublin, CA',
     href: '/resources/summer-writing-program-dublin-ca',
     description: 'How to choose a writing program that teaches real process.',
@@ -286,4 +291,3 @@ export const CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_RELATED: readonly ResourceAr
     description: 'Get a clearer read on skill gaps and confidence gaps.',
   },
 ]
-

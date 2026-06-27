@@ -33,6 +33,10 @@ const resourceFigureImages: Record<ResourceCategory, string> = {
 }
 
 const resourceFigureImagesBySlug: Record<string, string> = {
+  'back-to-school-math-assessment-dublin-ca': '/images/resources/growwise-back-to-school-math-assessment.webp',
+  'english-tutor-vs-reading-tutor-vs-writing-class': '/images/resources/growwise-english-tutor-reading-writing-class.webp',
+  'math-tutoring-options-dublin-ca': '/images/resources/growwise-math-tutoring-options-dublin-ca.webp',
+  'middle-school-math-readiness-checklist': '/images/resources/growwise-middle-school-math-readiness-checklist.webp',
   'summer-academic-program-checklist': '/images/resources/growwise-summer-academic-checklist.webp',
   'summer-slide-dublin-ca': '/images/resources/growwise-summer-slide-dublin.webp',
   'summer-slide-prevention': '/images/resources/growwise-summer-slide-prevention.webp',
