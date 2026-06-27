@@ -123,6 +123,12 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
 
 const msMonthlyProgram = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'middle-school')
 
+const AUGUST_MIDDLE_SCHOOL_READINESS = [
+  'Fractions and decimals are automatic enough for ratios, rates, and equations.',
+  'The student can set up multi-step word problems without waiting for a template.',
+  'Integers, variables, graphing, and proportional reasoning are ready for Course 1, Course 2, Course 3, or IM1.',
+] as const
+
 function courseBadgeClassName(badge: MiddleSchoolCourseBadge): string {
   if (badge === 'school-aligned') {
     return 'bg-green-100 text-green-800 border-green-200'
@@ -284,6 +290,44 @@ const MiddleSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
+      <section className="bg-[#ebebeb] py-14 lg:py-20" aria-labelledby="middle-school-august-readiness-heading">
+        <div className="max-w-5xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+            August readiness before IM1 and middle school placement
+          </p>
+          <h2 id="middle-school-august-readiness-heading" className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+            Middle school math tutoring should start with the course your child is about to enter.
+          </h2>
+          <p className="text-gray-600 leading-relaxed max-w-3xl mb-6">
+            For rising Grades 6-8, the first month of school moves quickly. Before August, parents should check whether
+            prior skills are ready for Course 1, Course 2, Course 3, Integrated Math 1, or accelerated placement.
+          </p>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {AUGUST_MIDDLE_SCHOOL_READINESS.map((item) => (
+              <li key={item} className="flex gap-3 rounded-xl border border-gray-200 bg-white p-5 text-sm leading-relaxed text-gray-700 shadow-sm">
+                <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#F16112]" aria-hidden />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={publicPath('/resources/back-to-school-math-assessment-dublin-ca', locale)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-6 py-3 text-sm font-semibold text-white hover:bg-[#162850]"
+            >
+              Read the August math assessment guide
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href={publicPath('/resources/middle-school-math-readiness-checklist', locale)}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-6 py-3 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+            >
+              Use the middle school checklist
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Section 2 — District placement pathways */}
       <section className="bg-white py-16 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 lg:px-8">
@@ -392,7 +436,6 @@ const MiddleSchoolMathPage: React.FC = () => {
                   <button
                     key={situation.id}
                     type="button"
-                    role="listitem"
                     aria-pressed={isSelected}
                     onClick={() => setSelectedJtbdId(situation.id)}
                     className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
