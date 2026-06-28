@@ -261,7 +261,7 @@ body {
   .header-address { @apply text-white/90 text-xs hidden lg:block; }
 
   .header-mainrow { @apply flex items-center justify-between h-20 min-w-0 gap-2 lg:h-24 xl:h-28 2xl:h-32; }
-  .header-logo-wrap { @apply flex-none w-[150px] sm:w-[180px] lg:w-[180px] xl:w-[210px] 2xl:w-[250px] overflow-visible; }
+  .header-logo-wrap { @apply flex-none w-[150px] sm:w-[180px] lg:ml-4 lg:w-[180px] xl:ml-6 xl:w-[210px] 2xl:ml-8 2xl:w-[250px] overflow-visible; }
   .header-logo { @apply h-14 w-full object-contain object-left lg:h-20 xl:h-24 2xl:h-[104px]; }
   
   @media (max-width: 1023px) {

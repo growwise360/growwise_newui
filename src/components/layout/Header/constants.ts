@@ -118,7 +118,6 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
     label: 'Home',
     href: '/',
     type: 'simple',
-    active: true,
     variant: 'blue',
   },
   {
