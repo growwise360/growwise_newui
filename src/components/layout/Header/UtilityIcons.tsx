@@ -26,9 +26,11 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
   };
 
   return (
-    <div className="header-utilities relative z-0 hidden lg:flex items-center space-x-3 flex-shrink-0">
-      <div className="flex items-center space-x-3">
-        <SearchBar />
+    <div className="header-utilities relative z-0 hidden lg:flex items-center gap-2 flex-none">
+      <div className="flex items-center gap-2">
+        <div className="hidden 2xl:block">
+          <SearchBar />
+        </div>
         {showCart && (
           <Link 
             href={createLocaleUrl('/cart')} 
@@ -46,12 +48,12 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
         <Link
           href={createLocaleUrl('/enroll')}
           onClick={handleEnrollClick}
-          className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap bg-[#F16112] text-white hover:bg-[#F1894F] shadow-lg hover:shadow-xl"
+          className="px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap bg-[#F16112] text-white hover:bg-[#F1894F] shadow-lg hover:shadow-xl xl:px-4"
         >
           {t('enroll')}
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="hidden 2xl:flex items-center gap-2">
           <Link
             href={createLocaleUrl('/student-login')}
             className="px-4 py-2 rounded-full text-sm font-medium border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white transition-all duration-300 whitespace-nowrap shadow-sm"
@@ -62,7 +64,9 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
         </div>
       </div>
 
-      <LocaleSwitcher />
+      <div className="hidden 2xl:block">
+        <LocaleSwitcher />
+      </div>
     </div>
   );
 }
