@@ -30,9 +30,9 @@ export const MATH_FINALS_PRACTICE_SESSION_DESCRIPTION =
 export const metadataConfig: Record<string, PageMetadataConfig> = {
   // Home page
   '/': {
-    title: 'K-12 Online Tutoring & Coding Classes | GrowWise',
+    title: 'K-12 Tutoring, Coding & SAT Prep Dublin CA | GrowWise',
     description:
-      'GrowWise helps Grades 1-12 students build confidence with math, English, coding, STEAM, and SAT prep online or in Dublin, CA. Book a free assessment.',
+      'Dublin, CA tutoring for Grades 1-12: math, English, coding, STEAM, SAT prep, and summer programs. Book a free assessment.',
     keywords:
       'tutoring Dublin CA, Grades 1-12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning',
     path: '',
@@ -66,6 +66,15 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
       'GrowWise newsletter, parent education tips, K-12 tutoring updates, Dublin tutoring newsletter, student learning insights',
     path: '/bulletin',
     image: '/og-image.jpg',
+  },
+
+  '/resources/downloads': {
+    title: 'Free Math & English Study Plans | GrowWise',
+    description:
+      'Download starter resources and create a free 4-week Math or English practice plan for your child. No login required.',
+    keywords:
+      'free study plan, math practice sheets, English practice sheets, printable worksheets, 4-week study plan, GrowWise resources',
+    path: '/resources/downloads',
   },
 
   '/dublin-ca': {
@@ -106,63 +115,63 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/math': {
-    title: 'Math Tutoring Programs Online — Grades 1–12 | GrowWise',
+    title: 'Math Tutoring Dublin CA | Grades 1-12',
     description:
-      'Structured math programs for Grades 1–12. Live online small groups. Elementary, middle school, and high school tracks. Book a free assessment.',
+      'Back-to-school math tutoring in Dublin, CA for Grades 1-12. Elementary, middle school, high school, and advanced math. Free assessment.',
     keywords:
-      'math tutoring online, online math program grades 1-12, elementary math tutoring, middle school math help, IM1 tutoring, high school math tutoring, AP calculus tutoring online, math small group online, 3-month math program, math tutoring small group',
+      'math tutoring Dublin CA, math tutor near me, back to school math tutoring, elementary math tutoring, middle school math tutoring, high school math tutoring, IM1 tutoring, Algebra 1 tutor, Algebra 2 tutor, geometry tutoring, Pleasanton math tutor, San Ramon math tutor, Tri-Valley math tutoring, math small group tutoring, math assessment',
     path: '/academic/math',
   },
 
   '/academic/math/elementary': {
-    title: 'Elementary Math Tutoring Online — Grades 1–5 | GrowWise',
+    title: 'Elementary Math Tutoring Dublin CA | Grades 1-5',
     description:
-      'Structured math programs for Grades 1–5. Number sense, fractions, word problem reasoning. Live online small groups. Diagnostic-first. 3-month programs.',
+      'Elementary math tutoring in Dublin, CA for Grades 1-5. Number sense, fractions, word problems, and August readiness assessment.',
     keywords:
-      'elementary math tutoring online, grade 1-5 math help, fractions tutoring grade 4, math word problem help elementary, grade 3 math struggles, place value tutoring, elementary math small group online, math program grades 1 5',
+      'elementary math tutoring Dublin CA, elementary math tutor near me, grade 1-5 math help, fractions tutoring grade 4, math word problem help elementary, common core math help, place value tutoring, August math readiness',
     path: '/academic/math/elementary',
   },
 
   '/academic/math/middle-school': {
-    title: 'Middle School Math Tutoring — IM1, IM2 | GrowWise',
+    title: 'Middle School Math Tutoring Dublin CA | IM1 Prep',
     description: buildMiddleSchoolMetaDescription(),
     keywords:
-      'middle school math tutoring online, IM1 tutoring, IM2 tutoring, pre-algebra tutoring online, integrated math 1 tutoring, grades 6-8 math program, standard track math, accelerated math tutoring',
+      'middle school math tutoring Dublin CA, IM1 tutoring, IM2 tutoring, pre-algebra tutoring, integrated math 1 tutoring, grades 6-8 math program, accelerated math readiness, 7th grade math help, August math assessment',
     path: '/academic/math/middle-school',
   },
 
   '/academic/english': {
-    title: 'English Tutoring Programs Grades 1-8 | Dublin CA | GrowWise',
+    title: 'English Tutoring Dublin CA | Reading & Writing',
     description:
-      'English tutoring for Grades 1-8 in Dublin, CA and online. Reading comprehension, writing, grammar, vocabulary, and essays in small groups.',
+      'Back-to-school English tutoring in Dublin, CA for Grades 1-8. Reading comprehension, writing, grammar, vocabulary, and essays.',
     keywords:
-      'English tutoring Dublin CA, English tutor Dublin, reading comprehension tutoring, essay writing help, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, writing tutor, reading tutor, English classes Dublin CA, English help Dublin, English tutoring near me, Grades 1-8 English programs',
+      'English tutoring Dublin CA, English tutor near me, reading tutor near me, writing tutor near me, back to school English tutoring, reading comprehension tutoring, essay writing help, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, English classes Dublin CA, Pleasanton English tutor, San Ramon English tutor, Tri-Valley reading and writing tutoring, Grades 1-8 English programs',
     path: '/academic/english',
   },
 
   '/academic/english/elementary': {
-    title: 'Elementary English Tutoring Online — Grades 1–5 | GrowWise',
+    title: 'Elementary English Tutoring Dublin CA | Grades 1-5',
     description:
-      'English for Grades 1-5: reading fluency, vocabulary, grammar, and writing in live small groups. Diagnostic-first, online or in Dublin, CA.',
+      'Elementary English tutoring in Dublin, CA for Grades 1-5. Reading fluency, comprehension, grammar, writing, and August readiness.',
     keywords:
-      'elementary English tutoring online, reading below grade level grades 1-5, my child hates writing, child reads but does not understand, California Common Core ELA, English tutoring Dublin CA, Pleasanton San Ramon Tri-Valley',
+      'elementary English tutoring Dublin CA, English tutor near me, reading tutor near me, writing tutor near me, reading below grade level grades 1-5, child reads but does not understand, grammar tutoring, English writing classes near me',
     path: '/academic/english/elementary',
   },
 
   '/courses/sat-prep': {
-    title: 'SAT Prep Tutoring in Dublin, CA | GrowWise',
+    title: 'SAT Prep Dublin CA | Classes & Tutoring | GrowWise',
     description:
-      'SAT prep in Dublin, CA with practice tests, proven strategies, and expert tutors. Small groups. Book a free assessment today.',
+      'SAT prep in Dublin, CA with small groups, practice tests, math and reading/writing strategy, and expert tutors. Book a free assessment.',
     keywords:
       'SAT prep Dublin CA, SAT preparation, SAT course, SAT tutoring Dublin, SAT test prep, SAT strategies, SAT practice tests, SAT classes Dublin CA, SAT help, SAT tutor near me, SAT prep course, SAT score improvement, college entrance exam prep',
     path: '/courses/sat-prep',
   },
 
   '/academic/math/high-school': {
-    title: 'High School Math Tutoring Dublin CA | GrowWise',
+    title: 'High School Math Tutoring Dublin CA | Algebra & Geometry',
     description: buildHighSchoolMetaDescription(),
     keywords:
-      'high school math tutoring Dublin CA, algebra tutoring, algebra 1, algebra 2, geometry tutoring, pre-calculus, AP precalculus, integrated math, integrated math 1, integrated math 2, DUSD accelerated math placement, high school math courses Dublin CA, advanced math tutoring, high school math tutoring online, AP calculus tutoring, algebra 2 tutoring, SAT math prep online, grades 9-12 math program',
+      'high school math tutoring Dublin CA, algebra tutor near me, algebra 1 tutoring, algebra 2 tutor near me, geometry tutor Dublin CA, geometry classes near me, pre-calculus tutoring, integrated math 3 tutoring, DUSD accelerated math placement, August math readiness, grades 9-12 math program',
     path: '/academic/math/high-school',
   },
 
@@ -413,9 +422,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer': {
-    title: 'Math, Robotics, Coding & AI Camps Dublin CA | GrowWise',
+    title: 'Summer Camps Dublin CA | Math, Robotics, Coding & AI',
     description:
-      'Summer camps in Dublin, CA for Grades 1–12: Math, Robotics, Coding, AI, game development, and writing. Weekly June–August 2026. Reserve a spot.',
+      '2026 summer camps in Dublin, CA for Grades 1-12: math, robotics, coding, AI, game development, and writing. Reserve a weekly spot.',
     keywords:
       'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',
@@ -559,9 +568,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/tutoring-dublin-ca': {
-    title: 'K-12 Tutoring in Dublin CA | 2026 Parent Guide',
+    title: 'Tutoring Dublin CA | Best K-12 Options for 2026',
     description:
-      'Dublin, CA tutoring guide for Grades 1-12. Compare program types, diagnostic depth, class size, and what Tri-Valley parents should ask before enrolling.',
+      'Compare Dublin, CA tutoring options for Grades 1-12: class size, diagnostics, math, English, SAT prep, and questions to ask before enrolling.',
     keywords:
       'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
     path: '/resources/tutoring-dublin-ca',
@@ -659,12 +668,52 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/child-struggles-with-writing-dublin-ca': {
-    title: 'Child Struggles With Writing | Dublin CA Parent Guide',
+    title: 'Why Your Child Struggles With Writing | Dublin CA',
     description:
-      'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both. Learn what helps students move forward.',
+      'Blank-page freeze, short answers, weak paragraphs, and writing avoidance can signal skill gaps, confidence gaps, or both.',
     keywords:
-      'child struggles with writing, writing help Dublin CA, child avoids writing, blank page freeze writing, writing confidence kids, summer writing program Dublin CA',
+      'child struggles with writing, writing tutor near me, middle school writing tutor, writing help Dublin CA, English writing classes near me, child avoids writing, blank page freeze writing, writing confidence kids',
     path: '/resources/child-struggles-with-writing-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/back-to-school-math-assessment-dublin-ca': {
+    title: 'Back-to-School Math Assessment Dublin CA | GrowWise',
+    description:
+      'Before August, check math readiness for fractions, ratios, algebra, geometry, and IM1 so your child starts the school year with fewer gaps.',
+    keywords:
+      'math tutor near me, math tutoring Dublin CA, back to school math assessment, middle school math tutoring, elementary math tutoring Dublin, algebra tutor near me, geometry tutor Dublin CA, integrated math tutoring',
+    path: '/resources/back-to-school-math-assessment-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/english-tutor-vs-reading-tutor-vs-writing-class': {
+    title: 'English Tutor vs Reading Tutor vs Writing Class',
+    description:
+      'Compare English tutoring, reading tutoring, and writing classes so parents can choose the right support before the August school-year rush.',
+    keywords:
+      'english tutor near me, English tutoring Dublin CA, reading tutor near me, reading tutoring near me, writing tutor Dublin CA, english writing classes near me, reading and writing classes near me',
+    path: '/resources/english-tutor-vs-reading-tutor-vs-writing-class',
+    type: 'article',
+  },
+
+  '/resources/math-tutoring-options-dublin-ca': {
+    title: 'Kumon vs Mathnasium vs Tutor Dublin CA Guide',
+    description:
+      'Compare worksheet practice, math centers, private tutors, and diagnostic-first math tutoring before choosing back-to-school support in Dublin, CA.',
+    keywords:
+      'Kumon Dublin CA, Mathnasium Dublin CA, Russian Math Dublin CA, Tutoring Club Dublin, private math tutor Dublin CA, best math tutoring Dublin CA, math tutoring near me, math tutor near me',
+    path: '/resources/math-tutoring-options-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/middle-school-math-readiness-checklist': {
+    title: 'Middle School Math Readiness Checklist | Grades 6-8',
+    description:
+      'Use this Grades 6-8 math readiness checklist before August to check fractions, ratios, equations, word problems, graphing, and IM1 prep.',
+    keywords:
+      'middle school math readiness checklist, middle school math tutoring, 6th grade math help, 7th grade math help, 8th grade math help, IM1 readiness, integrated math 1 prep, math tutoring Dublin CA',
+    path: '/resources/middle-school-math-readiness-checklist',
     type: 'article',
   },
 
@@ -689,9 +738,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/python-vs-scratch': {
-    title: 'Python vs Scratch for Kids | Parent Guide | GrowWise',
+    title: 'Python vs Scratch for Kids | Which to Learn First?',
     description:
-      'Scratch or Python? Use this age-by-age parent guide to know when to start, when to switch, and why many kids benefit from learning both in order.',
+      'Scratch or Python first? Compare starting age, when to switch, what each language teaches, and how kids move toward real coding.',
     keywords:
       'Python vs Scratch for kids, should kids learn Scratch or Python first, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14',
     path: '/resources/python-vs-scratch',
@@ -699,9 +748,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/reading-fluency-vs-comprehension': {
-    title: 'Fluency vs Comprehension: Reading Gaps | GrowWise',
+    title: 'Reading Fluency vs Comprehension | Parent Guide',
     description:
-      'Your child can decode every word but still not understand what they read. Learn how to tell fluency from comprehension gaps—and why support matters.',
+      'Compare reading fluency vs comprehension gaps, warning signs, and what support should target when a child reads words but misses meaning.',
     keywords:
       'reading fluency vs comprehension, reading fluency comprehension difference, child reads but doesn\'t understand, reading program, reading comprehension gap, reading fluency gap, child struggles with reading comprehension',
     path: '/resources/reading-fluency-vs-comprehension',
@@ -728,9 +777,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/careless-math-mistakes': {
-    title: 'Why Kids Make Careless Math Mistakes on Tests | GrowWise',
+    title: 'Careless Math Mistakes | Why Kids Lose Points',
     description:
-      'Careless math mistakes follow specific patterns. Learn how to spot the real blocker, fix the habit, and help your child stop losing points on tests.',
+      'Learn why kids make careless math mistakes, the common patterns behind lost points, and how to fix them before the next test.',
     keywords:
       'careless mistakes in math, why kids lose points on math tests, child makes careless math mistakes, how to stop careless mistakes in math, child understands math but gets wrong answers, math mistake patterns, procedural errors in math',
     path: '/resources/careless-math-mistakes',
@@ -738,9 +787,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/what-is-vibe-coding': {
-    title: "What Is Vibe Coding? A Parent's Guide (2026) | GrowWise",
+    title: 'What Is Vibe Coding? Parent Guide for Kids',
     description:
-      'Vibe coding helps kids build apps with AI, but fundamentals still matter. Learn the benefits, risks, right age, and what programs should teach.',
+      'Vibe coding lets kids build with AI, but fundamentals still matter. Learn the right age, benefits, risks, and what programs should teach.',
     keywords:
       'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
     path: '/resources/what-is-vibe-coding',
@@ -758,9 +807,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/when-to-start-sat-prep': {
-    title: 'When Should My Child Start SAT Prep? | GrowWise',
+    title: 'When to Start SAT Prep | Timeline by Grade',
     description:
-      'Grade 8, 9, or 10? Learn when SAT prep should start, why foundations come first, and how to build the right grade-by-grade test prep timeline.',
+      'See when SAT prep should start in grades 8, 9, 10, or 11, what to fix first, and how parents can plan a smarter prep timeline.',
     keywords:
       'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
     path: '/resources/when-to-start-sat-prep',

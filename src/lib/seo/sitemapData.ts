@@ -60,6 +60,7 @@ const corePages: SitemapEntry[] = [
   { path: '/programs', priority: 0.8, changefreq: 'monthly' },
   { path: '/growwise-blogs', priority: 0.85, changefreq: 'weekly' },
   { path: '/resources', priority: 0.85, changefreq: 'weekly' },
+  { path: '/resources/downloads', priority: 0.85, changefreq: 'weekly' },
 ]
 
 const coursePages: SitemapEntry[] = [
@@ -119,6 +120,9 @@ const campLandingHub: SitemapEntry = {
 
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
+  '/growwise-blogs/child-reads-but-doesnt-understand-passage',
+  '/growwise-blogs/why-is-my-child-struggling-with-fractions',
+  '/growwise-blogs/common-core-math-strategies-parents',
   '/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help',
   '/growwise-blogs/does-my-child-need-reading-help-checklist',
   '/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math',
