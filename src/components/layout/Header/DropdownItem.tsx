@@ -152,7 +152,7 @@ export default function DropdownItem({
     <div className="relative">
       {submenuWithHubLink && hubHref ? (
         <div className={`group flex items-center w-full ${linkClassName}`} {...rowMouseHandlers}>
-          <Link href={hubHref} onClick={onItemClick} className="flex flex-1 items-center gap-4 px-4 py-2 min-w-0">
+          <Link href={hubHref} prefetch={false} onClick={onItemClick} className="flex flex-1 items-center gap-4 px-4 py-2 min-w-0">
             {rowBody}
           </Link>
           {chevronButton}
@@ -160,6 +160,7 @@ export default function DropdownItem({
       ) : (
         <Link
           href={hasSubmenu ? '#' : createLocaleUrl(item.href)}
+          prefetch={false}
           onClick={hasSubmenu ? handleSubmenuOnlyClick : onItemClick}
           className={linkClassName}
           {...rowMouseHandlers}
@@ -238,6 +239,7 @@ function Submenu({
         {parentItem.href ? (
           <Link
             href={createLocaleUrl(parentItem.href)}
+            prefetch={false}
             onClick={onItemClick}
             className="block rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D]/40"
           >
@@ -399,6 +401,7 @@ function SubmenuItemRow({
       ) : (
         <Link
           href={createLocaleUrl(subItem.href)}
+          prefetch={false}
           onClick={onItemClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -504,6 +507,7 @@ function NestedSubmenuPanel({
               <Link
                 key={nested.key ?? nested.title}
                 href={createLocaleUrl(nested.href)}
+                prefetch={false}
                 onClick={onItemClick}
                 className={`group mx-2 my-0.5 rounded-xl transition-all duration-300 cursor-pointer block w-[calc(100%-1rem)] ${
                   isNestedActive

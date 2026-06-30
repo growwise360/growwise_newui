@@ -30,6 +30,32 @@ import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
 import { trackAssessmentFormSubmitted, trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
+import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
+import PartnerReferralCard from '@/components/shared/PartnerReferralCard';
+
+const partnerConfig = {
+  velp: {
+    name: "Velp",
+    displayName: "Welcome to the Velp Family!",
+    code: "VELP1",
+    benefit: "10% OFF your first paid program after assessment confirmation",
+    benefitShort: "10% OFF",
+  },
+  activityhero: {
+    name: "ActivityHero",
+    displayName: "Welcome ActivityHero Families!",
+    code: "HERO35",
+    benefit: "$35 OFF your first paid program after assessment confirmation",
+    benefitShort: "$35 OFF",
+  },
+  "6crickets": {
+    name: "6Crickets",
+    displayName: "Welcome 6Crickets Families!",
+    code: "6cricket10",
+    benefit: "10% OFF your first paid program after assessment confirmation",
+    benefitShort: "10% OFF",
+  },
+} as const;
 
 interface FormData {
   parentName: string;
@@ -43,6 +69,12 @@ interface FormData {
   scheduleDay: string;
   scheduleTime: string;
   hearAboutUs: string;
+  partnerName?: string;
+  partnerCode?: string;
+  partnerBenefit?: string;
+  utm_source?: string;
+  utm_campaign?: string;
+  landingUrl?: string;
 }
 
 const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
@@ -65,7 +97,7 @@ const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
 };
 
 const DEFAULT_ASSESSMENT_HEADLINE =
-  'Advanced After-School Math & English Enrichment (Grades 1-12).';
+  'Advanced Math & English Readiness Assessment for Grades 1-12.';
 
 const ASSESSMENT_CALENDLY_URL =
   process.env.NEXT_PUBLIC_ASSESSMENT_CALENDLY_URL ||
@@ -79,6 +111,8 @@ export default function BookAssessmentPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const communitySlug = searchParams.get('community') || '';
+  const partnerParam = searchParams.get('partner') || '';
+  const validPartner = partnerParam && partnerConfig[partnerParam as keyof typeof partnerConfig] ? partnerConfig[partnerParam as keyof typeof partnerConfig] : null;
   const neighborhood = NEIGHBORHOODS[communitySlug] || {
     name: 'Dublin',
     headline: DEFAULT_ASSESSMENT_HEADLINE,
@@ -115,9 +149,15 @@ export default function BookAssessmentPageClient() {
       mode: '',
       scheduleDay: '',
       scheduleTime: '',
-      hearAboutUs: '',
+      hearAboutUs: validPartner ? validPartner.name : '',
+      partnerName: validPartner ? validPartner.name : undefined,
+      partnerCode: validPartner ? validPartner.code : undefined,
+      partnerBenefit: validPartner ? validPartner.benefit : undefined,
+      utm_source: validPartner ? 'partner' : undefined,
+      utm_campaign: validPartner ? partnerParam : undefined,
+      landingUrl: typeof window !== 'undefined' ? window.location.href : undefined,
     }),
-    []
+    [validPartner, partnerParam]
   );
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -286,6 +326,12 @@ export default function BookAssessmentPageClient() {
         mode: formData.mode || 'Flexible',
         schedule: scheduleCombined,
         hearAboutUs: formData.hearAboutUs,
+        partnerName: formData.partnerName,
+        partnerCode: formData.partnerCode,
+        partnerBenefit: formData.partnerBenefit,
+        utm_source: formData.utm_source,
+        utm_campaign: formData.utm_campaign,
+        landingUrl: formData.landingUrl,
         notes,
         agreeToCommunications,
         recaptchaToken: recaptchaToken || undefined,
@@ -440,10 +486,12 @@ export default function BookAssessmentPageClient() {
           <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-to-br from-[#F16112]/10 to-transparent rounded-full blur-3xl"></div>
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Partner Referral Card */}
+          {validPartner && <PartnerReferralCard partner={validPartner} />}
           <div className="text-center mb-12">
             <Badge className="mb-6 bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white border-0 px-8 py-3 shadow-lg">
               <Sparkles className="w-5 h-5 mr-2" />
-              100% Free - No Credit Card Required
+              Complimentary Readiness Review
             </Badge>
             <h1
               id="book-assessment-hero-h1"
@@ -452,13 +500,13 @@ export default function BookAssessmentPageClient() {
               {neighborhood.headline}
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Capped at 8 students per class | 4564 Dublin Blvd
+              Placement insight, skill-gap diagnosis, and a clear next academic move | 4564 Dublin Blvd
             </p>
           </div>
           <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
               ['Takes 30 seconds', '4 details plus consent'],
-              ['No commitment', 'Free first-step guidance'],
+              ['No enrollment pressure', 'Start with the academic standard'],
               ['Clear next step', 'We confirm timing with you'],
             ].map(([title, text]) => (
               <div key={title} className="rounded-xl border border-[#1F396D]/10 bg-white px-4 py-3 text-center shadow-sm">
@@ -574,6 +622,41 @@ export default function BookAssessmentPageClient() {
                       </div>
                     </div>
 
+                    <div className="space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#1F396D]/5 to-[#F16112]/5 rounded-xl md:rounded-2xl border-2 border-[#1F396D]/10">
+                      <div className="flex items-center gap-2 sm:gap-3 pb-3 md:pb-4 border-b-2 border-[#1F396D]/20">
+                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#1F396D] to-[#29335C] rounded-lg md:rounded-xl"><User className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></div>
+                        <div><h3 className="text-gray-900 text-lg sm:text-xl">How Did You Hear About Us?</h3><p className="text-xs sm:text-sm text-gray-500">So we can credit the right community path</p></div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="hearAboutUs" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><User className="w-4 h-4 text-[#F16112]" />Source <span className="text-gray-400 text-xs">(optional)</span></Label>
+                        <Select
+                          onValueChange={(value) => handleInputChange('hearAboutUs', value)}
+                          value={formData.hearAboutUs || undefined}
+                        >
+                          <SelectTrigger
+                            id="hearAboutUs"
+                            data-testid="assessment-hear-about-us-trigger"
+                            className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl hover:border-gray-400 transition-all h-12 md:h-14 text-sm sm:text-base"
+                          >
+                            <SelectValue placeholder="Select how you heard about us" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
+                            <SelectItem value="Not provided">Not provided</SelectItem>
+                            {validPartner && (
+                              <SelectItem value={validPartner.name}>{validPartner.name}</SelectItem>
+                            )}
+                            <SelectItem value="Google Search">Google Search</SelectItem>
+                            <SelectItem value="Social Media">Social Media</SelectItem>
+                            <SelectItem value="Friend/Family Referral">Friend/Family Referral</SelectItem>
+                            <SelectItem value="School Recommendation">School Recommendation</SelectItem>
+                            <SelectItem value="Door Hanger">Door Hanger</SelectItem>
+                            <SelectItem value="NextDoor">NextDoor</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
                     <FormPrivacyConsent
                       checkboxId="agreeToCommunications"
                       checked={agreeToCommunications}
@@ -676,13 +759,13 @@ export default function BookAssessmentPageClient() {
                         ) : (
                           <>
                             <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
-                            Request Free Assessment Call
+                            Request Readiness Assessment Call
                             <Sparkles className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform" />
                           </>
                         )}
                       </Button>
                       <p className="mt-3 text-center text-xs text-slate-500">
-                        We&apos;ll call or text within 24 hours. No payment. No commitment.
+                        We&apos;ll call or text within 24 hours. No payment required.
                       </p>
                       {errorMessage && (
                         <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
@@ -786,6 +869,8 @@ export default function BookAssessmentPageClient() {
         </div>
       </section>
 
+      <PartnerTrustStrip />
+
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -823,9 +908,9 @@ export default function BookAssessmentPageClient() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div>
             <h2 className="text-white mb-6 text-4xl lg:text-5xl">Ready to Unlock Your Child's Potential?</h2>
-            <p className="text-white/90 mb-10 text-xl leading-relaxed">Book a free assessment today and get personalized insights into your child's academic journey</p>
+            <p className="text-white/90 mb-10 text-xl leading-relaxed">Book a readiness assessment and get a clearer view of your child&apos;s academic path.</p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Button onClick={scrollToForm} className="bg-white text-[#1F396D] hover:bg-gray-100 px-10 py-7 rounded-2xl shadow-2xl hover:shadow-xl transition-all duration-200 hover:scale-105 group text-lg"><Calendar className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />Book a Free Assessment<ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" /></Button>
+              <Button onClick={scrollToForm} className="bg-white text-[#1F396D] hover:bg-gray-100 px-10 py-7 rounded-2xl shadow-2xl hover:shadow-xl transition-all duration-200 hover:scale-105 group text-lg"><Calendar className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />Book Readiness Assessment<ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" /></Button>
               <Button variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-7 rounded-2xl transition-all duration-200 text-lg backdrop-blur-xl"><PhoneIcon className="w-5 h-5 mr-2" />{CONTACT_INFO.phone}</Button>
             </div>
           </div>

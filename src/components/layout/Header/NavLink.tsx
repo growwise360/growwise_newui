@@ -35,6 +35,7 @@ export default function NavLink({ item, isActive, createLocaleUrl }: NavLinkProp
     <div className="relative group">
       <Link
         href={createLocaleUrl(item.href)}
+        prefetch={false}
         className={`header-navlink whitespace-nowrap ${
           isActive
             ? 'bg-[#1F396D] text-white shadow-lg'

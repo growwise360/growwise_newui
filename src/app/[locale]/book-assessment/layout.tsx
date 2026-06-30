@@ -9,7 +9,7 @@ import { CONTACT_INFO } from '@/lib/constants'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const metadata = generateMetadataFromPath('/book-assessment', locale)
-  return metadata || { title: 'Book Assessment | GrowWise', description: 'Book your free assessment' }
+  return metadata || { title: 'Book Readiness Assessment | GrowWise', description: 'Book your GrowWise readiness assessment' }
 }
 
 export default async function BookAssessmentLayout({
@@ -26,10 +26,10 @@ export default async function BookAssessmentLayout({
     '@context': 'https://schema.org',
     '@type': 'Service',
     '@id': absoluteSiteUrl('/book-assessment#service', locale, baseUrl),
-    name: 'Free Academic Assessment',
+    name: 'GrowWise Readiness Assessment',
     description:
-      "Book a free academic assessment at GrowWise in Dublin, CA. We evaluate your child's current level in Math, English, or STEAM and recommend the right next step.",
-    serviceType: 'Academic Assessment',
+      "Book a GrowWise readiness assessment in Dublin, CA. We evaluate your child's current level in Math, English, or STEAM and recommend the right next step.",
+    serviceType: 'Academic Readiness Assessment',
     provider: {
       '@type': 'EducationalOrganization',
       name: 'GrowWise',
@@ -56,7 +56,7 @@ export default async function BookAssessmentLayout({
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-      description: 'Complimentary academic assessment',
+      description: 'Complimentary academic readiness assessment',
     },
     url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
   }

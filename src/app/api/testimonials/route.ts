@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getBackendBaseUrlForProxy } from '@/lib/config';
 
-/** Slightly above Express axios timeout to backend Google call so the proxy does not hang indefinitely. */
-const PROXY_TO_BACKEND_MS = 12_000;
+/** Keep local dev responsive when the Express backend is not running. */
+const PROXY_TO_BACKEND_MS = process.env.NODE_ENV === 'development' ? 800 : 12_000;
 
 /**
  * When Express returns 5xx, the browser still shows a red 500 on /api/testimonials.
