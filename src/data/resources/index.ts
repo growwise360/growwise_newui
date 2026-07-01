@@ -6,6 +6,12 @@ import {
   READING_PROGRAM_GRADES_1_2_DUBLIN_CA_PATH,
   SMALL_GROUP_TUTORING_VS_ONE_ON_ONE_PATH,
 } from '@/data/resources/additional-summer-guides'
+import {
+  BACK_TO_SCHOOL_MATH_ASSESSMENT_DUBLIN_CA_PATH,
+  ENGLISH_TUTOR_VS_READING_TUTOR_VS_WRITING_CLASS_PATH,
+  KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_PATH,
+  MIDDLE_SCHOOL_MATH_READINESS_CHECKLIST_PATH,
+} from '@/data/resources/august-math-english-guides'
 import { CARELESS_MATH_MISTAKES_PATH } from '@/data/resources/careless-math-mistakes-copy'
 import { HOW_TO_CHOOSE_SUMMER_CAMP_PATH } from '@/data/resources/how-to-choose-summer-camp'
 import { WHY_GRADES_PATH } from '@/data/resources/why-grades-hide-learning-gaps-copy'
@@ -25,6 +31,10 @@ import { READINESS_CHECKLIST_PATH } from '@/data/resources/readiness-checklist'
 
 /** Resource article paths for sitemap and routing registry. */
 export const RESOURCE_ARTICLE_PATHS = [
+  BACK_TO_SCHOOL_MATH_ASSESSMENT_DUBLIN_CA_PATH,
+  ENGLISH_TUTOR_VS_READING_TUTOR_VS_WRITING_CLASS_PATH,
+  KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_PATH,
+  MIDDLE_SCHOOL_MATH_READINESS_CHECKLIST_PATH,
   READINESS_CHECKLIST_PATH,
   READING_FLUENCY_VS_COMPREHENSION_PATH,
   CARELESS_MATH_MISTAKES_PATH,

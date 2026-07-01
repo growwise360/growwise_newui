@@ -18,6 +18,7 @@ export function WhenToStartSatPrepPage() {
   const mathFoundationsHref = publicPath('/camps/summer-math-foundations-dublin-ca', locale)
   const algebraGetReadyHref = publicPath('/camps/summer-algebra-dublin-ca', locale)
   const highSchoolMathHref = publicPath('/academic/math/high-school', locale)
+  const tutoringDublinHref = publicPath('/resources/tutoring-dublin-ca', locale)
 
   return (
     <ResourceArticlePage
@@ -81,6 +82,24 @@ export function WhenToStartSatPrepPage() {
         beginning test prep. Fixing a{' '}
         <Link href={mathCoursesHref}>foundation gap in math</Link> is almost always faster than adding test
         strategy on top of an unfixed gap.
+      </p>
+
+      <h2>How should Dublin and Tri-Valley families plan SAT prep?</h2>
+
+      <p>
+        For Dublin, Pleasanton, San Ramon, and Livermore students, SAT prep has to fit around school-year math,
+        finals, AP classes, activities, and summer travel. That is why the most useful plan is usually not a single
+        crash course. It is a timeline that starts with a diagnostic, fixes the largest math or reading gaps first,
+        and then moves into SAT-specific timing and strategy.
+      </p>
+
+      <p>
+        Families comparing local options should ask whether the program covers both SAT Math and Reading/Writing,
+        whether students take full timed practice tests, and whether the tutor can explain which school-year skills
+        are blocking score growth. Our{' '}
+        <Link href={satPrepHref}>SAT prep program in Dublin, CA</Link> follows that sequence, and our{' '}
+        <Link href={tutoringDublinHref}>Dublin tutoring guide</Link> explains how to compare diagnostic-first
+        programs with homework help or worksheet-based practice.
       </p>
 
       <h2>When should students start SAT prep by grade?</h2>

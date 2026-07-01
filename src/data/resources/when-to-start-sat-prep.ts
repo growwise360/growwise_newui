@@ -9,9 +9,9 @@ export const WHEN_TO_START_SAT_PREP_META: ResourceArticleMeta = {
   h1: 'When Should My Child Start SAT Prep? A Grade-by-Grade Answer',
   readTime: '4 min read',
   updated: 'Updated May 2026',
-  title: 'When Should My Child Start SAT Prep? Grade-by-Grade Guide | GrowWise',
+  title: 'SAT Prep Timeline by Grade | Parent Guide',
   description:
-    "Grade 8, 9, or 10? Most parents ask too late. Here's the honest, grade-by-grade answer — including the one thing most SAT prep programs don't check first.",
+    'Grade 8, 9, or 10? See when SAT prep should start, what to fix first, and how parents can plan a smarter test prep timeline.',
   keywords:
     'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
   datePublished: '2026-05-01',
@@ -80,5 +80,16 @@ export const WHEN_TO_START_SAT_PREP_RELATED: readonly ResourceArticleRelated[] =
   {
     href: '/resources/careless-math-mistakes',
     title: 'Why Kids Make Careless Math Mistakes (And How to Fix It)',
+    description: 'A useful companion if SAT math errors are coming from habits rather than content gaps.',
+  },
+  {
+    href: '/courses/sat-prep',
+    title: 'SAT Prep Tutoring in Dublin, CA',
+    description: 'Diagnostic-first SAT support for students who are ready for focused test preparation.',
+  },
+  {
+    href: '/academic/math/high-school',
+    title: 'High School Math Programs',
+    description: 'Close Algebra, Geometry, and Precalculus gaps before layering on test strategy.',
   },
 ] as const

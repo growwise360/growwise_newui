@@ -61,6 +61,21 @@ const floatingMathSymbols = [
   { symbol: '∇', left: 86, top: 8, duration: 9.1, size: 22 },
 ];
 
+const augustHighSchoolReadiness = [
+  {
+    course: 'Algebra 1 and IM1',
+    check: 'Linear equations, graphing, systems, proportions, and word-problem setup',
+  },
+  {
+    course: 'Geometry',
+    check: 'Algebra fluency, angle relationships, proof language, and visual reasoning',
+  },
+  {
+    course: 'Algebra 2 and IM3',
+    check: 'Functions, factoring, radicals, rational expressions, and multi-step test stamina',
+  },
+] as const;
+
 const HighSchoolMathPage: React.FC = () => {
   const locale = useLocale();
   const { addItem } = useCart();
@@ -527,6 +542,45 @@ const HighSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
+      <section className="bg-white py-14 lg:py-20" aria-labelledby="high-school-august-readiness-heading">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+            August readiness for high school math
+          </p>
+          <h2 id="high-school-august-readiness-heading" className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+            Algebra, Geometry, and IM courses punish small gaps quickly.
+          </h2>
+          <p className="text-gray-600 leading-relaxed max-w-3xl mb-8">
+            Parents searching for an Algebra 2 tutor, Geometry tutor, or high school math tutor near Dublin should
+            check the prerequisite skills before the first unit test. The goal is to find the one or two missing skills
+            that can make a whole course feel harder than it should.
+          </p>
+          <div className="grid gap-5 md:grid-cols-3">
+            {augustHighSchoolReadiness.map((item) => (
+              <article key={item.course} className="rounded-xl border border-gray-200 bg-gray-50 p-5 shadow-sm">
+                <h3 className="text-lg font-bold text-[#1F396D] mb-2">{item.course}</h3>
+                <p className="text-sm leading-relaxed text-gray-600">{item.check}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={publicPath('/resources/back-to-school-math-assessment-dublin-ca', locale)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-6 py-3 text-sm font-semibold text-white hover:bg-[#162850]"
+            >
+              Read the high school math readiness guide
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href={publicPath('/resources/math-tutoring-options-dublin-ca', locale)}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-6 py-3 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+            >
+              Compare math tutoring options
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA: Explore Summer Intensive Programs */}
       <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] py-12 lg:py-16">
         <div className="max-w-5xl mx-auto px-4 lg:px-8 text-center">
@@ -563,7 +617,6 @@ const HighSchoolMathPage: React.FC = () => {
                   <button
                     key={situation.id}
                     type="button"
-                    role="listitem"
                     aria-pressed={isSelected}
                     onClick={() => setSelectedHsJtbdId(situation.id)}
                     className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${

@@ -828,6 +828,61 @@ export default function SummerCampPage() {
           </div>
         </section>
 
+        {/* Local intent guide: helps families choose the right Dublin summer camp path */}
+        <section className="border-b border-slate-200 bg-white py-12 md:py-16" aria-labelledby="summer-camp-dublin-guide-heading">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 id="summer-camp-dublin-guide-heading" className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
+              How to choose a summer camp in Dublin, CA
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-700 md:text-lg">
+              The best summer camp for your child depends on the goal. Some students need a creative STEAM project,
+              some need a math or reading reset before August, and some need a full-day schedule that keeps them
+              active while still building skills.
+            </p>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-heading text-lg font-bold text-slate-900">For academic readiness</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  Choose reading, writing, math foundations, Algebra, Geometry, or IM readiness if your child needs
+                  a stronger start before the new school year.
+                </p>
+                <Link
+                  href={publicPath('/camps/academic-summer-programs-dublin-ca', locale)}
+                  className="mt-3 inline-flex font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  See academic summer programs
+                </Link>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-heading text-lg font-bold text-slate-900">For coding and STEAM</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  Choose robotics, AI, game development, or Python-style projects if your child wants hands-on
+                  building with a coach instead of passive screen time.
+                </p>
+                <Link
+                  href={publicPath('/steam/game-development', locale)}
+                  className="mt-3 inline-flex font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  Explore game development
+                </Link>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-heading text-lg font-bold text-slate-900">For local Dublin families</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  GrowWise summer camps run at our Dublin center for families from Dublin, Pleasanton, San Ramon,
+                  Livermore, and nearby Tri-Valley communities.
+                </p>
+                <Link
+                  href={publicPath('/dublin-ca', locale)}
+                  className="mt-3 inline-flex font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  View the Dublin center
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Conversion after program cards: reserve vs camp guide */}
         <section className="border-b border-slate-200 bg-white py-14 md:py-20" aria-labelledby="final-cta-heading">
           <div className="mx-auto max-w-[1100px] px-10 text-center md:px-12">

@@ -1,0 +1,132 @@
+cat > /tmp/indexnow_submit_all.py <<'PY'
+import sys
+import urllib.request
+import xml.etree.ElementTree as ET
+from urllib.parse import urlparse
+import subprocess
+
+ROOT_SITEMAP = "https://growwiseschool.org/sitemap.xml"
+CANONICAL_HOST = "growwiseschool.org"
+BATCH_SIZE = 100
+
+EXCLUDE_PREFIXES = (
+    "/hi",
+    "/zh",
+    "/es",
+    "/api",
+    "/_next",
+)
+
+submit = "--submit" in sys.argv
+check_status = "--check-status" in sys.argv
+
+seen_sitemaps = set()
+final_urls = set()
+
+def local_name(tag):
+    return tag.split("}", 1)[-1] if "}" in tag else tag
+
+def direct_child_text(node, child_name):
+    for child in list(node):
+        if local_name(child.tag) == child_name and child.text:
+            return child.text.strip()
+    return None
+
+def fetch_xml(url):
+    with urllib.request.urlopen(url, timeout=30) as r:
+        return ET.fromstring(r.read())
+
+def is_allowed_url(loc):
+    parsed = urlparse(loc)
+
+    if parsed.scheme != "https":
+        return False
+    if parsed.netloc != CANONICAL_HOST:
+        return False
+    if parsed.query or parsed.fragment:
+        return False
+    if any(parsed.path.startswith(prefix) for prefix in EXCLUDE_PREFIXES):
+        return False
+
+    return True
+
+def normalize_path(loc):
+    path = urlparse(loc).path or "/"
+    if path != "/":
+        path = path.rstrip("/")
+    return path
+
+def crawl_sitemap(sitemap_url):
+    if sitemap_url in seen_sitemaps:
+        return
+
+    seen_sitemaps.add(sitemap_url)
+    root = fetch_xml(sitemap_url)
+    root_type = local_name(root.tag)
+
+    if root_type == "sitemapindex":
+        for sitemap_node in list(root):
+            if local_name(sitemap_node.tag) != "sitemap":
+                continue
+
+            loc = direct_child_text(sitemap_node, "loc")
+            if loc:
+                crawl_sitemap(loc)
+
+    elif root_type == "urlset":
+        for url_node in list(root):
+            if local_name(url_node.tag) != "url":
+                continue
+
+            loc = direct_child_text(url_node, "loc")
+            if loc and is_allowed_url(loc):
+                final_urls.add(loc)
+
+def status_ok(path):
+    url = f"https://{CANONICAL_HOST}{path}"
+    req = urllib.request.Request(url, method="HEAD")
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return 200 <= r.status < 300
+    except Exception:
+        return False
+
+crawl_sitemap(ROOT_SITEMAP)
+
+paths = sorted({normalize_path(url) for url in final_urls})
+
+if check_status:
+    print("Checking HTTP status for each URL...")
+    paths = [path for path in paths if status_ok(path)]
+
+print(f"\nFound {len(paths)} canonical URLs ready for IndexNow submission.\n")
+
+for path in paths:
+    print(path)
+
+if not submit:
+    print("\nDRY RUN ONLY. Nothing submitted.")
+    print("To submit, run:")
+    print("python3 /tmp/indexnow_submit_all.py --submit")
+    print("\nFor extra safety before submit, run:")
+    print("python3 /tmp/indexnow_submit_all.py --check-status")
+    sys.exit(0)
+
+for i in range(0, len(paths), BATCH_SIZE):
+    batch = paths[i:i + BATCH_SIZE]
+
+    cmd = ["npm", "run", "indexnow:submit", "--"]
+    for path in batch:
+        cmd.extend(["--url", path])
+
+    print(f"\nSubmitting batch {i // BATCH_SIZE + 1}: {len(batch)} URLs")
+    subprocess.run(cmd, check=True)
+
+print("\nDone.")
+PY
+
+
+
+#python3 /tmp/indexnow_submit_all.py
+#python3 /tmp/indexnow_submit_all.py --submit
+#python3 /tmp/indexnow_submit_all.py --check-status

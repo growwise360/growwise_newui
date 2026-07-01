@@ -100,8 +100,8 @@ export default function Header() {
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 overflow-x-clip">
         <div className="header-mainrow lg:flex-nowrap">
           {/* Logo — flex-shrink-0 keeps the logo visible when nav is long */}
-          <div className="header-logo-wrap flex items-center">
-            <Link href={createLocaleUrlHelper('/')} className="cursor-pointer" aria-label="GrowWise home">
+          <div className="header-logo-wrap flex flex-col items-start justify-center">
+            <Link href={createLocaleUrlHelper('/')} prefetch={false} className="cursor-pointer" aria-label="GrowWise home">
               <Image
                 src="/assets/growwise-logo.png"
                 alt="GrowWise"
@@ -112,6 +112,10 @@ export default function Header() {
                 fetchPriority="low"
               />
             </Link>
+            <p className="header-logo-slogan" aria-label="Education First Always. business second.">
+              <span className="header-logo-slogan-primary">Education First Always.</span>
+              <span className="header-logo-slogan-secondary">business second.</span>
+            </p>
           </div>
 
           {/* Desktop Navigation */}

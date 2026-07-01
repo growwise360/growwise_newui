@@ -45,6 +45,16 @@ export function resourceCategoryTagClass(category: ResourceCategory): string {
 
 export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
   {
+    id: 'study-plans-downloads',
+    category: 'parent-resources',
+    categoryLabel: 'PARENT RESOURCES',
+    title: 'Free Math & English Study Plans',
+    description:
+      'Download starter resources and create a simple 4-week practice plan for Math or English without a login.',
+    readTime: 'Interactive',
+    href: '/resources/downloads',
+  },
+  {
     id: 'math-reading-readiness-checklist',
     category: 'parent-resources',
     categoryLabel: 'PARENT RESOURCES',
@@ -63,6 +73,46 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
       'Interactive assessment to help your child discover their learning style and identify knowledge gaps quickly.',
     readTime: 'Interactive',
     href: '/self-check',
+  },
+  {
+    id: 'back-to-school-math-assessment-dublin-ca',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'Back-to-School Math Assessment Guide for Dublin, CA Families',
+    description:
+      'Before August, check the math skills your child needs for the next grade, from fractions and ratios to Algebra, Geometry, and IM1.',
+    readTime: '6 min read',
+    href: '/resources/back-to-school-math-assessment-dublin-ca',
+  },
+  {
+    id: 'english-tutor-vs-reading-tutor-vs-writing-class',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'English Tutor, Reading Tutor, or Writing Class: Which Does Your Child Need?',
+    description:
+      'Compare English tutoring, reading tutoring, and writing classes so you can choose the right support before the school-year rush.',
+    readTime: '6 min read',
+    href: '/resources/english-tutor-vs-reading-tutor-vs-writing-class',
+  },
+  {
+    id: 'math-tutoring-options-dublin-ca',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'Kumon vs. Mathnasium vs. Private Tutor: How Dublin Parents Should Compare Math Options',
+    description:
+      'A practical comparison framework for Dublin families choosing back-to-school math support.',
+    readTime: '7 min read',
+    href: '/resources/math-tutoring-options-dublin-ca',
+  },
+  {
+    id: 'middle-school-math-readiness-checklist',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'Middle School Math Readiness Checklist for Grades 6-8',
+    description:
+      'A practical August checklist for fractions, ratios, equations, graphing, word problems, and IM1 readiness.',
+    readTime: '6 min read',
+    href: '/resources/middle-school-math-readiness-checklist',
   },
   {
     id: 'reading-fluency-vs-comprehension',
@@ -260,7 +310,7 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     id: 'child-struggles-with-writing-dublin-ca',
     category: 'academic',
     categoryLabel: 'ACADEMIC',
-    title: 'Does Your Child Have a Writing Problem — or a Confidence Problem?',
+    title: 'Why Your Child Struggles With Writing: Skill Gap or Confidence Gap?',
     description:
       'Blank-page freeze, short answers, and writing avoidance can signal skill gaps, confidence gaps, or both.',
     readTime: '6 min read',

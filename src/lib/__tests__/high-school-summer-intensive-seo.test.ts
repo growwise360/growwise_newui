@@ -49,12 +49,18 @@ describe('high-school-summer-intensive-dublin-ca SEO', () => {
     expect(source).toContain('if (!open) closeSummerEnrollmentModal()');
   });
 
-  it('header mock includes high school intensive nav item', () => {
+  it('header mock no longer promotes high school intensive in the seasonal nav', () => {
     const header = JSON.parse(
       fs.readFileSync(path.join(UI_ROOT, '..', 'public/api/mock/en/header.json'), 'utf8'),
     ) as { menuItems: Array<{ key: string; dropdown?: { items: Array<{ key: string }> } }> };
-    const camps = header.menuItems.find((m) => m.key === 'camps');
-    const keys = camps?.dropdown?.items.map((i) => i.key) ?? [];
-    expect(keys).toContain('highSchoolSummerIntensive');
+    const backToSchool = header.menuItems.find((m) => m.key === 'backToSchool');
+    const keys = backToSchool?.dropdown?.items.map((i) => i.key) ?? [];
+    expect(keys).toEqual([
+      'bookAssessment',
+      'readinessSelfCheck',
+      'mathTutoring',
+      'englishSupport',
+      'satPrep',
+    ]);
   });
 });

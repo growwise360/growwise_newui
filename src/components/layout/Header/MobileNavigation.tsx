@@ -58,6 +58,7 @@ function renderMobileSubmenuItem(
                 <Link
                   key={nested.key ?? nested.title}
                   href={nestedHref}
+                  prefetch={false}
                   className={`block py-2 px-2 text-sm transition-colors duration-200 rounded-lg ${
                     isLinkActive
                       ? 'text-[#1F396D] bg-[#1F396D]/10 font-medium'
@@ -86,6 +87,7 @@ function renderMobileSubmenuItem(
     <Link
       key={itemKey}
       href={href}
+      prefetch={false}
       className={`block py-2 px-2 text-sm transition-colors duration-200 rounded-lg ${
         isLinkActive
           ? 'text-[#1F396D] bg-[#1F396D]/10 font-medium'
@@ -182,6 +184,7 @@ export default function MobileNavigation({
         {showCart && (
           <Link
             href={createLocaleUrl('/cart')}
+            prefetch={false}
             className="relative inline-flex items-center justify-center min-h-[44px] min-w-[44px] text-gray-700 hover:text-[#F16112] transition-colors rounded-lg hover:bg-gray-50"
             onClick={onCloseMobileMenu}
             aria-label={cartItemCount > 0 ? `Shopping cart, ${cartItemCount} items` : 'Shopping cart'}
@@ -318,6 +321,7 @@ export default function MobileNavigation({
                                         >
                                           <Link
                                             href={createLocaleUrl(dropdownItem.href)}
+                                            prefetch={false}
                                             className={`flex-1 py-2 px-2 text-sm transition-colors duration-200 text-left ${
                                               isFlyoutActive
                                                 ? 'text-[#1F396D] font-medium'
@@ -354,6 +358,7 @@ export default function MobileNavigation({
                                                 <Link
                                                   key={sub.key ?? sub.title}
                                                   href={subHref}
+                                                  prefetch={false}
                                                   className={`block py-2 px-2 text-sm transition-colors duration-200 rounded-lg ${
                                                     isLinkActive
                                                       ? 'text-[#1F396D] bg-[#1F396D]/10 font-medium'
@@ -377,6 +382,7 @@ export default function MobileNavigation({
                                     <Link
                                       key={dropdownItem.key}
                                       href={createLocaleUrl(dropdownItem.href)}
+                                      prefetch={false}
                                       className={`block py-2 px-2 text-sm transition-colors duration-200 rounded-lg ${
                                         isDropdownItemActive
                                           ? 'text-[#1F396D] bg-[#1F396D]/10 font-medium'
@@ -406,6 +412,7 @@ export default function MobileNavigation({
                           ) : (
                             <Link
                               href={createLocaleUrl(item.href)}
+                              prefetch={false}
                               className={`block font-medium py-3 px-2 transition-colors duration-200 rounded-lg ${
                                 isActive
                                   ? 'text-[#1F396D] bg-[#1F396D]/10'
@@ -432,6 +439,7 @@ export default function MobileNavigation({
 
               <Link
                 href={createLocaleUrl('/enroll')}
+                prefetch={false}
                 className="block w-full mt-6 px-6 py-3 rounded-full font-medium text-center transition-all duration-300 bg-[#F16112] text-white hover:bg-[#F1894F] shadow-lg"
                 onClick={onCloseMobileMenu}
               >
@@ -445,6 +453,7 @@ export default function MobileNavigation({
               <div className="mt-4 flex flex-row items-stretch gap-2">
                 <Link
                   href={createLocaleUrl('/student-login')}
+                  prefetch={false}
                   className="inline-flex min-w-0 flex-1 items-center justify-center px-4 py-3 rounded-full font-medium text-center transition-all duration-300 border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white"
                   onClick={onCloseMobileMenu}
                 >

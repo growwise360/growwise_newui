@@ -117,6 +117,30 @@ const situations = [
   },
 ]
 
+const augustEnglishSearchCards = [
+  {
+    title: 'Comparing English tutoring options?',
+    body:
+      'Parents searching Kumon, tutoring centers, reading tutors, or writing classes are usually deciding whether the problem is practice volume, comprehension, grammar, or writing structure. GrowWise starts with a diagnostic so the first month targets the right gap.',
+    href: '/resources/english-tutor-vs-reading-tutor-vs-writing-class',
+    cta: 'Compare English options',
+  },
+  {
+    title: 'Heading into a harder writing year?',
+    body:
+      'August is the window to strengthen paragraph structure, evidence, grammar, and vocabulary before essays and book reports start stacking up.',
+    href: '/academic/english/elementary',
+    cta: 'See elementary English support',
+  },
+  {
+    title: 'Need a reading or writing tutor near Dublin?',
+    body:
+      'For Dublin, Pleasanton, San Ramon, and Tri-Valley families, the question is not just “who tutors English?” It is whether the program can name the exact comprehension or writing blocker.',
+    href: '/book-assessment',
+    cta: 'Book English assessment',
+  },
+] as const
+
 const steps = [
   {
     eyebrow: 'Free',
@@ -229,15 +253,27 @@ const resources = [
   },
   {
     tag: 'Guide',
+    title: 'English Tutor vs. Reading Tutor vs. Writing Class',
+    body: 'Choose the right support before August by separating reading, comprehension, grammar, writing, and confidence gaps.',
+    href: '/resources/english-tutor-vs-reading-tutor-vs-writing-class',
+  },
+  {
+    tag: 'Guide',
     title: 'Reading Fluency vs. Reading Comprehension',
     body: 'Why a child who reads aloud smoothly may still struggle to explain what they read.',
     href: '/resources/reading-fluency-vs-comprehension',
   },
   {
     tag: 'Guide',
-    title: 'How to Build Homework Independence',
-    body: 'A practical system for fewer nightly battles without sitting through every problem.',
-    href: '/resources/homework-independence',
+    title: 'Why Your Child Struggles With Writing',
+    body: 'Blank-page freeze, short answers, weak paragraphs, and writing avoidance can signal different gaps.',
+    href: '/resources/child-struggles-with-writing-dublin-ca',
+  },
+  {
+    tag: 'Blog',
+    title: "Child Reads but Doesn't Understand",
+    body: 'A parent guide for the common gap between decoding words and understanding meaning.',
+    href: '/growwise-blogs/child-reads-but-doesnt-understand-passage',
   },
 ]
 
@@ -358,6 +394,31 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
                   <h3 className="mt-4 text-base font-black text-[#1F396D]">{title}</h3>
                   <p className="mt-2 text-xs font-bold uppercase tracking-[0.1em] text-[#F16112]">{symptom}</p>
                   <p className="mt-3 text-sm leading-relaxed text-slate-600">{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-14 md:px-12 md:py-20" aria-labelledby="august-english-search-heading">
+          <div className="mx-auto max-w-6xl">
+            <SectionIntro
+              eyebrow="August back-to-school searches"
+              title="Parents compare English tutors before the first essay gets assigned."
+              body="Searches for English tutor, reading tutor, writing classes, and tutoring centers rise before school starts. These pages need to answer what kind of English help the child actually needs."
+            />
+            <div className="grid gap-5 md:grid-cols-3">
+              {augustEnglishSearchCards.map((card) => (
+                <article key={card.title} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-lg font-black text-[#1F396D]">{card.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{card.body}</p>
+                  <Link
+                    href={publicPath(card.href, locale)}
+                    className="mt-5 inline-flex items-center gap-1 text-sm font-black text-[#F16112] hover:text-[#C45A1A]"
+                  >
+                    {card.cta}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
                 </article>
               ))}
             </div>
