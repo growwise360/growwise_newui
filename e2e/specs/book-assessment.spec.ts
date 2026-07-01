@@ -44,15 +44,8 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
     await page.getByLabel(/Email Address/i).fill('parent@example.com');
     await page.getByLabel(/Phone Number/i).fill('5551234567');
 
-    // WebKit can reset controlled inputs before hydration settles
-    const studentName = page.getByLabel(/Student Name/i);
-    for (let i = 0; i < 3; i++) {
-      await studentName.fill('Student Name');
-      if (await studentName.inputValue() === 'Student Name') break;
-    }
-    await expect(studentName).toHaveValue('Student Name');
-
     await selectOption(page, 'assessment-grade-trigger', /^Grade 5$/i, /Grade 5/i);
+    await selectOption(page, 'assessment-subject-interest-trigger', /^Math$/i, /Math/i);
 
     // No visible field-level validation errors before submit
     await expect(page.getByText(/Parent name is required|Email address is required|Phone number is invalid|Grade level is required|Consent is required/i)).toHaveCount(0);
