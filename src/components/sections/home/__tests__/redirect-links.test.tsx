@@ -75,17 +75,15 @@ describe('ProgramsSection redirect links (Grades 1-12 + STEAM)', () => {
       .closest('.mb-20');
     expect(k12Root).toBeTruthy();
 
-    const ctaLinks = within(k12Root as HTMLElement).getAllByRole('link', {
-      name: /^Start Learning$/i,
-    });
-    expect(ctaLinks).toHaveLength(k12.length);
-
-    k12.forEach((program, i) => {
+    k12.forEach((program) => {
       const url = program.ctaUrl ?? program.href;
       if (!url) {
         throw new Error(`Missing ctaUrl/href for program: ${program.title}`);
       }
-      expect(ctaLinks[i]).toHaveAttribute('href', publicPath(url, locale));
+      const cta = within(k12Root as HTMLElement).getByRole('link', {
+        name: program.ctaText || 'Enroll Now',
+      });
+      expect(cta).toHaveAttribute('href', publicPath(url, locale));
     });
   });
 
