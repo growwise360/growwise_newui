@@ -188,6 +188,23 @@ export function PythonVsScratchPage() {
 
       <p>When those signs appear, it&apos;s time for Python.</p>
 
+      <h2>What should parents look for in a coding class?</h2>
+
+      <p>
+        A good coding class should match the child&apos;s current stage instead of forcing every student into the
+        same tool. Younger students usually need visual projects and fast feedback. Older students need text-based
+        syntax, debugging habits, and enough structure to build real projects without getting stuck at the first
+        error.
+      </p>
+
+      <p>
+        Parents comparing coding classes for kids should ask whether students explain their logic, debug their own
+        code, and move from guided examples into independent projects. At GrowWise, younger coders usually begin
+        with <Link href={gameDevHref}>Scratch, Roblox, and game development projects</Link>, while students ready
+        for text-based programming move into <Link href={codingHref}>Python coding classes</Link>, AI projects, and
+        certification-oriented pathways.
+      </p>
+
       <h2>What GrowWise Offers</h2>
 
       <p>GrowWise teaches both — at the right stage for each child.</p>

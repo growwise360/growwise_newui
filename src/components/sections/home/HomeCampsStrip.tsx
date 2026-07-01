@@ -10,27 +10,27 @@ export function HomeCampsStrip() {
   const { trackCTAClick } = useButtonTracking();
 
   return (
-    <section className="home-camps-strip home-camps-strip-top" aria-label="Summer camps">
+    <section className="home-camps-strip home-camps-strip-top" aria-label="Back to school assessment offer">
       <div className="home-camps-strip-left">
-        <span className="home-camps-badge">Now Open</span>
-        <span>Summer Camps · Starting June 8 · Grades 1–12</span>
+        <span className="home-camps-badge">Back to School</span>
+        <span>Free Assessments Available Until July 31 · Grades 1–12</span>
       </div>
       <div className="home-camps-strip-right">
         <Link
-          href={publicPath('/camps/academic-summer-programs-dublin-ca', locale)}
+          href={publicPath('/book-assessment', locale)}
           className="home-camp-btn"
-          onClick={() => trackCTAClick('camps_academic_sprint_click', 'homepage_camps_strip')}
+          onClick={() => trackCTAClick('back_to_school_assessment_click', 'homepage_top_strip')}
         >
-          <span className="home-camp-btn-label home-camp-btn-label--desktop">Academic Sprint →</span>
-          <span className="home-camp-btn-label home-camp-btn-label--mobile">Academic →</span>
+          <span className="home-camp-btn-label home-camp-btn-label--desktop">Book Assessment →</span>
+          <span className="home-camp-btn-label home-camp-btn-label--mobile">Book →</span>
         </Link>
         <Link
-          href={publicPath('/camps/summer', locale)}
+          href={publicPath('/readinesschecklist', locale)}
           className="home-camp-btn-out"
-          onClick={() => trackCTAClick('camps_steam_coding_click', 'homepage_camps_strip')}
+          onClick={() => trackCTAClick('back_to_school_self_check_click', 'homepage_top_strip')}
         >
-          <span className="home-camp-btn-label home-camp-btn-label--desktop">STEAM Coding →</span>
-          <span className="home-camp-btn-label home-camp-btn-label--mobile">STEAM →</span>
+          <span className="home-camp-btn-label home-camp-btn-label--desktop">5-Minute Self-Check →</span>
+          <span className="home-camp-btn-label home-camp-btn-label--mobile">Self-Check →</span>
         </Link>
       </div>
     </section>

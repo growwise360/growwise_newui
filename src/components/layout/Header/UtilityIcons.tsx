@@ -34,6 +34,7 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
         {showCart && (
           <Link 
             href={createLocaleUrl('/cart')} 
+            prefetch={false}
             className="relative text-gray-700 hover:text-[#F16112] transition-colors"
             aria-label={cartItemCount > 0 ? `Shopping cart, ${cartItemCount} items` : 'Shopping cart'}
           >
@@ -47,15 +48,17 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
         )}
         <Link
           href={createLocaleUrl('/enroll')}
+          prefetch={false}
           onClick={handleEnrollClick}
           className="px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap bg-[#F16112] text-white hover:bg-[#F1894F] shadow-lg hover:shadow-xl xl:px-4"
         >
           {t('enroll')}
         </Link>
 
-        <div className="hidden 2xl:flex items-center gap-2">
+        <div className="hidden min-[1800px]:flex items-center gap-2">
           <Link
             href={createLocaleUrl('/student-login')}
+            prefetch={false}
             className="px-4 py-2 rounded-full text-sm font-medium border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white transition-all duration-300 whitespace-nowrap shadow-sm"
           >
             Student Login

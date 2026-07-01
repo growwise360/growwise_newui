@@ -7,6 +7,7 @@
 
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { logVisitorEventClient } from '@/lib/analytics/visitorEventsClient';
 
 interface PageTrackingWrapperProps {
   children: React.ReactNode;
@@ -80,6 +81,38 @@ export function PageTrackingWrapper({ children }: PageTrackingWrapperProps) {
       if (isDev) console.debug('[Analytics][gtag] event', 'page_view', pageViewParams);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const clickable = target?.closest('a,button');
+      if (!clickable) return;
+
+      const href = clickable instanceof HTMLAnchorElement ? clickable.getAttribute('href') || '' : '';
+      const text = clickable.textContent?.trim().toLowerCase() || '';
+      const metadata = {
+        href: href.slice(0, 300),
+        label: text.slice(0, 120),
+      };
+
+      if (href.startsWith('tel:')) {
+        logVisitorEventClient('phone_click', { metadata });
+        return;
+      }
+      if (href.startsWith('mailto:')) {
+        logVisitorEventClient('email_click', { metadata });
+        return;
+      }
+      if (`${href} ${text}`.toLowerCase().includes('orientation')) {
+        logVisitorEventClient('orientation_form_click', { metadata });
+      }
+    };
+
+    document.addEventListener('click', handleClick, { capture: true });
+    return () => document.removeEventListener('click', handleClick, { capture: true });
+  }, []);
 
   return <>{children}</>;
 }

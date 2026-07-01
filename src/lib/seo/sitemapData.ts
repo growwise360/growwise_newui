@@ -60,6 +60,8 @@ const corePages: SitemapEntry[] = [
   { path: '/programs', priority: 0.8, changefreq: 'monthly' },
   { path: '/growwise-blogs', priority: 0.85, changefreq: 'weekly' },
   { path: '/resources', priority: 0.85, changefreq: 'weekly' },
+  { path: '/resources/downloads', priority: 0.85, changefreq: 'weekly' },
+  { path: '/resources/student-corner', priority: 0.75, changefreq: 'monthly' },
 ]
 
 const coursePages: SitemapEntry[] = [

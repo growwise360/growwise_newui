@@ -11,11 +11,22 @@ import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
 import { sendFormSms } from '@/lib/twilioSms';
+import { logVisitorEvent } from '@/lib/analytics/visitorEventLogger';
 
 export const maxDuration = 60;
 
 const MAX_BODY_BYTES = 32 * 1024;
 const MAX_SUBJECT_TAGS = 24;
+
+function landingPagePath(value: string): string {
+  if (!value) return '';
+  try {
+    const url = new URL(value);
+    return `${url.pathname}${url.search}`;
+  } catch {
+    return value;
+  }
+}
 
 function escapeHtml(s: string): string {
   return s
@@ -41,6 +52,16 @@ interface AssessmentFormData {
   hearAboutUs?: string;
   notes?: string;
   sms_consent?: boolean;
+  /** Partner referral fields */
+  partnerName?: string;
+  partnerCode?: string;
+  partnerBenefit?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  landingUrl?: string;
+  visitor_id?: string;
+  session_id?: string;
 }
 
 export async function POST(request: Request) {
@@ -88,6 +109,15 @@ export async function POST(request: Request) {
       hearAboutUs,
       notes,
       sms_consent,
+      partnerName,
+      partnerCode,
+      partnerBenefit,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      landingUrl,
+      visitor_id,
+      session_id,
     }: AssessmentFormData = body as unknown as AssessmentFormData;
 
     const subjects = Array.isArray(subjectsRaw)
@@ -119,7 +149,16 @@ export async function POST(request: Request) {
       exceedsMax(mode, FIELD_MAX.shortText) ||
       exceedsMax(schedule, FIELD_MAX.shortText) ||
       (typeof hearAboutUs === 'string' && exceedsMax(hearAboutUs, FIELD_MAX.shortText)) ||
-      (typeof notes === 'string' && exceedsMax(notes, FIELD_MAX.longText))
+      (typeof notes === 'string' && exceedsMax(notes, FIELD_MAX.longText)) ||
+      (typeof partnerName === 'string' && exceedsMax(partnerName, FIELD_MAX.shortText)) ||
+      (typeof partnerCode === 'string' && exceedsMax(partnerCode, FIELD_MAX.shortText)) ||
+      (typeof partnerBenefit === 'string' && exceedsMax(partnerBenefit, FIELD_MAX.longText)) ||
+      (typeof utm_source === 'string' && exceedsMax(utm_source, FIELD_MAX.shortText)) ||
+      (typeof utm_medium === 'string' && exceedsMax(utm_medium, FIELD_MAX.shortText)) ||
+      (typeof utm_campaign === 'string' && exceedsMax(utm_campaign, FIELD_MAX.shortText)) ||
+      (typeof landingUrl === 'string' && exceedsMax(landingUrl, FIELD_MAX.longText)) ||
+      (typeof visitor_id === 'string' && exceedsMax(visitor_id, FIELD_MAX.shortText)) ||
+      (typeof session_id === 'string' && exceedsMax(session_id, FIELD_MAX.shortText))
     ) {
       return NextResponse.json(
         { success: false, error: 'One or more fields are too long' },
@@ -164,8 +203,16 @@ export async function POST(request: Request) {
       schedule: clip(schedule, FIELD_MAX.shortText),
       hearAboutUs: clip(typeof hearAboutUs === 'string' ? hearAboutUs : '', FIELD_MAX.shortText),
       notes: clip(typeof notes === 'string' ? notes : '', FIELD_MAX.longText),
+      partnerName: clip(typeof partnerName === 'string' ? partnerName : '', FIELD_MAX.shortText),
+      partnerCode: clip(typeof partnerCode === 'string' ? partnerCode : '', FIELD_MAX.shortText),
+      partnerBenefit: clip(typeof partnerBenefit === 'string' ? partnerBenefit : '', FIELD_MAX.longText),
+      utm_source: clip(typeof utm_source === 'string' ? utm_source : '', FIELD_MAX.shortText),
+      utm_medium: clip(typeof utm_medium === 'string' ? utm_medium : '', FIELD_MAX.shortText),
+      utm_campaign: clip(typeof utm_campaign === 'string' ? utm_campaign : '', FIELD_MAX.shortText),
+      landingUrl: clip(typeof landingUrl === 'string' ? landingUrl : '', FIELD_MAX.longText),
+      visitor_id: clip(typeof visitor_id === 'string' ? visitor_id : '', FIELD_MAX.shortText),
+      session_id: clip(typeof session_id === 'string' ? session_id : '', FIELD_MAX.shortText),
       timestamp: new Date().toISOString(),
-      ip: clientIpFrom(request),
     };
 
     const emailResult = await sendAssessmentEmails(assessmentData);
@@ -183,9 +230,25 @@ export async function POST(request: Request) {
       console.log('[assessment] submission ok', {
         emailDomain,
         grade: assessmentData.grade,
-        ip: assessmentData.ip,
         emailIds: emailResult.emailIds,
         userConfirmationSent: process.env.ENABLE_USER_CONFIRMATION_EMAIL === 'true',
+      });
+
+      await logVisitorEvent(request, {
+        event_name: 'assessment_form_submit',
+        page_path: landingPagePath(assessmentData.landingUrl),
+        selected_assessment_type: assessmentData.assessmentType,
+        referrer: request.headers.get('referer') ?? '',
+        utm_source: assessmentData.utm_source,
+        utm_medium: assessmentData.utm_medium,
+        utm_campaign: assessmentData.utm_campaign,
+        visitor_id: assessmentData.visitor_id,
+        session_id: assessmentData.session_id,
+        metadata: {
+          grade: assessmentData.grade,
+          subject_count: assessmentData.subjects.length,
+          source: 'assessment_api_success',
+        },
       });
 
       const { firstname, lastname } = splitFullName(assessmentData.parentName);
@@ -196,6 +259,12 @@ export async function POST(request: Request) {
         `Mode: ${assessmentData.mode}`,
         `Schedule: ${assessmentData.schedule}`,
         assessmentData.hearAboutUs ? `Heard about us: ${assessmentData.hearAboutUs}` : '',
+        assessmentData.partnerName ? `Partner: ${assessmentData.partnerName}` : '',
+        assessmentData.partnerCode ? `Partner code: ${assessmentData.partnerCode}` : '',
+        assessmentData.partnerBenefit ? `Partner benefit: ${assessmentData.partnerBenefit}` : '',
+        assessmentData.utm_source ? `UTM source: ${assessmentData.utm_source}` : '',
+        assessmentData.utm_medium ? `UTM medium: ${assessmentData.utm_medium}` : '',
+        assessmentData.utm_campaign ? `UTM campaign: ${assessmentData.utm_campaign}` : '',
         assessmentData.notes ? `Notes: ${assessmentData.notes}` : '',
         assessmentData.subjects?.length
           ? `Subjects: ${assessmentData.subjects.join(', ')}`
@@ -262,8 +331,16 @@ interface AssessmentPayload {
   schedule: string;
   hearAboutUs: string;
   notes: string;
+  partnerName: string;
+  partnerCode: string;
+  partnerBenefit: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  landingUrl: string;
+  visitor_id: string;
+  session_id: string;
   timestamp: string;
-  ip: string;
 }
 
 async function deliverAssessmentEmail(options: {
@@ -396,8 +473,7 @@ function generateBusinessAssessmentEmailHTML(data: AssessmentPayload) {
 
       <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
       <p style="color: #666; font-size: 12px;">
-        This email was generated from the GrowWise assessment booking form.<br>
-        IP Address: ${escapeHtml(data.ip)}
+        This email was generated from the GrowWise assessment booking form.
       </p>
     </div>
   `;
@@ -503,4 +579,3 @@ Visit our website: https://growwiseschool.org
 If you have any questions, please contact us at ${CONTACT_INFO.email}
   `;
 }
-

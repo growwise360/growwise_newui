@@ -7,7 +7,8 @@ import {
   Target, 
   BookMarked, 
   UserCheck,
-  Calendar
+  Calendar,
+  Download
 } from 'lucide-react';
 import { VariantStyles, type MenuItem } from './types';
 import { CONTACT_INFO } from '@/lib/constants';
@@ -66,7 +67,8 @@ export const ICON_MAP = {
   Target,
   BookMarked,
   UserCheck,
-  Calendar
+  Calendar,
+  Download
 } as const;
 
 // Variant-based styles
@@ -291,6 +293,15 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           icon: 'BookOpen',
           href: '/resources',
           gradient: 'from-[#1F396D] to-[#29335C]',
+        },
+        {
+          key: 'parentDownloads',
+          title: 'Parent Downloads',
+          description: 'Free Math and English study plans parents can use at home.',
+          icon: 'Download',
+          href: '/resources/downloads',
+          gradient: 'from-[#F16112] to-[#F1894F]',
+          badge: 'Free',
         },
         {
           key: 'blogs',

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,9 +29,43 @@ import { validatePhoneWithCountryCode, getPhonePlaceholder, getCallingCode, DIAL
 import { getRecaptchaToken } from '@/lib/recaptcha';
 import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
-import { trackAssessmentFormSubmitted, trackGenerateLead } from '@/lib/analytics/gtmEvents';
+import {
+  trackAssessmentFormStarted,
+  trackAssessmentFormSubmitted,
+  trackAssessmentFormViewed,
+  trackAssessmentOptionSelected,
+  trackAssessmentSubmitFailed,
+  trackAssessmentValidationError,
+  trackGenerateLead,
+} from '@/lib/analytics/gtmEvents';
 import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from '@/lib/analytics/utm';
+import { getVisitorEventIdentity, logVisitorEventClient } from '@/lib/analytics/visitorEventsClient';
 import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
+import PartnerReferralCard from '@/components/shared/PartnerReferralCard';
+
+const partnerConfig = {
+  velp: {
+    name: "Velp",
+    displayName: "Welcome to the Velp Family!",
+    code: "VELP1",
+    benefit: "10% OFF your first paid program after assessment confirmation",
+    benefitShort: "10% OFF",
+  },
+  activityhero: {
+    name: "ActivityHero",
+    displayName: "Welcome ActivityHero Families!",
+    code: "HERO35",
+    benefit: "$35 OFF your first paid program after assessment confirmation",
+    benefitShort: "$35 OFF",
+  },
+  "6crickets": {
+    name: "6Crickets",
+    displayName: "Welcome 6Crickets Families!",
+    code: "6cricket10",
+    benefit: "10% OFF your first paid program after assessment confirmation",
+    benefitShort: "10% OFF",
+  },
+} as const;
 
 interface FormData {
   parentName: string;
@@ -39,11 +74,20 @@ interface FormData {
   phone: string;
   studentName: string;
   grade: string;
+  subjectInterest: string;
+  mainConcern: string;
   assessmentType: string;
   mode: string;
   scheduleDay: string;
   scheduleTime: string;
   hearAboutUs: string;
+  partnerName?: string;
+  partnerCode?: string;
+  partnerBenefit?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  landingUrl?: string;
 }
 
 const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
@@ -66,7 +110,61 @@ const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
 };
 
 const DEFAULT_ASSESSMENT_HEADLINE =
-  'Advanced After-School Math & English Enrichment (Grades 1-12).';
+  'Advanced Math & English Readiness Assessment for Grades 1-12.';
+
+const DEFAULT_ASSESSMENT_TYPE = 'Free 20-Minute Assessment';
+
+const ASSESSMENT_PATHS = [
+  {
+    type: DEFAULT_ASSESSMENT_TYPE,
+    badge: 'Free',
+    title: 'Free 20-Minute Assessment',
+    duration: '20 minutes',
+    ctaLabel: 'Book Free Assessment',
+    summary:
+      'Best for parents who want to understand if GrowWise is the right fit and get a quick next-step recommendation.',
+    bestFor: 'Quick fit check with a verbal next step.',
+    receives: ['Verbal gap summary', 'Recommended next step', 'No written report'],
+    checks: ['Current grade-level readiness', 'Visible skill gaps', 'Mistake patterns we can spot quickly'],
+    icon: Clock,
+  },
+  {
+    type: 'Full Gap Diagnostic',
+    badge: '$49',
+    title: '60-Minute Full Gap Diagnostic',
+    duration: '60 minutes',
+    ctaLabel: 'Book Full Diagnostic',
+    summary:
+      'Best for parents who want a deeper skill review, gap analysis, and next-step learning plan.',
+    bestFor: 'A deeper review with a written learning plan.',
+    receives: ['Written diagnostic report', 'Gap and pattern analysis', 'Specific learning plan'],
+    checks: ['Root causes behind mistakes', 'Missing foundations from earlier grades', 'Readiness for school curriculum'],
+    icon: FileText,
+  },
+] as const;
+
+const ASSESSMENT_PROCESS_STEPS = [
+  {
+    title: 'Start With Your Concern',
+    description: 'We begin with your child’s grade, subject, and what you are noticing at home or school.',
+  },
+  {
+    title: 'Check Core Skills',
+    description: 'We review key math, reading, writing, or English foundations based on grade level.',
+  },
+  {
+    title: 'Watch the Thinking Process',
+    description: 'We look at how your child solves problems, not just whether the answer is right or wrong.',
+  },
+  {
+    title: 'Find the Real Gaps',
+    description: 'We separate rushed mistakes from true concept gaps or missing foundations.',
+  },
+  {
+    title: 'Recommend the Next Step',
+    description: 'You receive a clear recommendation based on readiness, gaps, and learning needs.',
+  },
+] as const;
 
 const ASSESSMENT_CALENDLY_URL =
   process.env.NEXT_PUBLIC_ASSESSMENT_CALENDLY_URL ||
@@ -80,6 +178,8 @@ export default function BookAssessmentPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const communitySlug = searchParams.get('community') || '';
+  const partnerParam = searchParams.get('partner') || '';
+  const validPartner = partnerParam && partnerConfig[partnerParam as keyof typeof partnerConfig] ? partnerConfig[partnerParam as keyof typeof partnerConfig] : null;
   const neighborhood = NEIGHBORHOODS[communitySlug] || {
     name: 'Dublin',
     headline: DEFAULT_ASSESSMENT_HEADLINE,
@@ -100,7 +200,11 @@ export default function BookAssessmentPageClient() {
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+  const [hasTrackedFormStart, setHasTrackedFormStart] = useState(false);
+  const [hasTrackedFormView, setHasTrackedFormView] = useState(false);
   const [isExploreCoursesModalOpen, setIsExploreCoursesModalOpen] = useState(false);
+  const hasLoggedAssessmentPageView = useRef(false);
 
   // Default consent to true so users (and automated tests) are not blocked if they miss this single checkbox.
   const [agreeToCommunications, setAgreeToCommunications] = useState(true);
@@ -112,16 +216,29 @@ export default function BookAssessmentPageClient() {
       phone: '',
       studentName: '',
       grade: '',
-      assessmentType: '',
+      subjectInterest: '',
+      mainConcern: '',
+      assessmentType: DEFAULT_ASSESSMENT_TYPE,
       mode: '',
       scheduleDay: '',
       scheduleTime: '',
-      hearAboutUs: '',
+      hearAboutUs: validPartner ? validPartner.name : '',
+      partnerName: validPartner ? validPartner.name : undefined,
+      partnerCode: validPartner ? validPartner.code : undefined,
+      partnerBenefit: validPartner ? validPartner.benefit : undefined,
+      utm_source: validPartner ? 'partner' : undefined,
+      utm_medium: undefined,
+      utm_campaign: validPartner ? partnerParam : undefined,
+      landingUrl: typeof window !== 'undefined' ? window.location.href : undefined,
     }),
-    []
+    [validPartner, partnerParam]
   );
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -137,6 +254,34 @@ export default function BookAssessmentPageClient() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!hasMounted || hasLoggedAssessmentPageView.current) return;
+    hasLoggedAssessmentPageView.current = true;
+    logVisitorEventClient('assessment_page_view', {
+      selected_assessment_type: formData.assessmentType || DEFAULT_ASSESSMENT_TYPE,
+    });
+  }, [hasMounted, formData.assessmentType]);
+
+  useEffect(() => {
+    if (!hasMounted || hasTrackedFormView) return;
+    const formSection = document.getElementById('assessment-booking-form');
+    if (!formSection) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setHasTrackedFormView(true);
+          trackAssessmentFormViewed(formData.assessmentType || DEFAULT_ASSESSMENT_TYPE);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(formSection);
+    return () => observer.disconnect();
+  }, [hasMounted, hasTrackedFormView, formData.assessmentType]);
+
   const grades = [
     'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
     'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
@@ -144,6 +289,13 @@ export default function BookAssessmentPageClient() {
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    if (!hasTrackedFormStart && field !== 'assessmentType') {
+      setHasTrackedFormStart(true);
+      trackAssessmentFormStarted(formData.assessmentType || DEFAULT_ASSESSMENT_TYPE);
+      logVisitorEventClient('assessment_form_start', {
+        selected_assessment_type: formData.assessmentType || DEFAULT_ASSESSMENT_TYPE,
+      });
+    }
     
     if (formErrors[field]) {
       setFormErrors(prev => {
@@ -203,6 +355,10 @@ export default function BookAssessmentPageClient() {
       errors.grade = 'Grade level is required';
     }
 
+    if (!formData.subjectInterest.trim()) {
+      errors.subjectInterest = 'Subject interest is required';
+    }
+
     // Validate communication consent
     if (!agreeToCommunications) {
       errors.agreeToCommunications = t('commonForm.privacy.agreeError');
@@ -236,6 +392,7 @@ export default function BookAssessmentPageClient() {
             phone: 'phone',
             studentName: 'studentName',
             grade: 'grade',
+            subjectInterest: 'subjectInterest',
             assessmentType: 'assessmentType',
             mode: 'mode',
             scheduleDay: 'schedule-day',
@@ -251,6 +408,10 @@ export default function BookAssessmentPageClient() {
           }
         }
       }, 100);
+      trackAssessmentValidationError(
+        formData.assessmentType || DEFAULT_ASSESSMENT_TYPE,
+        Object.keys(validation.errors),
+      );
       return; // CRITICAL: Prevent form submission - don't set isSubmitting
     }
 
@@ -267,10 +428,14 @@ export default function BookAssessmentPageClient() {
       const scheduleCombined = 'Flexible - discuss during callback';
 
       const storedUtmNotes = getStoredUtmNotesLine();
+      const storedUtm = getStoredUtm();
+      const visitorIdentity = getVisitorEventIdentity();
       const notes = [
         storedUtmNotes,
         communitySlug && `Neighborhood: ${neighborhood.name}`,
         communitySlug && `Community slug: ${communitySlug}`,
+        formData.subjectInterest && `Subject interest: ${formData.subjectInterest}`,
+        formData.mainConcern && `Main concern: ${formData.mainConcern}`,
       ]
         .filter(Boolean)
         .join('\n');
@@ -282,13 +447,23 @@ export default function BookAssessmentPageClient() {
         phone: phoneValidation.e164 || formData.phone, // Use E.164 format if available
         studentName: formData.studentName.trim() || 'Not provided yet',
         grade: formData.grade,
-        subjects: [],
+        subjects: formData.subjectInterest ? [formData.subjectInterest] : [],
         assessmentType: formData.assessmentType || 'General Academic Assessment',
         mode: formData.mode || 'Flexible',
         schedule: scheduleCombined,
         hearAboutUs: formData.hearAboutUs,
+        partnerName: formData.partnerName,
+        partnerCode: formData.partnerCode,
+        partnerBenefit: formData.partnerBenefit,
+        utm_source: formData.utm_source || storedUtm?.utm_source,
+        utm_medium: formData.utm_medium || storedUtm?.utm_medium,
+        utm_campaign: formData.utm_campaign || storedUtm?.utm_campaign,
+        landingUrl: formData.landingUrl,
+        visitor_id: visitorIdentity.visitor_id,
+        session_id: visitorIdentity.session_id,
         notes,
         agreeToCommunications,
+        sms_consent: agreeToCommunications,
         recaptchaToken: recaptchaToken || undefined,
       };
 
@@ -303,7 +478,9 @@ export default function BookAssessmentPageClient() {
       const result = await response.json();
 
       if (!response.ok) {
-        setErrorMessage(result.error || result.message || `Server error (${response.status})`);
+        const message = result.error || result.message || `Server error (${response.status})`;
+        trackAssessmentSubmitFailed(assessmentData.assessmentType, message);
+        setErrorMessage(message);
         setIsSubmitting(false);
         return;
       }
@@ -313,16 +490,21 @@ export default function BookAssessmentPageClient() {
         trackGenerateLead('book_assessment', {
           form_name: 'book_assessment',
           assessment_type: assessmentData.assessmentType,
+          subject_interest: formData.subjectInterest,
           grade: assessmentData.grade,
         });
         router.replace(publicPath('/book-assessment/thank-you', locale));
         return;
       } else {
-        setErrorMessage(result.error || 'Failed to submit assessment booking');
+        const message = result.error || 'Failed to submit assessment booking';
+        trackAssessmentSubmitFailed(assessmentData.assessmentType, message);
+        setErrorMessage(message);
       }
     } catch (error) {
       console.error('Assessment submission error:', error);
-      setErrorMessage('Network error. Please try again.');
+      const message = 'Network error. Please try again.';
+      trackAssessmentSubmitFailed(formData.assessmentType || DEFAULT_ASSESSMENT_TYPE, message);
+      setErrorMessage(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -351,6 +533,8 @@ export default function BookAssessmentPageClient() {
   // ];
 
   const testimonials = useMemo(() => siteGoogleTrustReviewCards(), []);
+  const selectedAssessmentPath =
+    ASSESSMENT_PATHS.find((path) => path.type === formData.assessmentType) || ASSESSMENT_PATHS[0];
 
   // const benefits = [
   //   { icon: Clock, text: 'Flexible scheduling' },
@@ -362,8 +546,22 @@ export default function BookAssessmentPageClient() {
   // ];
 
   const scrollToForm = () => {
-    const formSection = document.getElementById('assessment-form');
+    const formSection = document.getElementById('assessment-booking-form');
     if (formSection) formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const scrollToAssessmentOptions = () => {
+    const optionsSection = document.getElementById('assessment-options');
+    if (optionsSection) optionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const selectAssessmentPathAndScroll = (assessmentType: string) => {
+    handleInputChange('assessmentType', assessmentType);
+    trackAssessmentOptionSelected(assessmentType);
+    logVisitorEventClient('assessment_option_selected', {
+      selected_assessment_type: assessmentType,
+    });
+    window.setTimeout(scrollToForm, 0);
   };
 
   return (
@@ -435,77 +633,181 @@ export default function BookAssessmentPageClient() {
         </div>
       </section> */}
 
-      <section id="assessment-form" className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-[#1F396D]/10 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-gradient-to-br from-[#F16112]/10 to-transparent rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-12">
-            <Badge className="mb-6 bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white border-0 px-8 py-3 shadow-lg">
-              <Sparkles className="w-5 h-5 mr-2" />
-              100% Free - No Credit Card Required
-            </Badge>
+      <section id="assessment-form" className="bg-white">
+        <div className="relative isolate min-h-[24rem] overflow-hidden bg-[#1F396D] md:min-h-[26rem]" aria-labelledby="book-assessment-hero-h1">
+          <div className="absolute inset-0">
+            <Image
+              src="/assets/students_growwise.webp"
+              alt="GrowWise students at the Dublin learning center"
+              width={1600}
+              height={900}
+              priority
+              fetchPriority="high"
+              className="h-full w-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/45" aria-hidden />
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-[#102542]/95 via-[#1F396D]/82 to-[#1F396D]/20"
+              aria-hidden
+            />
+          </div>
+          <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 md:px-12 md:py-12 lg:py-14">
+            <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FED7AA]">
+              Math & English Assessment - Dublin, CA
+            </p>
             <h1
               id="book-assessment-hero-h1"
-              className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance text-gray-900 mb-4"
+              className="font-heading mt-6 max-w-3xl text-3xl font-black leading-tight text-white md:text-5xl"
             >
-              {neighborhood.headline}
+              Math & English Assessment in Dublin, CA
             </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Capped at 8 students per class | 4564 Dublin Blvd
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+              Choose a quick free assessment or a deeper 60-minute diagnostic. We&apos;ll look for gaps, patterns, and the next step without pressure to enroll.
             </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => selectAssessmentPathAndScroll(DEFAULT_ASSESSMENT_TYPE)}
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F16112] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#d64f0d]"
+              >
+                Book free assessment
+              </button>
+              <button
+                type="button"
+                onClick={() => selectAssessmentPathAndScroll('Full Gap Diagnostic')}
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"
+              >
+                Compare assessment options
+              </button>
+            </div>
+            <ul className="mt-7 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4" aria-label="Assessment highlights">
+              {['Grades 1-12', 'Math and English', 'In-person or online', 'No pressure to enroll'].map((stat) => (
+                <li
+                  key={stat}
+                  className="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-3 text-sm font-semibold text-white ring-1 ring-white/20 backdrop-blur"
+                >
+                  <CheckCircle className="h-4 w-4 shrink-0 text-[#F1894F]" aria-hidden />
+                  {stat}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {[
-              ['Takes 30 seconds', '4 details plus consent'],
-              ['No commitment', 'Free first-step guidance'],
-              ['Clear next step', 'We confirm timing with you'],
-            ].map(([title, text]) => (
-              <div key={title} className="rounded-xl border border-[#1F396D]/10 bg-white px-4 py-3 text-center shadow-sm">
-                <p className="text-sm font-black text-[#1F396D]">{title}</p>
-                <p className="mt-1 text-xs text-slate-600">{text}</p>
-              </div>
-            ))}
-          </div>
-          {testimonials[0] ? (
-            <div className="mb-6 rounded-2xl border border-[#F16112]/20 bg-[#FFF7ED] px-5 py-4 text-center shadow-sm">
-              <div className="mb-2 flex justify-center gap-1" aria-label={`${testimonials[0].rating} star Google review`}>
-                {[...Array(testimonials[0].rating)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-[#F16112] text-[#F16112]" aria-hidden />
-                ))}
-              </div>
-              <p className="mx-auto max-w-3xl text-sm leading-relaxed text-slate-700">
-                &quot;{testimonials[0].content}&quot;
-              </p>
-              <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1F396D]">
-                {testimonials[0].name} · Google review
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+          {/* Partner Referral Card */}
+          {validPartner && <PartnerReferralCard partner={validPartner} />}
+
+          <div id="assessment-options" className="rounded-3xl border border-[#1F396D]/10 bg-white p-4 shadow-xl sm:p-5">
+            <div className="flex flex-col gap-2 text-center sm:text-left">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">Choose your path</p>
+              <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">Pick the assessment that matches your concern</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Both options can lead to enrollment if GrowWise is the right fit.
               </p>
             </div>
-          ) : null}
-          <div suppressHydrationWarning>
-            <Card className="bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-xl md:rounded-3xl overflow-hidden" suppressHydrationWarning>
-              <CardContent className="p-4 sm:p-6 md:p-8 lg:p-10 pt-4 sm:pt-6 md:pt-8 lg:pt-10" suppressHydrationWarning>
-                  <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8" suppressHydrationWarning noValidate>
-                    <div className="space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#1F396D]/5 to-[#F16112]/5 rounded-xl md:rounded-2xl border-2 border-[#1F396D]/10">
-                      <div className="flex items-center gap-2 sm:gap-3 pb-3 md:pb-4 border-b-2 border-[#1F396D]/20">
-                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#1F396D] to-[#29335C] rounded-lg md:rounded-xl"><User className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></div>
-                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Parent Information</h3><p className="text-xs sm:text-sm text-gray-500">So we can reach you quickly</p></div>
+
+            <div className="mt-5 grid gap-4 lg:grid-cols-2">
+              {ASSESSMENT_PATHS.map((path) => {
+                const IconComponent = path.icon;
+                const isSelected = formData.assessmentType === path.type;
+
+                return (
+                  <article
+                    key={path.type}
+                    className={cn(
+                      'flex h-full flex-col rounded-2xl border-2 bg-white p-5 text-left shadow-sm transition-all',
+                      isSelected
+                        ? 'border-[#F16112] ring-4 ring-[#F16112]/10'
+                        : 'border-slate-200'
+                    )}
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={cn(
+                            'flex h-11 w-11 items-center justify-center rounded-xl',
+                            isSelected ? 'bg-[#F16112] text-white' : 'bg-[#1F396D]/10 text-[#1F396D]'
+                          )}
+                        >
+                          <IconComponent className="h-5 w-5" aria-hidden />
+                        </span>
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">
+                            {path.badge} · {path.duration}
+                          </p>
+                          <h3 className="mt-1 text-xl font-bold text-[#1F396D]">
+                            {path.title}
+                          </h3>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                        <div className="space-y-2">
-                          <Label htmlFor="parentName" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><User className="w-4 h-4 text-[#F16112]" />Parent Name <span className="text-red-500">*</span></Label>
-                          <Input id="parentName" type="text" value={formData.parentName} onChange={(e) => handleInputChange('parentName', e.target.value)} onFocus={() => setFocusedField('parentName')} onBlur={() => setFocusedField(null)} className={cn("bg-white border-2 rounded-lg md:rounded-xl transition-all h-12 md:h-14 text-sm sm:text-base", focusedField === 'parentName' ? 'border-[#F16112] shadow-md ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="John Doe" required />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><Mail className="w-4 h-4 text-[#1F396D]" />Email Address <span className="text-red-500">*</span></Label>
-                          <Input id="email" type="email" value={formData.email} onChange={(e) => handleInputChange('email', e.target.value)} onFocus={() => setFocusedField('email')} onBlur={() => setFocusedField(null)} className={cn("bg-white border-2 rounded-lg md:rounded-xl transition-all h-12 md:h-14 text-sm sm:text-base", focusedField === 'email' ? 'border-[#F16112] shadow-md ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="john@example.com" required />
-                        </div>
+                      {isSelected ? (
+                        <span className="rounded-full bg-[#F16112] px-3 py-1 text-xs font-bold text-white">
+                          Selected
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-4 text-sm leading-relaxed text-slate-700">{path.summary}</p>
+                    <p className="mt-3 rounded-xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
+                      {path.bestFor}
+                    </p>
+                    <Button
+                      type="button"
+                      onClick={() => selectAssessmentPathAndScroll(path.type)}
+                      className={cn(
+                        'mt-6 min-h-[48px] w-full rounded-xl text-base font-semibold shadow-md transition-all',
+                        isSelected
+                          ? 'bg-[#F16112] text-white hover:bg-[#d94f0d]'
+                          : 'bg-[#1F396D] text-white hover:bg-[#29335C]'
+                      )}
+                    >
+                      {path.type === DEFAULT_ASSESSMENT_TYPE ? path.ctaLabel : 'Choose Full Diagnostic'}
+                      <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                    </Button>
+                  </article>
+                );
+              })}
+            </div>
+            <p className="mt-5 rounded-2xl bg-[#F8FAFC] px-4 py-3 text-center text-sm font-semibold leading-relaxed text-[#1F396D] ring-1 ring-slate-200">
+              No pressure to enroll. We recommend the next step only if GrowWise is the right fit.
+            </p>
+          </div>
+          <div id="assessment-booking-form" suppressHydrationWarning>
+            <Card className="bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-xl md:rounded-3xl overflow-hidden" suppressHydrationWarning>
+              <CardContent className="p-4 sm:p-6 md:p-8" suppressHydrationWarning>
+                  <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6" suppressHydrationWarning noValidate>
+                    <div className="rounded-2xl border border-[#F16112]/20 bg-[#FFF7ED] px-4 py-3 sm:flex sm:items-center sm:justify-between sm:gap-4">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.14em] text-[#C45A1A]">Your selected option</p>
+                        <p className="mt-1 text-sm font-bold text-[#1F396D] sm:text-base">
+                          {selectedAssessmentPath.title} · {selectedAssessmentPath.duration}
+                        </p>
+                        <p id="selectedAssessmentType-help" className="mt-1 text-xs leading-relaxed text-slate-600">
+                          We&apos;ll use this to prepare for your call.
+                        </p>
+                      </div>
+                      <Input
+                        id="selectedAssessmentType"
+                        value={`${selectedAssessmentPath.title} (${selectedAssessmentPath.duration})`}
+                        disabled
+                        className="sr-only"
+                        aria-describedby="selectedAssessmentType-help"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2 sm:p-5">
+                      <div className="space-y-2">
+                        <Label htmlFor="parentName" className="text-gray-700 font-medium text-sm flex items-center gap-2"><User className="w-4 h-4 text-[#F16112]" />Parent Name <span className="text-red-500">*</span></Label>
+                        <Input id="parentName" type="text" value={formData.parentName} onChange={(e) => handleInputChange('parentName', e.target.value)} onFocus={() => setFocusedField('parentName')} onBlur={() => setFocusedField(null)} className={cn("bg-white border rounded-lg transition-all h-11 text-sm", focusedField === 'parentName' ? 'border-[#F16112] shadow-sm ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="John Doe" required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="phone" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><PhoneIcon className="w-4 h-4 text-[#F16112]" />Phone Number <span className="text-red-500">*</span></Label>
+                        <Label htmlFor="email" className="text-gray-700 font-medium text-sm flex items-center gap-2"><Mail className="w-4 h-4 text-[#1F396D]" />Email Address <span className="text-red-500">*</span></Label>
+                        <Input id="email" type="email" value={formData.email} onChange={(e) => handleInputChange('email', e.target.value)} onFocus={() => setFocusedField('email')} onBlur={() => setFocusedField(null)} className={cn("bg-white border rounded-lg transition-all h-11 text-sm", focusedField === 'email' ? 'border-[#F16112] shadow-sm ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="john@example.com" required />
+                      </div>
+                      <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="phone" className="text-gray-700 font-medium text-sm flex items-center gap-2"><PhoneIcon className="w-4 h-4 text-[#F16112]" />Phone Number <span className="text-red-500">*</span></Label>
                         <div className={cn(
-                          "flex items-center gap-0 border-2 rounded-lg md:rounded-xl bg-white overflow-hidden transition-all",
+                          "flex items-center gap-0 border rounded-lg bg-white overflow-hidden transition-all",
                           phoneError ? 'border-red-500 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500/10' : 'border-gray-300 focus-within:border-[#F16112] focus-within:ring-2 focus-within:ring-[#F16112]/10'
                         )}>
                           <CountryCodeSelector
@@ -513,7 +815,7 @@ export default function BookAssessmentPageClient() {
                             onChange={handleCountryCodeChange}
                             className={cn("flex-shrink-0", focusedField === 'phone' && 'border-[#F16112]')}
                           />
-                          <div className="w-px h-8 md:h-10 bg-gray-300 flex-shrink-0"></div>
+                          <div className="w-px h-8 bg-gray-300 flex-shrink-0"></div>
                           <Input
                             id="phone"
                             type="tel"
@@ -525,7 +827,7 @@ export default function BookAssessmentPageClient() {
                               handlePhoneBlur();
                             }}
                             className={cn(
-                              "bg-transparent border-0 rounded-none transition-all flex-1 h-12 md:h-14 text-sm sm:text-base text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0",
+                              "bg-transparent border-0 rounded-none transition-all flex-1 h-11 text-sm text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0",
                               phoneError && "text-red-600"
                             ).trim()} 
                             placeholder={getPhonePlaceholder(DIAL_CODE_TO_ISO2[formData.countryCode])}
@@ -540,38 +842,87 @@ export default function BookAssessmentPageClient() {
                           </p>
                         )}
                       </div>
-                    </div>
-
-                    <div className="space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/5 rounded-xl md:rounded-2xl border-2 border-[#F16112]/10">
-                      <div className="flex items-center gap-2 sm:gap-3 pb-3 md:pb-4 border-b-2 border-[#F16112]/20">
-                        <div className="p-2 sm:p-3 bg-gradient-to-br from-[#F16112] to-[#F1894F] rounded-lg md:rounded-xl"><GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></div>
-                        <div><h3 className="text-gray-900 text-lg sm:text-xl">Student Information</h3><p className="text-xs sm:text-sm text-gray-500">Just enough to prepare the call</p></div>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                        <div className="space-y-2">
-                          <Label htmlFor="studentName" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><GraduationCap className="w-4 h-4 text-[#F16112]" />Student Name <span className="text-gray-400 text-xs">(optional)</span></Label>
-                          <Input id="studentName" type="text" value={formData.studentName} onChange={(e) => handleInputChange('studentName', e.target.value)} onFocus={() => setFocusedField('studentName')} onBlur={() => setFocusedField(null)} className={cn("bg-white border-2 rounded-lg md:rounded-xl transition-all h-12 md:h-14 text-sm sm:text-base", focusedField === 'studentName' ? 'border-[#F16112] shadow-md ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')} placeholder="Optional" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="grade" className="text-gray-700 font-medium text-sm sm:text-base flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Child&apos;s Current Grade <span className="text-red-500">*</span></Label>
-                          <Select
-                            onValueChange={(value) => handleInputChange('grade', value)}
-                            value={formData.grade || undefined}
-                            required
+                      <div className="space-y-2">
+                        <Label htmlFor="grade" className="text-gray-700 font-medium text-sm flex items-center gap-2"><BookOpen className="w-4 h-4 text-[#1F396D]" />Child&apos;s Current Grade <span className="text-red-500">*</span></Label>
+                        <Select
+                          onValueChange={(value) => handleInputChange('grade', value)}
+                          value={formData.grade || undefined}
+                          required
+                        >
+                          <SelectTrigger
+                            data-testid="assessment-grade-trigger"
+                            className="bg-white border border-gray-300 rounded-lg hover:border-gray-400 transition-all h-11 text-sm"
                           >
-                            <SelectTrigger
-                              data-testid="assessment-grade-trigger"
-                              className="bg-white border-2 border-gray-300 rounded-lg md:rounded-xl hover:border-gray-400 transition-all h-12 md:h-14 text-sm sm:text-base"
-                            >
-                              <SelectValue placeholder="Select grade" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
-                              {grades.map((grade) => (
-                                <SelectItem key={grade} value={grade} className="hover:bg-[#F16112]/10 py-3">{grade}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
+                            <SelectValue placeholder="Select grade" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
+                            {grades.map((grade) => (
+                              <SelectItem key={grade} value={grade} className="hover:bg-[#F16112]/10 py-3">{grade}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="subjectInterest" className="text-gray-700 font-medium text-sm flex items-center gap-2"><Calculator className="w-4 h-4 text-[#F16112]" />Subject Interest <span className="text-red-500">*</span></Label>
+                        <Select
+                          onValueChange={(value) => handleInputChange('subjectInterest', value)}
+                          value={formData.subjectInterest || undefined}
+                          required
+                        >
+                          <SelectTrigger
+                            id="subjectInterest"
+                            data-testid="assessment-subject-interest-trigger"
+                            className="bg-white border border-gray-300 rounded-lg hover:border-gray-400 transition-all h-11 text-sm"
+                          >
+                            <SelectValue placeholder="Select subject" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
+                            <SelectItem value="Math" className="hover:bg-[#F16112]/10 py-3">Math</SelectItem>
+                            <SelectItem value="English" className="hover:bg-[#F16112]/10 py-3">English</SelectItem>
+                            <SelectItem value="Both" className="hover:bg-[#F16112]/10 py-3">Both</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="mainConcern" className="text-gray-700 font-medium text-sm flex items-center gap-2"><Brain className="w-4 h-4 text-[#1F396D]" />Main Concern <span className="text-gray-400 text-xs">(optional)</span></Label>
+                        <Input
+                          id="mainConcern"
+                          type="text"
+                          value={formData.mainConcern}
+                          onChange={(e) => handleInputChange('mainConcern', e.target.value)}
+                          onFocus={() => setFocusedField('mainConcern')}
+                          onBlur={() => setFocusedField(null)}
+                          className={cn("bg-white border rounded-lg transition-all h-11 text-sm", focusedField === 'mainConcern' ? 'border-[#F16112] shadow-sm ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')}
+                          placeholder="Example: math gaps, writing confidence, homework stress"
+                        />
+                      </div>
+                      <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="hearAboutUs" className="text-gray-700 font-medium text-sm flex items-center gap-2"><User className="w-4 h-4 text-[#F16112]" />How did you hear about us? <span className="text-gray-400 text-xs">(optional)</span></Label>
+                        <Select
+                          onValueChange={(value) => handleInputChange('hearAboutUs', value)}
+                          value={formData.hearAboutUs || undefined}
+                        >
+                          <SelectTrigger
+                            id="hearAboutUs"
+                            data-testid="assessment-hear-about-us-trigger"
+                            className="bg-white border border-gray-300 rounded-lg hover:border-gray-400 transition-all h-11 text-sm"
+                          >
+                            <SelectValue placeholder="Select how you heard about us" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
+                            <SelectItem value="Not provided">Not provided</SelectItem>
+                            {validPartner && (
+                              <SelectItem value={validPartner.name}>{validPartner.name}</SelectItem>
+                            )}
+                            <SelectItem value="Google Search">Google Search</SelectItem>
+                            <SelectItem value="Social Media">Social Media</SelectItem>
+                            <SelectItem value="Friend/Family Referral">Friend/Family Referral</SelectItem>
+                            <SelectItem value="School Recommendation">School Recommendation</SelectItem>
+                            <SelectItem value="Door Hanger">Door Hanger</SelectItem>
+                            <SelectItem value="NextDoor">NextDoor</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
 
@@ -591,6 +942,9 @@ export default function BookAssessmentPageClient() {
                       error={formErrors.agreeToCommunications}
                       required
                       showSubmitDisclaimer
+                      variant="compact"
+                      alignPrivacyWithConsent
+                      className="[&_h3]:!text-sm [&_label]:!text-xs [&_p]:!text-xs"
                       agreeLabel="I agree to receive SMS messages from GrowWise School about my inquiry, assessment, enrollment, class scheduling, reminders, and related program updates. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase."
                     />
 
@@ -626,6 +980,12 @@ export default function BookAssessmentPageClient() {
                                 <li className="flex items-center gap-2">
                                   <X className="w-4 h-4" />
                                   <span><strong>Grade:</strong> {formErrors.grade}</span>
+                                </li>
+                              )}
+                              {formErrors.subjectInterest && (
+                                <li className="flex items-center gap-2">
+                                  <X className="w-4 h-4" />
+                                  <span><strong>Subject Interest:</strong> {formErrors.subjectInterest}</span>
                                 </li>
                               )}
                               {formErrors.assessmentType && (
@@ -677,13 +1037,13 @@ export default function BookAssessmentPageClient() {
                         ) : (
                           <>
                             <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
-                            Request Free Assessment Call
+                            {selectedAssessmentPath.type === DEFAULT_ASSESSMENT_TYPE ? 'Book Free Assessment' : 'Book Full Diagnostic'}
                             <Sparkles className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform" />
                           </>
                         )}
                       </Button>
                       <p className="mt-3 text-center text-xs text-slate-500">
-                        We&apos;ll call or text within 24 hours. No payment. No commitment.
+                        We&apos;ll call or text within 24 hours to confirm the assessment path and exact next step.
                       </p>
                       {errorMessage && (
                         <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
@@ -699,141 +1059,71 @@ export default function BookAssessmentPageClient() {
             </Card>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              { icon: Clock, text: '24-hour response time guaranteed', color: 'from-blue-500 to-blue-600' },
-              { icon: Shield, text: 'SSL Encrypted & 100% Secure', color: 'from-green-500 to-green-600' },
-              { icon: Award, text: 'Certified Expert Evaluators', color: 'from-purple-500 to-purple-600' }
-            ].map((item, index) => {
-              const IconComponent = item.icon as any;
-              return (
-                <div key={index} className="text-center">
-                  <div className={`inline-flex p-5 bg-gradient-to-r ${item.color} rounded-2xl shadow-xl mb-4`}>
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <p className="text-gray-700 font-semibold text-lg">{item.text}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-12 rounded-2xl border border-[#1F396D]/10 bg-white p-4 shadow-xl sm:p-6">
-            <div className="mb-4 text-center">
-              <h2 className="text-xl font-bold text-[#1F396D]">Prefer to choose a time now?</h2>
-              <p className="mt-1 text-sm text-slate-600">
-                Calendly receives the same neighborhood tracking automatically.
-              </p>
-            </div>
-            <div className="min-h-[700px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-              <iframe
-                title="Schedule a GrowWise academic assessment"
-                src={calendlyUrl}
-                className="h-[700px] w-full"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Browse programs — visible before and after form submission */}
-      <section className="py-12 px-4 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-lg sm:text-xl font-bold text-[#1F396D] mb-5 text-center">
-            Want to explore programs first?
-          </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {[
-              { href: publicPath('/academic/math', locale), label: 'K–12 Math Tutoring' },
-              { href: publicPath('/academic/math/high-school', locale), label: 'High School Math Tutoring' },
-              { href: publicPath('/courses/sat-prep', locale), label: 'SAT Prep Tutoring' },
-              { href: publicPath('/camps/summer', locale), label: 'Summer STEAM Camps 2026' },
-              { href: publicPath('/camps/academic-summer-programs-dublin-ca', locale), label: 'Academic Summer Programs' },
-            ].map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="flex items-center gap-2 p-4 rounded-xl border-2 border-[#1F396D]/20 bg-white hover:border-[#F16112] hover:shadow-md transition-all text-[#1F396D] font-semibold text-sm sm:text-base"
-                >
-                  <span className="text-[#F16112]">→</span>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white border-0 px-6 py-2">Parent Reviews</Badge>
-            <h2 className="text-gray-900 mb-4">What Parents Are Saying</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Real feedback from GrowWise families (Google reviews)</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index}>
-                <Card className="bg-white backdrop-blur-xl border-2 border-white/60 shadow-xl hover:shadow-2xl transition-all duration-300 h-full">
-                  <CardContent className="p-8">
-                    <div className="flex gap-1 mb-6">{[...Array(testimonial.rating)].map((_, i) => (<Star key={i} className="w-5 h-5 fill-[#F16112] text-[#F16112]" />))}</div>
-                    <p className="text-gray-700 mb-6 italic leading-relaxed text-base">"{testimonial.content}"</p>
-                    <div className="border-t-2 border-gray-100 pt-6"><p className="font-bold text-gray-900 text-lg">{testimonial.name}</p><p className="text-sm text-gray-500 mt-1">{testimonial.role}</p></div>
-                  </CardContent>
-                </Card>
+              ['Response', 'We call or text within 24 hours'],
+              ['No pressure', 'Enrollment only if GrowWise is a fit'],
+              ['Local center', '4564 Dublin Blvd, Dublin, CA'],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-xl border border-[#1F396D]/10 bg-white px-4 py-3 text-center shadow-sm">
+                <p className="text-sm font-black text-[#1F396D]">{title}</p>
+                <p className="mt-1 text-xs text-slate-600">{text}</p>
               </div>
             ))}
           </div>
+
+          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7" aria-labelledby="assessment-process-title">
+            <div className="grid gap-7 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">Assessment process</p>
+                <h2 id="assessment-process-title" className="mt-2 text-2xl font-bold tracking-tight text-[#1F396D] sm:text-3xl">
+                  How We Assess Your Child
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
+                  A good assessment is not about giving your child a score. It helps us understand how your child thinks, where gaps may have started, and what support will actually help.
+                </p>
+                <div className="mt-5 rounded-2xl bg-[#F8FAFC] p-4 text-sm leading-relaxed text-slate-700 ring-1 ring-slate-200">
+                  Many students struggle not because they are weak, but because earlier gaps were never clearly identified. The right assessment helps parents understand what is really happening before choosing tutoring, enrichment, or an advanced pathway.
+                </div>
+                <div className="mt-5">
+                  <Button
+                    type="button"
+                    onClick={scrollToAssessmentOptions}
+                    className="min-h-11 rounded-full bg-[#F16112] px-5 text-sm font-bold text-white hover:bg-[#d94f0d]"
+                  >
+                    Choose Your Assessment
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                  </Button>
+                </div>
+              </div>
+
+              <ol className="grid gap-3 sm:grid-cols-2" aria-label="Assessment workflow">
+                {ASSESSMENT_PROCESS_STEPS.map((step, index) => (
+                  <li
+                    key={step.title}
+                    className={cn(
+                      'rounded-2xl border border-slate-200 bg-slate-50 p-4',
+                      index === ASSESSMENT_PROCESS_STEPS.length - 1 && 'sm:col-span-2',
+                    )}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1F396D] text-sm font-black text-white">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <h3 className="text-sm font-bold text-[#1F396D]">{step.title}</h3>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-600 sm:text-sm">{step.description}</p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
         </div>
       </section>
 
       <PartnerTrustStrip />
-
-      <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white border-0 px-6 py-2">Why Choose Us</Badge>
-            <h2 className="text-gray-900 mb-4">Why GrowWise Assessments?</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">We combine expertise, technology, and personalized attention to deliver exceptional results</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {[
-              { icon: Award, title: 'Expert Educators', description: 'Certified teachers with 10+ years of experience in academic assessment and curriculum design', color: 'from-[#F16112] to-[#F1894F]' },
-              { icon: Brain, title: 'Comprehensive Analysis', description: 'In-depth evaluation covering multiple dimensions of academic performance and learning styles', color: 'from-[#1F396D] to-[#29335C]' },
-              { icon: TrendingUp, title: 'Actionable Roadmap', description: 'Personalized learning path with specific recommendations for academic growth and success', color: 'from-[#F1894F] to-[#1F396D]' }
-            ].map((item, index) => {
-              const IconComponent = item.icon as any;
-              return (
-                <div key={index}>
-                  <Card className="bg-white backdrop-blur-xl border-2 border-white/60 shadow-xl hover:shadow-2xl transition-all duration-300 h-full group">
-                    <CardContent className="p-10 text-center">
-                      <div className={`inline-flex p-6 bg-gradient-to-r ${item.color} rounded-3xl mb-6 shadow-2xl group-hover:shadow-xl transition-all`}>
-                        <IconComponent className="w-12 h-12 text-white" />
-                      </div>
-                      <h3 className="text-gray-900 mb-4 group-hover:text-[#F16112] transition-colors text-xl">{item.title}</h3>
-                      <p className="text-gray-600 leading-relaxed text-base">{item.description}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-gradient-to-r from-[#1F396D] via-[#29335C] to-[#1F396D] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10"><div className="absolute top-10 left-10 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse"></div><div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#F16112] rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div>
-            <h2 className="text-white mb-6 text-4xl lg:text-5xl">Ready to Unlock Your Child's Potential?</h2>
-            <p className="text-white/90 mb-10 text-xl leading-relaxed">Book a free assessment today and get personalized insights into your child's academic journey</p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <Button onClick={scrollToForm} className="bg-white text-[#1F396D] hover:bg-gray-100 px-10 py-7 rounded-2xl shadow-2xl hover:shadow-xl transition-all duration-200 hover:scale-105 group text-lg"><Calendar className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />Book a Free Assessment<ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" /></Button>
-              <Button variant="outline" className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-7 rounded-2xl transition-all duration-200 text-lg backdrop-blur-xl"><PhoneIcon className="w-5 h-5 mr-2" />{CONTACT_INFO.phone}</Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Explore Courses Modal */}
       <AlertDialog open={isExploreCoursesModalOpen} onOpenChange={setIsExploreCoursesModalOpen}>

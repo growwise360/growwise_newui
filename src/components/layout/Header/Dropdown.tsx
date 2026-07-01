@@ -47,10 +47,13 @@ export default function Dropdown({
   // Prevent navigation for "Camps" menu item
   const isCamps = item.key === 'camps';
 
-  const triggerStateClass =
-    isOpen || isActive
-      ? v.activeBg
-      : `text-gray-700 ${v.hoverText} hover:bg-gray-100`;
+  const triggerStateClass = isActive
+    ? v.activeBg
+    : cn(
+        'text-gray-700',
+        v.hoverText,
+        isOpen ? 'bg-gray-100' : 'hover:bg-gray-100'
+      );
   
   const linkContent = (
     <>
@@ -89,6 +92,7 @@ export default function Dropdown({
       ) : (
         <Link
           href={createLocaleUrl(item.href)}
+          prefetch={false}
           suppressHydrationWarning
           className={cn('header-dropdown-nav-trigger group', triggerStateClass)}
           onClick={() => onItemClick()}
@@ -168,7 +172,7 @@ export default function Dropdown({
           {item.key !== 'academic' && item.key !== 'steam' && (
             <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100/50 border-t border-gray-100">
               <p className="text-xs text-gray-500 text-center">
-                {footerHelper} <Link href={createLocaleUrl('/contact')} className="text-[#1F396D] font-medium hover:underline">{footerContactCta}</Link>
+                {footerHelper} <Link href={createLocaleUrl('/contact')} prefetch={false} className="text-[#1F396D] font-medium hover:underline">{footerContactCta}</Link>
               </p>
             </div>
           )}

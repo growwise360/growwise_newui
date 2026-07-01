@@ -75,17 +75,15 @@ describe('ProgramsSection redirect links (Grades 1-12 + STEAM)', () => {
       .closest('.mb-20');
     expect(k12Root).toBeTruthy();
 
-    const ctaLinks = within(k12Root as HTMLElement).getAllByRole('link', {
-      name: /^Start Learning$/i,
-    });
-    expect(ctaLinks).toHaveLength(k12.length);
-
-    k12.forEach((program, i) => {
+    k12.forEach((program) => {
       const url = program.ctaUrl ?? program.href;
       if (!url) {
         throw new Error(`Missing ctaUrl/href for program: ${program.title}`);
       }
-      expect(ctaLinks[i]).toHaveAttribute('href', publicPath(url, locale));
+      const cta = within(k12Root as HTMLElement).getByRole('link', {
+        name: program.ctaText || 'Enroll Now',
+      });
+      expect(cta).toHaveAttribute('href', publicPath(url, locale));
     });
   });
 
@@ -195,15 +193,15 @@ describe('HomeHero redirect links (OASC carousel)', () => {
 describe('HomeCampsStrip redirect links', () => {
   const locale = 'en';
 
-  it('camp CTAs point at academic programs hub and summer STEAM camps', () => {
+  it('back-to-school CTAs point at assessment booking and readiness self-check', () => {
     render(<HomeCampsStrip />);
-    expect(screen.getByRole('link', { name: /Academic Sprint/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /Book Assessment/i })).toHaveAttribute(
       'href',
-      publicPath('/camps/academic-summer-programs-dublin-ca', locale),
+      publicPath('/book-assessment', locale),
     );
-    expect(screen.getByRole('link', { name: /STEAM Coding/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /5-Minute Self-Check/i })).toHaveAttribute(
       'href',
-      publicPath('/camps/summer', locale),
+      publicPath('/readinesschecklist', locale),
     );
   });
 });

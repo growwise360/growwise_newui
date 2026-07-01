@@ -30,9 +30,9 @@ export const MATH_FINALS_PRACTICE_SESSION_DESCRIPTION =
 export const metadataConfig: Record<string, PageMetadataConfig> = {
   // Home page
   '/': {
-    title: 'K-12 Online Tutoring & Coding Classes | GrowWise',
+    title: 'K-12 Tutoring, Coding & SAT Prep Dublin CA | GrowWise',
     description:
-      'GrowWise helps Grades 1-12 students build confidence with math, English, coding, STEAM, and SAT prep online or in Dublin, CA. Book a free assessment.',
+      'Dublin, CA tutoring for Grades 1-12: math, English, coding, STEAM, SAT prep, and summer programs. Book a free assessment.',
     keywords:
       'tutoring Dublin CA, Grades 1-12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning',
     path: '',
@@ -66,6 +66,24 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
       'GrowWise newsletter, parent education tips, K-12 tutoring updates, Dublin tutoring newsletter, student learning insights',
     path: '/bulletin',
     image: '/og-image.jpg',
+  },
+
+  '/resources/downloads': {
+    title: 'Free Math & English Study Plans | GrowWise',
+    description:
+      'Download starter resources and create a free 4-week Math or English practice plan for your child. No login required.',
+    keywords:
+      'free study plan, math practice sheets, English practice sheets, printable worksheets, 4-week study plan, GrowWise resources',
+    path: '/resources/downloads',
+  },
+
+  '/resources/student-corner': {
+    title: 'Student Corner | Student Writing & Project Showcase | GrowWise',
+    description:
+      'Explore GrowWise Student Corner, a showcase destination for student articles, short stories, creative writing, coding projects, and portfolio work.',
+    keywords:
+      'student showcase, student writing, student articles, short stories, student projects, coding portfolio, GrowWise student work',
+    path: '/resources/student-corner',
   },
 
   '/dublin-ca': {
@@ -150,9 +168,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/courses/sat-prep': {
-    title: 'SAT Prep Tutoring in Dublin, CA | GrowWise',
+    title: 'SAT Prep Dublin CA | Classes & Tutoring | GrowWise',
     description:
-      'SAT prep in Dublin, CA with practice tests, proven strategies, and expert tutors. Small groups. Book a free assessment today.',
+      'SAT prep in Dublin, CA with small groups, practice tests, math and reading/writing strategy, and expert tutors. Book a free assessment.',
     keywords:
       'SAT prep Dublin CA, SAT preparation, SAT course, SAT tutoring Dublin, SAT test prep, SAT strategies, SAT practice tests, SAT classes Dublin CA, SAT help, SAT tutor near me, SAT prep course, SAT score improvement, college entrance exam prep',
     path: '/courses/sat-prep',
@@ -413,9 +431,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/camps/summer': {
-    title: 'Math, Robotics, Coding & AI Camps Dublin CA | GrowWise',
+    title: 'Summer Camps Dublin CA | Math, Robotics, Coding & AI',
     description:
-      'Summer camps in Dublin, CA for Grades 1–12: Math, Robotics, Coding, AI, game development, and writing. Weekly June–August 2026. Reserve a spot.',
+      '2026 summer camps in Dublin, CA for Grades 1-12: math, robotics, coding, AI, game development, and writing. Reserve a weekly spot.',
     keywords:
       'summer camp Dublin CA, summer camps Dublin CA 2026, STEAM summer camp Dublin, coding summer camp Dublin CA, math summer camp Dublin CA, summer camp Tri-Valley, summer programs for kids Dublin CA, summer coding camp Dublin CA, summer STEAM camp Dublin CA 2026, coding camp kids Tri-Valley, summer math camp Dublin CA, AI camp for kids Dublin CA, robotics camp kids Dublin CA, game development camp kids, young authors camp summer 2026, summer camp 2026 Dublin CA, STEM camp Pleasanton, STEM camp San Ramon',
     path: '/camps/summer',
@@ -559,9 +577,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/tutoring-dublin-ca': {
-    title: 'K-12 Tutoring in Dublin CA | 2026 Parent Guide',
+    title: 'Tutoring Dublin CA | Best K-12 Options for 2026',
     description:
-      'Dublin, CA tutoring guide for Grades 1-12. Compare program types, diagnostic depth, class size, and what Tri-Valley parents should ask before enrolling.',
+      'Compare Dublin, CA tutoring options for Grades 1-12: class size, diagnostics, math, English, SAT prep, and questions to ask before enrolling.',
     keywords:
       'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
     path: '/resources/tutoring-dublin-ca',

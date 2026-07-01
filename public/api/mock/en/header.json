@@ -226,6 +226,15 @@
             "gradient": "from-[#1F396D] to-[#29335C]"
           },
           {
+            "key": "parentDownloads",
+            "title": "Parent Downloads",
+            "description": "Free Math and English study plans parents can use at home.",
+            "icon": "Download",
+            "href": "/resources/downloads",
+            "gradient": "from-[#F16112] to-[#F1894F]",
+            "badge": "Free"
+          },
+          {
             "key": "blogs",
             "title": "Blogs",
             "description": "GrowWise articles on learning, confidence, coding, and school support.",

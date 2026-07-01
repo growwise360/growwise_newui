@@ -45,6 +45,16 @@ export function resourceCategoryTagClass(category: ResourceCategory): string {
 
 export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
   {
+    id: 'study-plans-downloads',
+    category: 'parent-resources',
+    categoryLabel: 'PARENT RESOURCES',
+    title: 'Free Math & English Study Plans',
+    description:
+      'Download starter resources and create a simple 4-week practice plan for Math or English without a login.',
+    readTime: 'Interactive',
+    href: '/resources/downloads',
+  },
+  {
     id: 'math-reading-readiness-checklist',
     category: 'parent-resources',
     categoryLabel: 'PARENT RESOURCES',

@@ -85,6 +85,12 @@ export function isMenuItemActive(item: MenuItem, pathname: string | null, locale
   if (item.key === 'home') {
     return false;
   }
+  if (
+    item.key === 'backToSchool' &&
+    pathname === createLocaleUrl('/book-assessment', locale)
+  ) {
+    return false;
+  }
   if (item.type === 'dropdown' && item.dropdown) {
     return item.dropdown.items.some((dropdownItem) =>
       isDropdownItemPathActive(dropdownItem, pathname, locale)

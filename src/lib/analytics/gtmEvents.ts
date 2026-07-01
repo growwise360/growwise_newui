@@ -39,6 +39,60 @@ export function trackAssessmentFormSubmitted(pagePath: string): void {
   })
 }
 
+export function trackAssessmentOptionSelected(assessmentType: string): void {
+  pushDataLayer({
+    event: 'assessment_option_selected',
+    assessment_type: assessmentType,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+  })
+}
+
+export function trackAssessmentFormViewed(assessmentType: string): void {
+  pushDataLayer({
+    event: 'assessment_form_viewed',
+    assessment_type: assessmentType,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+  })
+}
+
+export function trackAssessmentFormStarted(assessmentType: string): void {
+  pushDataLayer({
+    event: 'assessment_form_started',
+    assessment_type: assessmentType,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+  })
+}
+
+export function trackAssessmentValidationError(
+  assessmentType: string,
+  fields: string[],
+): void {
+  pushDataLayer({
+    event: 'assessment_validation_error',
+    assessment_type: assessmentType,
+    error_fields: fields,
+    error_count: fields.length,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+  })
+}
+
+export function trackAssessmentSubmitFailed(
+  assessmentType: string,
+  errorMessage: string,
+): void {
+  pushDataLayer({
+    event: 'assessment_submit_failed',
+    assessment_type: assessmentType,
+    error_message: errorMessage,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+  })
+}
+
 export function trackGenerateLead(
   leadSource: LeadSource,
   params: Record<string, unknown> = {},

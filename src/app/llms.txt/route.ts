@@ -21,6 +21,7 @@ const BODY = `# GrowWise School
 
 ## High-Value Parent Guides
 - [Math & Reading Readiness Checklist](https://growwiseschool.org/readinesschecklist)
+- [Math Mistake Self-Check](https://growwiseschool.org/self-check)
 - [Child Reads but Does Not Understand the Passage](https://growwiseschool.org/growwise-blogs/child-reads-but-doesnt-understand-passage)
 - [Why Is My Child Struggling With Fractions?](https://growwiseschool.org/growwise-blogs/why-is-my-child-struggling-with-fractions)
 - [Common Core Math Strategies for Parents](https://growwiseschool.org/growwise-blogs/common-core-math-strategies-parents)
