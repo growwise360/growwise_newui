@@ -747,9 +747,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/python-vs-scratch': {
-    title: 'Python vs Scratch for Kids | Which to Learn First?',
+    title: 'Python vs Scratch for Kids: Which to Learn First',
     description:
-      'Scratch or Python first? Compare starting age, when to switch, what each language teaches, and how kids move toward real coding.',
+      'Scratch or Python? Compare the best starting age, when to switch, what each language teaches, and how kids move toward real coding.',
     keywords:
       'Python vs Scratch for kids, should kids learn Scratch or Python first, when to switch from Scratch to Python, best coding language for kids, Scratch for kids ages 6-10, Python for kids ages 10-14',
     path: '/resources/python-vs-scratch',
@@ -757,9 +757,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/reading-fluency-vs-comprehension': {
-    title: 'Reading Fluency vs Comprehension | Parent Guide',
+    title: 'Fluency vs Comprehension: Which Reading Gap?',
     description:
-      'Compare reading fluency vs comprehension gaps, warning signs, and what support should target when a child reads words but misses meaning.',
+      'Your child can read the words but miss the meaning. Compare fluency and comprehension gaps, warning signs, and what support should target.',
     keywords:
       'reading fluency vs comprehension, reading fluency comprehension difference, child reads but doesn\'t understand, reading program, reading comprehension gap, reading fluency gap, child struggles with reading comprehension',
     path: '/resources/reading-fluency-vs-comprehension',
@@ -786,9 +786,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/careless-math-mistakes': {
-    title: 'Careless Math Mistakes | Why Kids Lose Points',
+    title: 'Careless Math Mistakes: Why Kids Lose Points',
     description:
-      'Learn why kids make careless math mistakes, the common patterns behind lost points, and how to fix them before the next test.',
+      'Your child knows the math but still loses points. Learn the common mistake patterns, why they happen, and how to fix them before the next test.',
     keywords:
       'careless mistakes in math, why kids lose points on math tests, child makes careless math mistakes, how to stop careless mistakes in math, child understands math but gets wrong answers, math mistake patterns, procedural errors in math',
     path: '/resources/careless-math-mistakes',
@@ -798,7 +798,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/resources/what-is-vibe-coding': {
     title: 'What Is Vibe Coding? Parent Guide for Kids',
     description:
-      'Vibe coding lets kids build with AI, but fundamentals still matter. Learn the right age, benefits, risks, and what programs should teach.',
+      'Vibe coding lets kids build apps with AI, but fundamentals still matter. Learn the right age, benefits, risks, and what programs should teach.',
     keywords:
       'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
     path: '/resources/what-is-vibe-coding',
@@ -816,9 +816,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/when-to-start-sat-prep': {
-    title: 'When to Start SAT Prep | Timeline by Grade',
+    title: 'SAT Prep Timeline by Grade | Parent Guide',
     description:
-      'See when SAT prep should start in grades 8, 9, 10, or 11, what to fix first, and how parents can plan a smarter prep timeline.',
+      'Grade 8, 9, or 10? See when SAT prep should start, what to fix first, and how parents can plan a smarter test prep timeline.',
     keywords:
       'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
     path: '/resources/when-to-start-sat-prep',

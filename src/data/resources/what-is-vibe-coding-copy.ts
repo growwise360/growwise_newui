@@ -11,7 +11,7 @@ export const WHAT_IS_VIBE_CODING_META: ResourceArticleMeta = {
   updated: 'Updated May 2026',
   title: 'What Is Vibe Coding? Parent Guide for Kids',
   description:
-    'Vibe coding lets kids build with AI, but fundamentals still matter. Learn the right age, benefits, risks, and what programs should teach.',
+    'Vibe coding lets kids build apps with AI, but fundamentals still matter. Learn the right age, benefits, risks, and what programs should teach.',
   keywords:
     'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
   datePublished: '2026-05-01',
