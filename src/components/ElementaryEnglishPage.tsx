@@ -35,6 +35,21 @@ import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { useLocale } from 'next-intl'
 
+const AUGUST_ENGLISH_READINESS = [
+  {
+    need: 'Reading tutor',
+    signal: 'Words are slow, choppy, guessed, or hard to remember after reading.',
+  },
+  {
+    need: 'Comprehension support',
+    signal: 'Your child reads the passage but cannot explain the main idea, evidence, or inference.',
+  },
+  {
+    need: 'Writing class',
+    signal: 'Blank-page freeze, very short answers, weak paragraphs, or grammar errors hide good ideas.',
+  },
+] as const
+
 export default function ElementaryEnglishPage() {
   const locale = useLocale()
   const { data: pricingConfig } = usePricingConfig()
@@ -105,6 +120,51 @@ export default function ElementaryEnglishPage() {
             </Button>
           </div>
           <p className="text-center text-sm text-gray-500 max-w-xl mx-auto">{COPY.hero.microCopy}</p>
+        </div>
+      </section>
+
+      <section className="bg-[#ebebeb] py-14 lg:py-20" aria-labelledby="elementary-english-august-readiness-heading">
+        <div className="max-w-5xl mx-auto px-4 lg:px-8">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+            August reading and writing readiness
+          </p>
+          <h2 id="elementary-english-august-readiness-heading" className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
+            Choose English tutoring based on the exact reading or writing gap.
+          </h2>
+          <p className="text-gray-600 leading-relaxed max-w-3xl mb-8">
+            Parents searching for an English tutor, reading tutor, writing tutor, or English writing classes near
+            Dublin are often describing different problems. Before August, separate fluency, comprehension, grammar,
+            writing structure, and confidence so support starts in the right place.
+          </p>
+          <div className="grid gap-5 md:grid-cols-3">
+            {AUGUST_ENGLISH_READINESS.map((item) => (
+              <article key={item.need} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h3 className="text-lg font-bold text-[#1F396D] mb-2">{item.need}</h3>
+                <p className="text-sm leading-relaxed text-gray-600">{item.signal}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={publicPath('/resources/english-tutor-vs-reading-tutor-vs-writing-class', locale)}
+              className="inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-6 py-3 text-sm font-semibold text-white hover:bg-[#162850]"
+            >
+              Compare English support options
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href={publicPath('/resources/reading-fluency-vs-comprehension', locale)}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-6 py-3 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+            >
+              Compare fluency vs comprehension
+            </Link>
+            <Link
+              href={publicPath('/resources/child-struggles-with-writing-dublin-ca', locale)}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-6 py-3 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+            >
+              Diagnose writing struggles
+            </Link>
+          </div>
         </div>
       </section>
 

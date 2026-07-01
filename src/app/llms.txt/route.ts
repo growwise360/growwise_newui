@@ -21,8 +21,17 @@ const BODY = `# GrowWise School
 
 ## High-Value Parent Guides
 - [Math & Reading Readiness Checklist](https://growwiseschool.org/readinesschecklist)
+- [Math Mistake Self-Check](https://growwiseschool.org/self-check)
+- [Child Reads but Does Not Understand the Passage](https://growwiseschool.org/growwise-blogs/child-reads-but-doesnt-understand-passage)
+- [Why Is My Child Struggling With Fractions?](https://growwiseschool.org/growwise-blogs/why-is-my-child-struggling-with-fractions)
+- [Common Core Math Strategies for Parents](https://growwiseschool.org/growwise-blogs/common-core-math-strategies-parents)
 - [Can ChatGPT Replace a Tutor?](https://growwiseschool.org/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help)
 - [Reading Help Checklist](https://growwiseschool.org/growwise-blogs/does-my-child-need-reading-help-checklist)
+- [Back-to-School Math Assessment Dublin CA](https://growwiseschool.org/resources/back-to-school-math-assessment-dublin-ca)
+- [Middle School Math Readiness Checklist](https://growwiseschool.org/resources/middle-school-math-readiness-checklist)
+- [English Tutor vs Reading Tutor vs Writing Class](https://growwiseschool.org/resources/english-tutor-vs-reading-tutor-vs-writing-class)
+- [Why Your Child Struggles With Writing](https://growwiseschool.org/resources/child-struggles-with-writing-dublin-ca)
+- [Kumon vs Mathnasium vs Private Tutor Dublin CA](https://growwiseschool.org/resources/math-tutoring-options-dublin-ca)
 - [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/resources/tutoring-dublin-ca)
 - [Reading Fluency vs Comprehension](https://growwiseschool.org/resources/reading-fluency-vs-comprehension)
 - [Summer Slide: Dublin Parent Guide](https://growwiseschool.org/resources/summer-slide-dublin-ca)

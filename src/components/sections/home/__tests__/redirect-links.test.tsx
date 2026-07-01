@@ -195,15 +195,15 @@ describe('HomeHero redirect links (OASC carousel)', () => {
 describe('HomeCampsStrip redirect links', () => {
   const locale = 'en';
 
-  it('camp CTAs point at academic programs hub and summer STEAM camps', () => {
+  it('back-to-school CTAs point at assessment booking and readiness self-check', () => {
     render(<HomeCampsStrip />);
-    expect(screen.getByRole('link', { name: /Academic Sprint/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /Book Assessment/i })).toHaveAttribute(
       'href',
-      publicPath('/camps/academic-summer-programs-dublin-ca', locale),
+      publicPath('/book-assessment', locale),
     );
-    expect(screen.getByRole('link', { name: /STEAM Coding/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /5-Minute Self-Check/i })).toHaveAttribute(
       'href',
-      publicPath('/camps/summer', locale),
+      publicPath('/readinesschecklist', locale),
     );
   });
 });

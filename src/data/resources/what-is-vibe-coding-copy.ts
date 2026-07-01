@@ -9,9 +9,9 @@ export const WHAT_IS_VIBE_CODING_META: ResourceArticleMeta = {
   h1: 'What Is Vibe Coding — And Should Your Child Learn It?',
   readTime: '5 min read',
   updated: 'Updated May 2026',
-  title: "What Is Vibe Coding? A Parent's Guide (2026) | GrowWise",
+  title: 'What Is Vibe Coding? Parent Guide for Kids',
   description:
-    "Vibe coding is the fastest-growing way kids learn to build real apps in 2026. Here's what it actually is, why it matters, and the one risk most parents miss.",
+    'Vibe coding lets kids build with AI, but fundamentals still matter. Learn the right age, benefits, risks, and what programs should teach.',
   keywords:
     'what is vibe coding, vibe coding for kids, vibe coding explained for parents, should kids learn vibe coding, vibe coding 2026, AI coding for kids, coding for kids 2026, AI-assisted coding children',
   datePublished: '2026-05-01',
@@ -51,5 +51,16 @@ export const WHAT_IS_VIBE_CODING_RELATED: readonly ResourceArticleRelated[] = [
   {
     href: '/resources/python-vs-scratch',
     title: 'Python vs Scratch: Which Should My Child Learn First?',
+    description: 'Use the age-by-age coding path before choosing AI-assisted coding.',
+  },
+  {
+    href: '/coding',
+    title: 'Coding & AI Programs',
+    description: 'Explore coding classes that pair real projects with programming fundamentals.',
+  },
+  {
+    href: '/steam/ml-ai-coding',
+    title: 'ML and AI Coding Classes',
+    description: 'A stronger next step for students ready to connect coding with AI concepts.',
   },
 ] as const

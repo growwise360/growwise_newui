@@ -91,6 +91,10 @@ class TestimonialsApiService {
     minRating?: number;
   } = {}): Promise<TestimonialsResponse> {
     const { limit, offset = 0, forceRefresh = false, minRating = 1 } = options;
+
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      return this.getDefaultTestimonials(limit || null, offset, minRating);
+    }
     
     const params = new URLSearchParams({
       offset: offset.toString(),

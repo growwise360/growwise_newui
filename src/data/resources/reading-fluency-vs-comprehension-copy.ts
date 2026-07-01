@@ -9,9 +9,9 @@ export const READING_FLUENCY_VS_COMPREHENSION_META: ResourceArticleMeta = {
   h1: 'Reading Fluency vs. Reading Comprehension: Why Your Child Might Struggle With One and Not the Other',
   readTime: '6 min read',
   updated: 'Updated June 2026',
-  title: 'Fluency vs Comprehension: Reading Gaps | GrowWise',
+  title: 'Fluency vs Comprehension: Which Reading Gap?',
   description:
-    'Your child can decode every word but still not understand what they read. Learn how to tell fluency from comprehension gaps—and why support matters.',
+    'Your child can read the words but miss the meaning. Compare fluency and comprehension gaps, warning signs, and what support should target.',
   keywords:
     'reading fluency vs comprehension, reading fluency comprehension difference, child reads but doesn\'t understand, reading program, reading comprehension gap, reading fluency gap, child struggles with reading comprehension',
   datePublished: '2026-06-02',
@@ -67,9 +67,16 @@ export const READING_FLUENCY_VS_COMPREHENSION_RELATED: readonly ResourceArticleR
   {
     href: '/resources/homework-independence',
     title: 'How to Stop Sitting Next to Your Child Every Homework Night',
+    description: 'Build the routines that help reading and homework practice stick at home.',
   },
   {
     href: '/academic/english',
     title: 'English & Reading Programs for Grades 1–12',
+    description: 'Structured reading, writing, and comprehension support after a diagnostic assessment.',
+  },
+  {
+    href: '/camps/summer-reading-writing-dublin-ca',
+    title: 'Summer Reading & Writing Programs in Dublin',
+    description: 'A seasonal option for students who need focused reading and writing support.',
   },
 ] as const

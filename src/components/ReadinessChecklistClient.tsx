@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
+import { useLocale } from 'next-intl'
 
 import {
   READINESS_CHECKLIST_ITEMS,
@@ -9,6 +11,7 @@ import {
   getReadinessActiveItems,
   type ReadinessGradeBandId,
 } from '@/lib/readiness-checklist-data'
+import { publicPath } from '@/lib/publicPath'
 
 interface ChecklistSection {
   id: string
@@ -61,6 +64,7 @@ function shouldUseInlineReportWindow() {
 }
 
 export function ReadinessChecklistClient() {
+  const locale = useLocale()
   const [gradeBandId, setGradeBandId] = useState<ReadinessGradeBandId>('grades-1-4')
   const [checked, setChecked] = useState<Record<string, boolean>>({})
   const [evaluationReadyKey, setEvaluationReadyKey] = useState('')
@@ -221,6 +225,8 @@ export function ReadinessChecklistClient() {
         : 'Export the report to see the detailed interpretation and suggested next steps.',
     }
   }, [checkedCount, evaluationStatus])
+
+  const assessmentHref = publicPath('/book-assessment?source=readiness-checklist-result', locale)
 
   const hasFeedbackSessionState = () => {
     if (typeof window === 'undefined') return true
@@ -487,6 +493,27 @@ export function ReadinessChecklistClient() {
           >
             {evaluationStatus === 'evaluating' ? 'Evaluating...' : 'Export evaluation report'}
           </button>
+          {evaluationStatus === 'ready' ? (
+            <div className="mx-auto mt-5 max-w-2xl rounded-xl bg-white/15 p-4">
+              <p className="text-sm font-semibold text-white">
+                Want us to check what these signs mean for your child?
+              </p>
+              <Link
+                href={assessmentHref}
+                onClick={() =>
+                  trackChecklistEvent('readiness_assessment_cta_clicked', {
+                    checked_count: checkedCount,
+                    total_items: activeTotal,
+                    grade_band: selectedGradeBand.label,
+                    score_band: getScoreBand(checkedCount, activeTotal),
+                  })
+                }
+                className="mt-3 inline-flex min-h-11 items-center justify-center rounded-lg bg-[#1E3A5F] px-5 py-3 text-sm font-black text-white transition-colors hover:bg-[#142D4C]"
+              >
+                Book an assessment
+              </Link>
+            </div>
+          ) : null}
           {exportError ? (
             <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold text-white">{exportError}</p>
           ) : null}

@@ -2,13 +2,13 @@
   "heroSlides": [
     {
       "id": 1,
-      "title": "Grades 1–12 Tutoring & STEAM\nin Dublin, CA",
-      "subtitle": "Expert Assessment. Personalized Plan. Math, English, coding, and SAT prep for Grades 1–12 students in the Tri-Valley.",
+      "title": "Elite Grades 1–12 Academic Training\nin Dublin, CA",
+      "subtitle": "Readiness Assessment. Personalized Mastery Plan. Math, English, coding, and SAT prep for ambitious Tri-Valley students.",
       "description": "",
-      "cta": "Book Free Assessment",
+      "cta": "Book Readiness Assessment",
       "secondaryCta": "Explore Academic Programs",
       "secondaryCtaUrl": "/academic",
-      "ctaUrl": "/enroll",
+      "ctaUrl": "/book-assessment",
       "icon": "BookOpen",
       "bgGradient": "bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#2a4a7c]",
       "iconColor": "text-white",
@@ -21,7 +21,7 @@
       "subtitle": "STEAM courses",
       "description": "Hands-on STEAM learning with Roblox, Scratch, Python, ML/AI, and Young Entrepreneurship programs.",
       "cta": "Book 30 minutes trial class",
-      "ctaUrl": "/enroll",
+      "ctaUrl": "/book-assessment",
       "icon": "Code",
       "bgGradient": "bg-gradient-to-br from-[#F16112] via-[#F1894F] to-[#d54f0a]",
       "iconColor": "text-white",
@@ -30,11 +30,11 @@
     },
     {
       "id": 3,
-      "title": "One-on-One Tuition",
-      "subtitle": "100% personal attention",
-      "description": "Specially designed for specific homework help and targeted learning support for kids who need focused attention.",
-      "cta": "Register Now",
-      "ctaUrl": "/enroll",
+      "title": "One-on-One Academic Coaching",
+      "subtitle": "Precision instruction",
+      "description": "Focused coaching for students who need sharper skills, stronger habits, and a clear path to advanced academic performance.",
+      "cta": "Request Placement Review",
+      "ctaUrl": "/book-assessment",
       "icon": "Users",
       "bgGradient": "bg-gradient-to-br from-[#1F396D] via-[#F16112] to-[#F1894F]",
       "iconColor": "text-white",
@@ -54,23 +54,23 @@
     { "id": 3, "value": "98%", "label": "Students Satisfaction", "icon": "ThumbsUp", "color": "text-[#F1894F]", "bgColor": "bg-[#F1894F]/10" }
   ],
   "k12Programs": [
-    { "id": 1, "title": "Math Courses", "description": "Build strong mathematical foundations from elementary to advanced levels", "icon": "Calculator", "gradient": "from-[#1F396D] to-[#29335C]", "bgGradient": "bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10", "iconColor": "text-[#1F396D]", "href": "/academic/math", "ctaText": "Start Learning", "ctaUrl": "/academic/math", "subItems": [
+    { "id": 1, "title": "Math Courses", "description": "Build strong mathematical foundations from elementary to advanced levels", "icon": "Calculator", "gradient": "from-[#1F396D] to-[#29335C]", "bgGradient": "bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10", "iconColor": "text-[#1F396D]", "href": "/academic/math", "ctaText": "Explore Math Pathways", "ctaUrl": "/academic/math", "subItems": [
       { "name": "Elementary Math", "icon": "🔢", "description": "Basic arithmetic and number sense" },
       { "name": "Middle School Math", "icon": "📊", "description": "Algebra and geometry foundations" },
       { "name": "DUSD Accelerated Math", "icon": "🚀", "description": "Advanced placement preparation" },
       { "name": "High School Math", "icon": "🎯", "description": "Calculus and advanced topics" }
     ] },
-    { "id": 2, "title": "ELA Courses", "description": "Develop comprehensive English language arts skills", "icon": "BookOpen", "gradient": "from-[#F16112] to-[#F1894F]", "bgGradient": "bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10", "iconColor": "text-[#F16112]", "href": "/academic/english", "ctaText": "Start Learning", "ctaUrl": "/academic/english", "subItems": [
+    { "id": 2, "title": "ELA Courses", "description": "Develop comprehensive English language arts skills", "icon": "BookOpen", "gradient": "from-[#F16112] to-[#F1894F]", "bgGradient": "bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10", "iconColor": "text-[#F16112]", "href": "/academic/english", "ctaText": "Explore English Pathways", "ctaUrl": "/academic/english", "subItems": [
       { "name": "English Mastery: Grades 1-12", "icon": "📚", "description": "Complete language arts curriculum" },
       { "name": "Reading Enrichment", "icon": "📖", "description": "Improve reading comprehension" },
       { "name": "Grammar Boost", "icon": "✏️", "description": "Master grammar and mechanics" }
     ] },
-    { "id": 3, "title": "Writing Lab", "description": "Master the art of effective written communication", "icon": "PenTool", "gradient": "from-[#F1894F] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-[#F1894F]/5 to-[#F16112]/10", "iconColor": "text-[#F1894F]", "ctaText": "Start Learning", "ctaUrl": "/academic/english", "subItems": [
+    { "id": 3, "title": "Writing Lab", "description": "Master the art of effective written communication", "icon": "PenTool", "gradient": "from-[#F1894F] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-[#F1894F]/5 to-[#F16112]/10", "iconColor": "text-[#F1894F]", "ctaText": "Explore Writing Lab", "ctaUrl": "/academic/english", "subItems": [
       { "name": "Creative Writing", "icon": "✨", "description": "Unleash your creative potential" },
       { "name": "Essay Writing", "icon": "📝", "description": "Academic and persuasive writing" },
       { "name": "Foundations of Writing", "icon": "🤔", "description": "Develop critical thinking skills" }
     ] },
-    { "id": 4, "title": "SAT/ACT", "description": "Achieve your best scores with comprehensive test preparation", "icon": "Award", "gradient": "from-[#1F396D] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-gray-50 to-gray-100", "iconColor": "text-[#1F396D]", "ctaText": "Start Learning", "ctaUrl": "/courses/sat-prep", "subItems": [
+    { "id": 4, "title": "SAT/ACT", "description": "Achieve your best scores with comprehensive test preparation", "icon": "Award", "gradient": "from-[#1F396D] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-gray-50 to-gray-100", "iconColor": "text-[#1F396D]", "ctaText": "Explore Test Prep", "ctaUrl": "/courses/sat-prep", "subItems": [
       { "name": "Math Test Prep", "icon": "🧮", "description": "Master SAT/ACT math sections" },
       { "name": "Online SAT Test Prep", "icon": "💻", "description": "Comprehensive SAT preparation" },
       { "name": "Online ACT Test Prep", "icon": "🎯", "description": "Complete ACT test strategy" }
@@ -107,20 +107,18 @@
     { "name": "Sindhu Jayaraman", "role": "Parent", "content": "My son has been enrolled in English tutoring for the past four months, and we've seen tremendous improvement in his skills! His confidence in writing has grown, and his comprehension has improved significantly. The tutors are patient, knowledgeable, and truly dedicated to helping students succeed. The personalized approach and engaging lessons have made a huge difference. Highly recommend GrowWise Tutoring for any parent looking to support their child's academic growth!", "rating": 5, "image": "https://lh3.googleusercontent.com/a-/ALV-UjWQsThJbc8c4dZZQ0Rtafrwz55pki40TtiNLyxrRFkFVe0dLTHj=s128-c0x00000000-cc-rp-mo" }
   ],
   "whyChooseUs": [
-    { "icon": "UserCheck", "title": "1️⃣ Personalized Pathway", "description": "We build a unique learning plan for each child — aligned with school curriculum, grade level, and personal goals. No generic lessons — every session is customized for their needs.", "subtitle": "Tailored Learning for Every Student" },
+    { "icon": "UserCheck", "title": "1️⃣ Personalized Pathway", "description": "We build a unique learning plan for each child — aligned with school curriculum, grade level, and personal goals. No generic lessons — every session is calibrated to their next academic move.", "subtitle": "Tailored Learning for Every Student" },
     { "icon": "Target", "title": "2️⃣ 100% Curriculum Aligned", "description": "Our lessons follow district pacing guides (Dublin, Pleasanton, San Ramon USD) and California Common Core, ensuring seamless classroom reinforcement.", "subtitle": "Perfectly Synced with School Topics" },
-    { "icon": "RefreshCw", "title": "3️⃣ Continuous Feedback Loop", "description": "Parents receive consistent feedback and progress snapshots — so you always know where your child stands and how to help at home.", "subtitle": "Regular Progress Updates for Parents" },
+    { "icon": "RefreshCw", "title": "3️⃣ Continuous Feedback Loop", "description": "Parents receive consistent feedback and progress snapshots — so you always know where your child stands and what should happen next at home.", "subtitle": "Regular Progress Updates for Parents" },
     { "icon": "BarChart3", "title": "4️⃣ Frequent Assessments", "description": "Diagnostic, weekly, and unit assessments guide the next learning step. Our tutors personalize practice based on every result.", "subtitle": "Measure, Adjust, and Master" },
     { "icon": "TrendingUp", "title": "5️⃣ Real Results", "description": "Students gain measurable improvement — stronger grades, sharper problem-solving, and renewed motivation within weeks.", "subtitle": "Confidence, Grades, and Growth" }
   ],
   "cta": {
-    "title": "Ready to Start Your Learning Journey?",
-    "subtitle": "Join 387+ students who have transformed their academic future with GrowWise.",
-    "primaryCta": "Choose Enrollment Type",
-    "primaryCtaUrl": "/enroll",
+    "title": "Ready to Build an Achievement Plan?",
+    "subtitle": "Join 387+ students training for stronger grades, sharper thinking, and long-term academic confidence with GrowWise.",
+    "primaryCta": "Book Readiness Assessment",
+    "primaryCtaUrl": "/book-assessment",
     "secondaryCta": "Talk to GrowWise",
     "secondaryCtaUrl": "/contact"
   }
 }
-
-

@@ -36,6 +36,7 @@ export default function NavButton({ item, createLocaleUrl }: NavButtonProps) {
     <div className="relative group">
       <Link
         href={createLocaleUrl(item.href)}
+        prefetch={false}
         className={getButtonStyles(item.variant)}
         onClick={handleClick}
       >

@@ -1,19 +1,13 @@
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+/**
+ * Avoid network font fetching during build/dev. CSS variables are defined in
+ * globals.css and resolve to system fallbacks unless a deployed font face is
+ * added later.
+ */
+export const inter = {
+  variable: 'font-inter-variable',
+} as const;
 
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  preload: false,
-  adjustFontFallback: true,
-});
-
-/** Homepage hero font — import only from `(home)/layout.tsx` so camp routes skip these bytes. */
-export const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-plus-jakarta',
-  weight: ['400', '500', '600', '700', '800'],
-  preload: true,
-  adjustFontFallback: true,
-});
+/** Homepage hero font wrapper class. */
+export const plusJakarta = {
+  variable: 'font-plus-jakarta-variable',
+} as const;

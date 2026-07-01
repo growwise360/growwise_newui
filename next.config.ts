@@ -260,6 +260,12 @@ const nextConfig: NextConfig = {
     ]);
 
     return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.growwiseschool.org' }],
+        destination: 'https://growwiseschool.org/:path*',
+        permanent: true,
+      },
       ...legacyAcademicRedirects,
       ...localePrefixedLegacyRedirects,
       ...legacyMarketingRedirects,

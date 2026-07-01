@@ -52,6 +52,30 @@ export function TutoringDublinCaArticlePage() {
         child actually needs.
       </p>
 
+      <h2>How should parents compare middle school and high school tutoring in Dublin?</h2>
+      <p>
+        Many families search for the best middle school or high school tutoring in Dublin, CA, but the right choice
+        depends on the student&apos;s stage. Middle school students often need help with fractions, ratios, equations,
+        reading stamina, writing structure, and the transition into Integrated Math. High school students usually need
+        course-specific support in Algebra, Geometry, Integrated Math, Precalculus, or SAT/PSAT preparation.
+      </p>
+      <p>
+        For middle school students, ask whether the program can explain the exact skill gap behind the struggle and
+        whether it understands the Integrated Math pathway used across many Tri-Valley schools. GrowWise offers{' '}
+        <ArticleLink href="/academic/math/middle-school">middle school math tutoring</ArticleLink>,{' '}
+        <ArticleLink href="/academic/english">English and writing support</ArticleLink>, and summer{' '}
+        <ArticleLink href="/camps/summer-im-get-ready-dublin-ca">IM Get Ready cohorts</ArticleLink> for students
+        preparing for the next math level.
+      </p>
+      <p>
+        For high school students, ask whether tutoring is tied to the current course, upcoming tests, finals, and
+        college-readiness goals. GrowWise supports{' '}
+        <ArticleLink href="/academic/math/high-school">high school math tutoring</ArticleLink>,{' '}
+        <ArticleLink href="/courses/integrated-math-1-dublin-ca">Integrated Math 1 tutoring</ArticleLink>, and{' '}
+        <ArticleLink href="/courses/sat-prep">SAT prep in Dublin, CA</ArticleLink> from the same diagnostic-first
+        model.
+      </p>
+
       <h2>What are the three types of tutoring programs in the Tri-Valley?</h2>
       <p>
         Most tutoring options in the Dublin area fall into one of three categories. Understanding which type
