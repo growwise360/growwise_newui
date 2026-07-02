@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import FAQSchema from '@/components/schema/FAQSchema'
 import { BOOK_ASSESSMENT_FAQ_JSONLD } from '@/lib/schema/course-hub-jsonld-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
+import { generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { CONTACT_INFO } from '@/lib/constants'
@@ -21,6 +22,7 @@ export default async function BookAssessmentLayout({
 }) {
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
+  const pageUrl = absoluteSiteUrl('/book-assessment', locale, baseUrl)
 
   const serviceSchema = {
     '@context': 'https://schema.org',
@@ -57,7 +59,7 @@ export default async function BookAssessmentLayout({
         price: '0',
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
-        url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
+        url: pageUrl,
         description: 'Verbal academic gap check and recommended next step',
       },
       {
@@ -66,18 +68,26 @@ export default async function BookAssessmentLayout({
         price: '49',
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
-        url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
+        url: pageUrl,
         description: '60-minute in-depth gap diagnostic with pattern analysis and written report',
       },
     ],
-    url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
+    url: pageUrl,
   }
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
+    { name: 'Book Assessment', url: pageUrl },
+  ])
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <FAQSchema faqs={BOOK_ASSESSMENT_FAQ_JSONLD} />
       {children}
