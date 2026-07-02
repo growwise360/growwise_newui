@@ -39,6 +39,8 @@ const FORM_INTRO: Record<ChatbotFormType, string> = {
   contact: "Send us a message here and our team will get back to you within 24 hours.",
 };
 
+const ASSESSMENT_INTAKE_EMAIL_UNLOCK = 'assessment-intake@growwise.local';
+
 interface Message {
   id: string;
   text: string;
@@ -47,6 +49,7 @@ interface Message {
   showContactForm?: boolean;
   chatForm?: {
     type: ChatbotFormType;
+    mode?: 'guided-intake';
     prefill?: Record<string, string>;
   };
 }
@@ -157,13 +160,16 @@ export default function Chatbot() {
   }, [pageContext, t]);
 
   const handleCloseChat = () => {
+    if (userEmail === ASSESSMENT_INTAKE_EMAIL_UNLOCK) {
+      setUserEmail(null);
+    }
     closeChatbot();
   };
 
   const mergeFormPrefill = useCallback(
     (prefill?: Record<string, string>) => ({
       ...prefill,
-      ...(userEmail ? { email: userEmail } : {}),
+      ...(userEmail && userEmail !== ASSESSMENT_INTAKE_EMAIL_UNLOCK ? { email: userEmail } : {}),
     }),
     [userEmail],
   );
@@ -175,6 +181,22 @@ export default function Chatbot() {
       ),
     [],
   );
+
+  const openAssessmentIntake = useCallback(() => {
+    clearFormsFromMessages();
+    setUserEmail((prev) => prev ?? ASSESSMENT_INTAKE_EMAIL_UNLOCK);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `assessment-intake-${Date.now()}`,
+        text:
+          "I can help with this. Answer in your own words, or tap an option. I'll keep it short and you can review everything before sending.",
+        sender: 'bot',
+        timestamp: new Date(),
+        chatForm: { type: 'assessment', mode: 'guided-intake' },
+      },
+    ]);
+  }, [clearFormsFromMessages]);
 
   const handleChatFormSuccess = useCallback(
     (successText: string) => {
@@ -193,6 +215,7 @@ export default function Chatbot() {
   );
 
   const handleChatFormCancel = useCallback(() => {
+    setUserEmail((prev) => (prev === ASSESSMENT_INTAKE_EMAIL_UNLOCK ? null : prev));
     clearFormsFromMessages();
   }, [clearFormsFromMessages]);
 
@@ -514,6 +537,19 @@ export default function Chatbot() {
     if (!isOpen || !pendingUserMessage) return;
     if (pendingUserMessage.id <= processedPendingIdRef.current) return;
 
+    if (pendingUserMessage.initialMode === 'assessment-intake') {
+      processedPendingIdRef.current = pendingUserMessage.id;
+      clearPendingUserMessage();
+      openAssessmentIntake();
+      return;
+    }
+
+    if (!pendingUserMessage.text) {
+      processedPendingIdRef.current = pendingUserMessage.id;
+      clearPendingUserMessage();
+      return;
+    }
+
     if (!userEmail) {
       pendingAfterEmailRef.current = pendingUserMessage.text;
       processedPendingIdRef.current = pendingUserMessage.id;
@@ -525,7 +561,7 @@ export default function Chatbot() {
     const text = pendingUserMessage.text;
     clearPendingUserMessage();
     void processUserMessage(text);
-  }, [isOpen, pendingUserMessage, clearPendingUserMessage, userEmail]);
+  }, [isOpen, pendingUserMessage, clearPendingUserMessage, userEmail, openAssessmentIntake]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -614,6 +650,7 @@ export default function Chatbot() {
                     <div className="w-full pl-7">
                       <ChatFormSlot
                         type={message.chatForm.type}
+                        mode={message.chatForm.mode}
                         prefill={mergeFormPrefill(message.chatForm.prefill)}
                         onSuccess={handleChatFormSuccess}
                         onCancel={handleChatFormCancel}

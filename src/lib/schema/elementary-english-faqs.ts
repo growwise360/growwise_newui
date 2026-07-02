@@ -27,7 +27,7 @@ export const ELEMENTARY_ENGLISH_VISIBLE_FAQS: FAQItem[] = [
       'Yes. Curriculum scope maps to California Common Core ELA expectations for Grades 1–5. We teach the underlying skills schools assess — with extra depth where diagnostics show gaps — so school work becomes easier, not duplicated without purpose.',
   },
   {
-    question: 'What does the free 45-minute assessment actually do?',
+    question: 'What does the free assessment actually do?',
     answer:
       'An instructor samples fluency, vocabulary, grammar, and writing, identifies the primary pillar gaps, and recommends Beginner, Champ, or Pro. You leave with a clear starting level and what month one will focus on — before any paid session.',
   },

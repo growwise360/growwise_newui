@@ -34,7 +34,7 @@ export function TutoringDublinCaArticlePage() {
       faqs={TUTORING_DUBLIN_CA_FAQS}
       relatedArticles={TUTORING_DUBLIN_CA_RELATED}
       ctaHeading="Not sure which program fits your child?"
-      ctaSubtext="Book a free 45-minute assessment at our Dublin center — or online. We identify the specific gap before recommending anything."
+      ctaSubtext="Book a free assessment at our Dublin center — or online. We identify the specific gap before recommending anything."
       ctas={[
         { href: '/book-assessment', label: 'Book Free Assessment →' },
         { href: '/dublin-ca', label: 'View Dublin Center →' },
@@ -225,7 +225,7 @@ export function TutoringDublinCaArticlePage() {
 
       <p>
         <strong>What makes our approach different:</strong> Every student starts with a{' '}
-        <ArticleLink href="/book-assessment">free 45-minute academic assessment</ArticleLink>. We identify the specific
+        <ArticleLink href="/book-assessment">free academic assessment</ArticleLink>. We identify the specific
         mistake pattern or skill gap before recommending any program. We align sessions to current school curriculum —
         not a separate sequence.
       </p>

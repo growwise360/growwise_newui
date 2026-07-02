@@ -14,7 +14,6 @@ describe('header resources dropdown menu', () => {
   it('exposes parent resources, blogs, and self-check tools in order', () => {
     expect(items.map((item) => item.key)).toEqual([
       'parentsCorner',
-      'parentDownloads',
       'blogs',
       'readinessCheck',
       'mathMistakeSelfCheck',
@@ -24,7 +23,6 @@ describe('header resources dropdown menu', () => {
   it('links to existing resource and self-check pages', () => {
     expect(items.map((item) => item.href)).toEqual([
       '/resources',
-      '/resources/downloads',
       '/growwise-blogs',
       '/readinesschecklist',
       '/self-check',

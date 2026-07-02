@@ -52,6 +52,15 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'line-by-line-reading-evidence-2026',
+    category: 'academic',
+    title: 'The Tell-Tale Heart Reading Comprehension',
+    excerpt:
+      'Decode Poe’s famous short story excerpt by excerpt and teach students to cite evidence about narrator reliability.',
+    href: '/growwise-blogs/tell-tale-heart-reading-comprehension-cite-evidence',
+    readMore: 'Try the lesson »',
+  },
+  {
     id: 'reading-comprehension-words-no-understanding-2026',
     category: 'academic',
     title: 'My Child Can Read the Words but Doesn’t Understand the Passage',

@@ -106,7 +106,12 @@ test('submitter retries a rate limit and accepts 202', async () => {
     fetchImpl,
     sleep: async () => {},
   })
-  assert.deepEqual(result, { status: 202, accepted: true })
+  assert.deepEqual(result, {
+    status: 202,
+    accepted: true,
+    endpoint: 'https://api.indexnow.org/indexnow',
+    urlCount: 1,
+  })
   assert.equal(calls.length, 2)
   assert.equal(calls[0].host, 'growwiseschool.org')
 })
@@ -124,6 +129,11 @@ test('submitter retries transient network errors', async () => {
     fetchImpl,
     sleep: async () => {},
   })
-  assert.deepEqual(result, { status: 200, accepted: true })
+  assert.deepEqual(result, {
+    status: 200,
+    accepted: true,
+    endpoint: 'https://api.indexnow.org/indexnow',
+    urlCount: 1,
+  })
   assert.equal(attempts, 2)
 })

@@ -144,7 +144,7 @@ const augustEnglishSearchCards = [
 const steps = [
   {
     eyebrow: 'Free',
-    title: '45-minute assessment',
+    title: 'Assessment',
     body:
       'We map reading comprehension, writing structure, grammar patterns, and vocabulary range to find the real gap, not just the subject label.',
   },
@@ -482,7 +482,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
             <SectionIntro
               eyebrow="How it works"
               title="Every program starts with a diagnostic. Not a placement test - a pattern finder."
-              body="45 minutes before the first session. No charge. No commitment."
+              body="Before the first session. No charge. No commitment."
             />
             <div className="grid gap-5 md:grid-cols-3">
               {steps.map((step, index) => (
@@ -650,7 +650,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               Not sure where to start?
             </h2>
             <p className="mt-4 text-base leading-relaxed text-white/75">
-              A free 45-minute assessment identifies the real gap, places your child in the right program,
+              A free assessment identifies the real gap, places your child in the right program,
               and gives you a concrete plan before you pay anything.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">

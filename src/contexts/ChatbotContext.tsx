@@ -3,11 +3,13 @@ import React, { createContext, useCallback, useContext, useRef, useState, ReactN
 
 export type OpenChatbotOptions = {
   initialUserMessage?: string;
+  initialMode?: 'assessment-intake';
 };
 
 export type PendingChatMessage = {
   id: number;
-  text: string;
+  text?: string;
+  initialMode?: OpenChatbotOptions['initialMode'];
 };
 
 interface ChatbotContextType {
@@ -38,13 +40,17 @@ export const ChatbotProvider: React.FC<ChatbotProviderProps> = ({ children }) =>
   const pendingMessageIdRef = useRef(0);
 
   const openChatbot = useCallback((arg?: OpenChatbotOptions | SyntheticEvent) => {
+    const mode =
+      arg && 'initialMode' in arg && arg.initialMode === 'assessment-intake'
+        ? arg.initialMode
+        : undefined;
     const message =
       arg && 'initialUserMessage' in arg && typeof arg.initialUserMessage === 'string'
         ? arg.initialUserMessage.trim()
         : undefined;
-    if (message) {
+    if (message || mode) {
       pendingMessageIdRef.current += 1;
-      setPendingUserMessage({ id: pendingMessageIdRef.current, text: message });
+      setPendingUserMessage({ id: pendingMessageIdRef.current, text: message, initialMode: mode });
     }
     setIsOpen(true);
   }, []);

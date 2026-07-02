@@ -121,7 +121,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
   {
     label: 'Practice of what?',
     heading: '"Teacher says they need more practice but I don\'t know of what"',
-    body: '"More practice" applied to the wrong concept produces frustration, not progress. The 45-minute assessment identifies exactly which concept needs work and whether Beginner or Champ is the right starting point.',
+    body: '"More practice" applied to the wrong concept produces frustration, not progress. The free 30-minute assessment identifies exactly which concept needs work and whether Beginner or Champ is the right starting point.',
     cta: 'assessment',
     ctaLabel: 'Book free assessment',
     levelTag: 'Beginner or Champ · assessment decides',
@@ -311,7 +311,7 @@ const ElementaryMathPage: React.FC = () => {
             </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-4 leading-relaxed">
-            By the time a parent notices the problem — grades slipping, homework battles, "I hate math" — the real blocker is usually something from 6 to 18 months ago that never fully landed. Our programs start with a free 45-minute diagnostic session that identifies where reasoning breaks down, not where the current worksheet is hard.
+            By the time a parent notices the problem — grades slipping, homework battles, "I hate math" — the real blocker is usually something from 6 to 18 months ago that never fully landed. Our programs start with a free 30-minute assessment that identifies where reasoning breaks down, not where the current worksheet is hard.
           </p>
           {/* Change 1 — level line */}
           <p className="max-w-xl mx-auto text-sm text-gray-500 mb-8">
@@ -443,13 +443,13 @@ const ElementaryMathPage: React.FC = () => {
             Students who score below 90% stay at their current level and continue building — no rushing, no skipping steps.
           </p>
           <p className="font-semibold text-gray-800 mb-6">
-            The assessment is free, takes 45 minutes, and places your child in the right level before the first paid session.
+            The assessment is free, takes 30 minutes, and places your child in the right level before the first paid session.
           </p>
           <Link
             href={publicPath('/book-assessment', locale)}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
           >
-            Book free 45-minute assessment
+            Book free 30-minute assessment
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
@@ -679,9 +679,9 @@ const ElementaryMathPage: React.FC = () => {
       <section className="bg-gradient-to-br from-[#1F396D] to-[#29335C] py-16 lg:py-24 text-white text-center">
         <div className="max-w-2xl mx-auto px-4 lg:px-8">
           <Brain className="h-10 w-10 text-[#F1894F] mx-auto mb-5" aria-hidden />
-          <h2 className="text-2xl lg:text-3xl font-bold mb-4">Start with a free 45-minute assessment.</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4">Start with a free 30-minute assessment.</h2>
           <p className="text-white/80 mb-8 leading-relaxed">
-            The free 45-minute assessment does three things: identifies your child's specific gap, places them in the right level (Beginner, Champ, or Pro), and maps out what month one of their program will focus on. No charge. No commitment. Results you can act on immediately.
+            The free 30-minute assessment does three things: identifies your child's specific gap, places them in the right level (Beginner, Champ, or Pro), and maps out what month one of their program will focus on. No charge. No commitment. Results you can act on immediately.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button

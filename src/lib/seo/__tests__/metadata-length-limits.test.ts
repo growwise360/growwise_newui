@@ -34,6 +34,7 @@ describe('Metadata length limits — TC-05 / TC-06', () => {
       ['/academic/math/middle-school'],
       ['/academic/math/high-school'],
       ['/academic/math/high-school'],
+      ['/book-assessment'],
       ['/enroll'],
       ['/future-skills'],
       ['/future-skills/design-creative-media'],

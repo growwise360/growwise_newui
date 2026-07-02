@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     generateMetadataFromPath('/academic/math/middle-school', locale) ?? {
       title: 'Middle School Math Tutoring — IM1, IM2 | GrowWise',
       description:
-        'Grades 6–8 math: Course 1 through IM2. Standard and accelerated tracks. Live online small groups. Free 45-minute assessment.',
+        'Grades 6–8 math: Course 1 through IM2. Standard and accelerated tracks. Live online small groups. Free assessment.',
     }
   )
 }

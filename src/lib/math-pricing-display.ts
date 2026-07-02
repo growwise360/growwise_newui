@@ -61,7 +61,7 @@ export function buildHighSchoolMetaDescription(): string {
 export function buildHighSchoolSeoIntroParagraph(): string {
   const fromMonthly = formatFromMonthlyPhrase('high-school');
   const trial = formatTrialSessionFeeLabel();
-  return `GrowWise offers structured math learning programs for high school students in Dublin, CA — from Algebra 1 through Pre-Calculus, Integrated Math, and beyond. Small classes, expert instructors, results that show up on report cards. Start with a free 45-minute assessment or a ${trial} trial session (Grades 9–12) before enrolling in a monthly program ${fromMonthly}.`;
+  return `GrowWise offers structured math learning programs for high school students in Dublin, CA — from Algebra 1 through Pre-Calculus, Integrated Math, and beyond. Small classes, expert instructors, results that show up on report cards. Start with a free assessment or a ${trial} trial session (Grades 9–12) before enrolling in a monthly program ${fromMonthly}.`;
 }
 
 export function buildHighSchoolTrialFaqAnswer(): string {

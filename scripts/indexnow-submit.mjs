@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { execFileSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { appendFileSync, mkdirSync, readFileSync } from 'node:fs'
+import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
   CANONICAL_ORIGIN,
@@ -15,6 +16,7 @@ import {
 
 const KEY = '9bdcae9db63f4f39996f3ad38cc52d32'
 const KEY_FILE = fileURLToPath(new URL(`../public/${KEY}.txt`, import.meta.url))
+const DEFAULT_LOG_FILE = fileURLToPath(new URL('../artifacts/seo/indexnow-submissions.jsonl', import.meta.url))
 
 function usage() {
   console.log(`Usage:
@@ -27,18 +29,20 @@ Options:
   --url <url-or-path>    Submit one changed or deleted URL; may be repeated.
   --changed-since <ref>  Derive affected URLs from git changes. Shared changes
                          safely fall back to the full sitemap.
+  --log <path>           JSONL submission log path. Defaults to artifacts/seo.
   --dry-run              Print validated URLs without contacting IndexNow.
 `)
 }
 
 function parseArgs(argv) {
-  const options = { all: false, dryRun: false, urls: [], changedSince: null }
+  const options = { all: false, dryRun: false, urls: [], changedSince: null, logPath: DEFAULT_LOG_FILE }
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index]
     if (arg === '--all') options.all = true
     else if (arg === '--dry-run') options.dryRun = true
     else if (arg === '--url') options.urls.push(argv[++index])
     else if (arg === '--changed-since') options.changedSince = argv[++index]
+    else if (arg === '--log') options.logPath = argv[++index]
     else if (arg === '--help' || arg === '-h') {
       usage()
       process.exit(0)
@@ -95,6 +99,11 @@ async function resolveUrls(options) {
   return uniqueCanonicalUrls([...sitemapUrls, ...explicit])
 }
 
+function logSubmission(logPath, entry) {
+  mkdirSync(dirname(logPath), { recursive: true })
+  appendFileSync(logPath, `${JSON.stringify({ submittedAt: new Date().toISOString(), ...entry })}\n`)
+}
+
 async function main() {
   assertKeyFile()
   const options = parseArgs(process.argv.slice(2))
@@ -120,8 +129,19 @@ async function main() {
   const batches = batchUrls(urls)
   for (let index = 0; index < batches.length; index += 1) {
     const result = await submitIndexNowBatch({ urls: batches[index], key: KEY })
+    logSubmission(options.logPath, {
+      tool: 'indexnow-submit',
+      batch: index + 1,
+      batches: batches.length,
+      status: result.status,
+      accepted: result.accepted,
+      endpoint: result.endpoint,
+      urlCount: result.urlCount,
+      urls: batches[index],
+    })
     console.log(`Batch ${index + 1}/${batches.length} accepted (HTTP ${result.status}).`)
   }
+  console.log(`Submission log updated: ${options.logPath}`)
 }
 
 main().catch((error) => {

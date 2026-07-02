@@ -18,7 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog';
-import { BookOpen, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Star, Shield, ArrowRight, Calendar, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Calculator, X, AlertCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Star, Shield, ArrowRight, Calendar, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Calculator, X, AlertCircle, MessageCircle } from 'lucide-react';
 import CountryCodeSelector from '@/components/CountryCodeSelector';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -33,6 +33,7 @@ import {
   trackAssessmentFormStarted,
   trackAssessmentFormSubmitted,
   trackAssessmentFormViewed,
+  trackAssessmentIntakeEvent,
   trackAssessmentOptionSelected,
   trackAssessmentSubmitFailed,
   trackAssessmentValidationError,
@@ -42,6 +43,7 @@ import { captureUtmFromSearchParams, getStoredUtm, getStoredUtmNotesLine } from 
 import { getVisitorEventIdentity, logVisitorEventClient } from '@/lib/analytics/visitorEventsClient';
 import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
 import PartnerReferralCard from '@/components/shared/PartnerReferralCard';
+import { useChatbot } from '@/contexts/ChatbotContext';
 
 const partnerConfig = {
   velp: {
@@ -112,31 +114,31 @@ const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
 const DEFAULT_ASSESSMENT_HEADLINE =
   'Advanced Math & English Readiness Assessment for Grades 1-12.';
 
-const DEFAULT_ASSESSMENT_TYPE = 'Free 20-Minute Assessment';
+const DEFAULT_ASSESSMENT_TYPE = 'Free 30-Minute Assessment';
 
 const ASSESSMENT_PATHS = [
   {
     type: DEFAULT_ASSESSMENT_TYPE,
     badge: 'Free',
-    title: 'Free 20-Minute Assessment',
-    duration: '20 minutes',
-    ctaLabel: 'Book Free Assessment',
+    title: 'Free 30-Minute Assessment',
+    duration: '30 minutes',
+    ctaLabel: 'Request Free Assessment',
     summary:
-      'Best for parents who want to understand if GrowWise is the right fit and get a quick next-step recommendation.',
-    bestFor: 'Quick fit check with a verbal next step.',
+      'Best for elementary students in Grades 1-4 when you want a quick read on current math or English readiness.',
+    bestFor: 'Best for elementary students in Grades 1-4 who need a quick readiness check before choosing the next step.',
     receives: ['Verbal gap summary', 'Recommended next step', 'No written report'],
     checks: ['Current grade-level readiness', 'Visible skill gaps', 'Mistake patterns we can spot quickly'],
     icon: Clock,
   },
   {
-    type: 'Full Gap Diagnostic',
-    badge: '$49',
-    title: '60-Minute Full Gap Diagnostic',
+    type: 'Full Diagnostic',
+    badge: 'Written plan',
+    title: 'Full Diagnostic',
     duration: '60 minutes',
-    ctaLabel: 'Book Full Diagnostic',
+    ctaLabel: 'Get Written Diagnostic Plan',
     summary:
-      'Best for parents who want a deeper skill review, gap analysis, and next-step learning plan.',
-    bestFor: 'A deeper review with a written learning plan.',
+      'Best if you want a written roadmap before choosing a program.',
+    bestFor: 'Best if you want a written roadmap before choosing a program.',
     receives: ['Written diagnostic report', 'Gap and pattern analysis', 'Specific learning plan'],
     checks: ['Root causes behind mistakes', 'Missing foundations from earlier grades', 'Readiness for school curriculum'],
     icon: FileText,
@@ -177,6 +179,7 @@ export default function BookAssessmentPageClient() {
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { openChatbot } = useChatbot();
   const communitySlug = searchParams.get('community') || '';
   const partnerParam = searchParams.get('partner') || '';
   const validPartner = partnerParam && partnerConfig[partnerParam as keyof typeof partnerConfig] ? partnerConfig[partnerParam as keyof typeof partnerConfig] : null;
@@ -204,7 +207,9 @@ export default function BookAssessmentPageClient() {
   const [hasTrackedFormStart, setHasTrackedFormStart] = useState(false);
   const [hasTrackedFormView, setHasTrackedFormView] = useState(false);
   const [isExploreCoursesModalOpen, setIsExploreCoursesModalOpen] = useState(false);
+  const [showGrowyIntakePrompt, setShowGrowyIntakePrompt] = useState(false);
   const hasLoggedAssessmentPageView = useRef(false);
+  const hasTrackedGrowyPromptView = useRef(false);
 
   // Default consent to true so users (and automated tests) are not blocked if they miss this single checkbox.
   const [agreeToCommunications, setAgreeToCommunications] = useState(true);
@@ -281,6 +286,41 @@ export default function BookAssessmentPageClient() {
     observer.observe(formSection);
     return () => observer.disconnect();
   }, [hasMounted, hasTrackedFormView, formData.assessmentType]);
+
+  useEffect(() => {
+    if (!hasMounted) return;
+    if (sessionStorage.getItem('growyAssessmentPromptDismissed') === 'true') return;
+
+    const showPrompt = () => setShowGrowyIntakePrompt(true);
+    const timer = window.setTimeout(showPrompt, 15000);
+    const formSection = document.getElementById('assessment-booking-form');
+
+    if (!formSection) {
+      return () => window.clearTimeout(timer);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          showPrompt();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(formSection);
+    return () => {
+      window.clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [hasMounted]);
+
+  useEffect(() => {
+    if (!showGrowyIntakePrompt || hasTrackedGrowyPromptView.current) return;
+    hasTrackedGrowyPromptView.current = true;
+    trackAssessmentIntakeEvent('assessment_intake_prompt_viewed');
+  }, [showGrowyIntakePrompt]);
 
   const grades = [
     'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
@@ -564,6 +604,18 @@ export default function BookAssessmentPageClient() {
     window.setTimeout(scrollToForm, 0);
   };
 
+  const startGrowyAssessmentIntake = () => {
+    trackAssessmentIntakeEvent('assessment_intake_started', {
+      source: 'assessment_page_helper',
+    });
+    openChatbot({ initialMode: 'assessment-intake' });
+  };
+
+  const dismissGrowyAssessmentPrompt = () => {
+    sessionStorage.setItem('growyAssessmentPromptDismissed', 'true');
+    setShowGrowyIntakePrompt(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50" suppressHydrationWarning>
       {/* <section className="py-16 bg-white">
@@ -662,7 +714,7 @@ export default function BookAssessmentPageClient() {
               Math & English Assessment in Dublin, CA
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
-              Choose a quick free assessment or a deeper 60-minute diagnostic. We&apos;ll look for gaps, patterns, and the next step without pressure to enroll.
+              Leave knowing the likely gap, the right next step, and whether GrowWise is a fit. Choose a free 30-minute assessment for Grades 1-4 or a deeper diagnostic with a written plan.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <button
@@ -670,11 +722,11 @@ export default function BookAssessmentPageClient() {
                 onClick={() => selectAssessmentPathAndScroll(DEFAULT_ASSESSMENT_TYPE)}
                 className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F16112] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#d64f0d]"
               >
-                Book free assessment
+                Request free assessment
               </button>
               <button
                 type="button"
-                onClick={() => selectAssessmentPathAndScroll('Full Gap Diagnostic')}
+                onClick={() => selectAssessmentPathAndScroll('Full Diagnostic')}
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"
               >
                 Compare assessment options
@@ -733,10 +785,13 @@ export default function BookAssessmentPageClient() {
                           <IconComponent className="h-5 w-5" aria-hidden />
                         </span>
                         <div>
-                          <p className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">
+                          <p
+                            className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]"
+                            suppressHydrationWarning
+                          >
                             {path.badge} · {path.duration}
                           </p>
-                          <h3 className="mt-1 text-xl font-bold text-[#1F396D]">
+                          <h3 className="mt-1 text-xl font-bold text-[#1F396D]" suppressHydrationWarning>
                             {path.title}
                           </h3>
                         </div>
@@ -751,6 +806,11 @@ export default function BookAssessmentPageClient() {
                     <p className="mt-3 rounded-xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
                       {path.bestFor}
                     </p>
+                    {path.type !== DEFAULT_ASSESSMENT_TYPE ? (
+                      <p className="mt-3 text-xs font-semibold leading-relaxed text-[#1F396D]">
+                        Includes a written report and learning plan. Diagnostic fee is credited toward enrollment.
+                      </p>
+                    ) : null}
                     <Button
                       type="button"
                       onClick={() => selectAssessmentPathAndScroll(path.type)}
@@ -761,7 +821,7 @@ export default function BookAssessmentPageClient() {
                           : 'bg-[#1F396D] text-white hover:bg-[#29335C]'
                       )}
                     >
-                      {path.type === DEFAULT_ASSESSMENT_TYPE ? path.ctaLabel : 'Choose Full Diagnostic'}
+                      {path.ctaLabel}
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                     </Button>
                   </article>
@@ -769,9 +829,40 @@ export default function BookAssessmentPageClient() {
               })}
             </div>
             <p className="mt-5 rounded-2xl bg-[#F8FAFC] px-4 py-3 text-center text-sm font-semibold leading-relaxed text-[#1F396D] ring-1 ring-slate-200">
-              No pressure to enroll. We recommend the next step only if GrowWise is the right fit.
+              No pressure to enroll. You&apos;ll get a clear next step even if GrowWise is not the right fit.
             </p>
           </div>
+          {showGrowyIntakePrompt ? (
+            <div className="mt-5 rounded-2xl border border-[#F16112]/25 bg-[#FFF7ED] p-4 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-4">
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F16112] text-white">
+                  <MessageCircle className="h-5 w-5" aria-hidden />
+                </span>
+                <div>
+                  <h3 className="text-base font-bold text-[#1F396D]">Want Growy to help?</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                    Tell Growy what you&apos;re noticing. We&apos;ll turn it into an assessment request you can review before sending.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-col gap-2 sm:mt-0 sm:w-56">
+                <Button
+                  type="button"
+                  onClick={startGrowyAssessmentIntake}
+                  className="min-h-11 rounded-xl bg-[#F16112] text-sm font-bold text-white hover:bg-[#d94f0d]"
+                >
+                  Let Growy Help
+                </Button>
+                <button
+                  type="button"
+                  onClick={dismissGrowyAssessmentPrompt}
+                  className="text-xs font-semibold text-slate-500 hover:text-slate-700"
+                >
+                  I&apos;ll fill it myself
+                </button>
+              </div>
+            </div>
+          ) : null}
           <div id="assessment-booking-form" suppressHydrationWarning>
             <Card className="bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-xl md:rounded-3xl overflow-hidden" suppressHydrationWarning>
               <CardContent className="p-4 sm:p-6 md:p-8" suppressHydrationWarning>
@@ -785,6 +876,11 @@ export default function BookAssessmentPageClient() {
                         <p id="selectedAssessmentType-help" className="mt-1 text-xs leading-relaxed text-slate-600">
                           We&apos;ll use this to prepare for your call.
                         </p>
+                        {selectedAssessmentPath.type !== DEFAULT_ASSESSMENT_TYPE ? (
+                          <p className="mt-2 text-xs font-semibold leading-relaxed text-[#1F396D]">
+                            Full Diagnostic fee: $49, credited toward your first program payment if you enroll.
+                          </p>
+                        ) : null}
                       </div>
                       <Input
                         id="selectedAssessmentType"
@@ -884,7 +980,7 @@ export default function BookAssessmentPageClient() {
                         </Select>
                       </div>
                       <div className="space-y-2 sm:col-span-2">
-                        <Label htmlFor="mainConcern" className="text-gray-700 font-medium text-sm flex items-center gap-2"><Brain className="w-4 h-4 text-[#1F396D]" />Main Concern <span className="text-gray-400 text-xs">(optional)</span></Label>
+                        <Label htmlFor="mainConcern" className="text-gray-700 font-medium text-sm flex items-center gap-2"><Brain className="w-4 h-4 text-[#1F396D]" />What made you look for help? <span className="text-gray-400 text-xs">(optional)</span></Label>
                         <Input
                           id="mainConcern"
                           type="text"
@@ -893,10 +989,10 @@ export default function BookAssessmentPageClient() {
                           onFocus={() => setFocusedField('mainConcern')}
                           onBlur={() => setFocusedField(null)}
                           className={cn("bg-white border rounded-lg transition-all h-11 text-sm", focusedField === 'mainConcern' ? 'border-[#F16112] shadow-sm ring-2 ring-[#F16112]/10' : 'border-gray-300 hover:border-gray-400')}
-                          placeholder="Example: math gaps, writing confidence, homework stress"
+                          placeholder="Example: careless mistakes, low confidence, writing takes too long, advanced math readiness"
                         />
                       </div>
-                      <div className="space-y-2 sm:col-span-2">
+                      <div className="space-y-2 sm:col-span-2 rounded-xl bg-slate-50 p-3">
                         <Label htmlFor="hearAboutUs" className="text-gray-700 font-medium text-sm flex items-center gap-2"><User className="w-4 h-4 text-[#F16112]" />How did you hear about us? <span className="text-gray-400 text-xs">(optional)</span></Label>
                         <Select
                           onValueChange={(value) => handleInputChange('hearAboutUs', value)}
@@ -1037,13 +1133,13 @@ export default function BookAssessmentPageClient() {
                         ) : (
                           <>
                             <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
-                            {selectedAssessmentPath.type === DEFAULT_ASSESSMENT_TYPE ? 'Book Free Assessment' : 'Book Full Diagnostic'}
+                            {selectedAssessmentPath.type === DEFAULT_ASSESSMENT_TYPE ? 'Request My Assessment Time' : 'Request My Diagnostic Time'}
                             <Sparkles className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform" />
                           </>
                         )}
                       </Button>
                       <p className="mt-3 text-center text-xs text-slate-500">
-                        We&apos;ll call or text within 24 hours to confirm the assessment path and exact next step.
+                        We&apos;ll call or text within 24 hours to confirm the exact time.
                       </p>
                       {errorMessage && (
                         <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
@@ -1071,6 +1167,33 @@ export default function BookAssessmentPageClient() {
               </div>
             ))}
           </div>
+
+          <section className="mt-8 rounded-3xl border border-[#1F396D]/10 bg-white p-5 shadow-sm sm:p-7" aria-labelledby="assessment-comparison-title">
+            <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">For families comparing options</p>
+                <h2 id="assessment-comparison-title" className="mt-2 text-2xl font-bold tracking-tight text-[#1F396D] sm:text-3xl">
+                  Why families choose GrowWise after comparing options
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                  The earlier we identify the gap, the easier it is to fix before the next test, unit, or school transition.
+                </p>
+              </div>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {[
+                  'We identify the root gap before recommending a class.',
+                  'We explain the learning pattern to parents, not just the score.',
+                  'We connect assessment results to a clear 4-8 week plan.',
+                  'We support both catch-up and advanced pathways.',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 rounded-2xl bg-slate-50 p-4 text-sm font-semibold leading-relaxed text-slate-700 ring-1 ring-slate-200">
+                    <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#F16112]" aria-hidden />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
 
           <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7" aria-labelledby="assessment-process-title">
             <div className="grid gap-7 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
