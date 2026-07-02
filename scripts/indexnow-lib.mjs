@@ -145,6 +145,15 @@ export function parseNameStatus(output) {
     .filter((change) => change.path)
 }
 
+export function buildIndexNowPayload({ urls, key }) {
+  return {
+    host: CANONICAL_HOST,
+    key,
+    keyLocation: `${CANONICAL_ORIGIN}/${key}.txt`,
+    urlList: uniqueCanonicalUrls(urls),
+  }
+}
+
 export async function submitIndexNowBatch({
   urls,
   key,
@@ -154,12 +163,7 @@ export async function submitIndexNowBatch({
   retries = 2,
   sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
 }) {
-  const body = {
-    host: CANONICAL_HOST,
-    key,
-    keyLocation: `${CANONICAL_ORIGIN}/${key}.txt`,
-    urlList: uniqueCanonicalUrls(urls),
-  }
+  const body = buildIndexNowPayload({ urls, key })
 
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     let response
@@ -179,7 +183,7 @@ export async function submitIndexNowBatch({
     }
 
     if (response.status === 200 || response.status === 202) {
-      return { status: response.status, accepted: true }
+      return { status: response.status, accepted: true, endpoint, urlCount: body.urlList.length }
     }
 
     const retryable = response.status === 429 || response.status >= 500

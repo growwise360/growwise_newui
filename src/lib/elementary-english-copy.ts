@@ -51,7 +51,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
       {
         question: "My child's teacher says they read below grade level. What does that actually mean?",
         answer:
-          'It usually means fluency, vocabulary, or comprehension — not ability — is below the band expected for their grade. The label is a snapshot; our 45-minute diagnostic breaks it into the four pillars so you know exactly which skills to close and at which level to start.',
+          'It usually means fluency, vocabulary, or comprehension — not ability — is below the band expected for their grade. The label is a snapshot; our free assessment breaks it into the four pillars so you know exactly which skills to close and at which level to start.',
       },
       {
         question: 'Is elementary English tutoring in Grades 1–5 worth it, or should I wait and see?',
@@ -188,7 +188,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
     sectionLabel: 'Program details',
     heading: 'Elementary English — structured 3-month program',
     includes: [
-      'Free 45-minute diagnostic before session 1 — places Beginner, Champ, or Pro',
+      'Free assessment before session 1 — places Beginner, Champ, or Pro',
       '2 sessions per week · 60 minutes each · 24 sessions per 3-month block',
       'Groups of 6–10 students at the same skill profile (not necessarily the same grade)',
       'All four pillars every session — reading fluency, vocabulary, grammar, writing',
@@ -210,7 +210,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
     subtitle: 'Direct answers for Grades 1–5 parents in Dublin, Pleasanton, San Ramon, and the Tri-Valley.',
   },
   cta: {
-    heading: 'Start with a free 45-minute assessment.',
+    heading: 'Start with a free assessment.',
     body:
       'The assessment identifies pillar gaps, places your child in Beginner, Champ, or Pro, and outlines month one — before any paid session. No charge and no commitment.',
     primaryLabel: 'Book free assessment',

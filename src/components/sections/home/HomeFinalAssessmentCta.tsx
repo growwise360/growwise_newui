@@ -15,7 +15,7 @@ export function HomeFinalAssessmentCta() {
       <div className="home-section-inner home-final-inner">
         <h2 className="home-final-h2">Ready to know exactly what to do next?</h2>
         <p className="home-final-sub">
-          Book a free assessment — 45 minutes, personalized plan included, no commitment.
+          Book an assessment request — clear next step, personalized plan, no commitment.
         </p>
         <Link
           href={assessmentHref}

@@ -298,7 +298,7 @@ export function HowToChooseSummerCampPage() {
           {[
             ['3 paths', 'Academic, STEAM, or enrichment'],
             ['5 questions', 'Ask before enrolling anywhere'],
-            ['45 minutes', 'Free assessment if the fit is unclear'],
+            ['Free assessment', 'Check the right fit before enrolling'],
           ].map(([stat, label]) => (
             <div key={stat} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
               <p className="text-2xl font-black text-[#1E3A5F]">{stat}</p>
@@ -544,7 +544,7 @@ export function HowToChooseSummerCampPage() {
             </div>
             <div className="rounded-xl bg-[#EFF6FF] p-5">
               <ul className="space-y-3 text-sm text-slate-700">
-                <li><strong>45 minutes</strong> with no commitment required</li>
+                <li><strong>Free assessment</strong> with no commitment required</li>
                 <li><strong>Grades 1-12</strong> academic and STEAM guidance</li>
                 <li><strong>Dublin center</strong> at 4564 Dublin Blvd</li>
                 <li><strong>Parent takeaway</strong>: the next-step plan</li>
@@ -575,7 +575,7 @@ export function HowToChooseSummerCampPage() {
               Not sure which program fits?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-blue-50 sm:text-base">
-              Book a free 45-minute assessment. We&apos;ll look at your child&apos;s actual gaps and goals, then recommend the right summer path before you commit.
+              Book a free assessment. We&apos;ll look at your child&apos;s actual gaps and goals, then recommend the right summer path before you commit.
             </p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <Link

@@ -75,7 +75,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who fall behind in middle school almost always have an unresolved concept from late elementary — fractions, ratios, or early algebraic thinking. We find it in the assessment and start there, not at the current unit.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free 45-minute assessment',
+    primaryLabel: 'Book free assessment',
   },
   {
     id: 'im-prep',
@@ -85,7 +85,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students placed in IM1 or IM2 are often technically eligible but not actually prepared for the pacing of week one. We run a prep sequence aligned to the exact concepts the course assumes on day one.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free 45-minute assessment',
+    primaryLabel: 'Book free assessment',
     secondaryHref: '/camps/academic-summer-programs-dublin-ca',
     secondaryLabel: 'See IM1 Get Ready program',
   },
@@ -97,7 +97,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who understand concepts in class but lose points on tests usually have one of two problems: careless mistake patterns under time pressure, or gaps in the specific reasoning type the test requires. Both are fixable. Neither is fixed by more homework.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free 45-minute assessment',
+    primaryLabel: 'Book free assessment',
   },
   {
     id: 'accelerated-ready',
@@ -107,7 +107,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'A student can score well enough to place into accelerated math and still not be ready for the pacing or reasoning demands of IM1. The assessment tells you which one is true for your child — and if there is a gap, we close it before the school year starts.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free 45-minute assessment',
+    primaryLabel: 'Book free assessment',
   },
   {
     id: 'ahead',
@@ -278,7 +278,7 @@ const MiddleSchoolMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Book free 45-minute assessment
+              Book free assessment
             </Button>
             <Link
               href={publicPath('/self-check', locale)}
@@ -347,14 +347,14 @@ const MiddleSchoolMathPage: React.FC = () => {
             {MIDDLE_SCHOOL_PLACEMENT_DIAGRAM.footer}
           </p>
           <p className="font-semibold text-gray-800 mb-6">
-            Not sure which course fits? The free 45-minute assessment identifies your child&apos;s starting
+            Not sure which course fits? The free assessment identifies your child&apos;s starting
             level before the first paid session.
           </p>
           <Link
             href={publicPath('/book-assessment', locale)}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
           >
-            Book free 45-minute assessment
+            Book free assessment
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
@@ -529,7 +529,7 @@ const MiddleSchoolMathPage: React.FC = () => {
           <Brain className="h-10 w-10 text-[#F1894F] mx-auto mb-5" aria-hidden />
           <h2 className="text-2xl lg:text-3xl font-bold mb-4">Start with a free assessment.</h2>
           <p className="text-white/80 mb-8 leading-relaxed">
-            The free 45-minute assessment identifies your child&apos;s current course level, determines which
+            The free assessment identifies your child&apos;s current course level, determines which
             track fits — standard or accelerated — and maps out what the first month of their program will
             focus on. No charge. No commitment.
           </p>
@@ -539,7 +539,7 @@ const MiddleSchoolMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Book free 45-minute assessment
+              Book free assessment
             </Button>
             <Link
               href={publicPath('/self-check', locale)}

@@ -125,6 +125,16 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     href: '/resources/reading-fluency-vs-comprehension',
   },
   {
+    id: 'tell-tale-heart-reading-comprehension-cite-evidence',
+    category: 'academic',
+    categoryLabel: 'ACADEMIC',
+    title: 'The Tell-Tale Heart Reading Comprehension: Decode Excerpts and Cite Evidence',
+    description:
+      'A close-reading lesson for Poe’s famous story that teaches students to underline evidence and explain narrator reliability.',
+    readTime: '6 min read',
+    href: '/growwise-blogs/tell-tale-heart-reading-comprehension-cite-evidence',
+  },
+  {
     id: 'why-grades-hide-learning-gaps',
     category: 'academic',
     categoryLabel: 'ACADEMIC',

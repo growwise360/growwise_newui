@@ -4,10 +4,10 @@ export const CARELESS_MATH_MISTAKES_TITLE =
   'Why Kids Make Careless Math Mistakes on Tests (And How to Actually Fix It)'
 
 export const CARELESS_MATH_MISTAKES_META_TITLE =
-  'Careless Math Mistakes: Why Kids Lose Points'
+  'Careless Math Mistakes | Why Kids Lose Points'
 
 export const CARELESS_MATH_MISTAKES_DESCRIPTION =
-  'Your child knows the math but still loses points. Learn the common mistake patterns, why they happen, and how to fix them before the next test.'
+  'Learn why kids make careless math mistakes, the common patterns behind lost points, and how to fix them before the next test.'
 
 export const CARELESS_MATH_MISTAKES_KEYWORDS =
   'careless mistakes in math, why kids lose points on math tests, child makes careless math mistakes, how to stop careless mistakes in math, child understands math but gets wrong answers, math mistake patterns, procedural errors in math'
@@ -125,7 +125,7 @@ export const CARELESS_MATH_MISTAKES_RELATED = [
 export const CARELESS_MATH_MISTAKES_CTA = {
   heading: 'Not sure what pattern your child has?',
   subtext:
-    'Start with the GrowWise free diagnostic tool — a 5-minute self-check that identifies the likely mistake pattern behind your child\'s test scores. Or book a free 45-minute academic assessment for a skill snapshot and clear plan.',
+    'Start with the GrowWise free diagnostic tool — a 5-minute self-check that identifies the likely mistake pattern behind your child\'s test scores. Or book a free assessment for a skill snapshot and clear plan.',
   selfCheckLabel: 'Take the Free Diagnostic →',
   assessmentLabel: 'Book a Free Assessment →',
 } as const

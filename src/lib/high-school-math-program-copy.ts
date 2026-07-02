@@ -4,7 +4,7 @@ export const HIGH_SCHOOL_MATH_PROGRAM_DETAILS = {
 } as const;
 
 export const HIGH_SCHOOL_PROGRAM_INCLUDES = [
-  'Free 45-minute diagnostic before session 1 — matches program to the course your child is actually in',
+  'Diagnostic assessment before session 1 — matches program to the course your child is actually in',
   'Live small groups of 6–10 students — school-aligned to Algebra 2, Geometry, Pre-Calc, AP, and SAT Math',
   'Curriculum built around your child’s textbook, syllabus, and upcoming assessments',
   'Monthly parent progress report — skills covered, mistake patterns corrected, and next steps',

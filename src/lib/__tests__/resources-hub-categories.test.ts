@@ -21,11 +21,10 @@ describe('resources-hub categories', () => {
 
   it('tags parent resources including readiness checklist, self-check, and camp guide', () => {
     const parentResources = RESOURCE_GUIDES.filter((guide) => guide.category === 'parent-resources')
-    expect(parentResources).toHaveLength(5)
+    expect(parentResources).toHaveLength(4)
     expect(parentResources.every((guide) => guide.categoryLabel === 'PARENT RESOURCES')).toBe(true)
     expect(parentResources.map((guide) => guide.id)).toEqual(
       expect.arrayContaining([
-        'study-plans-downloads',
         'math-reading-readiness-checklist',
         'self-check',
         'how-to-choose-summer-camp',

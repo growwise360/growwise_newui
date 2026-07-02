@@ -211,7 +211,7 @@ export const MATH_HUB_COPY = {
       {
         title: 'Assessment (free)',
         description:
-          'A 45-minute session that maps what your child knows, where reasoning breaks down, and what the first month of instruction should focus on. No charge. No commitment.',
+          'A readiness assessment that maps what your child knows, where reasoning breaks down, and what the first month of instruction should focus on. No charge. No commitment.',
       },
       {
         title: 'Program placement',
@@ -346,7 +346,7 @@ export const MATH_HUB_COPY = {
       {
         question: 'How do I know which grade band is right?',
         answer:
-          'Use the free Self-Check or book a free 45-minute assessment. The assessment takes about 45 minutes and gives you a clear answer before you commit to anything.',
+          'Use the free Self-Check or book an assessment request. The assessment gives you a clear answer before you commit to anything.',
       },
       {
         question: 'Where did the old /courses/math pages go?',
@@ -357,7 +357,7 @@ export const MATH_HUB_COPY = {
   },
   cta: {
     heading: 'Not sure where to start?',
-    body: 'A free 45-minute assessment identifies the real gap, places your child in the right program, and gives you a concrete plan — before you pay anything.',
+    body: 'A free assessment identifies the real gap, places your child in the right program, and gives you a concrete plan — before you pay anything.',
     primary: { label: 'Book free assessment', href: '/book-assessment' },
     secondary: { label: 'Try the free Self-Check', href: '/self-check' },
     phoneLabel: 'Call (925) 456-4606',
