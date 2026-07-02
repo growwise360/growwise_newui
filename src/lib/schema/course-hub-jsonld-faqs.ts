@@ -123,22 +123,22 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Is the GrowWise academic assessment free?',
     answer:
-      'Yes. GrowWise offers a free academic assessment for new students to identify learning gaps and recommend the right program. Book online or call (925) 456-4606.',
+      'Yes. GrowWise offers a free 20-minute assessment for new students who need a quick fit check, verbal gap summary, and recommended next step. Families who want a deeper written review can choose the 60-minute Full Gap Diagnostic for $49.',
   },
   {
     question: 'What happens after I book an assessment at GrowWise?',
     answer:
-      "After submitting the form, a GrowWise team member will contact you within 24 hours to schedule your child's free in-person assessment at our Dublin, CA center.",
+      "After submitting the form, a GrowWise team member will call or text within 24 hours to confirm the assessment path, timing, and exact next step for your child.",
   },
   {
-    question: 'How long does the free GrowWise assessment take?',
+    question: 'How long does a GrowWise assessment take?',
     answer:
-      "The free academic assessment at GrowWise typically takes 60 minutes. Your child completes a grade-level diagnostic in math or English, and our team reviews the results with you right after.",
+      'The free assessment takes about 20 minutes and gives parents a quick verbal next step. The 60-minute Full Gap Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a written learning plan.',
   },
   {
     question: 'What subjects does the GrowWise assessment cover?',
     answer:
-      "The assessment covers Math and/or English depending on your child's needs. For math we evaluate grade-level competency and identify specific skill gaps. For English we assess reading comprehension and writing skills.",
+      "The assessment can cover math, reading, writing, or English readiness depending on your child's grade level and parent concerns. We look for skill gaps, thinking patterns, and readiness for the next academic step.",
   },
 ]
 
