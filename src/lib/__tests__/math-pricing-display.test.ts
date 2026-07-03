@@ -1,4 +1,3 @@
-import { MATH_HUB_COPY } from '@/lib/math-hub-copy';
 import {
   MATH_TRIAL_SESSION_FEE_USD,
   buildHighSchoolMetaDescription,
@@ -15,8 +14,8 @@ describe('math-pricing-display', () => {
   });
 
   it('derives min monthly and schema offer price from MATH_HUB_COPY', () => {
-    expect(getMathHubMinMonthlyUsd('high-school')).toBe(189);
-    expect(getMathHubSchemaOfferPrice('high-school')).toBe('189');
+    expect(getMathHubMinMonthlyUsd('high-school')).toBe(369);
+    expect(getMathHubSchemaOfferPrice('high-school')).toBe('369');
     expect(getMathHubMinMonthlyUsd('middle-school')).toBe(289);
   });
 
@@ -24,11 +23,9 @@ describe('math-pricing-display', () => {
     expect(formatTrialSessionFeeLabel()).toBe(`$${MATH_TRIAL_SESSION_FEE_USD}`);
   });
 
-  it('meta description includes hub min monthly price', () => {
-    const highSchoolMin = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school')
-      ?.options[0]?.price;
-    const amount = highSchoolMin ? parseMonthlyUsdFromLabel(highSchoolMin) : null;
-    expect(buildHighSchoolMetaDescription()).toContain(`from $${amount}/month`);
-    expect(buildHighSchoolMetaDescription()).toContain(formatTrialSessionFeeLabel());
+  it('meta description reflects high school course coverage', () => {
+    expect(buildHighSchoolMetaDescription()).toContain('Algebra 1');
+    expect(buildHighSchoolMetaDescription()).toContain('AP Precalculus');
+    expect(buildHighSchoolMetaDescription()).toContain('Calculus');
   });
 });

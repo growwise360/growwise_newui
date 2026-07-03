@@ -6,7 +6,7 @@ describe('MATH_HUB_COPY pricing', () => {
     expect(lines).toEqual([
       'From $169/month · Grade 1-2 Math · 75 minutes per week',
       'From $289/month · 150 minutes per week · 3-month program',
-      'From $189/month · 75 min, once a week · 3-month program',
+      'From $369/month · 150 minutes per week · 3-month program',
     ]);
 
     const entrySchedules = MATH_HUB_COPY.programOptions.cards.map(
@@ -15,7 +15,7 @@ describe('MATH_HUB_COPY pricing', () => {
     expect(entrySchedules).toEqual([
       '75 minutes per week',
       '150 minutes per week',
-      '75 min/week',
+      '150 min/week',
     ]);
   });
 
@@ -23,7 +23,7 @@ describe('MATH_HUB_COPY pricing', () => {
     const entryPrices = MATH_HUB_COPY.programOptions.cards.map(
       (c) => c.options[0]?.price,
     );
-    expect(entryPrices).toEqual(['$169/mo', '$289/mo', '$189/mo']);
+    expect(entryPrices).toEqual(['$169/mo', '$289/mo', '$369/mo']);
 
     const elementary = MATH_HUB_COPY.programOptions.cards.find(
       (c) => c.id === 'elementary',
@@ -54,12 +54,16 @@ describe('MATH_HUB_COPY pricing', () => {
     expect(middle?.options[1]?.bestFor).toBe(
       '4-6 students per group · Quarterly tests on all topics taught that quarter',
     );
+
+    const high = MATH_HUB_COPY.programOptions.cards.find(
+      (c) => c.id === 'high-school',
+    );
+    expect(high?.options.map((o) => o.name)).toEqual(['1 Subject', 'AP Math']);
+    expect(high?.options.map((o) => o.price)).toEqual(['$369/mo', '$376/mo']);
   });
 
-  it('middle and high program cards include current included benefits', () => {
+  it('middle program card includes current included benefit', () => {
     const middleBenefit = 'Quarterly tests cover all topics taught during the quarter.';
-    const highBenefit =
-      'Complimentary 60-minute weekly practice session included with every program';
 
     const elementary = MATH_HUB_COPY.programOptions.cards.find(
       (c) => c.id === 'elementary',
@@ -71,14 +75,14 @@ describe('MATH_HUB_COPY pricing', () => {
 
     expect(elementary?.includedBenefit).toBeUndefined();
     expect(middle?.includedBenefit).toBe(middleBenefit);
-    expect(high?.includedBenefit).toBe(highBenefit);
+    expect(high?.includedBenefit).toBeUndefined();
   });
 
   it('high school AP Math option includes school-aligned subtitle', () => {
     const high = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school');
     const ap = high?.options.find((o) => o.name === 'AP Math');
     expect(ap?.subtitle).toBe('(100% School Aligned)');
-    expect(ap?.schedule).toBe('120 min/week');
+    expect(ap?.schedule).toBe('150 min/week');
   });
 
   it('high school hub links use canonical legacy path', () => {

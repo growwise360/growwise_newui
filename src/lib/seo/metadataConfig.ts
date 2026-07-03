@@ -177,10 +177,10 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/math/high-school': {
-    title: 'High School Math Tutoring Dublin CA | Algebra & Geometry',
+    title: 'High School Math Tutoring Dublin CA | Algebra to Calculus',
     description: buildHighSchoolMetaDescription(),
     keywords:
-      'high school math tutoring Dublin CA, algebra tutor near me, algebra 1 tutoring, algebra 2 tutor near me, geometry tutor Dublin CA, geometry classes near me, pre-calculus tutoring, integrated math 3 tutoring, DUSD accelerated math placement, August math readiness, grades 9-12 math program',
+      'high school math tutoring Dublin CA, algebra 1 tutoring, algebra 2 tutor near me, advanced algebra 2 tutoring, precalculus tutoring, AP precalculus tutoring, calculus tutoring, DUSD accelerated math placement, August math readiness, grades 9-12 math program',
     path: '/academic/math/high-school',
   },
 
