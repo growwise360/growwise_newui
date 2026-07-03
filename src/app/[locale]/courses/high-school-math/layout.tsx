@@ -22,17 +22,20 @@ export default async function HighSchoolMathLayout({
   const baseUrl = getCanonicalSiteUrl()
   
   const courseSchema = generateCourseSchema({
-    name: "High School Math Courses - Algebra, Geometry, Pre-Calculus",
+    name: "High School Math Courses - Algebra Through Calculus",
     description:
       "High school math in Dublin, CA: algebra through calculus. DUSD aligned, small groups. Book a free assessment.",
     provider: "GrowWise",
     educationalLevel: "High School",
     teaches: [
-      "Algebra",
-      "Geometry",
-      "Pre-Calculus",
-      "Trigonometry",
-      "Advanced Mathematics"
+      "Algebra 1",
+      "Algebra 2",
+      "Advanced Algebra 2",
+      "Precalculus",
+      "AP Precalculus",
+      "Calculus",
+      "AP Calculus AB",
+      "Trigonometry"
     ],
     coursePrerequisites: "High school level math foundation",
     url: absoluteSiteUrl(MATH_COURSE_PATHS.highSchool, locale, baseUrl),
@@ -66,4 +69,3 @@ export default async function HighSchoolMathLayout({
     </>
   )
 }
-

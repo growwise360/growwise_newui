@@ -8,10 +8,14 @@ const CRAWL_EXCEPTIONS = [
 ]
 
 const AI_SEARCH_USER_AGENTS = [
+  'GPTBot',
   'OAI-SearchBot',
   'ChatGPT-User',
   'PerplexityBot',
   'Perplexity-User',
+  'ClaudeBot',
+  'anthropic-ai',
+  'Google-Extended',
   'Bingbot',
 ]
 
@@ -22,8 +26,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        // Explicit search/citation access. GPTBot remains governed by the wildcard
-        // rule so model-training access can be changed independently later.
+        // Explicit search/citation access for common answer-engine crawlers.
         userAgent: AI_SEARCH_USER_AGENTS,
         allow: ['/'],
         disallow: CRAWL_EXCEPTIONS,

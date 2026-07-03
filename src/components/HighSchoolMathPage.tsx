@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { CONTACT_INFO } from '@/lib/constants';
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
@@ -12,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from "./ui/alert-dialog";
-import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, CheckCircle, Clock, Users, Target, Brain, Sparkles, Eye, ChevronRight, Star, X, UserCheck, HelpCircle, Calendar, ChevronDown, ArrowRight, ShoppingCart } from "lucide-react";
+import { GraduationCap, Calculator, TrendingUp, Award, BookOpen, Clock, Brain, Sparkles, Eye, ChevronRight, Star, X, HelpCircle, Calendar, ArrowRight } from "lucide-react";
 import { MATH_HUB_COPY } from '@/lib/math-hub-copy';
 import {
   HIGH_SCHOOL_MATH_PROGRAM_DETAILS,
@@ -30,9 +29,6 @@ import {
   HIGH_SCHOOL_JTBD_SITUATIONS,
   type HighSchoolJtbdSituation,
 } from '@/lib/high-school-math-jtbd';
-import { HIGH_SCHOOL_TRIAL } from '@/lib/math-program-trial-copy';
-import { MathTrialSection } from '@/components/courses/MathTrialSection';
-import { useCart } from './gw/CartContext';
 import { useChatbot } from '../contexts/ChatbotContext';
 import FreeAssessmentModal from './FreeAssessmentModal';
 import { getIconComponent } from '@/lib/iconMap';
@@ -40,9 +36,16 @@ import { RelatedContent } from './seo/RelatedContent';
 import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
+import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
+import {
+  AGGREGATE_RATING_VALUE,
+  AGGREGATE_REVIEW_COUNT_LABEL,
+} from '@/lib/seo/socialProof';
 
 const hsMonthlyProgram = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school');
 const hsGradeBandCard = MATH_HUB_COPY.gradeBands.cards.find((c) => c.id === 'high-school');
+const highSchoolTrustReviews = siteGoogleTrustReviewCards().slice(0, 3);
+const highSchoolHeroImage = '/assets/courses/high-school-math-hero-generated.png';
 const floatingMathSymbols = [
   { symbol: '∑', left: 8, top: 18, duration: 9.2, size: 22 },
   { symbol: '∫', left: 18, top: 68, duration: 10.4, size: 28 },
@@ -63,22 +66,33 @@ const floatingMathSymbols = [
 
 const augustHighSchoolReadiness = [
   {
-    course: 'Algebra 1 and IM1',
+    course: 'Algebra 1',
     check: 'Linear equations, graphing, systems, proportions, and word-problem setup',
   },
   {
-    course: 'Geometry',
-    check: 'Algebra fluency, angle relationships, proof language, and visual reasoning',
+    course: 'Algebra 2',
+    check: 'Functions, factoring, quadratics, radicals, rational expressions, and multi-step test stamina',
   },
   {
-    course: 'Algebra 2 and IM3',
-    check: 'Functions, factoring, radicals, rational expressions, and multi-step test stamina',
+    course: 'Advanced Algebra 2',
+    check: 'Honors-level functions, complex numbers, matrices, modeling, and Precalculus readiness',
+  },
+  {
+    course: 'Precalculus',
+    check: 'Function analysis, trigonometry, identities, vectors, polar topics, and limit intuition',
+  },
+  {
+    course: 'AP Precalculus',
+    check: 'College Board-style function modeling, calculator fluency, and AP-style free response',
+  },
+  {
+    course: 'Calculus',
+    check: 'Limits, derivatives, applications, integrals, AP pacing, and algebra under time pressure',
   },
 ] as const;
 
 const HighSchoolMathPage: React.FC = () => {
   const locale = useLocale();
-  const { addItem } = useCart();
   const { openChatbot } = useChatbot();
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -143,8 +157,8 @@ const HighSchoolMathPage: React.FC = () => {
   const programFeatures = [
     {
       icon: Calculator,
-      title: 'Math Courses in Dublin',
-      description: 'Our Math courses are tailored specifically for students in Dublin, CA. We understand the local education standards and customize our curriculum to meet and exceed these expectations.',
+      title: 'Course-Specific Math Support',
+      description: 'High school math support is matched to the class your student is actually taking: Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, or Calculus.',
       color: 'text-[#1F396D]',
       bgColor: 'bg-white',
       borderColor: 'border-gray-200',
@@ -153,8 +167,8 @@ const HighSchoolMathPage: React.FC = () => {
     },
     {
       icon: BookOpen,
-      title: 'Common Core Math Alignment',
-      description: 'At GrowWise, our math programs for Grades 1-8 are fully aligned with Common Core standards and the pacing guides used by DUSD, PUSD, and other Tri-Valley school districts. We focus on building strong number sense, conceptual understanding, and problem-solving skills that reinforce classroom instruction.',
+      title: 'School-Aligned Pacing',
+      description: 'We align instruction to the student\'s textbook, syllabus, upcoming quizzes, unit tests, finals, and AP exam expectations so tutoring connects directly to classroom performance.',
       color: 'text-white',
       bgColor: 'bg-gradient-to-r from-[#F16112] to-[#F1894F]',
       borderColor: 'border-[#F16112]',
@@ -163,8 +177,8 @@ const HighSchoolMathPage: React.FC = () => {
     },
     {
       icon: TrendingUp,
-      title: 'Accelerated & Enrichment Math',
-      description: 'GrowWise offers support for accelerated math learners through challenging problems, pre-algebra foundations, and advanced concepts. Our curriculum is designed to match the rigor of district-level accelerated programs and help students in Dublin, Pleasanton, and San Ramon stay ahead with confidence.',
+      title: 'Foundation Through AP Readiness',
+      description: 'Students build the algebra fluency, function sense, trigonometry, and calculus readiness needed for honors, accelerated, STEM, and college-bound math pathways.',
       color: 'text-white',
       bgColor: 'bg-gradient-to-r from-[#F16112] to-[#F1894F]',
       borderColor: 'border-[#F16112]',
@@ -182,17 +196,15 @@ const HighSchoolMathPage: React.FC = () => {
       parentOutcome: 'Fewer missed steps on equations, graphs, and word problems.',
       parentConcern: 'My child understands in class, then freezes on homework or tests.',
       imageSrc: '/images/camps/banners/algebra_1_get_ready_3572836f_web.webp',
-      groupPrice: 45,
-      oneOnOnePrice: 65,
       level: 'Grades 8-9',
       icon: GraduationCap,
       gradient: 'from-[#1F396D] to-[#29335C]',
       bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
       iconColor: 'text-[#1F396D]',
       hoverBorder: 'border-[#1F396D]/30',
-      duration: 'One 2 hours class every weekday for 12 weeks',
-      campDuration: 'June 15 - September 5, 2026',
-      sessions: '2 hours',
+      duration: '150-minute weekly small group or custom 1-on-1 schedule',
+      campDuration: 'Minimum 3-month enrollment',
+      sessions: '150 minutes',
       topics: [
         'Linear equations & inequalities',
         'Systems of linear equations',
@@ -220,17 +232,15 @@ const HighSchoolMathPage: React.FC = () => {
       parentOutcome: 'A clearer plan for functions, polynomials, logs, and multi-step exam problems.',
       parentConcern: 'Algebra 2 suddenly feels harder than Algebra 1.',
       imageSrc: '/images/camps/cards/algebra-1.webp',
-      groupPrice: 45,
-      oneOnOnePrice: 65,
       level: 'Grades 10-11',
       icon: Calculator,
       gradient: 'from-[#F16112] to-[#F1894F]',
       bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
       iconColor: 'text-[#F16112]',
       hoverBorder: 'border-[#F16112]/30',
-      duration: 'One 2 hours class every weekday for 12 weeks',
-      campDuration: 'June 15 - September 5, 2026',
-      sessions: '2 hours',
+      duration: '150-minute weekly small group or custom 1-on-1 schedule',
+      campDuration: 'Minimum 3-month enrollment',
+      sessions: '150 minutes',
       topics: [
         'Polynomial functions',
         'Rational functions',
@@ -254,17 +264,15 @@ const HighSchoolMathPage: React.FC = () => {
       parentOutcome: 'Stronger readiness for Precalculus, AP courses, and advanced problem solving.',
       parentConcern: 'My child is doing well, but needs a higher ceiling.',
       imageSrc: '/images/camps/banners/advanced-math-banner.webp',
-      groupPrice: 55,
-      oneOnOnePrice: 70,
       level: 'Grades 10-11',
       icon: TrendingUp,
       gradient: 'from-[#1F396D] to-[#29335C]',
       bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
       iconColor: 'text-[#1F396D]',
       hoverBorder: 'border-[#1F396D]/30',
-      duration: 'One 2.5 hours class every weekday for 10 weeks',
-      campDuration: 'June 15 - August 22, 2026',
-      sessions: '2.5 hours',
+      duration: '150-minute weekly small group or custom 1-on-1 schedule',
+      campDuration: 'Minimum 3-month enrollment',
+      sessions: '150 minutes',
       topics: [
         'Advanced polynomial functions',
         'Complex exponential concepts',
@@ -288,17 +296,15 @@ const HighSchoolMathPage: React.FC = () => {
       parentOutcome: 'A smoother path into Calculus with fewer gaps in functions and trigonometry.',
       parentConcern: 'Precalculus is exposing gaps from earlier algebra or geometry.',
       imageSrc: '/assets/courses/math-band-high-school.webp',
-      groupPrice: 55,
-      oneOnOnePrice: 70,
       level: 'Grade 11',
       icon: Award,
       gradient: 'from-[#F16112] to-[#F1894F]',
       bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
       iconColor: 'text-[#F16112]',
       hoverBorder: 'border-[#F16112]/30',
-      duration: 'One 2.5 hours class every weekday for 12 weeks',
-      campDuration: 'June 15 - September 5, 2026',
-      sessions: '2.5 hours',
+      duration: '150-minute weekly small group or custom 1-on-1 schedule',
+      campDuration: 'Minimum 3-month enrollment',
+      sessions: '150 minutes',
       topics: [
         'Advanced functions & composition',
         'Trigonometric identities & graphs',
@@ -322,17 +328,15 @@ const HighSchoolMathPage: React.FC = () => {
       parentOutcome: 'More confidence with AP-style questions and the concepts Calculus will assume.',
       parentConcern: 'The AP pace is fast and I want my child to stay ahead.',
       imageSrc: '/images/blog/high-school-math-finals-prep-banner.png',
-      groupPrice: 65,
-      oneOnOnePrice: 75,
       level: 'Grade 11',
       icon: Brain,
       gradient: 'from-[#1F396D] to-[#29335C]',
       bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
       iconColor: 'text-[#1F396D]',
       hoverBorder: 'border-[#1F396D]/30',
-      duration: 'One 2.5 hours class every weekday for 12 weeks',
-      campDuration: 'June 15 - September 5, 2026',
-      sessions: '2.5 hours',
+      duration: '150-minute weekly small group or custom 1-on-1 schedule',
+      campDuration: 'Minimum 3-month enrollment',
+      sessions: '150 minutes',
       topics: [
         'AP Precalculus curriculum',
         'Advanced trigonometry',
@@ -350,23 +354,21 @@ const HighSchoolMathPage: React.FC = () => {
     },
     {
       id: 'calculus-ab',
-      name: 'Calculus AB',
-      description: 'Master AP Calculus AB: limits, derivatives, integration, and real-world applications for college credit.',
-      parentFit: 'Best when your child is in AP Calculus AB or wants support before the AP exam.',
+      name: 'Calculus',
+      description: 'Master Calculus and AP Calculus AB topics: limits, derivatives, integration, applications, and AP-style problem solving.',
+      parentFit: 'Best when your child is in Calculus or AP Calculus AB and needs steady support before tests or the AP exam.',
       parentOutcome: 'A stronger grasp of limits, derivatives, integrals, and timed AP problem solving.',
       parentConcern: 'Calculus problems make sense in pieces, but not end-to-end.',
       imageSrc: '/images/camps/banners/advanced-math-banner.webp',
-      groupPrice: 65,
-      oneOnOnePrice: 75,
       level: 'Grades 11-12',
       icon: Sparkles,
       gradient: 'from-[#F16112] to-[#F1894F]',
       bgGradient: 'bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10',
       iconColor: 'text-[#F16112]',
       hoverBorder: 'border-[#F16112]/30',
-      duration: 'One 2.5 hours class every weekday for 14 weeks',
-      campDuration: 'June 15 - September 19, 2026',
-      sessions: '2.5 hours',
+      duration: '150-minute weekly small group or custom 1-on-1 schedule',
+      campDuration: 'Minimum 3-month enrollment',
+      sessions: '150 minutes',
       topics: [
         'Limits & continuity',
         'Derivatives & applications',
@@ -390,15 +392,8 @@ const HighSchoolMathPage: React.FC = () => {
 
   type HighSchoolMathCourse = (typeof highSchoolMathCourses)[number];
 
-  const handleAddToCart = (course: HighSchoolMathCourse) => {
-    addItem({
-      id: course.id,
-      name: course.name,
-      price: course.groupPrice,
-      quantity: 1,
-      image: '📐',
-      category: 'High School Math',
-    });
+  const openCourseDetails = (courseId: string) => {
+    setSelectedCourseId(courseId);
   };
 
   const handleMouseEnter = (courseId: string) => {
@@ -460,15 +455,24 @@ const HighSchoolMathPage: React.FC = () => {
     <div className="min-h-screen bg-[#ebebeb]" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
 
       {/* Enhanced Creative Header Section - High School Math Theme */}
-      <section className="relative overflow-hidden">
-        {/* Animated Background - High School Math-themed gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100">
+      <section className="relative min-h-[500px] overflow-hidden lg:min-h-[560px]">
+        {/* Copyright-safe generated hero image with readable overlays */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${highSchoolHeroImage})` }}
+          role="img"
+          aria-label="High school students studying math with calculator, compass, ruler, protractor, graph notebook, and whiteboard"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071326]/98 via-[#102452]/88 to-[#102452]/42" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#071326]/50 via-[#071326]/12 to-transparent" />
+        {/* Animated Background - High School Math-themed overlay */}
+        <div className="absolute inset-0 pointer-events-none">
           {/* Floating math symbols */}
           <div className="absolute inset-0 overflow-hidden">
             {floatingMathSymbols.map((item, i) => (
               <div
                 key={i}
-                className="absolute text-gray-500/60 animate-float-gentle font-semibold"
+                className="absolute text-white/35 animate-float-gentle font-semibold"
                 style={{
                   left: `${item.left}%`,
                   top: `${item.top}%`,
@@ -484,39 +488,39 @@ const HighSchoolMathPage: React.FC = () => {
           </div>
           
           {/* Gradient overlay circles - High School Math theme colors */}
-          <div className="absolute top-20 left-10 w-64 h-64 bg-[#1F396D]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#F16112]/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-20 left-10 w-64 h-64 bg-[#1F396D]/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#F16112]/25 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 py-10 lg:py-12">
           {/* Main Header Content */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
-              High School Math Tutoring
+          <div className="max-w-3xl">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
+              High School Math Tutoring for Algebra Through Calculus
             </h1>
-            <div className="inline-flex items-center gap-3 bg-white/30 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-gray-200/50">
+            <div className="inline-flex flex-wrap items-center gap-3 bg-white/15 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-white/25">
               <GraduationCap className="w-5 h-5 text-[#F1894F]" />
-              <span className="text-gray-700 font-medium">Excel in Math with GrowWise</span>
+              <span className="text-white font-medium">Algebra 1 · Algebra 2 · Precalculus · Calculus</span>
               <Sparkles className="w-5 h-5 text-[#F1894F]" />
             </div>
             
-            <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive Math Courses in Dublin, CA for Grades 9-12. Aligned with California Common Core Standards for academic success and future STEM opportunities.
+            <p className="text-xl text-white/90 mb-4 leading-relaxed">
+              Year-round high school math programs in Dublin, CA for Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus. We align support to your student&apos;s current class, tests, and next math goal.
             </p>
-            <p className="text-base text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
-              For a focused summer boost, see{' '}
-              <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+            <p className="text-base text-white/80 mb-4 leading-relaxed">
+              Need a seasonal boost instead? See{' '}
+              <Link href={publicPath('/camps/summer', locale)} className="font-semibold text-white underline decoration-[#F1894F] underline-offset-4 hover:text-[#F1894F]">
                 summer math camps in Dublin
               </Link>
               .
             </p>
             {hsGradeBandCard ? (
-              <p className="text-sm text-gray-500 mb-8 max-w-xl mx-auto">
+              <p className="text-sm text-white/75 mb-8 max-w-xl">
                 {hsGradeBandCard.packageLine}
               </p>
             ) : null}
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 onClick={() => setIsAssessmentModalOpen(true)}
                 className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#d54f0a] hover:to-[#F16112] text-white rounded-full px-8 py-4 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
@@ -532,11 +536,47 @@ const HighSchoolMathPage: React.FC = () => {
                   }
                 }}
                 variant="outline" 
-                className="border-2 border-gray-400 text-gray-700 bg-white/60 hover:bg-white hover:text-[#1F396D] rounded-full px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 shadow-lg"
+                className="border-2 border-white/70 text-white bg-white/10 hover:bg-white hover:text-[#1F396D] rounded-full px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 shadow-lg"
               >
                 <Eye className="mr-2 w-5 h-5" />
                 View Programs
               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-12" aria-labelledby="high-school-trust-heading">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+          <div className="grid gap-8">
+            <div className="max-w-4xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">
+                Trusted by Tri-Valley families
+              </p>
+              <h2 id="high-school-trust-heading" className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
+                Parents choose GrowWise when high school math needs a real plan.
+              </h2>
+              <p className="text-gray-600 leading-relaxed">
+                {AGGREGATE_RATING_VALUE}/5 average rating across {AGGREGATE_REVIEW_COUNT_LABEL} published reviews.
+                Students get course-aligned instruction, clear next steps, and parent-visible progress.
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3">
+              {highSchoolTrustReviews.map((review) => (
+                <figure key={`${review.name}-${review.content}`} className="flex h-full min-h-[220px] flex-col rounded-lg border border-gray-200 bg-gray-50 p-5 shadow-sm">
+                  <div className="mb-3 flex gap-0.5" aria-label={`${review.rating} star review`}>
+                    {Array.from({ length: Math.max(0, Math.min(5, Math.round(review.rating))) }).map((_, index) => (
+                      <Star key={index} className="h-4 w-4 fill-[#F16112] text-[#F16112]" aria-hidden />
+                    ))}
+                  </div>
+                  <blockquote className="text-base leading-relaxed text-gray-700">
+                    “{review.content}”
+                  </blockquote>
+                  <figcaption className="mt-auto pt-4 text-sm font-semibold text-[#1F396D]">
+                    {review.name} · {review.role}
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </div>
@@ -548,14 +588,14 @@ const HighSchoolMathPage: React.FC = () => {
             August readiness for high school math
           </p>
           <h2 id="high-school-august-readiness-heading" className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
-            Algebra, Geometry, and IM courses punish small gaps quickly.
+            Each high school math course assumes the last one is solid.
           </h2>
           <p className="text-gray-600 leading-relaxed max-w-3xl mb-8">
-            Parents searching for an Algebra 2 tutor, Geometry tutor, or high school math tutor near Dublin should
-            check the prerequisite skills before the first unit test. The goal is to find the one or two missing skills
-            that can make a whole course feel harder than it should.
+            Parents searching for an Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, or
+            Calculus tutor near Dublin should check prerequisite skills before the next unit test. The goal is to find
+            the one or two missing skills that can make a whole course feel harder than it should.
           </p>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {augustHighSchoolReadiness.map((item) => (
               <article key={item.course} className="rounded-xl border border-gray-200 bg-gray-50 p-5 shadow-sm">
                 <h3 className="text-lg font-bold text-[#1F396D] mb-2">{item.course}</h3>
@@ -581,21 +621,26 @@ const HighSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA: Explore Summer Intensive Programs */}
+      {/* Evergreen subject pathway */}
       <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] py-12 lg:py-16">
         <div className="max-w-5xl mx-auto px-4 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
-            Looking for summer intensive programs?
+            A complete high school math pathway
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Explore our 6-week High School Summer Intensive courses — Algebra 1, Algebra 2, Precalculus, and Calculus AB. June 15 – September 5, 2026.
+            GrowWise supports the full course sequence from Algebra 1 to Calculus, including accelerated and AP tracks. Students can join for concept repair, weekly course support, test prep, or readiness before the next level.
           </p>
-          <Link
-            href={publicPath('/camps/high-school-summer-intensive-dublin-ca', locale)}
-            className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 font-semibold text-[#1F396D] shadow-lg hover:bg-gray-100 transition-colors"
-          >
-            View Summer Programs →
-          </Link>
+          <div className="flex flex-wrap justify-center gap-2">
+            {highSchoolMathCourses.map((course) => (
+              <a
+                key={course.id}
+                href={`#${course.id}`}
+                className="rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white hover:text-[#1F396D]"
+              >
+                {course.name}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -664,7 +709,7 @@ const HighSchoolMathPage: React.FC = () => {
                 Why Choose Our <span className="text-[#1F396D]">High School Math Programs</span>?
               </h2>
               <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-                At GrowWise, our High School Math courses are designed to guide students through Algebra I, Geometry, Algebra II, and Precalculus with clarity and confidence.
+                At GrowWise, high school math support is designed for the course your student is actually taking — Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, or Calculus.
               </p>
             </div>
 
@@ -721,31 +766,8 @@ const HighSchoolMathPage: React.FC = () => {
           fromMonthlyLabel={`From $${getMathHubMinMonthlyUsd('high-school')}/month`}
           tiers={mapHubOptionsToPricingTiers(hsMonthlyProgram.options)}
           onBookAssessment={openAssessment}
+          ctaLabel="Trial class $45"
         />
-      ) : null}
-
-      {/* Free Sunday practice sessions */}
-      {hsMonthlyProgram?.includedBenefit ? (
-        <section className="bg-[#ebebeb] py-12 lg:py-16">
-          <div className="max-w-4xl mx-auto px-4 lg:px-8">
-            <div className="rounded-xl border border-[#1F396D]/20 bg-blue-50 p-6 lg:p-8 flex flex-col md:flex-row items-start gap-5">
-              <div className="shrink-0 h-12 w-12 rounded-full bg-[#1F396D] flex items-center justify-center">
-                <Calendar className="h-6 w-6 text-white" aria-hidden />
-              </div>
-              <div className="flex-1">
-                <p className="font-bold text-gray-800 text-lg mb-2">
-                  Free Sunday practice sessions — included for all Grades 6–12 students
-                </p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Every enrolled high school student gets access to free Sunday timed practice sessions.
-                  Exam-style problems, structured like school assessments, designed to build test-readiness
-                  between paid sessions.
-                </p>
-                <p className="text-gray-600 text-sm mt-3">{hsMonthlyProgram.includedBenefit}</p>
-              </div>
-            </div>
-          </div>
-        </section>
       ) : null}
 
       {/* High School Math Courses Section */}
@@ -790,10 +812,20 @@ const HighSchoolMathPage: React.FC = () => {
               return (
                 <div
                   key={course.id}
-                  className={`relative h-[450px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
+                  id={course.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View ${course.name} details`}
+                  className={`relative h-[400px] cursor-pointer group ${!isTouchDevice ? 'perspective-1000' : ''}`}
                   onMouseEnter={() => handleMouseEnter(course.id)}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => setSelectedCourseId(course.id)}
+                  onClick={() => openCourseDetails(course.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      openCourseDetails(course.id);
+                    }
+                  }}
                 >
                   {/* Card Container with Conditional 3D Flip */}
                   <div className={`relative w-full h-full transition-transform duration-700 ${
@@ -803,8 +835,8 @@ const HighSchoolMathPage: React.FC = () => {
                   }`}>
 
                     {/* Front Side - Clean Layout */}
-                    <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.1)] border-2 border-white/50 hover:border-gray-200 ${!isTouchDevice ? 'backface-hidden' : ''} group-hover:scale-105 transition-all duration-300`}>
-                      <CardContent className="p-5 relative flex flex-col h-full justify-between">
+                    <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[20px] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.1)] border-2 border-white/50 hover:border-gray-200 ${!isTouchDevice ? 'backface-hidden' : ''} group-hover:scale-105 transition-all duration-300`}>
+                      <CardContent className="p-4 relative flex flex-col h-full justify-between">
                         {/* Top Section - Course Header */}
                         <div className="flex-shrink-0">
                           <div className="flex items-center gap-3 mb-3">
@@ -828,30 +860,19 @@ const HighSchoolMathPage: React.FC = () => {
 
                         {/* Course Description */}
                         <div className="flex-grow">
-                          <p className="text-gray-600 text-sm mb-4 leading-relaxed">{course.description}</p>
-
-                          {/* Pricing Display */}
-                          <div className="mb-4 space-y-3">
-                            <div className="flex items-center justify-between p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
-                              <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4 text-[#F16112]" />
-                                <span className="text-sm text-gray-700 font-medium">Group Classes</span>
-                              </div>
-                              <span className="font-bold text-lg text-[#1F396D]">${course.groupPrice}</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
-                              <div className="flex items-center gap-2">
-                                <UserCheck className="w-4 h-4 text-[#1F396D]" />
-                                <span className="text-sm text-gray-700 font-medium">1-on-1 Classes</span>
-                              </div>
-                              <span className="font-bold text-lg text-[#1F396D]">${course.oneOnOnePrice}</span>
-                            </div>
-                          </div>
+                          <p className="text-gray-600 text-sm mb-3 leading-relaxed">{course.description}</p>
 
                           {/* Duration Info */}
-                          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3">
+                          <div className="flex items-center gap-2 text-xs text-gray-600 mb-3 rounded-xl border border-white/60 bg-white/70 p-3 backdrop-blur-sm">
                             <Clock className="w-3.5 h-3.5 text-[#F16112]" />
                             <span>{course.sessions} per session</span>
+                          </div>
+
+                          <div className="mb-3 rounded-xl border border-white/60 bg-white/70 p-3 backdrop-blur-sm">
+                            <p className="text-[11px] font-bold uppercase tracking-wide text-gray-500">Covers</p>
+                            <p className="mt-1 text-xs leading-relaxed text-gray-700">
+                              {course.topics.slice(0, 3).join(' · ')}
+                            </p>
                           </div>
 
                           {/* Mobile/Desktop Responsive Interaction Hint - Only for non-touch devices */}
@@ -868,23 +889,22 @@ const HighSchoolMathPage: React.FC = () => {
 
                         {/* Bottom Section - CTA */}
                         <div className="flex-shrink-0">
-                          <Button
-                            onClick={() => handleAddToCart(course)}
-                            className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
+                          <div
+                            className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md group-hover:scale-105`}
                           >
                             {/* Desktop button text - Only for non-touch devices */}
                             {!isTouchDevice && (
                               <div className="hidden md:flex items-center justify-center">
                                 <Eye className="mr-2 w-4 h-4" />
-                                Hover to reveal information
+                                View course details
                               </div>
                             )}
                             {/* Mobile button text or fallback for touch devices */}
                             <div className={`${!isTouchDevice ? 'flex md:hidden' : 'flex'} items-center justify-center`}>
-                              <ShoppingCart className="mr-2 w-4 h-4" />
-                              Add to Cart
+                              <Eye className="mr-2 w-4 h-4" />
+                              View Details
                             </div>
-                          </Button>
+                          </div>
                         </div>
 
                         {/* Decorative background elements */}
@@ -895,12 +915,12 @@ const HighSchoolMathPage: React.FC = () => {
 
                     {/* Back Side - Enhanced Hover State - Only for non-touch devices */}
                     {!isTouchDevice && (
-                      <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[24px] shadow-[0px_16px_32px_0px_rgba(0,0,0,0.15)] border-2 ${courseGradients.hoverBorder} backface-hidden rotate-y-180 scale-105`}>
-                        <CardContent className="p-5 relative flex flex-col h-full overflow-hidden">
+                      <Card className={`absolute inset-0 w-full h-full ${courseGradients.bgGradient} rounded-[20px] shadow-[0px_16px_32px_0px_rgba(0,0,0,0.15)] border-2 ${courseGradients.hoverBorder} backface-hidden rotate-y-180 scale-105`}>
+                        <CardContent className="p-4 relative flex flex-col h-full overflow-hidden">
                           {/* Top Section - Course Header */}
                           <div className="flex-shrink-0 mb-3">
                             <h4 className={`font-bold text-sm ${courseGradients.iconColor} mb-1`}>{course.name}</h4>
-                            <p className="text-[11px] text-gray-600">Key Topics</p>
+                            <p className="text-[11px] text-gray-600">{course.parentFit}</p>
                           </div>
 
                           {/* Middle Section - Topics List */}
@@ -917,23 +937,14 @@ const HighSchoolMathPage: React.FC = () => {
                             </ul>
                           </div>
 
-                          {/* Bottom Section - Pricing & CTA */}
+                          {/* Bottom Section - CTA */}
                           <div className="flex-shrink-0 mt-3 pt-3 border-t border-gray-200">
-                            <div className="mb-2 text-center">
-                              <div className="text-xs text-gray-700 mb-1">
-                                <span className="font-semibold">Group: ${course.groupPrice}</span>
-                                <span className="mx-2">•</span>
-                                <span className="font-semibold">1-on-1: ${course.oneOnOnePrice}</span>
-                              </div>
-                              <p className="text-[10px] text-gray-600">Per session</p>
-                            </div>
-                            <Button
-                              onClick={() => handleAddToCart(course)}
-                              className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg`}
+                            <div
+                              className={`flex w-full items-center justify-center bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md`}
                             >
-                              <ShoppingCart className="mr-2 w-4 h-4" />
-                              Enroll Now
-                            </Button>
+                              <Eye className="mr-2 w-4 h-4" />
+                              View Details
+                            </div>
                           </div>
 
                           {/* Decorative corner accent */}
@@ -960,13 +971,33 @@ const HighSchoolMathPage: React.FC = () => {
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">High School Math Courses</h2>
 
           <div>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Algebra 1 Tutoring</h3>
+            <p className="text-gray-600 leading-relaxed">Algebra 1 builds the language students use for the rest of high school math. We focus on equations, inequalities, graphing, functions, systems, quadratics, and word-problem setup so students can show their work clearly and avoid small errors that compound later.</p>
+          </div>
+
+          <div>
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Algebra 2 Tutoring</h3>
             <p className="text-gray-600 leading-relaxed">Algebra 2 is where many students hit a wall. Our program breaks down functions, polynomials, and complex equations with a concept-first approach — building real understanding, not just test technique.</p>
           </div>
 
           <div>
-            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Pre-Calculus Tutoring</h3>
-            <p className="text-gray-600 leading-relaxed">For students preparing for Calculus, our Pre-Calculus program covers trigonometry, functions, and analytical geometry. We align with both DUSD and PUSD curriculum pacing.</p>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Advanced Algebra 2 Tutoring</h3>
+            <p className="text-gray-600 leading-relaxed">Advanced Algebra 2 support is built for honors, accelerated, and STEM-track students. We raise the ceiling with deeper function analysis, complex numbers, matrices, modeling, and challenging multi-step problems that prepare students for Precalculus and AP-level pacing.</p>
+          </div>
+
+          <div>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Precalculus Tutoring</h3>
+            <p className="text-gray-600 leading-relaxed">For students preparing for Calculus, our Precalculus program covers trigonometry, functions, and analytical geometry. We align with both DUSD and PUSD curriculum pacing.</p>
+          </div>
+
+          <div>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">AP Precalculus Tutoring</h3>
+            <p className="text-gray-600 leading-relaxed">AP Precalculus students need more than topic review. We practice College Board-style function modeling, graph interpretation, calculator and non-calculator decisions, and free-response habits so students can keep up with the AP pace.</p>
+          </div>
+
+          <div>
+            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">Calculus Tutoring</h3>
+            <p className="text-gray-600 leading-relaxed">Calculus support covers limits, derivatives, applications, integrals, and AP Calculus AB-style problem solving. We also reinforce the algebra and function skills that calculus silently assumes, because those gaps often cause the hardest errors.</p>
           </div>
 
           <div>
@@ -976,7 +1007,7 @@ const HighSchoolMathPage: React.FC = () => {
               <Link href={publicPath('/courses/integrated-math-1-dublin-ca', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:text-[#F16112] hover:underline">
                 Integrated Math 1
               </Link>{' '}
-              &amp; 2, Geometry, and AP preparation.
+              &amp; 2, Geometry, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus preparation.
             </p>
           </div>
 
@@ -1100,8 +1131,6 @@ const HighSchoolMathPage: React.FC = () => {
         </AlertDialogContent>
       </AlertDialog>
 
-      <MathTrialSection config={HIGH_SCHOOL_TRIAL} locale={locale} />
-
       {/* FAQ Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" aria-labelledby="hs-math-faq-heading">
         <div className="max-w-4xl mx-auto">
@@ -1158,10 +1187,13 @@ const HighSchoolMathPage: React.FC = () => {
                 <div className="flex flex-col">
                   {/* Header with Close Button */}
                   <div className="sticky top-0 flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
-                    <h2 className="text-2xl font-bold text-gray-900">{course.name}</h2>
+                    <AlertDialogTitle className="text-2xl font-bold text-gray-900">
+                      {course.name}
+                    </AlertDialogTitle>
                     <button
                       onClick={() => setSelectedCourseId(null)}
                       className="text-gray-400 hover:text-gray-600"
+                      aria-label="Close course details"
                     >
                       <X className="w-6 h-6" />
                     </button>
@@ -1170,6 +1202,33 @@ const HighSchoolMathPage: React.FC = () => {
                   <div className="flex-1 overflow-y-auto p-6">
                     {/* Course Description */}
                     <p className="text-gray-700 text-base leading-relaxed mb-6">{course.description}</p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                        <p className="text-xs font-bold uppercase tracking-wide text-[#1F396D] mb-2">Best fit</p>
+                        <p className="text-sm leading-relaxed text-gray-700">{course.parentFit}</p>
+                      </div>
+                      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                        <p className="text-xs font-bold uppercase tracking-wide text-[#1F396D] mb-2">Parent concern</p>
+                        <p className="text-sm leading-relaxed text-gray-700">{course.parentConcern}</p>
+                      </div>
+                      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                        <p className="text-xs font-bold uppercase tracking-wide text-[#1F396D] mb-2">Expected outcome</p>
+                        <p className="text-sm leading-relaxed text-gray-700">{course.parentOutcome}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-8">
+                      <h3 className="text-lg font-bold text-gray-900 mb-4">What is covered:</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {course.topics.map((topic) => (
+                          <div key={topic} className="flex items-start gap-2 rounded-lg border border-gray-200 bg-white p-3">
+                            <span className="mt-1.5 h-2 w-2 rounded-full bg-[#F16112]" aria-hidden />
+                            <span className="text-sm text-gray-700">{topic}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
                     {/* Course Goals Section */}
                     <div className="mb-8">
@@ -1191,49 +1250,43 @@ const HighSchoolMathPage: React.FC = () => {
                     <div className="border-t border-gray-200 my-6"></div>
 
                     {/* Course Info Section */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2 mb-2">
-                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
-                          <span className="text-sm font-bold text-gray-900">Camp Duration</span>
+                          <Calendar className="w-5 h-5 text-[#F16112]" />
+                          <span className="text-sm font-bold text-gray-900">Program Duration</span>
                         </div>
                         <span className="text-sm text-gray-600">{course.campDuration}</span>
                       </div>
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2 mb-2">
                           <Clock className="w-5 h-5 text-[#F16112]" />
-                          <span className="text-sm font-bold text-gray-900">Class Duration</span>
+                          <span className="text-sm font-bold text-gray-900">Session Format</span>
                         </div>
                         <span className="text-sm text-gray-600">{course.duration}</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-2 mb-2">
-                          <ShoppingCart className="w-5 h-5 text-[#F16112]" />
-                          <span className="text-sm font-bold text-gray-900">Price</span>
-                        </div>
-                        <span className="text-lg font-bold text-[#F16112]">${course.groupPrice}.00</span>
                       </div>
                     </div>
 
                     {/* Schedule Selector and Enroll */}
                     <div className="flex items-end gap-4 pt-4 border-t border-gray-200">
                       <div className="flex-1">
-                        <label className="block text-sm font-bold text-gray-900 mb-2">Select a schedule</label>
+                        <label className="block text-sm font-bold text-gray-900 mb-2">Select preferred day</label>
                         <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9333EA] focus:border-transparent text-gray-700">
-                          <option>10am to Noon</option>
-                          <option>1pm to 3pm</option>
-                          <option>3:30pm to 5:30pm</option>
-                          <option>Online Evening</option>
+                          <option>Monday, 4:30 PM - 7:00 PM</option>
+                          <option>Tuesday, 4:30 PM - 7:00 PM</option>
+                          <option>Wednesday, 4:30 PM - 7:00 PM</option>
+                          <option>Thursday, 4:30 PM - 7:00 PM</option>
+                          <option>Friday, 4:30 PM - 7:00 PM</option>
                         </select>
                       </div>
                       <button
                         onClick={() => {
-                          handleAddToCart(course);
                           setSelectedCourseId(null);
+                          setIsAssessmentModalOpen(true);
                         }}
-                        className="bg-[#9333EA] hover:bg-[#7e22ce] text-white font-bold py-2.5 px-8 rounded-lg transition-colors whitespace-nowrap"
+                        className="bg-[#F16112] hover:bg-[#d54f0a] text-white font-bold py-2.5 px-8 rounded-lg transition-colors whitespace-nowrap"
                       >
-                        Enroll
+                        Book Free Assessment
                       </button>
                     </div>
 

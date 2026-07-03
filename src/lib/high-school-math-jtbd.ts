@@ -18,21 +18,21 @@ export const HIGH_SCHOOL_JTBD_SECTION = {
 export const HIGH_SCHOOL_JTBD_SITUATIONS: readonly HighSchoolJtbdSituation[] = [
   {
     id: 'falling-behind',
-    leftLabel: 'My student is falling behind in Algebra or Geometry',
+    leftLabel: 'My student is falling behind in high school math',
     tagPill: '→ Course-specific · gap repair',
     panelHeading: 'Homework help and targeted tutoring are not the same thing',
     panelBody:
-      'When a student is lost in Algebra or Geometry, the issue is often a concept from an earlier unit or course — not tonight\'s problem set. We are designed to find that gap in a free assessment and build a school-aligned plan before the next test cycle.',
+      'When a student is lost in Algebra 1, Algebra 2, Precalculus, or Calculus, the issue is often a concept from an earlier unit or course — not tonight\'s problem set. We are designed to find that gap in a free assessment and build a school-aligned plan before the next test cycle.',
     primaryCta: 'assessment',
     primaryLabel: 'Book free assessment',
   },
   {
     id: 'course-prep',
-    leftLabel: 'Starting Algebra 2, Pre-Calc, or AP — I want them ready',
+    leftLabel: 'Starting Algebra 2, Precalculus, AP Precalculus, or Calculus',
     tagPill: '→ Course-specific prep',
     panelHeading: 'Placement does not guarantee week-one readiness',
     panelBody:
-      'Students entering Algebra 2, Pre-Calculus, or AP courses are often expected to know skills from prior courses on day one. We align prep to the syllabus and pacing guide your school is using — focused on improvement, not a generic review.',
+      'Students entering Algebra 2, Precalculus, AP Precalculus, or Calculus are often expected to know skills from prior courses on day one. We align prep to the syllabus and pacing guide your school is using — focused on improvement, not a generic review.',
     primaryCta: 'assessment',
     primaryLabel: 'Book free assessment',
     secondaryHref: '/academic/math',
@@ -54,7 +54,7 @@ export const HIGH_SCHOOL_JTBD_SITUATIONS: readonly HighSchoolJtbdSituation[] = [
     tagPill: '→ Advanced track support',
     panelHeading: 'Fast pace does not always mean the student is in the wrong class',
     panelBody:
-      'Honours and AP courses move quickly. Focused small-group time on the exact concepts the class is covering — aligned after curriculum review — is designed to help students keep up without skipping foundational understanding.',
+      'Honors, AP Precalculus, and Calculus courses move quickly. Focused small-group time on the exact concepts the class is covering — aligned after curriculum review — is designed to help students keep up without skipping foundational understanding.',
     primaryCta: 'assessment',
     primaryLabel: 'Book free assessment',
   },

@@ -20,6 +20,7 @@ type MathProgramDetailsSectionProps = {
   readonly fromMonthlyLabel: string;
   readonly tiers: readonly MathProgramPricingTier[];
   readonly onBookAssessment: () => void;
+  readonly ctaLabel?: string;
 };
 
 export function MathProgramDetailsSection({
@@ -30,6 +31,7 @@ export function MathProgramDetailsSection({
   fromMonthlyLabel,
   tiers,
   onBookAssessment,
+  ctaLabel = 'Book free 45-min assessment',
 }: MathProgramDetailsSectionProps) {
   return (
     <section className="bg-white py-16 lg:py-20">
@@ -102,7 +104,7 @@ export function MathProgramDetailsSection({
                 onClick={onBookAssessment}
                 className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full w-full font-semibold"
               >
-                Book free 45-min assessment
+                {ctaLabel}
               </Button>
             </div>
           </div>

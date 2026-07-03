@@ -10,7 +10,7 @@ const BODY = `# GrowWise School
 - [Math Programs](https://growwiseschool.org/academic/math)
 - [Elementary Math](https://growwiseschool.org/academic/math/elementary)
 - [Middle School Math](https://growwiseschool.org/academic/math/middle-school)
-- [High School Math](https://growwiseschool.org/academic/math/high-school)
+- [High School Math](https://growwiseschool.org/academic/math/high-school) — Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus tutoring for Grades 9–12.
 - [English Reading & Writing](https://growwiseschool.org/academic/english)
 - [Elementary English](https://growwiseschool.org/academic/english/elementary)
 - [Future Skills](https://growwiseschool.org/future-skills)
