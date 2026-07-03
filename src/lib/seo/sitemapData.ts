@@ -6,7 +6,7 @@
  * tracking per content type:
  *   - `/sitemap-pages.xml`  — core site (home, academic, courses, STEAM, camps)
  *   - `/sitemap-blogs.xml`  — blog posts + resource guide articles
- * Index at `/sitemap.xml` references both (`src/app/sitemap.xml/route.ts`).
+ * The public `/sitemap.xml` URL rewrites to the internal sitemap index route.
  */
 
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources'
