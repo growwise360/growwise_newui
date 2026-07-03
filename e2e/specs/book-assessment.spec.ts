@@ -78,8 +78,14 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
     await expect(page.getByText(/Leave knowing the likely gap, the right next step/i)).toBeVisible();
     await expect(page.getByRole('heading', { name: /Free 30-Minute Assessment/i })).toBeVisible();
     await expect(page.getByRole('heading', { name: /^Full Diagnostic$/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Request Free Assessment/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Get Written Diagnostic Plan/i })).toBeVisible();
+    const freeAssessmentOption = page.locator('article').filter({
+      has: page.getByRole('heading', { name: /Free 30-Minute Assessment/i }),
+    });
+    const fullDiagnosticOption = page.locator('article').filter({
+      has: page.getByRole('heading', { name: /^Full Diagnostic$/i }),
+    });
+    await expect(freeAssessmentOption.getByRole('button', { name: /Request Free Assessment/i })).toBeVisible();
+    await expect(fullDiagnosticOption.getByRole('button', { name: /Get Written Diagnostic Plan/i })).toBeVisible();
     await expect(page.getByRole('heading', { name: /Why families choose GrowWise after comparing options/i })).toBeVisible();
 
     await page.locator('#assessment-booking-form').scrollIntoViewIfNeeded();
