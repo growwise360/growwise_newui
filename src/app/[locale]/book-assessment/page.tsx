@@ -3,6 +3,8 @@ import { SeoPageFallback } from '@/components/seo/SeoPageFallback';
 import { BOOK_ASSESSMENT_FAQ_JSONLD } from '@/lib/schema/course-hub-jsonld-faqs';
 import BookAssessmentPageClient from './BookAssessmentPageClient';
 
+export const dynamic = 'force-dynamic';
+
 export default function BookAssessmentPage() {
   return (
     <>

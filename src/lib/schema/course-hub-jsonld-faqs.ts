@@ -123,7 +123,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Is the GrowWise academic assessment free?',
     answer:
-      'Yes. GrowWise offers a free 20-minute assessment for new students who need a quick fit check, verbal gap summary, and recommended next step. Families who want a deeper written review can choose the 60-minute Full Gap Diagnostic for $49.',
+      'Yes. GrowWise offers a free 30-minute assessment for elementary students in Grades 1-4 who need a quick readiness check and recommended next step. Families who want a deeper written review can choose the 60-minute Full Diagnostic for $49.',
   },
   {
     question: 'What happens after I book an assessment at GrowWise?',
@@ -133,7 +133,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How long does a GrowWise assessment take?',
     answer:
-      'The free assessment takes about 20 minutes and gives parents a quick verbal next step. The 60-minute Full Gap Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a written learning plan.',
+      'The free assessment takes about 30 minutes and is best for elementary students in Grades 1-4. The 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a written learning plan.',
   },
   {
     question: 'What subjects does the GrowWise assessment cover?',

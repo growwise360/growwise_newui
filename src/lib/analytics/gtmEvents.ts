@@ -48,6 +48,24 @@ export function trackAssessmentOptionSelected(assessmentType: string): void {
   })
 }
 
+export function trackAssessmentIntakeEvent(
+  event:
+    | 'assessment_intake_prompt_viewed'
+    | 'assessment_intake_started'
+    | 'assessment_intake_voice_used'
+    | 'assessment_intake_review_shown'
+    | 'assessment_intake_submitted'
+    | 'assessment_intake_abandoned',
+  params: Record<string, unknown> = {},
+): void {
+  pushDataLayer({
+    event,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+    ...params,
+  })
+}
+
 export function trackAssessmentFormViewed(assessmentType: string): void {
   pushDataLayer({
     event: 'assessment_form_viewed',

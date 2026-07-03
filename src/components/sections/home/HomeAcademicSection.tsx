@@ -115,7 +115,7 @@ export function HomeAcademicSection() {
             Book a Free Assessment →
           </Link>
           <p className="home-section-cta-note home-section-cta-note-academic">
-            45 minutes · Personalized plan included · No commitment
+            Personalized next step · No commitment
           </p>
         </div>
       </div>

@@ -14,6 +14,7 @@ import React, { memo } from "react";
 import dynamic from "next/dynamic";
 import { ChatMessageSkeleton } from "../../ui/loading-skeletons";
 import type { ChatbotFormType } from "@/lib/chatbotScope";
+import ChatAssessmentIntakeAgent from "./ChatAssessmentIntakeAgent";
 
 const Loading = () => <ChatMessageSkeleton />;
 
@@ -40,14 +41,18 @@ const ChatCampForm = dynamic(() => import("./ChatCampForm"), {
 
 export interface ChatFormSlotProps {
   type: ChatbotFormType;
+  mode?: "guided-intake";
   prefill?: Record<string, string>;
   onSuccess: (message: string) => void;
   onCancel: () => void;
 }
 
-function ChatFormSlotInner({ type, prefill, onSuccess, onCancel }: ChatFormSlotProps) {
+function ChatFormSlotInner({ type, mode, prefill, onSuccess, onCancel }: ChatFormSlotProps) {
   switch (type) {
     case "assessment":
+      if (mode === "guided-intake") {
+        return <ChatAssessmentIntakeAgent onSuccess={onSuccess} onCancel={onCancel} />;
+      }
       return <ChatAssessmentForm onSuccess={onSuccess} onCancel={onCancel} />;
     case "trial":
       return <ChatTrialForm onSuccess={onSuccess} onCancel={onCancel} />;

@@ -10,7 +10,7 @@ export const MIDDLE_SCHOOL_MATH_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What is the difference between the standard and accelerated track?',
     answer:
-      'In most districts, placement tests — not a single “track” label — decide the path. In 5th grade, students typically test into Course 1/2 or Course 1 for 6th grade. Before 7th grade, students in either course take placement again and may land in Course 3 or Integrated Math 1. GrowWise aligns instruction to whichever course your child is placed into. The free 45-minute assessment helps confirm the right starting point.',
+      'In most districts, placement tests — not a single “track” label — decide the path. In 5th grade, students typically test into Course 1/2 or Course 1 for 6th grade. Before 7th grade, students in either course take placement again and may land in Course 3 or Integrated Math 1. GrowWise aligns instruction to whichever course your child is placed into. The free assessment helps confirm the right starting point.',
   },
   {
     question: 'What are Course 1, Course 2, and Course 3?',

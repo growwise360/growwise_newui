@@ -72,7 +72,7 @@ export const WHY_GRADES_RELATED = [
 export const WHY_GRADES_CTA = {
   heading: 'Not sure what the grade is actually reporting?',
   subtext:
-    "The GrowWise free academic assessment takes 45 minutes and identifies exactly where your child's understanding holds and where it breaks down — mapped against their current school curriculum. No charge. No enrollment commitment.",
+    "The GrowWise free academic assessment identifies exactly where your child's understanding holds and where it breaks down — mapped against their current school curriculum. No charge. No enrollment commitment.",
   selfCheckLabel: 'Take the Free 10-Minute Self-Check →',
   assessmentLabel: 'Book a Free Assessment →',
 } as const

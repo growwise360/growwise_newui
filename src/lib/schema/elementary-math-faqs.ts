@@ -35,7 +35,7 @@ export const ELEMENTARY_MATH_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What are the Beginner, Champ, and Pro levels?',
     answer:
-      'They are the three curriculum levels within GrowWise Elementary Math. Beginner is for students who are below grade level and catching up. Champ is for students at grade level building consistency. Pro is for students already ahead who want to accelerate further. The free 45-minute assessment determines which level your child starts at — parents do not choose.',
+      'They are the three curriculum levels within GrowWise Elementary Math. Beginner is for students who are below grade level and catching up. Champ is for students at grade level building consistency. Pro is for students already ahead who want to accelerate further. The free 30-minute assessment determines which level your child starts at — parents do not choose.',
   },
   {
     question: 'How does a student move from one level to the next?',

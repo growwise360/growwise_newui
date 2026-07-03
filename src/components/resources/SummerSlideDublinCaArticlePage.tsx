@@ -31,7 +31,7 @@ export function SummerSlideDublinCaArticlePage() {
       faqs={SUMMER_SLIDE_DUBLIN_CA_FAQS}
       relatedArticles={SUMMER_SLIDE_DUBLIN_CA_RELATED}
       ctaHeading="Ready to find your child's actual gaps before June ends?"
-      ctaSubtext="Book a free 45-minute assessment — in-person in Dublin or online. We identify the specific skill gaps before recommending any program."
+      ctaSubtext="Book a free assessment — in-person in Dublin or online. We identify the specific skill gaps before recommending any program."
       ctas={[
         { href: '/book-assessment', label: 'Book Free Assessment →' },
         { href: '/camps/academic-summer-programs-dublin-ca', label: 'View Summer Programs →' },

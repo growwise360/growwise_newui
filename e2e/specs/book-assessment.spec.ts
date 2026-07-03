@@ -48,7 +48,7 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
     await selectOption(page, 'assessment-subject-interest-trigger', /^Math$/i, /Math/i);
 
     // No visible field-level validation errors before submit
-    await expect(page.getByText(/Parent name is required|Email address is required|Phone number is invalid|Grade level is required|Consent is required/i)).toHaveCount(0);
+    await expect(page.getByText(/Parent name is required|Email address is required|Phone number is invalid|Grade level is required|Subject interest is required|Consent is required/i)).toHaveCount(0);
 
     const submitBtn = page.getByTestId('assessment-submit');
     await expect(submitBtn).toBeEnabled({ timeout: 15000 });
@@ -69,5 +69,30 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
     await expect(page).toHaveURL(thankYouPattern);
     await expect(page.getByTestId('form-thank-you')).toBeVisible({ timeout: 20000 });
     await expect(page.getByRole('heading', { level: 1, name: /you.*re booked|thank you/i })).toBeVisible();
+  });
+
+  test('shows updated assessment positioning and Growy intake helper', async ({ page }) => {
+    await page.goto(localePath('/book-assessment'));
+
+    await expect(page.getByRole('heading', { name: /Math & English Assessment in Dublin, CA/i })).toBeVisible();
+    await expect(page.getByText(/Leave knowing the likely gap, the right next step/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Free 30-Minute Assessment/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^Full Diagnostic$/i })).toBeVisible();
+    const freeAssessmentOption = page.locator('article').filter({
+      has: page.getByRole('heading', { name: /Free 30-Minute Assessment/i }),
+    });
+    const fullDiagnosticOption = page.locator('article').filter({
+      has: page.getByRole('heading', { name: /^Full Diagnostic$/i }),
+    });
+    await expect(freeAssessmentOption.getByRole('button', { name: /Request Free Assessment/i })).toBeVisible();
+    await expect(fullDiagnosticOption.getByRole('button', { name: /Get Written Diagnostic Plan/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Why families choose GrowWise after comparing options/i })).toBeVisible();
+
+    await page.locator('#assessment-booking-form').scrollIntoViewIfNeeded();
+    await expect(page.getByText(/Want Growy to help/i)).toBeVisible({ timeout: 8000 });
+
+    await page.getByRole('button', { name: /Let Growy Help/i }).click();
+    await expect(page.getByText(/I can help with this/i)).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText(/How would you like to start/i)).toBeVisible();
   });
 });
