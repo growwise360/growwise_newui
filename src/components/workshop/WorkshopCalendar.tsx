@@ -73,8 +73,8 @@ function getEventTypeForApi(program: Program): 'webinar' | 'workshop' {
 
 export default function WorkshopCalendar(): React.ReactElement {
   const locale = useLocale();
-  const [currentMonth, setCurrentMonth] = useState(2);
-  const [currentYear, setCurrentYear] = useState(2026);
+  const [currentMonth, setCurrentMonth] = useState(() => new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
   const [modalOpen, setModalOpen] = useState(false);
   const [hasOpenedModal, setHasOpenedModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Program | null>(null);
@@ -256,7 +256,7 @@ export default function WorkshopCalendar(): React.ReactElement {
         <h1 className="text-3xl font-bold text-[#F16112]">
           Workshop Calendar
         </h1>
-        <p className="text-gray-600 mt-1">Free Saturday Skill Workshops for Kids · GrowWise</p>
+        <p className="text-gray-600 mt-1">Free Sunday Skill Workshops for Kids · GrowWise</p>
         <p className="text-gray-600 mt-3 max-w-xl mx-auto text-sm">
           Want full-week summer options?{' '}
           <Link href={publicPath('/camps/summer', locale)} className="text-[#F16112] font-semibold underline hover:text-[#1F396D]">
