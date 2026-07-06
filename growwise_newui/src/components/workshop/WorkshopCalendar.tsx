@@ -1,9 +1,6 @@
 'use client';
 
 import React, { useState, useCallback, useMemo } from 'react';
-import Link from 'next/link';
-import { useLocale } from 'next-intl';
-import { publicPath } from '@/lib/publicPath';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import {
   Dialog,
@@ -68,7 +65,6 @@ function getEventTypeForApi(program: Program): 'webinar' | 'workshop' {
 }
 
 export default function WorkshopCalendar(): React.ReactElement {
-  const locale = useLocale();
   const [currentMonth, setCurrentMonth] = useState(() => new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
   const [modalOpen, setModalOpen] = useState(false);
@@ -81,13 +77,37 @@ export default function WorkshopCalendar(): React.ReactElement {
   const [formData, setFormData] = useState<FormData>({
     parentName: '',
     email: '',
-    studentName: '',
     grade: '',
-    schoolDistrict: '',
-    howDidYouHear: ''
   });
   const [formErrors, setFormErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [agreeToCommunications, setAgreeToCommunications] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
+
+  const handleNewsletterSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!newsletterEmail.trim()) return;
+    setNewsletterStatus('submitting');
+    setNewsletterError(null);
+    try {
+      const res = await fetch('/api/bulletin/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail.trim() }),
+      });
+      const data = await res.json() as { error?: string };
+      if (!res.ok) {
+        setNewsletterStatus('error');
+        setNewsletterError(data.error ?? 'Subscription failed. Please try again.');
+      } else {
+        setNewsletterStatus('success');
+      }
+    } catch {
+      setNewsletterStatus('error');
+      setNewsletterError('Network error. Please try again.');
+    }
+  }, [newsletterEmail]);
 
   const changeMonth = useCallback((delta: number) => {
     setCurrentMonth((m) => {
@@ -166,11 +186,7 @@ export default function WorkshopCalendar(): React.ReactElement {
     setFormSubmitted(false);
     setSubmitError(null);
     setFormErrors({});
-    setFormData({
-      parentName: '',
-      email: '',
-      grade: '',
-    });
+    setFormData({ parentName: '', email: '', grade: '' });
   }, [eventsMap]);
 
   const closeModal = useCallback(() => {
@@ -201,7 +217,7 @@ export default function WorkshopCalendar(): React.ReactElement {
         const res = await fetch(`${BACKEND_URL}/api/workshop-registration`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+          body: JSON.stringify({
             parentName: formData.parentName.trim(),
             email: formData.email.trim(),
             grade: formData.grade.trim(),
@@ -244,13 +260,36 @@ export default function WorkshopCalendar(): React.ReactElement {
           Workshop Calendar
         </h1>
         <p className="text-gray-600 mt-1">Free Parent Workshops &amp; Webinars · GrowWise Dublin CA</p>
-        <p className="text-gray-600 mt-3 max-w-xl mx-auto text-sm">
-          Want full-week summer options?{' '}
-          <Link href={publicPath('/camps/summer', locale)} className="text-[#F16112] font-semibold underline hover:text-[#1F396D]">
-            Browse our summer camps in Dublin CA
-          </Link>
-          .
-        </p>
+        <div className="mt-4 max-w-sm mx-auto px-4">
+          {newsletterStatus === 'success' ? (
+            <p className="text-sm font-medium text-emerald-600">You&apos;re in! Check your inbox for a welcome note.</p>
+          ) : (
+            <>
+              <p className="text-sm text-gray-500 mb-2">Stay up to date on upcoming events and workshops.</p>
+              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+                <input
+                  type="email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  aria-label="Email for workshop updates"
+                  className="flex-1 rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:ring-offset-1"
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterStatus === 'submitting'}
+                  className="rounded-lg bg-[#F16112] hover:bg-[#d54f0a] disabled:opacity-60 px-4 py-1.5 text-sm font-semibold text-white transition-colors whitespace-nowrap"
+                >
+                  {newsletterStatus === 'submitting' ? 'Subscribing…' : 'Stay Updated'}
+                </button>
+              </form>
+              {newsletterError && (
+                <p className="text-red-600 text-xs mt-1" role="alert">{newsletterError}</p>
+              )}
+            </>
+          )}
+        </div>
       </header>
 
       <section aria-label="Month navigation" className="flex items-center justify-center gap-6 py-6 bg-white border-b border-gray-200">
@@ -284,7 +323,7 @@ export default function WorkshopCalendar(): React.ReactElement {
           {(Object.entries(EVENT_TYPE_CLASSES) as [ProgramType, string][]).map(([type]) => (
             <div key={type} className="flex items-center gap-2 text-sm text-gray-600" role="listitem">
               <div className={`w-3 h-3 rounded ${type === 'reading' ? 'bg-blue-500' : type === 'math' ? 'bg-purple-500' : 'bg-emerald-500'}`} aria-hidden />
-              <span>{type === 'webinar' ? 'Parent Webinar' : type === 'reading' ? 'Reading' : 'Math'}</span>
+              <span>{type === 'webinar' ? 'Parent Webinar' : type === 'reading' ? 'English' : 'Math'}</span>
             </div>
           ))}
         </div>
@@ -361,10 +400,9 @@ export default function WorkshopCalendar(): React.ReactElement {
           )}
             {selectedEvent && (
               <>
-
                 {!formSubmitted ? (
                   <>
-                    <div className="flex justify-center gap-4 mb-6 p-4 bg-gray-50 rounded-xl" aria-label="Event details">
+                    <div className="flex justify-center gap-6 mb-6 p-4 bg-gray-50 rounded-xl" aria-label="Event details">
                       <div className="text-center">
                         <div className="font-bold text-gray-800">{getScheduleLine(selectedEvent)}</div>
                         <div className="text-xs text-gray-600 uppercase">Schedule</div>
@@ -376,10 +414,6 @@ export default function WorkshopCalendar(): React.ReactElement {
                       <div className="text-center">
                         <div className="font-bold text-gray-800">{selectedEvent.grades ?? '—'}</div>
                         <div className="text-xs text-gray-600 uppercase">For</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-bold text-gray-800">{selectedEvent.seats ?? '—'}</div>
-                        <div className="text-xs text-gray-600 uppercase">Seats Left</div>
                       </div>
                     </div>
 
