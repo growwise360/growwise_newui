@@ -32,7 +32,7 @@
   {
     "id": "webinar-jul-24",
     "name": "Parent Webinar: Back-to-School Prep",
-    "dayOfWeek": "THURSDAY",
+    "dayOfWeek": "FRIDAY",
     "time": "20:00",
     "timezone": "America/Los_Angeles",
     "durationMinutes": 60,
