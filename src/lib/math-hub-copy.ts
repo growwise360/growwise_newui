@@ -68,7 +68,7 @@ export const MATH_HUB_COPY = {
   hero: {
     bannerAlt:
       'A math teacher leading a small-group tutoring session with students around a table in a bright classroom.',
-    h1: "Find the right math program for your child's grade and goal.",
+    h1: 'Math Classes & Enrichment for Grades 1-12 in Dublin, CA',
     subheading:
       "Not all math problems are the same — and neither are the programs. Every grade band has different gaps, different curriculum demands, and different parent concerns. Start by selecting where your child is right now.",
     trustBar: [

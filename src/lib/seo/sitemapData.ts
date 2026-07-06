@@ -49,6 +49,7 @@ const corePages: SitemapEntry[] = [
   { path: '/academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
   { path: '/dublin-ca', priority: 0.9, changefreq: 'monthly' },
+  { path: '/middle-school-tutoring-dublin-ca', priority: 0.9, changefreq: 'monthly' },
   { path: '/from-nextdoor', priority: 0.9, changefreq: 'monthly' },
   { path: '/bulletin', priority: 0.85, changefreq: 'monthly' },
   { path: '/enroll', priority: 0.85, changefreq: 'monthly' },

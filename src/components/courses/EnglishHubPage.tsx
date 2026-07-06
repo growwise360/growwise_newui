@@ -344,7 +344,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               English Programs - Grades 1-8
             </p>
             <h1 className="font-heading mt-6 max-w-3xl text-3xl font-black leading-tight text-white md:text-5xl">
-              English tutoring programs for grades 1-8.
+              English Reading &amp; Writing Classes for Grades 1-8 in Dublin, CA
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
               Reading comprehension, writing structure, grammar, vocabulary, and essay skills
