@@ -23,6 +23,7 @@ import {
   WORKSHOP_MONTHS,
   EVENT_TYPE_CLASSES,
   GRADES_LIST,
+  HOW_DID_YOU_HEAR_OPTIONS,
   getScheduleLine,
   PROGRAM_TYPE_BADGE,
   formatProgramTime,
@@ -46,6 +47,7 @@ interface FormData {
   parentName: string;
   email: string;
   grade: string;
+  howDidYouHear: string;
 }
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
@@ -186,7 +188,7 @@ export default function WorkshopCalendar(): React.ReactElement {
     setFormSubmitted(false);
     setSubmitError(null);
     setFormErrors({});
-    setFormData({ parentName: '', email: '', grade: '' });
+    setFormData({ parentName: '', email: '', grade: '', howDidYouHear: '' });
   }, [eventsMap]);
 
   const closeModal = useCallback(() => {
@@ -221,6 +223,7 @@ export default function WorkshopCalendar(): React.ReactElement {
             parentName: formData.parentName.trim(),
             email: formData.email.trim(),
             grade: formData.grade.trim(),
+            howDidYouHear: formData.howDidYouHear.trim() || undefined,
             eventType: getEventTypeForApi(selectedEvent),
             eventTitle: selectedEvent.name,
             eventDate: selectedDate,
@@ -472,13 +475,32 @@ export default function WorkshopCalendar(): React.ReactElement {
                           <p id="err-grade" className="text-sm text-red-600 mt-1" role="alert">{formErrors.grade}</p>
                         )}
                       </div>
+                      <div>
+                        <Label htmlFor="workshop-howDidYouHear" className="flex items-center gap-1">
+                          How did you hear about us?
+                          <span className="text-xs text-gray-400 font-normal">(optional)</span>
+                        </Label>
+                        <Select
+                          value={formData.howDidYouHear}
+                          onValueChange={(v) => handleInputChange('howDidYouHear', v)}
+                        >
+                          <SelectTrigger id="workshop-howDidYouHear" className="mt-1">
+                            <SelectValue placeholder="Select one" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {HOW_DID_YOU_HEAR_OPTIONS.map((o) => (
+                              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                       <FormPrivacyConsent
                         checkboxId="workshop-register-agree"
                         checked={agreeToCommunications}
                         onCheckedChange={setAgreeToCommunications}
                         required
-                        showSubmitDisclaimer
-                        variant="compact"
+                        showSubmitDisclaimer={false}
+                        alignPrivacyWithConsent
                       />
                       {submitError && (
                         <p className="text-sm text-red-600" role="alert">{submitError}</p>
