@@ -16,6 +16,7 @@ export function ReadingFluencyVsComprehensionPage() {
   const locale = useLocale()
   const selfCheckHref = publicPath('/self-check', locale)
   const readingSprintHref = publicPath('/camps/summer-reading-writing-dublin-ca', locale)
+  const englishClassesHref = publicPath('/academic/english', locale)
 
   return (
     <ResourceArticlePage
@@ -152,6 +153,14 @@ export function ReadingFluencyVsComprehensionPage() {
       </p>
 
       <p>Students aren&apos;t grouped by grade. They&apos;re grouped by skill profile.</p>
+
+      <p>
+        If you want ongoing reading and writing support beyond a sprint, see GrowWise&apos;s{' '}
+        <Link href={englishClassesHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          English reading and writing classes in Dublin CA
+        </Link>{' '}
+        — small-group instruction that covers both comprehension and writing across Grades 1–8.
+      </p>
 
       <p>
         <Link href={readingSprintHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">

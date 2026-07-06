@@ -47,13 +47,11 @@ export function getMathHubSchemaOfferPrice(bandId: MathGradeBandId): string {
 }
 
 export function buildMiddleSchoolMetaDescription(): string {
-  const fromMonthly = formatFromMonthlyPhrase('middle-school');
-  const trial = formatTrialSessionFeeLabel();
-  return `Grades 6–8 math: Course 1–IM2, school-aligned curriculum. ${trial} trial, monthly programs ${fromMonthly}. Live small groups. Free assessment.`;
+  return 'Grades 6–8 math tutoring in Dublin, CA. Course 1 through IM2, school-aligned curriculum. Small groups, gap diagnostics, free assessment.';
 }
 
 export function buildHighSchoolMetaDescription(): string {
-  return 'High school math tutoring in Dublin, CA for Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus.';
+  return 'Advanced math classes in Dublin, CA for Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus.';
 }
 
 export function buildHighSchoolSeoIntroParagraph(): string {

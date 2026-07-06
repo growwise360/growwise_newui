@@ -12,7 +12,7 @@ export type DayOfWeek =
   | 'FRIDAY'
   | 'SATURDAY';
 
-export type ProgramType = 'reading' | 'math' | 'coding' | 'ai' | 'webinar';
+export type ProgramType = 'reading' | 'math' | 'webinar';
 
 export interface Program {
   id: string;
@@ -60,7 +60,7 @@ function isDayOfWeek(s: string): s is DayOfWeek {
   return DAY_OF_WEEK_VALUES.includes(s as DayOfWeek);
 }
 
-const PROGRAM_TYPES: ProgramType[] = ['reading', 'math', 'coding', 'ai', 'webinar'];
+const PROGRAM_TYPES: ProgramType[] = ['reading', 'math', 'webinar'];
 
 function isProgramType(s: string): s is ProgramType {
   return PROGRAM_TYPES.includes(s as ProgramType);

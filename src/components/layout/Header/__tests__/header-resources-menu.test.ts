@@ -18,6 +18,7 @@ describe('header resources dropdown menu', () => {
       'blogs',
       'readinessCheck',
       'mathMistakeSelfCheck',
+      'workshopCalendar',
     ]);
   });
 
@@ -28,6 +29,7 @@ describe('header resources dropdown menu', () => {
       '/growwise-blogs',
       '/readinesschecklist',
       '/self-check',
+      '/workshop-calendar',
     ]);
   });
 
