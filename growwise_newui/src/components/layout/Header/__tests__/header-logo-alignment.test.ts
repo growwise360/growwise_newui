@@ -22,7 +22,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const CSS_FILE = path.join(process.cwd(), 'src/app/globals.css');
+const CSS_FILE = path.resolve(__dirname, '../../../../app/globals.css');
 
 // Canonical values derived from PNG pixel scan (scripts/measure-logo-padding.js).
 // formula: mt = −floor(98 × h/322) + 2px breathing; pl = round(38 × h/322)
