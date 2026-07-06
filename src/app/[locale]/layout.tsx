@@ -13,6 +13,8 @@ import { HomeCampsStripSlot } from '@/components/sections/home/HomeCampsStripSlo
 import { websiteSchema } from '@/lib/seo/structuredData';
 import { isLocaleEnabled } from '@/i18n/localeConfig';
 
+import ParentResourcesBar from '@/components/layout/ParentResourcesBar';
+
 const Header = dynamic(() => import("@/components/layout/Header/Header"));
 const Footer = dynamic(() => import("@/components/layout/Footer/Footer"));
 
@@ -62,6 +64,7 @@ export default async function LocaleLayout({
             <main id="main-content" suppressHydrationWarning>
               {children}
             </main>
+            <ParentResourcesBar />
             <Footer />
             <LazyChatbot />
             <WhatsAppFloatingButton />
