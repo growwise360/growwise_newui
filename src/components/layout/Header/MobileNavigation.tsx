@@ -450,15 +450,7 @@ export default function MobileNavigation({
                 <LocaleSwitcher />
               </div>
 
-              <div className="mt-4 flex flex-row items-stretch gap-2">
-                <Link
-                  href={createLocaleUrl('/student-login')}
-                  prefetch={false}
-                  className="inline-flex min-w-0 flex-1 items-center justify-center px-4 py-3 rounded-full font-medium text-center transition-all duration-300 border border-[#1F396D] text-[#1F396D] hover:bg-[#1F396D] hover:text-white"
-                  onClick={onCloseMobileMenu}
-                >
-                  Student Login
-                </Link>
+              <div className="mt-4 flex justify-end">
                 <div className="flex shrink-0 items-center">
                   <HeaderChatbotTrigger variant="compact" />
                 </div>

@@ -8,13 +8,15 @@ import {
   generateEventSchema,
   generateItemListSchema,
   generateWebPageJsonLd,
+  generateFAQPageSchema,
 } from '@/lib/seo/structuredData';
 import { getWorkshopEventsMap } from '@/components/workshop/workshopEvents';
+import { WORKSHOP_CALENDAR_FAQS } from '@/lib/schema/workshop-calendar-faqs';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const metadata = generateMetadataFromPath('/workshop-calendar', locale);
-  return metadata ?? { title: 'Workshop Calendar | GrowWise', description: 'Free Saturday skill workshops and parent webinars' };
+  return metadata ?? { title: 'Workshop Calendar | GrowWise', description: 'Free parent workshops and webinars on math and English — Tuesdays in Dublin, CA. Register free.' };
 }
 
 export default function WorkshopCalendarLayout({
@@ -95,12 +97,14 @@ async function WorkshopCalendarStructuredData({
       },
     }),
   );
+  const faqSchema = generateFAQPageSchema(WORKSHOP_CALENDAR_FAQS);
   const graph = {
     '@context': 'https://schema.org',
     '@graph': [
       breadcrumbSchema,
       webPageSchema,
       itemListSchema,
+      faqSchema,
       ...eventSchemas,
     ],
   };

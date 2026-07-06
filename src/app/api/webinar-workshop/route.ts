@@ -52,14 +52,8 @@ export async function POST(request: Request) {
       !parentName.trim() ||
       typeof email !== 'string' ||
       !email.trim() ||
-      typeof studentName !== 'string' ||
-      !studentName.trim() ||
       typeof grade !== 'string' ||
       !grade.trim() ||
-      typeof schoolDistrict !== 'string' ||
-      !schoolDistrict.trim() ||
-      typeof howDidYouHear !== 'string' ||
-      !HOW_DID_YOU_HEAR_VALUES.includes(howDidYouHear as (typeof HOW_DID_YOU_HEAR_VALUES)[number]) ||
       (eventType !== 'webinar' && eventType !== 'workshop')
     ) {
       return NextResponse.json(
@@ -78,10 +72,10 @@ export async function POST(request: Request) {
     const payload = {
       parentName: parentName.trim(),
       email: email.trim().toLowerCase(),
-      studentName: studentName.trim(),
+      studentName: typeof studentName === 'string' ? studentName.trim() : undefined,
       grade: grade.trim(),
-      schoolDistrict: schoolDistrict.trim(),
-      howDidYouHear: howDidYouHear.trim(),
+      schoolDistrict: typeof schoolDistrict === 'string' ? schoolDistrict.trim() : undefined,
+      howDidYouHear: typeof howDidYouHear === 'string' ? howDidYouHear.trim() : undefined,
       eventType: eventType as 'webinar' | 'workshop',
       phone: typeof phone === 'string' ? phone.trim() : undefined,
       eventTitle: typeof eventTitle === 'string' ? eventTitle.trim() : undefined,
