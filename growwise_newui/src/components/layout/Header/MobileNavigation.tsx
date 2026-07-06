@@ -438,12 +438,12 @@ export default function MobileNavigation({
               )}
 
               <Link
-                href={createLocaleUrl('/enroll')}
+                href={createLocaleUrl('/book-assessment')}
                 prefetch={false}
                 className="block w-full mt-6 px-6 py-3 rounded-full font-medium text-center transition-all duration-300 bg-[#F16112] text-white hover:bg-[#F1894F] shadow-lg"
                 onClick={onCloseMobileMenu}
               >
-                Enroll Now
+                Book Assessment
               </Link>
 
               <div className="mt-6 pt-6 border-t border-gray-200">
