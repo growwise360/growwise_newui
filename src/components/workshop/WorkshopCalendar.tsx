@@ -296,8 +296,8 @@ export default function WorkshopCalendar(): React.ReactElement {
         <div className="flex justify-center gap-6 py-4 flex-wrap" role="list" aria-label="Event types">
           {(Object.entries(EVENT_TYPE_CLASSES) as [ProgramType, string][]).map(([type]) => (
             <div key={type} className="flex items-center gap-2 text-sm text-gray-600" role="listitem">
-              <div className={`w-3 h-3 rounded ${type === 'reading' ? 'bg-blue-500' : type === 'math' ? 'bg-purple-500' : type === 'coding' ? 'bg-amber-500' : type === 'ai' ? 'bg-pink-500' : 'bg-emerald-500'}`} aria-hidden />
-              <span>{type === 'webinar' ? 'Parent Webinar' : type === 'reading' ? 'Reading Comprehension' : type === 'math' ? 'Math Olympiad' : type === 'coding' ? 'Scratch Coding' : 'AI Studio'}</span>
+              <div className={`w-3 h-3 rounded ${type === 'reading' ? 'bg-blue-500' : type === 'math' ? 'bg-purple-500' : 'bg-emerald-500'}`} aria-hidden />
+              <span>{type === 'webinar' ? 'Parent Webinar' : type === 'reading' ? 'Reading' : 'Math'}</span>
             </div>
           ))}
         </div>
