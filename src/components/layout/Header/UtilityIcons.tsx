@@ -4,7 +4,6 @@ import SearchBar from './SearchBar';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { HeaderChatbotTrigger } from '@/components/chatbot/HeaderChatbotTrigger';
 import { useButtonTracking } from '@/lib/analytics/hooks';
-import { useTranslations } from 'next-intl';
 
 interface UtilityIconsProps {
   cartItemCount: number;
@@ -13,22 +12,21 @@ interface UtilityIconsProps {
 }
 
 export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart }: UtilityIconsProps) {
-  const t = useTranslations('navigation');
   const { trackButtonClick } = useButtonTracking();
   // Student login is now handled by our custom page
 
-  const handleEnrollClick = () => {
-    trackButtonClick('Enroll Now', 'header_navigation', {
+  const handleAssessmentClick = () => {
+    trackButtonClick('Book Assessment', 'header_navigation', {
       button_type: 'nav_button',
       button_variant: 'orange',
-      destination: '/enroll'
+      destination: '/book-assessment',
     });
   };
 
   return (
     <div className="header-utilities relative z-0 hidden lg:flex items-center gap-2 flex-none">
       <div className="flex items-center gap-2">
-        <div className="hidden 2xl:block">
+        <div className="block">
           <SearchBar />
         </div>
         {showCart && (
@@ -47,13 +45,16 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
           </Link>
         )}
         <Link
-          href={createLocaleUrl('/enroll')}
+          href={createLocaleUrl('/book-assessment')}
           prefetch={false}
-          onClick={handleEnrollClick}
-          className="px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap bg-[#F16112] text-white hover:bg-[#F1894F] shadow-lg hover:shadow-xl xl:px-4"
+          onClick={handleAssessmentClick}
+          className="inline-flex whitespace-nowrap rounded-full bg-[#F16112] px-3 py-2 text-sm font-medium text-white shadow-lg transition-all duration-300 hover:bg-[#F1894F] hover:shadow-xl xl:px-4"
         >
-          {t('enroll')}
+          Book Assessment
         </Link>
+        <div className="hidden xl:block">
+          <HeaderChatbotTrigger />
+        </div>
 
         <div className="hidden min-[1800px]:flex items-center gap-2">
           <Link
@@ -63,7 +64,6 @@ export default function UtilityIcons({ cartItemCount, createLocaleUrl, showCart 
           >
             Student Login
           </Link>
-          <HeaderChatbotTrigger />
         </div>
       </div>
 
