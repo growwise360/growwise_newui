@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchHeaderRequested } from '@/store/slices/headerSlice';
-import { Menu, X, Phone, Mail, MapPin, ChevronDown, Search, ShoppingCart, Calculator, BookOpen, Brain, Gamepad2, ChevronRight, Facebook, Twitter, Instagram, Linkedin, GraduationCap, Target, BookMarked, UserCheck, Palette, Code2, BriefcaseBusiness } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, ChevronDown, Search, ShoppingCart, Calculator, BookOpen, Brain, Gamepad2, ChevronRight, Facebook, Twitter, Instagram, Linkedin, GraduationCap, Target, BookMarked, UserCheck, Palette, Code2, BriefcaseBusiness, CalendarDays } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/components/gw/CartContext';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
@@ -26,7 +26,8 @@ const iconMap: { [key: string]: any } = {
   UserCheck,
   Palette,
   Code2,
-  BriefcaseBusiness
+  BriefcaseBusiness,
+  CalendarDays,
 };
 
 export default function Header() {

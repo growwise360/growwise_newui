@@ -8,6 +8,7 @@ import {
   BookMarked, 
   UserCheck,
   Calendar,
+  CalendarDays,
   Download
 } from 'lucide-react';
 import { VariantStyles, type MenuItem } from './types';
@@ -273,6 +274,14 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           icon: 'Target',
           href: '/self-check',
           gradient: 'from-[#29335C] to-[#F16112]',
+        },
+        {
+          key: 'workshopCalendar',
+          title: 'Workshop Calendar',
+          description: 'Upcoming workshops, webinars, and parent events at GrowWise.',
+          icon: 'CalendarDays',
+          href: '/workshop-calendar',
+          gradient: 'from-[#1D9E75] to-[#1F396D]',
         },
       ],
     },
