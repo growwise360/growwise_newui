@@ -47,26 +47,19 @@ export function getMathHubSchemaOfferPrice(bandId: MathGradeBandId): string {
 }
 
 export function buildMiddleSchoolMetaDescription(): string {
-  const fromMonthly = formatFromMonthlyPhrase('middle-school');
-  const trial = formatTrialSessionFeeLabel();
-  return `Grades 6–8 math: Course 1–IM2, school-aligned curriculum. ${trial} trial, monthly programs ${fromMonthly}. Live small groups. Free assessment.`;
+  return 'Grades 6–8 math tutoring in Dublin, CA. Course 1 through IM2, school-aligned curriculum. Small groups, gap diagnostics, free assessment.';
 }
 
 export function buildHighSchoolMetaDescription(): string {
-  const fromMonthly = formatFromMonthlyPhrase('high-school');
-  const trial = formatTrialSessionFeeLabel();
-  return `Algebra 2, Pre-Calc & AP math in Dublin, CA. Monthly programs ${fromMonthly}, ${trial} trial for Grades 9–12. School-aligned small groups. Free assessment.`;
+  return 'Advanced math classes in Dublin, CA for Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus.';
 }
 
 export function buildHighSchoolSeoIntroParagraph(): string {
-  const fromMonthly = formatFromMonthlyPhrase('high-school');
-  const trial = formatTrialSessionFeeLabel();
-  return `GrowWise offers structured math learning programs for high school students in Dublin, CA — from Algebra 1 through Pre-Calculus, Integrated Math, and beyond. Small classes, expert instructors, results that show up on report cards. Start with a free assessment or a ${trial} trial session (Grades 9–12) before enrolling in a monthly program ${fromMonthly}.`;
+  return 'GrowWise offers structured math learning programs for high school students in Dublin, CA — from Algebra 1 through Calculus, including Advanced Algebra 2, Precalculus, and AP Precalculus. Small classes, expert instructors, and course-specific support help students build skills that show up on homework, tests, and report cards.';
 }
 
 export function buildHighSchoolTrialFaqAnswer(): string {
-  const trial = formatTrialSessionFeeLabel();
-  return `A single 90-minute instructional session aligned to the student's current high school course. The instructor works through real problems, identifies gaps, and gives a parent debrief on course fit and monthly program options. The ${trial} fee is fully waived if you enroll in a monthly program within 7 days.`;
+  return 'The free assessment is a short placement conversation and skills check. It helps identify the student\'s current course, prerequisite gaps, and the right starting point before enrollment.';
 }
 
 export function buildMiddleSchoolTrialFaqAnswer(): string {
@@ -80,7 +73,5 @@ export function buildMiddleSchoolTrialVsMonthlyFaqAnswer(): string {
 }
 
 export function buildHighSchoolMonthlyVsDropInFaqAnswer(): string {
-  const fromMonthly = formatFromMonthlyPhrase('high-school');
-  const trial = formatTrialSessionFeeLabel();
-  return `Monthly programs (${fromMonthly}) are structured 3-month enrollments with a fixed curriculum scope and live small groups. Per-session options in the course catalog are single-session drop-ins at listed rates (${trial}–$75). The ${trial} trial is a one-time way to try instruction before choosing a monthly program.`;
+  return 'Monthly high school math programs are structured enrollments with a defined course focus, weekly small-group instruction, curriculum alignment, and parent progress updates. Drop-in help is less structured and is better for one-off questions than long-term course improvement.';
 }

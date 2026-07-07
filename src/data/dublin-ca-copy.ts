@@ -43,6 +43,11 @@ export const DUBLIN_CA_COPY = {
         href: '/academic/english',
       },
       {
+        title: 'Middle School Tutoring',
+        description: 'Math and English for Grades 6–8. DUSD-aligned gap diagnostics and small groups.',
+        href: '/middle-school-tutoring-dublin-ca',
+      },
+      {
         title: 'Python & AI Coding',
         description: 'Hands-on Python, AI, and coding projects for ages 10–18.',
         href: '/coding',

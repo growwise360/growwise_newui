@@ -68,7 +68,7 @@ export const MATH_HUB_COPY = {
   hero: {
     bannerAlt:
       'A math teacher leading a small-group tutoring session with students around a table in a bright classroom.',
-    h1: "Find the right math program for your child's grade and goal.",
+    h1: 'Math Classes & Enrichment for Grades 1-12 in Dublin, CA',
     subheading:
       "Not all math problems are the same — and neither are the programs. Every grade band has different gaps, different curriculum demands, and different parent concerns. Start by selecting where your child is right now.",
     trustBar: [
@@ -132,18 +132,18 @@ export const MATH_HUB_COPY = {
         path: MATH_COURSE_PATHS.highSchool,
         gradeTag: 'Grades 9–12',
         heading: 'High school math',
-        tagline: 'Algebra 2 through AP Calculus — course-specific, not general review.',
+        tagline: 'Algebra 1 through Calculus — course-specific, not general review.',
         description:
           'High school math moves at pace. Our programs are built around the course your child is actually in — not a broad review of everything.',
         coursesIncluded: [
+          'Algebra 1',
           'Algebra 2',
-          'Geometry',
-          'Pre-Calculus',
-          'AP Calculus AB/BC',
-          'AP Statistics',
-          'SAT Math',
+          'Advanced Algebra 2',
+          'Precalculus',
+          'AP Precalculus',
+          'Calculus',
         ],
-        packageLine: 'From $189/month · 75 min, once a week · 3-month program',
+        packageLine: 'From $369/month · 150 minutes per week · 3-month program',
         ctaLabel: 'See high school programs',
         imageSrc: '/assets/courses/math-band-high-school.webp',
         imageAlt:
@@ -280,20 +280,17 @@ export const MATH_HUB_COPY = {
         path: MATH_COURSE_PATHS.highSchool,
         heading: 'High school math',
         gradeRange: 'Grades 9–12',
-        tracks: 'Algebra 2 · AP Calc · SAT',
+        tracks: 'Algebra 1 · Algebra 2 · Calculus',
         ctaLabel: 'See full program',
         options: [
-          { name: '1 Subject', schedule: '75 min/week', price: '$189/mo' },
-          { name: '2 Subject', schedule: '2 × 60 min/week', price: '$369/mo' },
+          { name: '1 Subject', schedule: '150 min/week', price: '$369/mo' },
           {
             name: 'AP Math',
             subtitle: '(100% School Aligned)',
-            schedule: '120 min/week',
+            schedule: '150 min/week',
             price: '$376/mo',
           },
         ],
-        includedBenefit:
-          'Complimentary 60-minute weekly practice session included with every program',
       },
     ] satisfies readonly MathHubProgramBandCard[],
   },
@@ -410,13 +407,13 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
     path: MATH_COURSE_PATHS.highSchool,
     breadcrumbLabel: 'High School Math',
     h1: 'High school math programs — Grades 9–12',
-    intro: 'Algebra 2 through AP Calculus — course-specific, not general review.',
+    intro: 'Algebra 1 through Calculus — course-specific, not general review.',
     body: 'High school math moves at pace. Our programs are built around the course your child is actually in — not a broad review of everything.',
     coursesIncluded: MATH_HUB_COPY.gradeBands.cards[2].coursesIncluded,
-    packageLine: 'From $189/month · 75 min, once a week · 3-month program',
+    packageLine: 'From $369/month · 150 minutes per week · 3-month program',
     schemaCourseName: 'High School Math Program — Grades 9–12',
     schemaDescription:
-      '3-month structured math program for Grades 9–12. Covers Algebra 2, Pre-Calculus, AP Calculus AB/BC, AP Statistics, and SAT Math. Live online small groups.',
+      '3-month structured math program for Grades 9–12. Covers Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus. Live online small groups.',
   },
 };
 
@@ -445,8 +442,8 @@ export const MATH_HUB_METADATA = {
   '/academic/math/high-school': {
     title: 'High School Math Tutoring Online — Grades 9–12 | GrowWise',
     description:
-      'High school math programs: Algebra 2, Pre-Calculus, AP Calculus, AP Statistics, SAT Math. Course-specific 3-month programs. Book a free assessment.',
+      'High school math programs: Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus. Course-specific 3-month programs. Book a free assessment.',
     keywords:
-      'high school math tutoring online, AP calculus tutoring, algebra 2 tutoring, SAT math prep online, grades 9-12 math program',
+      'high school math tutoring online, algebra 1 tutoring, algebra 2 tutoring, advanced algebra 2 tutoring, precalculus tutoring, AP precalculus tutoring, calculus tutoring, grades 9-12 math program',
   },
 } as const;

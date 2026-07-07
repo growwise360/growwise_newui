@@ -95,6 +95,15 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/dublin-ca',
   },
 
+  '/middle-school-tutoring-dublin-ca': {
+    title: 'Middle School Tutoring Dublin CA | Math & English | GrowWise',
+    description:
+      'Grades 6-8 math and English tutoring in Dublin, CA. DUSD-aligned, diagnostic-first. Small groups, parent progress reports. Free assessment.',
+    keywords:
+      'middle school tutoring Dublin CA, middle school tutoring near me, Grades 6-8 tutoring Dublin, middle school math tutoring Dublin, middle school English tutoring Dublin, IM1 tutoring Dublin, Tri-Valley middle school tutoring, DUSD middle school programs, 6th grade tutoring Dublin, 7th grade tutoring Dublin, 8th grade tutoring Dublin',
+    path: '/middle-school-tutoring-dublin-ca',
+  },
+
   '/contact': {
     title: 'Contact GrowWise | Dublin CA | Talk to Us',
     description:
@@ -124,9 +133,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/math': {
-    title: 'Math Tutoring Dublin CA | Grades 1-12',
+    title: 'Math Classes & Enrichment Dublin CA | Grades 1–12',
     description:
-      'Back-to-school math tutoring in Dublin, CA for Grades 1-12. Elementary, middle school, high school, and advanced math. Free assessment.',
+      'Math classes and enrichment for Grades 1-12 in Dublin, CA. Elementary, middle school, high school, and advanced math programs. Book a free assessment.',
     keywords:
       'math tutoring Dublin CA, math tutor near me, back to school math tutoring, elementary math tutoring, middle school math tutoring, high school math tutoring, IM1 tutoring, Algebra 1 tutor, Algebra 2 tutor, geometry tutoring, Pleasanton math tutor, San Ramon math tutor, Tri-Valley math tutoring, math small group tutoring, math assessment',
     path: '/academic/math',
@@ -150,9 +159,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/english': {
-    title: 'English Tutoring Dublin CA | Reading & Writing',
+    title: 'English Reading & Writing Classes in Dublin CA | GrowWise',
     description:
-      'Back-to-school English tutoring in Dublin, CA for Grades 1-8. Reading comprehension, writing, grammar, vocabulary, and essays.',
+      'Small-group reading and writing classes for Grades 1-8 in Dublin, CA. Comprehension, writing, grammar, vocabulary, and essays. Book a free assessment.',
     keywords:
       'English tutoring Dublin CA, English tutor near me, reading tutor near me, writing tutor near me, back to school English tutoring, reading comprehension tutoring, essay writing help, grammar tutoring, vocabulary development, English Language Arts, ELA tutoring, English classes Dublin CA, Pleasanton English tutor, San Ramon English tutor, Tri-Valley reading and writing tutoring, Grades 1-8 English programs',
     path: '/academic/english',
@@ -170,17 +179,17 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/courses/sat-prep': {
     title: 'SAT Prep Dublin CA | Classes & Tutoring | GrowWise',
     description:
-      'SAT prep in Dublin, CA with small groups, practice tests, math and reading/writing strategy, and expert tutors. Book a free assessment.',
+      'SAT prep for Dublin, Pleasanton, San Ramon, and Tri-Valley families. Small groups, practice tests, math and reading/writing strategy, expert tutors.',
     keywords:
       'SAT prep Dublin CA, SAT preparation, SAT course, SAT tutoring Dublin, SAT test prep, SAT strategies, SAT practice tests, SAT classes Dublin CA, SAT help, SAT tutor near me, SAT prep course, SAT score improvement, college entrance exam prep',
     path: '/courses/sat-prep',
   },
 
   '/academic/math/high-school': {
-    title: 'High School Math Tutoring Dublin CA | Algebra & Geometry',
+    title: 'Advanced Math Classes Dublin CA | Algebra to Calculus',
     description: buildHighSchoolMetaDescription(),
     keywords:
-      'high school math tutoring Dublin CA, algebra tutor near me, algebra 1 tutoring, algebra 2 tutor near me, geometry tutor Dublin CA, geometry classes near me, pre-calculus tutoring, integrated math 3 tutoring, DUSD accelerated math placement, August math readiness, grades 9-12 math program',
+      'high school math tutoring Dublin CA, algebra 1 tutoring, algebra 2 tutor near me, advanced algebra 2 tutoring, precalculus tutoring, AP precalculus tutoring, calculus tutoring, DUSD accelerated math placement, August math readiness, grades 9-12 math program',
     path: '/academic/math/high-school',
   },
 
@@ -293,7 +302,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/steam/ml-ai-coding': {
-    title: 'STEAM Python and AI Courses | Enroll | Dublin CA',
+    title: 'STEAM ML & AI Classes for Students | Dublin CA',
     description:
       'ML and AI coding in Dublin, CA. Hands-on projects for students. Small classes and expert instructors. Book a free trial.',
     keywords:
@@ -578,9 +587,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/tutoring-dublin-ca': {
-    title: 'Tutoring Dublin CA | Best K-12 Options for 2026',
+    title: 'Tutoring Dublin CA | Best K-12 & Middle School Options 2026',
     description:
-      'Compare Dublin, CA tutoring options for Grades 1-12: class size, diagnostics, math, English, SAT prep, and questions to ask before enrolling.',
+      'Compare Dublin, CA tutoring for Grades 1-12 including middle school: class size, diagnostics, math, English, and SAT prep questions to ask.',
     keywords:
       'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
     path: '/resources/tutoring-dublin-ca',
@@ -698,9 +707,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/english-tutor-vs-reading-tutor-vs-writing-class': {
-    title: 'English Tutor vs Reading Tutor vs Writing Class',
+    title: 'English Reading & Writing Classes vs Tutoring | Dublin CA',
     description:
-      'Compare English tutoring, reading tutoring, and writing classes so parents can choose the right support before the August school-year rush.',
+      'Compare reading tutoring, English tutoring, and writing classes for Dublin parents. Know which type of support matches your child\'s actual gap.',
     keywords:
       'english tutor near me, English tutoring Dublin CA, reading tutor near me, reading tutoring near me, writing tutor Dublin CA, english writing classes near me, reading and writing classes near me',
     path: '/resources/english-tutor-vs-reading-tutor-vs-writing-class',
@@ -758,7 +767,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/reading-fluency-vs-comprehension': {
-    title: 'Reading Fluency vs Comprehension | Parent Guide',
+    title: 'Fluency vs Comprehension | Parent Reading Guide',
     description:
       'Compare reading fluency vs comprehension gaps, warning signs, and what support should target when a child reads words but misses meaning.',
     keywords:
@@ -817,12 +826,42 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/when-to-start-sat-prep': {
-    title: 'When to Start SAT Prep | Timeline by Grade',
+    title: 'When Should My Child Start SAT Prep? | Grade-by-Grade',
     description:
       'See when SAT prep should start in grades 8, 9, 10, or 11, what to fix first, and how parents can plan a smarter prep timeline.',
     keywords:
       'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
     path: '/resources/when-to-start-sat-prep',
+    type: 'article',
+  },
+
+  '/resources/best-tutoring-dublin-ca': {
+    title: 'Best Tutoring in Dublin CA | K-12 Options Compared',
+    description:
+      'Compare Dublin, CA tutoring for SAT prep, middle school, and high school: class size, diagnostics, curriculum fit, and what questions to ask.',
+    keywords:
+      'best tutoring dublin ca, best places for tutoring dublin, sat prep dublin ca, middle school tutoring dublin, high school tutoring dublin',
+    path: '/resources/best-tutoring-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/how-to-choose-coding-school-for-kids': {
+    title: 'How to Choose a Coding School for Your Child',
+    description:
+      'Five criteria for choosing the right coding program: age fit, text-based coding, certification pathways, project output, and what to ask before enrolling.',
+    keywords:
+      'how to choose coding school for kids, coding classes for kids dublin ca, best coding school students, coding program children, python certification students',
+    path: '/resources/how-to-choose-coding-school-for-kids',
+    type: 'article',
+  },
+
+  '/resources/back-to-school-night-parent-questions': {
+    title: 'Questions to Ask at Back-to-School Night | Parent Guide',
+    description:
+      'Ask these questions at back-to-school night to find out if your child is on track, how the teacher identifies gaps, and what to do if concerns come up.',
+    keywords:
+      'back to school night questions, questions to ask teacher at open house, back to school night tips for parents, how to find out if child is behind in school',
+    path: '/resources/back-to-school-night-parent-questions',
     type: 'article',
   },
 

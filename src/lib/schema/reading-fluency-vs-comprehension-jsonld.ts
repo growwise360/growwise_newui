@@ -16,15 +16,22 @@ export function buildReadingFluencyVsComprehensionPageGraphSchema(baseUrl: strin
       headline: READING_FLUENCY_VS_COMPREHENSION_META.h1,
       description: READING_FLUENCY_VS_COMPREHENSION_META.description,
       url: pageUrl,
-      author: { name: 'GrowWise School', type: 'Organization' },
+      author: { name: 'Anshika Verma', type: 'Person' },
       datePublished: READING_FLUENCY_VS_COMPREHENSION_META.datePublished,
-      dateModified: READING_FLUENCY_VS_COMPREHENSION_META.dateModified,
+      dateModified: '2026-07-06',
     }),
     '@id': `${pageUrl}#article`,
     articleSection: 'Academic',
     keywords: READING_FLUENCY_VS_COMPREHENSION_META.keywords,
     isAccessibleForFree: true,
     inLanguage: 'en-US',
+    wordCount: 1200,
+    author: {
+      '@type': 'Person',
+      name: 'Anshika Verma',
+      jobTitle: 'Founder, GrowWise School',
+      url: 'https://growwiseschool.org/about',
+    },
   }
 
   const faqPage = {

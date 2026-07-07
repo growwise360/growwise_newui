@@ -10,7 +10,7 @@ const BODY = `# GrowWise School
 - [Math Programs](https://growwiseschool.org/academic/math)
 - [Elementary Math](https://growwiseschool.org/academic/math/elementary)
 - [Middle School Math](https://growwiseschool.org/academic/math/middle-school)
-- [High School Math](https://growwiseschool.org/academic/math/high-school)
+- [High School Math](https://growwiseschool.org/academic/math/high-school) — Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus tutoring for Grades 9–12.
 - [English Reading & Writing](https://growwiseschool.org/academic/english)
 - [Elementary English](https://growwiseschool.org/academic/english/elementary)
 - [Future Skills](https://growwiseschool.org/future-skills)
@@ -79,6 +79,9 @@ const BODY = `# GrowWise School
 - [Python vs Scratch for Kids](https://growwiseschool.org/resources/python-vs-scratch)
 - [What Is Vibe Coding?](https://growwiseschool.org/resources/what-is-vibe-coding)
 - [Small Group Tutoring vs 1-on-1](https://growwiseschool.org/resources/small-group-tutoring-vs-1-on-1)
+- [Best Tutoring in Dublin CA](https://growwiseschool.org/resources/best-tutoring-dublin-ca)
+- [How to Choose a Coding School for Your Child](https://growwiseschool.org/resources/how-to-choose-coding-school-for-kids)
+- [Questions to Ask at Back-to-School Night](https://growwiseschool.org/resources/back-to-school-night-parent-questions)
 
 ## Info
 - [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/dublin-ca)

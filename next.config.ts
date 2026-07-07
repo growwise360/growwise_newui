@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import createNextIntlPlugin from 'next-intl/plugin';
 import { LEGACY_PATH_REDIRECTS } from './src/lib/seo/legacy-path-redirects';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const isProd = process.env.NODE_ENV === 'production';
 const retiredLocale = 'hi|zh|es';
@@ -15,6 +18,10 @@ const LEGACY_ACADEMIC_REDIRECTS = [
 
 const nextConfig: NextConfig = {
   /* config options here */
+  outputFileTracingRoot: projectRoot,
+  turbopack: {
+    root: projectRoot,
+  },
   compiler: {
     // Smaller bundles + less parse time in prod (Lighthouse "Minify JS" is largely third-party;
     // this trims our code and drops noisy logs.)

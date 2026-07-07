@@ -104,6 +104,51 @@ export function WhenToStartSatPrepPage() {
 
       <h2>When should students start SAT prep by grade?</h2>
 
+      <div className="overflow-x-auto my-6">
+        <table className="w-full text-sm border border-collapse">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Grade</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Focus</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Key Activity</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Earliest Enroll</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Grade 8</td>
+              <td className="border border-gray-300 px-3 py-2">Foundation</td>
+              <td className="border border-gray-300 px-3 py-2">Algebra 1 mastery, reading habits</td>
+              <td className="border border-gray-300 px-3 py-2">Not yet</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="border border-gray-300 px-3 py-2 font-medium">Grade 9</td>
+              <td className="border border-gray-300 px-3 py-2">Low-stakes exposure</td>
+              <td className="border border-gray-300 px-3 py-2">PSAT 8/9, identify weak areas</td>
+              <td className="border border-gray-300 px-3 py-2">Optional intro</td>
+            </tr>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Grade 10</td>
+              <td className="border border-gray-300 px-3 py-2">Sweet spot</td>
+              <td className="border border-gray-300 px-3 py-2">Begin structured prep, PSAT 10</td>
+              <td className="border border-gray-300 px-3 py-2">Spring Grade 10</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="border border-gray-300 px-3 py-2 font-medium">Grade 11</td>
+              <td className="border border-gray-300 px-3 py-2">Focused prep</td>
+              <td className="border border-gray-300 px-3 py-2">Targeted test dates, retake plan</td>
+              <td className="border border-gray-300 px-3 py-2">Fall Grade 11</td>
+            </tr>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Grade 12</td>
+              <td className="border border-gray-300 px-3 py-2">Retake only</td>
+              <td className="border border-gray-300 px-3 py-2">Retake if score needs improvement</td>
+              <td className="border border-gray-300 px-3 py-2">Fall Grade 12</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <h3>Grade 8: Foundation, Not Prep</h3>
 
       <p>
@@ -210,7 +255,8 @@ export function WhenToStartSatPrepPage() {
       </ol>
 
       <p>
-        College Board data indicates that students who test twice — spring of Grade 11 and fall of Grade 12 —
+        <a href="https://satsuite.collegeboard.org/sat" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">College Board data</a>{' '}
+        indicates that students who test twice — spring of Grade 11 and fall of Grade 12 —
         typically see the most improvement, as the gap allows for focused targeted practice.
       </p>
 

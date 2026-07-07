@@ -13,7 +13,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: "Find the right math program for your child's grade and goal.",
+        name: 'Math Classes & Enrichment for Grades 1-12 in Dublin, CA',
       }),
     ).toBeVisible();
 
@@ -44,7 +44,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
       packages.getByText(
         'Complimentary 60-minute weekly practice session included with every program',
       ),
-    ).toHaveCount(1);
+    ).toHaveCount(0);
   });
 
   test('JTBD selector reveals resolution on click', async ({ page }) => {
@@ -65,6 +65,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
   test('/academic/math/high-school serves canonical high school page', async ({ page }) => {
     await page.goto(localePath('/academic/math/high-school'), { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
-    await expect(page.getByText('$189/mo', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('$369/mo', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('2 Subject', { exact: true })).toHaveCount(0);
   });
 });

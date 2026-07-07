@@ -8,6 +8,7 @@ import {
   BookMarked, 
   UserCheck,
   Calendar,
+  CalendarDays,
   Download
 } from 'lucide-react';
 import { VariantStyles, type MenuItem } from './types';
@@ -223,60 +224,6 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
     },
   },
   {
-    key: 'backToSchool',
-    label: 'Back-to-School',
-    href: '/readinesschecklist',
-    type: 'dropdown',
-    variant: 'orange',
-    dropdown: {
-      title: 'Back-to-School Readiness',
-      subtitle: 'Check gaps and choose the right support',
-      items: [
-        {
-          key: 'bookAssessment',
-          title: 'Book Free Assessment',
-          description: 'Free academic assessment available until July 31.',
-          icon: 'BookMarked',
-          href: '/book-assessment',
-          gradient: 'from-[#F16112] to-[#F1894F]',
-        },
-        {
-          key: 'readinessSelfCheck',
-          title: '5-Minute Self-Check',
-          description: 'Quick readiness checklist for math and school-year gaps.',
-          icon: 'UserCheck',
-          href: '/readinesschecklist',
-          gradient: 'from-[#F16112] to-[#F1894F]',
-          badge: 'Free',
-        },
-        {
-          key: 'mathTutoring',
-          title: 'Math Tutoring',
-          description: 'Grades 1–12 support from foundations to advanced tracks.',
-          icon: 'Calculator',
-          href: MATH_COURSE_PATHS.hub,
-          gradient: 'from-[#1F396D] to-[#29335C]',
-        },
-        {
-          key: 'englishSupport',
-          title: 'English Support',
-          description: 'Reading comprehension, writing, grammar, and vocabulary.',
-          icon: 'BookOpen',
-          href: MATH_COURSE_PATHS.english,
-          gradient: 'from-[#1F396D] to-[#29335C]',
-        },
-        {
-          key: 'satPrep',
-          title: 'SAT Prep',
-          description: 'Planning and prep support for high school students.',
-          icon: 'Target',
-          href: '/courses/sat-prep',
-          gradient: 'from-[#29335C] to-[#F16112]',
-        },
-      ],
-    },
-  },
-  {
     key: 'resources',
     label: 'Resources',
     href: '/resources',
@@ -327,6 +274,14 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           icon: 'Target',
           href: '/self-check',
           gradient: 'from-[#29335C] to-[#F16112]',
+        },
+        {
+          key: 'workshopCalendar',
+          title: 'Workshop Calendar',
+          description: 'Upcoming workshops, webinars, and parent events at GrowWise.',
+          icon: 'CalendarDays',
+          href: '/workshop-calendar',
+          gradient: 'from-[#1D9E75] to-[#1F396D]',
         },
       ],
     },

@@ -8,9 +8,9 @@ test.describe('Navigation and layout', { tag: '@critical' }, () => {
     // Header is visible
     await expect(page.getByRole('banner')).toBeVisible({ timeout: 15000 });
 
-    // Enroll button in header has correct href
-    const enrollLink = page.getByRole('link', { name: /enroll/i }).first();
-    await expect(enrollLink).toHaveAttribute('href', localePath('/enroll'));
+    // Book Assessment CTA in header has correct href (replaced Enroll in PR #379)
+    const bookAssessmentLink = page.getByRole('banner').getByRole('link', { name: /book assessment/i }).first();
+    await expect(bookAssessmentLink).toHaveAttribute('href', localePath('/book-assessment'));
 
     // Cart icon link points to cart page
     const cartLink = page.getByRole('link', { name: /shopping cart/i }).first();

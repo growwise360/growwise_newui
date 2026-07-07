@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { ResourceArticlePage } from '@/components/resources/ResourceArticlePage'
 import {
-  COMPREHENSION_GAP_SIGNS,
-  FLUENCY_GAP_SIGNS,
   READING_FLUENCY_VS_COMPREHENSION_FAQS,
   READING_FLUENCY_VS_COMPREHENSION_META,
   READING_FLUENCY_VS_COMPREHENSION_RELATED,
@@ -16,6 +14,7 @@ export function ReadingFluencyVsComprehensionPage() {
   const locale = useLocale()
   const selfCheckHref = publicPath('/self-check', locale)
   const readingSprintHref = publicPath('/camps/summer-reading-writing-dublin-ca', locale)
+  const englishClassesHref = publicPath('/academic/english', locale)
 
   return (
     <ResourceArticlePage
@@ -62,14 +61,6 @@ export function ReadingFluencyVsComprehensionPage() {
         frees up mental resources for the actual work of reading: understanding.
       </p>
 
-      <p>Signs of a fluency gap:</p>
-
-      <ul>
-        {FLUENCY_GAP_SIGNS.map((sign) => (
-          <li key={sign}>{sign}</li>
-        ))}
-      </ul>
-
       <h2>What Comprehension Actually Means</h2>
 
       <p>
@@ -82,13 +73,33 @@ export function ReadingFluencyVsComprehensionPage() {
         arguments across paragraphs, and extracting the main point from supporting details.
       </p>
 
-      <p>Signs of a comprehension gap:</p>
-
-      <ul>
-        {COMPREHENSION_GAP_SIGNS.map((sign) => (
-          <li key={sign}>{sign}</li>
-        ))}
-      </ul>
+      <h2>Fluency Gap vs. Comprehension Gap — Side-by-Side</h2>
+      <div className="overflow-x-auto my-6">
+        <table className="w-full text-sm border border-collapse">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Gap Type</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">What it looks like</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">How it&apos;s measured</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">What support targets</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Fluency Gap</td>
+              <td className="border border-gray-300 px-3 py-2">Slow, halting reading; skips or sounds out familiar words; monotone oral reading</td>
+              <td className="border border-gray-300 px-3 py-2">Oral reading fluency assessments (DIBELS, running records)</td>
+              <td className="border border-gray-300 px-3 py-2">Sight word automaticity, timed reading, prosody practice</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="border border-gray-300 px-3 py-2 font-medium">Comprehension Gap</td>
+              <td className="border border-gray-300 px-3 py-2">Retells plot but misses meaning; fails inference questions; forgets passage immediately</td>
+              <td className="border border-gray-300 px-3 py-2">Retell tasks, literal vs. inferential questions, main-idea identification</td>
+              <td className="border border-gray-300 px-3 py-2">Text structure, inference training, evidence-based responding</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2>Why Treating the Wrong One Wastes Time</h2>
 
@@ -138,6 +149,53 @@ export function ReadingFluencyVsComprehensionPage() {
         — it flags the exact mistake pattern, not just a general score.
       </p>
 
+      <h2>What research says about reading gaps</h2>
+
+      <p>
+        According to the{' '}
+        <a href="https://nces.ed.gov/nationsreportcard/" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          Nation&apos;s Report Card
+        </a>{' '}
+        (NAEP 2022), one in three Grade 4 students reads below the basic level. That statistic includes students
+        across income levels, districts, and demographics — not just struggling schools.
+      </p>
+
+      <p>
+        Fluency and comprehension problems often coexist, but they require different interventions. A child who
+        decodes slowly uses up cognitive capacity that should be reserved for meaning-making. This is called the
+        Simple View of Reading: reading comprehension is the product of decoding ability and language comprehension.
+        If either factor is weak, the product suffers — but the remedy depends on which factor is the problem.
+      </p>
+
+      <p>
+        Addressing the wrong gap first wastes months. A child who receives comprehension instruction when their
+        real issue is fluency will struggle to benefit from the content — not because the instruction is wrong, but
+        because the foundational bottleneck hasn&apos;t been cleared. This is why identifying the primary gap matters
+        before any program begins.
+      </p>
+
+      <h2>How schools measure fluency and comprehension</h2>
+
+      <p>
+        DIBELS — Dynamic Indicators of Basic Early Literacy Skills — is the most common school-based fluency
+        screen. It measures words correct per minute (WCPM) during oral reading. Most schools run DIBELS three
+        times a year: fall, winter, and spring. These scores exist in your child&apos;s file; ask the teacher for
+        them directly.
+      </p>
+
+      <p>
+        For comprehension, schools use retell tasks (students summarize what they read), running records with
+        comprehension check questions, and state assessments like the SBAC (Smarter Balanced Assessment) in
+        California. These measure different things than fluency and should be tracked separately.
+      </p>
+
+      <p>
+        Parents rarely see these raw scores. The right questions to ask are:{' '}
+        <em>&quot;What does my child&apos;s fluency score show?&quot;</em> and{' '}
+        <em>&quot;How are comprehension gaps being tracked separately from fluency?&quot;</em> These are different
+        data points — a teacher who conflates them may be addressing the wrong gap.
+      </p>
+
       <h2>How GrowWise Reading Sprints Address Both</h2>
 
       <p>
@@ -152,6 +210,14 @@ export function ReadingFluencyVsComprehensionPage() {
       </p>
 
       <p>Students aren&apos;t grouped by grade. They&apos;re grouped by skill profile.</p>
+
+      <p>
+        If you want ongoing reading and writing support beyond a sprint, see GrowWise&apos;s{' '}
+        <Link href={englishClassesHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
+          English reading and writing classes in Dublin CA
+        </Link>{' '}
+        — small-group instruction that covers both comprehension and writing across Grades 1–8.
+      </p>
 
       <p>
         <Link href={readingSprintHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
