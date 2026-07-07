@@ -80,6 +80,11 @@ function redirectLegacyResourceAliases(request: NextRequest): NextResponse | nul
     url.pathname = '/readinesschecklist';
     return NextResponse.redirect(url, 301);
   }
+  if (request.nextUrl.pathname === '/resources/kumon-vs-mathnasium-vs-private-tutor-dublin-ca') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/resources/math-tutoring-options-dublin-ca';
+    return NextResponse.redirect(url, 301);
+  }
   return null;
 }
 

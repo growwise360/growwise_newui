@@ -28,4 +28,17 @@ describe('IndexNow production routing', () => {
       "{ source: '/sitemap.xml', destination: '/sitemap-index.xml' }",
     )
   })
+
+  it('redirects the old Kumon comparison slug to the indexable math tutoring options article', () => {
+    const middleware = readFileSync(
+      path.join(ROOT, 'src/middleware.ts'),
+      'utf8',
+    )
+    expect(middleware).toContain(
+      "'/resources/kumon-vs-mathnasium-vs-private-tutor-dublin-ca'",
+    )
+    expect(middleware).toContain(
+      "'/resources/math-tutoring-options-dublin-ca'",
+    )
+  })
 })
