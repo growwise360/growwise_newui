@@ -59,4 +59,14 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED: readonly ResourceArticle
     href: '/camps/academic-summer-programs-dublin-ca',
     description: 'See how GrowWise answers each evaluation question.',
   },
+  {
+    href: '/resources/back-to-school-math-assessment-dublin-ca',
+    title: 'Back-to-School Math Assessment Guide',
+    description: 'Is your child ready for the next grade? Use this guide to check before the school year starts.',
+  },
+  {
+    href: '/camps/summer',
+    title: 'Summer Academic Camps in Dublin, CA',
+    description: 'Structured summer programs in math, English, coding, and SAT prep for K–12 students in Dublin.',
+  },
 ]

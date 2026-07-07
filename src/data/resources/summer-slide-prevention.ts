@@ -95,4 +95,14 @@ export const SUMMER_SLIDE_PREVENTION_RELATED: readonly ResourceArticleRelated[] 
     href: '/resources/summer-slide-dublin-ca',
     description: 'Local context for Tri-Valley families on summer learning loss.',
   },
+  {
+    href: '/resources/back-to-school-math-assessment-dublin-ca',
+    title: 'Back-to-School Math Assessment Guide',
+    description: 'Is your child ready for the next grade? Use this guide to check before the school year starts.',
+  },
+  {
+    href: '/camps/summer',
+    title: 'Summer Academic Camps in Dublin, CA',
+    description: 'Structured summer programs in math, English, coding, and SAT prep for K–12 students in Dublin.',
+  },
 ]

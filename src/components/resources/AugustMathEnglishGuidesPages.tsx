@@ -253,6 +253,56 @@ export function KumonVsMathnasiumVsPrivateTutorDublinCAPage() {
         <li>Does the format build independence or create dependency?</li>
       </ul>
 
+      <h2>Kumon vs. Mathnasium vs. Private Tutor vs. GrowWise — Side-by-Side</h2>
+      <div className="overflow-x-auto my-6">
+        <table className="w-full text-sm border border-collapse">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Program</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Model</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Class Size</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Diagnostic</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Curriculum Fit</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Kumon</td>
+              <td className="border border-gray-300 px-3 py-2">Worksheet repetition</td>
+              <td className="border border-gray-300 px-3 py-2">Individual (no class)</td>
+              <td className="border border-gray-300 px-3 py-2">None</td>
+              <td className="border border-gray-300 px-3 py-2">Fixed sequence</td>
+              <td className="border border-gray-300 px-3 py-2">Building speed and accuracy through drill</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="border border-gray-300 px-3 py-2 font-medium">Mathnasium</td>
+              <td className="border border-gray-300 px-3 py-2">Guided worksheets</td>
+              <td className="border border-gray-300 px-3 py-2">Small group, pre-set</td>
+              <td className="border border-gray-300 px-3 py-2">Placement test</td>
+              <td className="border border-gray-300 px-3 py-2">Fixed curriculum</td>
+              <td className="border border-gray-300 px-3 py-2">Structured catch-up</td>
+            </tr>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Private Tutor</td>
+              <td className="border border-gray-300 px-3 py-2">1-on-1 sessions</td>
+              <td className="border border-gray-300 px-3 py-2">1 student</td>
+              <td className="border border-gray-300 px-3 py-2">Varies by tutor</td>
+              <td className="border border-gray-300 px-3 py-2">Varies by tutor</td>
+              <td className="border border-gray-300 px-3 py-2">Flexible scheduling, personal attention</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="border border-gray-300 px-3 py-2 font-medium">GrowWise</td>
+              <td className="border border-gray-300 px-3 py-2">Diagnostic-first instruction</td>
+              <td className="border border-gray-300 px-3 py-2">Small group (4–8)</td>
+              <td className="border border-gray-300 px-3 py-2">Structured diagnostic</td>
+              <td className="border border-gray-300 px-3 py-2">Aligned to school curriculum</td>
+              <td className="border border-gray-300 px-3 py-2">Closing specific gaps with accountability</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <h2>When worksheet repetition can help</h2>
       <p>
         Repetition can be useful when the main gap is automaticity: math facts, basic computation, or procedural fluency.

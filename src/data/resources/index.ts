@@ -1,4 +1,7 @@
 import { AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_PATH } from '@/data/resources/affordable-summer-academic-programs-dublin-ca'
+import { BACK_TO_SCHOOL_NIGHT_PARENT_QUESTIONS_PATH } from '@/data/resources/back-to-school-night-parent-questions'
+import { BEST_TUTORING_DUBLIN_CA_PATH } from '@/data/resources/best-tutoring-dublin-ca'
+import { HOW_TO_CHOOSE_CODING_SCHOOL_FOR_KIDS_PATH } from '@/data/resources/how-to-choose-coding-school-for-kids'
 import {
   CALIFORNIA_MATH_STANDARDS_BY_GRADE_PATH,
   CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_PATH,
@@ -57,6 +60,9 @@ export const RESOURCE_ARTICLE_PATHS = [
   CHILD_STRUGGLES_WITH_WRITING_DUBLIN_CA_PATH,
   TUTORING_DUBLIN_CA_PATH,
   WHY_GRADES_PATH,
+  BEST_TUTORING_DUBLIN_CA_PATH,
+  HOW_TO_CHOOSE_CODING_SCHOOL_FOR_KIDS_PATH,
+  BACK_TO_SCHOOL_NIGHT_PARENT_QUESTIONS_PATH,
 ] as const
 
 export type ResourceArticlePath = (typeof RESOURCE_ARTICLE_PATHS)[number]

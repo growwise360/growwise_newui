@@ -107,4 +107,14 @@ export const AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_RELATED: readonly Res
     href: '/camps/academic-summer-programs-dublin-ca',
     description: 'Schedules, tracks, and enrollment for Dublin, CA.',
   },
+  {
+    href: '/resources/back-to-school-math-assessment-dublin-ca',
+    title: 'Back-to-School Math Assessment Guide',
+    description: 'Is your child ready for the next grade? Use this guide to check before the school year starts.',
+  },
+  {
+    href: '/camps/summer',
+    title: 'Summer Academic Camps in Dublin, CA',
+    description: 'Structured summer programs in math, English, coding, and SAT prep for K–12 students in Dublin.',
+  },
 ]

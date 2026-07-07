@@ -273,20 +273,20 @@ body {
    */
   .header-logo-slogan {
     @apply w-full leading-tight text-left;
-    margin-top: -11px;  /* h-11 (44px): bottom-pad≈13px − 2px breathing */
-    padding-left: 5px;  /* left-pad: 38/560 × rendered-width */
+    margin-top: 2px;    /* h-11 (44px) */
+    padding-left: 5px;
   }
   @media (min-width: 640px) {
-    .header-logo-slogan { margin-top: -13px; padding-left: 6px; }  /* sm  h-12 (48px) */
+    .header-logo-slogan { margin-top: 0px; padding-left: 6px; }    /* sm  h-12 (48px) */
   }
   @media (min-width: 1024px) {
-    .header-logo-slogan { margin-top: -18px; padding-left: 8px; }  /* lg  h-16 (64px) */
+    .header-logo-slogan { margin-top: -5px; padding-left: 8px; }   /* lg  h-16 (64px) */
   }
   @media (min-width: 1280px) {
-    .header-logo-slogan { margin-top: -22px; padding-left: 9px; }  /* xl  h-20 (80px) */
+    .header-logo-slogan { margin-top: -9px; padding-left: 9px; }   /* xl  h-20 (80px) */
   }
   @media (min-width: 1536px) {
-    .header-logo-slogan { margin-top: -25px; padding-left: 10px; } /* 2xl h-[88px]   */
+    .header-logo-slogan { margin-top: -12px; padding-left: 10px; } /* 2xl h-[88px]   */
   }
   .header-logo-slogan-primary { @apply block text-[9px] font-extrabold tracking-[0.04em] text-[#1F396D] sm:text-[10px] lg:text-[11px] xl:text-xs; }
   .header-logo-slogan-secondary { @apply block text-[7px] font-semibold lowercase tracking-[0.08em] text-slate-500 sm:text-[8px] lg:text-[9px]; }
