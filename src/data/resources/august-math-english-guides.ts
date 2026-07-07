@@ -127,38 +127,38 @@ export const KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_META: ResourceArticl
   path: KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_PATH,
   category: 'local',
   categoryLabel: 'LOCAL',
-  h1: 'Kumon vs. Mathnasium vs. Private Tutor: How Dublin Parents Should Compare Math Options',
+  h1: 'How to Choose the Right Math Tutoring Program in Dublin, CA',
   readTime: '7 min read',
   updated: 'Updated June 2026',
-  title: 'Kumon vs Mathnasium vs Tutor Dublin CA Guide',
+  title: 'How to Choose a Math Tutoring Program in Dublin CA',
   description:
-    'Compare worksheet practice, math centers, private tutors, and diagnostic-first math tutoring before choosing back-to-school support in Dublin, CA.',
+    'Know what to look for before enrolling in any math tutoring program in Dublin, CA — diagnostic placement, DUSD/PUSD curriculum alignment, class size, and progress tracking.',
   keywords:
-    'Kumon Dublin CA, Mathnasium Dublin CA, Russian Math Dublin CA, Tutoring Club Dublin, private math tutor Dublin CA, best math tutoring Dublin CA, math tutoring near me, math tutor near me',
+    'math tutoring Dublin CA, best math tutoring Dublin CA, math tutor near me, DUSD math tutoring, PUSD math tutoring, Integrated Math tutoring Dublin, diagnostic math tutoring, Tri-Valley math tutoring',
   datePublished: '2026-06-26',
   dateModified: '2026-06-26',
 }
 
 export const KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
   {
-    question: 'Which math tutoring option is best for my child?',
+    question: 'What should I look for in a math tutoring program?',
     answer:
-      'The best option depends on the problem. Repetition can help fluency, math-only centers can help steady practice, private tutors can address narrow needs, and diagnostic-first programs can target hidden gaps.',
+      'Look for a program that diagnoses your child\'s specific gaps before instruction begins, aligns to your school\'s course sequence, uses small enough class sizes for individual feedback, and tracks knowledge retention over time — not just session attendance.',
   },
   {
-    question: 'Should parents compare by price first?',
+    question: 'How does GrowWise align to Dublin school curriculum?',
     answer:
-      'Price matters, but parents should first compare diagnosis, feedback, curriculum fit, instructor attention, and whether the program can explain exactly what will improve.',
+      'GrowWise aligns instruction to the DUSD and PUSD Integrated Math pathway — IM1, IM2, and IM3 — as well as elementary and middle school course sequences. Instruction targets the skills your child\'s next class will assume, not a generic national curriculum.',
   },
   {
-    question: 'What if my child needs help before August?',
+    question: 'What is the difference between a diagnostic and a placement test?',
     answer:
-      'Prioritize a fast readiness check, then focus on the few skills most likely to affect the next course: fractions, ratios, equations, word problems, or geometry foundations.',
+      'A placement test typically places a student at a grade level. A diagnostic identifies which specific concepts are solid and which have gaps within that level. A diagnostic gives instructors a clearer starting point and helps parents understand exactly where support is needed.',
   },
   {
-    question: 'Can GrowWise help parents compare options?',
+    question: 'How do I know if my child is actually making progress?',
     answer:
-      'GrowWise starts with a diagnostic and recommends a fit based on the child\'s gaps, goals, schedule, and grade band. Families can use that information even if they are comparing multiple local options.',
+      'Look for programs that provide regular skill-level updates, not just attendance records or generic letter grades. Progress should be described in terms of specific concepts mastered and specific gaps still closing — and should include periodic reassessment to confirm earlier learning is retained.',
   },
 ]
 

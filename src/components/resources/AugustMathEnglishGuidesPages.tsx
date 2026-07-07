@@ -209,7 +209,7 @@ export function EnglishTutorVsReadingTutorVsWritingClassPage() {
 export function KumonVsMathnasiumVsPrivateTutorDublinCAPage() {
   const locale = useLocale()
   const assessmentHref = publicPath('/book-assessment', locale)
-  const tutoringHref = publicPath('/resources/tutoring-dublin-ca', locale)
+  const mathHref = publicPath('/academic/math', locale)
 
   return (
     <ResourceArticlePage
@@ -221,119 +221,165 @@ export function KumonVsMathnasiumVsPrivateTutorDublinCAPage() {
       updated={KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_META.updated}
       answerBlock={{
         heading: 'Quick Answer',
-        text: 'Dublin parents comparing Kumon, Mathnasium, private tutors, Russian Math, Tutoring Club, or GrowWise should compare diagnosis, feedback, curriculum fit, instructor attention, and the exact skill outcome, not only price or brand recognition.',
+        text: 'The right math tutoring program starts with a diagnostic assessment, aligns to your child\'s school pathway (DUSD/PUSD Integrated Math), and tracks knowledge retention — not just session attendance.',
       }}
       faqs={KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_FAQS}
       relatedArticles={KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_RELATED}
-      ctaHeading="Comparing math tutoring options before August?"
-      ctaSubtext="Start with a diagnostic so the comparison is based on your child's actual gaps, not guesswork."
+      ctaHeading="Want a clear starting point before choosing a math program?"
+      ctaSubtext="A free GrowWise diagnostic maps your child's exact skill gaps so any program decision is based on data, not guesswork."
       ctas={[
         { href: '/book-assessment', label: 'Book Free Assessment' },
-        { href: '/resources/tutoring-dublin-ca', label: 'Compare Local Tutoring' },
+        { href: '/academic/math', label: 'View Math Programs' },
       ]}
     >
       <p>
-        When parents search for Kumon Dublin CA, Mathnasium, Russian Math, Tutoring Club, or a private math tutor, they
-        are usually trying to answer a deeper question: which option will actually help my child before school pressure
-        returns?
+        Dublin and Tri-Valley parents have more math tutoring options than ever. The challenge is not finding a program —
+        it is knowing which questions to ask before enrolling.
       </p>
 
       <p>
-        The right answer depends on the gap. A student who needs fact fluency, a student who needs Algebra readiness, and
-        a student who panics during word problems should not all receive the same plan.
+        The five criteria below apply to any math support program. Use them to evaluate what a program actually does
+        before the first session starts.
       </p>
 
-      <h2>Compare the model, not just the name</h2>
-      <p>Parents should compare local math options across five practical questions:</p>
-      <ul>
-        <li>Does the program diagnose the exact gap before instruction starts?</li>
-        <li>Does the instructor see how the student thinks, or only whether the answer is right?</li>
-        <li>Does the work match the next school course?</li>
-        <li>Will parents receive clear feedback on progress?</li>
-        <li>Does the format build independence or create dependency?</li>
-      </ul>
+      <h2>Does the program start with a diagnostic — not a placement guess?</h2>
+      <p>
+        The first question to ask any math program is how placement happens. A single grade-level test can over- or
+        under-place a student because it tells you what score they earned, not which specific concepts they understand or
+        where the gaps are.
+      </p>
 
-      <h2>Kumon vs. Mathnasium vs. Private Tutor vs. GrowWise — Side-by-Side</h2>
+      <p>
+        A strong diagnostic identifies the exact skills a student has, which ones have gaps, and which are solid enough
+        to build on. This replaces guessing with a clear skill map before instruction begins.
+      </p>
+
+      <p>
+        GrowWise starts every student with a structured diagnostic assessment. The results determine where instruction
+        begins and which skills to prioritize, rather than placing every new student at the same starting point.
+      </p>
+
+      <h2>Does the curriculum align to your child's school pathway?</h2>
+      <p>
+        Dublin Unified (DUSD) and Pleasanton Unified (PUSD) both follow the California Integrated Math pathway — IM1,
+        IM2, and IM3 — rather than the traditional Algebra-Geometry-Algebra 2 sequence. Many tutoring programs use a
+        fixed national curriculum that does not reflect this.
+      </p>
+
+      <p>
+        Parents should ask whether the program knows which standards their child's next course covers. A program that
+        teaches the right content in the wrong sequence, or covers topics the school has already passed, adds hours
+        without closing the gaps that matter.
+      </p>
+
+      <p>
+        GrowWise aligns instruction to the specific course path students are enrolled in — including elementary grade
+        bands, Course 1, Course 2, Course 3, IM1, IM2, and IM3 — so session time maps directly to what is coming next
+        in school.
+      </p>
+
+      <h2>What is the class size and instruction model?</h2>
+      <p>
+        Class size determines how much attention each student receives and how quickly an instructor can catch a
+        misconception before it becomes a habit.
+      </p>
+
+      <p>
+        Large groups limit individualized feedback. Fully self-paced independent work limits explanation and discussion.
+        A small-group model — typically four to eight students — allows an instructor to observe how each student thinks
+        through a problem, not just whether the final answer is correct.
+      </p>
+
+      <p>
+        GrowWise uses a small-group model of 4–8 students per session. This keeps sessions efficient while giving
+        instructors enough visibility to ask probing questions and catch errors before they compound.
+      </p>
+
+      <h2>Does the program track knowledge retention — not just session attendance?</h2>
+      <p>
+        Session attendance and skill mastery are not the same thing. A student can attend weekly sessions and still have
+        a concept reappear as a gap three weeks later if it was not truly consolidated.
+      </p>
+
+      <p>
+        The most common version of this problem happens over school breaks. A student appears to have a skill in
+        December, then loses it by January. Without periodic reassessment, the gap is invisible until a test reveals it.
+      </p>
+
+      <p>
+        Ask whether the program reassesses earlier material at regular intervals. GrowWise schedules quarterly knowledge
+        retention assessments to confirm that skills learned in previous sessions are still solid — and to catch any
+        re-emerging gaps before they affect the next unit.
+      </p>
+
+      <h2>How often will you receive progress reports?</h2>
+      <p>
+        Many programs summarize progress only at the end of a semester. That timeline is too slow when a student is
+        preparing for IM1, entering Algebra, or getting ready for a spring standardized test.
+      </p>
+
+      <p>
+        Look for programs that provide regular, skill-specific updates — not just attendance records or generic grades.
+        Progress reports should describe which concepts improved, which are still developing, and what the next focus
+        will be.
+      </p>
+
+      <p>
+        GrowWise parents receive regular milestone-based progress reports tied to specific skill outcomes, so families
+        always know exactly where their child stands rather than waiting for a report card.
+      </p>
+
+      <h2>A criteria-based evaluation guide</h2>
       <div className="overflow-x-auto my-6">
         <table className="w-full text-sm border border-collapse">
           <thead>
             <tr className="bg-gray-50">
-              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Program</th>
-              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Model</th>
-              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Class Size</th>
-              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Diagnostic</th>
-              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Curriculum Fit</th>
-              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Best For</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">Criterion</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">What strong programs do</th>
+              <th className="border border-gray-300 px-3 py-2 text-left font-semibold">GrowWise approach</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="border border-gray-300 px-3 py-2 font-medium">Kumon</td>
-              <td className="border border-gray-300 px-3 py-2">Worksheet repetition</td>
-              <td className="border border-gray-300 px-3 py-2">Individual (no class)</td>
-              <td className="border border-gray-300 px-3 py-2">None</td>
-              <td className="border border-gray-300 px-3 py-2">Fixed sequence</td>
-              <td className="border border-gray-300 px-3 py-2">Building speed and accuracy through drill</td>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Diagnostic placement</td>
+              <td className="border border-gray-300 px-3 py-2">Assess specific skill gaps before placing the student</td>
+              <td className="border border-gray-300 px-3 py-2">Structured diagnostic before first session</td>
             </tr>
             <tr className="bg-gray-50">
-              <td className="border border-gray-300 px-3 py-2 font-medium">Mathnasium</td>
-              <td className="border border-gray-300 px-3 py-2">Guided worksheets</td>
-              <td className="border border-gray-300 px-3 py-2">Small group, pre-set</td>
-              <td className="border border-gray-300 px-3 py-2">Placement test</td>
-              <td className="border border-gray-300 px-3 py-2">Fixed curriculum</td>
-              <td className="border border-gray-300 px-3 py-2">Structured catch-up</td>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Curriculum alignment</td>
+              <td className="border border-gray-300 px-3 py-2">Match the school&apos;s actual course sequence</td>
+              <td className="border border-gray-300 px-3 py-2">Aligned to DUSD/PUSD IM pathway by grade band</td>
             </tr>
             <tr>
-              <td className="border border-gray-300 px-3 py-2 font-medium">Private Tutor</td>
-              <td className="border border-gray-300 px-3 py-2">1-on-1 sessions</td>
-              <td className="border border-gray-300 px-3 py-2">1 student</td>
-              <td className="border border-gray-300 px-3 py-2">Varies by tutor</td>
-              <td className="border border-gray-300 px-3 py-2">Varies by tutor</td>
-              <td className="border border-gray-300 px-3 py-2">Flexible scheduling, personal attention</td>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Class size</td>
+              <td className="border border-gray-300 px-3 py-2">Small enough to monitor each student&apos;s reasoning</td>
+              <td className="border border-gray-300 px-3 py-2">4–8 students per session</td>
             </tr>
             <tr className="bg-gray-50">
-              <td className="border border-gray-300 px-3 py-2 font-medium">GrowWise</td>
-              <td className="border border-gray-300 px-3 py-2">Diagnostic-first instruction</td>
-              <td className="border border-gray-300 px-3 py-2">Small group (4–8)</td>
-              <td className="border border-gray-300 px-3 py-2">Structured diagnostic</td>
-              <td className="border border-gray-300 px-3 py-2">Aligned to school curriculum</td>
-              <td className="border border-gray-300 px-3 py-2">Closing specific gaps with accountability</td>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Retention tracking</td>
+              <td className="border border-gray-300 px-3 py-2">Reassess earlier material at regular intervals</td>
+              <td className="border border-gray-300 px-3 py-2">Quarterly knowledge retention assessments</td>
+            </tr>
+            <tr>
+              <td className="border border-gray-300 px-3 py-2 font-medium">Progress reporting</td>
+              <td className="border border-gray-300 px-3 py-2">Skill-specific updates, not just attendance or grades</td>
+              <td className="border border-gray-300 px-3 py-2">Regular milestone-based reports</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h2>When worksheet repetition can help</h2>
       <p>
-        Repetition can be useful when the main gap is automaticity: math facts, basic computation, or procedural fluency.
-        It is less complete when the real issue is reasoning, word-problem setup, explanation, or readiness for a faster
-        middle or high school course.
-      </p>
-
-      <h2>When a math center can help</h2>
-      <p>
-        A math-focused center can be a strong fit when a student needs consistent practice and a structured place to work.
-        Parents should still ask how placement happens, how errors are reviewed, and how the program adapts when the
-        student is moving into Algebra, Geometry, IM1, Algebra 2, or IM3.
-      </p>
-
-      <h2>When a private tutor can help</h2>
-      <p>
-        A private tutor can be useful for urgent homework, a specific test, or a narrow course problem. The risk is that
-        sessions can become reactive if there is no diagnostic plan and no sequence for rebuilding missing foundations.
-      </p>
-
-      <h2>Where GrowWise fits</h2>
-      <p>
-        GrowWise is designed for families who want diagnostic-first math support, school-aligned skill building, and a
-        clearer plan before August. The goal is not to claim every child needs the same format. The goal is to identify
-        the gap first, then choose the format that fits.
+        If you are looking for math support in Dublin, Pleasanton, San Ramon, or the broader Tri-Valley, the most useful
+        starting point is a diagnostic — not enrollment. A clear skill map lets you evaluate any program against your
+        child&apos;s actual needs.
       </p>
 
       <p>
-        If you are comparing several local options, start with a diagnostic and bring the results into your decision. You
-        can also review the broader <Link href={tutoringHref}>Dublin tutoring options guide</Link> or{' '}
-        <Link href={assessmentHref}>book a free GrowWise assessment</Link>.
+        Explore{' '}
+        <Link href={mathHref}>GrowWise math programs for Grades 1–12</Link> or{' '}
+        <Link href={assessmentHref}>book a free assessment</Link> to get a precise picture before the school year
+        begins.
       </p>
     </ResourceArticlePage>
   )
