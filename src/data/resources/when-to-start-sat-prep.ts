@@ -7,7 +7,7 @@ export const WHEN_TO_START_SAT_PREP_META: ResourceArticleMeta = {
   category: 'sat-prep',
   categoryLabel: 'SAT PREP',
   h1: 'When Should My Child Start SAT Prep? A Grade-by-Grade Answer',
-  readTime: '4 min read',
+  readTime: '6 min read',
   updated: 'Updated May 2026',
   title: 'SAT Prep Timeline by Grade | Parent Guide',
   description:
@@ -91,5 +91,10 @@ export const WHEN_TO_START_SAT_PREP_RELATED: readonly ResourceArticleRelated[] =
     href: '/academic/math/high-school',
     title: 'High School Math Programs',
     description: 'Close Algebra, Geometry, and Precalculus gaps before layering on test strategy.',
+  },
+  {
+    href: '/resources/reading-fluency-vs-comprehension',
+    title: 'Reading Fluency vs. Comprehension',
+    description: 'SAT reading struggles often trace back here. Know which gap to fix first.',
   },
 ] as const

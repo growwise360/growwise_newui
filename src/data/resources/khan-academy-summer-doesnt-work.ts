@@ -75,4 +75,14 @@ export const KHAN_ACADEMY_SUMMER_DOESNT_WORK_RELATED: readonly ResourceArticleRe
     href: '/resources/summer-slide-prevention',
     description: 'What actually works to maintain skills over summer.',
   },
+  {
+    href: '/resources/back-to-school-math-assessment-dublin-ca',
+    title: 'Back-to-School Math Assessment Guide',
+    description: 'Is your child ready for the next grade? Use this guide to check before the school year starts.',
+  },
+  {
+    href: '/camps/summer',
+    title: 'Summer Academic Camps in Dublin, CA',
+    description: 'Structured summer programs in math, English, coding, and SAT prep for K–12 students in Dublin.',
+  },
 ]

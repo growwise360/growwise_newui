@@ -16,15 +16,22 @@ export function buildWhenToStartSatPrepPageGraphSchema(baseUrl: string, locale: 
       headline: WHEN_TO_START_SAT_PREP_META.h1,
       description: WHEN_TO_START_SAT_PREP_META.description,
       url: pageUrl,
-      author: { name: 'GrowWise School', type: 'Organization' },
+      author: { name: 'Anshika Verma', type: 'Person' },
       datePublished: WHEN_TO_START_SAT_PREP_META.datePublished,
-      dateModified: WHEN_TO_START_SAT_PREP_META.dateModified,
+      dateModified: '2026-07-06',
     }),
     '@id': `${pageUrl}#article`,
     articleSection: 'SAT Prep',
     keywords: WHEN_TO_START_SAT_PREP_META.keywords,
     isAccessibleForFree: true,
     inLanguage: 'en-US',
+    wordCount: 1200,
+    author: {
+      '@type': 'Person',
+      name: 'Anshika Verma',
+      jobTitle: 'Founder, GrowWise School',
+      url: 'https://growwiseschool.org/about',
+    },
   }
 
   const faqPage = {

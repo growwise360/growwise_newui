@@ -179,7 +179,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/courses/sat-prep': {
     title: 'SAT Prep Dublin CA | Classes & Tutoring | GrowWise',
     description:
-      'SAT prep for Dublin, Fremont, Pleasanton, and Tri-Valley families. Small groups, practice tests, math and reading/writing strategy, expert tutors.',
+      'SAT prep for Dublin, Pleasanton, San Ramon, and Tri-Valley families. Small groups, practice tests, math and reading/writing strategy, expert tutors.',
     keywords:
       'SAT prep Dublin CA, SAT preparation, SAT course, SAT tutoring Dublin, SAT test prep, SAT strategies, SAT practice tests, SAT classes Dublin CA, SAT help, SAT tutor near me, SAT prep course, SAT score improvement, college entrance exam prep',
     path: '/courses/sat-prep',
@@ -302,7 +302,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/steam/ml-ai-coding': {
-    title: 'STEAM Python and AI Courses | Enroll | Dublin CA',
+    title: 'STEAM ML & AI Classes for Students | Dublin CA',
     description:
       'ML and AI coding in Dublin, CA. Hands-on projects for students. Small classes and expert instructors. Book a free trial.',
     keywords:
@@ -767,7 +767,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/reading-fluency-vs-comprehension': {
-    title: 'Reading Comprehension vs Fluency | Parent Guide',
+    title: 'Fluency vs Comprehension | Parent Reading Guide',
     description:
       'Compare reading fluency vs comprehension gaps, warning signs, and what support should target when a child reads words but misses meaning.',
     keywords:
@@ -832,6 +832,36 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     keywords:
       'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
     path: '/resources/when-to-start-sat-prep',
+    type: 'article',
+  },
+
+  '/resources/best-tutoring-dublin-ca': {
+    title: 'Best Tutoring in Dublin CA | K-12 Options Compared',
+    description:
+      'Compare Dublin, CA tutoring for SAT prep, middle school, and high school: class size, diagnostics, curriculum fit, and what questions to ask.',
+    keywords:
+      'best tutoring dublin ca, best places for tutoring dublin, sat prep dublin ca, middle school tutoring dublin, high school tutoring dublin',
+    path: '/resources/best-tutoring-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/how-to-choose-coding-school-for-kids': {
+    title: 'How to Choose a Coding School for Your Child',
+    description:
+      'Five criteria for choosing the right coding program: age fit, text-based coding, certification pathways, project output, and what to ask before enrolling.',
+    keywords:
+      'how to choose coding school for kids, coding classes for kids dublin ca, best coding school students, coding program children, python certification students',
+    path: '/resources/how-to-choose-coding-school-for-kids',
+    type: 'article',
+  },
+
+  '/resources/back-to-school-night-parent-questions': {
+    title: 'Questions to Ask at Back-to-School Night | Parent Guide',
+    description:
+      'Ask these questions at back-to-school night to find out if your child is on track, how the teacher identifies gaps, and what to do if concerns come up.',
+    keywords:
+      'back to school night questions, questions to ask teacher at open house, back to school night tips for parents, how to find out if child is behind in school',
+    path: '/resources/back-to-school-night-parent-questions',
     type: 'article',
   },
 

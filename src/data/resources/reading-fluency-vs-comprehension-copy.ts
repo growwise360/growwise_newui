@@ -7,7 +7,7 @@ export const READING_FLUENCY_VS_COMPREHENSION_META: ResourceArticleMeta = {
   category: 'academic',
   categoryLabel: 'ACADEMIC',
   h1: 'Reading Fluency vs. Reading Comprehension: Why Your Child Might Struggle With One and Not the Other',
-  readTime: '6 min read',
+  readTime: '8 min read',
   updated: 'Updated June 2026',
   title: 'Fluency vs Comprehension: Which Reading Gap?',
   description:
