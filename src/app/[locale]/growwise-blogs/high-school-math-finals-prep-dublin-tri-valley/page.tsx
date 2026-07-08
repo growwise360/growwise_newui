@@ -65,7 +65,7 @@ export async function generateMetadata({
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return {
-    title: 'How to Prepare for High School Math Finals | Dublin Parent Guide | GrowWise',
+    title: 'High School Math Finals Prep Dublin CA | GrowWise',
     description:
       'High school math finals prep in Dublin, CA. Exam-style practice for Algebra 1 through AP Precalculus. In-center sessions at GrowWise School.',
     alternates: {
