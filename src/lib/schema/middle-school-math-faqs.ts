@@ -42,6 +42,11 @@ export const MIDDLE_SCHOOL_MATH_VISIBLE_FAQS: FAQItem[] = [
       'No registration fee through July 2026. Enroll before then to lock in fee-free enrollment.',
   },
   {
+    question: 'How does GrowWise support students on the Integrated Math pathway?',
+    answer:
+      "Integrated Math in Tri-Valley middle schools — IM1, IM2, Course 1, Course 2 — moves fast, with little room to slow down for a missed concept. GrowWise sessions align to the unit your child's school is covering that week: if their class is being tested on an IM1 unit next Thursday, that unit was covered in the session before. Every session also includes a short refresher on previously learned topics to prevent knowledge from slipping between units — GrowWise is one of the few programs in the Tri-Valley that combines school-aligned pacing with built-in retention checks every session.",
+  },
+  {
     question: 'How are lessons aligned to my child\'s school curriculum?',
     answer:
       'Students share their syllabus, pacing guide, portal topics, or current unit plan. After curriculum review, lessons are personalized around that school sequence — designed to stay closely aligned (95% school-aligned after review) to what the student is learning in class.',

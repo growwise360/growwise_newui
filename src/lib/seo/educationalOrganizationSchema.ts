@@ -1,95 +1,18 @@
 import { CONTACT_INFO, OFFICE_HOURS } from '@/lib/constants'
-import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
-
-type CatalogCourse = {
-  name: string
-  description: string
-  path: string
-  typicalAgeRange: string
-  educationalLevel: string
-}
-
-function courseOfferEntry(base: string, c: CatalogCourse) {
-  const url = `${base}${c.path.startsWith('/') ? c.path : `/${c.path}`}`
-  return {
-    '@type': 'Offer',
-    itemOffered: {
-      '@type': 'Course',
-      name: c.name,
-      description: c.description,
-      provider: { '@type': 'Organization', name: 'GrowWise School' },
-      url,
-      typicalAgeRange: c.typicalAgeRange,
-      educationalLevel: c.educationalLevel,
-      courseMode: 'onsite',
-      inLanguage: 'en',
-      offers: {
-        '@type': 'Offer',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-        validFrom: '2026-01-01',
-        url,
-      },
-    },
-  }
-}
-
-const OFFER_CATALOG_COURSES: CatalogCourse[] = [
-  {
-    name: 'Math Tutoring Grades 1-12',
-    description: 'Grades 1–12 math tutoring including high school math and SAT prep in Dublin, CA',
-    path: '/academic/math',
-    typicalAgeRange: '6-18',
-    educationalLevel: 'Grades 1-12',
-  },
-  {
-    name: 'English & ELA Tutoring',
-    description: 'Grades 1–12 English, reading and writing classes in Dublin, CA',
-    path: '/academic/english',
-    typicalAgeRange: '6-18',
-    educationalLevel: 'Grades 1-12',
-  },
-  {
-    name: 'SAT Prep',
-    description: 'Comprehensive SAT test preparation for high school students in Dublin, CA',
-    path: '/courses/sat-prep',
-    typicalAgeRange: '14-18',
-    educationalLevel: 'High School',
-  },
-  {
-    name: 'Future Skills Certification Pathways',
-    description: 'Structured certification pathways for Grades 6-12: design, Python, AI/ML, and entrepreneurship in Dublin, CA',
-    path: '/future-skills',
-    typicalAgeRange: '11-18',
-    educationalLevel: 'Grades 6-12',
-  },
-  {
-    name: 'Python Coding',
-    description: 'Python programming classes for kids and teens in Dublin, CA',
-    path: '/steam/ml-ai-coding',
-    typicalAgeRange: '10-18',
-    educationalLevel: 'Grades 5-12',
-  },
-  {
-    name: 'ML/AI Coding',
-    description: 'Machine learning and AI coding classes for kids in Dublin, CA',
-    path: '/steam/ml-ai-coding',
-    typicalAgeRange: '10-18',
-    educationalLevel: 'Grades 5-12',
-  },
-  {
-    name: 'Game Development',
-    description: 'Game development and coding classes for kids in Dublin, CA',
-    path: '/steam/game-development',
-    typicalAgeRange: '10-18',
-    educationalLevel: 'Grades 5-12',
-  },
-]
 
 /**
  * Site-wide EducationalOrganization + LocalBusiness JSON-LD (local SEO / entity clarity).
  * Exported for unit tests and used by {@link LocalBusinessSchema}.
+ *
+ * Deliberately excludes (SEO audit 2026-07-08):
+ * - aggregateRating: self-serving ratings on Organization/LocalBusiness are ineligible
+ *   for rich results and a review-snippet spam-policy risk.
+ * - hasOfferCatalog: Course/Offer markup must live only on pages whose visible
+ *   content matches (per-page Course JSON-LD), not on every page sitewide.
+ *
+ * The `@id` (`#organization`) is load-bearing: per-page Course schema references it
+ * via `provider: { "@id": ... }`.
  */
 export function buildEducationalOrganizationSchema() {
   const base = getCanonicalSiteUrl()
@@ -128,7 +51,6 @@ export function buildEducationalOrganizationSchema() {
     priceRange: '$$',
     currenciesAccepted: 'USD',
     paymentAccepted: 'Cash, Credit Card',
-    aggregateRating: buildAggregateRatingJsonLd(),
     knowsAbout: [
       'STEAM Education for K-12',
       'Math Tutoring Dublin CA',
@@ -145,19 +67,19 @@ export function buildEducationalOrganizationSchema() {
       { '@type': 'City', name: 'Danville, CA' },
       { '@type': 'City', name: 'Livermore, CA' },
     ],
+    // Expanded entity signals (SEO audit 2026-07-08). YouTube omitted: the audited
+    // handle (@growwise.dublin) returns 404 — add once the owner confirms the real one.
     sameAs: [
       'https://www.facebook.com/people/GrowWise/61561059687164/',
       'https://www.instagram.com/growwise.dublin/',
       'https://www.linkedin.com/company/thegrowwise/',
+      'https://www.yelp.com/biz/growwise-dublin',
+      'https://nextdoor.com/pages/growwise-dublin-ca-1/',
+      'https://www.crunchbase.com/organization/growwise-339a',
     ],
     subOrganization: [
       { '@type': 'EducationalOrganization', name: 'GrowWise STEAM Programs' },
       { '@type': 'EducationalOrganization', name: 'GrowWise Academic Tutoring' },
     ],
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Academic & STEAM Programs',
-      itemListElement: OFFER_CATALOG_COURSES.map((c) => courseOfferEntry(base, c)),
-    },
   }
 }

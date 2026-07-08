@@ -27,7 +27,7 @@ describe('academic-summer-programs-hub-jsonld', () => {
       expect(addr.postalCode).toBe(CONTACT_INFO.zipCode);
     });
 
-    it('includes contact, area served, and aggregate rating', () => {
+    it('includes contact and area served without self-serving aggregate rating', () => {
       expect(schema.telephone).toBe('+19254564606');
       expect(schema.email).toBe(CONTACT_INFO.email);
       expect(schema.areaServed).toEqual([
@@ -36,12 +36,7 @@ describe('academic-summer-programs-hub-jsonld', () => {
         'San Ramon, CA',
         'Livermore, CA',
       ]);
-      expect(schema.aggregateRating).toMatchObject({
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '40',
-        bestRating: '5',
-      });
+      expect(schema.aggregateRating).toBeUndefined();
     });
   });
 
@@ -74,9 +69,8 @@ describe('academic-summer-programs-hub-jsonld', () => {
         expect(entry.position).toBe(index + 1);
         const course = entry.item as Record<string, unknown>;
         expect(course['@type']).toBe('Course');
-        expect(course.provider).toMatchObject({
-          '@type': 'EducationalOrganization',
-          name: 'GrowWise School',
+        expect(course.provider).toEqual({
+          '@id': 'https://growwiseschool.org#organization',
         });
         expect(course.courseSchedule).toMatchObject({
           '@type': 'Schedule',

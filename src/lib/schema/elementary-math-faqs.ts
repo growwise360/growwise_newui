@@ -33,6 +33,11 @@ export const ELEMENTARY_MATH_VISIBLE_FAQS: FAQItem[] = [
       'You receive a progress report at the end of each month showing which concepts were covered, which mistake patterns were corrected, and what the next month will focus on. The diagnostic at program start gives you a baseline to compare against.',
   },
   {
+    question: 'How does the program prepare elementary students for middle school advanced math?',
+    answer:
+      'Many students end up on the regular math pathway in 6th grade not because they lack ability, but because the foundation was never built in Grades 1–5. The GrowWise elementary program is designed as a readiness pipeline for the accelerated middle school track — Integrated Math 1 and the advanced pathway in DUSD, PUSD, and SRVUSD. Through the Beginner, Champ, and Pro levels, students build number sense, algebraic thinking, and problem-solving reasoning before middle school begins. Starting in 3rd or 4th grade gives your child the strongest chance of qualifying for the advanced pathway by 6th grade.',
+  },
+  {
     question: 'What are the Beginner, Champ, and Pro levels?',
     answer:
       'They are the three curriculum levels within GrowWise Elementary Math. Beginner is for students who are below grade level and catching up. Champ is for students at grade level building consistency. Pro is for students already ahead who want to accelerate further. The free 30-minute assessment determines which level your child starts at — parents do not choose.',

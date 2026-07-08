@@ -13,7 +13,7 @@ import { publicPath } from '@/lib/publicPath'
 export function HowToChooseCodingSchoolForKidsPage() {
   const locale = useLocale()
   const futureSkillsHref = publicPath('/future-skills', locale)
-  const assessmentHref = publicPath('/assessment-booking', locale)
+  const assessmentHref = publicPath('/book-assessment', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
 
   return (

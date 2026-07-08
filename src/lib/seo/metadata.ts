@@ -86,9 +86,18 @@ export function generatePageMetadata({
     "personalized learning",
   ];
 
-  const finalKeywords = keywords
-    ? `${keywords}, ${defaultKeywords.join(", ")}`
-    : defaultKeywords.join(", ");
+  // Merge page keywords with defaults, deduped case-insensitively (page keywords first).
+  const merged: string[] = [];
+  const seen = new Set<string>();
+  for (const kw of [...(keywords ? keywords.split(",") : []), ...defaultKeywords]) {
+    const trimmed = kw.trim();
+    const key = trimmed.toLowerCase();
+    if (trimmed && !seen.has(key)) {
+      seen.add(key);
+      merged.push(trimmed);
+    }
+  }
+  const finalKeywords = merged.join(", ");
 
   return {
     title,
