@@ -10,19 +10,28 @@ describe('buildEducationalOrganizationSchema — GWA-192 / TC-09', () => {
     expect(schema.name).toBe('GrowWise')
   })
 
-  it('includes aggregateRating, knowsAbout, and expanded sameAs', () => {
-    expect(schema.aggregateRating).toMatchObject({
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '40',
-    })
+  it('declares the #organization @id that per-page Course provider references depend on', () => {
+    expect(schema['@id']).toBe('https://growwiseschool.org#organization')
+  })
+
+  it('excludes self-serving AggregateRating and sitewide OfferCatalog (SEO audit 2026-07-08)', () => {
+    expect(schema.aggregateRating).toBeUndefined()
+    expect(schema.hasOfferCatalog).toBeUndefined()
+    expect(JSON.stringify(schema)).not.toContain('AggregateRating')
+    expect(JSON.stringify(schema)).not.toContain('OfferCatalog')
+  })
+
+  it('includes knowsAbout and expanded sameAs entity profiles', () => {
     expect(Array.isArray(schema.knowsAbout)).toBe(true)
     expect((schema.knowsAbout as unknown[]).length).toBeGreaterThanOrEqual(5)
     const sameAs = schema.sameAs as string[]
-    expect(sameAs.length).toBeGreaterThanOrEqual(3)
+    expect(sameAs.length).toBeGreaterThanOrEqual(6)
     expect(sameAs.some((u) => u.includes('facebook.com'))).toBe(true)
     expect(sameAs.some((u) => u.includes('instagram.com'))).toBe(true)
     expect(sameAs.some((u) => u.includes('linkedin.com'))).toBe(true)
+    expect(sameAs.some((u) => u.includes('yelp.com/biz/growwise-dublin'))).toBe(true)
+    expect(sameAs.some((u) => u.includes('nextdoor.com/pages/growwise-dublin-ca-1'))).toBe(true)
+    expect(sameAs.some((u) => u.includes('crunchbase.com/organization/growwise-339a'))).toBe(true)
   })
 
   it('uses CONTACT_INFO for telephone (single source of truth)', () => {
@@ -42,24 +51,9 @@ describe('buildEducationalOrganizationSchema — GWA-192 / TC-09', () => {
     expect(typeof geo.longitude).toBe('number')
   })
 
-  it('hasOfferCatalog lists at least 5 course offers', () => {
-    const catalog = schema.hasOfferCatalog as Record<string, unknown>
-    const items = catalog.itemListElement as unknown[]
-    expect(items.length).toBeGreaterThanOrEqual(5)
-  })
-
-  it('each catalog Course includes typicalAgeRange, educationalLevel, and nested offers', () => {
-    const catalog = schema.hasOfferCatalog as Record<string, unknown>
-    const items = catalog.itemListElement as Array<Record<string, unknown>>
-    for (const offer of items) {
-      const course = offer.itemOffered as Record<string, unknown>
-      expect(course['@type']).toBe('Course')
-      expect(course.typicalAgeRange).toMatch(/\d+-\d+/)
-      expect(typeof course.educationalLevel).toBe('string')
-      const nested = course.offers as Record<string, unknown>
-      expect(nested['@type']).toBe('Offer')
-      expect(nested.priceCurrency).toBe('USD')
-      expect(nested.url).toBe(course.url)
-    }
+  it('contains no Course or Offer markup — course schema is page-scoped, not sitewide', () => {
+    const serialized = JSON.stringify(schema)
+    expect(serialized).not.toContain('"Course"')
+    expect(serialized).not.toContain('"Offer"')
   })
 })

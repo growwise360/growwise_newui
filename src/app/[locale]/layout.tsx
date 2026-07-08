@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
-import { NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider, type AbstractIntlMessages } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import ContentProvider from "@/components/providers/ContentProvider";
 import { ChatbotProvider } from "@/contexts/ChatbotContext";
@@ -35,6 +35,40 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+/**
+ * Namespaces referenced by client components (`useTranslations`) — the only
+ * messages that must be serialized into the HTML payload for hydration.
+ * Server components read translations from the request config directly.
+ * Regenerate with: rg -o "useTranslations\((['\"])([^'\"]*)" src (plus the key
+ * prefixes of namespace-less `useTranslations()` call sites).
+ */
+const CLIENT_MESSAGE_NAMESPACES = [
+  'about',
+  'academic',
+  'assessment',
+  'chatbot',
+  'codingPage',
+  'common',
+  'commonForm',
+  'contact',
+  'enroll',
+  'enrollnow',
+  'gameDevPage',
+  'navigation',
+  'notFound',
+  'pricingUi',
+  'summerCamp',
+  'trial',
+] as const;
+
+function pickClientMessages(messages: AbstractIntlMessages): AbstractIntlMessages {
+  const picked: AbstractIntlMessages = {};
+  for (const ns of CLIENT_MESSAGE_NAMESPACES) {
+    if (messages[ns] !== undefined) picked[ns] = messages[ns];
+  }
+  return picked;
+}
+
 export default async function LocaleLayout({
   children,
   params
@@ -49,7 +83,7 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={pickClientMessages(messages)}>
       {/* WebSite search JSON-LD — primary EducationalOrganization lives in root layout head */}
       <script
         type="application/ld+json"

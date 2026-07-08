@@ -5,7 +5,7 @@ import { SectionError } from '../../ui/SectionError';
 import { OptimizedImage } from '../../gw/OptimizedImage';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { StructuredDataScript } from '../../seo/StructuredDataScript';
-import { generateReviewSchema, generateAggregateRatingSchema } from '@/lib/seo/structuredData';
+import { generateReviewSchema } from '@/lib/seo/structuredData';
 import { useTestimonials } from '@/hooks/useTestimonials';
 
 export interface TestimonialVM {
@@ -209,9 +209,10 @@ export function TestimonialsSection({
     }
   };
   
-  // Generate structured data for reviews and aggregate rating
+  // Review JSON-LD only — no AggregateRating: self-serving aggregate ratings on the
+  // org's own pages violate Google's review-snippet policy (SEO audit 2026-07-08).
   const structuredData = useMemo(() => {
-    const reviews = testimonials.map((testimonial) =>
+    return testimonials.map((testimonial) =>
       generateReviewSchema({
         itemReviewed: {
           "@type": "EducationalOrganization",
@@ -227,20 +228,6 @@ export function TestimonialsSection({
         reviewBody: testimonial.content,
       })
     )
-
-    // Calculate average rating
-    const avgRating = testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
-
-    const aggregateRating = generateAggregateRatingSchema({
-      itemReviewed: {
-        "@type": "EducationalOrganization",
-        name: "GrowWise"
-      },
-      ratingValue: Math.round(avgRating * 10) / 10, // Round to 1 decimal
-      reviewCount: testimonials.length,
-    })
-
-    return [...reviews, aggregateRating]
   }, [testimonials])
 
   const getCurrentTestimonials = () => {

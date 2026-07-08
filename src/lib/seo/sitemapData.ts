@@ -15,7 +15,31 @@ import { locales } from '@/i18n/config'
 import { DEFAULT_LOCALE } from '@/i18n/localeConfig'
 import { getCampSlugs } from '@/lib/camps/get-camp-page'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
+import SITEMAP_LASTMOD from '@/lib/seo/sitemap-lastmod.json'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+
+/**
+ * Path → YYYY-MM-DD map generated from git history by
+ * `scripts/generate-sitemap-lastmod.mjs` (npm run seo:lastmod). Dates reflect
+ * real content edits — never the deploy date (Google ignores faked lastmod).
+ */
+const LASTMOD_BY_PATH: Record<string, string> = SITEMAP_LASTMOD
+
+/** Curated floor for routes missing from the generated map (pre-dates the map itself). */
+const LASTMOD_FALLBACK = '2026-05-01'
+
+/** Precedence: explicit per-entry date → generated git map → caller fallback → curated floor. */
+export function lastmodForPath(path: string, explicit?: string, fallback?: string): string {
+  return explicit ?? LASTMOD_BY_PATH[path] ?? fallback ?? LASTMOD_FALLBACK
+}
+
+/** Newest content date — used as the sitemap index lastmod. */
+export function latestLastmod(): string {
+  return Object.values(LASTMOD_BY_PATH).reduce(
+    (max, d) => (d > max ? d : max),
+    LASTMOD_FALLBACK,
+  )
+}
 
 export type ChangeFreq =
   | 'always'
@@ -207,7 +231,7 @@ export function buildPagesUrls(baseUrl: string, fallbackLastmod?: string): Sitem
     localeRoutes.forEach((page) => {
       urls.push({
         loc: absoluteSiteUrl(page.path, locale, baseUrl),
-        lastmod: page.lastmod ?? fallbackLastmod,
+        lastmod: lastmodForPath(page.path, page.lastmod, fallbackLastmod),
         changefreq: page.changefreq,
         priority: page.priority,
       })
@@ -216,14 +240,14 @@ export function buildPagesUrls(baseUrl: string, fallbackLastmod?: string): Sitem
     if (locale === DEFAULT_LOCALE) {
       urls.push({
         loc: absoluteSiteUrl(campLandingHub.path, locale, baseUrl),
-        lastmod: campLandingHub.lastmod ?? fallbackLastmod,
+        lastmod: lastmodForPath(campLandingHub.path, campLandingHub.lastmod, fallbackLastmod),
         changefreq: campLandingHub.changefreq,
         priority: campLandingHub.priority,
       })
       getCampSlugs().forEach((slug) => {
         urls.push({
           loc: absoluteSiteUrl(`/camps/${slug}`, locale, baseUrl),
-          lastmod: fallbackLastmod,
+          lastmod: lastmodForPath(`/camps/${slug}`, undefined, fallbackLastmod),
           changefreq: 'weekly',
           priority: 0.9,
         })
@@ -262,7 +286,7 @@ export function buildBlogUrls(baseUrl: string, fallbackLastmod?: string): Sitema
     blogPostPaths.forEach((path) => {
       urls.push({
         loc: absoluteSiteUrl(path, locale, baseUrl),
-        lastmod: fallbackLastmod,
+        lastmod: lastmodForPath(path, undefined, fallbackLastmod),
         changefreq: 'monthly',
         priority: 0.75,
       })
@@ -270,7 +294,7 @@ export function buildBlogUrls(baseUrl: string, fallbackLastmod?: string): Sitema
     RESOURCE_ARTICLE_PATHS.forEach((path) => {
       urls.push({
         loc: absoluteSiteUrl(path, locale, baseUrl),
-        lastmod: fallbackLastmod,
+        lastmod: lastmodForPath(path, undefined, fallbackLastmod),
         changefreq: 'monthly',
         priority:
           path === '/resources/tutoring-dublin-ca' || path === '/resources/summer-slide-dublin-ca' ? 0.85 : 0.8,

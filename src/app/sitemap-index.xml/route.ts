@@ -1,10 +1,10 @@
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
-import { getChildSitemaps, renderSitemapIndex } from '@/lib/seo/sitemapData'
+import { getChildSitemaps, latestLastmod, renderSitemapIndex } from '@/lib/seo/sitemapData'
 
 /** Internal sitemap index route. `/sitemap.xml` rewrites here on Vercel. */
 export async function GET(): Promise<Response> {
   const baseUrl = getCanonicalSiteUrl()
-  const xml = renderSitemapIndex(getChildSitemaps(baseUrl))
+  const xml = renderSitemapIndex(getChildSitemaps(baseUrl, latestLastmod()))
 
   return new Response(xml, {
     headers: {

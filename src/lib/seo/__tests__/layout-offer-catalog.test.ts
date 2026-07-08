@@ -5,7 +5,7 @@ import { buildEducationalOrganizationSchema } from '@/lib/seo/educationalOrganiz
 
 const APP_LOCALE = join(process.cwd(), 'src', 'app', '[locale]')
 
-/** Section layouts must not duplicate bare Course nodes — org schema covers sitewide catalog. */
+/** Section layouts must not duplicate bare Course nodes — Course schema is page-scoped. */
 const LAYOUTS_WITHOUT_OFFER_CATALOG = [
   'academic/layout.tsx',
   'programs/layout.tsx',
@@ -21,24 +21,9 @@ describe('layout offer catalog — Rich Results regression', () => {
     },
   )
 
-  it('site-wide org catalog courses include description, provider, and url', () => {
+  it('site-wide org schema carries no OfferCatalog — Course/Offer markup is page-scoped (SEO audit 2026-07-08)', () => {
     const schema = buildEducationalOrganizationSchema() as Record<string, unknown>
-    const catalog = schema.hasOfferCatalog as Record<string, unknown>
-    const items = catalog.itemListElement as Array<Record<string, unknown>>
-
-    expect(items.length).toBeGreaterThanOrEqual(5)
-
-    for (const offer of items) {
-      const course = offer.itemOffered as Record<string, unknown>
-      expect(course['@type']).toBe('Course')
-      expect(typeof course.description).toBe('string')
-      expect((course.description as string).length).toBeGreaterThan(10)
-      expect(course.provider).toMatchObject({
-        '@type': 'Organization',
-        name: 'GrowWise School',
-      })
-      expect(typeof course.url).toBe('string')
-      expect(course.url).toMatch(/^https:\/\//)
-    }
+    expect(schema.hasOfferCatalog).toBeUndefined()
+    expect(JSON.stringify(schema)).not.toContain('OfferCatalog')
   })
 })
