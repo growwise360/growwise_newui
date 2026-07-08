@@ -100,10 +100,11 @@ const nextConfig: NextConfig = {
 
   // Experimental features for better performance
   experimental: {
-    // Inline route CSS into HTML in production to remove render-blocking stylesheet round-trips
-    // (helps mobile LCP/FCP; Tailwind-friendly per Next.js docs). Trade-off: larger HTML, experimental.
-    // https://nextjs.org/docs/app/api-reference/config/next-config-js/inlineCss
-    inlineCss: true,
+    // inlineCss disabled (SEO audit 2026-07-08): it embedded ~229KB of Tailwind CSS
+    // into every HTML response, ballooning the homepage document to ~920KB and hurting
+    // LCP more than the saved stylesheet round-trip gained. External CSS is cacheable
+    // across pages. https://nextjs.org/docs/app/api-reference/config/next-config-js/inlineCss
+    inlineCss: false,
     // Smaller dev graphs for Webpack + Turbopack (tree-shake barrel imports)
     optimizePackageImports: [
       'next-intl',

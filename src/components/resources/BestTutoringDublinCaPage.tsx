@@ -13,7 +13,7 @@ import { publicPath } from '@/lib/publicPath'
 export function BestTutoringDublinCaPage() {
   const locale = useLocale()
   const satPrepHref = publicPath('/courses/sat-prep', locale)
-  const assessmentHref = publicPath('/assessment-booking', locale)
+  const assessmentHref = publicPath('/book-assessment', locale)
   const bookAssessmentHref = publicPath('/book-assessment', locale)
 
   return (

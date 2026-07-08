@@ -7,7 +7,6 @@ import {
 import { generateBreadcrumbSchema, generateFAQPageSchema } from '@/lib/seo/structuredData';
 import { absoluteSiteUrl } from '@/lib/publicPath';
 
-const ORG_NAME = 'GrowWise School';
 const ORG_URL = 'https://growwiseschool.org';
 
 function courseNode(
@@ -21,11 +20,8 @@ function courseNode(
     '@type': 'Course' as const,
     name,
     description,
-    provider: {
-      '@type': 'Organization' as const,
-      name: ORG_NAME,
-      url: ORG_URL,
-    },
+    // @id reference to the sitewide org JSON-LD (root layout) — no NAP duplication.
+    provider: { '@id': `${ORG_URL}#organization` },
     url: absoluteSiteUrl(path, locale, baseUrl),
     hasCourseInstance: {
       '@type': 'CourseInstance' as const,

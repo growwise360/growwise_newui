@@ -1,8 +1,8 @@
 import { MIDDLE_SCHOOL_MATH_VISIBLE_FAQS } from '@/lib/schema/middle-school-math-faqs'
 
 describe('MIDDLE_SCHOOL_MATH_VISIBLE_FAQS', () => {
-  it('has 9 FAQs for accordion and JSON-LD', () => {
-    expect(MIDDLE_SCHOOL_MATH_VISIBLE_FAQS).toHaveLength(9)
+  it('has 10 FAQs for accordion and JSON-LD', () => {
+    expect(MIDDLE_SCHOOL_MATH_VISIBLE_FAQS).toHaveLength(10)
   })
 
   it('includes standard vs accelerated track question', () => {

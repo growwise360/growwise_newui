@@ -78,7 +78,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/student-corner': {
-    title: 'Student Corner | Student Writing & Project Showcase | GrowWise',
+    title: 'Student Corner — Writing & Project Showcase | GrowWise',
     description:
       'Explore GrowWise Student Corner, a showcase destination for student articles, short stories, creative writing, coding projects, and portfolio work.',
     keywords:
@@ -855,6 +855,36 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/resources/kumon-alternative-dublin-ca': {
+    title: 'Kumon Alternative in Dublin CA | GrowWise Compared',
+    description:
+      'Looking for a Kumon alternative in Dublin, CA? Compare teaching model, school-curriculum alignment, class size, and pricing before you choose.',
+    keywords:
+      'kumon alternative dublin ca, alternative to kumon, kumon vs growwise, math tutoring dublin ca, kumon alternative tri-valley',
+    path: '/resources/kumon-alternative-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/mathnasium-alternative-dublin-pleasanton': {
+    title: 'Mathnasium Alternative Dublin & Pleasanton | GrowWise',
+    description:
+      'Comparing Mathnasium in Dublin or Pleasanton? See how school-curriculum alignment, progress reporting, and teacher-led sessions differ at GrowWise.',
+    keywords:
+      'mathnasium alternative dublin, mathnasium alternative pleasanton, mathnasium vs growwise, math enrichment pleasanton ca, math tutoring dublin ca',
+    path: '/resources/mathnasium-alternative-dublin-pleasanton',
+    type: 'article',
+  },
+
+  '/resources/rsm-alternative-dublin-ca': {
+    title: 'RSM Alternative in Dublin CA | School-Aligned Math',
+    description:
+      'Weighing RSM in Dublin or Pleasanton? Compare its accelerated separate curriculum with school-aligned, depth-plus-retention math at GrowWise.',
+    keywords:
+      'rsm alternative dublin ca, russian school of math alternative, rsm vs growwise, integrated math tutor dublin ca, im1 tutor pleasanton',
+    path: '/resources/rsm-alternative-dublin-ca',
+    type: 'article',
+  },
+
   '/resources/back-to-school-night-parent-questions': {
     title: 'Questions to Ask at Back-to-School Night | Parent Guide',
     description:
@@ -875,7 +905,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/privacy-policy': {
-    title: 'Privacy Policy | GrowWise',
+    title: 'Privacy Policy — Student & Family Data Protection | GrowWise',
     description:
       'Read the GrowWise privacy policy. Learn how we collect, use, store, and protect your personal information as a student or parent on our platform.',
     keywords: 'GrowWise privacy policy, data protection, personal information',

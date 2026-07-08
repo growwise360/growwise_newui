@@ -12,6 +12,7 @@ export default function BookAssessmentPage() {
         fallback={
           <SeoPageFallback
             eyebrow="Free assessment"
+            headingLevel="p"
             title="Book a Free Math and English Assessment at GrowWise"
             description="Schedule a free GrowWise assessment for math, English, or academic readiness in Dublin, CA. Families get a clear next step before choosing tutoring or enrichment."
             links={[

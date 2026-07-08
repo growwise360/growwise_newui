@@ -19,6 +19,7 @@
     "indexnow:dry-run": "node scripts/indexnow-submit.mjs --all --dry-run",
     "indexnow:submit": "node scripts/indexnow-submit.mjs",
     "indexnow:submit:all": "node scripts/indexnow-submit.mjs --all",
+    "seo:lastmod": "node scripts/generate-sitemap-lastmod.mjs",
     "seo:ops": "node scripts/seo-ops-report.mjs",
     "seo:ops:gsc": "node scripts/seo-ops-report.mjs --include-gsc",
     "seo:ops:bing": "node scripts/seo-ops-report.mjs --submit-bing",

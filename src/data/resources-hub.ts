@@ -326,6 +326,36 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     readTime: '6 min read',
     href: '/resources/child-struggles-with-writing-dublin-ca',
   },
+  {
+    id: 'kumon-alternative-dublin-ca',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'Kumon Alternative in Dublin, CA — What to Look For',
+    description:
+      'Teacher-led instruction vs worksheet self-study, school-curriculum alignment, and an honest look at when Kumon is still the better fit.',
+    readTime: '6 min read',
+    href: '/resources/kumon-alternative-dublin-ca',
+  },
+  {
+    id: 'mathnasium-alternative-dublin-pleasanton',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'Mathnasium Alternative in Dublin & Pleasanton — What to Compare',
+    description:
+      'How school-curriculum alignment and skill-specific progress reporting compare to the Mathnasium Method for Tri-Valley families.',
+    readTime: '6 min read',
+    href: '/resources/mathnasium-alternative-dublin-pleasanton',
+  },
+  {
+    id: 'rsm-alternative-dublin-ca',
+    category: 'local',
+    categoryLabel: 'LOCAL',
+    title: 'RSM Alternative in Dublin, CA — School-Aligned Depth Without Overload',
+    description:
+      'RSM\'s accelerated separate curriculum vs school-aligned depth-plus-retention math — and when RSM is still the right choice.',
+    readTime: '6 min read',
+    href: '/resources/rsm-alternative-dublin-ca',
+  },
 ]
 
 export const RESOURCES_HERO = {

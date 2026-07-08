@@ -4,7 +4,6 @@
  */
 
 import type { FormThankYouId } from '@/data/form-thank-you/types'
-import { CONTACT_INFO } from '@/lib/constants'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from './siteUrl'
 
@@ -33,7 +32,6 @@ export const websiteSchema = {
 export function generateCourseSchema({
   name,
   description,
-  provider,
   courseCode,
   educationalLevel,
   teaches,
@@ -45,6 +43,7 @@ export function generateCourseSchema({
 }: {
   name: string
   description: string
+  /** Accepted for caller compatibility; the provider is always the sitewide GrowWise org (@id reference). */
   provider?: string
   courseCode?: string
   educationalLevel?: string
@@ -75,21 +74,10 @@ export function generateCourseSchema({
     "@type": "Course",
     "name": name,
     "description": description,
-    "provider": {
-      "@type": "EducationalOrganization",
-      "name": provider || "GrowWise",
-      "url": CANONICAL_BASE,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": CONTACT_INFO.street,
-        "addressLocality": "Dublin",
-        "addressRegion": "CA",
-        "postalCode": CONTACT_INFO.zipCode,
-        "addressCountry": "US"
-      },
-      "telephone": CONTACT_INFO.phone,
-      "email": CONTACT_INFO.email,
-    },
+    // Reference the sitewide org block (root layout) by @id instead of duplicating
+    // NAP data on every course page. All callers are GrowWise courses, so the
+    // `provider` name param is intentionally ignored.
+    "provider": { "@id": `${CANONICAL_BASE}#organization` },
     ...(courseCode && { "courseCode": courseCode }),
     ...(educationalLevel && { "educationalLevel": educationalLevel }),
     ...(teaches && teaches.length > 0 && { "teaches": teaches }),
@@ -264,36 +252,6 @@ export function generateReviewSchema({
     }),
     ...(reviewBody && { "reviewBody": reviewBody }),
     ...(datePublished && { "datePublished": datePublished }),
-  }
-}
-
-/**
- * Generate AggregateRating structured data
- */
-export function generateAggregateRatingSchema({
-  itemReviewed,
-  ratingValue,
-  reviewCount,
-  bestRating,
-  worstRating,
-}: {
-  itemReviewed: {
-    "@type": string
-    name: string
-  }
-  ratingValue: number
-  reviewCount: number
-  bestRating?: number
-  worstRating?: number
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "AggregateRating",
-    "itemReviewed": itemReviewed,
-    "ratingValue": ratingValue,
-    "reviewCount": reviewCount,
-    "bestRating": bestRating || 5,
-    "worstRating": worstRating || 1,
   }
 }
 

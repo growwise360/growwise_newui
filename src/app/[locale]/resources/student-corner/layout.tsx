@@ -11,7 +11,7 @@ export async function generateMetadata({
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return {
-    title: 'Student Corner | Student Writing & Project Showcase | GrowWise',
+    title: 'Student Corner — Writing & Project Showcase | GrowWise',
     description:
       'Explore GrowWise Student Corner, a showcase destination for student articles, short stories, creative writing, coding projects, and portfolio work.',
     alternates: {

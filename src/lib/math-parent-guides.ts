@@ -63,6 +63,33 @@ export const MATH_TUTORING_COMPARISON_GUIDE: MathParentGuideLink = {
   readTime: '7 min read',
 };
 
+export const KUMON_ALTERNATIVE_GUIDE: MathParentGuideLink = {
+  key: 'kumon-alternative-dublin-ca',
+  href: '/resources/kumon-alternative-dublin-ca',
+  title: 'Kumon Alternative in Dublin, CA',
+  description:
+    'Teacher-led instruction vs worksheet self-study — and when Kumon is still the better fit.',
+  readTime: '6 min read',
+};
+
+export const MATHNASIUM_ALTERNATIVE_GUIDE: MathParentGuideLink = {
+  key: 'mathnasium-alternative-dublin-pleasanton',
+  href: '/resources/mathnasium-alternative-dublin-pleasanton',
+  title: 'Mathnasium Alternative in Dublin & Pleasanton',
+  description:
+    'How school-curriculum alignment and skill-specific reporting compare to the Mathnasium Method.',
+  readTime: '6 min read',
+};
+
+export const RSM_ALTERNATIVE_GUIDE: MathParentGuideLink = {
+  key: 'rsm-alternative-dublin-ca',
+  href: '/resources/rsm-alternative-dublin-ca',
+  title: 'RSM Alternative in Dublin, CA',
+  description:
+    'School-aligned depth vs an accelerated separate curriculum — and when RSM is the right choice.',
+  readTime: '6 min read',
+};
+
 export const MATH_HOMEWORK_INDEPENDENCE_GUIDE: MathParentGuideLink = {
   key: 'homework-independence',
   href: '/resources/homework-independence',
@@ -130,6 +157,9 @@ export const MATH_PARENT_GUIDES_BY_PAGE: Record<
     MATH_BACK_TO_SCHOOL_ASSESSMENT_GUIDE,
     MATH_CARELESS_MISTAKES_GUIDE,
     MATH_TUTORING_COMPARISON_GUIDE,
+    KUMON_ALTERNATIVE_GUIDE,
+    MATHNASIUM_ALTERNATIVE_GUIDE,
+    RSM_ALTERNATIVE_GUIDE,
     MATH_B_PLUS_BLOG,
     MATH_LEARNING_GAPS_BLOG,
     MATH_HOMEWORK_INDEPENDENCE_GUIDE,

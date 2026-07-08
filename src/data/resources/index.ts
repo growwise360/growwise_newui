@@ -16,6 +16,9 @@ import {
   MIDDLE_SCHOOL_MATH_READINESS_CHECKLIST_PATH,
 } from '@/data/resources/august-math-english-guides'
 import { CARELESS_MATH_MISTAKES_PATH } from '@/data/resources/careless-math-mistakes-copy'
+import { KUMON_ALTERNATIVE_DUBLIN_CA_PATH } from '@/data/resources/kumon-alternative-dublin-ca'
+import { MATHNASIUM_ALTERNATIVE_DUBLIN_PLEASANTON_PATH } from '@/data/resources/mathnasium-alternative-dublin-pleasanton'
+import { RSM_ALTERNATIVE_DUBLIN_CA_PATH } from '@/data/resources/rsm-alternative-dublin-ca'
 import { HOW_TO_CHOOSE_SUMMER_CAMP_PATH } from '@/data/resources/how-to-choose-summer-camp'
 import { WHY_GRADES_PATH } from '@/data/resources/why-grades-hide-learning-gaps-copy'
 import { HOMEWORK_INDEPENDENCE_PATH } from '@/data/resources/homework-independence-copy'
@@ -63,6 +66,9 @@ export const RESOURCE_ARTICLE_PATHS = [
   BEST_TUTORING_DUBLIN_CA_PATH,
   HOW_TO_CHOOSE_CODING_SCHOOL_FOR_KIDS_PATH,
   BACK_TO_SCHOOL_NIGHT_PARENT_QUESTIONS_PATH,
+  KUMON_ALTERNATIVE_DUBLIN_CA_PATH,
+  MATHNASIUM_ALTERNATIVE_DUBLIN_PLEASANTON_PATH,
+  RSM_ALTERNATIVE_DUBLIN_CA_PATH,
 ] as const
 
 export type ResourceArticlePath = (typeof RESOURCE_ARTICLE_PATHS)[number]

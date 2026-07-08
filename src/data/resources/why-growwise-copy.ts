@@ -112,6 +112,21 @@ export type WhyGrowWiseFaq = {
 
 export const WHY_GROWWISE_FAQS: readonly WhyGrowWiseFaq[] = [
   {
+    question: 'What makes GrowWise different from other tutoring centers in Dublin and Pleasanton?',
+    answer:
+      'Three things. First, school alignment — GrowWise is one of the few programs in the Tri-Valley that follows DUSD, PUSD, and SRVUSD curriculum week by week. Second, real teaching — a qualified instructor teaches in the room, explains concepts, catches mistakes in real time, and guides practice before students go home. Third, gap-specific planning — every student starts with a diagnostic assessment that identifies the root cause of their struggle, and their program is built around that finding, not a generic curriculum. Classes are small groups of 6 to 10 students.',
+  },
+  {
+    question: 'How does GrowWise identify what my child needs?',
+    answer:
+      'Every student starts with a diagnostic assessment — not a placement quiz, a full gap analysis. We look at what your child knows, what they are missing, and what mistake pattern keeps repeating across their work. A student failing fractions in 7th grade may have a number sense gap from 5th grade that was never identified; the diagnostic finds that root cause. Every program decision — level placement, session focus, practice design — is built from that finding.',
+  },
+  {
+    question: 'Who teaches GrowWise classes?',
+    answer:
+      'GrowWise hires instructors for subject mastery and teaching ability, then trains them on the GrowWise diagnostic and level system. Because classes are small groups of 6 to 10 students, instructors know each student by name, by strength, and by the specific mistake pattern they are working on — and can adjust an explanation mid-session when a student needs it framed differently.',
+  },
+  {
     question: 'How is GrowWise different from worksheet-based tutoring programs?',
     answer:
       'GrowWise does not use fixed packet progressions or timed worksheets. Every student starts with a diagnostic assessment, is placed in one of three structured levels (Beginner, Champ, or Pro), and advances only after reaching 90% mastery on a 3-month assessment. Instruction is personalized to each student\'s learning style within each level.',
@@ -124,7 +139,7 @@ export const WHY_GROWWISE_FAQS: readonly WhyGrowWiseFaq[] = [
   {
     question: 'Does GrowWise provide progress reports?',
     answer:
-      'Yes. Parents receive a written monthly progress report detailing which skills were covered, which mistake patterns were corrected, and what the next 30 days will focus on. Progress is tracked continuously, not only at quarterly assessments.',
+      'Yes. Parents receive a written monthly progress report detailing which skills were covered, which mistake patterns were corrected, and what the next 30 days will focus on — a clear breakdown of what your child has mastered, not a status label like "on track." At the end of every 3-month cycle, your child completes a level assessment with an objective threshold: 90% or above advances to the next level, and scores between 80 and 89 percent trigger a one-month prep plan and reassessment. You always know exactly where your child stands and what happens next.',
   },
   {
     question: 'How does GrowWise align to my child\'s school curriculum?',

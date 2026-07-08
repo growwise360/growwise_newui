@@ -315,6 +315,21 @@ export const MATH_HUB_COPY = {
     subtitle: 'Common questions about our 3-month math programs',
     items: [
       {
+        question: 'What math tutoring programs does GrowWise offer in Dublin, CA?',
+        answer:
+          'Four tracks at our Dublin center: Elementary Math (Grades 1–5) builds the foundation for the advanced middle school pathway — Grade 1–2 starts at $169/month, Grades 3–5 from $289/month. Middle School Math (Grades 6–8, $289/month) follows DUSD, PUSD, and SRVUSD pacing; the Advanced track ($295/month) serves students on the accelerated IM1/IM2 pathway. High School Math (Grades 9–12, from $369/month) covers IM3, Algebra 2, and Pre-Calculus. Groups are small — typically 6–10 students.',
+      },
+      {
+        question: 'Is GrowWise aligned with DUSD, PUSD, and SRVUSD math curriculum?',
+        answer:
+          "Yes. GrowWise is one of the few enrichment centers in the Tri-Valley that teaches directly from your child's school curriculum — sessions follow Dublin Unified, Pleasanton Unified, and San Ramon Valley Unified pacing. If your child's class is on a specific Integrated Math unit this week, that is what the session covers. Many programs run their own independent curriculum sequences; at GrowWise there is no lag between what school teaches and what the session covers.",
+      },
+      {
+        question: 'How does the GrowWise level system work for math?',
+        answer:
+          'Every student starts at Beginner regardless of grade or prior experience. Every 3 months, students take a Mastery Assessment: scoring 90% or above advances them to Champ level (and Champ to Pro on the same threshold), while students scoring between 80 and 89 percent receive a one-month targeted prep plan and are then reassessed. Placement is based on assessment scores — not grade or parent preference — so every group works at a consistent readiness level.',
+      },
+      {
         question: 'Do I have to commit to 3 months upfront?',
         answer:
           "Yes. The 3-month minimum is what makes these programs work — it's enough time to run a diagnostic, close the primary gap, and verify the fix held. One-off sessions don't produce the same outcome.",

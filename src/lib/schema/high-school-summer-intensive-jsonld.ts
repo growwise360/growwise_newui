@@ -1,5 +1,4 @@
 import { CONTACT_INFO } from '@/lib/constants';
-import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof';
 
 const ORG_NAME = 'GrowWise School';
 const SCHEMA_PHONE = '+19254564606';
@@ -51,12 +50,9 @@ const INTENSIVE_COURSES = [
   },
 ] as const;
 
+/** @id reference to the sitewide org JSON-LD (root layout) — no NAP duplication. */
 function courseProvider() {
-  return {
-    '@type': 'EducationalOrganization' as const,
-    name: ORG_NAME,
-    address: `${CONTACT_INFO.street}, Dublin, CA ${CONTACT_INFO.zipCode}`,
-  };
+  return { '@id': 'https://growwiseschool.org#organization' };
 }
 
 function courseSchedule() {
@@ -90,7 +86,6 @@ export function buildHighSchoolSummerIntensiveOrgSchema(baseUrl: string) {
     telephone: SCHEMA_PHONE,
     email: CONTACT_INFO.email,
     areaServed: ['Dublin, CA', 'Pleasanton, CA', 'San Ramon, CA', 'Livermore, CA'],
-    aggregateRating: buildAggregateRatingJsonLd(),
   };
 }
 

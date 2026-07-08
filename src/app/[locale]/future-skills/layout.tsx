@@ -35,11 +35,7 @@ export default async function FutureSkillsLayout({
       'Structured certification pathways for Grades 6-12: design and creative media, Python, AI and machine learning, and AI entrepreneurship. Project-first learning with optional external exams at GrowWise Dublin.',
     url: absoluteSiteUrl('/future-skills', locale, baseUrl),
     serviceType: 'Certification Pathway Education',
-    provider: {
-      '@type': 'EducationalOrganization',
-      name: 'GrowWise',
-      url: baseUrl,
-    },
+    provider: { '@id': `${baseUrl}#organization` },
     areaServed: ['Dublin, CA', 'Pleasanton, CA', 'San Ramon, CA', 'Tri-Valley, CA'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -50,7 +46,7 @@ export default async function FutureSkillsLayout({
           '@type': 'Course',
           name: pathway.title,
           description: pathway.summary,
-          provider: { '@type': 'Organization', name: 'GrowWise School' },
+          provider: { '@id': `${baseUrl}#organization` },
           url: absoluteSiteUrl(pathway.href, locale, baseUrl),
         },
       })),
