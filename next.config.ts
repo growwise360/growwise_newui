@@ -42,6 +42,7 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   compress: true, // Enable gzip compression
   poweredByHeader: false, // Remove X-Powered-By header for security
+  skipTrailingSlashRedirect: true,
   
   // Image optimization
   images: {

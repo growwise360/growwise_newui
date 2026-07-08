@@ -2,6 +2,8 @@ import createMiddleware from 'next-intl/middleware';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { ENABLED_LOCALES, DEFAULT_LOCALE } from '@/i18n/localeConfig';
+import { getCanonicalPathAlias } from '@/lib/seo/canonical-path-aliases';
+import { buildBlogPaths, buildPagesPaths } from '@/lib/seo/sitemapData';
 
 /**
  * Strip www subdomain to enforce single canonical domain (301 redirect).
@@ -25,7 +27,7 @@ function redirectWwwToDomain(request: NextRequest): NextResponse | null {
 function removeTrailingSlash(request: NextRequest): NextResponse | null {
   const pathname = request.nextUrl.pathname;
   if (pathname !== '/' && pathname.endsWith('/')) {
-    const url = request.nextUrl.clone();
+    const url = new URL(request.url);
     url.pathname = pathname.slice(0, -1);
     return NextResponse.redirect(url, 301);
   }
@@ -80,7 +82,21 @@ function redirectLegacyResourceAliases(request: NextRequest): NextResponse | nul
     url.pathname = '/readinesschecklist';
     return NextResponse.redirect(url, 301);
   }
+  if (request.nextUrl.pathname === '/resources/kumon-vs-mathnasium-vs-private-tutor-dublin-ca') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/resources/math-tutoring-options-dublin-ca';
+    return NextResponse.redirect(url, 301);
+  }
   return null;
+}
+
+function redirectCanonicalPathAliases(request: NextRequest): NextResponse | null {
+  const canonicalPath = getCanonicalPathAlias(request.nextUrl.pathname);
+  if (!canonicalPath) return null;
+
+  const url = new URL(request.url);
+  url.pathname = canonicalPath;
+  return NextResponse.redirect(url, 301);
 }
 
 const intlMiddleware = createMiddleware({
@@ -103,6 +119,26 @@ const ROOT_PUBLIC_FILES = new Set([
   '/window.svg',
 ]);
 
+const KNOWN_PUBLIC_PATHS = new Set([
+  ...buildPagesPaths(),
+  ...buildBlogPaths(),
+  '/book-assessment/thank-you',
+  '/cart',
+  '/checkout',
+  '/checkout/success',
+  '/contact/thank-you',
+  '/dashboard',
+  '/enroll/thank-you',
+  '/enroll-academic/thank-you',
+  '/login',
+  '/math-finals-practice-session/thank-you',
+  '/self-check/done',
+  '/testimonials-test',
+  '/camps/summer/guide-success',
+  '/camps/summer/lottery-success',
+  '/camps/summer/summercamp-success',
+]);
+
 function notFoundResponse(): NextResponse {
   return new NextResponse(
     '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><title>Page not found | GrowWise</title></head><body><main><h1>Page not found</h1><p>The page you are looking for does not exist or may have been moved.</p><p><a href="/">Back to home</a></p></main></body></html>',
@@ -114,6 +150,19 @@ function notFoundResponse(): NextResponse {
       },
     },
   );
+}
+
+function hard404UnknownPublicPath(request: NextRequest): NextResponse | null {
+  const pathname = request.nextUrl.pathname;
+  if (pathname === '/' || ROOT_PUBLIC_FILES.has(pathname)) {
+    return null;
+  }
+
+  if (KNOWN_PUBLIC_PATHS.has(pathname)) {
+    return null;
+  }
+
+  return notFoundResponse();
 }
 
 function hard404UnknownDottedPath(request: NextRequest): NextResponse | null {
@@ -158,10 +207,6 @@ export default function middleware(request: NextRequest) {
   const wwwRedirect = redirectWwwToDomain(request);
   if (wwwRedirect) return wwwRedirect;
 
-  // Remove trailing slashes (except root) to normalize URLs
-  const noTrailing = removeTrailingSlash(request);
-  if (noTrailing) return noTrailing;
-
   const pathname = request.nextUrl.pathname;
   // Non-localized App Router segments (`app/camp/...` at repo root). Running next-intl on these
   // can fight with `[locale]/camp/[slug]` and caused redirect loops to the same URL.
@@ -171,6 +216,13 @@ export default function middleware(request: NextRequest) {
 
   const rewritten = rewriteLocalePrefixedNextAssets(request);
   if (rewritten) return rewritten;
+  const canonicalAlias = redirectCanonicalPathAliases(request);
+  if (canonicalAlias) return canonicalAlias;
+
+  // Remove trailing slashes (except root) to normalize URLs
+  const noTrailing = removeTrailingSlash(request);
+  if (noTrailing) return noTrailing;
+
   const legacyLocale = redirectLegacyLocalePrefix(request);
   if (legacyLocale) return legacyLocale;
   const legacyResourceAlias = redirectLegacyResourceAliases(request);
@@ -178,6 +230,8 @@ export default function middleware(request: NextRequest) {
   if (ROOT_PUBLIC_FILES.has(pathname)) {
     return NextResponse.next();
   }
+  const hard404Unknown = hard404UnknownPublicPath(request);
+  if (hard404Unknown) return hard404Unknown;
   const hard404 = hard404UnknownDottedPath(request);
   if (hard404) return hard404;
   return intlMiddleware(request);

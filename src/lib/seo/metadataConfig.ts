@@ -51,7 +51,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/from-nextdoor': {
     title: 'GrowWise in Dublin, CA — Trusted by Neighbors',
     description:
-      'Dublin parents choose GrowWise for STEM, coding, and tutoring. Top-rated locally. Book a free assessment.',
+      'Dublin parents choose GrowWise for math, English, coding, and STEAM tutoring. See local reviews and book a free assessment.',
     keywords:
       'tutoring Dublin CA, GrowWise Dublin, Nextdoor tutoring Dublin, coding classes Dublin, Tri-Valley tutoring, learning center Dublin California, tutoring Dublin California',
     path: '/from-nextdoor',
@@ -250,7 +250,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/future-skills/design-creative-media': {
     title: 'Design & Creative Media Certification Pathway',
     description:
-      'Creative design, visual communication, portfolio projects, and Adobe certification readiness for Grades 5-10.',
+      'Creative design, visual communication, portfolio projects, and Adobe certification readiness for Grades 5-10 at GrowWise Dublin.',
     keywords:
       'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Certiport Authorized Testing Center Dublin, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
     path: '/future-skills/design-creative-media',
@@ -259,7 +259,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/future-skills/python-certification': {
     title: 'Python Certification Pathway | GrowWise',
     description:
-      'Python fundamentals, project fluency, Certiport Python readiness, and PCEP/OpenEDG pathway in progress for Grades 7-12.',
+      'Python fundamentals, project fluency, Certiport Python readiness, and PCEP/OpenEDG pathway prep for Grades 7-12 in Dublin.',
     keywords:
       'Python certification for students, Certiport Python readiness, PCEP OpenEDG pathway in progress, ITS Python Certiport Dublin, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python certification readiness for teens',
     path: '/future-skills/python-certification',
@@ -340,7 +340,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/self-check': {
     title: 'Academic Self-Check for Students | GrowWise Dublin CA',
     description:
-      'Answer 8 questions to see your math or English strengths and the gaps holding you back - in under 10 minutes.',
+      'Answer 8 questions to see your math or English strengths, hidden skill gaps, and next best step in under 10 minutes.',
     keywords:
       'math self-check, free math diagnostic, math mistake patterns, math tutoring Dublin CA, child math assessment, math gap finder, GrowWise School',
     path: '/self-check',
