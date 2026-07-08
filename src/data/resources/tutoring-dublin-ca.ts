@@ -53,6 +53,21 @@ export const TUTORING_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
 
 export const TUTORING_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
+    title: 'Kumon Alternative in Dublin, CA',
+    href: '/resources/kumon-alternative-dublin-ca',
+    description: 'Teacher-led instruction vs worksheet self-study — an honest comparison.',
+  },
+  {
+    title: 'Mathnasium Alternative in Dublin & Pleasanton',
+    href: '/resources/mathnasium-alternative-dublin-pleasanton',
+    description: 'How school-curriculum alignment compares to the Mathnasium Method.',
+  },
+  {
+    title: 'RSM Alternative in Dublin, CA',
+    href: '/resources/rsm-alternative-dublin-ca',
+    description: 'School-aligned depth vs an accelerated separate curriculum.',
+  },
+  {
     title: 'Affordable Summer Academic Programs in Dublin, CA',
     href: '/resources/affordable-summer-academic-programs-dublin-ca',
     description: 'How to compare summer program value in the Tri-Valley.',

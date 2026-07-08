@@ -8,6 +8,10 @@ export const DUBLIN_CA_FAQS: ReadonlyArray<{
   answer: string
 }> = [
   {
+    question: 'What is GrowWise School?',
+    answer: `GrowWise School is a K–12 enrichment and tutoring center at ${CONTACT_INFO.street}, ${CONTACT_INFO.city} ${CONTACT_INFO.zipCode}, serving families across Dublin, Pleasanton, San Ramon, Danville, and the Tri-Valley. We offer year-round Math, English, and writing programs in small teacher-led groups, plus summer camps in Math Olympiad, AI, coding, and creative writing. Book a free assessment at growwiseschool.org/book-assessment or call ${CONTACT_INFO.phone}.`,
+  },
+  {
     question: 'Where is GrowWise located in Dublin, CA?',
     answer: `GrowWise School is at ${CONTACT_INFO.street}, ${CONTACT_INFO.city} ${CONTACT_INFO.zipCode}. We operate one physical campus in Dublin—this is where all in-person classes and assessments take place.`,
   },
