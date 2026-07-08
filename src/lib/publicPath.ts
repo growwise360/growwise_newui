@@ -1,11 +1,6 @@
 import { DEFAULT_LOCALE, isLocaleEnabled } from '@/i18n/localeConfig';
-import { LEGACY_PATH_REDIRECTS } from '@/lib/seo/legacy-path-redirects';
+import { normalizeCanonicalPathAlias } from '@/lib/seo/canonical-path-aliases';
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
-
-function applyLegacyPublicPathAlias(pathname: string): string {
-  const hit = LEGACY_PATH_REDIRECTS.find((r) => r.from === pathname);
-  return hit ? hit.to : pathname;
-}
 
 /**
  * Strips a leading locale segment from a pathname when present.
@@ -34,7 +29,7 @@ export function publicPath(path: string, locale: string): string {
   }
   if (!normalized.startsWith('/')) normalized = `/${normalized}`;
   if (normalized === '') normalized = '/';
-  normalized = applyLegacyPublicPathAlias(normalized);
+  normalized = normalizeCanonicalPathAlias(pathWithoutLocalePrefix(normalized));
 
   if (locale === DEFAULT_LOCALE) {
     return normalized === '' ? '/' : normalized;
