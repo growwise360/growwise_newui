@@ -122,6 +122,11 @@ const ROOT_PUBLIC_FILES = new Set([
 const KNOWN_PUBLIC_PATHS = new Set([
   ...buildPagesPaths(),
   ...buildBlogPaths(),
+  // Live noindex pages that are intentionally excluded from the sitemap but
+  // must remain reachable via internal links (not being here = hard 404).
+  '/resources/downloads',
+  '/camps/winter',
+  '/camps/winter/calendar',
   '/book-assessment/thank-you',
   '/cart',
   '/checkout',
