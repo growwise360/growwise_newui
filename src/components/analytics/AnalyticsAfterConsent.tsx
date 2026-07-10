@@ -5,6 +5,7 @@ import Script from 'next/script';
 import { usePathname } from 'next/navigation';
 import { GTMHead, GTMNoScript } from '@/components/analytics/GTM';
 import MetaPixel from '@/components/analytics/MetaPixel';
+import NextdoorPixel from '@/components/analytics/NextdoorPixel';
 import HubSpotSpaTracker from '@/components/analytics/HubSpotSpaTracker';
 import { MicrosoftClarity } from '@/components/analytics/MicrosoftClarity';
 import { isClarityExcludedPath } from '@/lib/analytics/clarityPaths';
@@ -49,6 +50,7 @@ export function AnalyticsAfterConsent() {
       gaId: process.env.NEXT_PUBLIC_GA_ID?.trim() || null,
       hubspotHubId: process.env.NEXT_PUBLIC_HUBSPOT_HUB_ID?.trim() || null,
       clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() || null,
+      nextdoorPixelId: process.env.NEXT_PUBLIC_NEXTDOOR_PIXEL_ID?.trim() || null,
     };
   }, []);
 
@@ -108,6 +110,7 @@ export function AnalyticsAfterConsent() {
       {consentAccepted && !isAudit ? (
         <>
           {env.hubspotHubId ? <HubSpotSpaTracker hubId={env.hubspotHubId} /> : null}
+          {env.nextdoorPixelId ? <NextdoorPixel pixelId={env.nextdoorPixelId} /> : null}
           {env.clarityProjectId && !isClarityExcludedPath(pathname) ? (
             <MicrosoftClarity projectId={env.clarityProjectId} pathname={pathname} />
           ) : null}

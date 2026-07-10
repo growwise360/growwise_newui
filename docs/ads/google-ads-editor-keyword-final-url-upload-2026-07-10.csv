@@ -1,0 +1,10 @@
+Campaign,Ad group,Keyword,Match type,Status,Final URL
+yearlycampaign,English_Ad_Group #2,high school english tutoring near me,Exact,Paused,
+yearlycampaign,English_Ad_Group #2,Reading Comprehension Camps,Phrase,Enabled,https://growwiseschool.org/camps/summer-reading-writing-dublin-ca
+yearlycampaign,Assessment_July,kumon alternative,Exact,Enabled,https://growwiseschool.org/resources/kumon-alternative-dublin-ca
+yearlycampaign,Assessment_July,mathnasium alternative,Exact,Enabled,https://growwiseschool.org/resources/mathnasium-alternative-dublin-pleasanton
+yearlycampaign,Assessment_July,math tutoring pleasanton,Exact,Enabled,https://growwiseschool.org/academic/math
+yearlycampaign,Assessment_July,math tutoring dublin,Exact,Enabled,https://growwiseschool.org/academic/math
+yearlycampaign,Assessment_July,math tutor dublin ca,Exact,Enabled,https://growwiseschool.org/academic/math
+yearlycampaign,Math_Ad_Group,math olympiad classes near me,Phrase,Enabled,https://growwiseschool.org/camps/math-olympiad-camp-dublin-ca
+yearlycampaign,Math_Ad_Group,math tutoring near me,Phrase,Enabled,https://growwiseschool.org/academic/math
