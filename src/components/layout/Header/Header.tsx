@@ -112,10 +112,6 @@ export default function Header() {
                 fetchPriority="low"
               />
             </Link>
-            <p className="header-logo-slogan" aria-label="Education First Always. business second.">
-              <span className="header-logo-slogan-primary">Education First Always.</span>
-              <span className="header-logo-slogan-secondary">business second.</span>
-            </p>
           </div>
 
           {/* Desktop Navigation */}

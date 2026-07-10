@@ -264,33 +264,6 @@ body {
   .header-logo-wrap { @apply flex-none flex flex-col items-start w-[150px] sm:w-[180px] lg:ml-2 lg:w-[160px] xl:ml-4 xl:w-[190px] 2xl:ml-8 2xl:w-[250px] overflow-visible; }
   .header-logo { @apply h-11 w-full object-contain object-left sm:h-12 lg:h-16 xl:h-20 2xl:h-[88px]; }
 
-  /*
-   * LOCKED — compensates for transparent canvas padding in /public/assets/growwise-logo.png.
-   * PNG: 560×322 px  |  content bbox: top=98 bottom=223 left=38 right=522 (484×125 px)
-   * Formula: margin-top = -(bottom_pad_px × scale) + 2px_breathing,
-   *          padding-left = left_pad_px × scale,  where scale = css_height / 322.
-   * To recalculate run: node scripts/measure-logo-padding.js
-   */
-  .header-logo-slogan {
-    @apply w-full leading-tight text-left;
-    margin-top: -11px;  /* h-11 (44px): bottom-pad≈13px − 2px breathing */
-    padding-left: 5px;  /* left-pad: 38/560 × rendered-width */
-  }
-  @media (min-width: 640px) {
-    .header-logo-slogan { margin-top: -13px; padding-left: 6px; }  /* sm  h-12 (48px) */
-  }
-  @media (min-width: 1024px) {
-    .header-logo-slogan { margin-top: -18px; padding-left: 8px; }  /* lg  h-16 (64px) */
-  }
-  @media (min-width: 1280px) {
-    .header-logo-slogan { margin-top: -22px; padding-left: 9px; }  /* xl  h-20 (80px) */
-  }
-  @media (min-width: 1536px) {
-    .header-logo-slogan { margin-top: -25px; padding-left: 10px; } /* 2xl h-[88px]   */
-  }
-  .header-logo-slogan-primary { @apply block text-[9px] font-extrabold tracking-[0.04em] text-[#1F396D] sm:text-[10px] lg:text-[11px] xl:text-xs; }
-  .header-logo-slogan-secondary { @apply block text-[7px] font-semibold lowercase tracking-[0.08em] text-slate-500 sm:text-[8px] lg:text-[9px]; }
-  
   @media (max-width: 1023px) {
     .header-mainrow {
       display: grid;
@@ -305,12 +278,6 @@ body {
       height: 42px !important;
       width: auto !important;
       max-width: 100% !important;
-    }
-    .header-logo-slogan-primary {
-      font-size: 8px !important;
-    }
-    .header-logo-slogan-secondary {
-      font-size: 6px !important;
     }
   }
   .header-desktop-nav { @apply hidden lg:flex items-center space-x-0 min-w-0 flex-1 justify-center; }
