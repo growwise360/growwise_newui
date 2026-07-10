@@ -532,6 +532,8 @@ export default function BookAssessmentPageClient() {
           assessment_type: assessmentData.assessmentType,
           subject_interest: formData.subjectInterest,
           grade: assessmentData.grade,
+          value: 49,
+          currency: 'USD',
         });
         router.replace(publicPath('/book-assessment/thank-you', locale));
         return;
