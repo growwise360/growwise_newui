@@ -89,6 +89,10 @@ export function ResourceArticlePage({
   const defaultOpenFaqs = getDefaultOpenFaqValues(faqs.length, (idx) => `${slug}-faq-${idx}`)
   const figureKeyword = readableSlug(slug)
   const figureImage = resourceFigureImagesBySlug[slug] ?? resourceFigureImages[category]
+  const assessmentCta = ctas.find((cta) => cta.href === '/book-assessment' || cta.href.startsWith('/book-assessment?'))
+  const earlyCtas = assessmentCta
+    ? [assessmentCta, ...ctas.filter((cta) => cta !== assessmentCta)].slice(0, 2)
+    : []
 
   return (
     <main data-resource-article={slug} className="min-h-screen bg-background font-sans">
@@ -127,6 +131,35 @@ export function ResourceArticlePage({
                 <h2 className="font-heading text-lg font-bold text-[#1F396D]">{answerBlock.heading}</h2>
               ) : null}
               <p className="mt-2 text-base leading-relaxed text-slate-700">{answerBlock.text}</p>
+            </div>
+          ) : null}
+          {earlyCtas.length > 0 ? (
+            <div className="mt-5 rounded-xl border border-[#1F396D]/10 bg-white p-4 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-5">
+              <div>
+                <p className="text-sm font-semibold text-[#1F396D]">
+                  Not sure which option fits your child?
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                  Start with a GrowWise assessment, then compare programs with a clearer read on the actual gap.
+                </p>
+              </div>
+              <div className="mt-4 flex flex-col gap-2 sm:mt-0 sm:flex-row sm:shrink-0">
+                {earlyCtas.map((cta, index) => (
+                  <Button
+                    key={cta.label}
+                    asChild
+                    variant={index === 0 ? 'default' : 'outline'}
+                    className={cn(
+                      'min-h-[44px] rounded-lg px-4 text-sm font-semibold',
+                      index === 0
+                        ? 'bg-[#F16112] text-white hover:bg-[#d54f0a]'
+                        : 'border-[#1F396D]/20 text-[#1F396D] hover:bg-[#1F396D]/5',
+                    )}
+                  >
+                    <Link href={publicPath(cta.href, locale)}>{cta.label}</Link>
+                  </Button>
+                ))}
+              </div>
             </div>
           ) : null}
           <figure className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">

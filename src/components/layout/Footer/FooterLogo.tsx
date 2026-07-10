@@ -20,6 +20,14 @@ export default function FooterLogo({ logo, description }: FooterLogoProps) {
           aria-label={logo.alt}
         />
       </div>
+      <p className="mb-4 max-w-xs leading-tight" aria-label="Education First Always. business second.">
+        <span className="block text-sm font-extrabold tracking-[0.04em] text-[#1F396D]">
+          Education First Always.
+        </span>
+        <span className="mt-1 block text-xs font-semibold lowercase tracking-[0.12em] text-slate-500">
+          business second.
+        </span>
+      </p>
       <p className="text-gray-600 leading-relaxed mb-6">
         {description}
       </p>

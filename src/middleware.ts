@@ -138,6 +138,7 @@ const KNOWN_PUBLIC_PATHS = new Set([
   '/login',
   '/math-finals-practice-session/thank-you',
   '/self-check/done',
+  '/student-login',
   '/testimonials-test',
   '/camps/summer/guide-success',
   '/camps/summer/lottery-success',

@@ -104,7 +104,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
                   <li><strong>Stripe</strong> — payment processing</li>
                   <li><strong>SendGrid</strong> — transactional and program email</li>
                   <li><strong>HubSpot</strong> — CRM and lead management</li>
-                  <li><strong>Google, Meta, and Microsoft</strong> — analytics and advertising measurement (with consent where required)</li>
+                  <li><strong>Google, Meta, Microsoft, and Nextdoor</strong> — analytics and advertising measurement (with consent where required)</li>
                 </ul>
                 <p className="text-gray-700 mt-4">
                   SMS consent and phone numbers collected for SMS communication purposes will not be shared, sold, rented, or disclosed to third parties or affiliates for marketing purposes.
