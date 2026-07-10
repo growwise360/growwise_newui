@@ -82,6 +82,9 @@ const BODY = `# GrowWise School
 - [Best Tutoring in Dublin CA](https://growwiseschool.org/resources/best-tutoring-dublin-ca)
 - [How to Choose a Coding School for Your Child](https://growwiseschool.org/resources/how-to-choose-coding-school-for-kids)
 - [Questions to Ask at Back-to-School Night](https://growwiseschool.org/resources/back-to-school-night-parent-questions)
+- [Kumon Alternative in Dublin CA](https://growwiseschool.org/resources/kumon-alternative-dublin-ca)
+- [Mathnasium Alternative in Dublin & Pleasanton](https://growwiseschool.org/resources/mathnasium-alternative-dublin-pleasanton)
+- [RSM Alternative in Dublin CA](https://growwiseschool.org/resources/rsm-alternative-dublin-ca)
 
 ## Info
 - [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/dublin-ca)

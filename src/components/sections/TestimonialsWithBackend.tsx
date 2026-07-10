@@ -8,7 +8,7 @@ import ClientOnly from '@/components/providers/ClientOnly';
 import { useTestimonials } from '@/hooks/useTestimonials';
 import { TestimonialVM } from '@/lib/testimonialsApi';
 import { StructuredDataScript } from '@/components/seo/StructuredDataScript';
-import { generateReviewSchema, generateAggregateRatingSchema } from '@/lib/seo/structuredData';
+import { generateReviewSchema } from '@/lib/seo/structuredData';
 import { OptimizedImage } from '@/components/gw/OptimizedImage';
 
 export default function TestimonialsWithBackend() {
@@ -29,11 +29,12 @@ export default function TestimonialsWithBackend() {
     minRating: 1 // Show all reviews
   });
 
-  // Generate structured data for reviews and aggregate rating
+  // Review JSON-LD only — no AggregateRating: self-serving aggregate ratings on the
+  // org's own pages violate Google's review-snippet policy (SEO audit 2026-07-08).
   const structuredData = useMemo(() => {
     if (!testimonials || testimonials.length === 0) return []
-    
-    const reviews = testimonials.map((testimonial) =>
+
+    return testimonials.map((testimonial) =>
       generateReviewSchema({
         itemReviewed: {
           "@type": "EducationalOrganization",
@@ -49,20 +50,6 @@ export default function TestimonialsWithBackend() {
         reviewBody: testimonial.content,
       })
     )
-
-    // Calculate average rating
-    const avgRating = testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
-
-    const aggregateRating = generateAggregateRatingSchema({
-      itemReviewed: {
-        "@type": "EducationalOrganization",
-        name: "GrowWise"
-      },
-      ratingValue: Math.round(avgRating * 10) / 10, // Round to 1 decimal
-      reviewCount: testimonials.length,
-    })
-
-    return [...reviews, aggregateRating]
   }, [testimonials])
 
   // Show 3 cards per set in slider

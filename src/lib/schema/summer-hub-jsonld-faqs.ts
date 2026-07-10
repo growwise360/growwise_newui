@@ -5,6 +5,10 @@ import summerCampFaqData from '../../../public/api/mock/en/summer-camp-faq.json'
 /** Hub FAQ shown in accordion and FAQPage JSON-LD — single source of truth. */
 export const SUMMER_HUB_PRIORITY_FAQS: FAQItem[] = [
   {
+    question: 'Does GrowWise offer summer camps in Dublin CA?',
+    answer: `Yes. GrowWise runs summer camps from June through August at ${CONTACT_INFO.street}, Dublin, CA ${CONTACT_INFO.zipCode}. Programs have included Math Olympiad (AMC8/MOEMS prep), Advanced Math, AI Entrepreneur Studio, Scratch coding, Roblox game development, Robotics, and Young Authors creative writing — availability varies by season, so check the booking grid on this page. Camps run in small groups of about 8 students, and every student leaves with a tangible output: a published game, a working project, a completed story, or a competition-ready math skill set.`,
+  },
+  {
     question: 'What grades are GrowWise summer STEAM camps for?',
     answer:
       'The summer booking grid on this page serves Grades 3–6 for Robotics, Young Authors, Scratch, Roblox, and AI Entrepreneur Studio. AI Entrepreneur may accept older students by placement. Robotics, Roblox game development, and Young Authors are not currently accepting applications for Summer 2026. Scratch and AI Entrepreneur Studio remain open for self-serve enrollment. For academic sprints (Grades 1–10) or high school math intensives (Grades 8–12), see the links on this page.',

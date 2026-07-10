@@ -58,9 +58,8 @@ describe('camp-landing-jsonld', () => {
       expect(course.name).toBe(page!.h1);
       expect(course.description).toBe(page!.metaDescription);
       expect(course.url).toBe(`${BASE_URL}/camps/ai-studio-dublin-ca`);
-      expect(course.provider).toMatchObject({
-        '@type': 'EducationalOrganization',
-        name: 'GrowWise',
+      expect(course.provider).toEqual({
+        '@id': 'https://growwiseschool.org#organization',
       });
       expect(course.location).toMatchObject({
         '@type': 'Place',

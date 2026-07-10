@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { ENABLED_LOCALES, DEFAULT_LOCALE } from '@/i18n/localeConfig';
 import { getCanonicalPathAlias } from '@/lib/seo/canonical-path-aliases';
-import { PUBLIC_SITEMAP_PATHS } from '@/lib/seo/public-paths';
+import { buildBlogPaths, buildPagesPaths } from '@/lib/seo/sitemapData';
 
 /**
  * Strip www subdomain to enforce single canonical domain (301 redirect).
@@ -120,7 +120,8 @@ const ROOT_PUBLIC_FILES = new Set([
 ]);
 
 const KNOWN_PUBLIC_PATHS = new Set([
-  ...PUBLIC_SITEMAP_PATHS,
+  ...buildPagesPaths(),
+  ...buildBlogPaths(),
   // Live noindex pages that are intentionally excluded from the sitemap but
   // must remain reachable via internal links (not being here = hard 404).
   '/resources/downloads',

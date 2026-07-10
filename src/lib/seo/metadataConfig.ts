@@ -51,7 +51,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/from-nextdoor': {
     title: 'GrowWise in Dublin, CA — Trusted by Neighbors',
     description:
-      'Dublin parents choose GrowWise for STEM, coding, and tutoring. Top-rated locally. Book a free assessment.',
+      'Dublin parents choose GrowWise for math, English, coding, and STEAM tutoring. See local reviews and book a free assessment.',
     keywords:
       'tutoring Dublin CA, GrowWise Dublin, Nextdoor tutoring Dublin, coding classes Dublin, Tri-Valley tutoring, learning center Dublin California, tutoring Dublin California',
     path: '/from-nextdoor',
@@ -78,7 +78,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/resources/student-corner': {
-    title: 'Student Corner | Student Writing & Project Showcase | GrowWise',
+    title: 'Student Corner — Writing & Project Showcase | GrowWise',
     description:
       'Explore GrowWise Student Corner, a showcase destination for student articles, short stories, creative writing, coding projects, and portfolio work.',
     keywords:
@@ -250,7 +250,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/future-skills/design-creative-media': {
     title: 'Design & Creative Media Certification Pathway',
     description:
-      'Creative design, visual communication, portfolio projects, and Adobe certification readiness for Grades 5-10.',
+      'Creative design, visual communication, portfolio projects, and Adobe certification readiness for Grades 5-10 at GrowWise Dublin.',
     keywords:
       'Canva design classes for kids, creative media classes students, Adobe Certified Professional prep, Certiport Authorized Testing Center Dublin, Photoshop certification prep students, Illustrator certification prep, Premiere Pro certification prep, design portfolio for students, digital design classes Dublin CA',
     path: '/future-skills/design-creative-media',
@@ -259,7 +259,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/future-skills/python-certification': {
     title: 'Python Certification Pathway | GrowWise',
     description:
-      'Python fundamentals, project fluency, Certiport Python readiness, and PCEP/OpenEDG pathway in progress for Grades 7-12.',
+      'Python fundamentals, project fluency, Certiport Python readiness, and PCEP/OpenEDG pathway prep for Grades 7-12 in Dublin.',
     keywords:
       'Python certification for students, Certiport Python readiness, PCEP OpenEDG pathway in progress, ITS Python Certiport Dublin, Python coding classes Dublin CA, high school computer science preparation, Python project builder, Python certification readiness for teens',
     path: '/future-skills/python-certification',
@@ -340,7 +340,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/self-check': {
     title: 'Academic Self-Check for Students | GrowWise Dublin CA',
     description:
-      'Answer 8 questions to see your math or English strengths and the gaps holding you back - in under 10 minutes.',
+      'Answer 8 questions to see your math or English strengths, hidden skill gaps, and next best step in under 10 minutes.',
     keywords:
       'math self-check, free math diagnostic, math mistake patterns, math tutoring Dublin CA, child math assessment, math gap finder, GrowWise School',
     path: '/self-check',
@@ -855,6 +855,36 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     type: 'article',
   },
 
+  '/resources/kumon-alternative-dublin-ca': {
+    title: 'Kumon Alternative in Dublin CA | GrowWise Compared',
+    description:
+      'Looking for a Kumon alternative in Dublin, CA? Compare teaching model, school-curriculum alignment, class size, and pricing before you choose.',
+    keywords:
+      'kumon alternative dublin ca, alternative to kumon, kumon vs growwise, math tutoring dublin ca, kumon alternative tri-valley',
+    path: '/resources/kumon-alternative-dublin-ca',
+    type: 'article',
+  },
+
+  '/resources/mathnasium-alternative-dublin-pleasanton': {
+    title: 'Mathnasium Alternative Dublin & Pleasanton | GrowWise',
+    description:
+      'Comparing Mathnasium in Dublin or Pleasanton? See how school-curriculum alignment, progress reporting, and teacher-led sessions differ at GrowWise.',
+    keywords:
+      'mathnasium alternative dublin, mathnasium alternative pleasanton, mathnasium vs growwise, math enrichment pleasanton ca, math tutoring dublin ca',
+    path: '/resources/mathnasium-alternative-dublin-pleasanton',
+    type: 'article',
+  },
+
+  '/resources/rsm-alternative-dublin-ca': {
+    title: 'RSM Alternative in Dublin CA | School-Aligned Math',
+    description:
+      'Weighing RSM in Dublin or Pleasanton? Compare its accelerated separate curriculum with school-aligned, depth-plus-retention math at GrowWise.',
+    keywords:
+      'rsm alternative dublin ca, russian school of math alternative, rsm vs growwise, integrated math tutor dublin ca, im1 tutor pleasanton',
+    path: '/resources/rsm-alternative-dublin-ca',
+    type: 'article',
+  },
+
   '/resources/back-to-school-night-parent-questions': {
     title: 'Questions to Ask at Back-to-School Night | Parent Guide',
     description:
@@ -875,7 +905,7 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/privacy-policy': {
-    title: 'Privacy Policy | GrowWise',
+    title: 'Privacy Policy — Student & Family Data Protection | GrowWise',
     description:
       'Read the GrowWise privacy policy. Learn how we collect, use, store, and protect your personal information as a student or parent on our platform.',
     keywords: 'GrowWise privacy policy, data protection, personal information',

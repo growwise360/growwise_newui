@@ -92,6 +92,21 @@ describe('sitemapData', () => {
     }
   });
 
+  it('emits a lastmod for every URL, from real git dates (not one faked date)', () => {
+    const urls = [...buildPagesUrls(BASE), ...buildBlogUrls(BASE)];
+    for (const u of urls) {
+      expect(u.lastmod).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+    const distinct = new Set(urls.map((u) => u.lastmod));
+    expect(distinct.size).toBeGreaterThanOrEqual(2);
+  });
+
+  it('prefers the generated git-history date over a caller fallback', () => {
+    const urls = buildPagesUrls(BASE, '1999-01-01');
+    const home = urls.find((u) => u.loc === `${BASE}/`);
+    expect(home?.lastmod).not.toBe('1999-01-01');
+  });
+
   it('renders a sitemap index for child sitemaps', () => {
     const xml = renderSitemapIndex(getChildSitemaps(BASE, LASTMOD));
     expect(xml).toContain('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');

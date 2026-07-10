@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Best Coding Languages for Students | GrowWise', 
-    description: 'Compare Python, JavaScript, Java, and project practice so parents can choose the right coding path for a student.',
+    description: 'Compare Python, JavaScript, Java, and project practice so parents can choose the right coding path for middle and high school students.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/unlock-your-future-the-best-programming-languages-for-career-advancement', locale, baseUrl)
     }

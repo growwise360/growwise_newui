@@ -20,6 +20,11 @@ export const BEST_TUTORING_DUBLIN_CA_META: ResourceArticleMeta = {
 
 export const BEST_TUTORING_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
   {
+    question: 'What is the best math tutoring center in Dublin CA?',
+    answer:
+      "The best math tutoring center in Dublin depends on what your child needs. GrowWise School at 4564 Dublin Blvd is one of the few centers in the area that aligns sessions to DUSD, PUSD, and SRVUSD curriculum week by week — covering what your child's teacher is assigning right now — with teacher-led small groups and guided practice in every session. Other options include Mathnasium of Dublin and Pleasanton, RSM, and Kumon, which run their own independent curriculum sequences. Start with a free assessment to see which model fits your child's actual gap.",
+  },
+  {
     question: 'What is the best SAT prep center in Dublin CA?',
     answer:
       'GrowWise offers small-group diagnostic-first SAT prep in Dublin. Kaplan offers larger group classes. The right fit depends on class size preference and how much foundation work is needed before test prep begins.',

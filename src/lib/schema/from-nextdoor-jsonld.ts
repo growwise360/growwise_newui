@@ -2,7 +2,6 @@ import { CONTACT_INFO } from '@/lib/constants'
 import { FROM_NEXTDOOR_COPY, FROM_NEXTDOOR_PATH } from '@/data/from-nextdoor-copy'
 import { FROM_NEXTDOOR_FAQS } from '@/data/from-nextdoor-faqs'
 import { generateBreadcrumbSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
-import { buildAggregateRatingJsonLd } from '@/lib/seo/socialProof'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 
 const LOCAL_BUSINESS_ID_SUFFIX = '#localbusiness'
@@ -25,7 +24,6 @@ export function buildFromNextdoorLocalBusinessSchema(baseUrl: string, pageUrl?: 
       addressCountry: 'US',
     },
     telephone: '+19254564606',
-    aggregateRating: buildAggregateRatingJsonLd(),
   }
 }
 
