@@ -86,6 +86,51 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/resources/student-corner',
   },
 
+  '/resources/student-articles': {
+    title: 'Published Student Articles | Student Corner | GrowWise',
+    description:
+      'Read published student articles, reflections, explainers, and opinion writing from GrowWise students.',
+    keywords:
+      'student articles, student writing, student essays, research reflections, opinion writing, GrowWise student corner',
+    path: '/resources/student-articles',
+  },
+
+  '/resources/student-creative-writing': {
+    title: 'Short Stories & Creative Writing | Student Corner | GrowWise',
+    description:
+      'Explore short stories, personal narratives, creative scenes, and polished writing from GrowWise students.',
+    keywords:
+      'student creative writing, short stories, personal narratives, student stories, GrowWise writing students',
+    path: '/resources/student-creative-writing',
+  },
+
+  '/resources/student-projects': {
+    title: 'Projects & Portfolio Highlights | Student Corner | GrowWise',
+    description:
+      'Explore coding, AI, design, and portfolio projects from GrowWise students.',
+    keywords:
+      'student projects, coding projects, AI projects, student portfolio, GrowWise student work',
+    path: '/resources/student-projects',
+  },
+
+  '/resources/student-articles/books-beyond-personality': {
+    title: 'Books Beyond Personality | Student Article | GrowWise',
+    description:
+      'Read a GrowWise Student Corner article by Aaran Karthik about how books shape personality, confidence, knowledge, and worldview.',
+    keywords:
+      'student article, student writing, books and personality, reading reflection, GrowWise student corner, student essay',
+    path: '/resources/student-articles/books-beyond-personality',
+  },
+
+  '/resources/student-articles/how-recycling-helps-the-environment': {
+    title: 'How Recycling Helps The Environment | Student Article | GrowWise',
+    description:
+      'Read a GrowWise Student Corner article by Aaran Karthik about how recycling reduces waste and protects natural resources.',
+    keywords:
+      'student article, recycling essay, environment article, student writing, GrowWise student corner, natural resources',
+    path: '/resources/student-articles/how-recycling-helps-the-environment',
+  },
+
   '/dublin-ca': {
     title: 'K-12 Tutoring & Coding Classes in Dublin, CA | GrowWise',
     description:

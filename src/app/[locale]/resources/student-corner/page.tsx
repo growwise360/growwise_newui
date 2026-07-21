@@ -9,6 +9,8 @@ const showcaseSections = [
       'Opinion pieces, research reflections, explainers, and student perspectives that show clear thinking and voice.',
     icon: BookOpen,
     examples: ['Research reflections', 'Opinion writing', 'Learning explainers'],
+    href: '/resources/student-articles',
+    cta: 'View Articles',
   },
   {
     id: 'short-stories',
@@ -17,6 +19,8 @@ const showcaseSections = [
       'Narrative writing, character work, descriptive scenes, and polished drafts from GrowWise writing students.',
     icon: PenLine,
     examples: ['Short stories', 'Personal narratives', 'Creative scenes'],
+    href: '/resources/student-creative-writing',
+    cta: 'View Writing',
   },
   {
     id: 'project-showcase',
@@ -25,6 +29,8 @@ const showcaseSections = [
       'Coding, AI, design, and problem-solving projects students can proudly point to as real work.',
     icon: Code2,
     examples: ['Coding projects', 'AI projects', 'Digital portfolios'],
+    href: '/resources/student-projects',
+    cta: 'View Projects',
   },
 ] as const
 
@@ -46,12 +52,12 @@ export default function StudentCornerPage() {
       <section className="py-12 sm:py-16" aria-labelledby="showcase-types">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-bold uppercase tracking-wide text-[#F16112] sm:text-sm">Coming next</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-[#F16112] sm:text-sm">Student work sections</p>
             <h2 id="showcase-types" className="font-heading mt-2 text-2xl font-bold text-[#1F396D] sm:text-3xl">
-              Showcase sections we are preparing
+              Choose a showcase section
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-              This page is ready as the destination. As student pieces are approved, they can be added into the sections below.
+              Articles, creative writing, and projects each have their own page so student work stays organized as the showcase grows.
             </p>
           </div>
 
@@ -77,6 +83,13 @@ export default function StudentCornerPage() {
                       </li>
                     ))}
                   </ul>
+                  <Link
+                    href={section.href}
+                    className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-[#1F396D] px-5 text-sm font-bold text-white transition-colors hover:bg-[#172b52]"
+                  >
+                    {section.cta}
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                  </Link>
                 </article>
               )
             })}
