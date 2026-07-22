@@ -1,15 +1,22 @@
 import { render, screen } from '@testing-library/react'
 
-import ProjectsPage, { STUDENT_PROJECTS } from './page'
+import ProjectsPage from './page'
+
+const studentNames = [
+  'Dhriti Verma',
+  'Jayanth Panneer Selvam',
+  'Aadya Agarwal',
+  'Anvita Punati',
+  'Bhargava Ram Chekuri',
+  'Aaran Karthik',
+] as const
 
 describe('Student Projects page', () => {
   it('renders all six student profiles in the configured order', () => {
     render(<ProjectsPage />)
 
     const profileHeadings = screen.getAllByRole('heading', { level: 2 })
-    expect(profileHeadings.map((heading) => heading.textContent)).toEqual(
-      STUDENT_PROJECTS.map((project) => project.name),
-    )
+    expect(profileHeadings.map((heading) => heading.textContent)).toEqual(studentNames)
     expect(screen.getAllByText('Roblox Game Developer')).toHaveLength(6)
   })
 

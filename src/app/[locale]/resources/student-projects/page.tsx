@@ -13,7 +13,7 @@ type StudentProject = {
   tutorialUrl?: string
 }
 
-export const STUDENT_PROJECTS: readonly StudentProject[] = [
+const STUDENT_PROJECTS: readonly StudentProject[] = [
   {
     name: 'Dhriti Verma',
     grade: 7,
