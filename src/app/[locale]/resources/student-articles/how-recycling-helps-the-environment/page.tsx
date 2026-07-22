@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -30,6 +31,17 @@ export default function HowRecyclingHelpsTheEnvironmentPage() {
           </p>
           <p className="mt-3 font-heading text-xl font-bold text-slate-900">By Aaran Karthik</p>
         </header>
+
+        <figure className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+          <Image
+            src="/images/resources/student-recycling-infographic.webp"
+            alt="Infographic comparing a polluted world without recycling with a cleaner world that recycles plastics, paper, cardboard, metals, and glass"
+            width={1536}
+            height={1024}
+            priority
+            className="h-auto w-full"
+          />
+        </figure>
 
         <div className="mt-8 space-y-6 text-xl leading-relaxed text-slate-950">
           {paragraphs.map((paragraph) => (

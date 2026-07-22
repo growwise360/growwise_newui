@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -33,6 +34,16 @@ export default function BooksBeyondPersonalityPage() {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
+
+        <figure className="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+          <Image
+            src="/images/resources/student-books-shape-personality.webp"
+            alt="Two hand-drawn illustrations showing how reading builds confidence, wisdom, knowledge, courage, leadership, and new ideas"
+            width={1559}
+            height={1009}
+            className="h-auto w-full"
+          />
+        </figure>
       </article>
     </main>
   )
