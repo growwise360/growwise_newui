@@ -86,6 +86,21 @@ const corePages: SitemapEntry[] = [
   { path: '/growwise-blogs', priority: 0.85, changefreq: 'weekly' },
   { path: '/resources', priority: 0.85, changefreq: 'weekly' },
   { path: '/resources/student-corner', priority: 0.75, changefreq: 'monthly' },
+  { path: '/resources/student-articles', priority: 0.7, changefreq: 'monthly', lastmod: '2026-07-16' },
+  { path: '/resources/student-creative-writing', priority: 0.65, changefreq: 'monthly', lastmod: '2026-07-16' },
+  { path: '/resources/student-projects', priority: 0.65, changefreq: 'monthly', lastmod: '2026-07-16' },
+  {
+    path: '/resources/student-articles/books-beyond-personality',
+    priority: 0.65,
+    changefreq: 'monthly',
+    lastmod: '2026-07-16',
+  },
+  {
+    path: '/resources/student-articles/how-recycling-helps-the-environment',
+    priority: 0.65,
+    changefreq: 'monthly',
+    lastmod: '2026-07-16',
+  },
 ]
 
 const coursePages: SitemapEntry[] = [
