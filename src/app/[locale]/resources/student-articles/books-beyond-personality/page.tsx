@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
+import StudentArticleRating from '@/components/resources/StudentArticleRating'
+
 const paragraphs = [
   '“A book made me zero to hero”, many leaders state. Reading books is the magical power that shapes your personality. Books are the key to opening up new pathways.',
   'When I was 9, I went to a leadership conference with my dad. In that conference, they talked about leadership books and how it made them grow into their lives. I wondered, does this apply to all books? Surprisingly, yes! Let me share some examples. Take Hello Universe, it morally teaches you to explore the world and overcome your fears. This opens up a confidence personality pathway. Another example may be textbooks, teaching you fundamental skills for the future, opening up a wise personality and making you more knowledgeable, helping with struggles and decisions later in life.',
@@ -44,6 +46,8 @@ export default function BooksBeyondPersonalityPage() {
             className="h-auto w-full"
           />
         </figure>
+
+        <StudentArticleRating slug="books-beyond-personality" />
       </article>
     </main>
   )

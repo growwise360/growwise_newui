@@ -6,12 +6,13 @@
  * Resets on cold start, but email deduplication (C-4) provides the real abuse protection.
  */
 
-export type RateLimitNamespace = 'chat' | 'contact' | 'assessment' | 'enroll';
+export type RateLimitNamespace = 'chat' | 'contact' | 'assessment' | 'enroll' | 'rating';
 
 const CHAT_DEFAULT_MAX = 20;
 const CHAT_DEFAULT_WINDOW_MS = 15 * 60_000;
 const FORM_DEFAULT_MAX = 5;
 const FORM_DEFAULT_WINDOW_MS = 60 * 60_000;
+const RATING_DEFAULT_MAX = 30;
 
 const MAX_TRACKED_IPS = 10_000;
 
@@ -24,6 +25,12 @@ function getLimits(namespace: RateLimitNamespace): { max: number; windowMs: numb
     return {
       max: Number(process.env.CHAT_RATE_LIMIT_MAX) || CHAT_DEFAULT_MAX,
       windowMs: Number(process.env.CHAT_RATE_LIMIT_WINDOW_MS) || CHAT_DEFAULT_WINDOW_MS,
+    };
+  }
+  if (namespace === 'rating') {
+    return {
+      max: Number(process.env.RATING_RATE_LIMIT_MAX) || RATING_DEFAULT_MAX,
+      windowMs: FORM_DEFAULT_WINDOW_MS,
     };
   }
   return {
