@@ -1,0 +1,19 @@
+html:has([data-academic-summer-page]),
+html:has([data-academic-seo-landing]),
+html:has([data-im-get-ready-landing]),
+body:has([data-academic-summer-page]),
+body:has([data-academic-seo-landing]),
+body:has([data-im-get-ready-landing]) {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+[data-im-get-ready-landing] {
+  --im-landing-nav-height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  [data-im-get-ready-landing] {
+    --im-landing-nav-height: 3.25rem;
+  }
+}

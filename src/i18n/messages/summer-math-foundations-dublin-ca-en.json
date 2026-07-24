@@ -1,0 +1,108 @@
+{
+  "hero": {
+    "eyebrow": "Summer 2026 · Dublin, CA · Grades 1–8",
+    "h1": "Summer Math Program in Dublin, CA",
+    "subtext": "Fix math gaps before school starts. Small-group daily instruction in fractions, word problems, and grade readiness — 90 min/day, max 8 students, DUSD aligned.",
+    "ctaLabel": "View schedule & pricing →"
+  },
+  "keyDetails": ["90 min/day", "Max 8 students", "Starts June 15", "DUSD aligned", "4564 Dublin Blvd"],
+  "bodySections": {
+    "whatYourChildWillWorkOn": {
+      "heading": "What your child will work on",
+      "subsections": [
+        {
+          "h3": "Bridge the Gap Math — Week by Week",
+          "weeks": [
+            {
+              "title": "Week 1 — Finding the gap:",
+              "body": "The first week begins with a structured diagnostic — not a test, but a set of problem types that reveal exactly where a student's math understanding breaks down. From there, the instructor builds daily lessons around the specific gaps most common to that group: fractions, decimals, multi-step operations, or place value. Students work through problems in class with instructor support before practicing independently in the 30-minute practice lab."
+            },
+            {
+              "title": "Week 2 — Building the next step:",
+              "body": "In Week 2, instruction shifts from identifying gaps to applying skills in context — particularly word problems, which require students to identify what operation is needed, set up the problem correctly, and check their work. By the end of Week 2, students have a clearer sense of where they were stuck and how to get unstuck independently."
+            }
+          ]
+        }
+      ]
+    },
+    "whoTeaches": {
+      "heading": "Who teaches this program",
+      "body": "Bridge the Gap Math is led by a subject-trained math instructor experienced with elementary and middle school curriculum. The instructor is familiar with DUSD and Common Core grade-level expectations and structures each session around the skills students most commonly lack entering the next grade. With a maximum of 8 students per group, instruction is specific — not one-size-fits-all."
+    },
+    "whoIsRightFor": {
+      "heading": "Who this is right for",
+      "groups": [
+        {
+          "label": "Bridge the Gap Math is right for your child if:",
+          "items": [
+            "They passed their grade level but you are not confident the skills are solid",
+            "Fractions, decimals, or word problems consistently cause frustration",
+            "Their teacher mentioned they are \"almost there\" but need more practice",
+            "They are entering a new school or grade level in the fall and you want them ready",
+            "They freeze when a math problem has more than one step"
+          ]
+        }
+      ],
+      "notRightFor": {
+        "label": "Bridge the Gap Math is not the right fit if:",
+        "items": [
+          "Your child needs support specifically with IM1, Algebra 1, or Geometry — those have dedicated Get Ready Sprint programs running in the evenings"
+        ]
+      }
+    },
+    "whyGrowWise": {
+      "heading": "Why GrowWise for math foundations",
+      "body": "For Tri-Valley families, the stakes of math gaps are real — DUSD's progression from elementary math into IM1 and Algebra 1 moves quickly, and small gaps compound year over year. Bridge the Gap Math is designed specifically to address those foundational gaps before they affect performance in middle school math. It is not a drill-and-repeat program. It is structured, instructor-led, small-group instruction — the same format used in GrowWise's year-round math programs serving Dublin, Pleasanton, San Ramon, and Livermore families."
+    }
+  },
+  "programCardOverrides": {
+    "bridge-the-gap-math": {
+      "tagline": "Find the missing skill. Build the next step."
+    }
+  },
+  "mainCta": {
+    "headline": "Ready to reserve a spot?",
+    "subtext": "Select your cohort and grade band on the full program page.",
+    "button": "View full schedule & pricing →"
+  },
+  "relatedPrograms": {
+    "heading": "Related summer programs",
+    "hubLinkLabel": "View all programs & pricing →",
+    "items": {
+      "readingWriting": {
+        "label": "Summer Reading & Writing",
+        "description": "Read to Prove & Write to Explain · Grades 1–8"
+      },
+      "algebra": {
+        "label": "Algebra 1 Get Ready",
+        "description": "Starting Algebra 1 in fall?"
+      },
+      "geometry": {
+        "label": "Geometry Get Ready",
+        "description": "Proofs & spatial reasoning prep · Grades 9–10"
+      }
+    }
+  },
+  "faq": [
+    {
+      "question": "What math topics does Bridge the Gap Math cover?",
+      "answer": "Bridge the Gap Math covers fractions, decimals, word problems, multi-step math, and grade-level readiness skills. The instructor identifies gaps specific to each student's grade and focuses instruction on the most critical missing skills."
+    },
+    {
+      "question": "How is this different from Mathnasium or a tutoring center?",
+      "answer": "Bridge the Gap Math is a structured 2-week sprint with a defined DUSD-aligned curriculum, a daily schedule, and a subject-trained instructor — not ongoing drop-in sessions. Max 8 students means your child gets real attention, not a worksheet in a crowded room."
+    },
+    {
+      "question": "My child is entering Grade 7. Should they take Bridge the Gap Math or IM1 Get Ready?",
+      "answer": "If your child has foundational gaps in fractions or multi-step math, start with Bridge the Gap Math (Grades 1–8, evenings). If they are specifically entering Grade 7 accelerated math (IM1), IM1 Get Ready is the right fit (evenings, DUSD aligned). Contact us if you are unsure."
+    },
+    {
+      "question": "What grade levels does Bridge the Gap Math actually serve?",
+      "answer": "Bridge the Gap Math serves Grades 1–8. Instruction is grouped by skill level within the session. A Grade 4 student working on fractions and a Grade 6 student working on ratios may be in the same group if their gaps are in a similar foundational area. The instructor differentiates within the group as needed."
+    },
+    {
+      "question": "Is there homework or take-home work after each session?",
+      "answer": "No homework is assigned. The 30-minute guided practice lab at the end of each session serves as the practice component — students complete it with the instructor still in the room so questions can be answered on the spot. Parents do not need to supervise math work at home."
+    }
+  ]
+}

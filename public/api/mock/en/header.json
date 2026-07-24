@@ -1,7 +1,7 @@
 {
   "topBar": {
     "phone": "(925) 456-4606",
-    "email": "connect@thegrowwise.com",
+    "email": "contact@growwiseschool.org",
     "address": "📍 4564 Dublin Blvd, Dublin, CA",
     "followLabel": "Follow us:",
     "social": {
@@ -19,7 +19,6 @@
       "label": "Home",
       "href": "/",
       "type": "simple",
-      "active": true,
       "variant": "blue"
     },
     {
@@ -33,55 +32,60 @@
         "subtitle": "Choose your learning path",
         "items": [
           {
-            "key": "courses",
-            "title": "Courses",
-            "description": "Browse our academic courses",
-            "icon": "BookOpen",
-            "href": "/courses",
-            "gradient": "from-[#1F396D] to-[#F16112]",
+            "key": "math",
+            "title": "Math",
+            "description": "School-aligned math support from foundations to advanced tracks.",
+            "icon": "Calculator",
+            "href": "/academic/math",
+            "gradient": "from-[#1F396D] to-[#29335C]",
             "hasSubmenu": true,
+            "submenuHeaderTitle": "Math",
+            "submenuHeaderSubtitle": "Grades 1–12 math programs",
             "submenuItems": [
               {
-                "key": "math",
-                "title": "Math Courses",
-                "description": "Master mathematics from basics to advanced",
+                "key": "elementary-math",
+                "title": "Elementary Math",
+                "description": "Grades 1–5 foundations, problem solving, and confidence building.",
                 "icon": "Calculator",
-                "href": "/courses/math",
+                "href": "/academic/math/elementary",
                 "gradient": "from-[#1F396D] to-[#29335C]"
               },
               {
-                "key": "english",
-                "title": "English Courses",
-                "description": "Comprehensive English language arts",
+                "key": "middle-school-math",
+                "title": "Middle School Math",
+                "description": "Grades 6–8, Course 1–3, accelerated math, IM1, and IM2.",
                 "icon": "BookOpen",
-                "href": "/courses/english",
-                "gradient": "from-[#F16112] to-[#F1894F]"
+                "href": "/academic/math/middle-school",
+                "gradient": "from-[#1F396D] to-[#F16112]"
+              },
+              {
+                "key": "high-school-math",
+                "title": "High School Math",
+                "description": "Algebra, Geometry, Algebra II, Precalculus, Calculus, and Statistics.",
+                "icon": "GraduationCap",
+                "href": "/academic/math/high-school",
+                "gradient": "from-[#29335C] to-[#1F396D]"
               }
             ]
           },
           {
-            "key": "highSchoolMath",
-            "title": "High School Math",
-            "description": "Advanced mathematics for high school students",
-            "icon": "GraduationCap",
-            "href": "/courses/high-school-math",
-            "gradient": "from-[#29335C] to-[#1F396D]",
+            "key": "english",
+            "title": "English Courses",
+            "description": "Reading, writing, grammar, vocabulary, and comprehension.",
+            "icon": "BookOpen",
+            "href": "/academic/english",
+            "gradient": "from-[#F16112] to-[#F1894F]",
             "hasSubmenu": true,
-            "submenuHeaderSubtitle": "Tutoring, curriculum, and finals prep",
+            "submenuHeaderTitle": "English",
+            "submenuHeaderSubtitle": "Grades 1–12 English programs",
             "submenuItems": [
               {
-                "title": "High School Math",
-                "description": "Algebra I through Pre-Calculus — tutoring overview",
-                "icon": "GraduationCap",
-                "href": "/courses/high-school-math",
-                "gradient": "from-[#29335C] to-[#1F396D]"
-              },
-              {
-                "title": "Math Finals Prep",
-                "description": "End-of-year finals support & structured prep program",
-                "icon": "Target",
-                "href": "/math-finals-practice-session",
-                "gradient": "from-[#1F396D] to-[#F16112]"
+                "key": "elementary-english",
+                "title": "Elementary School English",
+                "description": "Grades 1–5 reading fluency, vocabulary, grammar, and writing.",
+                "icon": "BookOpen",
+                "href": "/academic/english/elementary",
+                "gradient": "from-[#F16112] to-[#F1894F]"
               }
             ]
           },
@@ -100,81 +104,51 @@
             "icon": "BookMarked",
             "href": "/book-assessment",
             "gradient": "from-[#F16112] to-[#1F396D]"
-          },
-          {
-            "key": "enrollAcademic",
-            "title": "Enroll Now - Academic",
-            "description": "Register for academic programs today",
-            "icon": "UserCheck",
-            "href": "/enroll-academic",
-            "gradient": "from-[#1F396D] to-[#F16112]"
           }
         ]
       }
     },
     {
       "key": "steam",
-      "label": "STEAM",
-      "href": "/steam",
+      "label": "Coding & AI",
+      "href": "/future-skills",
       "type": "dropdown",
       "variant": "orange",
       "dropdown": {
-        "title": "STEAM Programs",
-        "subtitle": "Explore science, technology, and creativity",
+        "title": "Certification Pathways",
+        "subtitle": "Project-first pathways with optional external credentials",
         "items": [
           {
-            "key": "mlAi",
-            "title": "ML/AI Coding",
-            "description": "Explore artificial intelligence and machine learning",
-            "icon": "Brain",
-            "href": "/steam/ml-ai-coding",
+            "key": "designCreativeMedia",
+            "title": "Design & Creative Media",
+            "description": "Creative design, visual communication, portfolio projects, and Adobe certification pathway.",
+            "icon": "Palette",
+            "href": "/future-skills/design-creative-media",
             "gradient": "from-[#1F396D] to-[#F16112]"
           },
           {
-            "key": "gameDev",
-            "title": "Game Development",
-            "description": "Create games with Roblox, Scratch, and Unity",
-            "icon": "Gamepad2",
-            "href": "/steam/game-development",
-            "gradient": "from-[#F16112] to-[#F1894F]"
-          }
-        ]
-      }
-    },
-    {
-      "key": "camps",
-      "label": "Camps",
-      "href": "/camps",
-      "type": "dropdown",
-      "variant": "orange",
-      "dropdown": {
-        "title": "Camps & Programs",
-        "subtitle": "Join our exciting camp experiences",
-        "items": [
-          {
-            "key": "winterCamp",
-            "title": "Winter Camp",
-            "description": "Engaging winter programs for students",
-            "icon": "Calendar",
-            "href": "/camps/winter",
-            "gradient": "from-[#F16112] to-[#F1894F]",
-            "visible": false
-          },
-          {
-            "key": "summerCamp",
-            "title": "Summer Camp",
-            "description": "Accredited summer programs in Math, Coding, and Robotics",
-            "icon": "Calendar",
-            "href": "/camps/summer",
-            "gradient": "from-[#F16112] to-[#F1894F]"
-          },
-          {
-            "key": "workshopCalendar",
-            "title": "Book Workshop/Webinar",
-            "description": "Browse and book upcoming workshops and webinars",
-            "icon": "BookMarked",
-            "href": "/workshop-calendar",
+            "key": "pythonCertification",
+            "title": "Python Certification",
+            "description": "Python fundamentals, project fluency, Certiport Python pathway, and PCEP/OpenEDG pathway in progress.",
+            "icon": "Code2",
+            "href": "/future-skills/python-certification",
             "gradient": "from-[#1F396D] to-[#29335C]"
+          },
+          {
+            "key": "aiData",
+            "title": "AI & Data / Artificial Intelligence",
+            "description": "AI literacy, responsible AI use, data concepts, Python for AI, and artificial intelligence certification pathway.",
+            "icon": "Brain",
+            "href": "/future-skills/ai-machine-learning",
+            "gradient": "from-[#29335C] to-[#1F396D]"
+          },
+          {
+            "key": "aiEntrepreneur",
+            "title": "AI Entrepreneur",
+            "description": "Problem discovery, AI-assisted product thinking, landing pages, business models, pitch practice, and entrepreneurship certification pathway.",
+            "icon": "BriefcaseBusiness",
+            "href": "/future-skills/ai-entrepreneurship",
+            "gradient": "from-[#F16112] to-[#F1894F]"
           }
         ]
       }
@@ -182,28 +156,76 @@
     {
       "key": "resources",
       "label": "Resources",
-      "href": "#",
-      "type": "simple",
+      "href": "/resources",
+      "type": "dropdown",
       "variant": "orange",
-      "visible": false
-    },
-    {
-      "key": "blogs",
-      "label": "Blogs",
-      "href": "/growwise-blogs",
-      "type": "simple",
-      "variant": "orange"
+      "dropdown": {
+        "title": "Resources",
+        "subtitle": "Parent guides, articles, and quick checks",
+        "items": [
+          {
+            "key": "parentsCorner",
+            "title": "Parent's Corner",
+            "description": "Guides for learning gaps, tutoring choices, and school readiness.",
+            "icon": "BookOpen",
+            "href": "/resources",
+            "gradient": "from-[#1F396D] to-[#29335C]"
+          },
+          {
+            "key": "parentDownloads",
+            "title": "Parent Downloads",
+            "description": "Free Math and English study plans parents can use at home.",
+            "icon": "Download",
+            "href": "/resources/downloads",
+            "gradient": "from-[#F16112] to-[#F1894F]",
+            "badge": "Free"
+          },
+          {
+            "key": "blogs",
+            "title": "Blogs",
+            "description": "GrowWise articles on learning, confidence, coding, and school support.",
+            "icon": "BookMarked",
+            "href": "/growwise-blogs",
+            "gradient": "from-[#29335C] to-[#1F396D]"
+          },
+          {
+            "key": "readinessCheck",
+            "title": "5-Minute Readiness Check",
+            "description": "Quick back-to-school checklist for math and learning gaps.",
+            "icon": "UserCheck",
+            "href": "/readinesschecklist",
+            "gradient": "from-[#F16112] to-[#F1894F]",
+            "badge": "Free"
+          },
+          {
+            "key": "mathMistakeSelfCheck",
+            "title": "Math Mistake Self-Check",
+            "description": "Find the pattern behind repeated math mistakes.",
+            "icon": "Target",
+            "href": "/self-check",
+            "gradient": "from-[#29335C] to-[#F16112]"
+          },
+          {
+            "key": "workshopCalendar",
+            "title": "Workshop Calendar",
+            "description": "Upcoming workshops, webinars, and parent events at GrowWise.",
+            "icon": "CalendarDays",
+            "href": "/workshop-calendar",
+            "gradient": "from-[#1D9E75] to-[#1F396D]"
+          }
+        ]
+      }
     },
     {
       "key": "about",
-      "label": "About Us",
+      "label": "About",
       "href": "/about",
       "type": "simple",
       "variant": "orange"
     },
     {
       "key": "contact",
-      "label": "Contact Us",
+      "label": "Contact",
       "href": "/contact",
       "type": "simple",
       "variant": "orange"
@@ -266,7 +288,7 @@
         "title": "High School Math",
         "description": "Advanced mathematics for high school students",
         "icon": "GraduationCap",
-        "href": "/courses/high-school-math",
+        "href": "/academic/math/high-school",
         "gradient": "from-[#29335C] to-[#1F396D]"
       },
       {
@@ -284,35 +306,43 @@
         "icon": "BookMarked",
         "href": "/book-assessment",
         "gradient": "from-[#F16112] to-[#1F396D]"
-      },
-      {
-        "key": "enrollAcademic",
-        "title": "Enroll Now - Academic",
-        "description": "Register for academic programs today",
-        "icon": "UserCheck",
-        "href": "/enroll-academic",
-        "gradient": "from-[#1F396D] to-[#F16112]"
       }
     ]
   },
   "steam": {
-    "dropdownTitle": "STEAM Programs",
-    "dropdownSubtitle": "Explore science, technology, and creativity",
+    "dropdownTitle": "Certification Pathways",
+    "dropdownSubtitle": "Project-first pathways with optional external credentials",
     "items": [
       {
-        "key": "mlAi",
-        "title": "ML/AI Coding",
-        "description": "Explore artificial intelligence and machine learning",
-        "icon": "Brain",
-        "href": "/steam/ml-ai-coding",
+        "key": "designCreativeMedia",
+        "title": "Design & Creative Media",
+        "description": "Creative design, visual communication, portfolio projects, and Adobe certification pathway.",
+        "icon": "Palette",
+        "href": "/future-skills/design-creative-media",
         "gradient": "from-[#1F396D] to-[#F16112]"
       },
       {
-        "key": "gameDev",
-        "title": "Game Development",
-        "description": "Create games with Roblox, Scratch, and Unity",
-        "icon": "Gamepad2",
-        "href": "/steam/game-development",
+        "key": "pythonCertification",
+        "title": "Python Certification",
+        "description": "Python fundamentals, project fluency, Certiport Python pathway, and PCEP/OpenEDG pathway in progress.",
+        "icon": "Code2",
+        "href": "/future-skills/python-certification",
+        "gradient": "from-[#1F396D] to-[#29335C]"
+      },
+      {
+        "key": "aiData",
+        "title": "AI & Data / Artificial Intelligence",
+        "description": "AI literacy, responsible AI use, data concepts, Python for AI, and artificial intelligence certification pathway.",
+        "icon": "Brain",
+        "href": "/future-skills/ai-machine-learning",
+        "gradient": "from-[#29335C] to-[#1F396D]"
+      },
+      {
+        "key": "aiEntrepreneur",
+        "title": "AI Entrepreneur",
+        "description": "Problem discovery, AI-assisted product thinking, landing pages, business models, pitch practice, and entrepreneurship certification pathway.",
+        "icon": "BriefcaseBusiness",
+        "href": "/future-skills/ai-entrepreneurship",
         "gradient": "from-[#F16112] to-[#F1894F]"
       }
     ]
@@ -320,5 +350,3 @@
   "footerHelper": "Need help choosing?",
   "footerContactCta": "Contact us"
 }
-
-

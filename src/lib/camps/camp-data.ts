@@ -37,6 +37,31 @@ const SHARED_SCHEDULE = [
   },
 ] as const;
 
+const SUMMER_STEAM_HALF_DAY_SCHEDULE = [
+  {
+    label: "Season",
+    primary: "Summer 2026 · June–August",
+  },
+  {
+    label: "Schedule",
+    primary: "Mon–Fri · 9:00 AM – 12:00 PM (Half-Day)",
+  },
+  {
+    label: "Enrollment",
+    primary: "Select a week at /camps/summer and add to cart",
+  },
+] as const;
+
+const SUMMER_CAMP_ENROLL_CTA = {
+  label: "View Weeks & Enroll →",
+  href: "/camps/summer",
+} as const;
+
+const SUMMER_CAMP_ENROLL_CTA_CLOSED = {
+  label: "Summer hub (applications closed)",
+  href: "/camps/summer",
+} as const;
+
 const BASE_TRUST = [
   { text: "One Dublin, CA campus — clear, consistent operations" },
   { text: "Structured curriculum with accountable outcomes" },
@@ -46,9 +71,9 @@ const BASE_TRUST = [
 export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
   {
     slug: "ai-studio-dublin-ca",
-    seoTitle: "AI Studio Summer Camp in Dublin, CA | GrowWise School",
+    seoTitle: "AI Studio Summer Camp Dublin CA | GrowWise",
     metaDescription:
-      "A structured AI Studio summer experience at GrowWise in Dublin, CA—built for Tri-Valley families seeking serious skill-building, not hype. Inquiry-first enrollment.",
+      "AI Studio summer camp at GrowWise in Dublin, CA — project-based AI learning for grades 6–12. Built for Tri-Valley families who want substance.",
     h1: "AI Studio Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",
     heroSubtext:
@@ -121,13 +146,15 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
     seoTitle: "Robotics Summer Camp in Dublin, CA | GrowWise School",
     metaDescription:
       "Hands-on robotics summer camp at GrowWise in Dublin, CA. Engineering habits, build-test cycles, and accountable instruction for Tri-Valley families.",
+    metaKeywords:
+      "robotics camp Dublin CA, robotics Dublin California, LEGO robotics Dublin, engineering camp Tri-Valley, robotics summer camp Dublin CA 2026",
+    scheduleIntro: null,
     h1: "Robotics Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",
     heroSubtext:
       "Build engineering habits through repeated build-test cycles: mechanics, sensors, and code coming together as a system. Camp runs at our Dublin campus; many families commute from San Ramon, Pleasanton, Livermore, and Danville.",
     primaryCta: { label: "Request a seat", href: "#inquiry" },
     secondaryCta: { label: "See program structure", href: "#program" },
-    earlyBirdText: "Ask about cohort capacity and week placement during inquiry.",
     trustBarItems: BASE_TRUST,
     programCards: [
       {
@@ -147,7 +174,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
           "Roles, handoffs, and short standups—professional habits that keep projects moving without turning camp into chaos.",
       },
     ],
-    scheduleRows: SHARED_SCHEDULE,
+    scheduleRows: SUMMER_STEAM_HALF_DAY_SCHEDULE,
     servedCities: SHARED_SERVED,
     driveTimes: SHARED_DRIVES,
     faqItems: [
@@ -173,6 +200,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Robotics — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Discuss robotics placement with our team.",
     stickyCtaButton: { label: "Inquiry form", href: "#inquiry" },
@@ -181,9 +209,12 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
   },
   {
     slug: "game-development-camp-dublin-ca",
-    seoTitle: "Game Development Summer Camp in Dublin, CA | GrowWise School",
+    seoTitle: "Game Development Summer Camp Dublin CA | GrowWise",
     metaDescription:
-      "Game development summer camp at GrowWise in Dublin, CA: systems thinking, implementation discipline, and reviewable milestones—built for Tri-Valley families who want substance, not gimmicks.",
+      "Game dev summer camp at GrowWise in Dublin, CA — real builds, systems thinking, reviewable milestones. For Tri-Valley families, grades 5–12.",
+    metaKeywords:
+      "game development camp Dublin CA, Roblox camp Dublin, coding camp Dublin CA, game design summer camp Tri-Valley",
+    scheduleIntro: null,
     h1: "Game Development Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",
     heroSubtext:
@@ -209,7 +240,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
           "Short feedback cycles: observe confusion, adjust, repeat—how real products improve without relying on talent myths.",
       },
     ],
-    scheduleRows: SHARED_SCHEDULE,
+    scheduleRows: SUMMER_STEAM_HALF_DAY_SCHEDULE,
     servedCities: SHARED_SERVED,
     driveTimes: SHARED_DRIVES,
     faqItems: [
@@ -235,6 +266,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Game Development — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Ask about game dev cohort placement.",
     stickyCtaButton: { label: "Submit inquiry", href: "#inquiry" },
@@ -243,9 +275,12 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
   },
   {
     slug: "math-olympiad-camp-dublin-ca",
-    seoTitle: "Math Olympiad Summer Camp in Dublin, CA | GrowWise School",
+    seoTitle: "Math Olympiad Summer Camp Dublin CA | GrowWise",
     metaDescription:
-      "Challenging, structured math olympiad-style summer work at GrowWise in Dublin, CA—problem-solving discipline for motivated Tri-Valley students.",
+      "Math Olympiad prep camp in Dublin, CA. AMC8-ready problem solving for grades 5–8. Small groups, expert instruction at GrowWise School.",
+    metaKeywords:
+      "math olympiad camp Dublin CA, AMC8 prep Dublin, MOEMS camp Tri-Valley, math competition camp Dublin CA 2026",
+    scheduleIntro: null,
     h1: "Math Olympiad Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",
     heroSubtext:
@@ -271,7 +306,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
           "Short explanations and clean notation matter. We treat clear reasoning as part of the scorecard, not an afterthought.",
       },
     ],
-    scheduleRows: SHARED_SCHEDULE,
+    scheduleRows: SUMMER_STEAM_HALF_DAY_SCHEDULE,
     servedCities: SHARED_SERVED,
     driveTimes: SHARED_DRIVES,
     faqItems: [
@@ -297,6 +332,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Math Olympiad — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA,
     },
     stickyCtaText: "Discuss readiness for Olympiad-style training.",
     stickyCtaButton: { label: "Inquiry", href: "#inquiry" },
@@ -367,6 +403,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Robotics Full Day — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Ask about full-day robotics availability.",
     stickyCtaButton: { label: "Inquiry form", href: "#inquiry" },
@@ -375,9 +412,12 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
   },
   {
     slug: "young-authors-camp-dublin-ca",
-    seoTitle: "Young Authors Summer Camp in Dublin, CA | GrowWise School",
+    seoTitle: "Young Authors Summer Camp Dublin CA | GrowWise",
     metaDescription:
-      "Young Authors summer camp at GrowWise in Dublin, CA: drafting, revision, and publishing-ready habits—structured writing instruction for Tri-Valley families.",
+      "Young Authors camp at GrowWise in Dublin, CA — drafting, revision, publishing-ready writing habits for Tri-Valley students. Grades 3–8.",
+    metaKeywords:
+      "writing camp Dublin CA, young authors camp Dublin, creative writing summer camp Tri-Valley, writing program Dublin CA",
+    scheduleIntro: null,
     h1: "Young Authors Summer Camp (Dublin, CA)",
     eyebrow: "GrowWise School · Summer · Dublin campus",
     heroSubtext:
@@ -403,7 +443,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
           "Students aim for a completed piece they can read aloud or submit—confidence comes from completion habits.",
       },
     ],
-    scheduleRows: SHARED_SCHEDULE,
+    scheduleRows: SUMMER_STEAM_HALF_DAY_SCHEDULE,
     servedCities: SHARED_SERVED,
     driveTimes: SHARED_DRIVES,
     faqItems: [
@@ -429,6 +469,7 @@ export const CAMP_LANDING_PAGES: readonly CampLandingPage[] = [
       defaultCampInterest: "Young Authors — Dublin, CA",
       submitLabel: "Submit inquiry",
       notConnectedNotice: FORM_NOTICE,
+      enrollCta: SUMMER_CAMP_ENROLL_CTA_CLOSED,
     },
     stickyCtaText: "Discuss Young Authors placement.",
     stickyCtaButton: { label: "Go to inquiry", href: "#inquiry" },

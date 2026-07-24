@@ -1,13 +1,18 @@
 import {
   formatCampWeekSlotHeading,
   formatOlympiadTier2SlotHeading,
+  getMathOlympiadTier2IsoRange,
   getMathOlympiadTier2SlotLabel,
+  getSummerCampWeekIsoRange,
   getSummerCampWeekLabel,
+  isJune8SummerCampRegistrationClosed,
+  MATH_OLYMPIAD_TIER2_ISO_RANGES_2026,
   SUMMER_CAMP_EVENT_END_ISO,
   SUMMER_CAMP_EVENT_START_ISO,
   SUMMER_CAMP_JULY4_NOTE,
   SUMMER_CAMP_SEASON_RANGE_TEXT,
   SUMMER_CAMP_WEEK_COUNT,
+  SUMMER_CAMP_WEEK_ISO_RANGES_2026,
   SUMMER_CAMP_WEEK_LABELS_2026,
 } from '@/lib/summer-camp-week-calendar';
 
@@ -54,5 +59,37 @@ describe('summer-camp-week-calendar', () => {
     expect(formatOlympiadTier2SlotHeading(0)).toBe(
       `Weeks 1-2 (${getMathOlympiadTier2SlotLabel(0)})`
     );
+  });
+
+  it('identifies Jun 8-starting slots as closed for registration', () => {
+    expect(isJune8SummerCampRegistrationClosed('Week 1 (Jun 8–12, 2026)')).toBe(true);
+    expect(isJune8SummerCampRegistrationClosed('Weeks 1-2 (Jun 8 – Jun 19, 2026)')).toBe(true);
+    expect(isJune8SummerCampRegistrationClosed('Week 1 (Jun 9, 10, 11)')).toBe(false);
+    expect(isJune8SummerCampRegistrationClosed('Week 2 (Jun 15–19, 2026)')).toBe(false);
+  });
+
+  it('ISO week ranges align with week labels', () => {
+    expect(SUMMER_CAMP_WEEK_ISO_RANGES_2026).toHaveLength(8);
+    expect(SUMMER_CAMP_WEEK_ISO_RANGES_2026[0]).toEqual({
+      startDate: '2026-06-08',
+      endDate: '2026-06-12',
+    });
+    expect(SUMMER_CAMP_WEEK_ISO_RANGES_2026[7]).toEqual({
+      startDate: '2026-07-27',
+      endDate: '2026-07-31',
+    });
+    expect(getSummerCampWeekIsoRange(8)).toBeUndefined();
+  });
+
+  it('Math Olympiad tier 2 ISO ranges span bi-weekly slots', () => {
+    expect(MATH_OLYMPIAD_TIER2_ISO_RANGES_2026).toHaveLength(4);
+    expect(getMathOlympiadTier2IsoRange(0)).toEqual({
+      startDate: '2026-06-08',
+      endDate: '2026-06-19',
+    });
+    expect(getMathOlympiadTier2IsoRange(3)).toEqual({
+      startDate: '2026-07-20',
+      endDate: '2026-07-31',
+    });
   });
 });

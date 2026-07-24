@@ -1,12 +1,16 @@
 import { Metadata } from 'next'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { ENGLISH_COURSE_MERGED_FAQ_JSONLD } from '@/lib/schema/course-hub-jsonld-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
+import { generateCourseSchema } from '@/lib/seo/structuredData'
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const metadata = generateMetadataFromPath('/courses/english', locale)
+  const metadata = generateMetadataFromPath('/academic/english', locale)
   return metadata || { title: 'English Courses | GrowWise', description: 'Comprehensive English courses' }
 }
 
@@ -38,7 +42,7 @@ export default async function EnglishCoursesLayout({
       "Writing Skills"
     ],
     coursePrerequisites: "Placement assessment recommended to determine appropriate level",
-    url: absoluteSiteUrl('/courses/english', locale, baseUrl),
+    url: absoluteSiteUrl(MATH_COURSE_PATHS.english, locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {
       price: "35",
@@ -48,25 +52,27 @@ export default async function EnglishCoursesLayout({
     }
   })
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Programs', url: absoluteSiteUrl('/programs', locale, baseUrl) },
-    { name: 'Academic', url: absoluteSiteUrl('/academic', locale, baseUrl) },
-    { name: 'English Courses', url: absoluteSiteUrl('/courses/english', locale, baseUrl) },
-  ])
-
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
+          {
+            name: 'Academic Programs',
+            url: absoluteSiteUrl('/academic', locale, baseUrl),
+          },
+          {
+            name: 'English Courses',
+            url: absoluteSiteUrl(MATH_COURSE_PATHS.english, locale, baseUrl),
+          },
+        ]}
       />
+      <FAQSchema faqs={ENGLISH_COURSE_MERGED_FAQ_JSONLD} />
       {children}
     </>
   )
 }
-

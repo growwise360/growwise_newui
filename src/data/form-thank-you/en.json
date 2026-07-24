@@ -1,21 +1,22 @@
 {
   "book-assessment": {
-    "version": 1,
+    "version": 2,
     "metaTitle": "Assessment request received | GrowWise",
     "metaDescription": "Thank you — we received your free assessment booking. Our team will contact you within 24 hours to confirm your appointment.",
-    "title": "Thank you for your request",
+    "title": "You're booked. We'll be in touch within 1 business day.",
     "kicker": "Submission completed successfully.",
     "body": [
-      "We've received your free assessment booking request. Our team will contact you within 24 hours to confirm your appointment."
+      "We've received your free assessment booking request. Our team will contact you within 24 hours to confirm your appointment.",
+      "In the meantime, explore what your child will be working toward:"
     ],
     "highlights": [
       { "text": "24-hour response guaranteed" },
       { "text": "Your data is secure" },
       { "text": "Welcome to GrowWise!" }
     ],
-    "primaryCta": { "label": "Book another assessment", "path": "/book-assessment" },
-    "secondaryCta": { "label": "Explore programs", "path": "/programs" },
-    "backLink": { "label": "Back to home", "path": "/" }
+    "primaryCta": { "label": "K–12 Math Tutoring", "path": "/academic/math" },
+    "secondaryCta": { "label": "High School Math Tutoring", "path": "/academic/math/high-school" },
+    "backLink": { "label": "Back to assessment", "path": "/book-assessment" }
   },
   "enroll": {
     "version": 1,

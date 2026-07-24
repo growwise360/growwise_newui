@@ -28,16 +28,6 @@ export default function SteamLayout({
       "url": baseUrl,
     },
     "areaServed": ["Dublin, CA", "Pleasanton, CA", "San Ramon, CA", "Tri-Valley, CA"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "STEAM Programs",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "ML/AI Coding", "url": `${baseUrl}/steam/ml-ai-coding` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Game Development", "url": `${baseUrl}/steam/game-development` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Coding Programs", "url": `${baseUrl}/coding` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Game Dev", "url": `${baseUrl}/game-dev` } },
-      ],
-    },
   }
 
   return (

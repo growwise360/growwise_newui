@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, Code, Target, Users, Lightbulb, CheckCircle 
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/the-advantage-in-choosing-the-right-coding-class-for-your-child.webp'
@@ -19,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Right Coding Class for Your Child | GrowWise', 
-    description: 'Learn how selecting the right coding class can set your child up for success in technology and future career opportunities.',
+    description: 'Learn how to choose a coding class that matches your child\'s level, teaches real concepts, provides feedback, and builds confidence through projects.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/the-advantage-in-choosing-the-right-coding-class-for-your-child', locale, baseUrl)
     }
@@ -30,17 +33,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: 'The Advantage in Choosing the Right Coding Class for Your Child', url: absoluteSiteUrl('/growwise-blogs/the-advantage-in-choosing-the-right-coding-class-for-your-child', locale, baseUrl) },
-  ])
+  ]
 
   const pageUrl = absoluteSiteUrl('/growwise-blogs/the-advantage-in-choosing-the-right-coding-class-for-your-child', locale, baseUrl)
   const articleSchema = generateArticleSchema({
     headline: 'The Advantage in Choosing the Right Coding Class for Your Child',
     description: 'Learn how selecting the right coding class can set your child up for success in technology and future career opportunities.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-01-28',
+    dateModified: '2025-01-28',
   })
 
   return (
@@ -49,10 +55,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="the-advantage-in-choosing-the-right-coding-class-for-your-child" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -105,6 +109,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Finding the right coding class can feel overwhelming. The advantage in choosing the right coding class for your child is significant. With numerous options, from online courses to in-person boot camps, it's easy to feel lost.
               </p>
 
+              <LegacyBlogAeoBlock slug="the-advantage-in-choosing-the-right-coding-class-for-your-child" />
+
               <p className="text-gray-700 mb-8">
                 Get ready to have your uncertainties squared away – this guide arms you with the smarts to make a rock-solid decision.
               </p>
@@ -118,7 +124,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -129,7 +135,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  the advantage in choosing the right coding class for your child visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Coding Education Matters</h2>
 
@@ -270,21 +279,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
+        />
       </div>
     </>
   )

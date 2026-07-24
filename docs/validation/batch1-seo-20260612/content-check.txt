@@ -1,0 +1,4 @@
+/enroll | status=200 | H1s=['Enroll at GrowWise', 'Enroll at GrowWise School — Dublin, CA'] | words=4958
+/game-dev | status=200 | H1s=['Your child already loves games.Now they&#x27;ll build them.'] | words=4782
+/camps/academic-summer-programs-dublin-ca | status=200 | H1s=['Academic Summer Programs in Dublin, CA', 'Daily 90-Minute Academic Summer Programs in Dublin, CA'] | words=7482
+/camps/winter/calendar | status=200 | H1s=['Winter Camp Calendar', 'Calendar Week'] | words=5429

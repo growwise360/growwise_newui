@@ -1,0 +1,28 @@
+.pageRoot {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.pageRoot main {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* :global(#slots-section) — CSS modules hash bare #ids in :not(), which would still apply overflow-x to #slots-section and break sticky panel + site header scroll */
+.pageRoot main > section:not(:global(#slots-section)) {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.pageRoot main > :global(#slots-section) {
+  overflow: visible;
+}
+
+@media (max-width: 639px) {
+  .pageRoot main :global(.grid) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

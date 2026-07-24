@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { PROGRAMS_FAQS } from '@/data/programs-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
@@ -19,7 +21,7 @@ export default function ProgramsLayout({
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Grades 1-12 Academic & STEAM Programs | GrowWise Dublin CA",
-    "description": "All GrowWise programs for Grades 1-12 students in Dublin, CA: Math tutoring, English tutoring, SAT prep, ML/AI coding, game development, and summer camps.",
+    "description": "All GrowWise programs for Grades 1-12 students in Dublin, CA: Math tutoring, English tutoring, SAT prep, Future Skills certification pathways, ML/AI coding, game development, and summer camps.",
     "url": `${baseUrl}/programs`,
     "serviceType": "Grades 1-12 Educational Programs",
     "provider": {
@@ -28,17 +30,6 @@ export default function ProgramsLayout({
       "url": baseUrl,
     },
     "areaServed": ["Dublin, CA", "Pleasanton, CA", "San Ramon, CA", "Tri-Valley, CA"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "All Programs",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Math Tutoring", "url": `${baseUrl}/courses/math` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "English Tutoring", "url": `${baseUrl}/courses/english` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "SAT Prep", "url": `${baseUrl}/courses/sat-prep` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "ML/AI Coding", "url": `${baseUrl}/steam/ml-ai-coding` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Game Development", "url": `${baseUrl}/steam/game-development` } },
-      ],
-    },
   }
 
   return (
@@ -47,6 +38,7 @@ export default function ProgramsLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
+      <FAQSchema faqs={PROGRAMS_FAQS} />
       {children}
     </>
   )

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
@@ -12,6 +13,8 @@ import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { CONTACT_FAQS } from "@/data/contact-faqs";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { 
   Phone, 
   Mail, 
@@ -40,6 +43,7 @@ import { useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchContactRequested } from '@/store/slices/contactSlice';
 import { getIconComponent } from '@/lib/iconMap';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 import { contactService } from '@/lib/contactService';
 import { CONTACT_INFO } from '@/lib/constants';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
@@ -123,6 +127,9 @@ export default function Contact() {
       });
 
       if (result.success) {
+        trackGenerateLead('contact_form', {
+          form_name: 'contact',
+        });
         router.replace(publicPath('/contact/thank-you', locale));
         return;
       } else {
@@ -151,16 +158,7 @@ export default function Contact() {
 
   const officeHours = contact?.officeHours ?? [];
 
-  const faqs = [
-    {
-      question: "How do I know which GrowWise program is right for my child before committing to anything?",
-      answer: "The free assessment is the right starting point. GrowWise evaluates your child's current level and recommends the most appropriate program and format — small group or one-on-one, in-person or online. There is no commitment required to complete the assessment.",
-    },
-    {
-      question: "What happens after I submit the contact form?",
-      answer: "A GrowWise team member will reach out to schedule your child's free assessment. The assessment identifies your child's current level and which program fits — Math or English academic support, a STEAM program, or a summer camp.",
-    },
-  ];
+  const faqs = [...CONTACT_FAQS];
 
   const socialLinks = contact?.socialLinks ?? [];
 
@@ -550,7 +548,7 @@ export default function Contact() {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <Users className="w-5 h-5 text-[#F1894F]" />
-                      <span className="text-sm">325+ Happy Students</span>
+                      <span className="text-sm">387+ Happy Students</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Star className="w-5 h-5 text-[#F1894F]" />
@@ -581,6 +579,14 @@ export default function Contact() {
             </h2>
             <p className="text-lg text-gray-600">
               Located in the heart of {CONTACT_INFO.city}, our facility provides an optimal learning environment
+            </p>
+            <p className="mt-3 text-base">
+              <Link
+                href={publicPath('/dublin-ca', locale)}
+                className="font-semibold text-[#1F396D] underline-offset-4 hover:text-[#152a52] hover:underline"
+              >
+                View in-person K-12 tutoring &amp; coding programs at our Dublin, CA center →
+              </Link>
             </p>
           </div>
 
@@ -693,7 +699,11 @@ export default function Contact() {
             </p>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(faqs.length, (index) => `item-${index}`)}
+          >
             {faqs.map((faq, index) => (
               <AccordionItem 
                 key={index} 

@@ -36,16 +36,6 @@ export default function AcademicLayout({
       "url": baseUrl,
     },
     "areaServed": ["Dublin, CA", "Pleasanton, CA", "San Ramon, CA", "Tri-Valley, CA"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Academic Programs",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "Math Tutoring Grades 1-12", "url": `${baseUrl}/courses/math` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "High School Math", "url": `${baseUrl}/courses/high-school-math` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "English Tutoring Grades 1-12", "url": `${baseUrl}/courses/english` } },
-        { "@type": "Offer", "itemOffered": { "@type": "Course", "name": "SAT Prep", "url": `${baseUrl}/courses/sat-prep` } },
-      ],
-    },
   }
 
   return (

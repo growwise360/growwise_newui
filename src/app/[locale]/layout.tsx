@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
 import dynamic from 'next/dynamic';
-import { NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { NextIntlClientProvider, type AbstractIntlMessages } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import ContentProvider from "@/components/providers/ContentProvider";
 import { ChatbotProvider } from "@/contexts/ChatbotContext";
+import LazyChatbot from "@/components/chatbot/LazyChatbot";
+import { WhatsAppFloatingButton } from '@/components/layout/WhatsAppFloatingButton';
 import { locales } from '@/i18n/config';
 import { PageTrackingWrapper } from '@/components/analytics/PageTrackingWrapper';
-import { organizationSchema, localBusinessSchema, websiteSchema } from '@/lib/seo/structuredData';
+import { HomeCampsStripSlot } from '@/components/sections/home/HomeCampsStripSlot';
+import { websiteSchema } from '@/lib/seo/structuredData';
+import { isLocaleEnabled } from '@/i18n/localeConfig';
+
+import ParentResourcesBar from '@/components/layout/ParentResourcesBar';
 
 const Header = dynamic(() => import("@/components/layout/Header/Header"));
 const Footer = dynamic(() => import("@/components/layout/Footer/Footer"));
-const LazyChatbot = dynamic(() => import("@/components/chatbot/LazyChatbot"));
 
 // Default metadata - can be overridden by page-specific generateMetadata
 export const metadata: Metadata = {
-  title: "Grades 1-12 Tutoring & STEAM | Dublin CA | GrowWise",
+  title: "K-12 Online Tutoring & Coding Classes | GrowWise",
   description:
-    "Grades 1-12 tutoring and STEAM in Dublin, CA. Math, English, coding, and SAT prep. Small groups, personalized lessons. Book a free assessment.",
+    "GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
   keywords: "tutoring Dublin CA, Grades 1-12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning",
   icons: {
     icon: '/icon.png',
@@ -29,6 +35,40 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+/**
+ * Namespaces referenced by client components (`useTranslations`) — the only
+ * messages that must be serialized into the HTML payload for hydration.
+ * Server components read translations from the request config directly.
+ * Regenerate with: rg -o "useTranslations\((['\"])([^'\"]*)" src (plus the key
+ * prefixes of namespace-less `useTranslations()` call sites).
+ */
+const CLIENT_MESSAGE_NAMESPACES = [
+  'about',
+  'academic',
+  'assessment',
+  'chatbot',
+  'codingPage',
+  'common',
+  'commonForm',
+  'contact',
+  'enroll',
+  'enrollnow',
+  'gameDevPage',
+  'navigation',
+  'notFound',
+  'pricingUi',
+  'summerCamp',
+  'trial',
+] as const;
+
+function pickClientMessages(messages: AbstractIntlMessages): AbstractIntlMessages {
+  const picked: AbstractIntlMessages = {};
+  for (const ns of CLIENT_MESSAGE_NAMESPACES) {
+    if (messages[ns] !== undefined) picked[ns] = messages[ns];
+  }
+  return picked;
+}
+
 export default async function LocaleLayout({
   children,
   params
@@ -37,19 +77,14 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  if (!isLocaleEnabled(locale)) {
+    notFound();
+  }
   const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      {/* Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+    <NextIntlClientProvider locale={locale} messages={pickClientMessages(messages)}>
+      {/* WebSite search JSON-LD — primary EducationalOrganization lives in root layout head */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
@@ -58,12 +93,15 @@ export default async function LocaleLayout({
       <ChatbotProvider>
         <ContentProvider>
           <PageTrackingWrapper>
+            <HomeCampsStripSlot />
             <Header />
             <main id="main-content" suppressHydrationWarning>
               {children}
             </main>
+            <ParentResourcesBar />
             <Footer />
             <LazyChatbot />
+            <WhatsAppFloatingButton />
           </PageTrackingWrapper>
         </ContentProvider>
       </ChatbotProvider>

@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, Code, TrendingUp, Target, Briefcase } from '
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers.webp'
@@ -18,9 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return { 
-    title: 'Python for Career Growth | GrowWise', 
-    description:
-      'Why Python opens doors: versatile skills, strong hiring demand, and a clear path from first scripts to real projects.',
+    title: 'Python for Future-Ready Students | GrowWise', 
+    description: 'See why Python is a practical first language for students building automation, data, AI, web tools, and portfolio-ready projects.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers', locale, baseUrl)
     }
@@ -31,17 +33,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
-    { name: 'Why Learning Python is Your Fast Track to In-Demand Job Offers', url: absoluteSiteUrl('/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers', locale, baseUrl) },
-  ])
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Why Python Is a Strong First Language for Future-Ready Students', url: absoluteSiteUrl('/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers', locale, baseUrl) },
+  ]
 
   const pageUrl = absoluteSiteUrl('/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers', locale, baseUrl)
   const articleSchema = generateArticleSchema({
-    headline: 'Why Learning Python is Your Fast Track to In-Demand Job Offers',
-    description: 'Why Python opens doors: versatile skills, strong hiring demand, and a clear path from first scripts to real projects.',
+    headline: 'Why Python Is a Strong First Language for Future-Ready Students',
+    description: 'Why Python helps students move from first scripts to real projects in automation, data, AI, and web tools.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-10-18',
+    dateModified: '2024-10-18',
   })
 
   return (
@@ -50,10 +55,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="why-learning-python-is-your-fast-track-to-in-demand-job-offers" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -70,7 +73,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
           <div className="relative max-w-4xl mx-auto z-10">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-              Why Learning Python is Your Fast Track to In-Demand Job Offers
+              Why Python Is a Strong First Language for Future-Ready Students
             </h1>
 
             <Link 
@@ -100,11 +103,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 prose prose-lg max-w-none">
               
               <p className="lead text-xl text-gray-700 mb-8">
-                Python is one of the most sought-after programming languages in today's job market. From data science to web development, AI to automation, Python skills open doors to countless career opportunities.
+                Python is one of the strongest first text-based languages for students because it is readable, practical, and useful across many project types. A child can start with simple scripts, then grow into data, AI, automation, games, and web tools.
               </p>
 
+              <LegacyBlogAeoBlock slug="why-learning-python-is-your-fast-track-to-in-demand-job-offers" />
+
               <p className="text-gray-700 mb-8">
-                Discover why Python is the key to unlocking in-demand job offers and how learning this versatile language can accelerate your career growth.
+                The parent job is to choose a language that builds confidence quickly without trapping the student in toy-only coding. Python does that well because students can see useful results early.
               </p>
 
               <p className="text-gray-700 mb-6 text-sm">
@@ -115,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -126,12 +131,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  Python gives students a readable path from beginner logic to useful AI, data, automation, and web projects.
+                </figcaption>
+              </figure>
 
-              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Python is in High Demand</h2>
+              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Python Works Well for Students</h2>
 
               <p className="text-gray-700 mb-6">
-                Python's popularity isn't just a trend—it's a reflection of its versatility and power across multiple industries:
+                Python's popularity is not just a job-market trend. It works for students because it connects beginner logic to real projects:
               </p>
 
               <div className="grid md:grid-cols-2 gap-4 my-6">
@@ -168,34 +176,45 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </div>
               </div>
 
-              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Career Opportunities with Python</h2>
+              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">What Students Can Build with Python</h2>
 
               <p className="text-gray-700 mb-6">
-                Python skills open doors to high-paying roles across various industries:
+                Python gives students multiple directions to explore before they have to choose a college or career path:
               </p>
 
               <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-8">
-                <li><strong>Data Scientist</strong> – Analyze data and build predictive models</li>
-                <li><strong>Software Engineer</strong> – Develop applications and systems</li>
-                <li><strong>Machine Learning Engineer</strong> – Build and deploy AI models</li>
-                <li><strong>Web Developer</strong> – Create dynamic websites and applications</li>
-                <li><strong>Automation Engineer</strong> – Streamline business processes</li>
+                <li><strong>Automation scripts</strong> - small tools that save time or organize information</li>
+                <li><strong>Data projects</strong> - charts, analysis, and simple prediction models</li>
+                <li><strong>AI experiments</strong> - basic models, prompts, and responsible AI workflows</li>
+                <li><strong>Games and simulations</strong> - interactive logic that makes debugging visible</li>
+                <li><strong>Web tools</strong> - simple apps that connect code to real users</li>
               </ul>
 
               <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
                 <p className="text-xl font-bold mb-4">
-                  Ready to Start Your Python Journey?
+                  Help Your Child Start with a Practical Coding Language
                 </p>
                 <p className="mb-6">
-                  Join GrowWise and learn Python from beginner to advanced level. Unlock career opportunities with in-demand skills.
+                  GrowWise helps students learn Python through small-group instruction, projects, and confidence-building practice.
                 </p>
-                <Link href="/enroll">
+                <Link href={publicPath('/future-skills/python-certification', locale)}>
                   <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
+                    Explore Python Pathway
                   </Button>
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Want to put Python skills into practice?{' '}
+                <Link href={publicPath('/future-skills/python-certification', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore the Python certification pathway
+                </Link>{' '}
+                — hands-on projects, small groups, Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}
@@ -211,23 +230,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
+        />
       </div>
     </>
   )
 }
-

@@ -69,12 +69,17 @@ export type CampFormConfig = {
   submitLabel: string;
   /** Shown after submit — honest “not wired yet” messaging */
   notConnectedNotice: string;
+  /** Optional CTA above the inquiry form (e.g. link to summer hub enrollment) */
+  enrollCta?: CampCta;
 };
 
 export type CampLandingPage = {
   slug: string;
   seoTitle: string;
   metaDescription: string;
+  metaKeywords?: string;
+  /** Schedule section intro; omit for default, null to hide, string for custom copy */
+  scheduleIntro?: string | null;
   /** Used for Open Graph / consistency */
   ogTitle?: string;
   h1: string;

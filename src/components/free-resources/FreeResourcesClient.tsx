@@ -1,8 +1,8 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import type { FreeResource, FreeResourcesTabId } from '@/data/resources'
-import { FREE_RESOURCES_TAB_IDS } from '@/data/resources'
+import type { FreeResource, FreeResourcesTabId } from '@/data/free-resources'
+import { FREE_RESOURCES_TAB_IDS } from '@/data/free-resources'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -20,7 +20,9 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 export function FreeResourcesClient({ resources }: { resources: FreeResource[] }) {
@@ -31,6 +33,8 @@ export function FreeResourcesClient({ resources }: { resources: FreeResource[] }
   const [phase, setPhase] = useState<'form' | 'success' | 'error'>('form')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [consent, setConsent] = useState(false)
+  const [honeypot, setHoneypot] = useState('')
 
   const filtered = useMemo(() => {
     if (activeTab === 'All') return resources
@@ -42,6 +46,8 @@ export function FreeResourcesClient({ resources }: { resources: FreeResource[] }
     setEmail('')
     setPhase('form')
     setErrorMessage(null)
+    setConsent(false)
+    setHoneypot('')
     setModalOpen(true)
   }
 
@@ -67,7 +73,8 @@ export function FreeResourcesClient({ resources }: { resources: FreeResource[] }
         body: JSON.stringify({
           email,
           resourceId: selected.id,
-          driveUrl: selected.driveUrl,
+          consent,
+          _hp: honeypot,
         }),
       })
       const data = (await res.json()) as { success?: boolean; error?: string }
@@ -183,6 +190,33 @@ export function FreeResourcesClient({ resources }: { resources: FreeResource[] }
                   className="h-11 rounded-lg border-gray-300 focus-visible:ring-[#1F396D]/30"
                 />
               </div>
+              <input
+                type="text"
+                name="_hp"
+                value={honeypot}
+                onChange={(event) => setHoneypot(event.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+              <div className="flex items-start gap-2.5">
+                <Checkbox
+                  id="free-resource-consent"
+                  checked={consent}
+                  onCheckedChange={(value) => setConsent(value === true)}
+                  disabled={submitting}
+                  required
+                  className="mt-0.5"
+                />
+                <Label htmlFor="free-resource-consent" className="text-sm leading-5 text-gray-700">
+                  I agree that GrowWise may use my email to send this resource. See the{' '}
+                  <Link href="/privacy-policy" className="text-[#1F396D] underline hover:no-underline">
+                    Privacy Policy
+                  </Link>
+                  .
+                </Label>
+              </div>
               {phase === 'error' && errorMessage ? (
                 <p className="text-sm text-red-600" role="alert">
                   {errorMessage}
@@ -191,7 +225,7 @@ export function FreeResourcesClient({ resources }: { resources: FreeResource[] }
               <Button
                 type="submit"
                 className="w-full h-11 rounded-lg bg-[#F16112] font-semibold text-white hover:bg-[#d54f0a] shadow-md"
-                disabled={submitting}
+                disabled={submitting || !consent}
               >
                 {submitting ? 'Sending…' : 'Send me the link'}
               </Button>

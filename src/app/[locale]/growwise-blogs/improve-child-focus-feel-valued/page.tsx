@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, BookOpen, CheckCircle, AlertCircle, Trending
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/improve-child-focus-feel-valued.webp'
@@ -18,9 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return { 
-    title: '12 Smart & Simple Ways to Improve Your Child\'s Focus | GrowWise', 
-    description:
-      'Twelve practical ways to build focus: routines, connection, and small wins—without fighting your child every night.',
+    title: '12 Ways to Improve Your Child\'s Focus | GrowWise', 
+    description: 'Help your child focus by reducing overwhelm, clarifying tasks, building emotional safety, and using small routines that make effort feel possible.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/improve-child-focus-feel-valued', locale, baseUrl)
     }
@@ -33,16 +35,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   
   const pageUrl = absoluteSiteUrl('/growwise-blogs/improve-child-focus-feel-valued', locale, baseUrl)
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: '12 Smart & Simple Ways to Improve Your Child\'s Focus', url: pageUrl },
-  ])
+  ]
 
   const articleSchema = generateArticleSchema({
     headline: "12 Smart & Simple Ways to Improve Your Child's Focus",
     description: 'Twelve practical ways to build focus: routines, connection, and small wins—without fighting your child every night.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-04-21',
+    dateModified: '2025-04-21',
   })
 
   return (
@@ -51,10 +56,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="improve-child-focus-feel-valued" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -107,6 +110,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <strong>"Just sit down and focus."</strong>
               </p>
 
+              <LegacyBlogAeoBlock slug="improve-child-focus-feel-valued" />
+
               <p className="text-gray-700 mb-6">
                 That's what most parents end up saying, or thinking, when their child drifts off during homework, forgets simple instructions, or stares at the wall mid-task.
               </p>
@@ -128,7 +133,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -139,7 +144,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  improve child focus feel valued visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Is It Really a Focus Issue, or Something Deeper?</h2>
 
@@ -473,17 +481,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
-                <p className="text-xl font-bold mb-4">
-                  Enroll Today and Unlock Your Kid's Potential!
-                </p>
-                <Link href="/enroll">
-                  <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
-                  </Button>
-                </Link>
-              </div>
-
             </div>
 
             {/* Back to Blogs Link */}
@@ -499,21 +496,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/academic"
+          programLabel="Explore Academic Programs"
+        />
       </div>
     </>
   )

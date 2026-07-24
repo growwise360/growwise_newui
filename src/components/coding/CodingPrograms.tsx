@@ -54,6 +54,18 @@ export function CodingPrograms() {
   return (
     <section id="programs" className="px-4 pb-32">
       <div className="max-w-6xl mx-auto">
+        <div className="mb-8 max-w-3xl">
+          <p className="mb-3 text-sm font-bold uppercase tracking-wider text-[#F16112]">
+            {t('codingPage.programs.eyebrow')}
+          </p>
+          <h2 className="text-3xl font-bold text-[#1F396D] md:text-4xl">
+            {t('codingPage.programs.title')}
+          </h2>
+          <p className="mt-4 text-lg text-gray-600">
+            {t('codingPage.programs.subtitle')}
+          </p>
+        </div>
+
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {programs.map((prog) => {
             const isActive = prog.id === activeTab;

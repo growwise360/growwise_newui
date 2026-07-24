@@ -10,8 +10,11 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import {
+  filterSummerCampHubPrograms,
   hydrateSummerCampData,
   getMinimumPublishedSummerCampPriceUsd,
+  isSummerCampApplicationsClosed,
+  SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS,
   LEARNING_MODE_KEYS,
   LEARNING_MODE_FORMAT,
   LEARNING_MODE_TIME,
@@ -146,13 +149,11 @@ describe('hydrateSummerCampData (programs)', () => {
     });
   });
 
-  it('every program has at least one level with at least one slot (or tiers for math-olympiad)', () => {
-    SUMMER_CAMP_PROGRAMS.forEach((p) => {
+  it('every hub program has at least one level with at least one slot', () => {
+    filterSummerCampHubPrograms(SUMMER_CAMP_PROGRAMS).forEach((p) => {
       expect(p.levels.length).toBeGreaterThan(0);
       p.levels.forEach((l) => {
-        const hasSlots = l.slots.length > 0;
-        const isOlympiadWithTiers = p.id === 'math-olympiad';
-        expect(hasSlots || isOlympiadWithTiers).toBe(true);
+        expect(l.slots.length).toBeGreaterThan(0);
       });
     });
   });
@@ -186,15 +187,9 @@ describe('hydrateSummerCampData (programs)', () => {
     });
   });
 
-  it('advanced math program exists and is in Half-Day Camps', () => {
-    const adv = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'adv-math');
-    expect(adv).toBeDefined();
-    expect(adv!.category).toBe('Half-Day Camps');
-  });
-
   it('hydrated slots use Week N (date range) headings from expandSlotTemplate', () => {
-    const adv = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'adv-math')!;
-    const slots = adv.levels[0]?.slots ?? [];
+    const scratch = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'scratch-online')!;
+    const slots = scratch.levels[0]?.slots ?? [];
     expect(slots[0]?.label).toBe('Week 1 (Jun 8–12, 2026)');
     expect(slots[7]?.label).toBe('Week 8 (Jul 27–31, 2026)');
   });
@@ -206,16 +201,37 @@ describe('hydrateSummerCampData (programs)', () => {
     });
   });
 
-  it('math olympiad program exists and is in Half-Day Camps', () => {
-    const olympiad = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'math-olympiad');
-    expect(olympiad).toBeDefined();
-    expect(olympiad!.category).toBe('Half-Day Camps');
+  it('hub grid excludes advanced math and math olympiad (dedicated landing pages only)', () => {
+    const hub = filterSummerCampHubPrograms(SUMMER_CAMP_PROGRAMS);
+    expect(hub.find((p) => p.id === 'adv-math')).toBeUndefined();
+    expect(hub.find((p) => p.id === 'math-olympiad')).toBeUndefined();
+    expect(hub).toHaveLength(5);
+    expect(SUMMER_CAMP_PROGRAMS).toHaveLength(7);
+  });
+
+  it('applications closed set covers Young Authors, Roblox, and Robotics only', () => {
+    expect([...SUMMER_CAMP_APPLICATIONS_CLOSED_PROGRAM_IDS].sort()).toEqual(
+      ['roblox-in-person', 'robotics-camp', 'young-authors'].sort(),
+    );
+    expect(isSummerCampApplicationsClosed('scratch-online')).toBe(false);
+    expect(isSummerCampApplicationsClosed('ai-entrepreneur')).toBe(false);
   });
 
   it('roblox in-person program is in Half-Day Camps (moved from Full Day)', () => {
     const roblox = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'roblox-in-person');
     expect(roblox).toBeDefined();
     expect(roblox!.category).toBe('Half-Day Camps');
+  });
+
+  it('AI Entrepreneur includes the active profile building add-on at $75', () => {
+    const aiEntrepreneur = SUMMER_CAMP_PROGRAMS.find((p) => p.id === 'ai-entrepreneur');
+    const profileAddOn = aiEntrepreneur?.addOns.find((addOn) => addOn.id === 'ai-profile-building');
+
+    expect(profileAddOn).toMatchObject({
+      name: 'Profile Building Add-on',
+      price: 75,
+      active: true,
+    });
   });
 });
 

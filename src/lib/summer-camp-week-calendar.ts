@@ -30,6 +30,41 @@ export const SUMMER_CAMP_WEEK_LABELS_2026 = [
 
 export const SUMMER_CAMP_WEEK_COUNT = SUMMER_CAMP_WEEK_LABELS_2026.length;
 
+/** Mon–Fri ISO date pairs for each camp week (Event JSON-LD). */
+export const SUMMER_CAMP_WEEK_ISO_RANGES_2026 = [
+  { startDate: '2026-06-08', endDate: '2026-06-12' },
+  { startDate: '2026-06-15', endDate: '2026-06-19' },
+  { startDate: '2026-06-22', endDate: '2026-06-26' },
+  { startDate: '2026-06-29', endDate: '2026-07-03' },
+  { startDate: '2026-07-06', endDate: '2026-07-10' },
+  { startDate: '2026-07-13', endDate: '2026-07-17' },
+  { startDate: '2026-07-20', endDate: '2026-07-24' },
+  { startDate: '2026-07-27', endDate: '2026-07-31' },
+] as const;
+
+/** Math Olympiad Tier 2: each slot spans two consecutive calendar weeks. */
+export const MATH_OLYMPIAD_TIER2_ISO_RANGES_2026 = [
+  { startDate: '2026-06-08', endDate: '2026-06-19' },
+  { startDate: '2026-06-22', endDate: '2026-07-03' },
+  { startDate: '2026-07-06', endDate: '2026-07-17' },
+  { startDate: '2026-07-20', endDate: '2026-07-31' },
+] as const;
+
+export type SummerCampWeekIsoRange = {
+  startDate: string;
+  endDate: string;
+};
+
+export function getSummerCampWeekIsoRange(weekIndex0: number): SummerCampWeekIsoRange | undefined {
+  return SUMMER_CAMP_WEEK_ISO_RANGES_2026[weekIndex0];
+}
+
+export function getMathOlympiadTier2IsoRange(
+  slotIndex0: number,
+): SummerCampWeekIsoRange | undefined {
+  return MATH_OLYMPIAD_TIER2_ISO_RANGES_2026[slotIndex0];
+}
+
 export function getSummerCampWeekLabel(weekIndex0: number): string {
   const label = SUMMER_CAMP_WEEK_LABELS_2026[weekIndex0];
   if (label) return label;
@@ -41,6 +76,14 @@ export function formatCampWeekSlotHeading(weekIndex0: number): string {
   const dates = getSummerCampWeekLabel(weekIndex0);
   if (/^Week\s+\d+$/.test(dates)) return dates;
   return `Week ${weekIndex0 + 1} (${dates})`;
+}
+
+/**
+ * Registration is closed for camp slots that start on June 8, 2026.
+ * Uses the rendered slot label so generated one-week and multi-week slots share the same guard.
+ */
+export function isJune8SummerCampRegistrationClosed(slotLabel: string): boolean {
+  return /\bJun\s+8\b/.test(slotLabel);
 }
 
 /** Math Olympiad Tier 2: `Weeks 1-2 (Jun 8 – Jun 19, 2026)` */

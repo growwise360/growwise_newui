@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import { EnrollProvider } from '@/contexts/EnrollContext';
-import { CodingHero } from '@/components/coding/CodingHero';
-import { CodingPrograms } from '@/components/coding/CodingPrograms';
+import { CodingOverviewHero } from '@/components/coding/CodingOverviewHero';
+import { CodingPathCards } from '@/components/coding/CodingPathCards';
+import { CodingFutureSkillsCallout } from '@/components/coding/CodingFutureSkillsCallout';
+import { generateMetadataFromPath } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
-  title: 'Coding Programs for Kids | GrowWise School',
-  description: 'Structured coding learning journeys for kids aged 10–18.',
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return generateMetadataFromPath('/coding', locale) ?? {
+    title: 'Coding Classes for Kids | Dublin CA | GrowWise',
+    description: 'Coding paths for Grades 5-12 in Dublin, CA: Python, AI, and app development. Start with the right program and book a trial class.',
+  };
+}
 
 export default function CodingPage() {
   return (
@@ -19,12 +23,11 @@ export default function CodingPage() {
         </div>
       }
     >
-      <EnrollProvider>
-        <main className="min-h-screen page-bg-coding">
-          <CodingHero />
-          <CodingPrograms />
-        </main>
-      </EnrollProvider>
+      <main className="min-h-screen page-bg-coding">
+        <CodingOverviewHero />
+        <CodingPathCards />
+        <CodingFutureSkillsCallout />
+      </main>
     </Suspense>
   );
 }

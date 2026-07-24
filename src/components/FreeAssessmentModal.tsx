@@ -18,6 +18,7 @@ import CountryCodeSelector from "./CountryCodeSelector";
 import { PHONE_PLACEHOLDER } from '@/lib/constants';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { validatePhoneWithCountryCode } from '@/lib/phoneValidation';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 
 /** Matches `assessmentTypes` value on `src/app/[locale]/book-assessment/page.tsx` for general Grades 1–12 intake. */
 const DEFAULT_ASSESSMENT_TYPE = 'Complete Academic Assessment' as const;
@@ -211,6 +212,11 @@ const FreeAssessmentModal: React.FC<FreeAssessmentModalProps> = ({ isOpen, onClo
       }
 
       if (result.success) {
+        trackGenerateLead('free_assessment_modal', {
+          form_name: 'free_assessment_modal',
+          assessment_type: payload.assessmentType,
+          grade: payload.grade,
+        });
         router.replace(publicPath('/book-assessment/thank-you', locale));
         resetAndClose();
         return;
@@ -558,4 +564,3 @@ const FreeAssessmentModal: React.FC<FreeAssessmentModalProps> = ({ isOpen, onClo
 };
 
 export default FreeAssessmentModal;
-

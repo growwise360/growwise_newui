@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { usePricingConfig, type Program } from '@/hooks/usePricingConfig';
@@ -25,16 +25,9 @@ export function GameDevPrograms() {
       .sort((a, b) => a.sort_order - b.sort_order);
   }, [data]);
 
-  useEffect(() => {
-    if (!programs.length) return;
-    const hasActive = programs.some((p) => p.id === activeTab);
-    if (!activeTab || !hasActive) {
-      setActiveTab(programs[0].id);
-    }
-  }, [programs, activeTab]);
-
+  const selectedTab = programs.some((p) => p.id === activeTab) ? activeTab : programs[0]?.id;
   const activeProgram =
-    programs.find((p) => p.id === activeTab) ?? programs[0] ?? null;
+    programs.find((p) => p.id === selectedTab) ?? programs[0] ?? null;
 
   if (loading && !data) {
     return (
@@ -60,7 +53,7 @@ export function GameDevPrograms() {
 
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {programs.map((prog) => {
-            const isActive = prog.id === activeTab;
+            const isActive = prog.id === selectedTab;
             return (
               <button
                 key={prog.id}

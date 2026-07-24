@@ -10,7 +10,6 @@ import type {
   Tier,
   JourneyLevel,
   ProgramAddon,
-  ProgramFee,
   DeliveryMode,
   TierName,
 } from '@/hooks/usePricingConfig';
@@ -107,10 +106,6 @@ function toAddOnVM(addons: ProgramAddon[]): AddOnVM[] {
     }));
 }
 
-function getActiveFees(fees: ProgramFee[]): ProgramFee[] {
-  return fees;
-}
-
 export function ProgramJourneyCard({
   program,
   colorThemeClass,
@@ -159,10 +154,6 @@ export function ProgramJourneyCard({
   const addonsVM = useMemo(
     () => toAddOnVM(program.program_addons),
     [program.program_addons],
-  );
-  const fees = useMemo(
-    () => getActiveFees(program.program_fees),
-    [program.program_fees],
   );
 
   // Default tier to the first option (by sort_order) so the Enroll CTA is enabled without an extra click.
@@ -240,22 +231,6 @@ export function ProgramJourneyCard({
         />
 
         <TierCards tiers={tiersVM} selected={selectedTierForProgram} onSelect={handleTierSelect} />
-
-        {fees.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6 items-center justify-center bg-slate-50 py-3 rounded-xl">
-            <span className="text-sm font-medium text-muted-foreground mr-2">
-              One-time fees apply:
-            </span>
-            {fees.map((fee) => (
-              <span
-                key={fee.id}
-                className="text-xs font-semibold bg-white border border-border px-2 py-1 rounded-md text-foreground shadow-sm"
-              >
-                {fee.name}: {formatPrice(fee.amount)}
-              </span>
-            ))}
-          </div>
-        )}
 
         <AddOnSelector
           addons={addonsVM}

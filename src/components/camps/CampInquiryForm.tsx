@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import type { CampLandingPage } from "@/lib/camps/camp-types";
 import CountryCodeSelector from "@/components/CountryCodeSelector";
@@ -138,8 +139,19 @@ export function CampInquiryForm({ page }: CampInquiryFormProps) {
           <p className="mt-3 text-slate-600">{page.formConfig.sectionSubtext}</p>
         ) : null}
 
+        {page.formConfig.enrollCta ? (
+          <div className="mt-8">
+            <Link
+              href={page.formConfig.enrollCta.href}
+              className="inline-flex justify-center items-center rounded-md bg-[#1F396D] px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-[#183056] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1F396D]"
+            >
+              {page.formConfig.enrollCta.label}
+            </Link>
+          </div>
+        ) : null}
+
         <form
-          className="mt-10 space-y-5"
+          className={page.formConfig.enrollCta ? "mt-8 space-y-5" : "mt-10 space-y-5"}
           onSubmit={handleSubmit(onSubmit)}
           noValidate
           suppressHydrationWarning

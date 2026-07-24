@@ -1,0 +1,11 @@
+npm warn Unknown env config "devdir". This will stop working in the next major version of npm.
+
+> newgrowwise@0.1.0 test
+> jest --testPathPatterns=robots.seo|sitemapData|seo-jsonld-route-audit --ci
+
+
+Test Suites: 3 passed, 3 total
+Tests:       30 passed, 30 total
+Snapshots:   0 total
+Time:        1.02 s
+Ran all test suites matching robots.seo|sitemapData|seo-jsonld-route-audit.

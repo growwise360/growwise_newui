@@ -19,7 +19,7 @@ Configure under **Settings → Branches → Add rule → Branch name pattern: `m
 Add this check name exactly as shown (matches the `name:` field in `pr-gate.yml`):
 
 ```
-Frontend — Jest + Playwright
+Frontend — Jest + Smoke E2E
 ```
 
 > This check only appears in the selector after the first PR has run against `main`.
@@ -27,7 +27,7 @@ Frontend — Jest + Playwright
 ## How the gate works
 
 1. Developer opens a PR from `dev` → `main`.
-2. `pr-gate.yml` runs Jest + Playwright automatically.
+2. `pr-gate.yml` runs Jest + smoke E2E (`@critical`) automatically.
 3. If either fails, GitHub blocks the merge.
 4. After merge, `deploy.yml` triggers the Amplify prod deployment.
 

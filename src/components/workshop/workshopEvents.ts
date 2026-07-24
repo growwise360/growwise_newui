@@ -20,16 +20,12 @@ export const WORKSHOP_MONTHS = [
 export const EVENT_TYPE_CLASSES: Record<ProgramType, string> = {
   reading: 'bg-blue-100 text-blue-700',
   math: 'bg-purple-100 text-purple-700',
-  coding: 'bg-amber-100 text-amber-700',
-  ai: 'bg-pink-100 text-pink-700',
   webinar: 'bg-emerald-100 text-emerald-700'
 };
 
 export const PROGRAM_TYPE_BADGE: Record<ProgramType, string> = {
   reading: '📘',
   math: '🧮',
-  coding: '🎮',
-  ai: '🤖',
   webinar: '👨‍👩‍👧'
 };
 

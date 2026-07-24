@@ -19,6 +19,8 @@ interface PageMetadataOptions {
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
+  /** Open Graph / social image alt text. Defaults to title when omitted. */
+  imageAlt?: string;
   /** If false, emit noindex,follow (conversion / thank-you pages). Defaults to true. */
   indexable?: boolean;
 }
@@ -63,6 +65,7 @@ export function generatePageMetadata({
   type = "website",
   publishedTime,
   modifiedTime,
+  imageAlt,
   indexable = true,
 }: PageMetadataOptions): Metadata {
   const baseUrl = getCanonicalSiteUrl();
@@ -83,9 +86,18 @@ export function generatePageMetadata({
     "personalized learning",
   ];
 
-  const finalKeywords = keywords
-    ? `${keywords}, ${defaultKeywords.join(", ")}`
-    : defaultKeywords.join(", ");
+  // Merge page keywords with defaults, deduped case-insensitively (page keywords first).
+  const merged: string[] = [];
+  const seen = new Set<string>();
+  for (const kw of [...(keywords ? keywords.split(",") : []), ...defaultKeywords]) {
+    const trimmed = kw.trim();
+    const key = trimmed.toLowerCase();
+    if (trimmed && !seen.has(key)) {
+      seen.add(key);
+      merged.push(trimmed);
+    }
+  }
+  const finalKeywords = merged.join(", ");
 
   return {
     title,
@@ -101,7 +113,7 @@ export function generatePageMetadata({
           url: image,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: imageAlt ?? title,
         },
       ],
       locale: effectiveLocale,

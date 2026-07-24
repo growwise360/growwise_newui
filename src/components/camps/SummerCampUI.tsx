@@ -16,10 +16,12 @@ import {
   type AdvMathProgramKey,
   type OlympiadTierId,
   type OlympiadTierConfig,
+  type ProgramAddOn,
 } from '@/lib/summer-camp-data';
-import { useCart } from '@/components/gw/CartContext';
-import { Button } from '@/components/ui/button';
-import { X, Clock, Info, CalendarDays, CheckCircle2, MapPin } from 'lucide-react';
+import { isSummerCampApplicationsClosed } from '@/lib/summer-camp-data';
+import { type CartItem, useCart } from '@/components/gw/CartContext';
+import { X, Clock, CalendarDays, CheckCircle2, MapPin } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -27,20 +29,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
 import {
   getRoboticsFullDaySeoLink,
   getSummerCampProgramSeoLink,
   summerCampSeoMessagePath,
 } from '@/lib/summer-camp-seo-links';
+import { getSummerCampPickCardMeta } from '@/lib/summer-camp-pick-card-meta';
+import {
+  EnrollmentPanelControls,
+  EnrollmentPanelDescriptionStrip,
+  EnrollmentPanelDropdownsRow,
+  EnrollmentPanelHeader,
+  EnrollmentPanelInfoButton,
+  EnrollmentPanelScrollBody,
+  EnrollmentPanelShell,
+  EnrollmentPanelSlotList,
+  EnrollmentPanelTierBadge,
+  enrollmentPanelSelectClass,
+} from '@/components/camps/EnrollmentPanelLayout';
+import { EnrollmentCompactAddButton } from '@/components/camps/AcademicPricingSlotRowLayout';
+import { SummerMobileProgramSwitcher } from '@/components/camps/SummerMobileProgramSwitcher';
 import { formatAdvMathWeekSlotHeading } from '@/lib/adv-math-week-sessions';
 import {
   formatCampWeekSlotHeading,
   formatOlympiadTier2SlotHeading,
+  isJune8SummerCampRegistrationClosed,
   SUMMER_CAMP_JULY4_NOTE,
   SUMMER_CAMP_SEASON_RANGE_TEXT,
 } from '@/lib/summer-camp-week-calendar';
+
+const AI_PROFILE_BUILDING_ADDON_ID = 'ai-profile-building';
+
+function summerCampAddOnCartItemId(slotId: string, addOnId: string): string {
+  return `${slotId}-${addOnId}`;
+}
 
 function InfoModal({
   program,
@@ -199,13 +222,13 @@ function InfoModal({
   return createPortal(modalContent, document.body);
 }
 
-function SlotRow({
+export function SlotRow({
   slot,
   level,
-  program,
   cartItemIds,
   onAdd,
   onRemove,
+  applicationsClosed = false,
 }: {
   slot: Slot;
   level: Level;
@@ -213,58 +236,65 @@ function SlotRow({
   cartItemIds: Set<string>;
   onAdd: (level: Level, slot: Slot) => void;
   onRemove: (slotId: string) => void;
+  applicationsClosed?: boolean;
 }) {
   const t = useTranslations('summerCamp');
   const inCart = cartItemIds.has(slot.id);
+  const registrationClosed =
+    applicationsClosed || isJune8SummerCampRegistrationClosed(slot.label);
 
   return (
     <div
-      className={`
-        relative flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-all duration-300
-        ${inCart
-          ? 'bg-green-50/30 border-green-200'
-          : 'bg-white border-slate-100 hover:border-slate-200 hover:shadow-sm'
-        }
-      `}
+      className={`flex items-center justify-between gap-3 px-4 py-2 max-[768px]:flex-col max-[768px]:items-stretch max-[768px]:gap-2 max-[768px]:py-2.5 ${
+        inCart ? 'bg-green-50/30' : registrationClosed ? 'bg-slate-50' : ''
+      }`}
     >
-      <div className="space-y-0.5">
-        <div className="font-bold text-slate-800 text-sm leading-snug">{slot.label}</div>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-600">
+      <div className="min-w-0 flex-1">
+        <div className={`truncate text-[12px] font-bold leading-tight max-[768px]:whitespace-normal max-[768px]:line-clamp-2 ${
+          registrationClosed ? 'text-slate-500' : 'text-slate-800'
+        }`}>
+          {slot.label}
+        </div>
+        <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0 text-[11px] text-slate-600">
           <span className="flex items-center gap-1">
             <span
               aria-hidden="true"
-              className={`w-1.5 h-1.5 flex-shrink-0 rounded-full ${
+              className={`h-[7px] w-[7px] shrink-0 rounded-full ${
                 slot.format === 'Online' ? 'bg-sky-400' : 'bg-amber-400'
               }`}
             />
             {slot.format}
           </span>
-          <span className="font-semibold normal-case tracking-normal text-slate-700">{slot.time}</span>
+          <span className="text-slate-700">{slot.time}</span>
+          {registrationClosed ? (
+            <span className="font-bold text-slate-500">
+              {applicationsClosed ? 'Applications closed' : 'Registration closed'}
+            </span>
+          ) : null}
         </div>
       </div>
-      <div className="flex items-center gap-3 mt-3 sm:mt-0">
-        <span className="font-black text-slate-900 text-base">
-          ${slot.price}
-        </span>
-        {inCart ? (
-          <Button
-            variant="ghost"
-            size="sm"
-            aria-label={`${t('slots.remove')} ${slot.label}`}
+      <div className="flex shrink-0 items-center gap-2.5 max-[768px]:w-full max-[768px]:justify-between max-[768px]:border-t max-[768px]:border-slate-100 max-[768px]:pt-2">
+        <span className="text-[13px] font-black tabular-nums text-slate-900">${slot.price}</span>
+        {registrationClosed ? (
+          <EnrollmentCompactAddButton
+            label="Closed"
+            ariaLabel={`Registration closed for ${slot.label}`}
+            onClick={() => undefined}
+            disabled
+          />
+        ) : inCart ? (
+          <EnrollmentCompactAddButton
+            label={t('slots.remove')}
+            ariaLabel={`${t('slots.remove')} ${slot.label}`}
             onClick={() => onRemove(slot.id)}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50 font-bold h-10 min-w-10 px-4 text-[10px] rounded-full transition-colors"
-          >
-            {t('slots.remove')}
-          </Button>
+            variant="remove"
+          />
         ) : (
-          <Button
-            size="sm"
-            aria-label={`${t('slots.add')} ${slot.label}`}
+          <EnrollmentCompactAddButton
+            label={t('slots.add')}
+            ariaLabel={`${t('slots.add')} ${slot.label}`}
             onClick={() => onAdd(level, slot)}
-            className="bg-slate-900 text-white hover:bg-[#1F396D] h-10 min-w-10 px-4 text-[10px] font-bold rounded-full transition-colors"
-          >
-            {t('slots.add')}
-          </Button>
+          />
         )}
       </div>
     </div>
@@ -284,11 +314,47 @@ function toGlobalCartItem(program: Program, level: Level, slot: Slot) {
   };
 }
 
+function toSummerCampAddOnCartItem(
+  program: Program,
+  slot: Slot,
+  addOn: ProgramAddOn
+): CartItem {
+  return {
+    id: summerCampAddOnCartItemId(slot.id, addOn.id),
+    name: `${program.title} — ${addOn.name} — ${slot.label}`,
+    price: addOn.price,
+    quantity: 1,
+    image: program.image,
+    category: `${program.category} Add-on`,
+    type: 'summer-camp',
+    level: 'Add-on',
+  };
+}
+
+export function SummerCampEmptySlotsPanel() {
+  const t = useTranslations('summerCamp.enrollmentPanel');
+
+  return (
+    <EnrollmentPanelShell ariaLabel={t('emptyTitle')}>
+      <div className="flex min-h-[200px] flex-col items-center justify-center px-6 py-8 text-center">
+        <p className="font-heading text-base font-bold text-slate-900">{t('emptyTitle')}</p>
+        <p className="mt-2 text-sm text-slate-600">{t('emptyPanel')}</p>
+      </div>
+    </EnrollmentPanelShell>
+  );
+}
+
 export function SlotsPanel({
   program,
+  programs,
+  selectedProgramId,
+  onSelectProgram,
   olympiadTierConfigs,
 }: {
   program: Program;
+  programs: readonly Program[];
+  selectedProgramId: string;
+  onSelectProgram: (program: Program) => void;
   olympiadTierConfigs: OlympiadTierConfig[];
 }) {
   const t = useTranslations('summerCamp');
@@ -300,6 +366,7 @@ export function SlotsPanel({
   const [olympiadMode, setOlympiadMode] = useState<LearningModeKey>('inPerson');
   const [olympiadTier, setOlympiadTier] = useState<OlympiadTierId>('tier1');
   const [aiEntrepreneurMode, setAiEntrepreneurMode] = useState<LearningModeKey>('online');
+  const [includeAiProfileAddOn, setIncludeAiProfileAddOn] = useState(false);
   const [scratchMode, setScratchMode] = useState<LearningModeKey>('online');
   const [robloxMode, setRobloxMode] = useState<LearningModeKey>('inPerson');
   const [showInfo, setShowInfo] = useState(false);
@@ -334,24 +401,40 @@ export function SlotsPanel({
     [t]
   );
 
-  const handleAdd = (level: Level, slot: Slot) => {
-    if (summerCampItemIds.has(slot.id)) return;
-    void import('@/lib/meta-pixel').then(({ trackEnrollClick }) =>
-      trackEnrollClick(program.title, slot.price)
-    );
-    addItem(toGlobalCartItem(program, level, slot));
-  };
-
-  const handleRemove = (slotId: string) => {
-    removeItem(slotId);
-  };
-
   const isAdvMath = program.id === 'adv-math';
   const isMathOlympiad = program.id === 'math-olympiad';
   const isAiEntrepreneur = program.id === 'ai-entrepreneur';
   const isScratch = program.id === 'scratch-online' || program.id === 'scratch';
   const isRoblox = program.id === 'roblox-in-person';
   const isRoboticsCamp = program.id === 'robotics-camp';
+  const applicationsClosed = isSummerCampApplicationsClosed(program.id);
+  const aiProfileBuildingAddOn = useMemo(
+    () =>
+      isAiEntrepreneur
+        ? program.addOns.find((addOn) => addOn.id === AI_PROFILE_BUILDING_ADDON_ID && addOn.active)
+        : undefined,
+    [isAiEntrepreneur, program.addOns]
+  );
+
+  const handleAdd = (level: Level, slot: Slot) => {
+    if (applicationsClosed) return;
+    if (summerCampItemIds.has(slot.id)) return;
+    if (isJune8SummerCampRegistrationClosed(slot.label)) return;
+    void import('@/lib/meta-pixel').then(({ trackEnrollClick }) =>
+      trackEnrollClick(program.title, slot.price)
+    );
+    addItem(toGlobalCartItem(program, level, slot));
+    if (isAiEntrepreneur && includeAiProfileAddOn && aiProfileBuildingAddOn) {
+      addItem(toSummerCampAddOnCartItem(program, slot, aiProfileBuildingAddOn));
+    }
+  };
+
+  const handleRemove = (slotId: string) => {
+    removeItem(slotId);
+    if (isAiEntrepreneur && aiProfileBuildingAddOn) {
+      removeItem(summerCampAddOnCartItemId(slotId, aiProfileBuildingAddOn.id));
+    }
+  };
 
   const programSeoLink = useMemo(
     () => getSummerCampProgramSeoLink(program.id),
@@ -374,7 +457,7 @@ export function SlotsPanel({
     return level.slots.map((s, i) => ({
       ...s,
       id: `${s.id}-${advMathMode}-${advMathProgram}`,
-      label: `${formatAdvMathWeekSlotHeading(advMathProgram, i)} — ${programLabels[advMathProgram]}`,
+      label: `${formatAdvMathWeekSlotHeading(advMathProgram, i)}`,
       format,
       time: timeMap[advMathMode] ?? '9:00 AM - 12:00 PM',
       price,
@@ -454,10 +537,9 @@ export function SlotsPanel({
         olympiadTierConfig.weeksPerSlot === 1
           ? formatCampWeekSlotHeading(i)
           : formatOlympiadTier2SlotHeading(i);
-      const tierName = tierLabels[olympiadTierConfig.id].name;
       return {
         id: `${olympiadTierConfig.slotId(i)}-${olympiadMode}`,
-        label: `${weekHeading} — ${tierName}`,
+        label: weekHeading,
         time: timeMap[olympiadMode] ?? '9:00 AM - 12:00 PM',
         format,
         price,
@@ -465,231 +547,160 @@ export function SlotsPanel({
     });
   }, [isMathOlympiad, olympiadTierConfig, olympiadMode, tierLabels]);
 
-  return (
-    <div
-      id="slots-panel"
-      role="region"
-      aria-label={program.title}
-      className="bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden h-full flex flex-col"
-    >
-      {/* Info modal */}
-      {showInfo && <InfoModal program={program} onClose={() => setShowInfo(false)} />}
+  const pickCardMeta = getSummerCampPickCardMeta(program.id);
+  const panelTitle = pickCardMeta?.title ?? program.title;
 
-      <div className="p-6 border-b border-slate-50 bg-slate-50/30">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="font-heading font-extrabold text-xl text-slate-900 leading-tight">
-            {program.title}
-          </h3>
-          <button
-            onClick={() => setShowInfo(true)}
-            aria-label={`View details for ${program.title}`}
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-[#1F396D]/10 hover:bg-[#1F396D]/20 text-[#1F396D] flex items-center justify-center transition-colors mt-0.5 min-w-10 min-h-10"
+  const activeModeLabel = useMemo(() => {
+    if (isAdvMath) return modeLabels[advMathMode];
+    if (isMathOlympiad) return modeLabels[olympiadMode];
+    if (isAiEntrepreneur) return modeLabels[aiEntrepreneurMode];
+    if (isScratch) return modeLabels[scratchMode];
+    if (isRoblox) return modeLabels[robloxMode];
+    return pickCardMeta?.formatPill;
+  }, [
+    isAdvMath,
+    isMathOlympiad,
+    isAiEntrepreneur,
+    isScratch,
+    isRoblox,
+    modeLabels,
+    advMathMode,
+    olympiadMode,
+    aiEntrepreneurMode,
+    scratchMode,
+    robloxMode,
+    pickCardMeta?.formatPill,
+  ]);
+
+  const panelMetaLine = pickCardMeta
+    ? `${pickCardMeta.gradeLine} · ${pickCardMeta.dayType} · ${activeModeLabel ?? pickCardMeta.formatPill}`
+    : undefined;
+
+  const selectTriggerClass = 'h-8 rounded-lg text-[12px]';
+
+  const renderSlotList = (slots: Slot[], level: Level) => (
+    <EnrollmentPanelSlotList>
+      {slots.map((slot) => (
+        <SlotRow
+          key={slot.id}
+          slot={slot}
+          level={level}
+          program={program}
+          cartItemIds={summerCampItemIds}
+          onAdd={handleAdd}
+          onRemove={handleRemove}
+          applicationsClosed={applicationsClosed}
+        />
+      ))}
+    </EnrollmentPanelSlotList>
+  );
+
+  const seoFooter =
+    programSeoLink || roboticsFullDaySeo ? (
+      <div className="mt-2 flex flex-col gap-1 border-t border-slate-100 pt-2">
+        {programSeoLink ? (
+          <Link
+            href={createLocaleUrl(`/camps/${programSeoLink.slug}`, locale)}
+            className="rounded-sm text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
           >
-            <Info className="w-5 h-5" aria-hidden="true" />
-          </button>
-        </div>
-        <p className="text-base font-semibold text-gray-800 mt-2 leading-snug">
-          {program.outcome}
-        </p>
-        <ul className="mt-2 space-y-1" aria-label={`${program.title} highlights`}>
-          {program.bullets.map((bullet, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-slate-600 leading-relaxed">
-              <span aria-hidden="true" className="mt-[3px] flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#1F396D]" />
-              {bullet}
-            </li>
-          ))}
-        </ul>
-        {(programSeoLink || roboticsFullDaySeo) && (
-          <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4">
-            {programSeoLink ? (
-              <Link
-                href={createLocaleUrl(`/camps/${programSeoLink.slug}`, locale)}
-                className="text-[13px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm"
-              >
-                {t(summerCampSeoMessagePath(programSeoLink.labelKey))}
-              </Link>
-            ) : null}
-            {roboticsFullDaySeo ? (
-              <Link
-                href={createLocaleUrl(`/camps/${roboticsFullDaySeo.slug}`, locale)}
-                className="text-[13px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm"
-              >
-                {t(summerCampSeoMessagePath(roboticsFullDaySeo.labelKey))}
-              </Link>
-            ) : null}
-          </div>
-        )}
+            {t(summerCampSeoMessagePath(programSeoLink.labelKey))}
+          </Link>
+        ) : null}
+        {roboticsFullDaySeo ? (
+          <Link
+            href={createLocaleUrl(`/camps/${roboticsFullDaySeo.slug}`, locale)}
+            className="rounded-sm text-[12px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2"
+          >
+            {t(summerCampSeoMessagePath(roboticsFullDaySeo.labelKey))}
+          </Link>
+        ) : null}
       </div>
+    ) : null;
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-8">
-        {/* Scratch: In-Person $349 / Online $329 — render first so it's always visible when Scratch selected */}
-        {isScratch && program.levels[0] && (
-          <>
-            <div className="space-y-3">
-              <p className="text-sm font-bold text-slate-700">
-                Choose format
-              </p>
+  return (
+    <EnrollmentPanelShell ariaLabel={panelTitle}>
+      {showInfo ? <InfoModal program={program} onClose={() => setShowInfo(false)} /> : null}
+
+      <SummerMobileProgramSwitcher
+        programs={programs}
+        selectedProgramId={selectedProgramId}
+        onSelectProgram={onSelectProgram}
+      />
+
+      <EnrollmentPanelHeader
+        title={panelTitle}
+        subtitle={pickCardMeta?.outcome}
+        metaLine={panelMetaLine}
+        topRight={
+          <div className="flex items-center gap-1.5">
+            {isMathOlympiad && olympiadTierConfig ? (
+              <EnrollmentPanelTierBadge label={tierLabels[olympiadTierConfig.id].name} />
+            ) : null}
+            <EnrollmentPanelInfoButton
+              onClick={() => setShowInfo(true)}
+              ariaLabel={`View details for ${panelTitle}`}
+            />
+          </div>
+        }
+        footer={seoFooter}
+      />
+
+      {applicationsClosed ? (
+        <div className="border-b border-slate-200 bg-slate-50 px-4 py-3 text-center text-[13px] font-semibold leading-snug text-slate-600">
+          {t('slots.applicationsClosedBanner')}
+        </div>
+      ) : null}
+
+      {isScratch && program.levels[0] ? (
+        <>
+          <EnrollmentPanelControls>
+            <EnrollmentPanelDropdownsRow>
               <select
                 id="scratch-format"
                 value={scratchMode}
                 onChange={(e) => setScratchMode(e.target.value as LearningModeKey)}
-                className="w-full rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-900 focus:border-[#1F396D] focus:outline-none focus:ring-2 focus:ring-[#1F396D]/20"
-                aria-label="Scratch format: In-Person or Online"
+                className={enrollmentPanelSelectClass}
+                aria-label={t('slots.selectMode')}
               >
-                <option value="inPerson">In-Person</option>
-                <option value="online">Online</option>
+                <option value="inPerson">{modeLabels.inPerson}</option>
+                <option value="online">{modeLabels.online}</option>
               </select>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight border-l-2 border-[#1F396D] pl-3">
-                {program.levels[0].name} • {modeLabels[scratchMode]}
-              </h4>
-              <div className="grid gap-2">
-                {scratchSlots.map((slot) => (
-                  <SlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={{
-                      ...program.levels[0],
-                      name: `${program.levels[0].name} • ${modeLabels[scratchMode]}`,
-                    }}
-                    program={program}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+            </EnrollmentPanelDropdownsRow>
+          </EnrollmentPanelControls>
+          <EnrollmentPanelScrollBody>
+            {renderSlotList(scratchSlots, program.levels[0])}
+          </EnrollmentPanelScrollBody>
+        </>
+      ) : null}
 
-        {/* Roblox: In-Person $349 (default) / Online $329 */}
-        {isRoblox && program.levels[0] && (
-          <>
-            <div className="space-y-3">
-              <p className="text-sm font-bold text-slate-700">
-                Choose format
-              </p>
+      {isRoblox && program.levels[0] ? (
+        <>
+          <EnrollmentPanelControls>
+            <EnrollmentPanelDropdownsRow>
               <select
                 id="roblox-format"
                 value={robloxMode}
                 onChange={(e) => setRobloxMode(e.target.value as LearningModeKey)}
-                className="w-full rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-900 focus:border-[#1F396D] focus:outline-none focus:ring-2 focus:ring-[#1F396D]/20"
-                aria-label="Roblox format: In-Person or Online"
+                className={enrollmentPanelSelectClass}
+                aria-label={t('slots.selectMode')}
               >
-                <option value="inPerson">In-Person</option>
-                <option value="online">Online</option>
+                <option value="inPerson">{modeLabels.inPerson}</option>
+                <option value="online">{modeLabels.online}</option>
               </select>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight border-l-2 border-[#1F396D] pl-3">
-                {program.levels[0].name} • {modeLabels[robloxMode]}
-              </h4>
-              <div className="grid gap-2">
-                {robloxSlots.map((slot) => (
-                  <SlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={{
-                      ...program.levels[0],
-                      name: `${program.levels[0].name} • ${modeLabels[robloxMode]}`,
-                    }}
-                    program={program}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+            </EnrollmentPanelDropdownsRow>
+          </EnrollmentPanelControls>
+          <EnrollmentPanelScrollBody>
+            {renderSlotList(robloxSlots, program.levels[0])}
+          </EnrollmentPanelScrollBody>
+        </>
+      ) : null}
 
-        {isAdvMath && (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="adv-math-mode" className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                  {t('slots.learningMode')}
-                </Label>
-                <Select
-                  value={advMathMode}
-                  onValueChange={(v) => setAdvMathMode(v as LearningModeKey)}
-                >
-                  <SelectTrigger id="adv-math-mode" className="rounded-lg text-sm">
-                    <SelectValue placeholder={t('slots.selectMode')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(LEARNING_MODE_KEYS ?? []).map((key) => (
-                      <SelectItem key={key} value={key}>
-                        {modeLabels[key]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="adv-math-program" className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                  {t('slots.program')}
-                </Label>
-                <Select
-                  value={advMathProgram}
-                  onValueChange={(v) => setAdvMathProgram(v as AdvMathProgramKey)}
-                >
-                  <SelectTrigger id="adv-math-program" className="rounded-lg text-sm">
-                    <SelectValue placeholder={t('slots.selectProgram')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(ADV_MATH_PROGRAM_KEYS ?? []).map((key) => (
-                      <SelectItem key={key} value={key}>
-                        {programLabels[key]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="flex flex-col gap-0.5 border-l-2 border-[#1F396D] pl-3">
-                <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight">
-                  {programLabels[advMathProgram]} • {modeLabels[advMathMode]}
-                </h4>
-                <span className="text-[10px] text-slate-600">
-                  {t('slots.weeklyIntensiveNote')}
-                </span>
-              </div>
-              <div className="grid gap-2">
-                {advMathSlots.map((slot) => (
-                  <SlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={{
-                      ...program.levels[0],
-                      name: `${programLabels[advMathProgram]} • ${modeLabels[advMathMode]}`,
-                    }}
-                    program={program}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-
-        {isAiEntrepreneur && program.levels[0] && (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="ai-entrepreneur-mode" className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                {t('slots.learningMode')}
-              </Label>
-              <Select
-                value={aiEntrepreneurMode}
-                onValueChange={(v) => setAiEntrepreneurMode(v as LearningModeKey)}
-              >
-                <SelectTrigger id="ai-entrepreneur-mode" className="rounded-lg text-sm">
+      {isAdvMath && program.levels[0] ? (
+        <>
+          <EnrollmentPanelControls>
+            <EnrollmentPanelDropdownsRow>
+              <Select value={advMathMode} onValueChange={(v) => setAdvMathMode(v as LearningModeKey)}>
+                <SelectTrigger id="adv-math-mode" className={selectTriggerClass} aria-label={t('slots.selectMode')}>
                   <SelectValue placeholder={t('slots.selectMode')} />
                 </SelectTrigger>
                 <SelectContent>
@@ -700,135 +711,139 @@ export function SlotsPanel({
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-            <div className="space-y-4">
-              <div className="flex flex-col gap-0.5 border-l-2 border-[#1F396D] pl-3">
-                <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight">
-                  {program.levels[0].name} • {modeLabels[aiEntrepreneurMode]}
-                </h4>
-              </div>
-              <div className="grid gap-2">
-                {aiEntrepreneurSlots.map((slot) => (
-                  <SlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={{
-                      ...program.levels[0],
-                      name: `${program.levels[0].name} • ${modeLabels[aiEntrepreneurMode]}`,
-                    }}
-                    program={program}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+              <Select value={advMathProgram} onValueChange={(v) => setAdvMathProgram(v as AdvMathProgramKey)}>
+                <SelectTrigger id="adv-math-program" className={selectTriggerClass} aria-label={t('slots.selectProgram')}>
+                  <SelectValue placeholder={t('slots.selectProgram')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {(ADV_MATH_PROGRAM_KEYS ?? []).map((key) => (
+                    <SelectItem key={key} value={key}>
+                      {programLabels[key]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </EnrollmentPanelDropdownsRow>
+            <EnrollmentPanelDescriptionStrip>{t('slots.weeklyIntensiveNote')}</EnrollmentPanelDescriptionStrip>
+          </EnrollmentPanelControls>
+          <EnrollmentPanelScrollBody>
+            {renderSlotList(advMathSlots, program.levels[0])}
+          </EnrollmentPanelScrollBody>
+        </>
+      ) : null}
 
-        {isMathOlympiad && olympiadTierConfig && (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="olympiad-mode" className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                  {t('slots.learningMode')}
-                </Label>
-                <Select
-                  value={olympiadMode}
-                  onValueChange={(v) => setOlympiadMode(v as LearningModeKey)}
-                >
-                  <SelectTrigger id="olympiad-mode" className="rounded-lg text-sm">
-                    <SelectValue placeholder={t('slots.selectMode')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(LEARNING_MODE_KEYS ?? []).map((key) => (
-                      <SelectItem key={key} value={key}>
-                        {modeLabels[key]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="olympiad-tier" className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                  {t('slots.tier')}
-                </Label>
-                <Select
-                  value={olympiadTier}
-                  onValueChange={(v) => setOlympiadTier(v as OlympiadTierId)}
-                >
-                  <SelectTrigger id="olympiad-tier" className="rounded-lg text-sm">
-                    <SelectValue placeholder={t('slots.selectTier')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {(olympiadTierConfigs ?? []).map((cfg) => (
-                      <SelectItem key={cfg.id} value={cfg.id}>
-                        {tierLabels[cfg.id].name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="flex flex-col gap-0.5 border-l-2 border-[#1F396D] pl-3">
-                <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight">
-                  {tierLabels[olympiadTierConfig.id].name}
-                </h4>
-                <span className="text-[10px] text-slate-600">
-                  {tierLabels[olympiadTierConfig.id].description}
+      {isAiEntrepreneur && program.levels[0] ? (
+        <>
+          <EnrollmentPanelControls>
+            <EnrollmentPanelDropdownsRow>
+              <Select
+                value={aiEntrepreneurMode}
+                onValueChange={(v) => setAiEntrepreneurMode(v as LearningModeKey)}
+              >
+                <SelectTrigger id="ai-entrepreneur-mode" className={selectTriggerClass} aria-label={t('slots.selectMode')}>
+                  <SelectValue placeholder={t('slots.selectMode')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {(LEARNING_MODE_KEYS ?? []).map((key) => (
+                    <SelectItem key={key} value={key}>
+                      {modeLabels[key]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </EnrollmentPanelDropdownsRow>
+            {aiProfileBuildingAddOn ? (
+              <label
+                htmlFor="ai-profile-building-addon"
+                className="mt-2 flex cursor-pointer items-start gap-2 rounded-lg border border-[#1F396D]/15 bg-[#1F396D]/5 px-3 py-2 text-left"
+              >
+                <Checkbox
+                  id="ai-profile-building-addon"
+                  checked={includeAiProfileAddOn}
+                  onCheckedChange={(checked) => setIncludeAiProfileAddOn(checked === true)}
+                  className="mt-0.5"
+                  aria-label={`Add ${aiProfileBuildingAddOn.name}`}
+                />
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center justify-between gap-2 text-[12px] font-black text-slate-900">
+                    <span>{aiProfileBuildingAddOn.name}</span>
+                    <span className="tabular-nums">+${aiProfileBuildingAddOn.price}</span>
+                  </span>
+                  <span className="mt-0.5 block text-[11px] leading-snug text-slate-600">
+                    {aiProfileBuildingAddOn.description}
+                  </span>
                 </span>
-              </div>
-              <div className="grid gap-2">
-                {olympiadSlots.map((slot) => (
-                  <SlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={{
-                      id: olympiadTierConfig.id,
-                      name: tierLabels[olympiadTierConfig.id].name,
-                      description: tierLabels[olympiadTierConfig.id].description,
-                      slots: [],
-                    }}
-                    program={program}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+              </label>
+            ) : null}
+          </EnrollmentPanelControls>
+          <EnrollmentPanelScrollBody>
+            {renderSlotList(aiEntrepreneurSlots, program.levels[0])}
+          </EnrollmentPanelScrollBody>
+        </>
+      ) : null}
 
-        {!isAdvMath && !isMathOlympiad && !isAiEntrepreneur && !isScratch && !isRoblox &&
-          program.levels.map((level) => (
-            <div key={level.id} className="space-y-4">
-              <div className="flex flex-col gap-0.5 border-l-2 border-[#1F396D] pl-3">
-                <h4 className="font-bold text-sm text-slate-900 uppercase tracking-tight">
-                  {level.name}
-                </h4>
-                <span className="text-[10px] text-slate-600">
-                  {level.description}
-                </span>
-              </div>
-              <div className="grid gap-2">
-                {level.slots.map((slot) => (
-                  <SlotRow
-                    key={slot.id}
-                    slot={slot}
-                    level={level}
-                    program={program}
-                    cartItemIds={summerCampItemIds}
-                    onAdd={handleAdd}
-                    onRemove={handleRemove}
-                  />
-                ))}
-              </div>
+      {isMathOlympiad && olympiadTierConfig ? (
+        <>
+          <EnrollmentPanelControls>
+            <EnrollmentPanelDropdownsRow>
+              <Select value={olympiadMode} onValueChange={(v) => setOlympiadMode(v as LearningModeKey)}>
+                <SelectTrigger id="olympiad-mode" className={selectTriggerClass} aria-label={t('slots.selectMode')}>
+                  <SelectValue placeholder={t('slots.selectMode')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {(LEARNING_MODE_KEYS ?? []).map((key) => (
+                    <SelectItem key={key} value={key}>
+                      {modeLabels[key]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select value={olympiadTier} onValueChange={(v) => setOlympiadTier(v as OlympiadTierId)}>
+                <SelectTrigger id="olympiad-tier" className={selectTriggerClass} aria-label={t('slots.selectTier')}>
+                  <SelectValue placeholder={t('slots.selectTier')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {(olympiadTierConfigs ?? []).map((cfg) => (
+                    <SelectItem key={cfg.id} value={cfg.id}>
+                      {tierLabels[cfg.id].name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </EnrollmentPanelDropdownsRow>
+            <EnrollmentPanelDescriptionStrip>
+              {tierLabels[olympiadTierConfig.id].description}
+            </EnrollmentPanelDescriptionStrip>
+          </EnrollmentPanelControls>
+          <EnrollmentPanelScrollBody>
+            {renderSlotList(olympiadSlots, {
+              id: olympiadTierConfig.id,
+              name: tierLabels[olympiadTierConfig.id].name,
+              description: tierLabels[olympiadTierConfig.id].description,
+              slots: [],
+            })}
+          </EnrollmentPanelScrollBody>
+        </>
+      ) : null}
+
+      {!isAdvMath &&
+      !isMathOlympiad &&
+      !isAiEntrepreneur &&
+      !isScratch &&
+      !isRoblox
+        ? program.levels.map((level) => (
+            <div key={level.id} className="contents">
+              {level.description ? (
+                <EnrollmentPanelControls>
+                  <EnrollmentPanelDescriptionStrip>{level.description}</EnrollmentPanelDescriptionStrip>
+                </EnrollmentPanelControls>
+              ) : null}
+              <EnrollmentPanelScrollBody>
+                {renderSlotList(level.slots, level)}
+              </EnrollmentPanelScrollBody>
             </div>
-          ))}
-      </div>
-    </div>
+          ))
+        : null}
+    </EnrollmentPanelShell>
   );
 }

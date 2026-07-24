@@ -2,9 +2,11 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, Download, MessageSquare } from 'lucide-react'
 import { generatePageMetadata } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 const PDF_PATH = '/downloads/ThinkingGap_Playbook_for_parents.pdf'
@@ -20,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     type: 'article',
     title: 'Teaching Kids How to Think | GrowWise',
     description:
-      'Spot a “thinking gap” vs. screen time. Practical steps for Tri-Valley parents—plus a free Parent Playbook PDF.',
+      'Learn how to tell whether a child is distracted or stuck in a thinking gap, and how parents can respond with clearer support and better practice.',
     keywords:
       'critical thinking for kids, thinking gap, parenting, middle school learning, Dublin CA, analytical thinking, education, screen time, problem solving',
   })
@@ -36,11 +38,11 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
   const baseUrl = getCanonicalSiteUrl()
   const pageUrl = absoluteSiteUrl(SLUG, locale, baseUrl)
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: "Your Kids Aren't Distracted", url: pageUrl },
-  ])
+  ]
 
   const blogPostingSchema = {
     '@context': 'https://schema.org',
@@ -68,7 +70,8 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="thinking-gap-your-kids-arent-distracted" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }} />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
@@ -145,6 +148,24 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
                   A few weeks ago, I spent the day at Fallon Middle School as a career speaker. Instead of a standard lecture, I ran a &quot;Problem-to-App&quot; workshop — a live
                   exercise where students had to think through a real-world problem and design a solution from scratch. No instructions. No template. Just a problem and forty minutes.
                 </p>
+
+                <LegacyBlogAeoBlock slug="thinking-gap-your-kids-arent-distracted" />
+
+                <figure className="not-prose my-8 overflow-hidden rounded-xl bg-gray-50 shadow-lg">
+                  <div className="relative h-[220px] w-full sm:h-[260px] md:h-[300px]">
+                    <BlogImage
+                      src={HERO_IMAGE}
+                      alt="Thinking gap visual guide showing students learning how to think through open-ended problems"
+                      fill
+                      className="object-cover rounded-xl"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                    />
+                  </div>
+                  <figcaption className="px-5 py-4 text-sm text-gray-600">
+                    thinking gap kids arent distracted visual guide for parents who want students to build stronger
+                    reasoning habits.
+                  </figcaption>
+                </figure>
 
                 <p className="text-base text-slate-700 not-prose mb-4">
                   When school is out, many families look for the same structured stretch — explore our{' '}
@@ -360,12 +381,12 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
                   I&apos;m happy to have a no-pressure conversation about your child&apos;s specific situation — whether or not it involves my programs.
                 </p>
                 <div className="mt-6 flex justify-center gap-3 flex-wrap">
-                  <a
-                    href="/enroll"
+                  <Link
+                    href={publicPath('/book-assessment', locale)}
                     className="inline-flex items-center gap-2 rounded-xl bg-[#F16112] px-6 py-3 font-semibold text-white hover:bg-[#F1894F] transition-colors"
                   >
-                    Send a DM →
-                  </a>
+                    Book Free Assessment →
+                  </Link>
                   <a
                     href={PDF_PATH}
                     className="inline-flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-semibold text-white hover:bg-white/15 transition-colors"
@@ -407,8 +428,13 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
             </div>
           </div>
         </article>
+
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/academic"
+          programLabel="Explore Academic Programs"
+        />
       </div>
     </>
   )
 }
-

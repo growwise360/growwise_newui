@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { generateMetadataFromPath } from '@/lib/seo/metadata';
+import { buildNoIndexMetadata } from '@/lib/seo/noIndexMetadata';
 
 export async function generateMetadata({
   params,
@@ -8,12 +8,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return (
-    generateMetadataFromPath('/camps/summer/guide-success', locale) ?? {
-      title: 'Camp guide sent | GrowWise Summer Camp',
-      description: 'Thank you — your camp guide and early-bird details are on the way.',
-    }
-  );
+  return buildNoIndexMetadata({
+    title: 'Camp guide sent | GrowWise Summer Camp',
+    description: 'Thank you — your camp guide PDF is on the way by email.',
+    path: '/camps/summer/guide-success',
+    locale,
+  });
 }
 
 export default function GuideSuccessLayout({ children }: { children: ReactNode }) {

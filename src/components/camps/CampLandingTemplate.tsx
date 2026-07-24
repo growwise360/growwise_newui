@@ -1,5 +1,4 @@
 import type { CampLandingPage } from "@/lib/camps/camp-types";
-import { buildCampJsonLd } from "@/lib/seo/camp-jsonld";
 
 import { CampHero } from "./CampHero";
 import { CampInquiryForm } from "./CampInquiryForm";
@@ -15,11 +14,8 @@ type CampLandingTemplateProps = {
 };
 
 export function CampLandingTemplate({ page }: CampLandingTemplateProps) {
-  const jsonLd = buildCampJsonLd(page);
-
   return (
     <>
-      {/* Visible content first — JSON-LD was previously first in <main>, which can break React hydration (blank / flicker). */}
       <article className="relative z-10">
         <CampHero page={page} />
         <TrustBar page={page} />
@@ -27,19 +23,10 @@ export function CampLandingTemplate({ page }: CampLandingTemplateProps) {
         <ScheduleSection page={page} />
         <LocationSection page={page} />
         <FAQSection page={page} />
-        {/* key: fresh form state + defaultValues per slug (all CAMP_LANDING_PAGES). */}
         <CampInquiryForm key={page.slug} page={page} />
       </article>
 
       <StickyCTA page={page} />
-
-      {jsonLd.map((schema, i) => (
-        <script
-          key={`camp-jsonld-${page.slug}-${i}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
     </>
   );
 }

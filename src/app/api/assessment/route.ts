@@ -6,8 +6,27 @@ import {
   isBrevoTransactionalReady,
   sendBrevoTransactionalEmail,
 } from '@/lib/brevo';
+import { splitFullName, syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
+import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
+import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
+import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
+import { sendFormSms } from '@/lib/twilioSms';
+import { logVisitorEvent } from '@/lib/analytics/visitorEventLogger';
 
 export const maxDuration = 60;
+
+const MAX_BODY_BYTES = 32 * 1024;
+const MAX_SUBJECT_TAGS = 24;
+
+function landingPagePath(value: string): string {
+  if (!value) return '';
+  try {
+    const url = new URL(value);
+    return `${url.pathname}${url.search}`;
+  } catch {
+    return value;
+  }
+}
 
 function escapeHtml(s: string): string {
   return s
@@ -32,11 +51,50 @@ interface AssessmentFormData {
   /** Free-text or select value, e.g. how the family found GrowWise. */
   hearAboutUs?: string;
   notes?: string;
+  sms_consent?: boolean;
+  /** Partner referral fields */
+  partnerName?: string;
+  partnerCode?: string;
+  partnerBenefit?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  landingUrl?: string;
+  visitor_id?: string;
+  session_id?: string;
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    if (!isAllowed('assessment', clientIpFrom(request))) {
+      return NextResponse.json(
+        { success: false, error: 'Too many submissions. Please try again later.' },
+        { status: 429 },
+      );
+    }
+    if (!isOriginAllowed(request)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid request' },
+        { status: 403 },
+      );
+    }
+
+    const raw = await request.text();
+    if (raw.length > MAX_BODY_BYTES) {
+      return NextResponse.json({ success: false, error: 'Request too large' }, { status: 413 });
+    }
+
+    let body: Record<string, unknown>;
+    try {
+      body = JSON.parse(raw) as Record<string, unknown>;
+    } catch {
+      return NextResponse.json({ success: false, error: 'Invalid JSON' }, { status: 400 });
+    }
+
+    if (honeypotTriggered(body)) {
+      return NextResponse.json({ success: false, error: 'Invalid request' }, { status: 400 });
+    }
+
     const {
       parentName,
       email,
@@ -49,9 +107,25 @@ export async function POST(request: Request) {
       mode,
       schedule,
       hearAboutUs,
-      notes
-    }: AssessmentFormData = body;
-    const subjects = Array.isArray(subjectsRaw) ? subjectsRaw : [];
+      notes,
+      sms_consent,
+      partnerName,
+      partnerCode,
+      partnerBenefit,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      landingUrl,
+      visitor_id,
+      session_id,
+    }: AssessmentFormData = body as unknown as AssessmentFormData;
+
+    const subjects = Array.isArray(subjectsRaw)
+      ? subjectsRaw
+          .filter((s): s is string => typeof s === 'string')
+          .slice(0, MAX_SUBJECT_TAGS)
+          .map((s) => clip(s, FIELD_MAX.shortText))
+      : [];
 
     // Validate required fields
     if (!parentName || !email || !phone || !studentName || !grade || !assessmentType || !mode || !schedule) {
@@ -64,9 +138,36 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (
+      exceedsMax(parentName, FIELD_MAX.name) ||
+      exceedsMax(email, FIELD_MAX.email) ||
+      exceedsMax(countryCode ?? '', FIELD_MAX.shortText) ||
+      exceedsMax(phone, FIELD_MAX.phone) ||
+      exceedsMax(studentName, FIELD_MAX.name) ||
+      exceedsMax(grade, FIELD_MAX.shortText) ||
+      exceedsMax(assessmentType, FIELD_MAX.shortText) ||
+      exceedsMax(mode, FIELD_MAX.shortText) ||
+      exceedsMax(schedule, FIELD_MAX.shortText) ||
+      (typeof hearAboutUs === 'string' && exceedsMax(hearAboutUs, FIELD_MAX.shortText)) ||
+      (typeof notes === 'string' && exceedsMax(notes, FIELD_MAX.longText)) ||
+      (typeof partnerName === 'string' && exceedsMax(partnerName, FIELD_MAX.shortText)) ||
+      (typeof partnerCode === 'string' && exceedsMax(partnerCode, FIELD_MAX.shortText)) ||
+      (typeof partnerBenefit === 'string' && exceedsMax(partnerBenefit, FIELD_MAX.longText)) ||
+      (typeof utm_source === 'string' && exceedsMax(utm_source, FIELD_MAX.shortText)) ||
+      (typeof utm_medium === 'string' && exceedsMax(utm_medium, FIELD_MAX.shortText)) ||
+      (typeof utm_campaign === 'string' && exceedsMax(utm_campaign, FIELD_MAX.shortText)) ||
+      (typeof landingUrl === 'string' && exceedsMax(landingUrl, FIELD_MAX.longText)) ||
+      (typeof visitor_id === 'string' && exceedsMax(visitor_id, FIELD_MAX.shortText)) ||
+      (typeof session_id === 'string' && exceedsMax(session_id, FIELD_MAX.shortText))
+    ) {
+      return NextResponse.json(
+        { success: false, error: 'One or more fields are too long' },
+        { status: 400 },
+      );
+    }
+
+    const emailTrim = clip(email, FIELD_MAX.email).toLowerCase();
+    if (!isValidEmailShape(emailTrim)) {
       return NextResponse.json(
         { 
           success: false,
@@ -76,7 +177,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const phoneResult = validatePhoneSimple(phone);
+    const phoneC = clip(phone, FIELD_MAX.phone);
+    const phoneResult = validatePhoneSimple(phoneC);
     if (!phoneResult.isValid) {
       return NextResponse.json(
         { 
@@ -89,32 +191,103 @@ export async function POST(request: Request) {
 
     // Prepare assessment data
     const assessmentData = {
-      parentName: parentName.trim(),
-      email: email.trim().toLowerCase(),
-      countryCode: countryCode.trim(),
-      phone: phone.trim(),
-      studentName: studentName.trim(),
-      grade: grade.trim(),
+      parentName: clip(parentName, FIELD_MAX.name),
+      email: emailTrim,
+      countryCode: clip(typeof countryCode === 'string' ? countryCode : '+1', FIELD_MAX.shortText),
+      phone: phoneC,
+      studentName: clip(studentName, FIELD_MAX.name),
+      grade: clip(grade, FIELD_MAX.shortText),
       subjects,
-      assessmentType: assessmentType.trim(),
-      mode: mode.trim(),
-      schedule: schedule.trim(),
-      hearAboutUs: (typeof hearAboutUs === 'string' ? hearAboutUs : '').trim(),
-      notes: notes?.trim() || '',
+      assessmentType: clip(assessmentType, FIELD_MAX.shortText),
+      mode: clip(mode, FIELD_MAX.shortText),
+      schedule: clip(schedule, FIELD_MAX.shortText),
+      hearAboutUs: clip(typeof hearAboutUs === 'string' ? hearAboutUs : '', FIELD_MAX.shortText),
+      notes: clip(typeof notes === 'string' ? notes : '', FIELD_MAX.longText),
+      partnerName: clip(typeof partnerName === 'string' ? partnerName : '', FIELD_MAX.shortText),
+      partnerCode: clip(typeof partnerCode === 'string' ? partnerCode : '', FIELD_MAX.shortText),
+      partnerBenefit: clip(typeof partnerBenefit === 'string' ? partnerBenefit : '', FIELD_MAX.longText),
+      utm_source: clip(typeof utm_source === 'string' ? utm_source : '', FIELD_MAX.shortText),
+      utm_medium: clip(typeof utm_medium === 'string' ? utm_medium : '', FIELD_MAX.shortText),
+      utm_campaign: clip(typeof utm_campaign === 'string' ? utm_campaign : '', FIELD_MAX.shortText),
+      landingUrl: clip(typeof landingUrl === 'string' ? landingUrl : '', FIELD_MAX.longText),
+      visitor_id: clip(typeof visitor_id === 'string' ? visitor_id : '', FIELD_MAX.shortText),
+      session_id: clip(typeof session_id === 'string' ? session_id : '', FIELD_MAX.shortText),
       timestamp: new Date().toISOString(),
-      ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
     };
 
-    // Send emails to both receiver and sender
     const emailResult = await sendAssessmentEmails(assessmentData);
 
     if (emailResult.success) {
-      // Log the assessment submission (in production, save to database)
-      console.log('Assessment booking submission:', {
-        ...assessmentData,
-        emailsSent: true,
-        emailIds: emailResult.emailIds
+      void sendFormSms({
+        phone: assessmentData.phone,
+        sms_consent: Boolean(sms_consent),
+        type: 'assessment',
+        name: assessmentData.parentName,
       });
+
+      const at = assessmentData.email.indexOf('@');
+      const emailDomain = at > 0 ? assessmentData.email.slice(at + 1) : 'unknown';
+      console.log('[assessment] submission ok', {
+        emailDomain,
+        grade: assessmentData.grade,
+        emailIds: emailResult.emailIds,
+        userConfirmationSent: process.env.ENABLE_USER_CONFIRMATION_EMAIL === 'true',
+      });
+
+      await logVisitorEvent(request, {
+        event_name: 'assessment_form_submit',
+        page_path: landingPagePath(assessmentData.landingUrl),
+        selected_assessment_type: assessmentData.assessmentType,
+        referrer: request.headers.get('referer') ?? '',
+        utm_source: assessmentData.utm_source,
+        utm_medium: assessmentData.utm_medium,
+        utm_campaign: assessmentData.utm_campaign,
+        visitor_id: assessmentData.visitor_id,
+        session_id: assessmentData.session_id,
+        metadata: {
+          grade: assessmentData.grade,
+          subject_count: assessmentData.subjects.length,
+          source: 'assessment_api_success',
+        },
+      });
+
+      const { firstname, lastname } = splitFullName(assessmentData.parentName);
+      const messageBlock = [
+        `Student: ${assessmentData.studentName}`,
+        `Grade: ${assessmentData.grade}`,
+        `Assessment type: ${assessmentData.assessmentType}`,
+        `Mode: ${assessmentData.mode}`,
+        `Schedule: ${assessmentData.schedule}`,
+        assessmentData.hearAboutUs ? `Heard about us: ${assessmentData.hearAboutUs}` : '',
+        assessmentData.partnerName ? `Partner: ${assessmentData.partnerName}` : '',
+        assessmentData.partnerCode ? `Partner code: ${assessmentData.partnerCode}` : '',
+        assessmentData.partnerBenefit ? `Partner benefit: ${assessmentData.partnerBenefit}` : '',
+        assessmentData.utm_source ? `UTM source: ${assessmentData.utm_source}` : '',
+        assessmentData.utm_medium ? `UTM medium: ${assessmentData.utm_medium}` : '',
+        assessmentData.utm_campaign ? `UTM campaign: ${assessmentData.utm_campaign}` : '',
+        assessmentData.notes ? `Notes: ${assessmentData.notes}` : '',
+        assessmentData.subjects?.length
+          ? `Subjects: ${assessmentData.subjects.join(', ')}`
+          : '',
+        'Source: book-assessment-form',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      await syncHubSpotLeadIfConfigured(
+        [
+          { name: 'firstname', value: firstname },
+          { name: 'lastname', value: lastname },
+          { name: 'email', value: assessmentData.email },
+          { name: 'phone', value: assessmentData.phone },
+          { name: 'message', value: messageBlock },
+        ],
+        {
+          pageUri: request.headers.get('referer') ?? '',
+          pageName: 'Book assessment form',
+        },
+        'assessment',
+      );
 
       const payload: Record<string, unknown> = {
         success: true,
@@ -133,11 +306,11 @@ export async function POST(request: Request) {
     }
 
   } catch (error) {
-    console.error('Assessment API Error:', error);
+    console.error('[assessment] POST failed:', error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'An unknown error occurred',
+        error: 'Server error',
         message: 'Failed to process your assessment booking. Please try again or contact us directly.'
       },
       { status: 500 }
@@ -158,8 +331,16 @@ interface AssessmentPayload {
   schedule: string;
   hearAboutUs: string;
   notes: string;
+  partnerName: string;
+  partnerCode: string;
+  partnerBenefit: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  landingUrl: string;
+  visitor_id: string;
+  session_id: string;
   timestamp: string;
-  ip: string;
 }
 
 async function deliverAssessmentEmail(options: {
@@ -180,7 +361,12 @@ async function deliverAssessmentEmail(options: {
 async function sendAssessmentEmails(assessmentData: AssessmentPayload) {
   try {
     const businessEmailResult = await sendBusinessAssessmentEmail(assessmentData);
-    const userEmailResult = await sendUserAssessmentConfirmationEmail(assessmentData);
+
+    /** Auto-reply to user-provided email is off by default (email-as-a-service abuse). */
+    const sendUser = process.env.ENABLE_USER_CONFIRMATION_EMAIL === 'true';
+    const userEmailResult = sendUser
+      ? await sendUserAssessmentConfirmationEmail(assessmentData)
+      : { success: true as const, emailId: undefined as string | undefined };
 
     if (businessEmailResult.success && userEmailResult.success) {
       return {
@@ -197,7 +383,7 @@ async function sendAssessmentEmails(assessmentData: AssessmentPayload) {
       error: `Business email: ${businessEmailResult.success ? 'sent' : 'failed'}, User email: ${userEmailResult.success ? 'sent' : 'failed'}`,
     };
   } catch (error) {
-    console.error('Assessment email sending error:', error);
+    console.error('[assessment] email send error:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to send emails',
@@ -216,10 +402,10 @@ async function sendBusinessAssessmentEmail(
     text: generateBusinessAssessmentEmailText(assessmentData),
   });
   if (result.success) {
-    console.log('Business assessment email sent:', { messageId: result.messageId });
+    console.log('[assessment] business email sent', { messageId: result.messageId });
     return { success: true, emailId: result.messageId };
   }
-  console.error('Business assessment email failed:', result.error);
+  console.error('[assessment] business email failed:', result.error);
   return { success: false, error: result.error };
 }
 
@@ -233,10 +419,10 @@ async function sendUserAssessmentConfirmationEmail(
     text: generateUserAssessmentConfirmationEmailText(assessmentData),
   });
   if (result.success) {
-    console.log('User assessment confirmation sent:', { messageId: result.messageId });
+    console.log('[assessment] user confirmation sent', { messageId: result.messageId });
     return { success: true, emailId: result.messageId };
   }
-  console.error('User assessment confirmation failed:', result.error);
+  console.error('[assessment] user confirmation failed:', result.error);
   return { success: false, error: result.error };
 }
 
@@ -287,8 +473,7 @@ function generateBusinessAssessmentEmailHTML(data: AssessmentPayload) {
 
       <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
       <p style="color: #666; font-size: 12px;">
-        This email was generated from the GrowWise assessment booking form.<br>
-        IP Address: ${escapeHtml(data.ip)}
+        This email was generated from the GrowWise assessment booking form.
       </p>
     </div>
   `;
@@ -394,4 +579,3 @@ Visit our website: https://growwiseschool.org
 If you have any questions, please contact us at ${CONTACT_INFO.email}
   `;
 }
-

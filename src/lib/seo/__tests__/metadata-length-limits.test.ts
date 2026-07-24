@@ -1,0 +1,132 @@
+import enMessages from '@/i18n/messages/en.json'
+import { getCampPage } from '@/lib/camps/get-camp-page'
+import { getMetadataConfig } from '@/lib/seo/metadataConfig'
+
+/** TC-05 (≤60 char titles) & TC-06 (≤155 char descriptions) — character limits only; SERP pixel width is manual. (Trace: GWA-192.) */
+const MAX_TITLE_LEN = 60
+const MAX_DESC_LEN = 155
+
+function assertTitle(path: string, title: string) {
+  expect(title.length).toBeLessThanOrEqual(MAX_TITLE_LEN)
+  expect(title).toMatch(/\S/)
+}
+
+function assertDesc(path: string, description: string) {
+  expect(description.length).toBeLessThanOrEqual(MAX_DESC_LEN)
+  expect(description).toMatch(/\S/)
+}
+
+describe('Metadata length limits — TC-05 / TC-06', () => {
+  describe('metadataConfig static paths', () => {
+    it.each([
+      ['/camps/summer'],
+      ['/camps/academic-summer-programs-dublin-ca'],
+      ['/camps/summer-reading-writing-dublin-ca'],
+      ['/camps/summer-math-foundations-dublin-ca'],
+      ['/camps/summer-algebra-dublin-ca'],
+      ['/camps/summer-geometry-precalculus-dublin-ca'],
+      ['/camps/summer-im-get-ready-dublin-ca'],
+      ['/camps/summer-im1-get-ready-dublin-ca'],
+      ['/camps/summer-im2-get-ready-dublin-ca'],
+      ['/courses/integrated-math-1-dublin-ca'],
+      ['/academic/math'],
+      ['/academic/math/elementary'],
+      ['/academic/math/middle-school'],
+      ['/academic/math/high-school'],
+      ['/academic/math/high-school'],
+      ['/book-assessment'],
+      ['/enroll'],
+      ['/future-skills'],
+      ['/future-skills/design-creative-media'],
+      ['/future-skills/python-certification'],
+      ['/future-skills/ai-machine-learning'],
+      ['/future-skills/ai-entrepreneurship'],
+    ] as const)('title + description for %s', (path) => {
+      const config = getMetadataConfig(path)
+      expect(config).not.toBeNull()
+      assertTitle(path, config!.title)
+      assertDesc(path, config!.description)
+    })
+  })
+
+  describe('camp landing seoTitle / metaDescription', () => {
+    const slugs = [
+      'math-olympiad-camp-dublin-ca',
+      'ai-studio-dublin-ca',
+      'game-development-camp-dublin-ca',
+      'young-authors-camp-dublin-ca',
+    ] as const
+
+    it.each(slugs)('%s — title and meta length', (slug) => {
+      const page = getCampPage(slug)
+      expect(page).toBeDefined()
+      assertTitle(`/camps/${slug}`, page!.seoTitle)
+      assertDesc(`/camps/${slug}`, page!.metaDescription)
+    })
+  })
+
+  describe('blog posts (generateMetadata strings)', () => {
+    it('high-school-math-finals-prep-dublin-tri-valley', () => {
+      const title = 'High School Math Finals Prep Dublin CA | GrowWise'
+      const description =
+        'High school math finals prep in Dublin, CA. Exam-style practice for Algebra 1 through AP Precalculus. In-center sessions at GrowWise School.'
+      assertTitle('/growwise-blogs/high-school-math-finals-prep-dublin-tri-valley', title)
+      assertDesc('/growwise-blogs/high-school-math-finals-prep-dublin-tri-valley', description)
+    })
+
+    it('improve-child-focus-feel-valued', () => {
+      const title = "12 Ways to Improve Your Child's Focus | GrowWise"
+      const description =
+        'Simple, research-backed strategies to help your child focus better in school and at home. A parent guide from GrowWise School in Dublin, CA.'
+      assertTitle('/growwise-blogs/improve-child-focus-feel-valued', title)
+      assertDesc('/growwise-blogs/improve-child-focus-feel-valued', description)
+    })
+
+    it('your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', () => {
+      const title = "B+ Doesn't Mean Math Understanding | GrowWise"
+      const description =
+        'Why a B+ can hide math gaps in Tri-Valley schools—and how Dublin parents spot real understanding vs. memorization before algebra.'
+      assertTitle('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', title)
+      assertDesc('/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math', description)
+    })
+
+    it('reading-fluency-vs-comprehension', () => {
+      const config = getMetadataConfig('/resources/reading-fluency-vs-comprehension')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/reading-fluency-vs-comprehension', config!.title)
+      assertDesc('/resources/reading-fluency-vs-comprehension', config!.description)
+    })
+
+    it('summer-slide-dublin-ca', () => {
+      const config = getMetadataConfig('/resources/summer-slide-dublin-ca')
+      expect(config).not.toBeNull()
+      assertTitle('/resources/summer-slide-dublin-ca', config!.title)
+      assertDesc('/resources/summer-slide-dublin-ca', config!.description)
+    })
+
+    it.each([
+      '/resources/summer-slide-prevention',
+      '/resources/khan-academy-summer-doesnt-work',
+      '/resources/summer-academic-program-checklist',
+      '/resources/affordable-summer-academic-programs-dublin-ca',
+      '/resources/math-summer-program-dublin-ca-math-sprint-breakdown',
+      '/resources/reading-program-grades-1-2-dublin-ca',
+      '/resources/small-group-tutoring-vs-1-on-1',
+      '/resources/california-math-standards-by-grade',
+      '/resources/im1-summer-prep-dublin-ca',
+      '/resources/summer-writing-program-dublin-ca',
+      '/resources/child-struggles-with-writing-dublin-ca',
+    ] as const)('title + description for %s', (path) => {
+      const config = getMetadataConfig(path)
+      expect(config).not.toBeNull()
+      assertTitle(path, config!.title)
+      assertDesc(path, config!.description)
+    })
+  })
+
+  it('en locale enroll metaDescription from messages matches length cap (used by enroll layout)', () => {
+    const meta = enMessages.enrollnow?.metaDescription
+    expect(typeof meta).toBe('string')
+    assertDesc('/enroll (en.json)', meta as string)
+  })
+})

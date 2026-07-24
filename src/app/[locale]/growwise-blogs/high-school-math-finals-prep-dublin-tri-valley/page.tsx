@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
-import { generateBreadcrumbSchema, generateArticleSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
-import { ArrowLeft, Calendar, User } from 'lucide-react'
+import { ArrowLeft, Calendar, ClipboardCheck, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { BlogFaqAccordion } from '@/components/blogs/BlogFaqAccordion'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
@@ -64,8 +65,9 @@ export async function generateMetadata({
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return {
-    title: 'Math Finals Prep Dublin CA | Algebra 1 – AP Precalculus | GrowWise',
-    description: DESCRIPTION,
+    title: 'High School Math Finals Prep Dublin CA | GrowWise',
+    description:
+      'High school math finals prep in Dublin, CA. Exam-style practice for Algebra 1 through AP Precalculus. In-center sessions at GrowWise School.',
     alternates: {
       canonical: absoluteSiteUrl(`/growwise-blogs/${BLOG_SLUG}`, locale, baseUrl),
     },
@@ -89,11 +91,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const pageUrl = absoluteSiteUrl(pagePath, locale, baseUrl)
   const absImage = `${baseUrl}${BLOG_IMAGE_URL}`
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: HEADLINE, url: pageUrl },
-  ])
+  ]
 
   const articleSchema = generateArticleSchema({
     headline: HEADLINE,
@@ -112,10 +114,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -154,6 +153,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <time dateTime="2026-04-27">April 27, 2026</time>
               </div>
             </div>
+            <div className="llm-answer-block mt-6 rounded-2xl border-l-4 border-[#1D9E75] bg-white/95 p-6 text-slate-900 shadow-lg">
+              <h2 className="flex items-center gap-3 text-xl font-bold">
+                <ClipboardCheck className="h-6 w-6 text-[#1D9E75]" aria-hidden />
+                Quick Answer
+              </h2>
+              <p className="mt-3 text-slate-800">
+                The best way to prepare for a high school math final is mixed-topic practice, mistake correction,
+                timed review, and targeted weak-area support. Students should start two to three weeks before finals
+                so older Algebra, Precalculus, or AP Precalculus topics can be rebuilt before exam week.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -174,6 +184,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 At <strong>GrowWise Math Finals Prep in Dublin, CA</strong>, students work through structured review
                 and practice designed to help them prepare more confidently for high school math finals.
               </p>
+
+              <figure className="not-prose my-8 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+                <BlogImage
+                  src={BLOG_IMAGE_URL}
+                  alt="High school math finals prep study plan for Algebra, Precalculus, and AP Precalculus students"
+                  width={1200}
+                  height={675}
+                  className="h-auto w-full"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 900px"
+                />
+                <figcaption className="px-5 py-3 text-sm text-slate-600">
+                  High school math finals prep should combine mixed Algebra, Precalculus, and AP-style practice with
+                  mistake correction.
+                </figcaption>
+              </figure>
 
               <h2 className="not-prose text-2xl font-bold text-gray-900 mt-10 mb-4">
                 What is the best way to study for a high school math final?
@@ -434,6 +459,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                   >
                     <Link href={publicPath('/math-finals-practice-session', locale)}>Request Math Finals Prep</Link>
                   </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="h-12 rounded-full border-[#1F396D] bg-white px-8 text-base font-semibold text-[#1F396D]"
+                  >
+                    <Link href={publicPath('/book-assessment', locale)}>Book Free Assessment</Link>
+                  </Button>
                   <Link
                     href={publicPath('/contact', locale)}
                     className="text-sm font-semibold text-[#1F396D] underline-offset-2 hover:underline"
@@ -450,6 +482,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               subheading="Same information as the FAQ data on this page—tap to expand."
               faqs={[...BLOG_FAQS]}
             />
+
+            {/* Program Callout */}
+            <div className="not-prose mt-10 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Need expert help finishing strong this school year?{' '}
+                <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore GrowWise High School Math tutoring
+                </Link>{' '}
+                — personalized prep for Algebra 2, Pre-Calculus, and DUSD accelerated math in Dublin, CA.
+              </p>
+            </div>
 
             <p className="not-prose text-center text-sm text-gray-500 mt-10 max-w-4xl mx-auto">
               More for Tri-Valley families:{' '}

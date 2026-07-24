@@ -1,12 +1,13 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const metadata = generateMetadataFromPath('/courses/high-school-math', locale)
+  const metadata = generateMetadataFromPath('/academic/math/high-school', locale)
   return metadata || { title: 'High School Math | GrowWise', description: 'High school math courses' }
 }
 
@@ -21,20 +22,23 @@ export default async function HighSchoolMathLayout({
   const baseUrl = getCanonicalSiteUrl()
   
   const courseSchema = generateCourseSchema({
-    name: "High School Math Courses - Algebra, Geometry, Pre-Calculus",
+    name: "High School Math Courses - Algebra Through Calculus",
     description:
       "High school math in Dublin, CA: algebra through calculus. DUSD aligned, small groups. Book a free assessment.",
     provider: "GrowWise",
     educationalLevel: "High School",
     teaches: [
-      "Algebra",
-      "Geometry",
-      "Pre-Calculus",
-      "Trigonometry",
-      "Advanced Mathematics"
+      "Algebra 1",
+      "Algebra 2",
+      "Advanced Algebra 2",
+      "Precalculus",
+      "AP Precalculus",
+      "Calculus",
+      "AP Calculus AB",
+      "Trigonometry"
     ],
     coursePrerequisites: "High school level math foundation",
-    url: absoluteSiteUrl('/courses/high-school-math', locale, baseUrl),
+    url: absoluteSiteUrl(MATH_COURSE_PATHS.highSchool, locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
     offers: {
       price: "35",
@@ -48,7 +52,7 @@ export default async function HighSchoolMathLayout({
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
     { name: 'Programs', url: absoluteSiteUrl('/programs', locale, baseUrl) },
     { name: 'Academic', url: absoluteSiteUrl('/academic', locale, baseUrl) },
-    { name: 'High School Math', url: absoluteSiteUrl('/courses/high-school-math', locale, baseUrl) },
+    { name: 'High School Math', url: absoluteSiteUrl(MATH_COURSE_PATHS.highSchool, locale, baseUrl) },
   ])
 
   return (
@@ -65,4 +69,3 @@ export default async function HighSchoolMathLayout({
     </>
   )
 }
-

@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, BookOpen, CheckCircle, AlertCircle, Trending
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-identify-learning-gaps-in-your-childs-education-at-home-parent-guide.webp'
@@ -19,8 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Spot Learning Gaps at Home | GrowWise', 
-    description:
-      'Spot learning gaps early with simple checks at home—then align support with school expectations in the Tri-Valley.',
+    description: 'A parent guide to spotting learning gaps at home through mistake patterns, explanation checks, schoolwork review, and early support decisions.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-to-identify-learning-gaps-in-your-childs-education-at-home-parent-guide', locale, baseUrl)
     }
@@ -33,16 +35,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   
   const pageUrl = absoluteSiteUrl('/growwise-blogs/how-to-identify-learning-gaps-in-your-childs-education-at-home-parent-guide', locale, baseUrl)
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: "How to Identify Learning Gaps in Your Child's Education at Home", url: pageUrl },
-  ])
+  ]
 
   const articleSchema = generateArticleSchema({
     headline: "How to Identify Learning Gaps in Your Child's Education at Home",
     description: 'Spot learning gaps early with simple checks at home—then align support with school expectations in the Tri-Valley.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2025-05-16',
+    dateModified: '2025-05-16',
   })
 
   return (
@@ -51,10 +56,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-to-identify-learning-gaps-in-your-childs-education-at-home-parent-guide" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -107,6 +110,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Spotting learning gaps early can set your child up for success in Dublin, Pleasanton, San Ramon, or anywhere in the Tri-Valley area. Whether your child struggles with math homework or reading comprehension, these research-backed strategies make it easy for parents to assess learning gaps at home, before seeking professional tutoring in Tri-Valley. Start today to boost your child's confidence and academic performance!
               </p>
 
+              <LegacyBlogAeoBlock slug="how-to-identify-learning-gaps-in-your-childs-education-at-home-parent-guide" />
+
               <p className="text-gray-700 mb-6 text-sm">
                 A short summer intensive can reset momentum — browse 
                 <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
@@ -115,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -126,7 +131,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  how to identify learning gaps in your childs education at home parent guide visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Recognize Signs of Learning Gaps</h2>
 
@@ -469,17 +477,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <em>Your child's path to confidence starts at home, and GrowWise supports families every step of the way.</em>
               </p>
 
-              <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
-                <p className="text-xl font-bold mb-4">
-                  Enroll Today and Unlock Your Kid's Potential!
-                </p>
-                <Link href="/enroll">
-                  <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
-                  </Button>
-                </Link>
-              </div>
+            </div>
 
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Found a gap? Close it fast.{' '}
+                <Link href={publicPath('/academic/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Math tutoring for Grades 1–12
+                </Link>
+                {', '}
+                <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  our High School Math Tutoring program
+                </Link>{' '}
+                (Algebra 1/2, AP Precalculus, and Integrated Math), and{' '}
+                <Link href={publicPath('/academic/english', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  English &amp; ELA tutoring
+                </Link>{' '}
+                — personalized, small-group sessions at GrowWise in Dublin, CA.{' '}
+                <Link href={publicPath('/book-assessment', locale)} className="text-[#F16112] font-semibold underline hover:text-[#F1894F]">
+                  Book a free diagnostic assessment &rarr;
+                </Link>
+              </p>
             </div>
 
             {/* Back to Blogs Link */}
@@ -495,21 +514,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/academic"
+          programLabel="Explore Academic Programs"
+        />
       </div>
     </>
   )

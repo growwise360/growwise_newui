@@ -1,11 +1,13 @@
 import { Metadata } from 'next'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { notFound } from 'next/navigation'
 
 import Link from 'next/link'
 import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 
 export async function generateMetadata({
   params,
@@ -16,7 +18,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const { page } = (await searchParams) ?? {}
-  const pageNum = Number.parseInt(page ?? '1', 10)
+  const pageNum = parsePageNumber(page)
 
   const metadata = generateMetadataFromPath('/growwise-blogs', locale)
   const baseMetadata =
@@ -26,12 +28,12 @@ export async function generateMetadata({
         'Practical articles on tutoring, English, coding, and STEAM for Dublin and Tri-Valley families.',
     }
 
-  // Paginated URLs consolidate to page 1 via canonical; indexable so crawlers align with default metadata.
-  if (Number.isFinite(pageNum) && pageNum > 1) {
+  if (pageNum && pageNum > 1) {
     return {
       ...baseMetadata,
+      title: `GrowWise Blog — Page ${pageNum} | GrowWise`,
       alternates: {
-        canonical: absoluteSiteUrl('/growwise-blogs', locale, getCanonicalSiteUrl()),
+        canonical: absoluteSiteUrl(`/growwise-blogs?page=${pageNum}`, locale, getCanonicalSiteUrl()),
       },
     }
   }
@@ -49,6 +51,69 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  {
+    id: 'line-by-line-reading-evidence-2026',
+    category: 'academic',
+    title: 'The Tell-Tale Heart Reading Comprehension',
+    excerpt:
+      'Decode Poe’s famous short story excerpt by excerpt and teach students to cite evidence about narrator reliability.',
+    href: '/growwise-blogs/tell-tale-heart-reading-comprehension-cite-evidence',
+    readMore: 'Try the lesson »',
+  },
+  {
+    id: 'reading-comprehension-words-no-understanding-2026',
+    category: 'academic',
+    title: 'My Child Can Read the Words but Doesn’t Understand the Passage',
+    excerpt:
+      'Why fluent reading can hide a comprehension gap—and how parents can check retelling, main idea, vocabulary, inference, and evidence.',
+    href: '/growwise-blogs/child-reads-but-doesnt-understand-passage',
+    readMore: 'Read parent guide »',
+  },
+  {
+    id: 'fractions-parent-guide-2026',
+    category: 'academic',
+    title: 'Why Is My Child Struggling With Fractions?',
+    excerpt:
+      'A parent guide to fraction meaning, number lines, visual models, equivalent fractions, and the mistakes that memorized rules often hide.',
+    href: '/growwise-blogs/why-is-my-child-struggling-with-fractions',
+    readMore: 'Read parent guide »',
+  },
+  {
+    id: 'common-core-math-strategies-2026',
+    category: 'academic',
+    title: 'Common Core Math Strategies Parents Can Use at Home',
+    excerpt:
+      'A practical parent guide to number lines, area models, bar models, place value, and helping with math homework without taking over.',
+    href: '/growwise-blogs/common-core-math-strategies-parents',
+    readMore: 'Read parent guide »',
+  },
+  {
+    id: 'ai-homework-help-2026',
+    category: 'academic',
+    title: 'Can ChatGPT Replace a Tutor?',
+    excerpt:
+      'A parent guide to AI homework help, cheating boundaries, hidden learning gaps, and when children still need human support.',
+    href: '/growwise-blogs/can-chatgpt-replace-a-tutor-ai-homework-help',
+    readMore: 'Read parent guide »',
+  },
+  {
+    id: 'reading-help-checklist-2026',
+    category: 'academic',
+    title: 'Does My Child Need Reading Help This Summer?',
+    excerpt:
+      'A 5-minute reading checklist for Dublin and Tri-Valley parents to spot decoding, fluency, and comprehension warning signs before summer gaps grow.',
+    href: '/growwise-blogs/does-my-child-need-reading-help-checklist',
+    readMore: 'Read checklist »',
+  },
+  {
+    id: 'b-plus-math-understanding',
+    category: 'academic',
+    title: "Your Child Got a B+. That Doesn't Mean They Understand the Math.",
+    excerpt:
+      'Good grades can mask gaps in real math understanding. Here\'s how Tri-Valley parents tell the difference—and what to do next.',
+    href: '/growwise-blogs/your-child-got-a-b-plus-doesnt-mean-they-understand-the-math',
+    readMore: 'Read article »',
+  },
   {
     id: 'math-finals-2026',
     category: 'academic',
@@ -118,7 +183,7 @@ const blogPosts: BlogPost[] = [
     id: '7',
     category: 'Coding',
     title: 'Coding & Tech Skills',
-    excerpt: 'Discover how coding skills can transform your future and open doors to exciting career opportunities in technology.',
+    excerpt: 'Discover how coding skills help students build problem-solving confidence and create with technology.',
     href: '/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise',
     readMore: 'Read article »'
   },
@@ -133,40 +198,40 @@ const blogPosts: BlogPost[] = [
   {
     id: '9',
     category: 'Coding',
-    title: 'Python for In-Demand Careers',
-    excerpt: 'Python is one of the most sought-after programming languages. Discover why it\'s the key to unlocking career opportunities.',
+    title: 'Python for Future-Ready Students',
+    excerpt: 'Why Python is a practical first text-based language for students building AI, data, automation, and project confidence.',
     href: '/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers',
     readMore: 'Read article »'
   },
   {
     id: '10',
     category: 'Coding',
-    title: 'Technical Schools in 2025',
-    excerpt: 'Explore why technical education and coding skills are becoming essential investments for career success in 2025.',
+    title: 'Technical Skills Before College',
+    excerpt: 'How early technical projects help students test interests, build confidence, and create proof of future-ready skills.',
     href: '/growwise-blogs/technical-schools-in-2025-a-smart-investment-for-your-career',
     readMore: 'Read article »'
   },
   {
     id: '11',
     category: 'Coding',
-    title: 'Programming Skills on a Resume',
-    excerpt: 'Programming skills are increasingly valuable across industries. Learn how they can enhance your resume and career prospects.',
+    title: 'Programming Skills for Student Profiles',
+    excerpt: 'How coding projects help students show problem-solving, technical fluency, and builder confidence before college.',
     href: '/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities',
     readMore: 'Read article »'
   },
   {
     id: '12',
     category: 'Coding',
-    title: 'Java Skills on LinkedIn',
-    excerpt: 'Java remains a powerful and widely-used programming language. See how Java skills can make your LinkedIn profile stand out.',
+    title: 'Java Skills for Student Profiles',
+    excerpt: 'When Java makes sense for students ready for object-oriented thinking, deeper projects, and CS foundations.',
     href: '/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile',
     readMore: 'Read article »'
   },
   {
     id: '13',
     category: 'Coding',
-    title: 'Best Programming Languages for Careers',
-    excerpt: 'Discover which programming languages offer the best career opportunities and how to choose the right one for your goals.',
+    title: 'Best Programming Languages for Students',
+    excerpt: 'A parent-friendly comparison of Python, JavaScript, Java, and project goals so students choose the right path.',
     href: '/growwise-blogs/unlock-your-future-the-best-programming-languages-for-career-advancement',
     readMore: 'Read article »'
   },
@@ -174,7 +239,7 @@ const blogPosts: BlogPost[] = [
     id: '14',
     category: 'Coding',
     title: 'Choosing the Right Coding Class',
-    excerpt: 'Learn how selecting the right coding class can set your child up for success in technology and future career opportunities.',
+    excerpt: 'Learn how selecting the right coding class gives your child structure, feedback, and real project progress.',
     href: '/growwise-blogs/the-advantage-in-choosing-the-right-coding-class-for-your-child',
     readMore: 'Read article »'
   },
@@ -196,6 +261,14 @@ const blogPosts: BlogPost[] = [
   }
 ];
 
+const POSTS_PER_PAGE = 6
+
+function parsePageNumber(page: string | undefined): number | null {
+  if (page === undefined) return 1
+  if (!/^[1-9]\d*$/.test(page)) return null
+  return Number.parseInt(page, 10)
+}
+
 interface PageProps {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ page?: string }>;
@@ -204,19 +277,21 @@ interface PageProps {
 export default async function GrowWiseBlogsPage({ params, searchParams }: PageProps) {
   const { locale } = await params
   const { page } = await searchParams
-  const currentPage = parseInt(page || '1', 10)
-  const postsPerPage = 6
-  const totalPages = Math.ceil(blogPosts.length / postsPerPage)
-  const startIndex = (currentPage - 1) * postsPerPage
-  const endIndex = startIndex + postsPerPage
+  const currentPage = parsePageNumber(page)
+  const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE)
+  if (!currentPage || currentPage > totalPages) {
+    notFound()
+  }
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE
+  const endIndex = startIndex + POSTS_PER_PAGE
   const currentPosts = blogPosts.slice(startIndex, endIndex)
   
   const baseUrl = getCanonicalSiteUrl()
   
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
-  ])
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+  ]
 
   const collectionPageSchema = {
     "@context": "https://schema.org",
@@ -237,10 +312,7 @@ export default async function GrowWiseBlogsPage({ params, searchParams }: PagePr
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8">
@@ -354,21 +426,13 @@ export default async function GrowWiseBlogsPage({ params, searchParams }: PagePr
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today to Unlock Learning Potential for Grades 1-12 Students!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/book-assessment"
+          programLabel="Book Free Assessment"
+          headline="Ready to find the right program?"
+          subtext="Book a free assessment — we will recommend academic or STEAM programs for your child."
+        />
       </div>
     </>
   )

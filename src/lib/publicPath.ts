@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE, isLocaleEnabled } from '@/i18n/localeConfig';
+import { normalizeCanonicalPathAlias } from '@/lib/seo/canonical-path-aliases';
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl';
 
 /**
@@ -28,6 +29,7 @@ export function publicPath(path: string, locale: string): string {
   }
   if (!normalized.startsWith('/')) normalized = `/${normalized}`;
   if (normalized === '') normalized = '/';
+  normalized = normalizeCanonicalPathAlias(pathWithoutLocalePrefix(normalized));
 
   if (locale === DEFAULT_LOCALE) {
     return normalized === '' ? '/' : normalized;

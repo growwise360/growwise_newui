@@ -1,23 +1,45 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import Image from 'next/image';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { X, Send, Bot, User } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { X, Send, User } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { useChatbot } from '../../contexts/ChatbotContext';
 import ContactForm, { ContactFormData } from './ContactForm';
 import { contactService } from '../../lib/contactService';
-import { ChatMessageSkeleton } from '../ui/loading-skeletons';
-import { CONTACT_INFO } from '@/lib/constants';
+import { GrowyAvatar } from './GrowyAvatar';
+import { ChatbotEmailGate } from './ChatbotEmailGate';
+import ChatFormSlot from './forms/ChatFormSlot';
+import {
+  buildChatbotContactReplyBody,
+  CHATBOT_BRAND_NAME,
+  chatbotAssessmentContactIntent,
+  chatbotFormIntent,
+  chatbotGettingStartedContactIntent,
+  chatbotPricingContactIntent,
+  chatbotSchedulingContactIntent,
+  formatChatbotApprovedCategoriesList,
+  type ChatbotFormType,
+} from '@/lib/chatbotScope';
+import { resolveChatPageContext, type ChatPageContext } from '@/lib/chatbotPageContext';
+import { clearChatbotSessionEmail, readChatbotSessionEmail, writeChatbotSessionEmail } from '@/lib/chatbotSession';
+import { hasChatbotEmailLeadBeenSent, submitChatbotEmailLead } from '@/lib/chatbotEmailLead';
 
-/** SSOT: default offset (px) and storage key for floating chat position. */
-const FLOATING_CHAT_CONFIG = {
-  defaultBottom: 24,
-  defaultRight: 24,
-  buttonSizePx: 64,
-  storageKey: 'growwise_chat_floating_position',
+const CHAT_PANEL_CONFIG = {
+  horizontalInset: 16,
+  bottomInset: 24,
 } as const;
+
+const FORM_INTRO: Record<ChatbotFormType, string> = {
+  assessment: "Great — share a few details and our team will follow up to schedule your free assessment.",
+  trial: "Fill out this quick form and we'll coordinate a trial-style session where available.",
+  camp: "Share a few details about your camper and we'll follow up about schedules and placement.",
+  enroll: "Tell us what you're interested in and our team will help with enrollment next steps.",
+  contact: "Send us a message here and our team will get back to you within 24 hours.",
+};
+
+const ASSESSMENT_INTAKE_EMAIL_UNLOCK = 'assessment-intake@growwise.local';
 
 interface Message {
   id: string;
@@ -25,46 +47,36 @@ interface Message {
   sender: 'user' | 'bot';
   timestamp: Date;
   showContactForm?: boolean;
+  chatForm?: {
+    type: ChatbotFormType;
+    mode?: 'guided-intake';
+    prefill?: Record<string, string>;
+  };
 }
 
-type FloatingPosition = { left: number; bottom: number };
-
-function loadStoredPosition(): FloatingPosition | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const raw = window.localStorage.getItem(FLOATING_CHAT_CONFIG.storageKey);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    const left = parsed.left;
-    const bottom = parsed.bottom;
-    if (typeof left !== 'number' || typeof bottom !== 'number') return null;
-    return { left, bottom };
-  } catch {
-    return null;
-  }
+function chatbotSubKey(fullKey: string): string {
+  return fullKey.replace(/^chatbot\./, '');
 }
 
-function clampPosition(pos: FloatingPosition): FloatingPosition {
-  const { buttonSizePx } = FLOATING_CHAT_CONFIG;
-  const maxLeft = typeof window !== 'undefined' ? window.innerWidth - buttonSizePx : 0;
-  const maxBottom = typeof window !== 'undefined' ? window.innerHeight - buttonSizePx : 0;
+function buildWelcomeMessage(t: ReturnType<typeof useTranslations<'chatbot'>>, ctx: ChatPageContext): Message {
   return {
-    left: Math.max(0, Math.min(pos.left, maxLeft)),
-    bottom: Math.max(0, Math.min(pos.bottom, maxBottom)),
+    id: 'welcome',
+    text: t(chatbotSubKey(ctx.welcomeKey) as 'pageWelcome.default', {
+      categories: formatChatbotApprovedCategoriesList(),
+      pageLabel: ctx.pageLabel ?? '',
+    }),
+    sender: 'bot',
+    timestamp: new Date(),
   };
 }
 
 export default function Chatbot() {
-  const t = useTranslations();
-  const { isOpen, openChatbot, closeChatbot } = useChatbot();
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      text: t('chatbot.responses.welcome'),
-      sender: 'bot',
-      timestamp: new Date()
-    }
-  ]);
+  const t = useTranslations('chatbot');
+  const tContact = useTranslations('contact.form');
+  const pathname = usePathname();
+  const pageContext = useMemo(() => resolveChatPageContext(pathname), [pathname]);
+  const { isOpen, pendingUserMessage, closeChatbot, clearPendingUserMessage } = useChatbot();
+  const [messages, setMessages] = useState<Message[]>(() => [buildWelcomeMessage(t, pageContext)]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -72,18 +84,21 @@ export default function Chatbot() {
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);
   const [contactError, setContactError] = useState('');
   const [contactFieldErrors, setContactFieldErrors] = useState<Record<string, string>>({});
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [emailGateError, setEmailGateError] = useState('');
+  const [emailGateSubmitting, setEmailGateSubmitting] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const processedPendingIdRef = useRef(0);
+  const pageContextIdRef = useRef(pageContext.id);
+  const pendingAfterEmailRef = useRef<string | null>(null);
 
-  const [floatPosition, setFloatPosition] = useState<FloatingPosition | null>(null);
-  const isDraggingRef = useRef(false);
-  const didDragRef = useRef(false);
-  const dragStartRef = useRef({ x: 0, y: 0, left: 0, bottom: 0 });
-  const floatButtonWrapRef = useRef<HTMLDivElement>(null);
-  const openChatbotRef = useRef(openChatbot);
-  openChatbotRef.current = openChatbot;
+  const suggestionLabels = useMemo(
+    () => pageContext.suggestionKeys.map((key) => t(chatbotSubKey(key) as 'suggestions.k12Programs')),
+    [pageContext.suggestionKeys, t],
+  );
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'instant' });
   };
 
   useEffect(() => {
@@ -91,96 +106,118 @@ export default function Chatbot() {
   }, [messages]);
 
   useEffect(() => {
-    const stored = loadStoredPosition();
-    if (stored) {
-      setFloatPosition(clampPosition(stored));
-      return;
-    }
-    const { defaultRight, defaultBottom, buttonSizePx } = FLOATING_CHAT_CONFIG;
-    setFloatPosition({
-      left: window.innerWidth - defaultRight - buttonSizePx,
-      bottom: defaultBottom,
-    });
-  }, []);
+    if (!isOpen) return;
 
-  useEffect(() => {
-    if (!floatPosition || typeof window === 'undefined') return;
-    try {
-      window.localStorage.setItem(
-        FLOATING_CHAT_CONFIG.storageKey,
-        JSON.stringify(floatPosition)
-      );
-    } catch {
-      /* ignore */
-    }
-  }, [floatPosition]);
+    let cancelled = false;
 
-  useEffect(() => {
-    if (!floatPosition) return;
-    const onResize = () => setFloatPosition((prev) => (prev ? clampPosition(prev) : prev));
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [floatPosition]);
+    async function syncEmailGate() {
+      const stored = readChatbotSessionEmail();
+      if (!stored) {
+        if (!cancelled) setUserEmail(null);
+        return;
+      }
 
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      e.preventDefault();
-      didDragRef.current = false;
-      isDraggingRef.current = true;
-      const pos = floatPosition ?? {
-        left: window.innerWidth - FLOATING_CHAT_CONFIG.defaultRight - FLOATING_CHAT_CONFIG.buttonSizePx,
-        bottom: FLOATING_CHAT_CONFIG.defaultBottom,
-      };
-      dragStartRef.current = {
-        x: e.clientX,
-        y: e.clientY,
-        left: pos.left,
-        bottom: pos.bottom,
-      };
-      floatButtonWrapRef.current?.setPointerCapture(e.pointerId);
-    },
-    [floatPosition]
-  );
+      if (hasChatbotEmailLeadBeenSent()) {
+        if (!cancelled) setUserEmail(stored);
+        return;
+      }
 
-  useEffect(() => {
-    const onPointerMove = (e: PointerEvent) => {
-      if (!isDraggingRef.current) return;
-      didDragRef.current = true;
-      const { x, y, left, bottom } = dragStartRef.current;
-      const next = clampPosition({
-        left: left + (e.clientX - x),
-        bottom: bottom - (e.clientY - y),
+      const result = await submitChatbotEmailLead({
+        email: stored,
+        pageContextId: pageContext.id,
+        pageUri: typeof window !== 'undefined' ? window.location.href : pathname,
       });
-      setFloatPosition(next);
-    };
-    const onPointerUp = () => {
-      if (!isDraggingRef.current) return;
-      const wasDrag = didDragRef.current;
-      isDraggingRef.current = false;
-      if (!wasDrag) openChatbotRef.current();
-    };
-    const capture = true;
-    window.addEventListener('pointermove', onPointerMove, capture);
-    window.addEventListener('pointerup', onPointerUp, capture);
-    window.addEventListener('pointercancel', onPointerUp, capture);
-    return () => {
-      window.removeEventListener('pointermove', onPointerMove, capture);
-      window.removeEventListener('pointerup', onPointerUp, capture);
-      window.removeEventListener('pointercancel', onPointerUp, capture);
-    };
-  }, []);
 
-  const handleStartChat = () => {
-    if (didDragRef.current) {
-      didDragRef.current = false;
-      return;
+      if (cancelled) return;
+
+      if (result.ok) {
+        setUserEmail(stored);
+        setEmailGateError('');
+        return;
+      }
+
+      clearChatbotSessionEmail();
+      setUserEmail(null);
+      setEmailGateError(result.message ?? t('emailGate.submitError'));
     }
-    openChatbot();
-  };
+
+    void syncEmailGate();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, pageContext.id, pathname, t]);
+
+  useEffect(() => {
+    if (pageContextIdRef.current === pageContext.id) return;
+    pageContextIdRef.current = pageContext.id;
+    setMessages([buildWelcomeMessage(t, pageContext)]);
+    setInputValue('');
+    setIsError(false);
+    setErrorMessage('');
+    setContactError('');
+    setContactFieldErrors({});
+  }, [pageContext, t]);
 
   const handleCloseChat = () => {
+    if (userEmail === ASSESSMENT_INTAKE_EMAIL_UNLOCK) {
+      setUserEmail(null);
+    }
     closeChatbot();
   };
+
+  const mergeFormPrefill = useCallback(
+    (prefill?: Record<string, string>) => ({
+      ...prefill,
+      ...(userEmail && userEmail !== ASSESSMENT_INTAKE_EMAIL_UNLOCK ? { email: userEmail } : {}),
+    }),
+    [userEmail],
+  );
+
+  const clearFormsFromMessages = useCallback(
+    () =>
+      setMessages((prev) =>
+        prev.map((msg) => ({ ...msg, showContactForm: false, chatForm: undefined })),
+      ),
+    [],
+  );
+
+  const openAssessmentIntake = useCallback(() => {
+    clearFormsFromMessages();
+    setUserEmail((prev) => prev ?? ASSESSMENT_INTAKE_EMAIL_UNLOCK);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `assessment-intake-${Date.now()}`,
+        text:
+          "I can help with this. Answer in your own words, or tap an option. I'll keep it short and you can review everything before sending.",
+        sender: 'bot',
+        timestamp: new Date(),
+        chatForm: { type: 'assessment', mode: 'guided-intake' },
+      },
+    ]);
+  }, [clearFormsFromMessages]);
+
+  const handleChatFormSuccess = useCallback(
+    (successText: string) => {
+      clearFormsFromMessages();
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          text: successText,
+          sender: 'bot',
+          timestamp: new Date(),
+        },
+      ]);
+    },
+    [clearFormsFromMessages],
+  );
+
+  const handleChatFormCancel = useCallback(() => {
+    setUserEmail((prev) => (prev === ASSESSMENT_INTAKE_EMAIL_UNLOCK ? null : prev));
+    clearFormsFromMessages();
+  }, [clearFormsFromMessages]);
 
   const handleContactFormSubmit = async (data: ContactFormData) => {
     setIsSubmittingContact(true);
@@ -191,90 +228,216 @@ export default function Chatbot() {
       const result = await contactService.submitContactForm(data);
 
       if (result.success) {
-        const successMessage: Message = {
-          id: Date.now().toString(),
-          text: `Thank you, ${data.name}! We've received your information and will contact you within 24 hours with personalized details about our programs. 📧`,
-          sender: 'bot',
-          timestamp: new Date()
-        };
-        setMessages(prev => [...prev, successMessage]);
-        setMessages(prev => prev.map(msg =>
-          msg.id === prev[prev.length - 1].id
-            ? { ...msg, showContactForm: false }
-            : msg
-        ));
+        handleChatFormSuccess(
+          `Thank you, ${data.name}! We've received your information and will contact you within 24 hours with personalized details about our programs. 📧`,
+        );
       } else {
-        setContactError(result.error || result.message || t('contact.form.submitErrorFallback'));
+        setContactError(result.error || result.message || tContact('submitErrorFallback'));
         if (result.errors?.length) {
           setContactFieldErrors(
             result.errors.reduce<Record<string, string>>((acc, { field, message }) => {
               acc[field] = message;
               return acc;
-            }, {})
+            }, {}),
           );
         }
       }
     } catch {
-      setContactError(t('contact.form.submitErrorUnexpected'));
+      setContactError(tContact('submitErrorUnexpected'));
     } finally {
       setIsSubmittingContact(false);
     }
   };
 
   const handleContactFormCancel = () => {
-    // Remove the contact form from the last message
-    setMessages(prev => prev.map(msg => 
-      msg.id === prev[prev.length - 1].id 
-        ? { ...msg, showContactForm: false }
-        : msg
-    ));
+    clearFormsFromMessages();
     setContactError('');
     setContactFieldErrors({});
   };
 
+  const getBotResponse = (userInput: string): { text: string; showContactForm?: boolean } => {
+    const input = userInput.toLowerCase();
+    const scopeLine = `Approved program areas at ${CHATBOT_BRAND_NAME}: ${formatChatbotApprovedCategoriesList()}.`;
 
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
+    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
+      return {
+        text: `Hello! Welcome to ${CHATBOT_BRAND_NAME}! 🎓 ${scopeLine} I'm here to help you learn how we support Tri-Valley families and what might fit your child. What would you like to know?`,
+      };
+    }
+
+    if (
+      input.includes('k-12') ||
+      input.includes('academic') ||
+      input.includes('math') ||
+      input.includes('english') ||
+      input.includes('ela') ||
+      input.includes('writing') ||
+      input.includes('sat') ||
+      input.includes('act')
+    ) {
+      return {
+        text: `${scopeLine}\n\n📚 **Tutoring & Accelerated Math**: Elementary through high school math, including accelerated tracks and calculus readiness\n\n📖 **English and Writing**: Reading enrichment, grammar, essay writing, and reflective writing workshops\n\n🎯 **Test readiness**: SAT/ACT-focused math and verbal support\n\nWe combine tutoring, workshops, and camps where it fits your goals. Would you like details about any specific focus?`,
+      };
+    }
+
+    if (
+      input.includes('steam') ||
+      input.includes('stem') ||
+      input.includes('coding') ||
+      input.includes('python') ||
+      input.includes('game') ||
+      input.includes('roblox') ||
+      input.includes('scratch') ||
+      input.includes('ai') ||
+      input.includes('ml') ||
+      input.includes('robot') ||
+      input.includes('workshop') ||
+      input.includes('entrepreneur')
+    ) {
+      return {
+        text: `${scopeLine}\n\n🎮 **Coding & game building**: Scratch, Roblox Studio, and Python paths\n\n🤖 **AI & STEM enrichment**: Introductory AI/ML explorations and project-based labs\n\n🔧 **Robotics & workshops**: Seasonal intensives and hands-on builds\n\nPrograms are hands-on and designed for Tri-Valley learners. Which area sounds like the best fit?`,
+      };
+    }
+
+    if (input.includes('popular') || input.includes('course') || input.includes('program')) {
+      return {
+        text: `${scopeLine}\n\nFamilies often start with **tutoring**, **Accelerated Math**, **English and Writing**, or **Coding / AI** tracks—and we run **workshops** and **camps** throughout the year. Tell me your child's grade or interests and I can narrow it down.`,
+      };
+    }
+
+    if (chatbotAssessmentContactIntent(userInput)) {
+      return {
+        text: `We offer FREE assessments and trial experiences for many tracks:\n\n🎓 **Tutoring & academics**: a structured assessment to place the right plan\n\n🚀 **STEM / coding / workshops**: shorter trial-style sessions where offered\n\n${scopeLine} To schedule the right next step, I'll need a few contact details.`,
+        showContactForm: true,
+      };
+    }
+
+    if (
+      input.includes('statistics') ||
+      input.includes('students') ||
+      input.includes('families') ||
+      input.includes('satisfaction') ||
+      input.includes('enrolled')
+    ) {
+      return {
+        text: `${CHATBOT_BRAND_NAME} is trusted by Tri-Valley families:\n\n👥 **387+ students** learning with us\n📚 **25+ course paths** across tutoring, STEM, and camps\n👍 **98% parent satisfaction** in recent surveys\n\nWe pair structured tutoring with modern STEM, AI, and robotics experiences.`,
+      };
+    }
+
+    if (input.includes('why') || input.includes('choose') || input.includes('benefit') || input.includes('advantage')) {
+      return {
+        text: `Why families choose ${CHATBOT_BRAND_NAME}:\n\n👨‍🏫 **Expert instructors** with deep K-12 and STEM backgrounds\n\n📈 **Measurable growth** for most learners within the first semester\n\n📋 **Curriculum aligned** to California learning expectations\n\n🔬 **Hands-on STEM, coding, AI, and robotics** alongside tutoring and writing support\n\n${scopeLine}`,
+      };
+    }
+
+    if (chatbotPricingContactIntent(userInput)) {
+      return {
+        text: `We offer fair, program-specific pricing across tutoring, accelerated courses, workshops, and camps. The fastest way to get accurate numbers is a quick consult after a free assessment. ${scopeLine} Share your contact information and our team will follow up with options tailored to your goals.`,
+        showContactForm: true,
+      };
+    }
+
+    if (chatbotSchedulingContactIntent(userInput)) {
+      return {
+        text: `I'd be happy to help you schedule an assessment, workshop, or camp consultation. ${scopeLine} Leave your contact information and we'll coordinate timing and next steps.`,
+        showContactForm: true,
+      };
+    }
+
+    if (input.includes('contact') || input.includes('phone') || input.includes('email') || input.includes('address') || input.includes('location')) {
+      return { text: buildChatbotContactReplyBody() };
+    }
+
+    if (input.includes('testimonial') || input.includes('review') || input.includes('feedback') || input.includes('parent') || input.includes('student')) {
+      return {
+        text: "Here's what families have shared on Google (5★):\n\n**Parent**: tutoring experience — patience, confidence, and tailored pacing.\n\n**Roger Jiang**: positive half-day Python camp (Levels 1–2), small classes, Hangman project, helpful feedback.\n\n**Parent**: Roblox/coding intro — engaging classes and motivated students.\n\nWe're grateful for this feedback!",
+      };
+    }
+
+    if (input.includes('age') || input.includes('grade') || input.includes('elementary') || input.includes('middle') || input.includes('high school')) {
+      return {
+        text: "We serve students across all grade levels:\n\n🏫 **Elementary**: Basic arithmetic, reading enrichment, creative writing\n\n🏫 **Middle School**: Algebra foundations, grammar boost, essay writing\n\n🏫 **High School**: Advanced math, SAT/ACT prep, ML/AI programs\n\nOur programs are designed to meet students where they are and help them excel at every level. What grade is your child in?",
+      };
+    }
+
+    if (input.includes('learning') || input.includes('style') || input.includes('personalized') || input.includes('individual') || input.includes('group')) {
+      return {
+        text: "We offer flexible learning options:\n\n👤 **1:1 Personal Attention**: Specially designed for homework help and targeted learning\n\n👥 **Small Group Learning**: Personalized instruction in small groups\n\n🎯 **Project-Based Learning**: Hands-on STEAM courses with real-world applications\n\nOur expert instructors adapt to your child's learning style and pace. We believe every child learns differently!",
+      };
+    }
+
+    if (chatbotGettingStartedContactIntent(userInput)) {
+      return {
+        text: `That's wonderful! I'd love to help you get started with ${CHATBOT_BRAND_NAME}. ${scopeLine} To personalize a plan, I'll need a few contact details.`,
+        showContactForm: true,
+      };
+    }
+
+    return {
+      text: `That's a great question! ${CHATBOT_BRAND_NAME} offers tutoring, accelerated math, English and writing, STEM enrichment, coding, AI, robotics, workshops, and camps. What grade is your child in, or which topic should we explore first?`,
+    };
+  };
+
+  const processUserMessage = async (rawText: string, emailOverride?: string) => {
+    const trimmed = rawText.trim();
+    if (!trimmed) return;
+
+    const activeEmail = emailOverride ?? userEmail;
+    if (!activeEmail) {
+      pendingAfterEmailRef.current = trimmed;
+      return;
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: inputValue,
+      text: trimmed,
       sender: 'user',
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    const currentInput = inputValue;
-    setInputValue('');
+    setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
     setIsError(false);
     setErrorMessage('');
 
-    // First check if this should trigger a contact form
-    const botResponse = getBotResponse(currentInput);
-    
+    const formType = chatbotFormIntent(trimmed, pageContext.defaultFormType);
+    if (formType) {
+      const response: Message = {
+        id: (Date.now() + 1).toString(),
+        text: FORM_INTRO[formType],
+        sender: 'bot',
+        timestamp: new Date(),
+        chatForm: { type: formType, prefill: mergeFormPrefill(pageContext.prefill) },
+      };
+      setMessages((prev) => [...prev, response]);
+      setIsTyping(false);
+      return;
+    }
+
+    const botResponse = getBotResponse(trimmed);
+
     if (botResponse.showContactForm) {
-      // Use rule-based response with contact form
       const response: Message = {
         id: (Date.now() + 1).toString(),
         text: botResponse.text,
         sender: 'bot',
         timestamp: new Date(),
-        showContactForm: true
+        showContactForm: true,
       };
-      
-      setMessages(prev => [...prev, response]);
+
+      setMessages((prev) => [...prev, response]);
       setIsTyping(false);
       return;
     }
 
-    // Otherwise, try LLM API
     try {
-      // Prepare conversation history for the API
-      const conversationHistory = messages.map(msg => ({
-        role: msg.sender === 'user' ? 'user' : 'assistant',
-        content: msg.text
-      }));
+      const conversationHistory = [
+        ...messages.map((msg) => ({
+          role: msg.sender === 'user' ? ('user' as const) : ('assistant' as const),
+          content: msg.text,
+        })),
+        { role: 'user' as const, content: trimmed },
+      ];
 
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -282,8 +445,10 @@ export default function Chatbot() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: currentInput,
-          conversationHistory: conversationHistory
+          message: trimmed,
+          conversationHistory,
+          pageContextId: pageContext.id,
+          pageContextHint: pageContext.llmHint,
         }),
       });
 
@@ -292,123 +457,117 @@ export default function Chatbot() {
       }
 
       const data = await response.json();
-      
+
       const llmResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: data.message,
         sender: 'bot',
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setMessages(prev => [...prev, llmResponse]);
+
+      setMessages((prev) => [...prev, llmResponse]);
     } catch (error) {
       console.error('Error sending message:', error);
       setIsError(true);
       setErrorMessage('Failed to connect to AI service. Using fallback response.');
-      
-      // Fallback to rule-based response
+
       const fallbackResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: botResponse.text,
         sender: 'bot',
         timestamp: new Date(),
-        showContactForm: botResponse.showContactForm
+        showContactForm: botResponse.showContactForm,
       };
-      
-      setMessages(prev => [...prev, fallbackResponse]);
+
+      setMessages((prev) => [...prev, fallbackResponse]);
     } finally {
       setIsTyping(false);
     }
   };
 
-  const getBotResponse = (userInput: string): { text: string; showContactForm?: boolean } => {
-    const input = userInput.toLowerCase();
-    
-    // Greeting responses
-    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
-      return { text: "Hello! Welcome to GrowWise! 🎓 We're a leading educational platform serving Tri-Valley families with comprehensive Grades 1-12 academic programs and exciting STEAM courses. I'm here to help you learn about our programs, courses, and how we can support your child's learning journey. What would you like to know?" };
+  const handleSendMessage = async () => {
+    if (!inputValue.trim()) return;
+    if (!userEmail) return;
+    const currentInput = inputValue;
+    setInputValue('');
+    await processUserMessage(currentInput);
+  };
+
+  const handleEmailContinue = async (email: string, honeypot = '') => {
+    const queued = pendingAfterEmailRef.current;
+    setEmailGateError('');
+    setEmailGateSubmitting(true);
+
+    try {
+      const result = await submitChatbotEmailLead({
+        email,
+        pageContextId: pageContext.id,
+        pageUri: typeof window !== 'undefined' ? window.location.href : pathname,
+        queuedMessage: queued,
+        honeypot,
+      });
+
+      if (!result.ok) {
+        setEmailGateError(result.message ?? t('emailGate.submitError'));
+        return;
+      }
+
+      writeChatbotSessionEmail(email);
+      setUserEmail(email);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `email-unlock-${Date.now()}`,
+          text: t('emailGate.continueSuccess'),
+          sender: 'bot',
+          timestamp: new Date(),
+        },
+      ]);
+
+      pendingAfterEmailRef.current = null;
+      if (queued) {
+        void processUserMessage(queued, email);
+      }
+    } finally {
+      setEmailGateSubmitting(false);
     }
-    
-    // Grades 1-12 Academic Programs
-    if (input.includes('k-12') || input.includes('academic') || input.includes('math') || input.includes('english') || input.includes('ela') || input.includes('writing') || input.includes('sat') || input.includes('act')) {
-      return { text: "Our Grades 1-12 Academic Programs include:\n\n📚 **Math Courses**: Elementary Math, Middle School Math, DUSD Accelerated Math, and High School Math (including Calculus)\n\n📖 **ELA Courses**: English Mastery Grades 1-12, Reading Enrichment, and Grammar Boost\n\n✏️ **Writing Lab**: Creative Writing, Essay Writing, and Create & Reflect programs\n\n🎯 **SAT/ACT Prep**: Math Test Prep, Online SAT Test Prep, and Online ACT Test Prep\n\nWe offer personalized 1:1 attention and small group learning. Would you like details about any specific program?" };
-    }
-    
-    // STEAM Programs
-    if (input.includes('steam') || input.includes('coding') || input.includes('python') || input.includes('game') || input.includes('roblox') || input.includes('scratch') || input.includes('ai') || input.includes('ml') || input.includes('entrepreneur')) {
-      return { text: "Our STEAM Programs include:\n\n🎮 **Game Development**: Roblox Studio, Scratch visual programming, and Minecraft coding\n\n🐍 **Python Programming**: Python Kickstart (beginner), Python Power Up (intermediate), and Python Pro (advanced)\n\n💡 **Young Founders**: Youth CEO leadership program and I Am Brand personal branding\n\n🤖 **ML/Gen AI**: Prompt Engineering, AI for Everyone, and ML/AI for Highschoolers\n\nAll programs are hands-on and project-based. Which STEAM program interests you most?" };
-    }
-    
-    // Popular Courses
-    if (input.includes('popular') || input.includes('course') || input.includes('program')) {
-      return { text: "Our most popular courses are:\n\n🐍 **Python Coding** - Project-based learning\n🧮 **Math Mastery** - 1:1 attention\n🤖 **AI Explorer** - Future-ready skills\n📚 **Reading Mastery** - Accelerated growth\n\nWe also offer comprehensive Grades 1-12 academic programs and exciting STEAM courses. Would you like to know more about any specific course or program?" };
-    }
-    
-    // Assessment and Trial Information
-    if (input.includes('assessment') || input.includes('trial') || input.includes('demo') || input.includes('free') || input.includes('evaluate') || input.includes('test')) {
-      return { 
-        text: "We offer FREE assessments and trial classes:\n\n🎓 **Grades 1-12 Programs**: 60-minute FREE assessment to evaluate your child's needs\n\n🚀 **STEAM Courses**: 30-minute trial class to experience our hands-on learning\n\nThese help us create a personalized learning plan for your child. To get started, I'll need some contact information to schedule your free assessment or trial class.",
-        showContactForm: true
-      };
-    }
-    
-    // Statistics and Trust
-    if (input.includes('statistics') || input.includes('students') || input.includes('families') || input.includes('satisfaction') || input.includes('enrolled')) {
-      return { text: "GrowWise is trusted by Tri-Valley families:\n\n👥 **325+ Students Enrolled**\n📚 **25+ Courses Offered**\n👍 **98% Parent Satisfaction**\n\nWe're proud to serve the Tri-Valley community with proven results and expert instruction. Our students show measurable improvement within the first semester!" };
-    }
-    
-    // Why Choose Us
-    if (input.includes('why') || input.includes('choose') || input.includes('benefit') || input.includes('advantage')) {
-      return { text: "Why choose GrowWise?\n\n👨‍🏫 **Expert Instructors**: Certified teachers with years of Grades 1-12 and STEAM experience\n\n📈 **Proven Results**: 95% of students show measurable improvement in the first semester\n\n📋 **Comprehensive Curriculum**: Aligned with state standards and modern learning needs\n\n🔬 **Hands-on Learning**: Interactive labs and projects that make learning engaging\n\nWe provide personalized attention and innovative teaching methods that make us stand out!" };
-    }
-    
-    // Pricing
-    if (input.includes('price') || input.includes('cost') || input.includes('fee') || input.includes('payment')) {
-      return { 
-        text: "We offer competitive pricing for all our programs. For the most accurate pricing information, I'd recommend booking a free assessment where our team can provide detailed information based on your specific needs and program selection. To get personalized pricing, I'll need some contact information to schedule your free assessment.",
-        showContactForm: true
-      };
-    }
-    
-    // Scheduling and Booking
-    if (input.includes('schedule') || input.includes('book') || input.includes('appointment') || input.includes('register') || input.includes('enroll')) {
-      return { 
-        text: "I'd be happy to help you schedule an assessment or trial class! To get started, I'll need some contact information to book your appointment and send you personalized details about our programs.",
-        showContactForm: true
-      };
-    }
-    
-    // Contact Information
-    if (input.includes('contact') || input.includes('phone') || input.includes('email') || input.includes('address') || input.includes('location')) {
-      return { text: `You can reach us at:\n\n📞 Phone: ${CONTACT_INFO.phone}\n📧 Email: ${CONTACT_INFO.email}\n📍 Address: ${CONTACT_INFO.address}\n\nWe're here to answer any questions about our programs and help you get started on your learning journey! Our team is responsive and will get back to you within 24 hours.` };
-    }
-    
-    // Testimonials
-    if (input.includes('testimonial') || input.includes('review') || input.includes('feedback') || input.includes('parent') || input.includes('student')) {
-      return { text: "Here's what families have shared on Google (5★):\n\n**Parent**: tutoring experience — patience, confidence, and tailored pacing.\n\n**Roger Jiang**: positive half-day Python camp (Levels 1–2), small classes, Hangman project, helpful feedback.\n\n**Parent**: Roblox/coding intro — engaging classes and motivated students.\n\nWe’re grateful for this feedback!" };
-    }
-    
-    // Age/Grade Information
-    if (input.includes('age') || input.includes('grade') || input.includes('elementary') || input.includes('middle') || input.includes('high school')) {
-      return { text: "We serve students across all grade levels:\n\n🏫 **Elementary**: Basic arithmetic, reading enrichment, creative writing\n\n🏫 **Middle School**: Algebra foundations, grammar boost, essay writing\n\n🏫 **High School**: Advanced math, SAT/ACT prep, ML/AI programs\n\nOur programs are designed to meet students where they are and help them excel at every level. What grade is your child in?" };
-    }
-    
-    // Learning Style
-    if (input.includes('learning') || input.includes('style') || input.includes('personalized') || input.includes('individual') || input.includes('group')) {
-      return { text: "We offer flexible learning options:\n\n👤 **1:1 Personal Attention**: Specially designed for homework help and targeted learning\n\n👥 **Small Group Learning**: Personalized instruction in small groups\n\n🎯 **Project-Based Learning**: Hands-on STEAM courses with real-world applications\n\nOur expert instructors adapt to your child's learning style and pace. We believe every child learns differently!" };
-    }
-    
-    // Interest in getting started
-    if (input.includes('start') || input.includes('begin') || input.includes('join') || input.includes('sign up') || input.includes('get started') || input.includes('interested')) {
-      return { 
-        text: "That's wonderful! I'd love to help you get started with GrowWise. To provide you with the most personalized information about our programs and create a learning plan for your child, I'll need some contact information.",
-        showContactForm: true
-      };
+  };
+
+  useEffect(() => {
+    if (!isOpen || !pendingUserMessage) return;
+    if (pendingUserMessage.id <= processedPendingIdRef.current) return;
+
+    if (pendingUserMessage.initialMode === 'assessment-intake') {
+      processedPendingIdRef.current = pendingUserMessage.id;
+      clearPendingUserMessage();
+      openAssessmentIntake();
+      return;
     }
 
-    // Default response
-    return { text: "That's a great question! I'd be happy to help you with that. GrowWise offers comprehensive Grades 1-12 academic programs and exciting STEAM courses. Could you provide a bit more detail about what specific information you're looking for? I can help with course details, scheduling assessments, pricing, or any other questions about our programs!" };
-  };
+    if (!pendingUserMessage.text) {
+      processedPendingIdRef.current = pendingUserMessage.id;
+      clearPendingUserMessage();
+      return;
+    }
+
+    if (!userEmail) {
+      pendingAfterEmailRef.current = pendingUserMessage.text;
+      processedPendingIdRef.current = pendingUserMessage.id;
+      clearPendingUserMessage();
+      return;
+    }
+
+    processedPendingIdRef.current = pendingUserMessage.id;
+    const text = pendingUserMessage.text;
+    clearPendingUserMessage();
+    void processUserMessage(text);
+  }, [isOpen, pendingUserMessage, clearPendingUserMessage, userEmail, openAssessmentIntake]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      processedPendingIdRef.current = 0;
+    }
+  }, [isOpen]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -419,53 +578,23 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Floating Chat Button — draggable; position persisted */}
-      {!isOpen && (
-        <div
-          ref={floatButtonWrapRef}
-          className="fixed z-50 cursor-grab active:cursor-grabbing touch-none"
-          style={
-            floatPosition
-              ? { left: floatPosition.left, bottom: floatPosition.bottom }
-              : { right: FLOATING_CHAT_CONFIG.defaultRight, bottom: FLOATING_CHAT_CONFIG.defaultBottom }
-          }
-          onPointerDown={handlePointerDown}
-        >
-          <Button
-            onClick={handleStartChat}
-            aria-label={t('chatbot.openChat')}
-            className="h-16 w-16 shrink-0 overflow-hidden rounded-full border-0 bg-transparent p-0 shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-3xl focus-visible:ring-2 focus-visible:ring-[#F16112] focus-visible:ring-offset-2"
-            size="lg"
-          >
-            <Image
-              src="/assets/chat-float-icon.png"
-              alt=""
-              width={64}
-              height={64}
-              className="h-full w-full object-cover"
-              priority
-            />
-          </Button>
-        </div>
-      )}
-
-      {/* Chat Window — anchored bottom-right so it stays on-screen */}
       {isOpen && (
         <div
-          className="fixed z-50 w-[min(420px,calc(100vw-2rem))] h-[min(600px,calc(100vh-6rem))]"
-          style={{ right: FLOATING_CHAT_CONFIG.defaultRight, bottom: FLOATING_CHAT_CONFIG.defaultBottom }}
+          className="fixed z-[46] w-[min(420px,calc(100vw-2rem))]"
+          style={{
+            right: CHAT_PANEL_CONFIG.horizontalInset,
+            bottom: CHAT_PANEL_CONFIG.bottomInset,
+            height: `min(600px, calc(100vh - ${CHAT_PANEL_CONFIG.bottomInset + 16}px))`,
+          }}
         >
           <Card className="bg-white/95 backdrop-blur-3xl rounded-2xl shadow-2xl border-2 border-white/50 ring-1 ring-white/30 h-full flex flex-col">
-            {/* Header */}
             <div className="bg-gradient-to-r from-[#1F396D] to-[#29335C] text-white p-4 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <Bot className="w-6 h-6" />
-                </div>
+                <GrowyAvatar size="lg" ringClassName="ring-2 ring-white/30" />
                 <div>
-                  <h3 className="font-bold text-lg">GrowWise Assistant</h3>
+                  <h3 className="font-bold text-lg">{t('title')}</h3>
                   <p className="text-sm text-white/80">
-                    {isError ? 'Using fallback mode' : 'Online now'}
+                    {isError ? t('status.fallback') : t('status.online')}
                   </p>
                 </div>
               </div>
@@ -473,20 +602,22 @@ export default function Chatbot() {
                 onClick={handleCloseChat}
                 variant="ghost"
                 size="sm"
-                aria-label={t('chatbot.closeChat')}
+                aria-label={t('closeChat')}
                 className="text-white hover:bg-white/20 rounded-full w-8 h-8 p-0"
               >
                 <X className="w-5 h-5" aria-hidden />
               </Button>
             </div>
 
-            {/* Messages */}
             <CardContent className="flex-1 p-4 overflow-y-auto space-y-4 max-h-[400px]">
               {messages.map((message) => (
                 <div key={message.id} className="space-y-2">
                   <div
-                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start gap-2'}`}
                   >
+                    {message.sender === 'bot' ? (
+                      <GrowyAvatar size="sm" className="mt-1" ringClassName="ring-1 ring-gray-200" />
+                    ) : null}
                     <div
                       className={`max-w-[80%] rounded-2xl p-3 ${
                         message.sender === 'user'
@@ -495,30 +626,40 @@ export default function Chatbot() {
                       }`}
                     >
                       <div className="flex items-start gap-2">
-                        {message.sender === 'bot' && (
-                          <Bot className="w-4 h-4 mt-1 text-[#1F396D] flex-shrink-0" />
-                        )}
                         {message.sender === 'user' && (
                           <User className="w-4 h-4 mt-1 text-white flex-shrink-0" />
                         )}
                         <div className="flex-1">
                           <p className="text-sm leading-relaxed whitespace-pre-line">{message.text}</p>
-                          <p className={`text-xs mt-1 ${
-                            message.sender === 'user' ? 'text-white/70' : 'text-gray-500'
-                          }`}>
-                            {message.timestamp.toLocaleTimeString([], { 
-                              hour: '2-digit', 
-                              minute: '2-digit' 
+                          <p
+                            className={`text-xs mt-1 ${
+                              message.sender === 'user' ? 'text-white/70' : 'text-gray-500'
+                            }`}
+                          >
+                            {message.timestamp.toLocaleTimeString([], {
+                              hour: '2-digit',
+                              minute: '2-digit',
                             })}
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Contact Form - appears below the message */}
-                  {message.sender === 'bot' && message.showContactForm && (
-                    <div className="w-full">
+
+                  {message.sender === 'bot' && message.chatForm ? (
+                    <div className="w-full pl-7">
+                      <ChatFormSlot
+                        type={message.chatForm.type}
+                        mode={message.chatForm.mode}
+                        prefill={mergeFormPrefill(message.chatForm.prefill)}
+                        onSuccess={handleChatFormSuccess}
+                        onCancel={handleChatFormCancel}
+                      />
+                    </div>
+                  ) : null}
+
+                  {message.sender === 'bot' && message.showContactForm ? (
+                    <div className="w-full pl-7">
                       <ContactForm
                         onSubmit={handleContactFormSubmit}
                         onCancel={handleContactFormCancel}
@@ -527,30 +668,38 @@ export default function Chatbot() {
                         fieldErrors={contactFieldErrors}
                       />
                     </div>
-                  )}
+                  ) : null}
                 </div>
               ))}
-              
-              {/* Typing indicator */}
-              {isTyping && (
-                <ChatMessageSkeleton />
-              )}
-              
-              {/* Suggested Questions */}
-              {messages.length === 1 && (
+
+              {isTyping ? (
+                <div className="flex justify-start gap-2">
+                  <GrowyAvatar size="sm" className="mt-1" ringClassName="ring-1 ring-gray-200" />
+                  <div className="bg-gray-100 text-gray-800 rounded-2xl p-3">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '0.1s' }}
+                      />
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '0.2s' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
+              {userEmail && messages.every((m) => m.sender !== 'user') ? (
                 <div className="space-y-2">
                   <p className="text-xs text-gray-500 text-center">Try asking:</p>
                   <div className="flex flex-wrap gap-2 justify-center">
-                    {[
-                      t('chatbot.suggestions.k12Programs'),
-                      t('chatbot.suggestions.steamCourses'),
-                      t('chatbot.suggestions.bookAssessment'),
-                      t('chatbot.suggestions.pricing'),
-                      t('chatbot.suggestions.getStarted')
-                    ].map((suggestion, index) => (
+                    {suggestionLabels.map((suggestion) => (
                       <button
-                        key={index}
-                        onClick={() => setInputValue(suggestion)}
+                        key={suggestion}
+                        type="button"
+                        onClick={() => void processUserMessage(suggestion)}
                         className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full transition-colors"
                       >
                         {suggestion}
@@ -558,53 +707,45 @@ export default function Chatbot() {
                     ))}
                   </div>
                 </div>
-              )}
-              
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 text-gray-800 rounded-2xl p-3 max-w-[80%]">
-                    <div className="flex items-center gap-2">
-                      <Bot className="w-4 h-4 text-[#1F396D]" />
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              
+              ) : null}
+
               <div ref={messagesEndRef} />
-              
-              {/* Error Message */}
-              {isError && errorMessage && (
+
+              {isError && errorMessage ? (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mx-4 mb-2">
                   <p className="text-xs text-yellow-800">{errorMessage}</p>
                 </div>
-              )}
+              ) : null}
             </CardContent>
 
-            {/* Input */}
             <div className="p-4 border-t border-gray-200">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={t('chatbot.placeholder')}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:border-transparent"
+              {userEmail ? (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value.slice(0, 600))}
+                    onKeyPress={handleKeyPress}
+                    maxLength={600}
+                    placeholder={t('placeholder')}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#F16112] focus:border-transparent"
+                  />
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={!inputValue.trim()}
+                    aria-label={t('sendMessage')}
+                    className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white rounded-full w-10 h-10 p-0 disabled:opacity-50"
+                  >
+                    <Send className="w-4 h-4" aria-hidden />
+                  </Button>
+                </div>
+              ) : (
+                <ChatbotEmailGate
+                  onContinue={handleEmailContinue}
+                  error={emailGateError}
+                  isSubmitting={emailGateSubmitting}
                 />
-                <Button
-                  onClick={handleSendMessage}
-                  disabled={!inputValue.trim()}
-                  aria-label={t('chatbot.sendMessage')}
-                  className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white rounded-full w-10 h-10 p-0 disabled:opacity-50"
-                >
-                  <Send className="w-4 h-4" aria-hidden />
-                </Button>
-              </div>
+              )}
             </div>
           </Card>
         </div>

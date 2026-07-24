@@ -4,7 +4,7 @@
     "subtitle": "Since 2024, GrowWise has been transforming education in Dublin, CA, through personalized Grades 1-12 instruction and innovative STEAM programs. We empower every student with the skills, knowledge, and confidence they need to succeed.",
     "stats": [
       { "label": "Founded", "value": "2024", "color": "text-[#1F396D]" },
-      { "label": "Students Served", "value": "325+", "color": "text-[#F16112]" },
+      { "label": "Students Served", "value": "387+", "color": "text-[#F16112]" },
       { "label": "Courses Offered", "value": "25+", "color": "text-[#F1894F]" },
       { "label": "Satisfaction Rate", "value": "98%", "color": "text-[#29335C]" }
     ]
@@ -12,9 +12,9 @@
   "story": {
     "title": "Our Story",
     "paragraphs": [
-      "Founded in 2024 in the heart of Dublin, California, GrowWise was born from a simple but powerful vision: every child deserves personalized education that meets them where they are and helps them reach their full potential.",
-      "What started as a small tutoring center has grown into a comprehensive educational institution serving families throughout the Tri-Valley area. Our founder, Anshika Verma, recognized that traditional one-size-fits-all education wasn't serving the diverse learning needs of today's students.",
-      "Today, GrowWise stands as a testament to what's possible when passionate educators combine proven teaching methods with innovative technology and genuine care for each student's success. We've helped over 325 students not just improve their grades, but develop confidence, curiosity, and a lifelong love of learning."
+      "Anshika arrived in the US in 2009 with $500. Her family were educators in India. She became a software engineer here. Then a mother.",
+      "For years she watched bright kids check out — not because they couldn't learn, but because nobody taught them how.",
+      "That gap became GrowWise. Not a tutoring center. A lab built on 15 years of observation, 2+ years of direct research with kids, and one belief: teach a child how to learn and everything changes."
     ]
   }
   ,
@@ -30,7 +30,7 @@
     "images": [
       { "src": "/assets/3e32d074ecb0cbbf1938d278ea2251c0bae43f37.png", "alt": "Classroom Q&A", "style": "tilt" },
       { "src": "/assets/0fb554c814973287034758481cdce9617220c706.png", "alt": "Students Group", "style": "tilt-small" },
-      { "src": "/assets/founderImage.webp", "alt": "Founder", "style": "large" }
+      { "src": "/assets/founder-anshika-verma.jpg", "alt": "Anshika Verma, Founder of GrowWise", "style": "large" }
     ]
   },
   "mission": {
@@ -97,7 +97,7 @@
     { "icon": "Award", "title": "Our Values", "description": "Excellence in education, personalized attention, innovative teaching methods, strong community partnerships, and unwavering commitment to student success.", "gradient": "from-[#F1894F] to-[#F16112]", "bgColor": "bg-[#F1894F]/10" }
   ],
   "achievements": [
-    { "icon": "Users", "title": "325+ Students Served", "description": "Since 2024, we've helped over 325 students achieve their academic goals", "value": "325+", "color": "text-[#1F396D]", "bgColor": "bg-[#1F396D]/10" },
+    { "icon": "Users", "title": "387+ Students Served", "description": "Since 2024, we've helped over 387 students achieve their academic goals", "value": "387+", "color": "text-[#1F396D]", "bgColor": "bg-[#1F396D]/10" },
     { "icon": "Star", "title": "98% Satisfaction Rate", "description": "Consistently high parent and student satisfaction scores", "value": "98%", "color": "text-[#F16112]", "bgColor": "bg-[#F16112]/10" },
     { "icon": "TrendingUp", "title": "95% Improvement Rate", "description": "95% of students show measurable improvement within first semester", "value": "95%", "color": "text-[#F1894F]", "bgColor": "bg-[#F1894F]/10" },
     { "icon": "Award", "title": "Serving Since 2024", "description": "Recognized as a leading educational center in Dublin and Tri-Valley area", "value": "2024", "color": "text-[#29335C]", "bgColor": "bg-[#29335C]/10" }
@@ -118,12 +118,7 @@
     { "name": "Roger Jiang", "role": "Google review", "content": "My son and I had a very positive experience with Growwise recently. My son attended the half-day python coding camp (Level 1 & 2), which was his first formal exposure to programming. Thanks to the small class size and the teacher's personalized approach, he was able to grasp the fundamentals of python and enjoyed working on the assignments and demo projects such as the Hangman game. The teacher provided prompt feedback after each session and offered helpful suggestions for future learning opportunities. I strongly recommend this program!", "image": "", "rating": 5 },
     { "name": "Parent", "role": "Google review", "content": "My daughter joined Growwise to begin learning the basics of coding, starting with Roblox development. She had a fantastic experience throughout the program! The classes were engaging, and the teacher did a great job keeping the students interested and motivated. It was wonderful to see her enjoying herself while learning something so valuable.", "image": "", "rating": 5 }
   ],
-  "teamMembers": [
-    { "name": "Anshika Verma", "role": "Founder & Director", "image": "/assets/founderImage.webp", "bio": "With over a decade of software engineering experience and inspired by her parents—both lifelong educators—Anshika Verma founded GrowWise to bridge academic excellence with modern digital tools, providing personalized learning experiences that help every student reach their full potential.", "expertise": ["Educational Leadership", "Curriculum Development", "Student Assessment"], "education": "Software Engineering & Education Innovation" },
-    { "name": "Michael Rodriguez", "role": "Lead Math Instructor", "image": "/assets/photos/photo-1472099645785-5658abf4ff4e.jpg", "bio": "A passionate mathematics educator who believes every student can excel in math with the right approach and support.", "expertise": ["Advanced Mathematics", "DUSD Accelerated Programs", "SAT/ACT Prep"], "education": "M.S. in Mathematics, UC Berkeley" },
-    { "name": "Lisa Thompson", "role": "English & Writing Specialist", "image": "/assets/photos/photo-1438761681033-6461ffad8d80.jpg", "bio": "An award-winning educator specializing in reading comprehension, creative writing, and helping students find their unique voice.", "expertise": ["Reading Enrichment", "Creative Writing", "ESL Support"], "education": "M.A. in English Literature, UCLA" },
-    { "name": "David Kim", "role": "STEAM Program Director", "image": "/assets/photos/photo-1507003211169-0a1dd7228f2d.jpg", "bio": "A tech industry veteran turned educator, passionate about introducing young minds to coding, robotics, and entrepreneurship.", "expertise": ["Python Programming", "AI/ML Education", "Young Entrepreneurship"], "education": "B.S. Computer Science, MIT" }
-  ]
+  "teamMembers": []
 }
 
 

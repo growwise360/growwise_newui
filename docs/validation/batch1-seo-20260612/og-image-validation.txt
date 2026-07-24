@@ -1,0 +1,4 @@
+status: 200
+content-type: image/webp
+magic: 52494646
+is image: True

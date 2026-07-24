@@ -1,5 +1,8 @@
 import { Metadata } from 'next'
+import FAQSchema from '@/components/schema/FAQSchema'
+import { BOOK_ASSESSMENT_FAQ_JSONLD } from '@/lib/schema/course-hub-jsonld-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
+import { generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { CONTACT_INFO } from '@/lib/constants'
@@ -7,7 +10,7 @@ import { CONTACT_INFO } from '@/lib/constants'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const metadata = generateMetadataFromPath('/book-assessment', locale)
-  return metadata || { title: 'Book Assessment | GrowWise', description: 'Book your free assessment' }
+  return metadata || { title: 'Book Readiness Assessment | GrowWise', description: 'Book your GrowWise readiness assessment' }
 }
 
 export default async function BookAssessmentLayout({
@@ -19,15 +22,16 @@ export default async function BookAssessmentLayout({
 }) {
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
+  const pageUrl = absoluteSiteUrl('/book-assessment', locale, baseUrl)
 
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     '@id': absoluteSiteUrl('/book-assessment#service', locale, baseUrl),
-    name: 'Free Academic Assessment',
+    name: 'GrowWise Readiness Assessment',
     description:
-      "Book a free academic assessment at GrowWise in Dublin, CA. We evaluate your child's current level in Math, English, or STEAM and recommend the right next step.",
-    serviceType: 'Academic Assessment',
+      "Book a GrowWise readiness assessment in Dublin, CA. We evaluate your child's current level in Math, English, or STEAM and recommend the right next step.",
+    serviceType: 'Academic Readiness Assessment',
     provider: {
       '@type': 'EducationalOrganization',
       name: 'GrowWise',
@@ -48,16 +52,32 @@ export default async function BookAssessmentLayout({
       { '@type': 'City', name: 'San Ramon' },
       { '@type': 'City', name: 'Livermore' },
     ],
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-      description: 'Complimentary academic assessment',
-    },
-    url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free 30-Minute Assessment',
+        price: '0',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        url: pageUrl,
+        description: 'Free 30-minute readiness assessment for elementary students in Grades 1-4',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Full Diagnostic',
+        price: '49',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        url: pageUrl,
+        description: '60-minute diagnostic with gap analysis, mistake-pattern review, written report, and learning plan',
+      },
+    ],
+    url: pageUrl,
   }
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
+    { name: 'Book Assessment', url: pageUrl },
+  ])
 
   return (
     <>
@@ -65,8 +85,12 @@ export default async function BookAssessmentLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <FAQSchema faqs={BOOK_ASSESSMENT_FAQ_JSONLD} />
       {children}
     </>
   )
 }
-

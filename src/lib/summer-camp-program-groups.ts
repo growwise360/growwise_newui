@@ -1,26 +1,24 @@
 /**
- * Maps the 3 conversion “program track” cards to real program ids for scroll + pre-select in booking.
- * Order matches `summerCamp.conversion.programGroups` in en.json:
- * Academic → AI & game dev → Young Authors.
+ * Maps conversion “program track” cards to real program ids for scroll + pre-select in booking.
+ * Academic math camps (Olympiad / Advanced Math) are on dedicated landing pages — not in the summer hub grid.
+ * Order: AI & game dev → Young Authors.
  */
 export const SUMMER_CAMP_PROGRAM_GROUP_IDS = [
-  ['math-olympiad', 'adv-math'],
   ['ai-entrepreneur', 'scratch-online', 'roblox-in-person', 'robotics-camp'],
   ['young-authors'],
 ] as const;
 
-export type SummerCampProgramTrack = 'academic' | 'aiGameDev' | 'creativeWriting';
+export type SummerCampProgramTrack = 'aiGameDev' | 'creativeWriting';
 
 /** Section / filter chip order for the booking grid. */
 export const SUMMER_CAMP_PROGRAM_TRACK_ORDER: SummerCampProgramTrack[] = [
-  'academic',
   'aiGameDev',
   'creativeWriting',
 ];
 
 const PROGRAM_ID_TO_TRACK: Record<string, SummerCampProgramTrack> = (() => {
   const m: Record<string, SummerCampProgramTrack> = {};
-  const tracks: SummerCampProgramTrack[] = ['academic', 'aiGameDev', 'creativeWriting'];
+  const tracks: SummerCampProgramTrack[] = ['aiGameDev', 'creativeWriting'];
   SUMMER_CAMP_PROGRAM_GROUP_IDS.forEach((ids, i) => {
     const track = tracks[i];
     for (const id of ids) m[id] = track;

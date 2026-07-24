@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { FREE_RESOURCES } from '@/data/resources'
+import { FREE_RESOURCES } from '@/data/free-resources'
 import { FreeResourcesClient } from '@/components/free-resources/FreeResourcesClient'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 
@@ -13,7 +13,7 @@ export async function generateMetadata({
   return metadata ?? {
     title: 'Free Learning Resources for K–12 | GrowWise',
     description:
-      'Download free math worksheets, English practice sheets, coding cheat sheets, and AI guides for grades 1–12. No sign-up hassle — just enter your email and get instant access.',
+      'Download free GrowWise learning guides and program resources for K–12 families.',
   }
 }
 
@@ -25,8 +25,8 @@ export default function FreeResourcesPage() {
           Free <span className="highlight-orange">Learning Resources</span> for K–12 Students
         </h1>
         <p className="subtitle-sm mb-10 max-w-3xl">
-          Download free math worksheets, English practice sheets, coding cheat sheets, and AI guides for
-          grades 1–12. No sign-up hassle — just enter your email and get instant access.
+          Download practical GrowWise guides and program resources for K–12 families. Enter your email
+          and we’ll send the selected PDF to your inbox.
         </p>
         <FreeResourcesClient resources={FREE_RESOURCES} />
       </div>

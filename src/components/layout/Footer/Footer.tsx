@@ -11,6 +11,9 @@ import { createLocaleUrl } from './utils';
 import FooterLogo from './FooterLogo';
 import FooterSection from './FooterSection';
 import FooterCopyright from './FooterCopyright';
+import FooterSocialBar from './FooterSocialBar';
+import FooterSbaBadge from './FooterSbaBadge';
+import { isRoboticsCampSeoPath } from '@/lib/camps/camp-seo-landing-slugs';
 
 export default function Footer() {
   const locale = useLocale();
@@ -59,6 +62,14 @@ export default function Footer() {
 
   const display: FooterData = footer ?? fallback;
 
+  const copyright = useMemo(() => {
+    let text = display.copyright;
+    if (isRoboticsCampSeoPath(pathname)) {
+      text = text.replace(/©\s*2025/g, '© 2026').replace(/2025 GrowWise/g, '2026 GrowWise');
+    }
+    return text;
+  }, [display.copyright, pathname]);
+
   return (
     <footer
       className={[
@@ -76,18 +87,27 @@ export default function Footer() {
             <FooterLogo
               logo={display.logo}
               description={display.description}
-              contact={display.contact}
             />
           </div>
 
           {display.sections.map((section, index) => (
             <div key={index} className="flex-1">
-              <FooterSection section={section} createLocaleUrl={createLocaleUrlHelper} />
+              <FooterSection
+                section={section}
+                createLocaleUrl={createLocaleUrlHelper}
+                contact={display.contact}
+              />
             </div>
           ))}
         </div>
 
-        <FooterCopyright copyright={display.copyright} />
+        <FooterSocialBar />
+        <FooterSbaBadge />
+        <FooterCopyright
+          copyright={copyright}
+          curriculumAlignment={display.curriculumAlignment}
+          legalDisclaimer={display.legalDisclaimer}
+        />
       </div>
     </footer>
   );

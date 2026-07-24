@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import {
   Accordion,
@@ -8,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
 
 export interface SummerCampFaqItem {
   question: string;
@@ -22,7 +22,7 @@ export function SummerCampPageFaq({
   loading: boolean;
 }) {
   const t = useTranslations('summerCamp');
-  const [openFaqValue, setOpenFaqValue] = useState<string | undefined>('faq-0');
+  const defaultOpenFaqs = getDefaultOpenFaqValues(faqs.length, (i) => `faq-${i}`);
 
   return (
     <section
@@ -53,13 +53,9 @@ export function SummerCampPageFaq({
           </div>
         ) : (
           <Accordion
-            type="single"
-            collapsible
-            value={openFaqValue}
-            onValueChange={(next) =>
-              setOpenFaqValue((prev) => (next === prev ? undefined : next))
-            }
+            type="multiple"
             className="max-w-4xl mx-auto space-y-3"
+            defaultValue={defaultOpenFaqs}
           >
             {faqs.map((faq, i) => (
               <AccordionItem

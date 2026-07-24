@@ -19,7 +19,7 @@ import {
 
 interface RelatedContentProps {
   locale: string
-  currentPage?: 'math' | 'english' | 'sat-prep' | 'high-school-math' | 'steam' | 'ml-ai' | 'game-dev'
+  currentPage?: 'math' | 'english' | 'sat-prep' | 'high-school-math' | 'high-school-summer-intensive' | 'steam' | 'ml-ai' | 'game-dev'
 }
 
 export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
@@ -27,7 +27,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
   const allItems = [
     {
       id: 'math',
-      href: publicPath('/courses/math', locale),
+      href: publicPath('/academic/math', locale),
       title: 'Math Courses',
       description: 'Comprehensive Grades 1-12 math courses: Grade-level, Accelerated, and Integrated Math programs.',
       icon: Calculator,
@@ -38,7 +38,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
     },
     {
       id: 'english',
-      href: publicPath('/courses/english', locale),
+      href: publicPath('/academic/english', locale),
       title: 'English Courses',
       description: 'Comprehensive English Language Arts programs for Grades 1-12 students. Reading, writing, and grammar.',
       icon: BookOpen,
@@ -60,7 +60,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
     },
     {
       id: 'high-school-math',
-      href: publicPath('/courses/high-school-math', locale),
+      href: publicPath('/academic/math/high-school', locale),
       title: 'High School Math',
       description: 'Advanced math courses including Algebra, Geometry, Pre-Calculus, and Calculus.',
       icon: GraduationCap,
@@ -68,6 +68,17 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
       border: 'border-orange-100 hover:border-orange-300',
       iconColor: 'text-orange-600',
       textColor: 'text-orange-600',
+    },
+    {
+      id: 'high-school-summer-intensive',
+      href: publicPath('/camps/high-school-summer-intensive-dublin-ca', locale),
+      title: 'High School Summer Intensive',
+      description: '6-week summer intensives: Algebra 1, Algebra 2, Precalculus, and Calculus AB in Dublin.',
+      icon: GraduationCap,
+      gradient: 'from-indigo-50 to-blue-50',
+      border: 'border-indigo-100 hover:border-indigo-300',
+      iconColor: 'text-indigo-600',
+      textColor: 'text-indigo-600',
     },
     {
       id: 'academic',
@@ -112,6 +123,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
     english: 'Book a Free Assessment',
     'sat-prep': 'Book SAT Readiness Check',
     'high-school-math': 'Book a Free Assessment',
+    'high-school-summer-intensive': 'View Summer Programs',
     academic: 'Book a Free Assessment',
     steam: 'Book a Free Assessment',
     assessment: 'Book a Free Assessment',
@@ -131,6 +143,7 @@ export function RelatedContent({ locale, currentPage }: RelatedContentProps) {
                                    item.textColor === 'text-emerald-600' ? 'group-hover:text-emerald-600' :
                                    item.textColor === 'text-purple-600' ? 'group-hover:text-purple-600' :
                                    item.textColor === 'text-orange-600' ? 'group-hover:text-orange-600' :
+                                   item.textColor === 'text-indigo-600' ? 'group-hover:text-indigo-600' :
                                    item.textColor === 'text-green-600' ? 'group-hover:text-green-600' :
                                    item.textColor === 'text-cyan-600' ? 'group-hover:text-cyan-600' :
                                    'group-hover:text-red-600'

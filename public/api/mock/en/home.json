@@ -2,13 +2,13 @@
   "heroSlides": [
     {
       "id": 1,
-      "title": "Grades 1–12 Tutoring & STEAM\nin Dublin, CA",
-      "subtitle": "Expert Assessment. Personalized Plan. Math, English, coding, and SAT prep for Grades 1–12 students in the Tri-Valley.",
+      "title": "Elite Grades 1–12 Academic Training\nin Dublin, CA",
+      "subtitle": "Readiness Assessment. Personalized Mastery Plan. Math, English, coding, and SAT prep for ambitious Tri-Valley students.",
       "description": "",
-      "cta": "Book Free Assessment",
+      "cta": "Book Readiness Assessment",
       "secondaryCta": "Explore Academic Programs",
       "secondaryCtaUrl": "/academic",
-      "ctaUrl": "/enroll",
+      "ctaUrl": "/book-assessment",
       "icon": "BookOpen",
       "bgGradient": "bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#2a4a7c]",
       "iconColor": "text-white",
@@ -21,7 +21,7 @@
       "subtitle": "STEAM courses",
       "description": "Hands-on STEAM learning with Roblox, Scratch, Python, ML/AI, and Young Entrepreneurship programs.",
       "cta": "Book 30 minutes trial class",
-      "ctaUrl": "/enroll",
+      "ctaUrl": "/book-assessment",
       "icon": "Code",
       "bgGradient": "bg-gradient-to-br from-[#F16112] via-[#F1894F] to-[#d54f0a]",
       "iconColor": "text-white",
@@ -30,11 +30,11 @@
     },
     {
       "id": 3,
-      "title": "One-on-One Tuition",
-      "subtitle": "100% personal attention",
-      "description": "Specially designed for specific homework help and targeted learning support for kids who need focused attention.",
-      "cta": "Register Now",
-      "ctaUrl": "/enroll",
+      "title": "One-on-One Academic Coaching",
+      "subtitle": "Precision instruction",
+      "description": "Focused coaching for students who need sharper skills, stronger habits, and a clear path to advanced academic performance.",
+      "cta": "Request Placement Review",
+      "ctaUrl": "/book-assessment",
       "icon": "Users",
       "bgGradient": "bg-gradient-to-br from-[#1F396D] via-[#F16112] to-[#F1894F]",
       "iconColor": "text-white",
@@ -44,33 +44,33 @@
   ],
   "popularCourses": [
     { "id": 1, "name": "Python Coding", "benefit": "Project-based", "icon": "Code", "bgColor": "bg-gradient-to-br from-[#1F396D]/10 to-[#29335C]/20", "iconColor": "text-[#1F396D]", "borderColor": "border-[#1F396D]/30", "cta": "View ML/AI courses", "href": "/steam/ml-ai-coding" },
-    { "id": 2, "name": "Math Mastery", "benefit": "1:1 attention", "icon": "Calculator", "bgColor": "bg-gradient-to-br from-[#F16112]/10 to-[#F1894F]/20", "iconColor": "text-[#F16112]", "borderColor": "border-[#F16112]/30", "cta": "View math programs", "href": "/courses/math" },
+    { "id": 2, "name": "Math Mastery", "benefit": "1:1 attention", "icon": "Calculator", "bgColor": "bg-gradient-to-br from-[#F16112]/10 to-[#F1894F]/20", "iconColor": "text-[#F16112]", "borderColor": "border-[#F16112]/30", "cta": "View math programs", "href": "/academic/math" },
     { "id": 3, "name": "AI Explorer", "benefit": "Future-ready", "icon": "Bot", "bgColor": "bg-gradient-to-br from-[#F1894F]/10 to-[#F16112]/20", "iconColor": "text-[#1F396D]", "borderColor": "border-[#F1894F]/30", "cta": "View ML/AI courses", "href": "/steam/ml-ai-coding" },
-    { "id": 4, "name": "Mastery in English", "benefit": "Accelerated growth", "icon": "Book", "bgColor": "bg-gradient-to-br from-[#29335C]/10 to-[#1F396D]/20", "iconColor": "text-[#F16112]", "borderColor": "border-[#29335C]/30", "cta": "View ELA programs", "href": "/courses/english" }
+    { "id": 4, "name": "Mastery in English", "benefit": "Accelerated growth", "icon": "Book", "bgColor": "bg-gradient-to-br from-[#29335C]/10 to-[#1F396D]/20", "iconColor": "text-[#F16112]", "borderColor": "border-[#29335C]/30", "cta": "View ELA programs", "href": "/academic/english" }
   ],
   "statisticsData": [
-    { "id": 1, "value": "325+", "label": "Students Enrolled", "icon": "Users", "color": "text-[#1F396D]", "bgColor": "bg-[#1F396D]/10" },
+    { "id": 1, "value": "387+", "label": "Students Enrolled", "icon": "Users", "color": "text-[#1F396D]", "bgColor": "bg-[#1F396D]/10" },
     { "id": 2, "value": "25+", "label": "Courses Offered", "icon": "BookMarked", "color": "text-[#F16112]", "bgColor": "bg-[#F16112]/10" },
     { "id": 3, "value": "98%", "label": "Students Satisfaction", "icon": "ThumbsUp", "color": "text-[#F1894F]", "bgColor": "bg-[#F1894F]/10" }
   ],
   "k12Programs": [
-    { "id": 1, "title": "Math Courses", "description": "Build strong mathematical foundations from elementary to advanced levels", "icon": "Calculator", "gradient": "from-[#1F396D] to-[#29335C]", "bgGradient": "bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10", "iconColor": "text-[#1F396D]", "href": "/courses/math", "ctaText": "Start Learning", "ctaUrl": "/courses/math", "subItems": [
+    { "id": 1, "title": "Math Courses", "description": "Build strong mathematical foundations from elementary to advanced levels", "icon": "Calculator", "gradient": "from-[#1F396D] to-[#29335C]", "bgGradient": "bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10", "iconColor": "text-[#1F396D]", "href": "/academic/math", "ctaText": "Explore Math Pathways", "ctaUrl": "/academic/math", "subItems": [
       { "name": "Elementary Math", "icon": "🔢", "description": "Basic arithmetic and number sense" },
       { "name": "Middle School Math", "icon": "📊", "description": "Algebra and geometry foundations" },
       { "name": "DUSD Accelerated Math", "icon": "🚀", "description": "Advanced placement preparation" },
       { "name": "High School Math", "icon": "🎯", "description": "Calculus and advanced topics" }
     ] },
-    { "id": 2, "title": "ELA Courses", "description": "Develop comprehensive English language arts skills", "icon": "BookOpen", "gradient": "from-[#F16112] to-[#F1894F]", "bgGradient": "bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10", "iconColor": "text-[#F16112]", "href": "/courses/english", "ctaText": "Start Learning", "ctaUrl": "/courses/english", "subItems": [
+    { "id": 2, "title": "ELA Courses", "description": "Develop comprehensive English language arts skills", "icon": "BookOpen", "gradient": "from-[#F16112] to-[#F1894F]", "bgGradient": "bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10", "iconColor": "text-[#F16112]", "href": "/academic/english", "ctaText": "Explore English Pathways", "ctaUrl": "/academic/english", "subItems": [
       { "name": "English Mastery: Grades 1-12", "icon": "📚", "description": "Complete language arts curriculum" },
       { "name": "Reading Enrichment", "icon": "📖", "description": "Improve reading comprehension" },
       { "name": "Grammar Boost", "icon": "✏️", "description": "Master grammar and mechanics" }
     ] },
-    { "id": 3, "title": "Writing Lab", "description": "Master the art of effective written communication", "icon": "PenTool", "gradient": "from-[#F1894F] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-[#F1894F]/5 to-[#F16112]/10", "iconColor": "text-[#F1894F]", "ctaText": "Start Learning", "ctaUrl": "/courses/english", "subItems": [
+    { "id": 3, "title": "Writing Lab", "description": "Master the art of effective written communication", "icon": "PenTool", "gradient": "from-[#F1894F] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-[#F1894F]/5 to-[#F16112]/10", "iconColor": "text-[#F1894F]", "ctaText": "Explore Writing Lab", "ctaUrl": "/academic/english", "subItems": [
       { "name": "Creative Writing", "icon": "✨", "description": "Unleash your creative potential" },
       { "name": "Essay Writing", "icon": "📝", "description": "Academic and persuasive writing" },
       { "name": "Foundations of Writing", "icon": "🤔", "description": "Develop critical thinking skills" }
     ] },
-    { "id": 4, "title": "SAT/ACT", "description": "Achieve your best scores with comprehensive test preparation", "icon": "Award", "gradient": "from-[#1F396D] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-gray-50 to-gray-100", "iconColor": "text-[#1F396D]", "ctaText": "Start Learning", "ctaUrl": "/courses/sat-prep", "subItems": [
+    { "id": 4, "title": "SAT/ACT", "description": "Achieve your best scores with comprehensive test preparation", "icon": "Award", "gradient": "from-[#1F396D] to-[#F16112]", "bgGradient": "bg-gradient-to-br from-gray-50 to-gray-100", "iconColor": "text-[#1F396D]", "ctaText": "Explore Test Prep", "ctaUrl": "/courses/sat-prep", "subItems": [
       { "name": "Math Test Prep", "icon": "🧮", "description": "Master SAT/ACT math sections" },
       { "name": "Online SAT Test Prep", "icon": "💻", "description": "Comprehensive SAT preparation" },
       { "name": "Online ACT Test Prep", "icon": "🎯", "description": "Complete ACT test strategy" }
@@ -100,25 +100,25 @@
     ] }
   ],
   "testimonials": [
-    { "name": "Parent", "role": "5★ Google review", "content": "GrowWise has been such a wonderful experience for my daughter. Her tutor has been incredibly patient, encouraging, and attentive to her individual learning needs. Since starting with GrowWise, I’ve noticed a big improvement in her confidence, focus, and overall understanding of subjects that used to be challenging for her. The lessons are engaging and tailored to her pace, which has made learning enjoyable instead of stressful. I’m truly grateful for the positive impact GrowWise has had on her academic growth and motivation.", "rating": 5, "image": "" },
-    { "name": "Roger Jiang", "role": "Google review", "content": "My son and I had a very positive experience with Growwise recently. My son attended the half-day python coding camp (Level 1 & 2), which was his first formal exposure to programming. Thanks to the small class size and the teacher's personalized approach, he was able to grasp the fundamentals of python and enjoyed working on the assignments and demo projects such as the Hangman game. The teacher provided prompt feedback after each session and offered helpful suggestions for future learning opportunities. I strongly recommend this program!", "rating": 5, "image": "" },
-    { "name": "Parent", "role": "Google review", "content": "My daughter joined Growwise to begin learning the basics of coding, starting with Roblox development. She had a fantastic experience throughout the program! The classes were engaging, and the teacher did a great job keeping the students interested and motivated. It was wonderful to see her enjoying herself while learning something so valuable.", "rating": 5, "image": "" }
+    { "name": "Mumtaz Salemi", "role": "Parent", "content": "GrowWise has been such a wonderful experience for my daughter. Her tutor has been incredibly patient, encouraging, and attentive to her individual learning needs. Since starting with GrowWise, I've noticed a big improvement in her confidence, focus, and overall understanding of subjects that used to be challenging for her. The lessons are engaging and tailored to her pace, which has made learning enjoyable instead of stressful. I'm truly grateful for the positive impact GrowWise has had on her academic growth and motivation.", "rating": 5, "image": "https://lh3.googleusercontent.com/a/ACg8ocJ8kdLdHFYLPGZfQIS_VDjM6_G41uqvoCZQKZQ90Lpg2ejlKw=s128-c0x00000000-cc-rp-mo" },
+    { "name": "Roger Jiang", "role": "Parent", "content": "My son and I had a very positive experience with Growwise recently. My son attended the half-day python coding camp (Level 1 & 2), which was his first formal exposure to programming. Thanks to the small class size and the teacher's personalized approach, he was able to grasp the fundamentals of python and enjoyed working on the assignments and demo projects such as the Hangman game. The teacher provided prompt feedback after each session and offered helpful suggestions for future learning opportunities. I strongly recommend this program!", "rating": 5, "image": "https://lh3.googleusercontent.com/a-/ALV-UjXz1JS54vjTeiURb0UIbwWUTzm6K4J287wD3fwqeZzZinIf8_Wp=s128-c0x00000000-cc-rp-mo" },
+    { "name": "Nilima Vishal", "role": "Parent", "content": "GrowWise is a reliable and professional tutoring center. The tutors are knowledgeable, attentive and really help build confidence in learning. Highly recommended.", "rating": 5, "image": "https://lh3.googleusercontent.com/a/ACg8ocJQGM5lRGlLcuTCXTQeUolAIeR3rTODH9LQyY472T9mQMGg4Q=s128-c0x00000000-cc-rp-mo" },
+    { "name": "Vivek Chaturvedi", "role": "Parent", "content": "We've had a great experience with GrowWise so far. My son attends both English and Math tuition here, and we've seen noticeable progress, especially in his writing skills. Both are 1:1 classes. The Math program has really helped him focus. The tutor works through problems with him patiently, assigns homework, and then reviews it thoroughly—this structure has made a big difference in his understanding and confidence. For English, they've been following the 3rd grade curriculum, and I've seen real improvement in his writing and expression. We recommend GrowWise for anyone looking for quality academic support in a caring environment!", "rating": 5, "image": "https://lh3.googleusercontent.com/a-/ALV-UjWqm0EN9dQa-NL0vqcXgegEwdyunmLgGDXcdaO8F-YM0t4z0OlZKQ=s128-c0x00000000-cc-rp-mo" },
+    { "name": "Sindhu Jayaraman", "role": "Parent", "content": "My son has been enrolled in English tutoring for the past four months, and we've seen tremendous improvement in his skills! His confidence in writing has grown, and his comprehension has improved significantly. The tutors are patient, knowledgeable, and truly dedicated to helping students succeed. The personalized approach and engaging lessons have made a huge difference. Highly recommend GrowWise Tutoring for any parent looking to support their child's academic growth!", "rating": 5, "image": "https://lh3.googleusercontent.com/a-/ALV-UjWQsThJbc8c4dZZQ0Rtafrwz55pki40TtiNLyxrRFkFVe0dLTHj=s128-c0x00000000-cc-rp-mo" }
   ],
   "whyChooseUs": [
-    { "icon": "UserCheck", "title": "1️⃣ Personalized Pathway", "description": "We build a unique learning plan for each child — aligned with school curriculum, grade level, and personal goals. No generic lessons — every session is customized for their needs.", "subtitle": "Tailored Learning for Every Student" },
+    { "icon": "UserCheck", "title": "1️⃣ Personalized Pathway", "description": "We build a unique learning plan for each child — aligned with school curriculum, grade level, and personal goals. No generic lessons — every session is calibrated to their next academic move.", "subtitle": "Tailored Learning for Every Student" },
     { "icon": "Target", "title": "2️⃣ 100% Curriculum Aligned", "description": "Our lessons follow district pacing guides (Dublin, Pleasanton, San Ramon USD) and California Common Core, ensuring seamless classroom reinforcement.", "subtitle": "Perfectly Synced with School Topics" },
-    { "icon": "RefreshCw", "title": "3️⃣ Continuous Feedback Loop", "description": "Parents receive consistent feedback and progress snapshots — so you always know where your child stands and how to help at home.", "subtitle": "Regular Progress Updates for Parents" },
+    { "icon": "RefreshCw", "title": "3️⃣ Continuous Feedback Loop", "description": "Parents receive consistent feedback and progress snapshots — so you always know where your child stands and what should happen next at home.", "subtitle": "Regular Progress Updates for Parents" },
     { "icon": "BarChart3", "title": "4️⃣ Frequent Assessments", "description": "Diagnostic, weekly, and unit assessments guide the next learning step. Our tutors personalize practice based on every result.", "subtitle": "Measure, Adjust, and Master" },
     { "icon": "TrendingUp", "title": "5️⃣ Real Results", "description": "Students gain measurable improvement — stronger grades, sharper problem-solving, and renewed motivation within weeks.", "subtitle": "Confidence, Grades, and Growth" }
   ],
   "cta": {
-    "title": "Ready to Start Your Learning Journey?",
-    "subtitle": "Join 325+ students who have transformed their academic future with GrowWise.",
-    "primaryCta": "Choose Enrollment Type",
-    "primaryCtaUrl": "/enroll",
+    "title": "Ready to Build an Achievement Plan?",
+    "subtitle": "Join 387+ students training for stronger grades, sharper thinking, and long-term academic confidence with GrowWise.",
+    "primaryCta": "Book Readiness Assessment",
+    "primaryCtaUrl": "/book-assessment",
     "secondaryCta": "Talk to GrowWise",
     "secondaryCtaUrl": "/contact"
   }
 }
-
-

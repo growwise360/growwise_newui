@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, Code, Target, Brain, Rocket, CheckCircle } f
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/the-importance-of-coding-for-kids-building-future-ready-skills.webp'
@@ -19,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Coding for Kids | Future Skills | GrowWise', 
-    description: 'Understand why coding education for children is crucial for developing problem-solving skills and preparing them for the future.',
+    description: 'See why coding for kids builds logic, creativity, persistence, and future-ready problem-solving by helping children create with technology early.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/the-importance-of-coding-for-kids-building-future-ready-skills', locale, baseUrl)
     }
@@ -30,17 +33,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: 'The Importance of Coding for Kids: Building Future-Ready Skills', url: absoluteSiteUrl('/growwise-blogs/the-importance-of-coding-for-kids-building-future-ready-skills', locale, baseUrl) },
-  ])
+  ]
 
   const pageUrl = absoluteSiteUrl('/growwise-blogs/the-importance-of-coding-for-kids-building-future-ready-skills', locale, baseUrl)
   const articleSchema = generateArticleSchema({
     headline: 'The Importance of Coding for Kids: Building Future-Ready Skills',
     description: 'Understand why coding education for children is crucial for developing problem-solving skills and preparing them for the future.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-07-22',
+    dateModified: '2024-07-22',
   })
 
   return (
@@ -49,10 +55,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="the-importance-of-coding-for-kids-building-future-ready-skills" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -102,6 +106,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 In an increasingly digital world, coding has become one of the most important skills children can learn. Understanding why coding education for children is crucial helps parents make informed decisions about their child's future.
               </p>
 
+              <LegacyBlogAeoBlock slug="the-importance-of-coding-for-kids-building-future-ready-skills" />
+
               <p className="text-gray-700 mb-8">
                 Coding isn't just about writing code – it's about developing problem-solving skills, logical thinking, and creativity that will serve children throughout their lives.
               </p>
@@ -114,7 +120,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -125,7 +131,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  the importance of coding for kids building future ready skills visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Coding Matters for Kids</h2>
 
@@ -242,6 +251,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             </div>
 
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Give your child future-ready coding skills now.{' '}
+                <Link href={publicPath('/future-skills', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore Future Ready Skills pathways
+                </Link>{' '}
+                — beginner to advanced, Grades 1–12 in Dublin, CA.
+              </p>
+            </div>
+
             {/* Back to Blogs Link */}
             <div className="mt-8 text-center">
               <Link 
@@ -255,21 +275,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
+        />
       </div>
     </>
   )

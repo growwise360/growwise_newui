@@ -7,8 +7,16 @@ import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import type { SummerCampFaqItem } from './SummerCampPageFaq';
-import { fetchSummerCampData, getDefaultSummerCampData, type Program, type OlympiadTierConfig } from '@/lib/summer-camp-data';
+import { getSummerHubVisibleFaqs } from '@/lib/schema/summer-hub-jsonld-faqs';
+import {
+  fetchSummerCampData,
+  filterSummerCampHubPrograms,
+  getDefaultSummerCampData,
+  type Program,
+  type OlympiadTierConfig,
+} from '@/lib/summer-camp-data';
 import { createLocaleUrl } from '@/components/layout/Header/utils';
+import { publicPath } from '@/lib/publicPath';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,18 +26,20 @@ import {
 import { isAutomatedAuditEnvironment } from '@/lib/consent';
 import canonicalSummerCampEn from '@/i18n/messages/summer-camp-canonical-en.json';
 import {
-  SUMMER_CAMP_PROGRAM_GROUP_IDS,
   SUMMER_CAMP_PROGRAM_TRACK_ORDER,
   getSummerCampProgramTrack,
   orderProgramsBySummerCampTrack,
   type SummerCampProgramTrack,
 } from '@/lib/summer-camp-program-groups';
 import { SummerCampTrustBlock } from '@/components/camps/SummerCampTrustBlock';
-import {
-  SUMMER_CAMP_PROGRAM_GROUP_SEO_LINKS,
-  summerCampProgramGroupMessagePath,
-} from '@/lib/summer-camp-seo-links';
-import { SummerCampGuideLeadDialog } from './SummerCampGuideLeadDialog';
+import { FeaturedCampGuidesSection } from '@/components/camps/FeaturedCampGuidesSection';
+import { SummerCampParentsKnowStrip } from '@/components/camps/SummerCampParentsKnowStrip';
+import { SummerCampEmptySlotsPanel } from '@/components/camps/SummerCampUI';
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
+const SummerCampGuideLeadDialog = dynamic(
+  () => import('./SummerCampGuideLeadDialog').then((m) => ({ default: m.SummerCampGuideLeadDialog })),
+  { ssr: false },
+);
 
 /**
  * Slim English-only hero + conversion copy (~4KB) for this page.
@@ -40,6 +50,7 @@ const SC = canonicalSummerCampEn.conversion;
 
 /** Module-scoped default data — avoids per-render `getDefaultSummerCampData()` calls (singleton inside that fn anyway). */
 const DEFAULT_CAMP_DATA = getDefaultSummerCampData();
+const DEFAULT_HUB_PROGRAMS = filterSummerCampHubPrograms(DEFAULT_CAMP_DATA.programs);
 
 const ProgramList = dynamic(
   () => import('@/components/camps/SummerCampProgramList').then((m) => ({ default: m.ProgramList })),
@@ -80,10 +91,6 @@ const SlotsPanel = dynamic(
 
 export type { SummerCampFaqItem };
 
-export interface SummerCampFaqData {
-  faqs: SummerCampFaqItem[];
-}
-
 /** Booking grid filter: all programs, one program track, or full-day-only (e.g. robotics, Young Authors). */
 type ProgramTrackFilter = 'all' | SummerCampProgramTrack | 'fullDay';
 
@@ -95,11 +102,11 @@ const summerCampSelectClass = cn(
   'aria-invalid:border-destructive aria-invalid:ring-destructive/20'
 );
 
-/** Timed guide modal: desktop only (see fire-time `innerWidth` check). */
+/** Timed guide modal: after LCP window — idle 8s or scroll past 25% (whichever first). */
 const SUMMERCAMP_POPUP_DISMISSED_KEY = 'summercamp_popup_dismissed';
 const SUMMERCAMP_SUBMITTED_KEY = 'summercamp_submitted';
-const SUMMERCAMP_TIMED_POPUP_MS = 3000;
-const SUMMERCAMP_TIMED_POPUP_MIN_WIDTH = 768;
+const SUMMERCAMP_TIMED_POPUP_MS = 8000;
+const SUMMERCAMP_SCROLL_POPUP_RATIO = 0.25;
 /** Ignore Radix duplicate `onOpenChange(false)` immediately after open (timestamp set in `markGuideModalOpenIntent`). */
 const GUIDE_MODAL_SPURIOUS_CLOSE_MS = 150;
 /** `?openGuide=1` — force timed popup (bypass localStorage) and allow in webdriver/Lighthouse for QA. */
@@ -125,10 +132,10 @@ export default function SummerCampPage() {
   );
   // English data is already loaded from the static bundle; no skeleton needed on first render.
   const [programsLoading, setProgramsLoading] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState<Program | null>(DEFAULT_CAMP_DATA.programs[0] ?? null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(DEFAULT_HUB_PROGRAMS[0] ?? null);
+  const hubPrograms = useMemo(() => filterSummerCampHubPrograms(programs), [programs]);
   const [programTrackFilter, setProgramTrackFilter] = useState<ProgramTrackFilter>('all');
-  const [faqs, setFaqs] = useState<SummerCampFaqItem[]>([]);
-  const [faqsLoading, setFaqsLoading] = useState(true);
+  const faqs = useMemo(() => getSummerHubVisibleFaqs(), []);
   const [summerCampEmail, setSummerCampEmail] = useState('');
   const [summerCampParentName, setSummerCampParentName] = useState('');
   const [summerCampPhone, setSummerCampPhone] = useState('');
@@ -142,15 +149,14 @@ export default function SummerCampPage() {
   const [summerCampErrorDetail, setSummerCampErrorDetail] = useState<string | null>(null);
   const [faqMount, setFaqMount] = useState(false);
   const [showStickyCta, setShowStickyCta] = useState(false);
+  const [enrollmentPanelInView, setEnrollmentPanelInView] = useState(false);
   const [guideModalOpen, setGuideModalOpen] = useState(false);
   const guideModalUserDismissedRef = useRef(false);
   /** Set synchronously before `setGuideModalOpen(true)` so Radix never sees `onOpenChange(false)` with a null timestamp. */
   const guideModalOpenedAtRef = useRef<number | null>(null);
   const slotsSectionRef = useRef<HTMLElement>(null);
+  const shouldScrollToPanelRef = useRef(false);
   const faqSentinelRef = useRef<HTMLDivElement>(null);
-  /** Fires `trackEarlyBirdReveal` at most once per locale after programs are ready (idle + dynamic import). */
-  const earlyBirdRevealFiredForLocaleRef = useRef<string | null>(null);
-
   const markGuideModalOpenIntent = useCallback(() => {
     guideModalOpenedAtRef.current = Date.now();
   }, []);
@@ -161,7 +167,7 @@ export default function SummerCampPage() {
     setGuideModalOpen(true);
   }, [markGuideModalOpenIntent]);
 
-  /** Timed desktop-only guide modal: 3s after load if not dismissed/submitted. */
+  /** Guide modal: after LCP — 8s timer or scroll past 25%, if not dismissed/submitted. */
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -188,15 +194,29 @@ export default function SummerCampPage() {
     };
 
     if (shouldSkipByStorage()) return;
-    if (!window.matchMedia(`(min-width: ${SUMMERCAMP_TIMED_POPUP_MIN_WIDTH}px)`).matches) return;
 
-    const id = window.setTimeout(() => {
-      if (shouldSkipByStorage()) return;
-      if (!window.matchMedia(`(min-width: ${SUMMERCAMP_TIMED_POPUP_MIN_WIDTH}px)`).matches) return;
+    let opened = false;
+    const tryOpen = () => {
+      if (opened || shouldSkipByStorage()) return;
+      opened = true;
       openGuideModal();
-    }, SUMMERCAMP_TIMED_POPUP_MS);
+    };
 
-    return () => window.clearTimeout(id);
+    const onScroll = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+      if (window.scrollY / docHeight >= SUMMERCAMP_SCROLL_POPUP_RATIO) {
+        tryOpen();
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const id = window.setTimeout(tryOpen, SUMMERCAMP_TIMED_POPUP_MS);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.clearTimeout(id);
+    };
   }, [openGuideModal]);
 
   const handleGuideModalOpenChange = useCallback((open: boolean) => {
@@ -225,9 +245,18 @@ export default function SummerCampPage() {
   const handleSelectProgram = useCallback((p: Program) => {
     setSelectedProgram(p);
     if (typeof window !== 'undefined' && window.innerWidth < 1024) {
-      document.getElementById('slots-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      shouldScrollToPanelRef.current = true;
     }
   }, []);
+
+  useEffect(() => {
+    if (!shouldScrollToPanelRef.current || !selectedProgram) return;
+    if (typeof window === 'undefined' || window.innerWidth >= 1024) return;
+    shouldScrollToPanelRef.current = false;
+    requestAnimationFrame(() => {
+      document.getElementById('slots-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [selectedProgram]);
 
   const clearSummerCampError = () => {
     if (summerCampStatus === 'error') {
@@ -319,6 +348,11 @@ export default function SummerCampPage() {
           ...(phoneTrim ? { ph: phoneTrim } : {}),
         })
       );
+      trackGenerateLead('summer_camp_guide', {
+        form_name: 'summer_camp_guide',
+        camp_interest: summerCampInterest,
+        grade: summerCampChildGrade,
+      });
       const qs = new URLSearchParams({
         interest: summerCampInterest,
         grade: summerCampChildGrade,
@@ -344,7 +378,7 @@ export default function SummerCampPage() {
   useEffect(() => {
     // English data is already hydrated from the static bundle — no fetch needed.
     if (locale === 'en') {
-      const p = DEFAULT_CAMP_DATA.programs;
+      const p = filterSummerCampHubPrograms(DEFAULT_CAMP_DATA.programs);
       const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
       setSelectedProgram((prev) => {
         const mapped = prev ? p.find((x) => x.id === prev.id) : undefined;
@@ -361,12 +395,13 @@ export default function SummerCampPage() {
         if (!cancelled) {
           setPrograms(p);
           setOlympiadTierConfigs(o);
+          const hub = filterSummerCampHubPrograms(p);
           const isMobileViewport =
             typeof window !== 'undefined' && window.innerWidth <= 768;
           setSelectedProgram((prev) => {
-            const mapped = prev ? p.find((x) => x.id === prev.id) : undefined;
+            const mapped = prev ? hub.find((x) => x.id === prev.id) : undefined;
             if (isMobileViewport) return mapped ?? null;
-            return mapped ?? p[0] ?? null;
+            return mapped ?? hub[0] ?? null;
           });
         }
       } catch {
@@ -385,43 +420,6 @@ export default function SummerCampPage() {
     };
   }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // FAQ JSON after programs settle — avoids competing with hero + program images on the critical network path.
-  useEffect(() => {
-    if (programsLoading) return;
-    let cancelled = false;
-    const narrow =
-      typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-    const cancelIdle = scheduleIdleTask(() => {
-      if (cancelled) return;
-      void (async () => {
-        setFaqsLoading(true);
-        try {
-          const res = await fetch(`/api/mock/${locale}/summer-camp-faq.json`);
-          if (!res.ok) {
-            const fallback = locale !== 'en' ? await fetch('/api/mock/en/summer-camp-faq.json') : null;
-            if (fallback?.ok && !cancelled) {
-              const data: SummerCampFaqData = await fallback.json();
-              setFaqs(data.faqs ?? []);
-            } else if (!cancelled) {
-              setFaqs([]);
-            }
-          } else {
-            const data: SummerCampFaqData = await res.json();
-            if (!cancelled) setFaqs(data.faqs ?? []);
-          }
-        } catch {
-          if (!cancelled) setFaqs([]);
-        } finally {
-          if (!cancelled) setFaqsLoading(false);
-        }
-      })();
-    }, narrow ? 4000 : 2200);
-    return () => {
-      cancelled = true;
-      cancelIdle();
-    };
-  }, [programsLoading, locale]);
-
   // Warm the slots/cart chunk before first interaction (same module as SlotsPanel).
   // Phones: defer longer so hero + program thumbnails finish first (mobile Lighthouse / LCP).
   useEffect(() => {
@@ -439,72 +437,40 @@ export default function SummerCampPage() {
   }, [programsLoading]);
 
   const filteredPrograms = useMemo(() => {
-    if (programTrackFilter === 'all') return programs;
+    if (programTrackFilter === 'all') return hubPrograms;
     if (programTrackFilter === 'fullDay') {
-      return programs.filter((p) => p.category === 'Full Day Camps');
+      return hubPrograms.filter((p) => p.category === 'Full Day Camps');
     }
-    return programs.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
-  }, [programs, programTrackFilter]);
+    return hubPrograms.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
+  }, [hubPrograms, programTrackFilter]);
 
   const fullDayCampCount = useMemo(
-    () => programs.filter((p) => p.category === 'Full Day Camps').length,
-    [programs]
+    () => hubPrograms.filter((p) => p.category === 'Full Day Camps').length,
+    [hubPrograms]
   );
 
   const programTrackOrder = useMemo(() => {
     const present = new Set<SummerCampProgramTrack>();
-    for (const p of programs) {
+    for (const p of hubPrograms) {
       const tr = getSummerCampProgramTrack(p.id);
       if (tr) present.add(tr);
     }
     return SUMMER_CAMP_PROGRAM_TRACK_ORDER.filter((tr) => present.has(tr));
-  }, [programs]);
+  }, [hubPrograms]);
 
   const scrollToSlots = useCallback(() => {
     slotsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
-  const selectGroupAndScrollToBooking = useCallback(
-    (groupIndex: number) => {
-      const ids = SUMMER_CAMP_PROGRAM_GROUP_IDS[groupIndex];
-      let picked: Program | null = null;
-      for (const id of ids) {
-        const p = programs.find((x) => x.id === id);
-        if (p) {
-          picked = p;
-          break;
-        }
-      }
-      if (picked) setSelectedProgram(picked);
-      setProgramTrackFilter('all');
-      guideModalUserDismissedRef.current = true;
-      setGuideModalOpen(false);
-      requestAnimationFrame(() => scrollToSlots());
-    },
-    [programs, scrollToSlots]
-  );
-
-  /** AI & Game Development card: jump to booking with the existing `aiGameDev` track filter (grouped list). */
-  const browseAiGameDevTrackAndScroll = useCallback(() => {
-    const inTrack = programs.filter((p) => getSummerCampProgramTrack(p.id) === 'aiGameDev');
-    const ordered = orderProgramsBySummerCampTrack(inTrack);
-    const picked = ordered[0] ?? null;
-    if (picked) setSelectedProgram(picked);
-    setProgramTrackFilter('aiGameDev');
-    guideModalUserDismissedRef.current = true;
-    setGuideModalOpen(false);
-    requestAnimationFrame(() => scrollToSlots());
-  }, [programs, scrollToSlots]);
-
   useEffect(() => {
-    if (programsLoading || programs.length === 0) return;
+    if (programsLoading || hubPrograms.length === 0) return;
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
     const list =
       programTrackFilter === 'all'
-        ? programs
+        ? hubPrograms
         : programTrackFilter === 'fullDay'
-          ? programs.filter((p) => p.category === 'Full Day Camps')
-          : programs.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
+          ? hubPrograms.filter((p) => p.category === 'Full Day Camps')
+          : hubPrograms.filter((p) => getSummerCampProgramTrack(p.id) === programTrackFilter);
     const ordered = orderProgramsBySummerCampTrack(list);
     setSelectedProgram((prev) => {
       if (prev && ordered.some((p) => p.id === prev.id)) return prev;
@@ -512,7 +478,7 @@ export default function SummerCampPage() {
       if (isMobile) return null;
       return ordered[0] ?? null;
     });
-  }, [programs, programsLoading, programTrackFilter]);
+  }, [hubPrograms, programsLoading, programTrackFilter]);
 
   useEffect(() => {
     let lastWide = typeof window !== 'undefined' && window.innerWidth >= 1024;
@@ -552,19 +518,6 @@ export default function SummerCampPage() {
   }, [locale, faqMount]);
 
   useEffect(() => {
-    if (programsLoading) return;
-    if (earlyBirdRevealFiredForLocaleRef.current === locale) return;
-    const localeWhenScheduled = locale;
-    const narrow =
-      typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
-    const cancel = scheduleIdleTask(() => {
-      earlyBirdRevealFiredForLocaleRef.current = localeWhenScheduled;
-      void import('@/lib/meta-pixel').then(({ trackEarlyBirdReveal }) => trackEarlyBirdReveal());
-    }, narrow ? 4000 : 2800);
-    return cancel;
-  }, [programsLoading, locale]);
-
-  useEffect(() => {
     const onScroll = () => {
       if (typeof window === 'undefined') return;
       setShowStickyCta(window.scrollY > 360);
@@ -573,6 +526,34 @@ export default function SummerCampPage() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    const panel = document.getElementById('slots-panel');
+    if (!panel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (window.innerWidth > 768) {
+          setEnrollmentPanelInView(false);
+          return;
+        }
+        setEnrollmentPanelInView(entry.isIntersecting);
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -80px 0px' },
+    );
+    observer.observe(panel);
+
+    const onResize = () => {
+      if (window.innerWidth > 768) setEnrollmentPanelInView(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', onResize);
+    };
+  }, [selectedProgram]);
+
+  const showBottomStickyBar = showStickyCta && !enrollmentPanelInView;
 
   /**
    * Deep links #lead-capture / #summercamp open the lead modal.
@@ -607,7 +588,9 @@ export default function SummerCampPage() {
     <div
       className={cn(
         'min-h-screen bg-background font-sans selection:bg-[#1F396D]/20 selection:text-[#1F396D]',
-        showStickyCta ? 'pb-28 md:pb-24' : 'max-[768px]:pb-[60px]'
+        showBottomStickyBar
+          ? 'max-[768px]:pb-[calc(9rem+env(safe-area-inset-bottom,0px))] md:pb-24'
+          : 'max-[768px]:pb-[60px]',
       )}
     >
       <main>
@@ -643,6 +626,9 @@ export default function SummerCampPage() {
             <p className="mt-2 max-w-[650px] text-base leading-snug text-zinc-100 sm:mt-2.5 md:text-lg md:leading-snug">
               {SUMMER_CAMP_HERO_EN.subhead}
             </p>
+            <p className="mt-2 max-w-[650px] text-base leading-snug text-zinc-100 sm:mt-2.5 md:text-lg md:leading-snug">
+              {SUMMER_CAMP_HERO_EN.subheadDetail}
+            </p>
             <div className="mt-4 flex w-full max-w-2xl flex-col gap-2.5 sm:mt-5 sm:flex-row sm:items-stretch sm:gap-3 md:gap-4">
               <Link
                 href="#slots-section"
@@ -660,13 +646,6 @@ export default function SummerCampPage() {
                 {SUMMER_CAMP_HERO_EN.secondaryCta}
               </a>
             </div>
-            {/* Below CTAs: hidden on narrow phones so Reserve stays in first viewport; visible sm+ */}
-            <p className="mt-3 hidden max-w-2xl text-xs font-semibold leading-snug text-amber-200 sm:block sm:text-sm sm:leading-snug md:mt-4">
-              {SUMMER_CAMP_HERO_EN.urgencyLine}
-            </p>
-            <p className="mt-3 hidden max-w-2xl text-sm font-medium leading-relaxed text-zinc-100 sm:mt-4 sm:block md:text-base md:leading-relaxed">
-              {SUMMER_CAMP_HERO_EN.trustMicro}
-            </p>
           </div>
         </section>
 
@@ -674,7 +653,7 @@ export default function SummerCampPage() {
         <section
           id="slots-section"
           ref={slotsSectionRef}
-          className="py-20 relative border-y border-slate-100"
+          className="py-20 relative border-y border-slate-100 overflow-visible"
           style={{
             background:
               'linear-gradient(135deg, #dbeafe 0%, #eff6ff 30%, #fff7ed 70%, #fed7aa 100%)',
@@ -693,136 +672,74 @@ export default function SummerCampPage() {
 
           <div className="container mx-auto px-4 md:px-6" style={{ position: 'relative', zIndex: 1 }}>
             {programsLoading ? (
-              <div className="grid lg:grid-cols-12 gap-8 items-start">
-                <div className="lg:col-span-7 space-y-4 animate-pulse" aria-busy="true" aria-label="Loading programs">
+              <>
+                <div className="mb-10 animate-pulse space-y-4" aria-busy="true" aria-label="Loading programs">
                   <div className="h-10 bg-slate-200 rounded w-48" />
-                  <div className="grid grid-cols-2 gap-3">
-                    {[1, 2, 3, 4, 5, 6].map((i) => (
-                      <div key={i} className="h-48 bg-slate-100 rounded-xl" />
-                    ))}
-                  </div>
+                  <div className="h-6 bg-slate-100 rounded w-72" />
                 </div>
-                <div
-                  className="lg:col-span-5 rounded-2xl border border-slate-200 bg-white/80 p-6 animate-pulse min-h-[320px]"
-                  aria-hidden
-                />
-              </div>
-            ) : (
-              <div className="grid lg:grid-cols-12 gap-8 items-start relative">
-                {/* Left Column: Program List */}
-                <div className="lg:col-span-7">
-                  {/* Mobile sticky sub-nav (≤768px) */}
+                <div className="grid lg:grid-cols-12 gap-8 items-start">
+                  <div className="lg:col-span-7 space-y-4 animate-pulse">
+                    <div className="grid grid-cols-2 gap-3">
+                      {[1, 2, 3, 4, 5, 6].map((i) => (
+                        <div key={i} className="h-48 bg-slate-100 rounded-xl" />
+                      ))}
+                    </div>
+                  </div>
                   <div
-                    className="min-[769px]:hidden flex items-center justify-between gap-3 py-3 -mx-4 px-4 mb-4"
+                    className="lg:col-span-5 rounded-2xl border border-slate-200 bg-white/80 p-6 animate-pulse min-h-[320px]"
+                    aria-hidden
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="mb-10">
+                  {/* Desktop filter bar (≥769px) */}
+                  <div
+                    className="flex flex-wrap"
                     style={{
-                      position: 'sticky',
-                      top: 0,
-                      zIndex: 100,
-                      background: 'white',
+                      gap: 12,
+                      padding: '16px 0 20px',
                       borderBottom: '1px solid rgba(0,0,0,0.08)',
+                      marginBottom: 24,
                     }}
+                    role="group"
+                    aria-label={t('filter.ariaLabel')}
                   >
-                    <Link
-                      href={createLocaleUrl('/', locale)}
-                      className="flex-shrink-0 relative h-8 w-[120px]"
-                      aria-label="GrowWise home"
-                    >
-                      <Image
-                        src="/assets/growwise-logo.png"
-                        alt="GrowWise"
-                        fill
-                        sizes="120px"
-                        fetchPriority="low"
-                        decoding="async"
-                        className="object-contain object-left"
-                        draggable={false}
-                      />
-                    </Link>
                     <button
                       type="button"
-                      className="text-sm font-semibold text-[#1F396D] whitespace-nowrap"
-                      onClick={() => {
-                        if (typeof window !== 'undefined') {
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }
-                      }}
-                    >
-                      {t('mobile.viewAllCamps')}
-                    </button>
-                  </div>
-
-                  <div className="mb-10">
-                    {/* Desktop filter bar (≥769px) */}
-                    <div
-                      className="flex flex-wrap"
-                      style={{
-                        gap: 12,
-                        padding: '16px 0 20px',
-                        borderBottom: '1px solid rgba(0,0,0,0.08)',
-                        marginBottom: 24,
-                      }}
-                      role="group"
-                      aria-label={t('filter.ariaLabel')}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setProgramTrackFilter('all')}
-                        className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium"
-                        style={
-                          programTrackFilter === 'all'
-                            ? {
-                                background: '#146c43',
-                                border: '1px solid #146c43',
-                                color: 'white',
-                              }
-                            : {
-                                background: 'white',
-                                border: '1px solid #d0d5dd',
-                                color: '#344054',
-                              }
-                        }
-                      >
-                        {t('filter.allCamps')} {programs.length}
-                      </button>
-                      {programTrackOrder.map((track) => {
-                        const count = programs.filter((p) => getSummerCampProgramTrack(p.id) === track).length;
-                        const label =
-                          track === 'academic'
-                            ? t('filter.trackAcademic')
-                            : track === 'aiGameDev'
-                              ? t('filter.trackAiGameDev')
-                              : t('filter.trackCreativeWriting');
-                        return (
-                          <button
-                            key={track}
-                            type="button"
-                            onClick={() => setProgramTrackFilter(track)}
-                            className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium"
-                            style={
-                              programTrackFilter === track
-                                ? {
-                                    background: '#146c43',
-                                    border: '1px solid #146c43',
-                                    color: 'white',
-                                  }
-                                : {
-                                    background: 'white',
-                                    border: '1px solid #d0d5dd',
-                                    color: '#344054',
-                                  }
+                      onClick={() => setProgramTrackFilter('all')}
+                      className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium"
+                      style={
+                        programTrackFilter === 'all'
+                          ? {
+                              background: '#146c43',
+                              border: '1px solid #146c43',
+                              color: 'white',
                             }
-                          >
-                            {label} {count}
-                          </button>
-                        );
-                      })}
-                      {fullDayCampCount > 0 ? (
+                          : {
+                              background: 'white',
+                              border: '1px solid #d0d5dd',
+                              color: '#344054',
+                            }
+                      }
+                    >
+                      {t('filter.allCamps')} {hubPrograms.length}
+                    </button>
+                    {programTrackOrder.map((track) => {
+                      const count = hubPrograms.filter((p) => getSummerCampProgramTrack(p.id) === track).length;
+                      const label =
+                        track === 'aiGameDev'
+                          ? t('filter.trackAiGameDev')
+                          : t('filter.trackCreativeWriting');
+                      return (
                         <button
+                          key={track}
                           type="button"
-                          onClick={() => setProgramTrackFilter('fullDay')}
+                          onClick={() => setProgramTrackFilter(track)}
                           className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium"
                           style={
-                            programTrackFilter === 'fullDay'
+                            programTrackFilter === track
                               ? {
                                   background: '#146c43',
                                   border: '1px solid #146c43',
@@ -835,36 +752,134 @@ export default function SummerCampPage() {
                                 }
                           }
                         >
-                          {t('filter.fullDayCamps')} {fullDayCampCount}
+                          {label} {count}
                         </button>
-                      ) : null}
-                    </div>
-
-                    <h2 className="font-heading font-black text-3xl text-slate-900 mb-2 uppercase tracking-tight">
-                      {SC.bookingSectionTitle}
-                    </h2>
-                    <p className="text-slate-500 text-sm font-medium">
-                      {SC.bookingSectionSub}
-                    </p>
+                      );
+                    })}
+                    {fullDayCampCount > 0 ? (
+                      <button
+                        type="button"
+                        onClick={() => setProgramTrackFilter('fullDay')}
+                        className="cursor-pointer rounded-[20px] px-[18px] py-2 text-sm font-medium"
+                        style={
+                          programTrackFilter === 'fullDay'
+                            ? {
+                                background: '#146c43',
+                                border: '1px solid #146c43',
+                                color: 'white',
+                              }
+                            : {
+                                background: 'white',
+                                border: '1px solid #d0d5dd',
+                                color: '#344054',
+                              }
+                        }
+                      >
+                        {t('filter.fullDayCamps')} {fullDayCampCount}
+                      </button>
+                    ) : null}
                   </div>
-                  <ProgramList
-                    programs={filteredPrograms}
-                    onSelectProgram={handleSelectProgram}
-                    selectedProgramId={selectedProgram?.id ?? null}
-                  />
+
+                  <h2 className="font-heading font-black text-3xl text-slate-900 mb-2 uppercase tracking-tight">
+                    {SC.bookingSectionTitle}
+                  </h2>
+                  <p className="text-slate-500 text-sm font-medium">
+                    {SC.bookingSectionSub}
+                  </p>
                 </div>
 
-                {/* Right Column: Slots Panel (Sticky) */}
-                <div className="lg:col-span-5 lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] max-[768px]:min-h-0">
-                  {selectedProgram && (
-                    <SlotsPanel
-                      program={selectedProgram}
-                      olympiadTierConfigs={olympiadTierConfigs}
+                <div className="grid lg:grid-cols-12 gap-8 items-start relative">
+                  <div className="lg:col-span-7">
+                    <ProgramList
+                      programs={filteredPrograms}
+                      onSelectProgram={handleSelectProgram}
+                      selectedProgramId={selectedProgram?.id ?? null}
                     />
-                  )}
+                  </div>
+
+                  {/* Right column aligns with program cards; sticks while scrolling cards */}
+                  <div
+                    className={cn(
+                      'min-w-0 lg:col-span-5 max-[768px]:min-h-0',
+                      'lg:sticky lg:top-[120px] lg:z-10 lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto lg:w-full lg:self-start',
+                    )}
+                  >
+                    {selectedProgram ? (
+                      <SlotsPanel
+                        program={selectedProgram}
+                        programs={filteredPrograms}
+                        selectedProgramId={selectedProgram.id}
+                        onSelectProgram={handleSelectProgram}
+                        olympiadTierConfigs={olympiadTierConfigs}
+                      />
+                    ) : (
+                      <div className="min-[769px]:hidden">
+                        <SummerCampEmptySlotsPanel />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+
+                <div className="mt-6 min-[769px]:hidden">
+                  <SummerCampParentsKnowStrip />
+                </div>
+              </>
             )}
+          </div>
+        </section>
+
+        {/* Local intent guide: helps families choose the right Dublin summer camp path */}
+        <section className="border-b border-slate-200 bg-white py-12 md:py-16" aria-labelledby="summer-camp-dublin-guide-heading">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 id="summer-camp-dublin-guide-heading" className="font-heading text-2xl font-bold text-[#1F396D] md:text-3xl">
+              How to choose a summer camp in Dublin, CA
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-700 md:text-lg">
+              The best summer camp for your child depends on the goal. Some students need a creative STEAM project,
+              some need a math or reading reset before August, and some need a full-day schedule that keeps them
+              active while still building skills.
+            </p>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-heading text-lg font-bold text-slate-900">For academic readiness</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  Choose reading, writing, math foundations, Algebra, Geometry, or IM readiness if your child needs
+                  a stronger start before the new school year.
+                </p>
+                <Link
+                  href={publicPath('/camps/academic-summer-programs-dublin-ca', locale)}
+                  className="mt-3 inline-flex font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  See academic summer programs
+                </Link>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-heading text-lg font-bold text-slate-900">For coding and STEAM</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  Choose robotics, AI, game development, or Python-style projects if your child wants hands-on
+                  building with a coach instead of passive screen time.
+                </p>
+                <Link
+                  href={publicPath('/steam/game-development', locale)}
+                  className="mt-3 inline-flex font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  Explore game development
+                </Link>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-heading text-lg font-bold text-slate-900">For local Dublin families</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                  GrowWise summer camps run at our Dublin center for families from Dublin, Pleasanton, San Ramon,
+                  Livermore, and nearby Tri-Valley communities.
+                </p>
+                <Link
+                  href={publicPath('/dublin-ca', locale)}
+                  className="mt-3 inline-flex font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                >
+                  View the Dublin center
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -894,72 +909,6 @@ export default function SummerCampPage() {
           </div>
         </section>
 
-        {/* Start with one track — after “Still not sure…” so users see guidance first */}
-        <section
-          id="program-groups"
-          className="scroll-mt-24 border-b border-slate-200 bg-white py-14 md:py-20"
-          aria-labelledby="program-groups-heading"
-        >
-          <div className="mx-auto max-w-[1100px] px-10 md:px-12">
-            <h2 id="program-groups-heading" className="font-heading text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-              {SC.programGroupsHeading}
-            </h2>
-            <p className="mt-2 max-w-2xl text-slate-600">{SC.programGroupsSub}</p>
-            <p className="mt-3 max-w-2xl text-sm text-slate-600">
-              For year-round options, browse our{' '}
-              <Link href={createLocaleUrl('/programs', locale)} className="font-semibold text-[#1F396D] underline hover:text-[#F16112]">
-                programs overview
-              </Link>
-              ,{' '}
-              <Link href={createLocaleUrl('/steam', locale)} className="font-semibold text-[#1F396D] underline hover:text-[#F16112]">
-                STEAM courses
-              </Link>
-              , or{' '}
-              <Link href={createLocaleUrl('/courses/math', locale)} className="font-semibold text-[#1F396D] underline hover:text-[#F16112]">
-                math tutoring
-              </Link>
-              .
-            </p>
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {SC.programGroups.map((card, i) => (
-                <div
-                  key={`${card.title}-${i}`}
-                  className="flex flex-col rounded-2xl border border-slate-200 bg-slate-50/80 p-6 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <h3 className="font-heading text-lg font-bold text-[#1F396D]">{card.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-700">{card.outcome}</p>
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">{card.ages}</p>
-                  <div className="mt-4 flex flex-col gap-2">
-                    {SUMMER_CAMP_PROGRAM_GROUP_SEO_LINKS[i]?.map((link) => (
-                      <Link
-                        key={link.slug}
-                        href={createLocaleUrl(`/camps/${link.slug}`, locale)}
-                        className="text-[13px] font-semibold text-[#1F396D] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1F396D] focus-visible:ring-offset-2 rounded-sm"
-                      >
-                        {t(summerCampProgramGroupMessagePath(link.msgKey))}
-                      </Link>
-                    ))}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (i === 1) browseAiGameDevTrackAndScroll();
-                      else selectGroupAndScrollToBooking(i);
-                    }}
-                    className="mt-6 inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border border-[#1F396D] bg-white px-4 py-3 text-sm font-semibold text-[#1F396D] transition-colors hover:bg-[#1F396D]/5"
-                  >
-                    {i === 0
-                      ? t('programGroup.ctaViewMathOlympiad')
-                      : i === 1
-                        ? t('programGroup.ctaBrowseAiGameDev')
-                        : t('programGroup.ctaViewYoungAuthors')}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Trust — static copy from en.json (before FAQ) */}
         <SummerCampTrustBlock
           heading={SC.trustBlockHeading}
@@ -971,11 +920,89 @@ export default function SummerCampPage() {
           projectsCtaHref={SC.trustProjectsUrl}
         />
 
+        <FeaturedCampGuidesSection locale={locale} />
+
         {/* Sentinel: FAQ accordion chunk + Radix load only when near viewport */}
         <div ref={faqSentinelRef} className="h-px w-full shrink-0" aria-hidden />
         {faqMount ? (
-          <SummerCampPageFaq faqs={faqs} loading={faqsLoading} />
+          <SummerCampPageFaq faqs={faqs} loading={false} />
         ) : null}
+
+        {/* Summer learning loss context */}
+        <section className="py-14 px-4 bg-white border-t border-slate-200">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-slate-700 leading-relaxed mb-4">
+              Research shows students lose months of academic progress each summer. The earlier your child starts a structured program, the less ground they lose.{' '}
+              <Link
+                href={publicPath('/resources/summer-slide-dublin-ca', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                Learn more about the summer slide
+              </Link>
+              {' '}— and how our programs prevent it.
+            </p>
+          </div>
+        </section>
+
+        {/* Year-round programs — internal linking */}
+        <section className="py-14 px-4 bg-slate-50 border-t border-slate-200">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#1F396D] mb-3">
+              Keep the momentum going after summer
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Summer camps run June–August. For year-round support, GrowWise offers
+              small-group tutoring and test prep throughout the school year.
+            </p>
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-start gap-2">
+                <span className="text-[#F16112] font-bold mt-0.5">→</span>
+                <span>
+                  <Link
+                    href={publicPath('/academic/math', locale)}
+                    className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                  >
+                    K–12 Math Tutoring
+                  </Link>
+                  {' '}— Grades 1–12, ongoing enrollment
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#F16112] font-bold mt-0.5">→</span>
+                <span>
+                  <Link
+                    href={publicPath('/courses/sat-prep', locale)}
+                    className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                  >
+                    SAT Prep Tutoring
+                  </Link>
+                  {' '}— Start 3–6 months before test date
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#F16112] font-bold mt-0.5">→</span>
+                <span>
+                  <Link
+                    href={publicPath('/academic/math/high-school', locale)}
+                    className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+                  >
+                    High School Math Tutoring
+                  </Link>
+                  {' '}— Algebra through AP
+                </span>
+              </li>
+            </ul>
+            <p className="text-gray-600">
+              <Link
+                href={publicPath('/book-assessment', locale)}
+                className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
+              >
+                Book a free assessment
+              </Link>
+              {' '}to find the right program.
+            </p>
+          </div>
+        </section>
       </main>
 
       <SummerCampGuideLeadDialog
@@ -1022,7 +1049,7 @@ export default function SummerCampPage() {
       />
 
       {/* Sticky conversion bar — reserve vs guide (hidden while guide modal is open) */}
-      {showStickyCta && !guideModalOpen ? (
+      {showBottomStickyBar && !guideModalOpen ? (
         <div className="fixed bottom-0 left-0 right-0 z-[100] border-t border-slate-200/80 bg-white/95 p-3 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] backdrop-blur-sm md:px-6">
           <div className="mx-auto flex max-w-[1100px] flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
             <button

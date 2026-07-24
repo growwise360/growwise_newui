@@ -39,7 +39,7 @@ export interface PopularCourseCard {
   iconColor: string;
   borderColor: string;
   cta: string;
-  /** Internal path without locale prefix (e.g. `/courses/english`) */
+  /** Internal path without locale prefix (e.g. `/academic/english`) */
   href?: string;
 }
 

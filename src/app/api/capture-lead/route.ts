@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server'
 import { CONTACT_INFO } from '@/lib/constants'
 import { isBrevoTransactionalReady, sendBrevoTransactionalEmail } from '@/lib/brevo'
 import { sendEmail, type SendEmailResult } from '@/lib/email'
-import { matchResourceForCapture, normalizeLeadEmail } from '@/data/resources'
+import { matchResourceForCapture, normalizeLeadEmail } from '@/data/free-resources'
+import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit'
+import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard'
+import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 import { getSupabaseAdmin } from '@/lib/supabaseAdmin'
 
 export const runtime = 'nodejs'
@@ -67,10 +70,24 @@ async function sendResourceEmailWithFallback(opts: {
 type Body = {
   email?: unknown
   resourceId?: unknown
-  driveUrl?: unknown
+  consent?: unknown
+  _hp?: unknown
 }
 
 export async function POST(req: Request): Promise<Response> {
+  if (!isOriginAllowed(req)) {
+    return err('Request origin is not allowed', 403)
+  }
+
+  if (!isAllowed('resource', clientIpFrom(req))) {
+    return err('Too many requests. Please try again later.', 429)
+  }
+
+  const contentLength = Number(req.headers.get('content-length') || 0)
+  if (contentLength > 10_000) {
+    return err('Request body is too large', 413)
+  }
+
   let body: Body
   try {
     body = (await req.json()) as Body
@@ -80,10 +97,17 @@ export async function POST(req: Request): Promise<Response> {
 
   const emailRaw = typeof body.email === 'string' ? body.email : ''
   const resourceId = typeof body.resourceId === 'string' ? body.resourceId : ''
-  const driveUrl = typeof body.driveUrl === 'string' ? body.driveUrl : ''
 
-  if (!emailRaw.trim() || !resourceId.trim() || !driveUrl.trim()) {
-    return err('email, resourceId, and driveUrl are required', 400)
+  if (honeypotTriggered(body as Record<string, unknown>)) {
+    return NextResponse.json({ success: true })
+  }
+
+  if (!emailRaw.trim() || !resourceId.trim()) {
+    return err('email and resourceId are required', 400)
+  }
+
+  if (body.consent !== true) {
+    return err('Privacy consent is required', 400)
   }
 
   if (!EMAIL_REGEX.test(emailRaw.trim())) {
@@ -91,7 +115,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const normalizedEmail = normalizeLeadEmail(emailRaw)
-  const matched = matchResourceForCapture(resourceId, driveUrl)
+  const matched = matchResourceForCapture(resourceId)
   if (!matched) {
     return err('Invalid resource', 400)
   }
@@ -115,18 +139,24 @@ export async function POST(req: Request): Promise<Response> {
 
   const leadId = leadRow.id as string
 
-  const { error: dlErr } = await supabase.from('resource_downloads').insert({
-    lead_id: leadId,
-    resource_id: matched.id,
-    resource_category: matched.category,
-  })
+  const { error: dlErr } = await supabase
+    .from('resource_downloads')
+    .upsert(
+      {
+        lead_id: leadId,
+        resource_id: matched.id,
+        resource_category: matched.category,
+      },
+      { onConflict: 'lead_id,resource_id', ignoreDuplicates: true },
+    )
 
   if (dlErr) {
     console.error(`${LOG_PREFIX} Download insert failed`, dlErr.message)
     return err('Could not save your request', 503)
   }
 
-  const linkHtml = escapeHtml(matched.driveUrl)
+  const downloadUrl = new URL(matched.downloadUrl, getCanonicalSiteUrl()).toString()
+  const linkHtml = escapeHtml(downloadUrl)
   const resourceTitle = escapeHtml(matched.name)
   const subject = `Your free resource: ${matched.name}`
 
@@ -141,7 +171,7 @@ export async function POST(req: Request): Promise<Response> {
     'Thanks for your interest in GrowWise.',
     '',
     `Here is the link for "${matched.name}":`,
-    matched.driveUrl,
+    downloadUrl,
     '',
     'If the link does not work, copy and paste the URL into your browser.',
   ].join('\n')

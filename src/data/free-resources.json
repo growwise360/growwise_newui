@@ -1,0 +1,18 @@
+[
+  {
+    "id": "thinking-gap-parent-playbook",
+    "name": "Thinking Gap Playbook for Parents",
+    "category": "Parent Guides",
+    "grade": "Parents of K–12 students",
+    "description": "A practical guide to help families recognize hidden learning gaps and build stronger thinking habits at home.",
+    "downloadUrl": "/downloads/ThinkingGap_Playbook_for_parents.pdf"
+  },
+  {
+    "id": "summer-camp-brochure",
+    "name": "GrowWise Summer Camp Brochure",
+    "category": "Program Guides",
+    "grade": "Grades 1–12",
+    "description": "Explore GrowWise summer academic and STEAM programs, course options, and camp information.",
+    "downloadUrl": "/assets/camps/SummerCampBrochure.pdf"
+  }
+]

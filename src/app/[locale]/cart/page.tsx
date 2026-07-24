@@ -95,7 +95,7 @@ const CartPage: React.FC = () => {
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Your cart is empty</h2>
             <p className="text-gray-600 mb-8">Looks like you haven't added any courses to your cart yet.</p>
-            <Link href={createLocaleUrl('/courses/math')}>
+            <Link href={createLocaleUrl('/academic/math')}>
               <Button className="bg-[#F16112] hover:bg-[#d54f0a] text-white px-8 py-3 rounded-full">
                 Browse Courses
               </Button>

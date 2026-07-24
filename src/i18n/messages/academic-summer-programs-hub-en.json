@@ -1,0 +1,210 @@
+{
+  "programList": {
+    "ariaLabel": "Academic summer programs",
+    "juneStartLabel": "Starts June 15",
+    "julyStartLabel": "Starts July 6",
+    "fromPricePrefix": "From",
+    "groups": {
+      "junePrograms": {
+        "heading": "Academic Summer Sprint · Grades 1–8",
+        "subtext": "Reading, writing, and math foundations · Starts June 15"
+      },
+      "julyPrograms": {
+        "heading": "Math Get Ready programs",
+        "subtext": "IM1, IM2, Algebra, and Geometry prep · Starts July 6"
+      }
+    },
+    "sprintPickCard": {
+      "gradeBadge": "Grades 1–8",
+      "bestForLabel": "Best for:",
+      "tracks": {
+        "read-to-prove": {
+          "scheduleLine": "Daily · Mon–Fri · 4:30–6:00 PM · Starts June 15",
+          "bestFor": [
+            "Struggles to find the main idea",
+            "Guesses on comprehension questions",
+            "Loses points on text evidence answers"
+          ]
+        },
+        "write-to-explain": {
+          "scheduleLine": "Daily · Mon–Fri · 4:30–6:00 PM · Starts June 15",
+          "bestFor": [
+            "Has ideas but can't put them on paper",
+            "Writes incomplete sentences or short paragraphs",
+            "Struggles with essay structure and revision"
+          ]
+        },
+        "bridge-the-gap-math": {
+          "scheduleLine": "Daily · Mon–Fri · 4:30–6:00 PM · Starts June 15",
+          "bestFor": [
+            "Has gaps in fractions or multi-step math",
+            "Gets stuck on word problems",
+            "Entering next grade with shaky math foundations"
+          ]
+        }
+      }
+    },
+    "getReadyPickCard": {
+      "bestForLabel": "Best for:",
+      "tracks": {
+        "im1": {
+          "gradeBadge": "Grade 7 accelerated",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 6",
+          "bestFor": [
+            "Starting Grade 7 accelerated math in fall",
+            "Needs a head start on IM1 curriculum",
+            "Wants DUSD & PUSD-aligned preparation"
+          ]
+        },
+        "im2": {
+          "gradeBadge": "Grade 8 / entering IM2",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts July 6",
+          "bestFor": [
+            "Starting Grade 8 Integrated Math 2 in fall",
+            "Needs a head start on IM2 curriculum",
+            "Wants DUSD & PUSD-aligned preparation"
+          ]
+        },
+        "algebra-1": {
+          "gradeBadge": "Grades 7–8",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts June 15",
+          "bestFor": [
+            "Starting Algebra 1 in fall",
+            "Needs to strengthen equations and functions",
+            "Wants confidence before school starts"
+          ]
+        },
+        "geometry": {
+          "gradeBadge": "Grades 9–10",
+          "scheduleLine": "Mon/Wed/Fri · 5:00–6:30 PM · Starts June 15",
+          "bestFor": [
+            "Starting Geometry in fall",
+            "Needs help with proofs and spatial reasoning",
+            "Wants DUSD & PUSD-aligned prep before school starts"
+          ]
+        }
+      }
+    }
+  },
+  "enrollmentPanel": {
+    "emptyTitle": "Select a program",
+    "emptyPanel": "Choose a program on the left to see pricing and add to cart.",
+    "chooseProgramCta": "Choose a Program →",
+    "askScheduleCta": "Ask About Schedule",
+    "getReadyChooseCohortHeader": "Choose your cohort",
+    "getReadyRowFormat": "IN-PERSON · M/W/F · {time} · {sessions} sessions",
+    "getReadySaveBadge": "Save {amount}",
+    "getReadyBothUpfrontNote": "Pay upfront: {upfront} · saving {saveAmount} vs enrolling separately",
+    "sprintBothUpfrontNote": "Pay upfront: {upfront} · saving {saveAmount} vs enrolling separately",
+    "getReadyBothHolidaySuffix": " · July 4th holiday observed",
+    "getReadyLevelName": "Choose duration & cohort",
+    "getReadyCohort1Header": "Cohort 1 · July 6",
+    "getReadyCohort2Header": "Cohort 2 · July 6",
+    "getReadyUpfrontLink": "Save {amount} — pay {upfront} upfront →",
+    "sprintDurationLabel": "Sprint duration",
+    "sprintChooseCohortGradeHeader": "Choose your cohort & grade band",
+    "sprintSaveBadge": "Save {amount}",
+    "sprintBestValueBadge": "Best value",
+    "sprintTwoWeekOption": "2 weeks",
+    "sprintFourWeekOption": "4 weeks",
+    "sprintUpsellNoteTwoWeek": "Enroll in both cohorts and save {amount} — select 4 weeks above.",
+    "sprintUpsellNoteFourWeek": "You're saving {amount} vs enrolling in each cohort separately.",
+    "sprintCohort2Fallback": "Cohort 2 starts June 30 — same program, new group.",
+    "getReadyPanel": {
+      "tracks": {
+        "im1": {
+          "rowTimeLabel": "5–6:30 PM",
+          "cohort1": { "title": "Cohort 1 (July 6–31 · M/W/F)", "sessions": 12, "schedule": "IN-PERSON · Mon/Wed/Fri · 5:00–6:30 PM", "price": 579 },
+          "cohort2": { "title": "Cohort 2 (July 6–31 · Tue/Thu)", "sessions": 8, "schedule": "IN-PERSON · Tue/Thu · 4:30–6:30 PM", "price": 549 },
+          "cohort2HolidayNote": null
+        },
+        "im2": {
+          "rowTimeLabel": "5–6:30 PM",
+          "cohort1": { "title": "Cohort 1 (July 6–31 · M/W/F)", "sessions": 12, "schedule": "IN-PERSON · Mon/Wed/Fri · 5:00–6:30 PM", "price": 579 },
+          "cohort2": { "title": "Cohort 2 (July 6–31 · Tue/Thu)", "sessions": 8, "schedule": "IN-PERSON · Tue/Thu · 4:30–6:30 PM", "price": 549 },
+          "cohort2HolidayNote": null
+        }
+      }
+    }
+  },
+  "trackCard": {
+    "formatWeekdays": "{weekdays} weekdays · {minutes} min/day",
+    "formatInstructionLab": "{instruction} min instruction + {practice} min guided practice",
+    "cohort1Prefix": "Cohort 1 ·",
+    "cohort2Prefix": "Cohort 2 ·",
+    "getReadyTwoWeek": "2-week",
+    "getReadyFourWeek": "4-week",
+    "getReadyUpfront": "Upfront (4-week)",
+    "pricingLabel": "Pricing"
+  },
+  "sprintCards": {
+    "upsellLine": "Save {amount} when you enroll in both cohorts.",
+    "forLine": "Academic Summer Sprint",
+    "sprints": {
+      "academic-summer-sprint": {
+        "pricingTiers": {
+          "grades-3-5": { "label": "Grades 1–5" },
+          "grades-6-8": { "label": "Grades 6–8" }
+        },
+        "tracks": {
+          "read-to-prove": {
+            "name": "Read to Prove",
+            "description": "Stop guessing. Start finding evidence."
+          },
+          "write-to-explain": {
+            "name": "Write to Explain",
+            "description": "Turn thoughts into clear writing."
+          },
+          "bridge-the-gap-math": {
+            "name": "Bridge the Gap Math",
+            "description": "Close the gap. Build the foundation."
+          }
+        }
+      },
+      "get-ready-sprint": {
+        "title": "Get Ready Math Sprint",
+        "forLine": "Get Ready Math Sprint"
+      }
+    }
+  },
+  "pricingSummary": {
+    "heading": "Simple summer pricing"
+  },
+  "tracks": {
+    "read-to-prove": {
+      "name": "Read to Prove",
+      "tagline": "Stop guessing. Start finding evidence.",
+      "bestFor": ["Reading comprehension", "Text evidence", "Main idea & inference"]
+    },
+    "write-to-explain": {
+      "name": "Write to Explain",
+      "tagline": "Turn thoughts into clear writing.",
+      "bestFor": ["Paragraph writing", "Essays", "Written responses"]
+    },
+    "bridge-the-gap-math": {
+      "name": "Bridge the Gap Math",
+      "tagline": "Close the gap. Build the foundation.",
+      "bestFor": ["Fractions", "Word problems", "Multi-step math"]
+    },
+    "im1": {
+      "name": "IM1 Get Ready",
+      "tagline": "Start accelerated math with confidence.",
+      "bestFor": ["DUSD/PUSD Grade 7 IM1 pathways", "Linear equations", "Systems & functions"]
+    },
+    "im2": {
+      "name": "IM2 Get Ready",
+      "tagline": "Build on IM1 with quadratics, geometry, and trigonometry.",
+      "bestFor": ["DUSD/PUSD Grade 8 IM2 pathways", "Quadratics & exponentials", "Geometry & trig intro"]
+    },
+    "algebra-1": {
+      "name": "Algebra Get Ready",
+      "tagline": "Strengthen Algebra foundations before school starts.",
+      "bestFor": ["Algebra 1 readiness", "Equations & functions"]
+    },
+    "geometry": {
+      "name": "Geometry Get Ready",
+      "tagline": "Build confidence with proofs, reasoning, and spatial thinking.",
+      "bestFor": ["Proofs & reasoning", "Triangles & similarity", "Coordinate geometry"]
+    }
+  }
+}

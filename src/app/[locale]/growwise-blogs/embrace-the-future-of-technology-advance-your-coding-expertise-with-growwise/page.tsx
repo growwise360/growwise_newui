@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, Code, Brain, Target, Users, Zap, TrendingUp 
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise.webp'
@@ -19,8 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Coding & Tech Skills | GrowWise', 
-    description:
-      'Level up coding with structured paths in Dublin—projects, mentorship, and skills that map to real tech roles.',
+    description: 'Learn how GrowWise builds future-ready coding skills through structured paths, hands-on projects, mentor feedback, and emerging tech practice.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise', locale, baseUrl)
     }
@@ -31,17 +33,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: 'Embrace the Future of Technology: Elevate Your Coding Skills with GrowWise', url: absoluteSiteUrl('/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise', locale, baseUrl) },
-  ])
+  ]
 
   const pageUrl = absoluteSiteUrl('/growwise-blogs/embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise', locale, baseUrl)
   const articleSchema = generateArticleSchema({
     headline: 'Embrace the Future of Technology: Elevate Your Coding Skills with GrowWise',
     description: 'Level up coding with structured paths in Dublin—projects, mentorship, and skills that map to real tech roles.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-09-12',
+    dateModified: '2024-09-12',
   })
 
   return (
@@ -50,10 +55,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -106,6 +109,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Technology is evolving faster than ever, and coding has become the foundation of innovation. But with so many languages, tools, and frameworks emerging, how can developers keep up?
               </p>
 
+              <LegacyBlogAeoBlock slug="embrace-the-future-of-technology-advance-your-coding-expertise-with-growwise" />
+
               <p className="text-gray-700 mb-8">
                 Enter <strong>GrowWise</strong>—an AI-powered learning platform designed to personalize your coding journey, provide instant feedback, and accelerate your growth. Whether you're a beginner or a seasoned programmer, GrowWise ensures you stay ahead in the ever-changing world of technology.
               </p>
@@ -118,19 +123,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 {' '}for hands-on weeks in Dublin.
               </p>
 
-              {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden rounded-xl bg-gray-50 shadow-lg">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
-                    alt="Embrace the Future of Technology: Elevate Your Coding Skills with GrowWise"
+                    alt="Future technology coding skills illustration with an AI robot and digital learning theme"
                     fill
                     className="object-cover rounded-xl"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  Future technology and coding skills become easier to build when students practice with
+                  structured projects, feedback, and hands-on problem solving.
+                </figcaption>
+              </figure>
 
               <p className="text-gray-700 mb-8">
                 Let's explore how this cutting-edge platform can transform the way you learn and master coding.
@@ -310,6 +318,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             </div>
 
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Advance your child&apos;s coding expertise today.{' '}
+                <Link href={publicPath('/future-skills', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore Future Ready Skills pathways
+                </Link>{' '}
+                — Python, AI, and machine learning for Grades 1–12 in Dublin, CA.
+              </p>
+            </div>
+
             {/* Back to Blogs Link */}
             <div className="mt-8 text-center">
               <Link 
@@ -323,23 +342,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
+        />
       </div>
     </>
   )
 }
-

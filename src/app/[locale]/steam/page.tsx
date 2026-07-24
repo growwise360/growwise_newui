@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { getFutureSkillsPathway } from '@/lib/futureSkillsPathways';
+import { CODING_SURFACES } from '@/lib/codingProgramSurfaces';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import Link from 'next/link';
@@ -47,6 +49,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion';
 import { generateFAQPageSchema } from '@/lib/seo/structuredData';
 
 // ImageWithFallback component
@@ -119,42 +122,7 @@ export default function SteamPage() {
     }
   ];
 
-  // Python Programming and AI/ML Data (for two-column card)
-  const pythonProgram = {
-    id: 'python-programming',
-    title: 'Python Programming',
-    description: 'Master the world\'s most popular programming language from basics to advanced',
-    icon: Code,
-    gradient: 'from-[#1F396D] to-[#29335C]',
-    bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
-    iconColor: 'text-[#1F396D]',
-    features: [
-      'Python Fundamentals',
-      'Object-Oriented Programming',
-      'Data Structures & Algorithms',
-      'Web Development with Flask',
-      'API Development',
-      'Project-Based Learning'
-    ]
-  };
-
-  const aiMlProgram = {
-    id: 'ai-ml',
-    title: 'AI & Machine Learning',
-    description: 'Explore artificial intelligence and machine learning concepts for the future',
-    icon: Brain,
-    gradient: 'from-[#1F396D] to-[#F16112]',
-    bgGradient: 'bg-gradient-to-br from-[#29335C]/5 to-[#1F396D]/10',
-    iconColor: 'text-[#1F396D]',
-    features: [
-      'AI Fundamentals',
-      'Machine Learning Basics',
-      'Prompt Engineering',
-      'Computer Vision',
-      'Natural Language Processing',
-      'Ethics in AI'
-    ]
-  };
+  const designPathway = getFutureSkillsPathway('design-creative-media');
 
   // Game Development Detailed Programs
   const gameDevelopmentPrograms = [
@@ -239,17 +207,17 @@ export default function SteamPage() {
     },
     {
       id: 4,
-      name: 'Unity',
-      description: 'Professional game development',
-      icon: Gamepad2,
+      name: 'Canva',
+      description: 'Creative design foundations',
+      icon: Palette,
       color: 'text-[#29335C]',
       bgColor: 'bg-[#29335C]/10'
     },
     {
       id: 5,
-      name: 'AI Tools',
-      description: 'Machine learning platforms',
-      icon: Brain,
+      name: 'Adobe',
+      description: 'Visual design certification prep',
+      icon: Award,
       color: 'text-[#1F396D]',
       bgColor: 'bg-[#1F396D]/10'
     },
@@ -390,8 +358,8 @@ export default function SteamPage() {
               STEAM PROGRAMS
             </Badge>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Prepare for the future with hands-on STEAM education. From coding and game development to AI and entrepreneurship, 
-              our programs combine creativity with cutting-edge technology.
+              Prepare for the future with hands-on STEAM education. From coding and game development to AI, entrepreneurship, and creative media,
+              our programs combine technical skill, design thinking, and portfolio-ready projects.
             </p>
             <p className="text-base text-gray-600 max-w-4xl mx-auto leading-relaxed mt-4">
               During school break, many families choose our{' '}
@@ -452,7 +420,7 @@ export default function SteamPage() {
               Our <span className="bg-gradient-to-r from-[#F16112] to-[#F1894F] bg-clip-text text-transparent">STEAM Programs</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive programs designed to prepare students for the digital future
+              Choose the right pathway based on what your child wants to build: games, code, AI projects, or creative media portfolios.
             </p>
           </div>
 
@@ -511,90 +479,96 @@ export default function SteamPage() {
               );
             })}
 
-            {/* Python Programming & AI/ML Two-Column Card */}
-            {(() => {
-              const isHovered = hoveredProgram === 'python-ai-ml';
-              return (
-                <Card 
-                  className={`bg-white/35 backdrop-blur-3xl rounded-[32px] shadow-[0px_25px_60px_0px_rgba(31,57,109,0.18)] border-2 border-white/50 transition-all duration-700 cursor-pointer group overflow-hidden relative ring-1 ring-white/30 ${
-                    isHovered ? 'shadow-[0px_40px_120px_0px_rgba(31,57,109,0.35)] scale-[1.02]' : ''
-                  }`}
-                  onMouseEnter={() => setHoveredProgram('python-ai-ml')}
-                  onMouseLeave={() => setHoveredProgram(null)}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1F396D]/5 to-[#F16112]/10 opacity-60"></div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/5"></div>
-                  
-                  <CardContent className="p-10 relative z-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
-                      {/* Python Programming Column */}
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="p-4 rounded-2xl bg-gradient-to-br from-[#1F396D] to-[#29335C] shadow-xl ring-2 ring-white/50">
-                            <Code className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-[#1F396D] mb-1">
-                              {pythonProgram.title}
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                              {pythonProgram.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="space-y-3 mb-6 flex-grow">
-                          {pythonProgram.features.map((feature, featureIndex) => (
-                            <div key={featureIndex} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-[#1F396D] flex-shrink-0" />
-                              <span className="text-sm text-gray-700 font-medium">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Divider */}
-                      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent -translate-x-1/2"></div>
-
-                      {/* AI & Machine Learning Column */}
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-4 mb-6">
-                          <div className="p-4 rounded-2xl bg-gradient-to-br from-[#1F396D] to-[#F16112] shadow-xl ring-2 ring-white/50">
-                            <Brain className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-[#1F396D] mb-1">
-                              {aiMlProgram.title}
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                              {aiMlProgram.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="space-y-3 mb-6 flex-grow">
-                          {aiMlProgram.features.map((feature, featureIndex) => (
-                            <div key={featureIndex} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-[#1F396D] flex-shrink-0" />
-                              <span className="text-sm text-gray-700 font-medium">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+            {/* Python, ML/AI, and app dev — detail on Coding pages; enroll on catalog */}
+            <Card className="relative overflow-hidden rounded-[32px] border-2 border-white/50 bg-white/35 shadow-[0px_25px_60px_0px_rgba(31,57,109,0.18)] ring-1 ring-white/30 backdrop-blur-3xl">
+              <CardContent className="relative z-10 p-8 sm:p-10">
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="max-w-2xl">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-4 py-2 text-sm font-bold text-white">
+                      <Code className="h-4 w-4 text-[#F8B34C]" />
+                      Coding &amp; AI programs
                     </div>
-
-                    <Link href={createLocaleUrl('/steam/ml-ai-coding')}>
-                      <Button className={`w-full bg-gradient-to-r from-[#1F396D] to-[#F16112] hover:shadow-2xl text-white rounded-xl py-4 transition-all duration-500 transform ${
-                        isHovered ? 'scale-105 shadow-xl' : ''
-                      }`}>
-                        Book a Free Assessment
-                        <ChevronRight className="ml-2 w-5 h-5" />
+                    <div className="mb-4 flex flex-wrap items-center gap-3">
+                      {CODING_SURFACES.map((surface) => (
+                        <span
+                          key={surface.catalogCourseId}
+                          className="rounded-full border border-[#1F396D]/15 bg-white/70 px-3 py-1 text-sm font-semibold text-[#1F396D]"
+                        >
+                          {surface.shortTitle}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-base leading-7 text-gray-700">
+                      Python foundations, ML/AI projects, and app development — each with its own discovery page for trial
+                      classes, or this STEAM catalog when you are ready to enroll.
+                    </p>
+                    <p className="mt-3 text-sm leading-7 text-gray-600">
+                      Full pathway copy lives on Coding and Future Skills pages — not duplicated here.
+                    </p>
+                  </div>
+                  <div className="flex w-full flex-col gap-3 sm:w-auto sm:min-w-[260px]">
+                    <Link href={createLocaleUrl('/coding')}>
+                      <Button className="w-full rounded-xl border-2 border-[#1F396D] bg-white py-4 text-[#1F396D] hover:bg-[#1F396D] hover:text-white">
+                        Explore coding classes
+                        <ChevronRight className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
-                  </CardContent>
-                </Card>
-              );
-            })()}
+                    <Link href={createLocaleUrl('/steam/ml-ai-coding')}>
+                      <Button className="w-full rounded-xl bg-gradient-to-r from-[#1F396D] to-[#F16112] py-4 text-white hover:shadow-2xl">
+                        Browse courses &amp; enroll
+                        <ChevronRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Design certification pathway — full curriculum lives on Future Skills */}
+            {designPathway && (
+              <Card className="relative overflow-hidden rounded-[32px] border-2 border-white/50 bg-white/35 shadow-[0px_25px_60px_0px_rgba(31,57,109,0.18)] ring-1 ring-white/30 backdrop-blur-3xl lg:col-span-2">
+                <CardContent className="relative z-10 p-8 sm:p-10">
+                  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="max-w-2xl">
+                      <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#1F396D] px-4 py-2 text-sm font-bold text-white">
+                        <Award className="h-4 w-4 text-[#F8B34C]" />
+                        Future Skills certification pathway
+                      </div>
+                      <div className="mb-4 flex items-center gap-4">
+                        <div className="rounded-2xl bg-gradient-to-br from-[#F1894F] to-[#F16112] p-4 shadow-xl ring-2 ring-white/50">
+                          <Palette className="h-8 w-8 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-[#1F396D]">{designPathway.shortTitle}</h3>
+                          <p className="mt-1 text-sm font-semibold text-[#F16112]">{designPathway.bestFor}</p>
+                        </div>
+                      </div>
+                      <p className="text-base leading-7 text-gray-700">{designPathway.hero}</p>
+                      <p className="mt-3 text-sm leading-7 text-gray-600">
+                        Full curriculum, levels, and optional Adobe Certiport prep are on the dedicated Future Skills page
+                        — not duplicated here.
+                      </p>
+                    </div>
+                    <div className="flex w-full flex-col gap-3 sm:w-auto sm:min-w-[260px]">
+                      <Link href={createLocaleUrl(designPathway.href)}>
+                        <Button className="w-full rounded-xl bg-gradient-to-r from-[#F1894F] to-[#F16112] py-4 text-white hover:shadow-2xl">
+                          View certification pathway
+                          <ChevronRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </Link>
+                      <Link href={createLocaleUrl('/book-assessment?interest=future-skills-design-creative-media')}>
+                        <Button
+                          variant="outline"
+                          className="w-full rounded-xl border-[#1F396D]/20 py-4 font-bold text-[#1F396D]"
+                        >
+                          Book a pathway assessment
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </section>
@@ -850,7 +824,11 @@ export default function SteamPage() {
               Common questions from families about GrowWise STEAM programs.
             </p>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(STEAM_FAQS.length, (index) => `item-${index}`)}
+          >
             {STEAM_FAQS.map((faq, index) => (
               <AccordionItem
                 key={index}

@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "bannerAlt": "Students in reading, writing, and math academic summer programs at GrowWise, Dublin, California",
+    "h1": "Close the Gap Before School Starts",
+    "subhead": "Pick your track — Read to Prove, Write with Structure, or Mistake-Proof Math. Same sprint format: 60 min instruction + 30 min guided practice lab, included every session.",
+    "backLink": "← All academic summer programs",
+    "trustMicroSuffix": "DUSD aligned"
+  },
+  "booking": {
+    "sprintLabel": "Academic Summer Sprint · Starts June 15",
+    "sectionTitle": "Choose your track & enroll",
+    "sectionSub": "These three tracks enroll online — Read to Prove, Write with Structure, and Mistake-Proof Math. Pick a program, then choose grade band and cohort length.",
+    "emptyPanel": "Select a track to view enrollment options."
+  },
+  "getReady": {
+    "sprintLabel": "Get Ready Sprint · Starts July 20",
+    "sectionSub": "High school math prep for IM1, Algebra 1, and Geometry. Call to confirm your child's level and reserve a spot."
+  }
+}

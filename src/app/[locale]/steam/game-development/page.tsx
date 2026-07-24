@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Gamepad2, Code, Monitor, Joystick, Clock, Users, Star, Filter, ShoppingCart, CheckCircle, Award, BookOpen, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, Smartphone, Zap, Lightbulb, Rocket, Palette, Music, Bot, Brain, Cpu, Database, Network } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
+import { GAME_DEVELOPMENT_FAQ_JSONLD } from "@/lib/schema/course-hub-jsonld-faqs";
 import { useCart } from '@/components/gw/CartContext';
 import { useChatbot } from '@/contexts/ChatbotContext';
 import ImageWithFallback from '@/components/gw/ImageWithFallback';
@@ -145,6 +148,24 @@ const gameDevCourses: GameDevCourse[] = [
     tags: ['Minecraft', 'Engineering', 'Programming', 'STEAM']
   }
 ];
+
+const FLOATING_GAME_SYMBOLS = [
+  { symbol: '🎮', left: '9.7%', top: '41.1%', duration: '11.7s', size: '20px' },
+  { symbol: '🎯', left: '18.2%', top: '14.5%', duration: '9.4s', size: '24px' },
+  { symbol: '🚀', left: '27.8%', top: '68.3%', duration: '10.8s', size: '29px' },
+  { symbol: '💎', left: '36.6%', top: '28.9%', duration: '8.9s', size: '21px' },
+  { symbol: '⭐', left: '44.9%', top: '52.7%', duration: '12s', size: '31px' },
+  { symbol: '🎨', left: '52.3%', top: '18.6%', duration: '10.2s', size: '25px' },
+  { symbol: '🎵', left: '61.8%', top: '33.8%', duration: '10.7s', size: '27px' },
+  { symbol: '🏆', left: '69.5%', top: '72.4%', duration: '9.8s', size: '22px' },
+  { symbol: '💡', left: '76.4%', top: '21.5%', duration: '11.3s', size: '30px' },
+  { symbol: '⚡', left: '84.1%', top: '57.2%', duration: '8.6s', size: '23px' },
+  { symbol: '🔧', left: '13.6%', top: '79.8%', duration: '12.1s', size: '26px' },
+  { symbol: '🎪', left: '31.4%', top: '8.7%', duration: '9.1s', size: '28px' },
+  { symbol: '🌟', left: '48.7%', top: '83.5%', duration: '10.5s', size: '24px' },
+  { symbol: '🎲', left: '73.9%', top: '9.6%', duration: '11.6s', size: '21px' },
+  { symbol: '🎊', left: '91.2%', top: '39.4%', duration: '9.7s', size: '29px' },
+] as const;
 
 // Component that handles search params - wrapped separately for Suspense
 function SearchParamsHandler({ 
@@ -398,20 +419,20 @@ const GameDevelopmentPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-blue-50 via-purple-50 to-pink-50">
           {/* Floating game symbols */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+            {FLOATING_GAME_SYMBOLS.map((item, i) => (
               <div
                 key={i}
                 className="absolute text-gray-500/60 animate-float-gentle font-semibold"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: item.left,
+                  top: item.top,
                   transform: `translateY(${scrollY * 0.05}px)`,
                   animationDelay: `${i * 1.2}s`,
-                  animationDuration: `${8 + Math.random() * 4}s`,
-                  fontSize: `${Math.random() * 15 + 18}px`
+                  animationDuration: item.duration,
+                  fontSize: item.size
                 }}
               >
-                {['🎮', '🎯', '🚀', '💎', '⭐', '🎨', '🎵', '🏆', '💡', '⚡', '🔧', '🎪', '🌟', '🎲', '🎊'][Math.floor(Math.random() * 15)]}
+                {item.symbol}
               </div>
             ))}
           </div>
@@ -869,6 +890,40 @@ const GameDevelopmentPage: React.FC = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 px-4 lg:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">Frequently Asked Questions</h2>
+          <p className="text-gray-600 text-center mb-10">Common questions from parents about our game development courses</p>
+          <p className="mb-8 text-center text-sm text-gray-600">
+            Want a simpler age-based overview before comparing courses?{' '}
+            <Link
+              href={publicPath('/game-dev', locale)}
+              className="font-semibold text-[#1F396D] underline decoration-[#F16112]/60 underline-offset-4 hover:text-[#F16112]"
+            >
+              View Game Development for Kids
+            </Link>
+            .
+          </p>
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(GAME_DEVELOPMENT_FAQ_JSONLD.length, (i) => `faq-${i}`)}
+          >
+            {GAME_DEVELOPMENT_FAQ_JSONLD.map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-gray-200 rounded-xl shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline font-semibold text-gray-900">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="py-20 px-4 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
@@ -936,4 +991,3 @@ const GameDevelopmentPage: React.FC = () => {
 };
 
 export default GameDevelopmentPage;
-

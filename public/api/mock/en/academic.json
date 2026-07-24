@@ -181,7 +181,7 @@
   },
   "ctaSection": {
     "title": "Ready to Excel in Academics?",
-    "subtitle": "Join 325+ students who have improved their academic performance with our personalized programs.",
+    "subtitle": "Join 387+ students who have improved their academic performance with our personalized programs.",
     "primaryButton": {
       "text": "Book Free Assessment",
       "url": "/enroll"
@@ -205,7 +205,7 @@
           "One-on-One Support"
         ],
         "ctaText": "View More",
-        "ctaUrl": "/courses/math"
+        "ctaUrl": "/academic/math"
       },
       {
         "title": "English Programs",
@@ -217,7 +217,7 @@
           "Grammar & Vocabulary"
         ],
         "ctaText": "View More",
-        "ctaUrl": "/courses/english"
+        "ctaUrl": "/academic/english"
       }
     ],
     "footerText": "Not sure which path to choose? Contact us for guidance"

@@ -12,7 +12,6 @@ import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { 
   Star, 
-  CheckCircle, 
   MapPin, 
   Phone, 
   Mail, 
@@ -23,8 +22,12 @@ import { getIconComponent } from '@/lib/iconMap';
 import { useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchAboutRequested } from '@/store/slices/aboutSlice';
-import TestimonialsWithBackend from './TestimonialsWithBackend';
+import { FounderSection } from './about/FounderSection';
+import { ParentTestimonialsSection } from './about/ParentTestimonialsSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { ABOUT_FAQS } from '@/data/about-faqs';
+import { FOUNDER_ABOUT_STORY_PARAGRAPHS } from '@/data/founder-copy';
+import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { HelpCircle } from "lucide-react";
 
 export default function About() {
@@ -45,16 +48,11 @@ export default function About() {
   // Our story and achievements
   const achievements = about?.achievements ?? [];
 
-  // Team members data
-  const teamMembers = about?.teamMembers ?? [];
-
   // Educational philosophy
   const educationalApproach = about?.educationalApproach ?? [];
 
   // Community involvement - Removed Scholarship Programs
   const communityImpact = about?.communityImpact ?? [];
-
-  const testimonials = about?.testimonials ?? [];
 
   return (
     <div className="min-h-screen section-gray">
@@ -119,15 +117,9 @@ export default function About() {
             <div>
               <h2 className="title-section mb-6">{about?.story?.title || t('story.title')}</h2>
               <div className="space-y-6 text-muted leading-relaxed">
-                {about?.story?.paragraphs?.map((paragraph: string, index: number) => (
+                {FOUNDER_ABOUT_STORY_PARAGRAPHS.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
-                )) || (
-                  <>
-                    <p>{t('story.p1')}</p>
-                    <p>{t('story.p2')}</p>
-                    <p>{t('story.p3')}</p>
-                  </>
-                )}
+                ))}
               </div>
               
               <div className="mt-8">
@@ -253,65 +245,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Meet Our Founder Section */}
-      <section className="section-base section-gray">
-        <div className="max-w-7xl mx-auto">
-          <div className="center-text mb-12">
-            <h2 className="title-section mb-4">{t('founder.title')}</h2>
-            <p className="subtitle-sm max-w-3xl mx-auto">{t('founder.subtitle')}</p>
-          </div>
-          
-          <div className="flex justify-center">
-            {teamMembers.length > 0 && (() => {
-              const founder = teamMembers[0]; // Get the first team member (founder)
-              return (
-                <Card 
-                  className="bg-white shadow-lg hover:shadow-xl transition-all duration-300 group max-w-2xl w-full"
-                >
-                  <CardContent className="p-8 md:p-12">
-                    <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                      <div className="relative flex-shrink-0">
-                        <img
-                          src={founder.image}
-                          alt={founder.name}
-                          className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-lg group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#F16112] rounded-full flex items-center justify-center shadow-lg">
-                          <CheckCircle className="w-5 h-5 text-white" />
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1 text-center md:text-left">
-                        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{founder.name}</h3>
-                        <p className="text-[#F16112] font-semibold text-lg mb-4">{founder.role}</p>
-                        <p className="text-gray-600 mb-6 leading-relaxed">{founder.bio}</p>
-                        
-                        {founder.education && (
-                          <div className="mb-6">
-                            <p className="text-sm font-semibold text-gray-700 mb-2">Education:</p>
-                            <p className="text-sm text-gray-600">{founder.education}</p>
-                          </div>
-                        )}
-                        
-                        <div className="space-y-3">
-                          <div className="text-sm font-semibold text-gray-700">Expertise:</div>
-                          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                            {founder.expertise.map((skill, skillIndex) => (
-                              <Badge key={skillIndex} className="bg-[#1F396D]/10 text-[#1F396D] text-sm px-3 py-1">
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })()}
-          </div>
-        </div>
-      </section>
+      <FounderSection />
 
       {/* Community Impact Section - Now with 3 items */}
       <section className="section-base section-white">
@@ -340,15 +274,30 @@ export default function About() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <TestimonialsWithBackend />
+      <ParentTestimonialsSection />
 
       {/* Location & Contact Info */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#1F396D]">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-3xl font-bold mb-6">{t('location.title')}</h2>
-          <p className="text-xl mb-8 text-white/90">{t('location.subtitle')}</p>
-          
+          <p className="text-xl mb-4 text-white/90">{t('location.subtitle')}</p>
+          <p className="mb-8">
+            <Link
+              href={publicPath('/dublin-ca', locale)}
+              className="text-base font-semibold text-[#F1894F] underline-offset-4 hover:text-[#ffb380] hover:underline sm:text-lg"
+            >
+              Explore K-12 tutoring &amp; coding classes at our Dublin center →
+            </Link>
+          </p>
+          <p className="mb-8">
+            <Link
+              href={publicPath('/why-growwise', locale)}
+              className="text-base font-semibold text-[#F1894F] underline-offset-4 hover:text-[#ffb380] hover:underline sm:text-lg"
+            >
+              Why families choose GrowWise over traditional tutoring programs →
+            </Link>
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="flex items-center justify-center gap-3">
               <MapPin className="w-6 h-6 text-[#F1894F]" />
@@ -392,16 +341,7 @@ export default function About() {
       {/* FAQ Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         {(() => {
-          const faqs = [
-            {
-              question: "What makes GrowWise different from other tutoring centres in Dublin?",
-              answer: "GrowWise is the only centre in Dublin offering academic tutoring in Math and English alongside STEAM programs in coding, AI, and game development, plus summer camps — all in one place. Programs are aligned with DUSD and PUSD curriculum. Classes have a maximum of 8 students. Every student starts with a free assessment rather than being placed into a one-size-fits-all track.",
-            },
-            {
-              question: "Where is GrowWise located and which areas do you serve?",
-              answer: "GrowWise is located at 4564 Dublin Blvd, Dublin, CA 94568. We serve families from Dublin, Pleasanton, San Ramon, Danville, and Livermore across the Tri-Valley area. In-person, online, and hybrid formats are available.",
-            },
-          ];
+          const faqs = [...ABOUT_FAQS];
           return (
             <>
               <div className="max-w-4xl mx-auto">
@@ -414,7 +354,11 @@ export default function About() {
                   </p>
                 </div>
 
-                <Accordion type="single" collapsible className="space-y-4">
+                <Accordion
+                  type="multiple"
+                  className="space-y-4"
+                  defaultValue={getDefaultOpenFaqValues(faqs.length, (index) => `item-${index}`)}
+                >
                   {faqs.map((faq, index) => (
                     <AccordionItem 
                       key={index} 

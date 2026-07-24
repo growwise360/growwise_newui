@@ -1,25 +1,24 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
-import { getS3ImageUrl } from '@/lib/constants'
 import { ArrowLeft, Calendar, User, FileText, Briefcase, TrendingUp, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
-// Image path - update this to your actual image location
-// Option 1: Local image in public folder: '/images/blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities.webp'
-// Option 2: S3 image: getS3ImageUrl('images/blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities.webp')
-const BLOG_IMAGE_URL = '/images/blogs/programming-skills-resume.jpg' // or use getS3ImageUrl('images/blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities.webp') for S3
+const BLOG_IMAGE_URL = '/images/blogs/programming-skills-resume.jpg'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   return { 
-    title: 'Programming Skills on a Resume | GrowWise', 
-    description: 'Programming skills are increasingly valuable across industries. Learn how they can enhance your resume and career prospects.',
+    title: 'Programming Skills for Student Profiles | GrowWise', 
+    description: 'Programming skills help students show problem-solving, technical fluency, project evidence, and future-ready confidence before college.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities', locale, baseUrl)
     }
@@ -30,17 +29,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
-    { name: 'How Programming Skills on a Resume Will Open More Career Opportunities', url: absoluteSiteUrl('/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities', locale, baseUrl) },
-  ])
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'How Programming Skills Strengthen Student Profiles', url: absoluteSiteUrl('/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities', locale, baseUrl) },
+  ]
 
   const pageUrl = absoluteSiteUrl('/growwise-blogs/how-programming-skills-on-a-resume-will-open-more-career-opportunities', locale, baseUrl)
   const articleSchema = generateArticleSchema({
-    headline: 'How Programming Skills on a Resume Will Open More Career Opportunities',
-    description: 'Programming skills are increasingly valuable across industries. Learn how they can enhance your resume and career prospects.',
+    headline: 'How Programming Skills Strengthen Student Profiles',
+    description: 'Programming skills help students show problem-solving, technical fluency, and project evidence before college or career decisions.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2024-11-25',
+    dateModified: '2024-11-25',
   })
 
   return (
@@ -49,10 +51,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-programming-skills-on-a-resume-will-open-more-career-opportunities" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
           <div className="relative max-w-4xl mx-auto z-10">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-              How Programming Skills on a Resume Will Open More Career Opportunities
+              How Programming Skills Strengthen Student Profiles
             </h1>
 
             <Link 
@@ -99,11 +99,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 prose prose-lg max-w-none">
               
               <p className="lead text-xl text-gray-700 mb-8">
-                In today's competitive job market, programming skills are increasingly valuable across industries. Whether you're in tech, finance, healthcare, or marketing, coding abilities can significantly enhance your resume and open doors to new career opportunities.
+                Programming skills matter long before a student starts building an application profile. For middle and high school students, coding projects give parents, teachers, and future programs visible proof of problem-solving, persistence, and technical confidence.
               </p>
 
+              <LegacyBlogAeoBlock slug="how-programming-skills-on-a-resume-will-open-more-career-opportunities" />
+
               <p className="text-gray-700 mb-8">
-                Learn how programming skills can transform your career prospects and make you stand out to employers.
+                The parent job is simple: help your child move from "interested in technology" to "able to build something and explain how it works."
               </p>
 
               <p className="text-gray-700 mb-6 text-sm">
@@ -114,23 +116,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </p>
 
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
-                    alt="How Programming Skills on a Resume Will Open More Career Opportunities"
+                    alt="Programming projects that strengthen a student coding profile"
                     fill
                     className="object-cover rounded-xl"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  Programming projects give students visible proof of problem-solving, persistence, and technical fluency.
+                </figcaption>
+              </figure>
 
-              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Programming Skills Matter</h2>
+              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Why Programming Skills Matter for Students</h2>
 
               <p className="text-gray-700 mb-6">
-                Programming skills demonstrate valuable qualities that employers seek:
+                Programming skills demonstrate qualities that help students stand out in school, clubs, competitions, internships, and later applications:
               </p>
 
               <div className="grid md:grid-cols-2 gap-4 my-6">
@@ -152,49 +157,60 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
                 <div className="bg-green-50 p-6 rounded-lg">
                   <Briefcase className="w-8 h-8 text-green-600 mb-3" />
-                  <h3 className="font-bold text-[#1F396D] mb-2">Versatility</h3>
+                  <h3 className="font-bold text-[#1F396D] mb-2">Project Evidence</h3>
                   <p className="text-gray-700 text-sm">
-                    Programming skills apply across multiple industries and roles.
+                    A finished program shows what the student built, tested, and improved.
                   </p>
                 </div>
 
                 <div className="bg-purple-50 p-6 rounded-lg">
                   <FileText className="w-8 h-8 text-purple-600 mb-3" />
-                  <h3 className="font-bold text-[#1F396D] mb-2">Automation Skills</h3>
+                  <h3 className="font-bold text-[#1F396D] mb-2">Builder Mindset</h3>
                   <p className="text-gray-700 text-sm">
-                    Ability to automate tasks increases efficiency and value.
+                    Students learn to use technology to solve problems instead of only consuming it.
                   </p>
                 </div>
               </div>
 
-              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Career Opportunities Across Industries</h2>
+              <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Where Programming Skills Can Take a Student</h2>
 
               <p className="text-gray-700 mb-6">
-                Programming skills open doors in various fields:
+                Early coding exposure helps students explore fields before they have to choose a major or career direction:
               </p>
 
               <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-8">
-                <li><strong>Technology</strong> – Software development, web development, data science</li>
-                <li><strong>Finance</strong> – Algorithmic trading, financial modeling, fintech</li>
-                <li><strong>Healthcare</strong> – Medical software, data analysis, health informatics</li>
-                <li><strong>Marketing</strong> – Data analytics, automation, digital marketing tools</li>
-                <li><strong>Education</strong> – EdTech development, learning platforms, educational tools</li>
+                <li><strong>Technology</strong> - software, web development, app building, and data science</li>
+                <li><strong>Science and research</strong> - data analysis, modeling, and experimentation</li>
+                <li><strong>Business</strong> - automation, analytics, and digital product thinking</li>
+                <li><strong>Creative work</strong> - games, interactive media, and design tools</li>
+                <li><strong>School leadership</strong> - robotics teams, coding clubs, and project portfolios</li>
               </ul>
 
               <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
                 <p className="text-xl font-bold mb-4">
-                  Boost Your Resume with Programming Skills
+                  Help Your Child Build a Real Coding Portfolio
                 </p>
                 <p className="mb-6">
-                  Start learning programming today with GrowWise and unlock new career opportunities.
+                  GrowWise helps students turn coding interest into finished projects, stronger confidence, and clearer future direction.
                 </p>
-                <Link href="/enroll">
+                <Link href={publicPath('/future-skills/python-certification', locale)}>
                   <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
+                    Explore Python Pathway
                   </Button>
                 </Link>
               </div>
 
+            </div>
+
+            {/* Program Callout */}
+            <div className="mt-8 p-6 bg-[#1F396D]/5 border border-[#1F396D]/20 rounded-xl">
+              <p className="text-gray-700 leading-relaxed">
+                Give your child coding skills that make future applications, projects, and student profiles stronger.{' '}
+                <Link href={publicPath('/future-skills/python-certification', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  Explore the Python certification pathway
+                </Link>{' '}
+                — from first lines of code to AI projects, for Grades 1–12 in Dublin, CA.
+              </p>
             </div>
 
             {/* Back to Blogs Link */}
@@ -210,23 +226,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/future-skills"
+          programLabel="Explore Future Ready Skills Pathways"
+        />
       </div>
     </>
   )
 }
-

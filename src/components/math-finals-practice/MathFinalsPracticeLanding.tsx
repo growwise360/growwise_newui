@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { getDefaultOpenFaqValues } from '@/lib/faq-accordion'
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent'
 import { MATH_FINALS_PRACTICE_FAQS } from '@/data/math-finals-practice-faqs'
 import {
@@ -25,6 +26,7 @@ import {
 import { PHONE_PLACEHOLDER } from '@/lib/constants'
 import { publicPath } from '@/lib/publicPath'
 import { cn } from '@/lib/utils'
+import { trackGenerateLead } from '@/lib/analytics/gtmEvents'
 import {
   BookOpen,
   Calculator,
@@ -153,6 +155,11 @@ export function MathFinalsPracticeLanding() {
         return
       }
       if (data.success) {
+        trackGenerateLead('math_finals_practice', {
+          form_name: 'math_finals_practice',
+          subject: form.subject,
+          grade: form.grade,
+        })
         setForm(initialForm)
         if (agendaInputRef.current) agendaInputRef.current.value = ''
         router.push(publicPath('/math-finals-practice-session/thank-you', locale))
@@ -621,7 +628,11 @@ export function MathFinalsPracticeLanding() {
               long-term tutoring plan and it is not designed to reteach an entire course in a short sequence.
             </p>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion
+            type="multiple"
+            className="space-y-4"
+            defaultValue={getDefaultOpenFaqValues(MATH_FINALS_PRACTICE_FAQS.length, (i) => `q-${i}`)}
+          >
             {MATH_FINALS_PRACTICE_FAQS.map((faq, i) => (
               <AccordionItem
                 value={`q-${i}`}

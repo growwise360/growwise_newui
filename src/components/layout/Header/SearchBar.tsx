@@ -219,7 +219,7 @@ export default function SearchBar() {
         className="flex items-center gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
       >
         <Search className="w-4 h-4" />
-        <span className="hidden sm:inline">Search</span>
+        <span className="sr-only">Search</span>
       </Button>
 
 

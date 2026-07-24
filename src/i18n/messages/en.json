@@ -22,7 +22,9 @@
     "privacy": {
       "title": "Privacy & Data Protection",
       "description": "We only use your personal information to provide the requested services. From time to time, we may contact you about programs and content that may be of interest.",
-      "agreeLabel": "I agree to receive communications from GrowWise about academic programs, updates, and educational content.",
+      "privacyPolicyLink": "Privacy Policy",
+      "termsLink": "Terms & Conditions",
+      "agreeLabel": "I agree to the Terms & Conditions and Privacy Policy, and to receive communications from GrowWise about academic programs, updates, and educational content.",
       "agreeError": "Please agree to receive communications to continue",
       "submitDisclaimer": "By submitting, you agree to be contacted by GrowWise School"
     }
@@ -43,7 +45,7 @@
     "hero": {
       "title": "Empowering Young Minds for Tomorrow",
       "subtitle": "Comprehensive Grades 1-12 Education & STEAM Programs",
-      "description": "Join 325+ students in our personalized learning journey with 98% parent satisfaction",
+      "description": "Join 387+ students in our personalized learning journey with 98% parent satisfaction",
       "cta": "Start Your Journey"
     },
     "statistics": {
@@ -141,25 +143,57 @@
     }
   },
   "chatbot": {
-    "title": "GrowWise Assistant",
+    "title": "Growy",
+    "triggerLabel": "Ask Growy",
     "openChat": "Open chat",
     "closeChat": "Close chat",
     "sendMessage": "Send message",
     "placeholder": "Ask me anything about our programs...",
+    "status": {
+      "online": "Online now",
+      "fallback": "Using fallback mode"
+    },
+    "emailGate": {
+      "prompt": "Enter your email to continue the conversation.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "continueCta": "Continue",
+      "submitting": "Saving…",
+      "invalidEmail": "Please enter a valid email address.",
+      "consentRequired": "Please agree to be contacted so we can continue.",
+      "continueSuccess": "Thanks! You're all set — ask me anything about our programs.",
+      "submitError": "We couldn't save your email right now. Please try again."
+    },
     "suggestions": {
-      "k12Programs": "What Grades 1-12 programs do you offer?",
-      "steamCourses": "Tell me about STEAM courses",
+      "k12Programs": "What programs do you offer?",
+      "steamCourses": "Tell me about STEM and coding",
       "bookAssessment": "How do I book a free assessment?",
       "pricing": "What are your prices?",
-      "getStarted": "I want to get started"
+      "getStarted": "I want to get started",
+      "campsSummer": "Tell me about summer camp tracks",
+      "campsWinter": "What winter camps do you offer?",
+      "campsCoding": "Which coding camps are available?",
+      "campsRobotics": "Do you have robotics camps?",
+      "openCampForm": "I'd like to inquire about camp"
+    },
+    "pageWelcome": {
+      "default": "Hello! Welcome to GrowWise School! 🎓 We serve Tri-Valley families with these program areas: {categories}. How can we help today?",
+      "campsHub": "Hi! You're browsing our camps hub. We run summer and winter programs in coding, robotics, AI, math, and more. Which season or subject interests you?",
+      "campsSummer": "Hi! You're looking at GrowWise Summer Camp in Dublin. I can help you pick a track—coding, robotics, AI, math, game dev, and more—or answer schedule and enrollment questions.",
+      "campsAcademicSummer": "Hi! You're on our Academic Summer Programs page. I can help with Read to Prove, Write to Explain, Bridge the Gap Math, or Get Ready tracks for grades 1–12.",
+      "campsWinter": "Hi! You're browsing GrowWise Winter Camp options. Tell me your child's grade and interests and I'll suggest a fit.",
+      "campSlug": "Hi! You're viewing {pageLabel}. Ask me about schedules, ages, pricing, or how to request a seat.",
+      "assessment": "Hi! Ready to book a free assessment? I can walk you through what to expect and help you submit a request.",
+      "enroll": "Hi! You're on an enrollment page. Tell me what program you're interested in and I can help you take the next step.",
+      "contact": "Hi! Need to reach our team? I can help you send a message or share our phone and email."
     },
     "responses": {
-      "welcome": "Hello! Welcome to GrowWise! 🎓 We're a leading educational platform serving Tri-Valley families with comprehensive Grades 1-12 academic programs and exciting STEAM courses. How can I help you today?",
-      "courses": "We offer comprehensive Grades 1-12 academic programs and exciting STEAM courses! Our Grades 1-12 programs include Math, ELA, Writing Lab, and SAT/ACT prep. For STEAM, we have Game Development, Python Programming, Young Founders, and ML/AI courses. Would you like to know more about any specific program?",
-      "assessment": "We offer FREE assessments and trial classes! 🎓 Grades 1-12 Programs: 60-minute FREE assessment. 🚀 STEAM Courses: 30-minute trial class. These help us create a personalized learning plan for your child. Would you like to book one?",
-      "pricing": "We offer competitive pricing for all our programs. For the most accurate pricing information, I'd recommend booking a free assessment where our team can provide detailed information based on your specific needs. Would you like to schedule a free assessment?",
-      "contact": "You can reach us through our website contact form, phone, or email. We're here to answer any questions about our programs and help you get started on your learning journey! Our team is responsive and will get back to you within 24 hours.",
-      "fallback": "That's a great question! I'd be happy to help you with that. GrowWise offers comprehensive Grades 1-12 academic programs and exciting STEAM courses. Could you provide a bit more detail about what specific information you're looking for?"
+      "welcome": "Hello! Welcome to GrowWise School! 🎓 We serve Tri-Valley families with these program areas: {categories}. How can we help today?",
+      "courses": "GrowWise School offers tutoring, accelerated math, English and writing, STEM enrichment, coding, AI, robotics, workshops, and camps. Tell us your child's grade or interests and we can suggest a path.",
+      "assessment": "We offer complimentary assessments and trial-style experiences on many tracks. Our team can recommend the right fit after a short conversation.",
+      "pricing": "Pricing depends on the programs that fit your goals. Book a free assessment and we'll share clear options—no surprises.",
+      "contact": "You can reach us by phone, email at contact@growwiseschool.org, or this chat. We typically respond within 24 hours.",
+      "fallback": "Happy to help! GrowWise School focuses on tutoring, accelerated math, English and writing, STEM enrichment, coding, AI, robotics, workshops, and camps. What would you like to explore?"
     }
   },
   "courses": {
@@ -271,7 +305,7 @@
     },
     "cta": {
       "title": "Ready to Start Your STEAM Journey?",
-      "subtitle": "Join 325+ students who are already building the future with our innovative programs",
+      "subtitle": "Join 387+ students who are already building the future with our innovative programs",
       "primaryCta": "Book a Free Assessment",
       "secondaryCta": "Join Free Saturday Workshop"
     },
@@ -447,7 +481,7 @@
     },
     "cta": {
       "title": "Ready to Excel in Academics?",
-      "subtitle": "Join 325+ students who have improved their academic performance with our personalized programs.",
+      "subtitle": "Join 387+ students who have improved their academic performance with our personalized programs.",
       "primary": "Book a Free Assessment",
       "secondary": "Learn More"
     },
@@ -485,9 +519,9 @@
     },
     "story": { 
       "title": "Our Story",
-      "p1": "Founded in 2024 in the heart of Dublin, California, GrowWise was born from a simple but powerful vision: every child deserves personalized education that meets them where they are and helps them reach their full potential.",
-      "p2": "What started as a small tutoring center has grown into a comprehensive educational institution serving families throughout the Tri-Valley area. Our founder, Anshika Verma, recognized that traditional one-size-fits-all education wasn't serving the diverse learning needs of today's students.",
-      "p3": "Today, GrowWise stands as a testament to what's possible when passionate educators combine proven teaching methods with innovative technology and genuine care for each student's success. We've helped over 325+ students not just improve their grades, but develop confidence, curiosity, and a lifelong love of learning."
+      "p1": "Anshika arrived in the US in 2009 with $500. Her family were educators in India. She became a software engineer here. Then a mother.",
+      "p2": "For years she watched bright kids check out — not because they couldn't learn, but because nobody taught them how.",
+      "p3": "That gap became GrowWise. Not a tutoring center. A lab built on 15 years of observation, 2+ years of direct research with kids, and one belief: teach a child how to learn and everything changes."
     },
     "achievements": { 
       "title": "Our Achievements",
@@ -499,7 +533,7 @@
     },
     "founder": { 
       "title": "Meet Our Founder",
-      "subtitle": "Learn about the visionary leader who founded GrowWise with a passion for transforming education."
+      "subtitle": "Why GrowWise is a learning lab — not a tutoring center"
     },
     "team": { 
       "title": "Meet Our Team",
@@ -561,7 +595,7 @@
     },
     "cta": {
       "title": "Ready to Excel in English?",
-      "subtitle": "Join 325+ students who have transformed their writing and reading skills with GrowWise English programs.",
+      "subtitle": "Join 387+ students who have transformed their writing and reading skills with GrowWise English programs.",
       "primaryButton": "Get Started",
       "secondaryButton": "Contact Us"
     }
@@ -586,7 +620,7 @@
     },
     "cta": {
       "title": "Ready to Master Math?",
-      "subtitle": "Join 325+ students who have transformed their mathematical skills with GrowWise Math programs.",
+      "subtitle": "Join 387+ students who have transformed their mathematical skills with GrowWise Math programs.",
       "primaryButton": "Get Started",
       "secondaryButton": "Contact Us"
     }
@@ -636,7 +670,7 @@
     },
     "cta": {
       "title": "Ready to Start Your STEAM Journey?",
-      "subtitle": "Join 325+ students learning cutting-edge technology skills",
+      "subtitle": "Join 387+ students learning cutting-edge technology skills",
       "primaryCta": "Book a Free Assessment",
       "secondaryCta": "Join Free Saturday Workshop"
     }
@@ -668,9 +702,11 @@
       "gameDevelopment": "Game development summer camp program",
       "robotics": "Robotics summer camp (Dublin, CA)",
       "roboticsFullDay": "Full-day robotics summer camp option",
-      "youngAuthors": "Young Authors summer camp writing program"
+      "youngAuthors": "Young Authors summer camp writing program",
+      "highSchoolSummerIntensive": "High School Summer Intensive (Dublin, CA)"
     },
     "programGroup": {
+      "linkHighSchoolSummerIntensive": "High School Summer Intensive",
       "linkMathOlympiad": "Math Olympiad Camp Details",
       "linkAiStudio": "AI Studio Camp Details",
       "linkGameDevelopment": "Game Development Camp Details",
@@ -688,6 +724,7 @@
       "selectProgram": "Select program",
       "selectTier": "Select tier",
       "weeklyIntensiveNote": "Weekly intensive — same pricing for all combinations",
+      "applicationsClosedBanner": "This program is not accepting applications for Summer 2026. Submit an inquiry below or explore open programs.",
       "remove": "Remove",
       "add": "Add"
     },
@@ -744,9 +781,8 @@
       "secondaryCta": "Get Camp Guide →",
       "brochurePdf": "/assets/camps/SummerCampBrochure.pdf",
       "trustMicro": "98% parent satisfaction · Max 8 students per class · Expert instructors",
-      "urgencyLine": "15% early-bird ends April 30 · Limited seats per week",
-      "downloadBrochure": "View 2026 brochure PDF (new tab)",
-      "earlyBirdPromoBefore": "15% off for early bird on any course through April 30 — Use code: "
+      "urgencyLine": "Limited seats per week — popular weeks fill first",
+      "downloadBrochure": "View 2026 brochure PDF (new tab)"
     },
     "conversion": {
       "programGroupsHeading": "Start with one track",
@@ -754,9 +790,9 @@
       "exploreProgramCta": "Explore Program →",
       "programGroups": [
         {
-          "title": "Academic Camp",
-          "outcome": "Math Olympiad (AMC8 / MOEMS) and High School Math—structured intensives that match how we run camps year-round.",
-          "ages": "Grades 3–12"
+          "title": "High School Summer Intensive",
+          "outcome": "6-week Algebra, Precalculus, and Calculus AB intensives—small groups, in-person in Dublin.",
+          "ages": "Grades 8–12"
         },
         {
           "title": "AI & Game Development",
@@ -771,7 +807,7 @@
       ],
       "trustBlockHeading": "Real Results Parents Trust",
       "trustGoogleRatingLine": "Rated 4.9⭐ on Google · 40+ reviews",
-      "trustProofStrip": "325+ students enrolled · 98% parent satisfaction · 40+ student projects showcased",
+      "trustProofStrip": "387+ students enrolled · 98% parent satisfaction · 40+ student projects showcased",
       "trustBullets": [
         "Max 8 students per class — personalized attention",
         "Experienced instructors in coding, math & robotics",
@@ -793,24 +829,24 @@
       ],
       "trustProjectsCta": "See Student Projects →",
       "trustProjectsUrl": "https://thegrowwise.com/nextgen-hub/",
-      "guideModalTitle": "Get your camp guide + 15% off",
-      "guideModalSubtitle": "Tell us a bit about your child—we’ll email the PDF and early-bird details.",
+      "guideModalTitle": "Get your summer camp guide",
+      "guideModalSubtitle": "Tell us a bit about your child—we’ll email the PDF camp guide.",
       "parentNameLabel": "Parent name",
       "parentNamePlaceholder": "Your full name",
-      "guideSubmitCta": "Get Guide + 15% Off →",
+      "guideSubmitCta": "Email Me the Guide →",
       "finalHeading": "Still not sure which summer camp is right for your child?",
-      "finalSubtext": "Limited seats per batch · 15% early-bird ends April 30",
+      "finalSubtext": "Limited seats per batch — reserve early for your preferred week",
       "finalReserveCta": "Reserve a Spot →",
-      "finalGuidePdfCta": "Get guide + 15% off (by email) →",
+      "finalGuidePdfCta": "Get camp guide by email →",
       "bookingSectionTitle": "Choose your camp & reserve a week",
       "bookingSectionSub": "Pick a program, then select your week and checkout."
     },
     "guideForm": {
-      "ariaLabel": "Request camp guide and early-bird offer"
+      "ariaLabel": "Request the summer camp guide PDF by email"
     },
     "guideSuccess": {
       "title": "Your camp guide is on the way!",
-      "bodyEmail": "We’ve emailed your PDF camp guide and your 15% early-bird code (check inbox & spam).",
+      "bodyEmail": "We’ve emailed your PDF camp guide (check inbox & spam).",
       "bodyUrgency": "Reserve a week before your preferred dates fill up.",
       "reserveCta": "Reserve a Spot →",
       "viewOptionsCta": "View Camp Options →",
@@ -818,11 +854,16 @@
     },
     "mobile": {
       "viewAllCamps": "View all camps ↑",
-      "earlyBirdBar": "Early bird ends April 30",
+      "earlyBirdBar": "Limited seats each week",
       "winFreeSpot": "Win free spot",
       "summercampLink": "Get camp guide instead",
       "enrollNow": "Enroll Now",
-      "earlyBirdBadge": "Early bird — GWSUMMER15"
+      "earlyBirdBadge": "Camp guide by email"
+    },
+    "enrollmentPanel": {
+      "emptyTitle": "Select a program",
+      "emptyPanel": "Tap a program above or select a pill to view weeks and pricing.",
+      "mobileSwitcherLabel": "Switch program"
     },
     "summercamp": {
       "title": "Win a free Summer Camp spot",
@@ -928,7 +969,7 @@
         {
           "icon": "📅",
           "title": "Flexible Scheduling",
-          "description": "Half-day and full-day sessions, June through August, with week-by-week enrollment and early bird savings."
+          "description": "Half-day and full-day sessions, June through August, with flexible week-by-week enrollment."
         },
         {
           "icon": "📍",
@@ -967,18 +1008,257 @@
       "brand": "GrowWise",
       "crossLink": "Explore game development"
     },
+    "overviewHero": {
+      "badge": "Coding programs · Grades 5–12",
+      "title": "Choose the right coding path before choosing a plan.",
+      "subtitle": "GrowWise coding programs are organized by student goal: Python foundations, AI readiness, or app development. Start with the path that matches how your child wants to build.",
+      "ctaPaths": "Explore coding paths",
+      "ctaTrial": "Book a Trial Class",
+      "outcomes": {
+        "python": {
+          "href": "/coding/python",
+          "title": "Python foundations",
+          "body": "The main starting point for real syntax, school readiness, and future AI/data work."
+        },
+        "ai": {
+          "href": "/coding/ml-ai",
+          "title": "ML / AI",
+          "body": "For students ready to use Python concepts in machine learning and generative AI projects."
+        },
+        "apps": {
+          "href": "/coding/app-development",
+          "title": "App development",
+          "body": "For students who want to build webpages, interfaces, and shareable applications."
+        }
+      }
+    },
+    "paths": {
+      "eyebrow": "Coding paths",
+      "title": "One overview page. A detail page for each program.",
+      "subtitle": "Each program has a different job. Python builds the foundation, ML/AI extends it into modern tools, and app development turns ideas into visible products.",
+      "cta": "View details",
+      "items": {
+        "python": {
+          "href": "/coding/python",
+          "bestFor": "Best first serious path",
+          "title": "Python Programming",
+          "body": "For students who need real text-based coding foundations before high school computer science, AP-level work, AI, or data science.",
+          "artifactLabel": "Students build",
+          "artifact": "Quiz games, calculators, and application-style projects"
+        },
+        "ai": {
+          "href": "/coding/ml-ai",
+          "bestFor": "For Python-ready builders",
+          "title": "Machine Learning & AI",
+          "body": "For students ready to connect coding fundamentals to models, datasets, prompting, and AI projects they can explain.",
+          "artifactLabel": "Students build",
+          "artifact": "AI mini-projects, model experiments, and capstones"
+        },
+        "appdev": {
+          "href": "/coding/app-development",
+          "bestFor": "For product-minded students",
+          "title": "App Development",
+          "body": "For students who want to make visible, shareable work while learning web, interface, and application fundamentals.",
+          "artifactLabel": "Students build",
+          "artifact": "Webpages, interactive apps, and portfolio projects"
+        }
+      }
+    },
+    "pythonDetail": {
+      "hero": {
+        "badge": "Python programming · Grades 5–12",
+        "headlineLine1": "Turn screen time into",
+        "headlineLine2": "real Python projects.",
+        "subtext": "A Python-first coding program for students preparing for high school computer science, AI, data science, and real text-based programming. Students start at the right stage and build working programs from the beginning.",
+        "ctaTrial": "Book a Trial Class",
+        "ctaPrograms": "See Python stages",
+        "facts": {
+          "grades": {
+            "label": "Grades",
+            "value": "5–12"
+          },
+          "level": {
+            "label": "Skill level",
+            "value": "Beginner–Advanced"
+          },
+          "format": {
+            "label": "Class size",
+            "value": "Small groups of 8–12"
+          },
+          "mode": {
+            "label": "Options",
+            "value": "Dublin center + live online"
+          }
+        }
+      }
+    },
+    "appDevDetail": {
+      "hero": {
+        "badge": "App development · Grades 6–12",
+        "headlineLine1": "Build apps students",
+        "headlineLine2": "can actually show.",
+        "subtext": "A project-based app development path for students who want to turn ideas into webpages, interfaces, and interactive products while learning modern coding fundamentals.",
+        "ctaTrial": "Book a Trial Class",
+        "ctaPrograms": "See app stages",
+        "facts": {
+          "grades": {
+            "label": "Grades",
+            "value": "6–12"
+          },
+          "level": {
+            "label": "Skill level",
+            "value": "Beginner–Advanced"
+          },
+          "format": {
+            "label": "Class size",
+            "value": "Small groups"
+          },
+          "mode": {
+            "label": "Options",
+            "value": "Dublin center + live online"
+          }
+        }
+      }
+    },
+    "mlAiDetail": {
+      "hero": {
+        "badge": "ML / AI coding · Grades 7–12",
+        "headlineLine1": "Move from Python into",
+        "headlineLine2": "real AI projects.",
+        "subtext": "A machine learning and AI coding path for students who are ready to apply Python concepts to datasets, models, generative AI tools, and explainable capstone projects.",
+        "ctaTrial": "Book a Trial Class",
+        "ctaPrograms": "See AI stages",
+        "facts": {
+          "grades": {
+            "label": "Grades",
+            "value": "7–12"
+          },
+          "level": {
+            "label": "Skill level",
+            "value": "Python-ready"
+          },
+          "format": {
+            "label": "Class size",
+            "value": "Small groups"
+          },
+          "mode": {
+            "label": "Options",
+            "value": "Dublin center + live online"
+          }
+        }
+      }
+    },
     "hero": {
-      "badge": "Coding programs · Ages 10–18",
-      "headline": "Real skills. Real projects. A journey that lasts years.",
-      "headlineLine1": "Real skills. Real projects.",
-      "headlineLine2": "A journey that lasts years.",
-      "subtext": "Structured coding journeys for parents who want serious skills for their 10–18 year olds—from first Python scripts to building ML/AI and full applications.",
-      "ctaPrograms": "See coding programs",
-      "ctaAlt": "Looking for game dev?"
+      "badge": "Python programming · Grades 5–12",
+      "headline": "Turn screen time into real Python projects.",
+      "headlineLine1": "Turn screen time into",
+      "headlineLine2": "real Python projects.",
+      "subtext": "A Python-first coding program for students preparing for high school computer science, AI, data science, and real text-based programming. Students start at the right stage and build working programs from the beginning.",
+      "ctaTrial": "Book a Trial Class",
+      "ctaPrograms": "See Python stages",
+      "ctaAlt": "Looking for game dev?",
+      "facts": {
+        "grades": {
+          "label": "Grades",
+          "value": "5–12"
+        },
+        "level": {
+          "label": "Skill level",
+          "value": "Beginner–Advanced"
+        },
+        "format": {
+          "label": "Class size",
+          "value": "Small groups of 8–12"
+        },
+        "mode": {
+          "label": "Options",
+          "value": "Dublin center + live online"
+        }
+      }
+    },
+    "why": {
+      "eyebrow": "Why Python first",
+      "title": "Python is the practical bridge into high school computer science.",
+      "subtitle": "Parents do not need another vague coding class. They need a path that helps students become comfortable with real syntax, debugging, and computational thinking before CS courses, AI projects, and college-prep expectations get more serious.",
+      "items": {
+        "school": {
+          "title": "Built for school readiness",
+          "body": "Python reinforces variables, expressions, order of operations, ratios, percents, and the logical thinking students need before high school computer science."
+        },
+        "syntax": {
+          "title": "Real code from session one",
+          "body": "Students write text-based Python, not block-only projects, with enough structure for beginners to avoid getting stuck silently."
+        },
+        "ai": {
+          "title": "The on-ramp to AI and data science",
+          "body": "Python is the language students will keep seeing in machine learning, automation, data work, and modern AI projects."
+        }
+      }
+    },
+    "pathway": {
+      "eyebrow": "Python pathway",
+      "title": "One program, three stages, clear proof of progress.",
+      "subtitle": "Students do not all start in the same place. The trial helps us understand the right stage, then students keep advancing inside the same Python path.",
+      "placement": "Start by skill, not just age",
+      "stageLabel": "Stage {number}",
+      "buildLabel": "They build",
+      "stages": {
+        "beginner": {
+          "title": "First Real Code",
+          "body": "For first-time coders ready to move into real Python syntax with guided practice.",
+          "build": "A playable quiz game with scoring"
+        },
+        "intermediate": {
+          "title": "Structured Programs",
+          "body": "For students who know basics and need stronger logic, functions, and data handling.",
+          "build": "A savings and interest calculator"
+        },
+        "advanced": {
+          "title": "Real Applications",
+          "body": "For students ready to organize larger programs and build application-level projects.",
+          "build": "A records-management application"
+        }
+      },
+      "skillsTitle": "What students learn along the way",
+      "skillsBody": "The curriculum moves from first scripts into structured programming and application design, while keeping each milestone tied to something students can run, test, and improve.",
+      "skills": {
+        "scripts": "Variables, data types, input/output",
+        "logic": "Conditionals and loops",
+        "functions": "Functions and reusable code",
+        "data": "Lists, dictionaries, sets, tuples",
+        "files": "File handling with real data",
+        "oop": "Object-oriented programming",
+        "architecture": "Modules and program architecture",
+        "algorithms": "Algorithms and problem decomposition"
+      }
+    },
+    "jobs": {
+      "eyebrow": "Built around the parent job",
+      "title": "Why parents choose a Python trial first.",
+      "subtitle": "The first decision is not which tier to buy. It is whether this is the right level, right motivation, and right kind of coding for your child.",
+      "items": {
+        "futureReady": {
+          "title": "I want screen time to become skill time.",
+          "body": "Python gives students a productive way to use technology: writing, testing, debugging, and improving programs they made themselves."
+        },
+        "rightLevel": {
+          "title": "I need to know where they should start.",
+          "body": "A trial class helps us see whether your child belongs in first real code, structured programs, or advanced applications."
+        },
+        "motivation": {
+          "title": "I want them to stay interested long enough to improve.",
+          "body": "Each stage connects Python concepts to visible projects, so students can show progress at home instead of only talking about syntax."
+        },
+        "proof": {
+          "title": "I want evidence this is more than screen time.",
+          "body": "Working projects, stage milestones, and parent updates make growth visible as students move from first scripts to stronger independent builds."
+        }
+      }
     },
     "programs": {
-      "title": "Coding learning journeys",
-      "subtitle": "Choose a track to see the full journey, tiers, and optional add-ons.",
+      "eyebrow": "After the Python foundation",
+      "title": "Continue into AI, app development, or deeper Python.",
+      "subtitle": "Python is the main entry point. As students advance, they can keep building in Python or branch into machine learning, generative AI, and application development.",
       "error": "We couldn’t load program pricing. Please refresh or try again later."
     }
   },
@@ -1021,8 +1301,8 @@
     }
   },
   "enrollnow": {
-    "h1": "Start Your Enrollment Today",
-    "metaDescription": "Enroll your child in GrowWise Grades 1-12 tutoring and STEAM programs. Choose from academic and STEM options. Fill out the form and we’ll guide you within 24 hours."
+    "h1": "Enroll at GrowWise School — Dublin, CA",
+    "metaDescription": "Enroll your child at GrowWise — grades 1–12 tutoring and STEAM programs in Dublin, CA. Fill out the form and we'll respond within 24 hours."
   },
   "notFound": {
     "title": "Page not found",
@@ -1030,4 +1310,3 @@
     "backToHome": "Back to home"
   }
 }
-

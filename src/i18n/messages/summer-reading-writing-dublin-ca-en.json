@@ -1,0 +1,118 @@
+{
+  "hero": {
+    "eyebrow": "Summer 2026 · Dublin, CA · Grades 1–8",
+    "h1": "Summer Reading & Writing Programs in Dublin, CA",
+    "subtext": "Focused daily instruction in reading comprehension and writing — not a camp, not tutoring. A 2-week academic sprint for Grades 1–8 in small groups of max 8 students.",
+    "ctaLabel": "View schedule & pricing →"
+  },
+  "keyDetails": ["90 min/day", "Max 8 students", "Starts June 15", "4564 Dublin Blvd"],
+  "bodySections": {
+    "whatYourChildWillWorkOn": {
+      "heading": "What your child will work on",
+      "subsections": [
+        {
+          "h3": "Read to Prove — Week by Week",
+          "weeks": [
+            {
+              "title": "Week 1 — Finding the evidence:",
+              "body": "Students learn to identify the main idea in a passage and locate the specific sentences that support it. The instructor models how to distinguish relevant evidence from detail — a skill most comprehension tests measure directly. Students practice with grade-level nonfiction and fiction texts, writing short written responses using the evidence they find."
+            },
+            {
+              "title": "Week 2 — Proving the answer:",
+              "body": "Students apply what they built in Week 1 to multi-paragraph texts and longer reading passages. Focus shifts to inference — answering questions the text doesn't state directly but implies. By the end of Week 2, students leave with a repeatable method for approaching any comprehension question."
+            }
+          ]
+        },
+        {
+          "h3": "Write to Explain — Week by Week",
+          "weeks": [
+            {
+              "title": "Week 1 — Building the sentence:",
+              "body": "Students work on the mechanics of clear writing — complete sentences, subject-verb agreement, and how to write a topic sentence that actually tells the reader something. The instructor identifies common errors in each student's writing and addresses them directly."
+            },
+            {
+              "title": "Week 2 — Building the paragraph and beyond:",
+              "body": "Students expand single sentences into structured paragraphs using a consistent format — topic sentence, supporting details, closing sentence. By the end of Week 2, students can write a short multi-paragraph response with a clear structure and minimal errors."
+            }
+          ]
+        }
+      ]
+    },
+    "whoTeaches": {
+      "heading": "Who teaches this program",
+      "body": "Read to Prove and Write to Explain are led by subject-trained reading and writing instructors — not general camp counselors. Each instructor has direct experience teaching literacy at the grade levels they cover. Groups are capped at 8 students so the instructor can give specific feedback to each student's work, not just general instruction to the group."
+    },
+    "whoIsRightFor": {
+      "heading": "Who this is right for",
+      "groups": [
+        {
+          "label": "Read to Prove is right for your child if:",
+          "items": [
+            "They score lower on reading comprehension than on vocabulary or fluency",
+            "They struggle to answer \"how do you know?\" questions",
+            "They read every word but still miss the main idea",
+            "Their teacher has flagged text evidence as a weakness"
+          ]
+        },
+        {
+          "label": "Write to Explain is right for your child if:",
+          "items": [
+            "They say \"I don't know what to write\" when given a prompt",
+            "Their writing is one or two sentences when a paragraph is expected",
+            "They write the ideas but not in a clear order",
+            "Their essays lack a clear beginning, middle, and end"
+          ]
+        }
+      ]
+    },
+    "whyGrowWise": {
+      "heading": "Why GrowWise for reading and writing",
+      "body": "Dublin and Pleasanton families have strong academic expectations — and summer reading and writing programs in the Tri-Valley tend to fall into one of two extremes: full-day camps with light academic content, or expensive one-on-one tutoring. GrowWise Academic Summer Sprint is neither. It is a structured 90-minute daily program designed specifically to close skill gaps in reading comprehension and writing before the next school year. Small enough to give your child real feedback. Focused enough to make a difference in two weeks."
+    }
+  },
+  "mainCta": {
+    "headline": "Ready to reserve a spot?",
+    "subtext": "Select your cohort and grade band on the full program page.",
+    "button": "View full schedule & pricing →"
+  },
+  "relatedPrograms": {
+    "heading": "Related summer programs",
+    "hubLinkLabel": "View all programs & pricing →",
+    "items": {
+      "mathFoundations": {
+        "label": "Summer Math Foundations",
+        "description": "Bridge the Gap Math · Grades 1–8 · evenings"
+      },
+      "algebra": {
+        "label": "Algebra 1 Get Ready",
+        "description": "Grades 7–8 · Mon/Wed/Fri evenings"
+      },
+      "geometry": {
+        "label": "Geometry Get Ready",
+        "description": "Grades 9–10 · proofs & spatial reasoning prep"
+      }
+    }
+  },
+  "faq": [
+    {
+      "question": "What is the difference between Read to Prove and Write to Explain?",
+      "answer": "Read to Prove focuses on reading comprehension — finding the main idea, making inferences, and using text evidence to support answers. Write to Explain focuses on writing — sentence structure, paragraph writing, essays, and revision. Both run at the same evening time, so students enroll in one or both across different cohorts."
+    },
+    {
+      "question": "Are these programs DUSD aligned?",
+      "answer": "Both programs follow Common Core standards and are designed to prepare students for DUSD and PUSD grade-level reading and writing expectations in fall."
+    },
+    {
+      "question": "How many students are in each group?",
+      "answer": "Each group is capped at 8 students. Sessions run 90 minutes daily — 60 minutes of instruction plus a 30-minute guided practice lab included at no extra cost."
+    },
+    {
+      "question": "Can my child enroll in both Read to Prove and Write to Explain?",
+      "answer": "Yes — but not in the same session. Read to Prove and Write to Explain both run 4:30–6:00 PM daily, so a student cannot attend both on the same day. However, a student can enroll in Read to Prove for Cohort 1 and Write to Explain for Cohort 2, or alternate based on which skill needs more support."
+    },
+    {
+      "question": "What if my child is in a different grade than listed?",
+      "answer": "The Grades 1–8 range covers a wide skill spectrum. The instructor groups students by skill level within the session, not strictly by grade. If your child is in Grade 9 but needs reading comprehension support, contact us at (925) 456-4606 to confirm fit before enrolling."
+    }
+  ]
+}

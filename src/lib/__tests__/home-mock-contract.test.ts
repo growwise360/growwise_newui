@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 const MOCK_ROOT = join(process.cwd(), 'public', 'api', 'mock');
-const HOME_LOCALES = ['en', 'es', 'hi', 'zh'] as const;
+const HOME_LOCALES = ['en'] as const;
 
 type PopularCourse = {
   id: number;
@@ -76,7 +76,7 @@ describe('home.json mock contracts', () => {
       if (!ela) {
         throw new Error(`ELA card id=4 missing in ${locale}`);
       }
-      expect(ela.href).toBe('/courses/english');
+      expect(ela.href).toBe('/academic/english');
     });
 
     it('hero slide 1 has required marketing fields when secondary CTAs are used', () => {

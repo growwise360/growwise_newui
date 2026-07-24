@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+X-DNS-Prefetch-Control: on
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+cache-control: public, max-age=86400, s-maxage=86400
+content-type: image/webp
+Date: Fri, 12 Jun 2026 20:49:47 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+

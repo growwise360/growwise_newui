@@ -7,10 +7,56 @@ import {
   Target, 
   BookMarked, 
   UserCheck,
-  Calendar
+  Calendar,
+  CalendarDays,
+  Download
 } from 'lucide-react';
 import { VariantStyles, type MenuItem } from './types';
 import { CONTACT_INFO } from '@/lib/constants';
+import { CHATBOT_PUBLIC_CONTACT_EMAIL } from '@/lib/chatbotScope';
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
+import type { SubmenuItem } from './types';
+
+/** Grade-band links under Academic → Math (desktop flyout + mobile accordion). */
+export const MATH_GRADE_BAND_NAV_ITEMS: SubmenuItem[] = [
+  {
+    key: 'elementary-math',
+    title: 'Elementary Math',
+    description: 'Grades 1–5 foundations, problem solving, and confidence building.',
+    icon: 'Calculator',
+    href: MATH_COURSE_PATHS.elementary,
+    gradient: 'from-[#1F396D] to-[#29335C]',
+  },
+  {
+    key: 'middle-school-math',
+    title: 'Middle School Math',
+    description: 'Grades 6–8, Course 1–3, accelerated math, IM1, and IM2.',
+    icon: 'BookOpen',
+    href: MATH_COURSE_PATHS.middleSchool,
+    gradient: 'from-[#1F396D] to-[#F16112]',
+  },
+  {
+    key: 'high-school-math',
+    title: 'High School Math',
+    description:
+      'Algebra, Geometry, Algebra II, Precalculus, Calculus, and Statistics.',
+    icon: 'GraduationCap',
+    href: MATH_COURSE_PATHS.highSchool,
+    gradient: 'from-[#29335C] to-[#1F396D]',
+  },
+];
+
+/** Grade-band links under Academic → English (desktop flyout + mobile accordion). */
+export const ENGLISH_SUBMENU_NAV_ITEMS: SubmenuItem[] = [
+  {
+    key: 'elementary-english',
+    title: 'Elementary School English',
+    description: 'Grades 1–5 reading fluency, vocabulary, grammar, and writing.',
+    icon: 'BookOpen',
+    href: MATH_COURSE_PATHS.englishElementary,
+    gradient: 'from-[#F16112] to-[#F1894F]',
+  },
+];
 
 // Icon mapping for dynamic icon rendering
 export const ICON_MAP = {
@@ -22,7 +68,8 @@ export const ICON_MAP = {
   Target,
   BookMarked,
   UserCheck,
-  Calendar
+  Calendar,
+  Download
 } as const;
 
 // Variant-based styles
@@ -47,7 +94,7 @@ export const VARIANT_STYLES: Record<string, VariantStyles> = {
 export const DEFAULT_HEADER_DATA = {
   topBar: {
     phone: CONTACT_INFO.phone,
-    email: CONTACT_INFO.email,
+    email: CHATBOT_PUBLIC_CONTACT_EMAIL,
     address: CONTACT_INFO.formattedAddress,
     followLabel: 'Follow us:',
     social: {
@@ -74,7 +121,6 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
     label: 'Home',
     href: '/',
     type: 'simple',
-    active: true,
     variant: 'blue',
   },
   {
@@ -88,57 +134,30 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
       subtitle: 'Choose your learning path',
       items: [
         {
-          key: 'courses',
-          title: 'Courses',
-          description: 'Browse our academic courses',
-          icon: 'BookOpen',
-          href: '/courses',
-          gradient: 'from-[#1F396D] to-[#F16112]',
+          key: 'math',
+          title: 'Math',
+          description:
+            'School-aligned math support from foundations to advanced tracks.',
+          icon: 'Calculator',
+          href: MATH_COURSE_PATHS.hub,
+          gradient: 'from-[#1F396D] to-[#29335C]',
           hasSubmenu: true,
-          submenuItems: [
-            {
-              key: 'math',
-              title: 'Math Courses',
-              description: 'Master mathematics from basics to advanced',
-              icon: 'Calculator',
-              href: '/courses/math',
-              gradient: 'from-[#1F396D] to-[#29335C]',
-            },
-            {
-              key: 'english',
-              title: 'English Courses',
-              description: 'Comprehensive English language arts',
-              icon: 'BookOpen',
-              href: '/courses/english',
-              gradient: 'from-[#F16112] to-[#F1894F]',
-            },
-          ],
+          submenuHeaderTitle: 'Math',
+          submenuHeaderSubtitle: 'Grades 1–12 math programs',
+          submenuItems: MATH_GRADE_BAND_NAV_ITEMS,
         },
         {
-          key: 'highSchoolMath',
-          title: 'High School Math',
-          description: 'Advanced mathematics for high school students',
-          icon: 'GraduationCap',
-          href: '/courses/high-school-math',
-          gradient: 'from-[#29335C] to-[#1F396D]',
+          key: 'english',
+          title: 'English Courses',
+          description:
+            'Reading, writing, grammar, vocabulary, and comprehension.',
+          icon: 'BookOpen',
+          href: MATH_COURSE_PATHS.english,
+          gradient: 'from-[#F16112] to-[#F1894F]',
           hasSubmenu: true,
-          submenuHeaderSubtitle: 'Tutoring, curriculum, and finals prep',
-          submenuItems: [
-            {
-              title: 'High School Math',
-              description: 'Algebra I through Pre-Calculus — tutoring overview',
-              icon: 'GraduationCap',
-              href: '/courses/high-school-math',
-              gradient: 'from-[#29335C] to-[#1F396D]',
-            },
-            {
-              title: 'Math Finals Prep',
-              description: 'End-of-year finals support & structured prep program',
-              icon: 'Target',
-              href: '/math-finals-practice-session',
-              gradient: 'from-[#1F396D] to-[#F16112]',
-            },
-          ],
+          submenuHeaderTitle: 'English',
+          submenuHeaderSubtitle: 'Grades 1–12 English programs',
+          submenuItems: ENGLISH_SUBMENU_NAV_ITEMS,
         },
         {
           key: 'satPrep',
@@ -156,92 +175,127 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           href: '/book-assessment',
           gradient: 'from-[#F16112] to-[#1F396D]',
         },
-        {
-          key: 'enrollAcademic',
-          title: 'Enroll Now - Academic',
-          description: 'Register for academic programs today',
-          icon: 'UserCheck',
-          href: '/enroll-academic',
-          gradient: 'from-[#1F396D] to-[#F16112]',
-        },
       ],
     },
   },
   {
     key: 'steam',
-    label: 'STEAM',
-    href: '/steam',
+    label: 'Coding & AI',
+    href: '/future-skills',
     type: 'dropdown',
     variant: 'orange',
     dropdown: {
-      title: 'STEAM Programs',
-      subtitle: 'Explore science, technology, and creativity',
+      title: 'Certification Pathways',
+      subtitle: 'Project-first pathways with optional external credentials',
       items: [
         {
-          key: 'mlAi',
-          title: 'ML/AI Coding',
-          description: 'Explore artificial intelligence and machine learning',
-          icon: 'Brain',
-          href: '/steam/ml-ai-coding',
+          key: 'designCreativeMedia',
+          title: 'Design & Creative Media',
+          description: 'Creative design, visual communication, portfolio projects, and Adobe certification pathway.',
+          icon: 'Palette',
+          href: '/future-skills/design-creative-media',
           gradient: 'from-[#1F396D] to-[#F16112]',
         },
         {
-          key: 'gameDev',
-          title: 'Game Development',
-          description: 'Create games with Roblox, Scratch, and Unity',
-          icon: 'Gamepad2',
-          href: '/steam/game-development',
+          key: 'pythonCertification',
+          title: 'Python Certification',
+          description: 'Python fundamentals, project fluency, Certiport Python pathway, and PCEP/OpenEDG pathway in progress.',
+          icon: 'Code2',
+          href: '/future-skills/python-certification',
+          gradient: 'from-[#1F396D] to-[#29335C]',
+        },
+        {
+          key: 'aiData',
+          title: 'AI & Data / Artificial Intelligence',
+          description: 'AI literacy, responsible AI use, data concepts, Python for AI, and artificial intelligence certification pathway.',
+          icon: 'Brain',
+          href: '/future-skills/ai-machine-learning',
+          gradient: 'from-[#29335C] to-[#1F396D]',
+        },
+        {
+          key: 'aiEntrepreneur',
+          title: 'AI Entrepreneur',
+          description: 'Problem discovery, AI-assisted product thinking, landing pages, business models, pitch practice, and entrepreneurship certification pathway.',
+          icon: 'BriefcaseBusiness',
+          href: '/future-skills/ai-entrepreneurship',
           gradient: 'from-[#F16112] to-[#F1894F]',
         },
       ],
     },
   },
   {
-    key: 'camps',
-    label: 'Camps',
-    href: '/camps',
+    key: 'resources',
+    label: 'Resources',
+    href: '/resources',
     type: 'dropdown',
     variant: 'orange',
     dropdown: {
-      title: 'Camps & Programs',
-      subtitle: 'Join our exciting camp experiences',
+      title: 'Resources',
+      subtitle: 'Parent guides, articles, and quick checks',
       items: [
         {
-          key: 'summerCamp',
-          title: 'Summer Camp',
-          description: 'Accredited summer programs in Math, Coding, and Robotics',
-          icon: 'Calendar',
-          href: '/camps/summer',
+          key: 'parentsCorner',
+          title: "Parent's Corner",
+          description: 'Guides for learning gaps, tutoring choices, and school readiness.',
+          icon: 'BookOpen',
+          href: '/resources',
+          gradient: 'from-[#1F396D] to-[#29335C]',
+        },
+        {
+          key: 'parentDownloads',
+          title: 'Parent Downloads',
+          description: 'Free Math and English study plans parents can use at home.',
+          icon: 'Download',
+          href: '/resources/downloads',
           gradient: 'from-[#F16112] to-[#F1894F]',
+          badge: 'Free',
+        },
+        {
+          key: 'blogs',
+          title: 'Blogs',
+          description: 'GrowWise articles on learning, confidence, coding, and school support.',
+          icon: 'BookMarked',
+          href: '/growwise-blogs',
+          gradient: 'from-[#29335C] to-[#1F396D]',
+        },
+        {
+          key: 'readinessCheck',
+          title: '5-Minute Readiness Check',
+          description: 'Quick back-to-school checklist for math and learning gaps.',
+          icon: 'UserCheck',
+          href: '/readinesschecklist',
+          gradient: 'from-[#F16112] to-[#F1894F]',
+          badge: 'Free',
+        },
+        {
+          key: 'mathMistakeSelfCheck',
+          title: 'Math Mistake Self-Check',
+          description: 'Find the pattern behind repeated math mistakes.',
+          icon: 'Target',
+          href: '/self-check',
+          gradient: 'from-[#29335C] to-[#F16112]',
         },
         {
           key: 'workshopCalendar',
-          title: 'Book Workshop/Webinar',
-          description: 'Browse and book upcoming workshops and webinars',
-          icon: 'BookMarked',
+          title: 'Workshop Calendar',
+          description: 'Upcoming workshops, webinars, and parent events at GrowWise.',
+          icon: 'CalendarDays',
           href: '/workshop-calendar',
-          gradient: 'from-[#1F396D] to-[#29335C]',
+          gradient: 'from-[#1D9E75] to-[#1F396D]',
         },
       ],
     },
   },
   {
-    key: 'blogs',
-    label: 'Blogs',
-    href: '/growwise-blogs',
-    type: 'simple',
-    variant: 'orange',
-  },
-  {
     key: 'about',
-    label: 'About Us',
+    label: 'About',
     href: '/about',
     type: 'simple',
     variant: 'orange',
   },
   {
     key: 'contact',
-    label: 'Contact Us',
+    label: 'Contact',
     href: '/contact',
     type: 'simple',
     variant: 'orange',

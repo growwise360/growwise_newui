@@ -31,7 +31,7 @@
     {
       "icon": "Mail",
       "title": "Email Us",
-      "primary": "connect@thegrowwise.com",
+      "primary": "contact@growwiseschool.org",
       "secondary": "Response within 24 hours",
       "description": "Get detailed information about our programs",
       "bgColor": "bg-[#F16112]"
@@ -55,7 +55,7 @@
   ],
   "officeHours": [
     { "day": "Monday - Friday", "hours": "9:00 AM - 7:00 PM", "isOpen": true },
-    { "day": "Saturday", "hours": "10:00 AM - 4:00 PM", "isOpen": false },
+    { "day": "Saturday", "hours": "10:00 AM - 4:00 PM", "isOpen": true },
     { "day": "Sunday", "hours": "Closed", "isOpen": false }
   ],
   "faqs": [
@@ -76,7 +76,7 @@
   "locationDetails": {
     "address": "4564 Dublin Blvd, Dublin, CA 94568",
     "phone": "(925) 456-4606",
-    "email": "connect@thegrowwise.com",
+    "email": "contact@growwiseschool.org",
     "googleMapsUrl": "https://www.google.com/maps/place/4564+Dublin+Blvd,+Dublin,+CA+94568",
     "directionsUrl": "https://www.google.com/maps/dir//4564+Dublin+Blvd,+Dublin,+CA+94568"
   }

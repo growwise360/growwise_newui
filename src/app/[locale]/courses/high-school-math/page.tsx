@@ -1,7 +1,10 @@
-"use client";
+import { MATH_COURSE_PATHS } from '@/lib/math-course-paths';
+import { AcademicRedirectPage } from '@/lib/academic-redirect-page';
 
-import HighSchoolMathPage from '../../../../components/HighSchoolMathPage';
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
 
-export default function HighSchoolMathPageRoute() {
-  return <HighSchoolMathPage />;
+export default function LegacyHighSchoolMathRedirectPage(props: PageProps) {
+  return <AcademicRedirectPage {...props} targetPath={MATH_COURSE_PATHS.highSchool} />;
 }

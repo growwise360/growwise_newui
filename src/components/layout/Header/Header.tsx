@@ -9,7 +9,13 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchHeaderRequested } from '@/store/slices/headerSlice';
 import { useCart } from '@/components/gw/CartContext';
 import { useDropdownState, useMobileMenu } from './hooks';
-import { createLocaleUrl, getVisibleMenuItems, isCartHiddenOnPath } from './utils';
+import {
+  createLocaleUrl,
+  getVisibleMenuItems,
+  isCartHiddenOnPath,
+  mergeRoboticsCampNavMenu,
+  normalizeAcademicMathNav,
+} from './utils';
 import { DEFAULT_HEADER_DATA, FALLBACK_MENU_ITEMS } from './constants';
 import TopBar from './TopBar';
 import Navigation from './Navigation';
@@ -29,6 +35,7 @@ export default function Header() {
     openDropdown,
     scheduleCloseDropdown,
     toggleDropdown,
+    closeAllDropdowns,
     onSubmenuToggle,
     onSubmenuEnter,
     onSubmenuLeave
@@ -42,7 +49,9 @@ export default function Header() {
 
   // Get menu items from Redux store (backend); fallback to frontend when missing
   const allMenuItems = header?.menuItems?.length ? header.menuItems : FALLBACK_MENU_ITEMS;
-  const menuItems = getVisibleMenuItems(allMenuItems);
+  const menuItems = getVisibleMenuItems(
+    mergeRoboticsCampNavMenu(normalizeAcademicMathNav(allMenuItems), pathname),
+  );
 
   // Create locale-aware URL helper
   const createLocaleUrlHelper = (path: string) => createLocaleUrl(path, locale);
@@ -52,6 +61,18 @@ export default function Header() {
   useEffect(() => {
     if (!header) dispatch(fetchHeaderRequested());
   }, [dispatch, header]);
+
+  useEffect(() => {
+    const headerEl = document.querySelector('.header-root');
+    if (!headerEl) return;
+
+    const onScroll = () => {
+      headerEl.classList.toggle('header-scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Get header data with fallbacks
   const topPhone = header?.topBar.phone ?? DEFAULT_HEADER_DATA.topBar.phone;
@@ -64,8 +85,8 @@ export default function Header() {
 
   return (
     <header className="header-root">
-      {/* Top Header Bar */}
-      <div>
+      {/* Top Header Bar — desktop/tablet only; reduces mobile header stack height */}
+      <div className="max-md:hidden">
         <TopBar
           phone={topPhone}
           email={topEmail}
@@ -76,18 +97,19 @@ export default function Header() {
       </div>
 
       {/* Main Navigation */}
-      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="header-mainrow flex-wrap lg:flex-nowrap">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 overflow-x-clip">
+        <div className="header-mainrow lg:flex-nowrap">
           {/* Logo — flex-shrink-0 keeps the logo visible when nav is long */}
-          <div className="flex items-center flex-shrink-0">
-            <Link href={createLocaleUrlHelper('/')} className="cursor-pointer" aria-label="GrowWise home">
+          <div className="header-logo-wrap">
+            <Link href={createLocaleUrlHelper('/')} prefetch={false} className="cursor-pointer" aria-label="GrowWise home">
               <Image
                 src="/assets/growwise-logo.png"
                 alt="GrowWise"
                 className="header-logo"
                 width={230}
                 height={90}
-                priority
+                sizes="(max-width: 640px) 120px, 280px"
+                fetchPriority="low"
               />
             </Link>
           </div>
@@ -100,6 +122,7 @@ export default function Header() {
             onDropdownEnter={openDropdown}
             onDropdownLeave={scheduleCloseDropdown}
             onDropdownToggle={toggleDropdown}
+            onDropdownNavigate={closeAllDropdowns}
             onSubmenuToggle={onSubmenuToggle}
             onSubmenuEnter={onSubmenuEnter}
             onSubmenuLeave={onSubmenuLeave}

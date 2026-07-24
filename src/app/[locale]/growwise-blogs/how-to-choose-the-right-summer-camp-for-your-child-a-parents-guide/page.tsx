@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, generateArticleSchema } from '@/lib/seo/structuredData'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { generateArticleSchema } from '@/lib/seo/structuredData'
 import Link from 'next/link'
 import { BlogImage } from '@/components/blogs/BlogImage'
 import { getS3ImageUrl } from '@/lib/constants'
@@ -8,6 +9,8 @@ import { ArrowLeft, Calendar, User, BookOpen, CheckCircle, Target, Users, Clock,
 import { Button } from '@/components/ui/button'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
+import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { LegacyBlogAeoBlock, LegacyBlogAeoJsonLd } from '@/components/blogs/LegacyBlogAeoBlock'
 
 // Image path - update this to your actual image location
 // Option 1: Local image in public folder: '/images/blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide.webp'
@@ -19,8 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = getCanonicalSiteUrl()
   return { 
     title: 'Choosing a Summer Camp | Parents | GrowWise', 
-    description:
-      'Pick a summer camp that fits your child: interests, schedule, safety, and learning outcomes—before you pay a deposit.',
+    description: 'A parent guide to choosing the right summer camp by matching interests, safety, structure, challenge level, and confidence-building activities.',
     alternates: {
       canonical: absoluteSiteUrl('/growwise-blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide', locale, baseUrl)
     }
@@ -37,13 +39,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     headline: 'How to Choose the Right Summer Camp for Your Child',
     description: 'Pick a summer camp that fits your child: interests, schedule, safety, and learning outcomes—before you pay a deposit.',
     url: pageUrl,
+    image: `${baseUrl}${BLOG_IMAGE_URL}`,
+    datePublished: '2026-02-10',
+    dateModified: '2026-02-10',
   })
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbItems = [
     { name: 'Home', url: absoluteSiteUrl('/', locale, baseUrl) },
-    { name: 'Blogs', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
+    { name: 'Blog', url: absoluteSiteUrl('/growwise-blogs', locale, baseUrl) },
     { name: 'How to Choose the Right Summer Camp for Your Child', url: pageUrl },
-  ])
+  ]
 
   return (
     <>
@@ -51,10 +56,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <LegacyBlogAeoJsonLd slug="how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide" />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-[#1F396D] via-[#29335C] to-[#1F396D] text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -107,19 +110,39 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Choosing the right summer camp for your child can feel overwhelming, but it doesn't have to be. With so many programs out there, it's important to find a camp that matches your child's <strong>interests, learning goals, and personality</strong>.
               </p>
 
+              <LegacyBlogAeoBlock slug="how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide" />
+
               <p className="text-gray-700 mb-8">
                 Here's a quick guide to help you make the best choice for a meaningful and memorable summer.
               </p>
 
               <p className="text-gray-700 mb-6 text-sm">
-                If you are comparing options locally, start with our current 
+                If you are comparing options locally, start with our current
                 <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   summer camp schedules in Dublin
                 </Link> and program tracks.
               </p>
 
+              <p className="text-gray-700 mb-6 text-sm">
+                Before you choose, understand the stakes:{' '}
+                <Link href={publicPath('/resources/summer-slide-dublin-ca', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
+                  research shows students lose months of progress over summer
+                </Link>
+                . The earlier your child starts, the less ground they lose.
+              </p>
+
+              <div className="bg-blue-50 border-l-4 border-[#1F396D] p-6 rounded-r-lg my-6">
+                <p className="text-gray-700 font-semibold mb-2">Looking for a detailed framework?</p>
+                <p className="text-gray-700 text-sm mb-3">
+                  We've created a comprehensive parent guide with our full checklist for evaluating and choosing summer camps based on your child's goals and needs.
+                </p>
+                <Link href={publicPath('/resources/how-to-choose-summer-camp', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112] text-sm">
+                  Read the full resource guide →
+                </Link>
+              </div>
+
               {/* Featured Image */}
-              <div className="my-8 rounded-xl overflow-hidden shadow-lg bg-gray-50">
+              <figure className="not-prose my-8 overflow-hidden shadow-lg bg-gray-50">
                 <div className="relative w-full" style={{ aspectRatio: '16/9', minHeight: '400px' }}>
                   <BlogImage
                     src={BLOG_IMAGE_URL}
@@ -130,7 +153,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
-              </div>
+                <figcaption className="px-5 py-4 text-sm text-gray-600">
+                  how to choose the right summer camp for your child a parents guide visual guide for GrowWise families.
+                </figcaption>
+              </figure>
 
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">Identify Your Goals</h2>
 
@@ -323,17 +349,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 Don't just choose the most popular camp—choose the one that's the right fit for your child. A thoughtful decision today can lead to a <strong>transformative summer experience</strong> that helps your child grow academically, socially, and emotionally.
               </p>
 
-              <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-8 rounded-xl my-8 text-center">
-                <p className="text-xl font-bold mb-4">
-                  Enroll Today and Unlock Your Kid's Potential!
-                </p>
-                <Link href="/enroll">
-                  <Button className="bg-white text-[#1F396D] hover:bg-gray-100 text-lg px-8 py-6">
-                    Enroll Now
-                  </Button>
-                </Link>
-              </div>
-
             </div>
 
             {/* Back to Blogs Link */}
@@ -349,21 +364,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
         </article>
 
-        {/* CTA Section */}
-        <section className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enroll Today and Unlock Your Kid's Potential!
-            </h2>
-            <Link
-              href="/enroll"
-              className="inline-flex items-center gap-2 mt-6 px-8 py-4 bg-white text-[#1F396D] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Enroll Now
-              <ArrowLeft className="w-5 h-5 rotate-180" />
-            </Link>
-          </div>
-        </section>
+        <BlogPostConversionSection
+          locale={locale}
+          programHref="/camps/summer"
+          programLabel="View Summer Camp Programs"
+        />
       </div>
     </>
   )
