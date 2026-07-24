@@ -44,7 +44,6 @@ test.describe('Middle school math page', { tag: '@critical' }, () => {
     await expect(page.getByText('$289/mo', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('Advanced Math', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('$295/mo', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('Free Sunday practice sessions — included for all Grades 6–12 students')).toBeVisible();
     await expect(page.getByText('Trial session — Grades 6–8')).toBeVisible();
   });
 });

@@ -74,18 +74,15 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
   test('shows updated assessment positioning and Growy intake helper', async ({ page }) => {
     await page.goto(localePath('/book-assessment'));
 
-    await expect(page.getByRole('heading', { name: /Math & English Assessment in Dublin, CA/i })).toBeVisible();
-    await expect(page.getByText(/Leave knowing the likely gap, the right next step/i)).toBeVisible();
-    await expect(page.getByRole('heading', { name: /Free 30-Minute Assessment/i })).toBeVisible();
-    await expect(page.getByRole('heading', { name: /^Full Diagnostic$/i })).toBeVisible();
-    const freeAssessmentOption = page.locator('article').filter({
-      has: page.getByRole('heading', { name: /Free 30-Minute Assessment/i }),
-    });
-    const fullDiagnosticOption = page.locator('article').filter({
-      has: page.getByRole('heading', { name: /^Full Diagnostic$/i }),
-    });
-    await expect(freeAssessmentOption.getByRole('button', { name: /Request Free Assessment/i })).toBeVisible();
-    await expect(fullDiagnosticOption.getByRole('button', { name: /Get Written Diagnostic Plan/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /Free 30-Minute Assessment/i })).toBeVisible();
+    await expect(page.getByText(/Find the exact gap\. Leave with a written plan\. No cost, no pressure\./i)).toBeVisible();
+    await expect(page.getByText(/Leave knowing the exact skill gap\. If we cannot identify it, we.ll run a second session free\./i)).toBeVisible();
+    await expect(page.getByText(/60-Minute Full Diagnostic · \$49/i)).toBeVisible();
+
+    await page.getByText(/60-Minute Full Diagnostic · \$49/i).click();
+    await page.getByRole('button', { name: /Choose Full Diagnostic/i }).click();
+    await expect(page.getByRole('button', { name: /Switch to free assessment/i })).toBeVisible();
+
     await expect(page.getByRole('heading', { name: /Why families choose GrowWise after comparing options/i })).toBeVisible();
 
     await page.locator('#assessment-booking-form').scrollIntoViewIfNeeded();
