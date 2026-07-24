@@ -11,7 +11,9 @@ test.describe('Mobile homepage layout', { tag: '@critical' }, () => {
   for (const viewport of MOBILE_VIEWPORTS) {
     test(`no horizontal overflow at ${viewport.width}px`, async ({ page }) => {
       await page.setViewportSize(viewport);
-      await page.goto(localePath('/'), { waitUntil: 'networkidle' });
+      // domcontentloaded — avoid networkidle (analytics/third-party keeps network busy → flaky timeouts).
+      await page.goto(localePath('/'), { waitUntil: 'domcontentloaded' });
+      await page.locator('button[aria-label="Open menu"]').waitFor({ state: 'visible', timeout: 20_000 });
 
       const layout = await page.evaluate(() => {
         const doc = document.documentElement;

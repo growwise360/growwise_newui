@@ -75,11 +75,11 @@ test.describe('Book assessment form', { tag: '@critical' }, () => {
     await page.goto(localePath('/book-assessment'));
 
     await expect(page.getByRole('heading', { level: 1, name: /Free 30-Minute Assessment/i })).toBeVisible();
-    await expect(page.getByText(/Find the exact gap\. Leave with a written plan\. No cost, no pressure\./i)).toBeVisible();
-    await expect(page.getByText(/Leave knowing the exact skill gap\. If we cannot identify it, we.ll run a second session free\./i)).toBeVisible();
-    await expect(page.getByText(/60-Minute Full Diagnostic · \$49/i)).toBeVisible();
+    await expect(page.getByText(/Find the exact gap\. Leave with a written plan\. No cost, no pressure\./i).first()).toBeVisible();
+    await expect(page.getByText(/Leave knowing the exact skill gap\. If we cannot identify it, we.ll run a second session free\./i).first()).toBeVisible();
+    await expect(page.getByText(/60-Minute Full Diagnostic · \$49/i).first()).toBeVisible();
 
-    await page.getByText(/60-Minute Full Diagnostic · \$49/i).click();
+    await page.getByText(/60-Minute Full Diagnostic · \$49/i).first().click();
     await page.getByRole('button', { name: /Choose Full Diagnostic/i }).click();
     await expect(page.getByRole('button', { name: /Switch to free assessment/i })).toBeVisible();
 
