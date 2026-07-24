@@ -71,7 +71,10 @@ const SMOKEY_CURSOR_READING_SELECTOR = [
 
 export function canRunSmokeyCursorEffect(): boolean {
   if (typeof window === 'undefined') return false;
-  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return (
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  );
 }
 
 export function isSmokeyCursorInteractiveTarget(target: EventTarget | null): boolean {

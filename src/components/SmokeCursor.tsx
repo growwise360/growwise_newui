@@ -51,6 +51,9 @@ export function SmokeyCursorEffect({
     let timerHandle: ReturnType<typeof setTimeout> | undefined;
     let pointerOverQuietArea = false;
     let focusOnQuietArea = false;
+    let pageLoaded = document.readyState === 'complete';
+    let pointerSeen = false;
+    let initializationScheduled = false;
 
     const updateQuietAreaVisibility = () => {
       container?.classList.toggle(
@@ -59,13 +62,39 @@ export function SmokeyCursorEffect({
       );
     };
 
+    const initialize = async () => {
+      try {
+        const { createSmokeyCursorFluid } = await import(
+          '@/lib/effects/smokey-cursor-fluid'
+        );
+        if (cancelled) return;
+        destroyFluid = createSmokeyCursorFluid(canvas, variantOptions);
+      } catch {
+        container?.classList.add('hidden');
+      }
+    };
+
+    const scheduleInitialization = () => {
+      if (initializationScheduled || !pageLoaded || !pointerSeen) return;
+      initializationScheduled = true;
+      if (idleWindow.requestIdleCallback) {
+        idleHandle = idleWindow.requestIdleCallback(() => void initialize(), {
+          timeout: 1200,
+        });
+      } else {
+        timerHandle = setTimeout(() => void initialize(), 0);
+      }
+    };
+
     const onPointerMove = (event: PointerEvent) => {
+      pointerSeen = true;
       pointerOverQuietArea = isSmokeyCursorQuietPoint(
         event.clientX,
         event.clientY,
         event.target,
       );
       updateQuietAreaVisibility();
+      scheduleInitialization();
     };
 
     const onFocusIn = (event: FocusEvent) => {
@@ -82,37 +111,16 @@ export function SmokeyCursorEffect({
     document.addEventListener('focusin', onFocusIn);
     document.addEventListener('focusout', onFocusOut);
 
-    const initialize = async () => {
-      try {
-        const { createSmokeyCursorFluid } = await import(
-          '@/lib/effects/smokey-cursor-fluid'
-        );
-        if (cancelled) return;
-        destroyFluid = createSmokeyCursorFluid(canvas, variantOptions);
-      } catch {
-        container?.classList.add('hidden');
-      }
-    };
-
-    const scheduleInitialization = () => {
-      if (idleWindow.requestIdleCallback) {
-        idleHandle = idleWindow.requestIdleCallback(() => void initialize(), {
-          timeout: 800,
-        });
-      } else {
-        timerHandle = setTimeout(() => void initialize(), 0);
-      }
-    };
-
-    if (document.readyState === 'complete') {
+    const onLoad = () => {
+      pageLoaded = true;
       scheduleInitialization();
-    } else {
-      window.addEventListener('load', scheduleInitialization, { once: true });
-    }
+    };
+
+    if (!pageLoaded) window.addEventListener('load', onLoad, { once: true });
 
     return () => {
       cancelled = true;
-      window.removeEventListener('load', scheduleInitialization);
+      window.removeEventListener('load', onLoad);
       document.removeEventListener('pointermove', onPointerMove);
       document.removeEventListener('focusin', onFocusIn);
       document.removeEventListener('focusout', onFocusOut);

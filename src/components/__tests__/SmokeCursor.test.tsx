@@ -39,7 +39,7 @@ describe('SmokeCursor', () => {
     jest.restoreAllMocks();
   });
 
-  it('renders the light fixed effect on coarse-pointer mobile devices', () => {
+  it('does not run the cursor-only WebGL effect on coarse-pointer mobile devices', () => {
     mockMedia({ coarse: true });
     render(<SmokeCursor />);
 
@@ -47,7 +47,7 @@ describe('SmokeCursor', () => {
     expect(canvas).toHaveAttribute('data-smoke-mode', 'adaptive');
     expect(canvas.parentElement).toHaveAttribute('data-smokey-variant', 'light');
     expect(canvas.parentElement).toHaveClass('fixed', 'z-30');
-    expect(canvas.parentElement).not.toHaveClass('hidden');
+    expect(canvas.parentElement).toHaveClass('hidden');
   });
 
   it('hides the effect when reduced motion is requested', () => {

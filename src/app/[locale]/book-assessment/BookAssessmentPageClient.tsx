@@ -666,6 +666,8 @@ export default function BookAssessmentPageClient() {
               height={900}
               priority
               fetchPriority="high"
+              sizes="100vw"
+              unoptimized
               className="h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/45" aria-hidden />

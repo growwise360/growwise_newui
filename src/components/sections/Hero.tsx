@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
@@ -57,15 +57,6 @@ function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
   const [isSTEAMTrialModalOpen, setIsSTEAMTrialModalOpen] = useState(false);
-
-  // Auto-advance slides
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
@@ -293,4 +284,4 @@ export default function Hero() {
       </div>
     </section>
   );
-} 
+}

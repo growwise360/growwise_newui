@@ -1,13 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 import { useButtonTracking } from '@/lib/analytics/hooks';
 import { RisingSymbols } from './RisingSymbols';
-
-const SLIDE_DURATION_MS = 5000;
 
 const PROGRAM_TICKER_ITEMS = [
   'Summer Camps · Online + In-Person',
@@ -35,8 +33,6 @@ export function HomeHero() {
   const { trackCTAClick } = useButtonTracking();
   const [activeSlide, setActiveSlide] = useState<SlideIndex>(0);
   const [animEpoch, setAnimEpoch] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const bookAssessmentHref = publicPath('/book-assessment', locale);
   const selfCheckHref = publicPath('/self-check', locale);
@@ -48,30 +44,13 @@ export function HomeHero() {
     setAnimEpoch((epoch) => epoch + 1);
   }, []);
 
-  useEffect(() => {
-    if (paused) return;
-    timerRef.current = setTimeout(() => {
-      goToSlide(activeSlide === 0 ? 1 : 0);
-    }, SLIDE_DURATION_MS);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [activeSlide, paused, goToSlide]);
-
   const handleIndicatorClick = (index: SlideIndex) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
     goToSlide(index);
   };
 
   return (
     <div
       className="hero-carousel-inner"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) setPaused(false);
-      }}
     >
       <RisingSymbols activeSlide={activeSlide} />
 
