@@ -128,7 +128,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Is the GrowWise academic assessment free?',
     answer:
-      'Yes. GrowWise offers a free 30-minute assessment for elementary students in Grades 1-4 who need a quick readiness check and recommended next step. Families who want a deeper written review can choose the 60-minute Full Diagnostic for $49.',
+      'Yes. GrowWise offers a free 30-minute assessment for students in Grades 1-12. Families leave with the identified skill gap and a brief written next-step plan. A separate 60-minute Full Diagnostic is available for $49 when a family wants a deeper written report and analysis.',
   },
   {
     question: 'What happens after I book an assessment at GrowWise?',
@@ -138,7 +138,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How long does a GrowWise assessment take?',
     answer:
-      'The free assessment takes about 30 minutes and is best for elementary students in Grades 1-4. The 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a written learning plan.',
+      'The free assessment takes about 30 minutes and is available for students in Grades 1-12. The separate 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a comprehensive written learning plan.',
   },
   {
     question: 'What subjects does the GrowWise assessment cover?',
@@ -148,7 +148,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How do I enroll my child at GrowWise School in Dublin, CA?',
     answer:
-      'Enrollment starts with a free assessment at our Dublin Blvd location: we identify where your child is, what gap is driving the struggle, and whether GrowWise is the right fit. Families who want a deeper written review can add the 60-minute Full Diagnostic for $49. Programs run in 3-month cycles aligned to one full assessment period, with monthly tuition from $169 (Grade 1–2 math) or $289 for most programs. Book at growwiseschool.org/book-assessment or call (925) 456-4606.',
+      'Enrollment starts with a free assessment at our Dublin Blvd location: we identify where your child is, provide a brief written next-step plan, and explain whether GrowWise is the right fit. Families who want a deeper written review can add the 60-minute Full Diagnostic for $49. Programs run in 3-month cycles aligned to one full assessment period, with monthly tuition from $169 (Grade 1–2 math) or $289 for most programs. Book at growwiseschool.org/book-assessment or call (925) 456-4606.',
   },
   {
     question: 'How much does GrowWise cost compared to other tutoring centers?',

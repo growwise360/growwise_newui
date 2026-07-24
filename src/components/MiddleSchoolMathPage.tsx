@@ -10,7 +10,6 @@ import {
   CheckCircle,
   ArrowRight,
   MapPin,
-  Calendar,
   Phone,
   Brain,
 } from 'lucide-react'
@@ -44,13 +43,13 @@ import { getMathHubMinMonthlyUsd } from '@/lib/math-pricing-display'
 import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection'
 import { MathTrialSection } from '@/components/courses/MathTrialSection'
 import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection'
+import { ParentOrientationVideo } from '@/components/form-thank-you/ParentOrientationVideo'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
 import { useLocale } from 'next-intl'
 
 const TRUST_CHIPS = [
   { icon: BookOpen, label: 'Grades 6–8 · district placement' },
-  { icon: Calendar, label: 'Free Sunday practice sessions' },
-  { icon: Users, label: '6–10 students per group' },
+  { icon: Users, label: 'Up to 6 students per group' },
   { icon: Clock, label: 'Starts monthly' },
 ] as const
 
@@ -230,62 +229,62 @@ const MiddleSchoolMathPage: React.FC = () => {
       />
 
       {/* Section 1 — Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-[#F16112]/10 rounded-full blur-3xl animate-pulse" />
-          <div
-            className="absolute bottom-20 right-10 w-80 h-80 bg-[#1F396D]/10 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: '1s' }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto px-4 lg:px-8 py-16 lg:py-24 text-center">
-          <Badge className="mb-4 bg-[#F16112]/10 text-[#F16112] border-[#F16112]/20 hover:bg-[#F16112]/20">
-            Grades 6–8 · Middle school math
-          </Badge>
-          <h1 className="text-3xl lg:text-5xl font-bold text-gray-800 mb-5 leading-tight">
-            Middle school math is where gaps start compounding.
-            <span className="block bg-gradient-to-r from-[#1F396D] to-[#F16112] bg-clip-text text-transparent mt-1">
-              Here&apos;s how to stop it.
-            </span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-4 leading-relaxed">
-            The jump into Course 1, IM1, or IM2 catches many students off guard — not because they are not
-            capable, but because the reasoning demands change faster than most classrooms can address.
-            GrowWise identifies exactly where the gap started and closes it before it compounds further.
-          </p>
-          <p className="max-w-xl mx-auto text-sm text-gray-500 mb-8">
-            District placement in <span className="font-medium text-[#1F396D]">5th grade</span> (Course 1/2
-            or Course 1) and again in <span className="font-medium text-[#F16112]">7th grade</span> (Course
-            3 or IM1) — we prep for the test and the course that follows.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
-            {TRUST_CHIPS.map(({ icon: Icon, label }) => (
-              <div
-                key={label}
-                className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 border border-gray-200/60 text-sm text-gray-700 font-medium shadow-sm"
-              >
-                <Icon className="h-4 w-4 text-[#F16112]" aria-hidden />
-                {label}
-              </div>
-            ))}
+      <section className="bg-[#eef6ff]">
+        <div className="mx-auto grid max-w-6xl gap-x-8 px-4 py-8 text-center lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:grid-rows-[auto_1fr] lg:items-center lg:px-8 lg:py-10 lg:text-left">
+          <div className="lg:col-start-1 lg:row-start-1">
+            <Badge className="mb-3 bg-white/80 text-[#F16112] border-[#F16112]/20 hover:bg-white">
+              Grades 6–8 · Middle school math
+            </Badge>
+            <h1
+              className="text-[1.65rem] font-bold leading-[1.08] text-gray-800 sm:text-3xl lg:text-4xl"
+              data-testid="middle-school-hero-heading"
+            >
+              <span className="block whitespace-nowrap">Middle school math is where</span>
+              <span className="block">gaps start compounding.</span>
+              <span className="mt-1 block bg-gradient-to-r from-[#1F396D] to-[#F16112] bg-clip-text text-transparent">
+                Here&apos;s how to stop it.
+              </span>
+            </h1>
           </div>
+          <ParentOrientationVideo
+            context="middle-school-math"
+            placement="hero"
+          />
 
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Book free assessment
-            </Button>
-            <Link
-              href={publicPath('/self-check', locale)}
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-8 py-4 text-base font-semibold text-[#1F396D] hover:bg-[#1F396D]/5 transition-colors"
-            >
-              Try the free Self-Check
-            </Link>
+          <div className="mt-5 lg:col-start-1 lg:row-start-2">
+            <p className="text-sm leading-6 text-gray-600 lg:max-w-xl">
+              Course 1, IM1, and IM2 move fast. GrowWise finds the exact skill gap and builds the right
+              starting plan before it compounds.
+            </p>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-2 lg:justify-start">
+              {TRUST_CHIPS.map(({ icon: Icon, label }) => (
+                <div
+                  key={label}
+                  className="inline-flex min-h-9 items-center justify-center gap-2 rounded-full border border-blue-100 bg-white/90 px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-[#F16112]" aria-hidden />
+                  {label}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 grid w-full gap-3 sm:grid-cols-2">
+              <Button
+                onClick={openAssessment}
+                className="h-auto min-h-12 w-full justify-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-5 py-3 text-sm font-semibold text-white shadow-md transition-shadow hover:shadow-lg"
+              >
+                <Calculator className="mr-2 h-5 w-5" aria-hidden />
+                Book free assessment
+              </Button>
+              <Link
+                href={publicPath('/self-check', locale)}
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border-2 border-[#1F396D] bg-white/40 px-5 py-3 text-sm font-semibold text-[#1F396D] transition-colors hover:bg-white/70"
+              >
+                <Brain className="h-5 w-5" aria-hidden />
+                Try the free Self-Check
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -350,13 +349,6 @@ const MiddleSchoolMathPage: React.FC = () => {
             Not sure which course fits? The free assessment identifies your child&apos;s starting
             level before the first paid session.
           </p>
-          <Link
-            href={publicPath('/book-assessment', locale)}
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
-          >
-            Book free assessment
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
         </div>
       </section>
 
@@ -485,27 +477,6 @@ const MiddleSchoolMathPage: React.FC = () => {
           onBookAssessment={openAssessment}
         />
       ) : null}
-
-      {/* Section 5 — Sunday sessions */}
-      <section className="bg-[#ebebeb] py-12 lg:py-16">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8">
-          <div className="rounded-xl border border-[#1F396D]/20 bg-blue-50 p-6 lg:p-8 flex flex-col md:flex-row items-start gap-5">
-            <div className="shrink-0 h-12 w-12 rounded-full bg-[#1F396D] flex items-center justify-center">
-              <Calendar className="h-6 w-6 text-white" aria-hidden />
-            </div>
-            <div className="flex-1">
-              <p className="font-bold text-gray-800 text-lg mb-2">
-                Free Sunday practice sessions — included for all Grades 6–12 students
-              </p>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Every enrolled middle school student gets access to free Sunday timed practice sessions.
-                Exam-style problems, structured like school assessments, designed to build test-readiness
-                between paid sessions.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <MathTrialSection config={MIDDLE_SCHOOL_TRIAL} locale={locale} />
 

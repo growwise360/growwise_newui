@@ -8,6 +8,7 @@ import { HeroWrapper } from '../sections/home/HeroWrapper';
 import { HomeHero } from '../sections/home/HomeHero';
 import { HomeAcademicSection } from '../sections/home/HomeAcademicSection';
 import { HomeAssessmentOfferSection } from '../sections/home/HomeAssessmentOfferSection';
+import { HomeDeeperLearningSection } from '../sections/home/HomeDeeperLearningSection';
 import { HomeSocialProofSection } from '../sections/home/HomeSocialProofSection';
 import { HomeDiagnosticSection } from '../sections/home/HomeDiagnosticSection';
 import { HomeFaqSection } from '../sections/home/HomeFaqSection';
@@ -31,9 +32,10 @@ function HomeHeroBlock() {
 function HomeFunnelSections() {
   return (
     <>
-      {/* OASC funnel (online-first): Outcome → Assess → Social proof → Convert expand (STEAM) → Diagnostic exit → Close */}
+      {/* OASC funnel (online-first): Outcome → Assess → Mechanism proof → Social proof → Convert expand (STEAM) → Diagnostic exit → Close */}
       <HomeAcademicSection />
       <HomeAssessmentOfferSection />
+      <HomeDeeperLearningSection />
       <HomeSocialProofSection />
       <HomeSteamSection />
       <HomeDiagnosticSection />

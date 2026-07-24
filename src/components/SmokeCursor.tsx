@@ -1,194 +1,160 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useClientOnly } from '@/hooks/useClientOnly';
+import { useEffect, useRef } from 'react';
+import {
+  canRunSmokeyCursorEffect,
+  getSmokeyVariantOptions,
+  isSmokeyCursorQuietPoint,
+  isSmokeyCursorQuietTarget,
+  type SmokeyCursorVariant,
+} from '@/lib/effects/smokey-cursor-safe';
+import { cn } from '@/lib/utils';
 
-const MAX_PARTICLES = 40;
-const SPAWN_INTERVAL_MS = 32;
-const DPR_CAP = 2;
-
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  alpha: number;
-  decay: number;
-  blur: number;
-  hue: number;
-  sat: number;
+interface SmokeyCursorEffectProps {
+  variant?: SmokeyCursorVariant;
+  className?: string;
+  /** Pin the canvas to the viewport so the effect persists while scrolling. */
+  viewportFixed?: boolean;
 }
 
-function useSmokeCursorEnabled(): boolean {
-  const isClient = useClientOnly();
-  const [enabled, setEnabled] = useState(false);
+type IdleWindow = Window & {
+  requestIdleCallback?: (
+    callback: IdleRequestCallback,
+    options?: IdleRequestOptions,
+  ) => number;
+  cancelIdleCallback?: (handle: number) => void;
+};
+
+export function SmokeyCursorEffect({
+  variant = 'dark',
+  className,
+  viewportFixed = false,
+}: SmokeyCursorEffectProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const desktopMq = window.matchMedia('(min-width: 768px)');
-    const pointerMq = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const motionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const container = containerRef.current;
+    if (!canRunSmokeyCursorEffect()) {
+      container?.classList.add('hidden');
+      return undefined;
+    }
 
-    const update = () => {
-      setEnabled(
-        desktopMq.matches && pointerMq.matches && !motionMq.matches,
+    const canvas = canvasRef.current;
+    if (!canvas) return undefined;
+
+    const idleWindow = window as IdleWindow;
+    const variantOptions = getSmokeyVariantOptions(variant);
+    let cancelled = false;
+    let destroyFluid: (() => void) | undefined;
+    let idleHandle: number | undefined;
+    let timerHandle: ReturnType<typeof setTimeout> | undefined;
+    let pointerOverQuietArea = false;
+    let focusOnQuietArea = false;
+    let pageLoaded = document.readyState === 'complete';
+    let pointerSeen = false;
+    let initializationScheduled = false;
+
+    const updateQuietAreaVisibility = () => {
+      container?.classList.toggle(
+        'smokey-cursor-quiet-paused',
+        pointerOverQuietArea || focusOnQuietArea,
       );
     };
 
-    update();
-    desktopMq.addEventListener('change', update);
-    pointerMq.addEventListener('change', update);
-    motionMq.addEventListener('change', update);
+    const initialize = async () => {
+      try {
+        const { createSmokeyCursorFluid } = await import(
+          '@/lib/effects/smokey-cursor-fluid'
+        );
+        if (cancelled) return;
+        destroyFluid = createSmokeyCursorFluid(canvas, variantOptions);
+      } catch {
+        container?.classList.add('hidden');
+      }
+    };
+
+    const scheduleInitialization = () => {
+      if (initializationScheduled || !pageLoaded || !pointerSeen) return;
+      initializationScheduled = true;
+      if (idleWindow.requestIdleCallback) {
+        idleHandle = idleWindow.requestIdleCallback(() => void initialize(), {
+          timeout: 1200,
+        });
+      } else {
+        timerHandle = setTimeout(() => void initialize(), 0);
+      }
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      pointerSeen = true;
+      pointerOverQuietArea = isSmokeyCursorQuietPoint(
+        event.clientX,
+        event.clientY,
+        event.target,
+      );
+      updateQuietAreaVisibility();
+      scheduleInitialization();
+    };
+
+    const onFocusIn = (event: FocusEvent) => {
+      focusOnQuietArea = isSmokeyCursorQuietTarget(event.target);
+      updateQuietAreaVisibility();
+    };
+
+    const onFocusOut = (event: FocusEvent) => {
+      focusOnQuietArea = isSmokeyCursorQuietTarget(event.relatedTarget);
+      updateQuietAreaVisibility();
+    };
+
+    document.addEventListener('pointermove', onPointerMove, { passive: true });
+    document.addEventListener('focusin', onFocusIn);
+    document.addEventListener('focusout', onFocusOut);
+
+    const onLoad = () => {
+      pageLoaded = true;
+      scheduleInitialization();
+    };
+
+    if (!pageLoaded) window.addEventListener('load', onLoad, { once: true });
 
     return () => {
-      desktopMq.removeEventListener('change', update);
-      pointerMq.removeEventListener('change', update);
-      motionMq.removeEventListener('change', update);
+      cancelled = true;
+      window.removeEventListener('load', onLoad);
+      document.removeEventListener('pointermove', onPointerMove);
+      document.removeEventListener('focusin', onFocusIn);
+      document.removeEventListener('focusout', onFocusOut);
+      if (idleHandle !== undefined && idleWindow.cancelIdleCallback) {
+        idleWindow.cancelIdleCallback(idleHandle);
+      }
+      if (timerHandle !== undefined) clearTimeout(timerHandle);
+      destroyFluid?.();
     };
-  }, []);
+  }, [variant]);
 
-  return isClient && enabled;
-}
-
-function createParticle(x: number, y: number): Particle {
-  const hue = 205 + Math.random() * 15;
-  const sat = 22 + Math.random() * 10;
-
-  return {
-    x: x + (Math.random() - 0.5) * 8,
-    y: y + (Math.random() - 0.5) * 8,
-    vx: (Math.random() - 0.5) * 0.8,
-    vy: (Math.random() - 0.5) * 0.8 - 0.2,
-    radius: 12 + Math.random() * 16,
-    alpha: 0.08 + Math.random() * 0.1,
-    decay: 0.006 + Math.random() * 0.004,
-    blur: 8 + Math.random() * 10,
-    hue,
-    sat,
-  };
-}
-
-function drawParticle(ctx: CanvasRenderingContext2D, p: Particle): void {
-  const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-  gradient.addColorStop(0, `hsla(${p.hue},${p.sat}%,72%,${p.alpha})`);
-  gradient.addColorStop(0.45, `hsla(${p.hue},${p.sat}%,58%,${p.alpha * 0.5})`);
-  gradient.addColorStop(1, `hsla(${p.hue},${p.sat}%,48%,0)`);
-
-  ctx.save();
-  ctx.filter = `blur(${p.blur}px)`;
-  ctx.beginPath();
-  ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-  ctx.fillStyle = gradient;
-  ctx.fill();
-  ctx.restore();
+  return (
+    <div
+      ref={containerRef}
+      aria-hidden="true"
+      data-smokey-variant={variant}
+      className={cn(
+        'pointer-events-none z-30 overflow-hidden',
+        viewportFixed ? 'fixed inset-0 h-dvh w-full' : 'absolute inset-0',
+        variant === 'light' && 'smokey-cursor-light-blend',
+        className,
+      )}
+    >
+      <canvas
+        ref={canvasRef}
+        id="fluid"
+        className="block h-full w-full"
+        data-smoke-mode="adaptive"
+        data-testid="smoke-cursor-canvas"
+      />
+    </div>
+  );
 }
 
 export default function SmokeCursor() {
-  const enabled = useSmokeCursorEnabled();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useLayoutEffect(() => {
-    if (!enabled) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const particles: Particle[] = [];
-    let rafId: number | null = null;
-    let lastSpawn = 0;
-
-    const resize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      if (w === 0 || h === 0) return;
-
-      const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    resize();
-
-    const spawn = (x: number, y: number) => {
-      const spawnCount = Math.random() > 0.5 ? 2 : 1;
-      for (let i = 0; i < spawnCount; i++) {
-        if (particles.length >= MAX_PARTICLES) break;
-        particles.push(createParticle(x, y));
-      }
-    };
-
-    const draw = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      ctx.clearRect(0, 0, w, h);
-
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= p.decay;
-        p.radius *= 1.008;
-
-        if (p.alpha <= 0) {
-          particles.splice(i, 1);
-          continue;
-        }
-
-        drawParticle(ctx, p);
-      }
-
-      if (particles.length > 0) {
-        rafId = requestAnimationFrame(draw);
-      } else {
-        rafId = null;
-      }
-    };
-
-    const ensureLoop = () => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(draw);
-      }
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      const now = performance.now();
-      if (now - lastSpawn >= SPAWN_INTERVAL_MS) {
-        lastSpawn = now;
-        spawn(e.clientX, e.clientY);
-      }
-
-      ensureLoop();
-    };
-
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', onMouseMove);
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMouseMove);
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-      }
-      particles.length = 0;
-      rafId = null;
-    };
-  }, [enabled]);
-
-  if (!enabled) {
-    return null;
-  }
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="smoke-cursor-layer pointer-events-none fixed inset-0 z-30 max-md:hidden"
-      aria-hidden
-    />
-  );
+  return <SmokeyCursorEffect variant="light" viewportFixed />;
 }

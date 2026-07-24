@@ -62,14 +62,7 @@ export async function GET(request: Request) {
   try {
     const base = getBackendBaseUrlForProxy();
     if (!base) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Backend is not configured',
-          message: 'Set NEXT_PUBLIC_BACKEND_URL or run the backend on port 3001.',
-        },
-        { status: 503 },
-      );
+      return NextResponse.json(unavailablePayload(request.url), { status: 200 });
     }
     const { search } = new URL(request.url);
     const res = await fetch(`${base}/api/testimonials${search}`, {
@@ -95,7 +88,8 @@ export async function GET(request: Request) {
     if (isTimeout) {
       return NextResponse.json(unavailablePayload(request.url), { status: 200 });
     }
-    const message = error instanceof Error ? error.message : 'Proxy failed';
-    return NextResponse.json({ success: false, error: message }, { status: 502 });
+    // DNS/network failures are also an availability problem, not a page failure.
+    // Keep the UI on its curated fallback testimonials instead of surfacing a 502.
+    return NextResponse.json(unavailablePayload(request.url), { status: 200 });
   }
 }

@@ -1,5 +1,6 @@
 import { getFormThankYouContent } from '@/data/form-thank-you/getFormThankYouContent';
 import { FormThankYouView } from '@/components/form-thank-you/FormThankYouView';
+import { ParentOrientationVideo } from '@/components/form-thank-you/ParentOrientationVideo';
 
 export default async function BookAssessmentThankYouPage({
   params,
@@ -8,5 +9,11 @@ export default async function BookAssessmentThankYouPage({
 }) {
   const { locale } = await params;
   const content = getFormThankYouContent('book-assessment', locale);
-  return <FormThankYouView content={content} locale={locale} />;
+  return (
+    <FormThankYouView
+      content={content}
+      locale={locale}
+      afterHighlights={<ParentOrientationVideo />}
+    />
+  );
 }

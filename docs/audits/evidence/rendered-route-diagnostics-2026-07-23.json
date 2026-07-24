@@ -1,0 +1,246 @@
+{
+  "runAt": "2026-07-24T06:04:45.612Z",
+  "baseUrl": "http://127.0.0.1:3002",
+  "summary": {
+    "routes": 2,
+    "viewportChecks": 4,
+    "passed": 0,
+    "failed": 4
+  },
+  "failedChecks": [
+    {
+      "route": "/book-assessment",
+      "viewport": "desktop",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+      ],
+      "failedResponses": [
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "3 console error(s)",
+        "3 failed background response(s)"
+      ],
+      "passed": false
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedResponses": [
+        {
+          "status": 503,
+          "url": "http://127.0.0.1:3002/api/testimonials?offset=0&forceRefresh=false&minRating=4&limit=20",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "1 console error(s)",
+        "1 failed background response(s)"
+      ],
+      "passed": false
+    },
+    {
+      "route": "/book-assessment",
+      "viewport": "mobile",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+      ],
+      "failedResponses": [
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "3 console error(s)",
+        "3 failed background response(s)"
+      ],
+      "passed": false
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedResponses": [
+        {
+          "status": 503,
+          "url": "http://127.0.0.1:3002/api/testimonials?offset=0&forceRefresh=false&minRating=4&limit=20",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "1 console error(s)",
+        "1 failed background response(s)"
+      ],
+      "passed": false
+    }
+  ],
+  "checks": [
+    {
+      "route": "/book-assessment",
+      "viewport": "desktop",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+      ],
+      "failedResponses": [
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "3 console error(s)",
+        "3 failed background response(s)"
+      ],
+      "passed": false
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedResponses": [
+        {
+          "status": 503,
+          "url": "http://127.0.0.1:3002/api/testimonials?offset=0&forceRefresh=false&minRating=4&limit=20",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "1 console error(s)",
+        "1 failed background response(s)"
+      ],
+      "passed": false
+    },
+    {
+      "route": "/book-assessment",
+      "viewport": "mobile",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+        "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+      ],
+      "failedResponses": [
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        },
+        {
+          "status": 403,
+          "url": "http://127.0.0.1:3002/api/visitor-events",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "3 console error(s)",
+        "3 failed background response(s)"
+      ],
+      "passed": false
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "failedResponses": [
+        {
+          "status": 503,
+          "url": "http://127.0.0.1:3002/api/testimonials?offset=0&forceRefresh=false&minRating=4&limit=20",
+          "resourceType": "fetch"
+        }
+      ],
+      "pageErrors": [],
+      "issues": [
+        "1 console error(s)",
+        "1 failed background response(s)"
+      ],
+      "passed": false
+    }
+  ]
+}

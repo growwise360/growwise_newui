@@ -32,11 +32,6 @@ export const MIDDLE_SCHOOL_MATH_VISIBLE_FAQS: FAQItem[] = [
     answer: buildMiddleSchoolTrialFaqAnswer(),
   },
   {
-    question: 'Do middle school students get free Sunday sessions?',
-    answer:
-      'Yes. All enrolled Grades 6–12 students get access to free Sunday timed practice sessions — exam-style problems structured like school assessments, designed to build test readiness between paid sessions.',
-  },
-  {
     question: 'Is there a registration fee?',
     answer:
       'No registration fee through July 2026. Enroll before then to lock in fee-free enrollment.',

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, BookOpenCheck, BrainCircuit, Code2, Sparkles } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import BookTrialModal from '@/components/ui/BookTrialModal';
@@ -20,9 +21,14 @@ export function CodingOverviewHero() {
 
   return (
     <section className="relative isolate overflow-hidden px-4 py-20 md:py-24">
-      <div
-        className="absolute inset-0 -z-20 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/hero-coding.png')" }}
+      <Image
+        src="/images/hero-coding.webp"
+        alt=""
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="absolute inset-0 -z-20 object-cover object-center"
         aria-hidden
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#07162f]/95 via-[#1F396D]/88 to-[#1F396D]/48" aria-hidden />

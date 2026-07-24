@@ -16,7 +16,13 @@ describe('robots() — GWA-192 / TC-07', () => {
       'ChatGPT-User',
       'PerplexityBot',
       'Perplexity-User',
+      'ClaudeBot',
+      'anthropic-ai',
+      'Google-Extended',
+      'GoogleOther',
+      'Googlebot',
       'Bingbot',
+      'BingPreview',
     ])
     expect(rules[0].allow).toEqual(['/'])
     expect(rules[0].disallow).toEqual([

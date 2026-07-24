@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, BookOpenCheck, Code2, GraduationCap, Laptop, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/components/ui/utils';
@@ -31,9 +32,14 @@ export function CodingProgramDetailHero({
   return (
     <div className={cn('bg-transparent', className)}>
       <section className="relative isolate overflow-hidden px-4 pb-14 pt-20 md:pb-20">
-        <div
-          className="absolute inset-0 -z-20 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/hero-coding.png')" }}
+        <Image
+          src="/images/hero-coding.webp"
+          alt=""
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
+          className="absolute inset-0 -z-20 object-cover object-center"
           aria-hidden
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#07162f]/95 via-[#1F396D]/86 to-[#1F396D]/42" aria-hidden />
