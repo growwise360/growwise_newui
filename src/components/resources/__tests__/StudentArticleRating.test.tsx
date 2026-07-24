@@ -29,7 +29,7 @@ describe('StudentArticleRating', () => {
     expect(await screen.findByText('4.5 out of 5 · 2 ratings')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: '5 stars' }))
 
-    expect(await screen.findByText('Thank you. Your rating was saved.')).toBeInTheDocument()
+    expect(await screen.findByText('Thank you—your rating was saved.')).toBeInTheDocument()
     expect(screen.getByText('4.7 out of 5 · 3 ratings')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '5 stars' })).toHaveAttribute('aria-pressed', 'true')
 

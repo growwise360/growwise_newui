@@ -46,7 +46,7 @@ export default function StudentArticleRating({ slug }: { slug: StudentArticleSlu
       const data = (await response.json()) as RatingResponse
       if (!response.ok || !data.success) throw new Error(data.error || 'Rating could not be saved')
       setSummary(data)
-      setMessage('Thank you. Your rating was saved.')
+      setMessage('Thank you—your rating was saved.')
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Rating could not be saved.')
     } finally {
@@ -57,10 +57,7 @@ export default function StudentArticleRating({ slug }: { slug: StudentArticleSlu
   const activeRating = hoveredRating ?? summary.userRating ?? 0
 
   return (
-    <section
-      className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center sm:p-6"
-      aria-labelledby="article-rating-title"
-    >
+    <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center sm:p-6" aria-labelledby="article-rating-title">
       <h2 id="article-rating-title" className="font-heading text-xl font-bold text-[#1F396D]">
         How helpful was this article?
       </h2>

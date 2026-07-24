@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -7,7 +8,7 @@ const paragraphs = [
   '“A book made me zero to hero”, many leaders state. Reading books is the magical power that shapes your personality. Books are the key to opening up new pathways.',
   'When I was 9, I went to a leadership conference with my dad. In that conference, they talked about leadership books and how it made them grow into their lives. I wondered, does this apply to all books? Surprisingly, yes! Let me share some examples. Take Hello Universe, it morally teaches you to explore the world and overcome your fears. This opens up a confidence personality pathway. Another example may be textbooks, teaching you fundamental skills for the future, opening up a wise personality and making you more knowledgeable, helping with struggles and decisions later in life.',
   'Well, how does this personality change happen? Is it rocket science? No, It’s simply common understanding. The more you read a genre, the more the concept gets into your head. The concept slowly makes space for itself in your head gradually fixing itself in.',
-  'Ultimately, books do more than just entertain us. They shape who we become. Every story we read leaves a lasting mark on our personality and worldview.',
+  'Ultimately, books do more than just entertain us—they shape who we become. Every story we read leaves a lasting mark on our personality and worldview.',
 ] as const
 
 export default function BooksBeyondPersonalityPage() {
@@ -35,6 +36,16 @@ export default function BooksBeyondPersonalityPage() {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
+
+        <figure className="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+          <Image
+            src="/images/resources/student-books-shape-personality.webp"
+            alt="Two hand-drawn illustrations showing how reading builds confidence, wisdom, knowledge, courage, leadership, and new ideas"
+            width={1559}
+            height={1009}
+            className="h-auto w-full"
+          />
+        </figure>
 
         <StudentArticleRating slug="books-beyond-personality" />
       </article>

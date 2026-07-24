@@ -1,4 +1,8 @@
-import { hashRatingVisitor, isStudentArticleSlug, summarizeRatings } from './studentArticleRatings'
+import {
+  hashRatingVisitor,
+  isStudentArticleSlug,
+  summarizeRatings,
+} from './studentArticleRatings'
 
 describe('student article ratings', () => {
   const originalServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
