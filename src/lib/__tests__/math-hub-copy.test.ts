@@ -52,7 +52,7 @@ describe('MATH_HUB_COPY pricing', () => {
       'Advanced Math',
     ]);
     expect(middle?.options[1]?.bestFor).toBe(
-      '4-6 students per group · Quarterly tests on all topics taught that quarter',
+      '4–6 students per group · Quarterly tests on all topics taught that quarter',
     );
 
     const high = MATH_HUB_COPY.programOptions.cards.find(

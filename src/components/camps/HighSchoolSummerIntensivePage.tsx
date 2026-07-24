@@ -842,7 +842,7 @@ export function HighSchoolSummerIntensivePage() {
       <SocialProofSection />
 
       {/* Courses Grid */}
-      <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 lg:px-8" data-section="courses">
+      <section id="courses" className="scroll-mt-24 py-16 md:py-20 max-w-7xl mx-auto px-4 lg:px-8" data-section="courses">
         <h2 className="text-3xl font-bold text-gray-900 mb-12">{PAGE.courses.title}</h2>
 
         <div className="grid lg:grid-cols-2 gap-8">

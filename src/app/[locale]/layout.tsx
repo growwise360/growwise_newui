@@ -14,6 +14,7 @@ import { websiteSchema } from '@/lib/seo/structuredData';
 import { isLocaleEnabled } from '@/i18n/localeConfig';
 
 import ParentResourcesBar from '@/components/layout/ParentResourcesBar';
+import { CommercialValueProofSlot } from '@/components/marketing/CommercialValueProofSlot';
 
 const Header = dynamic(() => import("@/components/layout/Header/Header"));
 const Footer = dynamic(() => import("@/components/layout/Footer/Footer"));
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
             <HomeCampsStripSlot />
             <Header />
             <main id="main-content" suppressHydrationWarning>
+              <CommercialValueProofSlot />
               {children}
             </main>
             <ParentResourcesBar />

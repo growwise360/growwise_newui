@@ -284,8 +284,10 @@ function renderProgramGrid(
       <li
         key={program.id}
         id={`track-${program.id}`}
-        className={`flex flex-col gap-2 scroll-mt-28 [content-visibility:auto] ${
-          isEnhancedCard ? '[contain-intrinsic-size:auto_420px]' : '[contain-intrinsic-size:auto_300px]'
+        className={`flex flex-col gap-2 scroll-mt-28 [content-visibility:visible] min-[769px]:[content-visibility:auto] ${
+          isEnhancedCard
+            ? 'min-[769px]:[contain-intrinsic-size:auto_420px]'
+            : 'min-[769px]:[contain-intrinsic-size:auto_300px]'
         } ${isLastAndAlone ? 'min-[769px]:col-span-2' : ''}`}
       >
         <CardComponent

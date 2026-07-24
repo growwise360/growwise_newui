@@ -30,7 +30,7 @@ export default async function BookAssessmentLayout({
     '@id': absoluteSiteUrl('/book-assessment#service', locale, baseUrl),
     name: 'GrowWise Readiness Assessment',
     description:
-      "Book a GrowWise readiness assessment in Dublin, CA. We evaluate your child's current level in Math, English, or STEAM and recommend the right next step.",
+      "Book a free 30-minute GrowWise readiness assessment in Dublin, CA. We identify your child's skill gap and provide a brief written next-step plan with no enrollment pressure.",
     serviceType: 'Academic Readiness Assessment',
     provider: {
       '@type': 'EducationalOrganization',
@@ -60,7 +60,7 @@ export default async function BookAssessmentLayout({
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         url: pageUrl,
-        description: 'Free 30-minute readiness assessment for elementary students in Grades 1-4',
+        description: 'Free 30-minute readiness assessment for Grades 1-12 with a brief written next-step plan',
       },
       {
         '@type': 'Offer',

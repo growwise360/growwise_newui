@@ -5,10 +5,9 @@ export const MIDDLE_SCHOOL_MATH_PROGRAM_DETAILS = {
 
 export const MIDDLE_SCHOOL_PROGRAM_INCLUDES = [
   'Diagnostic assessment before session 1 — identifies track (standard or accelerated) and course entry point',
-  'Live small groups of 6–10 students aligned to Course 1–3 or Course 1/2, IM1, and IM2',
+  'Live small groups of up to 6 students aligned to Course 1–3 or Course 1/2, IM1, and IM2',
   'Curriculum personalized to your child’s school sequence, syllabus, and current unit',
   'Monthly parent progress report — skills covered, gaps closed, and next steps',
-  'Complimentary weekly practice session included with every program',
   'Live online or in-person at Dublin Blvd, Dublin CA',
 ] as const;
 

@@ -1,12 +1,12 @@
 /**
  * In-memory sliding-window rate limiter for public JSON APIs (`/api/chat`, lead forms).
  *
- * Namespaces isolate budgets: `chat` vs `contact` vs `assessment` vs `enroll`.
+ * Namespaces isolate budgets: `chat` vs lead forms vs article ratings.
  * Uses Vercel's x-vercel-forwarded-for header (injected by Vercel, cannot be spoofed by client).
  * Resets on cold start, but email deduplication (C-4) provides the real abuse protection.
  */
 
-export type RateLimitNamespace = 'chat' | 'contact' | 'assessment' | 'enroll';
+export type RateLimitNamespace = 'chat' | 'contact' | 'assessment' | 'enroll' | 'rating';
 
 const CHAT_DEFAULT_MAX = 20;
 const CHAT_DEFAULT_WINDOW_MS = 15 * 60_000;

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
+import StudentArticleRating from '@/components/resources/StudentArticleRating'
+
 const paragraphs = [
   'As Pam Shoemaker said, "When you put the whole picture together, recycling is the right thing to do." Recycling turns waste into resources, and problems into solutions. Recycling is a powerful tool for reducing waste, saving natural resources, and helping the environment.',
   'First, imagine the world without recycling. Pollution, water contamination, and power cuts across the world. Now, if recycling was practiced across the world, now how does it look? Greener, cleaner water, saving energy. However, there is a limit to which materials can go through this process. Some include plastic, paper, cardboard, Aluminum, and glass jars.',
@@ -36,6 +38,8 @@ export default function HowRecyclingHelpsTheEnvironmentPage() {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
+
+        <StudentArticleRating slug="how-recycling-helps-the-environment" />
       </article>
     </main>
   )

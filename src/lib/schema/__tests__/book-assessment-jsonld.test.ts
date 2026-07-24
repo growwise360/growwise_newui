@@ -22,7 +22,8 @@ describe('book assessment structured data copy', () => {
     const serialized = JSON.stringify(BOOK_ASSESSMENT_FAQ_JSONLD)
 
     expect(serialized).toContain('free 30-minute assessment')
-    expect(serialized).toContain('Grades 1-4')
+    expect(serialized).toContain('Grades 1-12')
+    expect(serialized).toContain('brief written next-step plan')
     expect(serialized).toContain('60-minute Full Diagnostic')
     expect(serialized).not.toContain('20-minute')
     expect(serialized).not.toContain('fit check')
