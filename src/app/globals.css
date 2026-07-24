@@ -1044,7 +1044,8 @@ body {
 }
 
 .smokey-cursor-quiet-paused {
-  opacity: 0;
+  opacity: 0 !important;
+  visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

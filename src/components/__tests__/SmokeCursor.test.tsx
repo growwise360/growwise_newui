@@ -112,4 +112,31 @@ describe('SmokeCursor', () => {
     fireEvent.pointerMove(screen.getByTestId('empty-background'));
     expect(smokeContainer).not.toHaveClass('smokey-cursor-quiet-paused');
   });
+
+  it('uses the element under the pointer when a layered wrapper is the event target', () => {
+    mockMedia({ fine: true });
+    render(
+      <>
+        <SmokeCursor />
+        <div data-testid="event-wrapper" />
+        <form data-testid="visible-form">
+          <input aria-label="Email" />
+        </form>
+      </>,
+    );
+
+    Object.defineProperty(document, 'elementFromPoint', {
+      configurable: true,
+      value: jest.fn(() => screen.getByTestId('visible-form')),
+    });
+
+    const smokeContainer = screen.getByTestId('smoke-cursor-canvas').parentElement;
+    fireEvent.pointerMove(screen.getByTestId('event-wrapper'), {
+      clientX: 100,
+      clientY: 100,
+    });
+
+    expect(smokeContainer).toHaveClass('smokey-cursor-quiet-paused');
+    delete (document as Partial<Document>).elementFromPoint;
+  });
 });

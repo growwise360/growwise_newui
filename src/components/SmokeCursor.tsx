@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import {
   canRunSmokeyCursorEffect,
   getSmokeyVariantOptions,
+  isSmokeyCursorQuietPoint,
   isSmokeyCursorQuietTarget,
   type SmokeyCursorVariant,
 } from '@/lib/effects/smokey-cursor-safe';
@@ -59,7 +60,11 @@ export function SmokeyCursorEffect({
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      pointerOverQuietArea = isSmokeyCursorQuietTarget(event.target);
+      pointerOverQuietArea = isSmokeyCursorQuietPoint(
+        event.clientX,
+        event.clientY,
+        event.target,
+      );
       updateQuietAreaVisibility();
     };
 

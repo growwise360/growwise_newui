@@ -89,6 +89,26 @@ export function isSmokeyCursorQuietTarget(target: EventTarget | null): boolean {
   );
 }
 
+export function isSmokeyCursorQuietPoint(
+  clientX: number,
+  clientY: number,
+  fallbackTarget: EventTarget | null,
+): boolean {
+  if (typeof document === 'undefined') {
+    return isSmokeyCursorQuietTarget(fallbackTarget);
+  }
+
+  const targetAtPoint =
+    typeof document.elementFromPoint === 'function'
+      ? document.elementFromPoint(clientX, clientY)
+      : null;
+
+  return (
+    isSmokeyCursorQuietTarget(targetAtPoint) ||
+    isSmokeyCursorQuietTarget(fallbackTarget)
+  );
+}
+
 export function getSmokeyVariantOptions(variant: SmokeyCursorVariant) {
   return SMOKEY_VARIANT_CONFIG[variant];
 }

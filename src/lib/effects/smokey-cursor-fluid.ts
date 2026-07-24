@@ -1,6 +1,8 @@
 // @ts-nocheck
 
-import { isSmokeyCursorQuietTarget } from './smokey-cursor-safe';
+import {
+  isSmokeyCursorQuietPoint,
+} from './smokey-cursor-safe';
 
 export interface SmokeyCursorFluidOptions {
   colorIntensity: number;
@@ -1189,7 +1191,7 @@ function correctDeltaY(delta) {
 // Event listeners
 function setupEventListeners() {
   const onMouseDown = (e) => {
-    if (isSmokeyCursorQuietTarget(e.target)) return;
+    if (isSmokeyCursorQuietPoint(e.clientX, e.clientY, e.target)) return;
 
     const pointer = pointers[0];
     const posX = scaleByPixelRatio(e.clientX);
@@ -1204,14 +1206,24 @@ function setupEventListeners() {
     const posY = scaleByPixelRatio(e.clientY);
     const color = pointer.color;
     updatePointerMoveData(pointer, posX, posY, color);
-    if (isSmokeyCursorQuietTarget(e.target)) {
+    if (isSmokeyCursorQuietPoint(e.clientX, e.clientY, e.target)) {
       pointer.moved = false;
       pointer.down = false;
     }
   };
 
   const onTouchStart = (e) => {
-    if (isSmokeyCursorQuietTarget(e.target)) return;
+    const firstTouch = e.targetTouches[0];
+    if (
+      firstTouch &&
+      isSmokeyCursorQuietPoint(
+        firstTouch.clientX,
+        firstTouch.clientY,
+        e.target,
+      )
+    ) {
+      return;
+    }
 
     const touches = e.targetTouches;
     const pointer = pointers[0];
@@ -1230,7 +1242,13 @@ function setupEventListeners() {
       const posX = scaleByPixelRatio(touches[i].clientX);
       const posY = scaleByPixelRatio(touches[i].clientY);
       updatePointerMoveData(pointer, posX, posY, pointer.color);
-      if (isSmokeyCursorQuietTarget(e.target)) {
+      if (
+        isSmokeyCursorQuietPoint(
+          touches[i].clientX,
+          touches[i].clientY,
+          e.target,
+        )
+      ) {
         pointer.moved = false;
         pointer.down = false;
       }
