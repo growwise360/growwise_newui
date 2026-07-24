@@ -49,8 +49,6 @@ export const MIDDLE_SCHOOL_TRIAL: MathTrialBandConfig = {
   feeNote: `This is a real instructional session — not a demo. The ${TRIAL_FEE} is credited toward your first month if you enroll within 7 days.`,
   footnote: 'Trial fee applies to Grades 6–8. Fee waived upon enrollment within 7 days.',
   enrollPath: '/enroll-academic',
-  extraNote:
-    'Free Sunday practice session access included for the week following your trial.',
 }
 
 export const HIGH_SCHOOL_TRIAL: MathTrialBandConfig = {
@@ -69,6 +67,4 @@ export const HIGH_SCHOOL_TRIAL: MathTrialBandConfig = {
   feeNote: `The ${TRIAL_FEE} is a session fee for a real instructional session — not a demo. If you enroll in a monthly program within 7 days, it is credited toward your first month.`,
   footnote: 'Trial fee applies to Grades 9–12. Fee waived upon enrollment within 7 days.',
   enrollPath: '/enroll-academic',
-  extraNote:
-    'Free Sunday practice session access included for the week following your trial (Grades 6–12).',
 }

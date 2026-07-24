@@ -1,0 +1,27 @@
+{
+  "afterClick": {
+    "iframeCount": 1,
+    "playButtonCount": 0
+  },
+  "playerSrc": "https://www.youtube-nocookie.com/embed/LN3xuCyf-Oc?autoplay=1&playsinline=1&rel=0",
+  "desktop": {
+    "initialIframeCount": 0,
+    "initialYoutubeRequestCount": 0,
+    "ctaHref": "/book-assessment",
+    "consoleErrors": [],
+    "sectionSize": {
+      "width": 1440,
+      "height": 560.9375
+    }
+  },
+  "mobile": {
+    "initialIframeCount": 0,
+    "initialYoutubeRequestCount": 0,
+    "ctaHref": "/book-assessment",
+    "consoleErrors": [],
+    "sectionSize": {
+      "width": 390,
+      "height": 881.765625
+    }
+  }
+}

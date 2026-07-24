@@ -15,8 +15,8 @@ test.describe('Middle school math page', { tag: '@critical' }, () => {
     await expect(
       page.getByRole('heading', { name: 'School District Math Placement Test Prep' }),
     ).toBeVisible();
-    await expect(page.getByText('5th grade · district math placement test')).toBeVisible();
-    await expect(page.getByText('Grade 7 math placement')).toBeVisible();
+    await expect(page.getByText('5th grade · district math placement test').first()).toBeVisible();
+    await expect(page.getByText('Grade 7 math placement').first()).toBeVisible();
 
     const placementDiagram = page.getByLabel('School district math placement pathways');
     await expect(placementDiagram.getByText('Grade 6', { exact: true })).toHaveCount(2);
@@ -44,7 +44,6 @@ test.describe('Middle school math page', { tag: '@critical' }, () => {
     await expect(page.getByText('$289/mo', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('Advanced Math', { exact: true }).first()).toBeVisible();
     await expect(page.getByText('$295/mo', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('Free Sunday practice sessions — included for all Grades 6–12 students')).toBeVisible();
     await expect(page.getByText('Trial session — Grades 6–8')).toBeVisible();
   });
 });
@@ -53,7 +52,7 @@ test.describe('Math hub middle school card', { tag: '@critical' }, () => {
   test('middle school grade band card shows mastery line', async ({ page }) => {
     await page.goto(localePath('/academic/math'), { waitUntil: 'domcontentloaded' });
     await expect(
-      page.getByText('5th & 7th grade district placement · Course 1/2, C1, C3, IM1'),
+      page.getByText('5th & 7th grade district placement · Course 1/2, C1, C3, IM1').filter({ visible: true }),
     ).toBeVisible();
   });
 });

@@ -269,7 +269,7 @@ export const MATH_HUB_COPY = {
             schedule: '150 minutes per week',
             price: '$295/mo',
             bestFor:
-              '4-6 students per group · Quarterly tests on all topics taught that quarter',
+              '4–6 students per group · Quarterly tests on all topics taught that quarter',
           },
         ],
         includedBenefit:

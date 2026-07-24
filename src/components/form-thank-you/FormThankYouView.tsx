@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { CheckCircle, Clock, Shield, ThumbsUp } from 'lucide-react';
 import type { FormThankYouContent } from '@/data/form-thank-you/types';
 import { publicPath } from '@/lib/publicPath';
@@ -9,12 +10,14 @@ type Props = {
   content: FormThankYouContent;
   /** next-intl / [locale] segment */
   locale: string;
+  /** Optional form-specific trust or next-step content shown before CTAs. */
+  afterHighlights?: ReactNode;
 };
 
 /**
  * Centered thank-you content driven by JSON; CTA hrefs are locale-prefixed via publicPath.
  */
-export function FormThankYouView({ content, locale }: Props) {
+export function FormThankYouView({ content, locale, afterHighlights }: Props) {
   const p = (path: string) => publicPath(path, locale);
   return (
     <div
@@ -56,6 +59,7 @@ export function FormThankYouView({ content, locale }: Props) {
             })}
           </ul>
         )}
+        {afterHighlights}
         <div className="mt-10 flex flex-col gap-3 sm:mx-auto sm:max-w-md">
           <Link
             href={p(content.primaryCta.path)}

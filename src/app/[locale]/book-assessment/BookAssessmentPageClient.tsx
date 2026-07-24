@@ -18,7 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog';
-import { BookOpen, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Star, Shield, ArrowRight, Calendar, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Calculator, X, AlertCircle, MessageCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Users, Award, TrendingUp, Brain, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, Shield, ArrowRight, Calendar, GraduationCap, User, Mail, Phone as PhoneIcon, Send, Calculator, X, AlertCircle, MessageCircle } from 'lucide-react';
 import CountryCodeSelector from '@/components/CountryCodeSelector';
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -28,7 +28,6 @@ import { cn } from '@/lib/utils';
 import { validatePhoneWithCountryCode, getPhonePlaceholder, getCallingCode, DIAL_CODE_TO_ISO2 } from '@/lib/phoneValidation';
 import { getRecaptchaToken } from '@/lib/recaptcha';
 import { publicPath } from '@/lib/publicPath';
-import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
 import {
   trackAssessmentFormStarted,
   trackAssessmentFormSubmitted,
@@ -44,6 +43,7 @@ import { getVisitorEventIdentity, logVisitorEventClient } from '@/lib/analytics/
 import PartnerTrustStrip from '@/components/shared/PartnerTrustStrip';
 import PartnerReferralCard from '@/components/shared/PartnerReferralCard';
 import { useChatbot } from '@/contexts/ChatbotContext';
+import { SITE_PROOF_LINE } from '@/lib/siteProof';
 
 const partnerConfig = {
   velp: {
@@ -115,35 +115,7 @@ const DEFAULT_ASSESSMENT_HEADLINE =
   'Advanced Math & English Readiness Assessment for Grades 1-12.';
 
 const DEFAULT_ASSESSMENT_TYPE = 'Free 30-Minute Assessment';
-
-const ASSESSMENT_PATHS = [
-  {
-    type: DEFAULT_ASSESSMENT_TYPE,
-    badge: 'Free',
-    title: 'Free 30-Minute Assessment',
-    duration: '30 minutes',
-    ctaLabel: 'Request Free Assessment',
-    summary:
-      'Best for elementary students in Grades 1-4 when you want a quick read on current math or English readiness.',
-    bestFor: 'Best for elementary students in Grades 1-4 who need a quick readiness check before choosing the next step.',
-    receives: ['Verbal gap summary', 'Recommended next step', 'No written report'],
-    checks: ['Current grade-level readiness', 'Visible skill gaps', 'Mistake patterns we can spot quickly'],
-    icon: Clock,
-  },
-  {
-    type: 'Full Diagnostic',
-    badge: 'Written plan',
-    title: 'Full Diagnostic',
-    duration: '60 minutes',
-    ctaLabel: 'Get Written Diagnostic Plan',
-    summary:
-      'Best if you want a written roadmap before choosing a program.',
-    bestFor: 'Best if you want a written roadmap before choosing a program.',
-    receives: ['Written diagnostic report', 'Gap and pattern analysis', 'Specific learning plan'],
-    checks: ['Root causes behind mistakes', 'Missing foundations from earlier grades', 'Readiness for school curriculum'],
-    icon: FileText,
-  },
-] as const;
+const FULL_DIAGNOSTIC_TYPE = 'Full Diagnostic';
 
 const ASSESSMENT_PROCESS_STEPS = [
   {
@@ -159,12 +131,8 @@ const ASSESSMENT_PROCESS_STEPS = [
     description: 'We look at how your child solves problems, not just whether the answer is right or wrong.',
   },
   {
-    title: 'Find the Real Gaps',
+    title: 'Find the Real Gap',
     description: 'We separate rushed mistakes from true concept gaps or missing foundations.',
-  },
-  {
-    title: 'Recommend the Next Step',
-    description: 'You receive a clear recommendation based on readiness, gaps, and learning needs.',
   },
 ] as const;
 
@@ -240,6 +208,7 @@ export default function BookAssessmentPageClient() {
   );
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const isFullDiagnosticSelected = formData.assessmentType === FULL_DIAGNOSTIC_TYPE;
 
   useEffect(() => {
     setHasMounted(true);
@@ -560,23 +529,12 @@ export default function BookAssessmentPageClient() {
     communitySlug,
   ]);
 
-  const assessmentFeatures = [
-    { icon: FileText, title: 'Detailed Report', description: 'Comprehensive analysis of strengths and growth areas', color: 'from-blue-500 to-blue-600', stats: '15+ Pages' },
-    { icon: Users, title: 'Expert Evaluators', description: 'Certified teachers with 10+ years of experience', color: 'from-purple-500 to-purple-600', stats: 'Certified Pros' },
-    { icon: Lightbulb, title: 'Actionable Insights', description: 'Clear recommendations for next steps', color: 'from-amber-500 to-amber-600', stats: 'Personalized' },
-    { icon: Calendar, title: 'Flexible Scheduling', description: 'Book at your convenience', color: 'from-green-500 to-green-600', stats: '24/7 Booking' }
-  ];
-
   // const processSteps = [
   //   { number: '1', title: 'Book Your Assessment', description: 'Choose your package and schedule a convenient time', icon: Calendar, color: 'from-[#1F396D] to-[#29335C]' },
   //   { number: '2', title: 'Take the Assessment', description: 'Complete the evaluation with our expert teachers', icon: FileText, color: 'from-[#F16112] to-[#F1894F]' },
   //   { number: '3', title: 'Receive Your Report', description: 'Get detailed insights within 48 hours', icon: FileText, color: 'from-[#1F396D] to-[#F16112]' },
   //   { number: '4', title: 'Plan Your Path', description: 'Schedule a consultation to discuss next steps', icon: Lightbulb, color: 'from-[#F1894F] to-[#1F396D]' }
   // ];
-
-  const testimonials = useMemo(() => siteGoogleTrustReviewCards(), []);
-  const selectedAssessmentPath =
-    ASSESSMENT_PATHS.find((path) => path.type === formData.assessmentType) || ASSESSMENT_PATHS[0];
 
   // const benefits = [
   //   { icon: Clock, text: 'Flexible scheduling' },
@@ -592,16 +550,20 @@ export default function BookAssessmentPageClient() {
     if (formSection) formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const scrollToAssessmentOptions = () => {
-    const optionsSection = document.getElementById('assessment-options');
-    if (optionsSection) optionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const selectFreeAssessmentAndScroll = () => {
+    handleInputChange('assessmentType', DEFAULT_ASSESSMENT_TYPE);
+    trackAssessmentOptionSelected(DEFAULT_ASSESSMENT_TYPE);
+    logVisitorEventClient('assessment_option_selected', {
+      selected_assessment_type: DEFAULT_ASSESSMENT_TYPE,
+    });
+    window.setTimeout(scrollToForm, 0);
   };
 
-  const selectAssessmentPathAndScroll = (assessmentType: string) => {
-    handleInputChange('assessmentType', assessmentType);
-    trackAssessmentOptionSelected(assessmentType);
+  const selectFullDiagnosticAndScroll = () => {
+    handleInputChange('assessmentType', FULL_DIAGNOSTIC_TYPE);
+    trackAssessmentOptionSelected(FULL_DIAGNOSTIC_TYPE);
     logVisitorEventClient('assessment_option_selected', {
-      selected_assessment_type: assessmentType,
+      selected_assessment_type: FULL_DIAGNOSTIC_TYPE,
     });
     window.setTimeout(scrollToForm, 0);
   };
@@ -688,6 +650,13 @@ export default function BookAssessmentPageClient() {
       </section> */}
 
       <section id="assessment-form" className="bg-white">
+        <div
+          className="sticky top-0 z-40 flex min-h-10 items-center justify-center bg-[#F16112] px-4 py-2 text-center text-sm font-black text-white shadow-md"
+          role="status"
+          aria-label="Assessment availability"
+        >
+          Free Assessments Available Until July 31
+        </div>
         <div className="relative isolate min-h-[24rem] overflow-hidden bg-[#1F396D] md:min-h-[26rem]" aria-labelledby="book-assessment-hero-h1">
           <div className="absolute inset-0">
             <Image
@@ -697,6 +666,8 @@ export default function BookAssessmentPageClient() {
               height={900}
               priority
               fetchPriority="high"
+              sizes="100vw"
+              unoptimized
               className="h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/45" aria-hidden />
@@ -707,31 +678,37 @@ export default function BookAssessmentPageClient() {
           </div>
           <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 md:px-12 md:py-12 lg:py-14">
             <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FED7AA]">
-              Math & English Assessment - Dublin, CA
+              Free · 30 minutes · Grades 1–12
             </p>
             <h1
               id="book-assessment-hero-h1"
               className="font-heading mt-6 max-w-3xl text-3xl font-black leading-tight text-white md:text-5xl"
             >
-              Math & English Assessment in Dublin, CA
+              Free 30-Minute Assessment
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
-              Leave knowing the likely gap, the right next step, and whether GrowWise is a fit. Choose a free 30-minute assessment for Grades 1-4 or a deeper diagnostic with a written plan.
+              Find the exact gap. Leave with a written plan. No cost, no pressure.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <p className="mt-5 text-sm font-black text-[#FED7AA] sm:text-base">
+              {SITE_PROOF_LINE}
+            </p>
+            <div className="mt-7 grid max-w-4xl gap-3 md:grid-cols-2">
+              <blockquote className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-relaxed text-white/95 backdrop-blur">
+                “I&apos;ve noticed a big improvement in her confidence, focus, and overall understanding.”
+                <footer className="mt-2 text-xs font-bold text-[#FED7AA]">Mumtaz Salemi, Parent · Google review</footer>
+              </blockquote>
+              <blockquote className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-relaxed text-white/95 backdrop-blur">
+                “Thanks to the small class size and the teacher&apos;s personalized approach, he was able to grasp the fundamentals.”
+                <footer className="mt-2 text-xs font-bold text-[#FED7AA]">Roger Jiang, Parent · Google review</footer>
+              </blockquote>
+            </div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
-                onClick={() => selectAssessmentPathAndScroll(DEFAULT_ASSESSMENT_TYPE)}
+                onClick={selectFreeAssessmentAndScroll}
                 className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F16112] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#d64f0d]"
               >
-                Request free assessment
-              </button>
-              <button
-                type="button"
-                onClick={() => selectAssessmentPathAndScroll('Full Diagnostic')}
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"
-              >
-                Compare assessment options
+                Get My Child&apos;s Free Assessment
               </button>
             </div>
             <ul className="mt-7 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4" aria-label="Assessment highlights">
@@ -752,88 +729,74 @@ export default function BookAssessmentPageClient() {
           {/* Partner Referral Card */}
           {validPartner && <PartnerReferralCard partner={validPartner} />}
 
-          <div id="assessment-options" className="rounded-3xl border border-[#1F396D]/10 bg-white p-4 shadow-xl sm:p-5">
-            <div className="flex flex-col gap-2 text-center sm:text-left">
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">Choose your path</p>
-              <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">Pick the assessment that matches your concern</h2>
-              <p className="text-sm leading-relaxed text-slate-600">
-                Both options can lead to enrollment if GrowWise is the right fit.
-              </p>
-            </div>
-
-            <div className="mt-5 grid gap-4 lg:grid-cols-2">
-              {ASSESSMENT_PATHS.map((path) => {
-                const IconComponent = path.icon;
-                const isSelected = formData.assessmentType === path.type;
-
-                return (
-                  <article
-                    key={path.type}
-                    className={cn(
-                      'flex h-full flex-col rounded-2xl border-2 bg-white p-5 text-left shadow-sm transition-all',
-                      isSelected
-                        ? 'border-[#F16112] ring-4 ring-[#F16112]/10'
-                        : 'border-slate-200'
-                    )}
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={cn(
-                            'flex h-11 w-11 items-center justify-center rounded-xl',
-                            isSelected ? 'bg-[#F16112] text-white' : 'bg-[#1F396D]/10 text-[#1F396D]'
-                          )}
-                        >
-                          <IconComponent className="h-5 w-5" aria-hidden />
-                        </span>
-                        <div>
-                          <p
-                            className="text-xs font-black uppercase tracking-[0.14em] text-[#F16112]"
-                            suppressHydrationWarning
-                          >
-                            {path.badge} · {path.duration}
-                          </p>
-                          <h3 className="mt-1 text-xl font-bold text-[#1F396D]" suppressHydrationWarning>
-                            {path.title}
-                          </h3>
-                        </div>
-                      </div>
-                      {isSelected ? (
-                        <span className="rounded-full bg-[#F16112] px-3 py-1 text-xs font-bold text-white">
-                          Selected
-                        </span>
-                      ) : null}
-                    </div>
-                    <p className="mt-4 text-sm leading-relaxed text-slate-700">{path.summary}</p>
-                    <p className="mt-3 rounded-xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
-                      {path.bestFor}
-                    </p>
-                    {path.type !== DEFAULT_ASSESSMENT_TYPE ? (
-                      <p className="mt-3 text-xs font-semibold leading-relaxed text-[#1F396D]">
-                        Includes a written report and learning plan. Diagnostic fee is credited toward enrollment.
-                      </p>
-                    ) : null}
-                    <Button
-                      type="button"
-                      onClick={() => selectAssessmentPathAndScroll(path.type)}
-                      className={cn(
-                        'mt-6 min-h-[48px] w-full rounded-xl text-base font-semibold shadow-md transition-all',
-                        isSelected
-                          ? 'bg-[#F16112] text-white hover:bg-[#d94f0d]'
-                          : 'bg-[#1F396D] text-white hover:bg-[#29335C]'
-                      )}
-                    >
-                      {path.ctaLabel}
-                      <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
-                    </Button>
-                  </article>
-                );
-              })}
-            </div>
-            <p className="mt-5 rounded-2xl bg-[#F8FAFC] px-4 py-3 text-center text-sm font-semibold leading-relaxed text-[#1F396D] ring-1 ring-slate-200">
-              No pressure to enroll. You&apos;ll get a clear next step even if GrowWise is not the right fit.
+          <section
+            className="rounded-3xl border border-[#F16112]/20 bg-[#FFF7ED] p-5 shadow-sm sm:p-7"
+            aria-labelledby="assessment-promise-title"
+          >
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-[#C45A1A]">Our promise</p>
+            <h2 id="assessment-promise-title" className="mt-2 text-2xl font-bold tracking-tight text-[#1F396D] sm:text-3xl">
+              Leave knowing the exact skill gap. If we cannot identify it, we&apos;ll run a second session free.
+            </h2>
+            <p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-700 sm:text-base">
+              No enrollment pressure. No upsell script. If GrowWise isn&apos;t the right fit, we&apos;ll tell you that too.
+              You&apos;ll receive a brief written next-step plan after the assessment.
             </p>
-          </div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3" aria-label="Assessment promise details">
+              {['No cost', 'No credit card', 'Clear next step within 24 hours'].map((item) => (
+                <p key={item} className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-[#1F396D] ring-1 ring-[#F16112]/15">
+                  <Shield className="h-4 w-4 shrink-0 text-[#F16112]" aria-hidden />
+                  {item}
+                </p>
+              ))}
+            </div>
+          </section>
+
+          <details className="group mt-5 overflow-hidden rounded-2xl border border-[#1F396D]/15 bg-white shadow-sm">
+            <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left marker:content-none sm:px-6">
+              <span>
+                <span className="block text-xs font-black uppercase tracking-[0.14em] text-[#F16112]">
+                  Need a deeper written analysis?
+                </span>
+                <span className="mt-1 block text-base font-bold text-[#1F396D] sm:text-lg">
+                  60-Minute Full Diagnostic · $49
+                </span>
+              </span>
+              <ChevronRight
+                className="h-5 w-5 shrink-0 text-[#1F396D] transition-transform group-open:rotate-90"
+                aria-hidden
+              />
+            </summary>
+            <div className="border-t border-slate-200 bg-slate-50 px-5 py-5 sm:px-6">
+              <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+                <div>
+                  <p className="text-sm leading-relaxed text-slate-700">
+                    Choose this option for a deeper review of skill gaps, mistake patterns, and academic readiness,
+                    followed by a comprehensive written learning plan.
+                  </p>
+                  <ul className="mt-4 grid gap-2 text-sm font-semibold text-[#1F396D] sm:grid-cols-3">
+                    {['60-minute session', 'Detailed gap analysis', 'Comprehensive written plan'].map((item) => (
+                      <li key={item} className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 shrink-0 text-[#F16112]" aria-hidden />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-xs leading-relaxed text-slate-500">
+                    Our team confirms scheduling and payment details within 24 hours.
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  onClick={selectFullDiagnosticAndScroll}
+                  disabled={isFullDiagnosticSelected}
+                  className="h-auto min-h-12 w-full rounded-full bg-[#1F396D] px-6 py-3 text-sm font-bold text-white hover:bg-[#162850] disabled:opacity-100 md:w-auto"
+                >
+                  {isFullDiagnosticSelected ? 'Full Diagnostic Selected' : 'Choose Full Diagnostic'}
+                </Button>
+              </div>
+            </div>
+          </details>
+
           {showGrowyIntakePrompt ? (
             <div className="mt-5 rounded-2xl border border-[#F16112]/25 bg-[#FFF7ED] p-4 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-4">
               <div className="flex items-start gap-3">
@@ -869,26 +832,38 @@ export default function BookAssessmentPageClient() {
             <Card className="bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-xl md:rounded-3xl overflow-hidden" suppressHydrationWarning>
               <CardContent className="p-4 sm:p-6 md:p-8" suppressHydrationWarning>
                   <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6" suppressHydrationWarning noValidate>
-                    <div className="rounded-2xl border border-[#F16112]/20 bg-[#FFF7ED] px-4 py-3 sm:flex sm:items-center sm:justify-between sm:gap-4">
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-[0.14em] text-[#C45A1A]">Your selected option</p>
-                        <p className="mt-1 text-sm font-bold text-[#1F396D] sm:text-base">
-                          {selectedAssessmentPath.title} · {selectedAssessmentPath.duration}
-                        </p>
-                        <p id="selectedAssessmentType-help" className="mt-1 text-xs leading-relaxed text-slate-600">
-                          We&apos;ll use this to prepare for your call.
-                        </p>
-                        {selectedAssessmentPath.type !== DEFAULT_ASSESSMENT_TYPE ? (
-                          <p className="mt-2 text-xs font-semibold leading-relaxed text-[#1F396D]">
-                            Full Diagnostic fee: $49, credited toward your first program payment if you enroll.
+                    <div className="rounded-2xl border border-[#F16112]/20 bg-[#FFF7ED] px-4 py-3">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-[0.14em] text-[#C45A1A]">
+                            {isFullDiagnosticSelected ? 'Your selected assessment' : 'Your free assessment'}
                           </p>
+                          <p className="mt-1 text-sm font-bold text-[#1F396D] sm:text-base">
+                            {isFullDiagnosticSelected
+                              ? '60-Minute Full Diagnostic · $49'
+                              : 'Free 30-Minute Assessment'}
+                          </p>
+                          <p id="selectedAssessmentType-help" className="mt-1 text-xs leading-relaxed text-slate-600">
+                            {isFullDiagnosticSelected
+                              ? 'Get a deeper gap analysis, mistake-pattern review, and comprehensive written learning plan.'
+                              : 'Find the gap, get a brief written plan, and decide the next step without pressure.'}
+                          </p>
+                        </div>
+                        {isFullDiagnosticSelected ? (
+                          <button
+                            type="button"
+                            onClick={selectFreeAssessmentAndScroll}
+                            className="self-start text-xs font-bold text-[#1F396D] underline decoration-[#F16112] underline-offset-4 hover:text-[#F16112]"
+                          >
+                            Switch to free assessment
+                          </button>
                         ) : null}
                       </div>
-                      <Input
+                      <input
+                        type="hidden"
                         id="selectedAssessmentType"
-                        value={`${selectedAssessmentPath.title} (${selectedAssessmentPath.duration})`}
-                        disabled
-                        className="sr-only"
+                        value={formData.assessmentType}
+                        readOnly
                         aria-describedby="selectedAssessmentType-help"
                       />
                     </div>
@@ -1135,13 +1110,17 @@ export default function BookAssessmentPageClient() {
                         ) : (
                           <>
                             <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
-                            {selectedAssessmentPath.type === DEFAULT_ASSESSMENT_TYPE ? 'Request My Assessment Time' : 'Request My Diagnostic Time'}
+                            {isFullDiagnosticSelected
+                              ? "Request My Child's 60-Min Full Diagnostic →"
+                              : "Get My Child's Free 30-Min Assessment →"}
                             <Sparkles className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform" />
                           </>
                         )}
                       </Button>
                       <p className="mt-3 text-center text-xs text-slate-500">
-                        We&apos;ll call or text within 24 hours to confirm the exact time.
+                        {isFullDiagnosticSelected
+                          ? '24-hour response · SSL secure · Scheduling and payment confirmed by our team'
+                          : '24-hour response · SSL secure · No credit card'}
                       </p>
                       {errorMessage && (
                         <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
@@ -1177,6 +1156,9 @@ export default function BookAssessmentPageClient() {
                 <h2 id="assessment-comparison-title" className="mt-2 text-2xl font-bold tracking-tight text-[#1F396D] sm:text-3xl">
                   Why families choose GrowWise after comparing options
                 </h2>
+                <p className="mt-3 text-sm font-black text-[#F16112]">
+                  98% parent satisfaction from GrowWise families.
+                </p>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
                   The earlier we identify the gap, the easier it is to fix before the next test, unit, or school transition.
                 </p>
@@ -1213,10 +1195,10 @@ export default function BookAssessmentPageClient() {
                 <div className="mt-5">
                   <Button
                     type="button"
-                    onClick={scrollToAssessmentOptions}
+                    onClick={selectFreeAssessmentAndScroll}
                     className="min-h-11 rounded-full bg-[#F16112] px-5 text-sm font-bold text-white hover:bg-[#d94f0d]"
                   >
-                    Choose Your Assessment
+                    Get My Child&apos;s Free Assessment
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Button>
                 </div>
@@ -1226,10 +1208,7 @@ export default function BookAssessmentPageClient() {
                 {ASSESSMENT_PROCESS_STEPS.map((step, index) => (
                   <li
                     key={step.title}
-                    className={cn(
-                      'rounded-2xl border border-slate-200 bg-slate-50 p-4',
-                      index === ASSESSMENT_PROCESS_STEPS.length - 1 && 'sm:col-span-2',
-                    )}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
                   >
                     <div className="flex items-start gap-3">
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1F396D] text-sm font-black text-white">

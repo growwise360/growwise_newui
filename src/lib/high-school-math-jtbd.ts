@@ -44,7 +44,7 @@ export const HIGH_SCHOOL_JTBD_SITUATIONS: readonly HighSchoolJtbdSituation[] = [
     tagPill: '→ Test-readiness focus',
     panelHeading: 'Test performance is a different skill than classwork',
     panelBody:
-      'Students who understand lessons but lose points on tests often have mistake patterns under time pressure or gaps in the reasoning type the assessment requires. Sunday practice sessions and targeted instruction are designed to build test-readiness between paid sessions.',
+      'Students who understand lessons but lose points on tests often have mistake patterns under time pressure or gaps in the reasoning type the assessment requires. Targeted instruction is designed to build test-readiness between paid sessions.',
     primaryCta: 'assessment',
     primaryLabel: 'Book free assessment',
   },

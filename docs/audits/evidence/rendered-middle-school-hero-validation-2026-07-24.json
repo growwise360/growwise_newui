@@ -1,0 +1,41 @@
+{
+  "runAt": "2026-07-24T07:27:08.615Z",
+  "baseUrl": "http://127.0.0.1:3002",
+  "summary": {
+    "routes": 1,
+    "viewportChecks": 2,
+    "passed": 2,
+    "failed": 0
+  },
+  "failedChecks": [],
+  "checks": [
+    {
+      "route": "/academic/math/middle-school",
+      "viewport": "desktop",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "actionableConsoleErrors": [],
+      "failedResponses": [],
+      "environmentResponses": [],
+      "pageErrors": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "route": "/academic/math/middle-school",
+      "viewport": "mobile",
+      "status": 200,
+      "visibleH1Count": 1,
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "actionableConsoleErrors": [],
+      "failedResponses": [],
+      "environmentResponses": [],
+      "pageErrors": [],
+      "issues": [],
+      "passed": true
+    }
+  ]
+}

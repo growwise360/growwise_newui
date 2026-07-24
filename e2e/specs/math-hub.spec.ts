@@ -30,7 +30,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
       pathPattern(MATH_COURSE_PATHS.highSchool),
     );
 
-    const packages = page.locator('#packages');
+    const packages = page.locator('#packages').first();
     await expect(packages.getByRole('heading', { name: 'Elementary math' })).toBeVisible();
     await expect(packages.getByText('Beginner · Champ · Pro')).toBeVisible();
     await expect(packages.getByText('$169/mo')).toBeVisible();
@@ -49,16 +49,19 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
 
   test('JTBD selector reveals resolution on click', async ({ page }) => {
     await page.goto(localePath('/academic/math'), { waitUntil: 'load' });
-    await expect(page.getByText('Step 2 — Find your situation')).toBeVisible();
+    await expect(page.getByText('Step 2 — Find your situation').filter({ visible: true })).toBeVisible();
 
-    const jtbdSection = page.locator('section').filter({ hasText: 'Step 2 — Find your situation' });
+    const jtbdSection = page
+      .locator('section')
+      .filter({ hasText: 'Step 2 — Find your situation' })
+      .filter({ visible: true });
     const situation = jtbdSection.getByText('My child is falling behind and struggling to keep up', {
       exact: true,
     });
     await expect(situation).toBeVisible();
     await situation.click();
 
-    await expect(page.getByText(/A gap from 12–18 months back/)).toBeVisible();
+    await expect(page.getByText(/A gap from 12–18 months back/).filter({ visible: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book free assessment' }).first()).toBeVisible();
   });
 
