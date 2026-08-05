@@ -52,6 +52,60 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'stop-waiting-for-a-problem-2026',
+    category: 'academic',
+    title: 'Stop Waiting for a Problem Before Supporting Your Child',
+    excerpt:
+      'Why proactive academic support, not waiting for a bad grade, is one of the biggest advantages you can give your child this school year.',
+    href: '/growwise-blogs/stop-waiting-for-a-problem-proactive-academic-support',
+    readMore: 'Read article »',
+  },
+  {
+    id: 'learning-triangle-2026',
+    category: 'academic',
+    title: "Who Is Really Responsible for a Child's Learning?",
+    excerpt:
+      'Tutoring alone rarely fixes a struggling student. Why teacher, student, and parent form a learning triangle, and what happens when one side is missing.',
+    href: '/growwise-blogs/learning-triangle-teacher-student-parent',
+    readMore: 'Read article »',
+  },
+  {
+    id: 'mentor-vs-teacher-2026',
+    category: 'academic',
+    title: 'Two Students Get an A in Algebra. Five Years Later, Only One Can Think.',
+    excerpt:
+      'Why the difference between a teacher and a mentor shows up years later, not on the report card, and how the learning flywheel builds real critical thinking.',
+    href: '/growwise-blogs/mentor-vs-teacher-critical-thinking',
+    readMore: 'Read article »',
+  },
+  {
+    id: 'first-30-days-2026',
+    category: 'academic',
+    title: 'The First 30 Days Matter More Than Any Other Part of the School Year',
+    excerpt:
+      'Why September, not January, is when students actually build the study habits and routines that carry them through the year.',
+    href: '/growwise-blogs/first-30-days-of-school-matter',
+    readMore: 'Read article »',
+  },
+  {
+    id: 'roots-not-fruit-2026',
+    category: 'academic',
+    title: 'Stop Measuring Learning by Grades',
+    excerpt:
+      'Grades are the fruit. Curiosity, practice, feedback, and consistency are the roots. Why parents who obsess over fruit usually miss the roots.',
+    href: '/growwise-blogs/stop-measuring-learning-by-grades-roots-not-fruit',
+    readMore: 'Read article »',
+  },
+  {
+    id: 'education-cannot-be-outsourced-2026',
+    category: 'academic',
+    title: 'The Education Trap That Smart Parents Fall Into',
+    excerpt:
+      "It isn't the wrong tutor, curriculum, or school. It's believing education can be fully outsourced.",
+    href: '/growwise-blogs/education-cannot-be-outsourced',
+    readMore: 'Read article »',
+  },
+  {
     id: 'line-by-line-reading-evidence-2026',
     category: 'academic',
     title: 'The Tell-Tale Heart Reading Comprehension',

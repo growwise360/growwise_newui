@@ -160,6 +160,12 @@ const campLandingHub: SitemapEntry = {
 
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
+  '/growwise-blogs/stop-waiting-for-a-problem-proactive-academic-support',
+  '/growwise-blogs/learning-triangle-teacher-student-parent',
+  '/growwise-blogs/mentor-vs-teacher-critical-thinking',
+  '/growwise-blogs/first-30-days-of-school-matter',
+  '/growwise-blogs/stop-measuring-learning-by-grades-roots-not-fruit',
+  '/growwise-blogs/education-cannot-be-outsourced',
   '/growwise-blogs/tell-tale-heart-reading-comprehension-cite-evidence',
   '/growwise-blogs/child-reads-but-doesnt-understand-passage',
   '/growwise-blogs/why-is-my-child-struggling-with-fractions',
