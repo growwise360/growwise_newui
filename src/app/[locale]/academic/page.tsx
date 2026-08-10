@@ -30,7 +30,7 @@ import {
   TrendingUp,
   X
 } from 'lucide-react';
-import FreeAssessmentModal from '@/components/FreeAssessmentModal';
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal';
 import { publicPath } from '@/lib/publicPath';
 import {
   Accordion,
@@ -234,7 +234,7 @@ const AcademicPage: React.FC = () => {
   ];
 
   const pricingOptions = [
-    { id: 1, title: 'Affordable, Accessible Pricing', description: 'Small-Group $35/session • One-on-One from $45/session', icon: '💰', color: 'bg-white', borderColor: 'border-[#F16112]/30' },
+    { id: 1, title: 'Program Fit Before Pricing', description: 'Share your child’s grade and subject to receive the best-fit options and current pricing.', icon: '🎯', color: 'bg-white', borderColor: 'border-[#F16112]/30' },
     { id: 2, title: 'Study your way', description: 'Choose from online, in-person, or hybrid classes to fit your schedule.', icon: '📚', color: 'bg-[#F16112]', textColor: 'text-white' },
     { id: 3, title: 'Personalized Assistance', description: 'Receive dedicated support and personalized help to reach your goals.', icon: '🎯', color: 'bg-white', borderColor: 'border-[#F16112]/30' }
   ];
@@ -322,8 +322,8 @@ const AcademicPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Button onClick={() => setIsLearnMoreModalOpen(true)} className="bg-[#1F396D] hover:bg-[#29335C] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Book a Free Assessment</Button>
-                  <Button onClick={() => router.push(publicPath('/enroll', locale))} className="bg-[#F16112] hover:bg-[#F1894F] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Enroll Now</Button>
+                  <Button onClick={() => setIsAssessmentModalOpen(true)} className="bg-[#F16112] hover:bg-[#F1894F] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Get More Information</Button>
+                  <Button onClick={() => setIsLearnMoreModalOpen(true)} className="bg-[#1F396D] hover:bg-[#29335C] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Explore Math &amp; English</Button>
                 </div>
               </div>
             </CardContent>
@@ -548,24 +548,13 @@ const AcademicPage: React.FC = () => {
                 </div>
                 <Card className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200">
                   <CardContent className="p-8 text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Session Pricing</h3>
-                    <div className="flex items-center justify-center gap-8 mb-6">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-[#1F396D] mb-2">FREE</div>
-                        <div className="text-sm text-gray-600">for GrowWisers</div>
-                      </div>
-                      <div className="w-px h-12 bg-gray-300"></div>
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-[#F16112] mb-2">$8</div>
-                        <div className="text-sm text-gray-600">for non-GrowWisers</div>
-                      </div>
-                    </div>
-                    <p className="text-gray-600 text-lg mb-6">Helps build speed, accuracy, and confidence under pressure.</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Find the Right Academic Program</h3>
+                    <p className="text-gray-600 text-lg mb-6">Tell us your child&apos;s grade, subject, and main goal. We&apos;ll recommend the best-fit option and send current pricing within one business day.</p>
                     <Button 
-                      onClick={() => router.push(publicPath('/enroll', locale))}
+                      onClick={() => setIsAssessmentModalOpen(true)}
                       className="bg-gradient-to-r from-[#1F396D] to-[#F16112] hover:from-[#29335C] hover:to-[#F1894F] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      Register for Practice Sessions
+                      Get More Information
                       <ChevronRight className="ml-2 w-5 h-5" />
                     </Button>
                   </CardContent>
@@ -737,7 +726,7 @@ const AcademicPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white px-10 py-4 rounded-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105" 
               size="lg"
             >
-              Book a Free Assessment
+              Get More Information
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
             <Button 
@@ -914,15 +903,13 @@ const AcademicPage: React.FC = () => {
         : null}
 
       {/* Free Assessment Modal */}
-      <FreeAssessmentModal 
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic"
       />
     </div>
   );
 };
 
 export default AcademicPage;
-
-
-

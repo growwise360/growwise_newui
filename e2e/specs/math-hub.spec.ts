@@ -33,8 +33,9 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
     const packages = page.locator('#packages').first();
     await expect(packages.getByRole('heading', { name: 'Elementary math' })).toBeVisible();
     await expect(packages.getByText('Beginner · Champ · Pro')).toBeVisible();
-    await expect(packages.getByText('$169/mo')).toBeVisible();
-    await expect(packages.getByText('$376/mo')).toBeVisible();
+    await expect(page.getByText(/Grade 1–2 Math · 75 minutes per week · Current pricing available on request/).first()).toBeVisible();
+    await expect(packages.getByText('$169/mo')).toHaveCount(0);
+    await expect(packages.getByText('$376/mo')).toHaveCount(0);
     await expect(packages.getByRole('link', { name: 'See full program' }).first()).toHaveAttribute(
       'href',
       pathPattern(MATH_COURSE_PATHS.elementary),
@@ -68,7 +69,8 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
   test('/academic/math/high-school serves canonical high school page', async ({ page }) => {
     await page.goto(localePath('/academic/math/high-school'), { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveURL(pathPattern(MATH_COURSE_PATHS.highSchool));
-    await expect(page.getByText('$369/mo', { exact: true }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /High School Math Tutoring/ })).toBeVisible();
+    await expect(page.getByText('$369/mo', { exact: true })).toHaveCount(0);
     await expect(page.getByText('2 Subject', { exact: true })).toHaveCount(0);
   });
 });

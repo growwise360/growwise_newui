@@ -4,7 +4,6 @@ import { ELEMENTARY_MATH_VISIBLE_FAQS } from '@/lib/schema/elementary-math-faqs'
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
-import { getMathHubSchemaOfferPrice } from '@/lib/math-pricing-display'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -46,12 +45,6 @@ export default async function ElementaryMathLayout({
     coursePrerequisites: 'Grades 1–5 elementary school level',
     url: absoluteSiteUrl('/academic/math/elementary', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
-    offers: {
-      price: getMathHubSchemaOfferPrice('elementary'),
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-    },
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([

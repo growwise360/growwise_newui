@@ -43,12 +43,6 @@ export default async function EnglishCoursesLayout({
     coursePrerequisites: "Free assessment recommended to understand the student's current reading and writing level before enrollment",
     url: absoluteSiteUrl('/academic/english', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
-    offers: {
-      price: "289",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-    }
   })
 
   return (

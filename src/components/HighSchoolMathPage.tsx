@@ -18,8 +18,7 @@ import {
   HIGH_SCHOOL_PROGRAM_INCLUDES,
   HIGH_SCHOOL_PROGRAM_OUTCOMES,
 } from '@/lib/high-school-math-program-copy';
-import { mapHubOptionsToPricingTiers } from '@/lib/map-math-program-tiers';
-import { buildHighSchoolSeoIntroParagraph, getMathHubMinMonthlyUsd } from '@/lib/math-pricing-display';
+import { buildHighSchoolSeoIntroParagraph } from '@/lib/math-pricing-display';
 import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
@@ -30,7 +29,7 @@ import {
   type HighSchoolJtbdSituation,
 } from '@/lib/high-school-math-jtbd';
 import { useChatbot } from '../contexts/ChatbotContext';
-import FreeAssessmentModal from './FreeAssessmentModal';
+import ProgramRecommendationModal from './ProgramRecommendationModal';
 import { getIconComponent } from '@/lib/iconMap';
 import { RelatedContent } from './seo/RelatedContent';
 import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection';
@@ -526,7 +525,7 @@ const HighSchoolMathPage: React.FC = () => {
                 className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#d54f0a] hover:to-[#F16112] text-white rounded-full px-8 py-4 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
               >
                 <Calculator className="mr-2 w-5 h-5" />
-                Book a Free Assessment
+                Get More Information
               </Button>
               <Button 
                 onClick={() => {
@@ -763,10 +762,7 @@ const HighSchoolMathPage: React.FC = () => {
           heading={HIGH_SCHOOL_MATH_PROGRAM_DETAILS.heading}
           includes={HIGH_SCHOOL_PROGRAM_INCLUDES}
           outcomes={HIGH_SCHOOL_PROGRAM_OUTCOMES}
-          fromMonthlyLabel={`From $${getMathHubMinMonthlyUsd('high-school')}/month`}
-          tiers={mapHubOptionsToPricingTiers(hsMonthlyProgram.options)}
           onBookAssessment={openAssessment}
-          ctaLabel="Trial class $45"
         />
       ) : null}
 
@@ -1034,7 +1030,7 @@ const HighSchoolMathPage: React.FC = () => {
               onClick={() => setIsAssessmentModalOpen(true)}
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white px-10 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
             >
-              Book a Free Assessment
+              Get More Information
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
             <Button
@@ -1286,7 +1282,7 @@ const HighSchoolMathPage: React.FC = () => {
                         }}
                         className="bg-[#F16112] hover:bg-[#d54f0a] text-white font-bold py-2.5 px-8 rounded-lg transition-colors whitespace-nowrap"
                       >
-                        Book Free Assessment
+                        Get More Information
                       </button>
                     </div>
 
@@ -1302,9 +1298,12 @@ const HighSchoolMathPage: React.FC = () => {
       )}
 
       {/* Free Assessment Modal */}
-      <FreeAssessmentModal
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic-math-high-school"
+        defaultSubject="Math"
+        defaultGradeBand="9-12"
       />
     </div>
   );

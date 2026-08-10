@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { CourseFAQ } from '@/components/seo/CourseFAQ'
-import FreeAssessmentModal from '@/components/FreeAssessmentModal'
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal'
 import { MIDDLE_SCHOOL_MATH_VISIBLE_FAQS } from '@/lib/schema/middle-school-math-faqs'
 import {
   MIDDLE_SCHOOL_COURSE_BADGE_LABELS,
@@ -38,8 +38,6 @@ import {
   MIDDLE_SCHOOL_PROGRAM_OUTCOMES,
 } from '@/lib/middle-school-math-program-copy'
 import { MiddleSchoolPlacementDiagram } from '@/components/courses/MiddleSchoolPlacementDiagram'
-import { mapHubOptionsToPricingTiers } from '@/lib/map-math-program-tiers'
-import { getMathHubMinMonthlyUsd } from '@/lib/math-pricing-display'
 import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection'
 import { MathTrialSection } from '@/components/courses/MathTrialSection'
 import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection'
@@ -178,7 +176,7 @@ function CourseLevelCard({
           onClick={onBookAssessment}
           className="mt-6 w-full rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white font-semibold shadow hover:shadow-md transition-shadow"
         >
-          Book free assessment
+          Get More Information
         </Button>
       </CardContent>
     </Card>
@@ -201,6 +199,16 @@ const MiddleSchoolMathPage: React.FC = () => {
         <Link
           href={publicPath('/contact', locale)}
           className="inline-flex items-center justify-center rounded-full border-2 border-[#1F396D] px-5 py-2.5 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+        >
+          {situation.primaryLabel}
+        </Link>
+      )
+    }
+    if (situation.primaryCta === 'assessment') {
+      return (
+        <Link
+          href={publicPath('/book-assessment', locale)}
+          className="inline-flex items-center justify-center rounded-full bg-[#F16112] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#d54f0a]"
         >
           {situation.primaryLabel}
         </Link>
@@ -275,7 +283,7 @@ const MiddleSchoolMathPage: React.FC = () => {
                 className="h-auto min-h-12 w-full justify-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-5 py-3 text-sm font-semibold text-white shadow-md transition-shadow hover:shadow-lg"
               >
                 <Calculator className="mr-2 h-5 w-5" aria-hidden />
-                Book free assessment
+                Get More Information
               </Button>
               <Link
                 href={publicPath('/self-check', locale)}
@@ -399,13 +407,12 @@ const MiddleSchoolMathPage: React.FC = () => {
               {MIDDLE_SCHOOL_COURSE_CTA.heading}
             </h3>
             <p className="text-gray-600 leading-relaxed mb-6">{MIDDLE_SCHOOL_COURSE_CTA.body}</p>
-            <Button
-              type="button"
-              onClick={openAssessment}
-              className="rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white px-8 py-4 text-base font-semibold shadow-lg hover:shadow-md transition-shadow"
+            <Link
+              href={publicPath('/book-assessment', locale)}
+              className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-md"
             >
               {MIDDLE_SCHOOL_COURSE_CTA.buttonLabel}
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -472,8 +479,6 @@ const MiddleSchoolMathPage: React.FC = () => {
           heading={MIDDLE_SCHOOL_MATH_PROGRAM_DETAILS.heading}
           includes={MIDDLE_SCHOOL_PROGRAM_INCLUDES}
           outcomes={MIDDLE_SCHOOL_PROGRAM_OUTCOMES}
-          fromMonthlyLabel={`From $${getMathHubMinMonthlyUsd('middle-school')}/month`}
-          tiers={mapHubOptionsToPricingTiers(msMonthlyProgram.options)}
           onBookAssessment={openAssessment}
         />
       ) : null}
@@ -505,13 +510,10 @@ const MiddleSchoolMathPage: React.FC = () => {
             focus on. No charge. No commitment.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-xl">
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
               Book free assessment
-            </Button>
+            </Link>
             <Link
               href={publicPath('/self-check', locale)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-8 py-4 text-base font-semibold text-white hover:bg-white/10 transition-colors"
@@ -588,9 +590,12 @@ const MiddleSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
-      <FreeAssessmentModal
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic-math-middle-school"
+        defaultSubject="Math"
+        defaultGradeBand="6-8"
       />
     </div>
   )
