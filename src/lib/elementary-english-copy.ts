@@ -215,7 +215,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
       'The assessment identifies pillar gaps, places your child in Beginner, Champ, or Pro, and outlines month one — before any paid session. No charge and no commitment.',
     primaryLabel: 'Book free assessment',
     primaryPath: '/book-assessment',
-    secondaryLabel: 'Get a program recommendation',
+    secondaryLabel: 'Get More Information',
     secondaryPath: '/enroll-academic',
   },
 } as const

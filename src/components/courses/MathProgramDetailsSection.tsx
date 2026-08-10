@@ -28,7 +28,7 @@ export function MathProgramDetailsSection({
   includes,
   outcomes,
   onBookAssessment,
-  ctaLabel = 'Get My Program Recommendation',
+  ctaLabel = 'Get More Information',
 }: MathProgramDetailsSectionProps) {
   return (
     <section className="bg-white py-16 lg:py-20">

@@ -96,7 +96,7 @@ export default function ProgramRecommendationModal({
     event.preventDefault()
     setError('')
     if (!/^\S+@\S+\.\S+$/.test(email)) return setError('Enter a valid email address.')
-    if (!consent) return setError('Please confirm that we may contact you about your recommendation.')
+    if (!consent) return setError('Please confirm that we may contact you about this request.')
     setStatus('submitting')
     try {
       const response = await fetch('/api/program-recommendation', {
@@ -140,7 +140,7 @@ export default function ProgramRecommendationModal({
   const content = (
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby={titleId}>
       <div ref={dialogRef} className="relative max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl sm:p-9">
-        <button ref={closeButtonRef} type="button" onClick={close} aria-label="Close recommendation form" className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100">
+        <button ref={closeButtonRef} type="button" onClick={close} aria-label="Close information request form" className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100">
           <X className="h-5 w-5" />
         </button>
 
@@ -148,7 +148,7 @@ export default function ProgramRecommendationModal({
           <div className="py-8 text-center" aria-live="polite">
             <CheckCircle className="mx-auto h-14 w-14 text-green-600" aria-hidden />
             <h2 id={titleId} className="mt-5 text-2xl font-bold text-[#1F396D]">Your request is on its way</h2>
-            <p className="mx-auto mt-3 max-w-md text-gray-600">We’ll email your best-fit program options and current pricing within one business day.</p>
+            <p className="mx-auto mt-3 max-w-md text-gray-600">We’ll email program details and current pricing within one business day.</p>
             <Button asChild className="mt-7 rounded-full bg-[#F16112] px-7 text-white hover:bg-[#d9540d]">
               <a href={publicPath('/book-assessment', locale)}>Book My Free Assessment</a>
             </Button>
@@ -156,9 +156,9 @@ export default function ProgramRecommendationModal({
         ) : (
           <>
             <div className="pr-12">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#F16112]">30-second program fit</p>
-              <h2 id={titleId} className="mt-2 text-2xl font-bold text-[#1F396D]">Find the right program for your child</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">Answer a few quick questions. We’ll recommend the best-fit option and send current pricing—no commitment.</p>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#F16112]">30-second request</p>
+              <h2 id={titleId} className="mt-2 text-2xl font-bold text-[#1F396D]">Get more program information</h2>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">Tell us your child’s grade and subject. We’ll send relevant program details and current pricing—no commitment.</p>
             </div>
             <div className="mt-6 h-2 overflow-hidden rounded-full bg-gray-100" aria-label={`Step ${step + 1} of 3`}>
               <div className="h-full rounded-full bg-[#F16112] transition-all" style={{ width: `${((step + 1) / 3) * 100}%` }} />
@@ -195,7 +195,7 @@ export default function ProgramRecommendationModal({
                   <div>
                     <Label htmlFor="recommendation-email">Your email address *</Label>
                     <Input id="recommendation-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} className="mt-2 min-h-11" required />
-                    <p className="mt-1.5 text-xs text-gray-500">We&apos;ll email your program recommendation and current pricing.</p>
+                    <p className="mt-1.5 text-xs text-gray-500">We&apos;ll email relevant program details and current pricing.</p>
                   </div>
                   <div>
                     <Label htmlFor="recommendation-name">Parent name <span className="font-normal text-gray-500">(optional)</span></Label>
@@ -225,7 +225,7 @@ export default function ProgramRecommendationModal({
                   <Button type="button" onClick={advance} className="min-h-11 flex-1 rounded-full bg-[#F16112] text-white hover:bg-[#d9540d]">Continue</Button>
                 ) : (
                   <Button type="submit" disabled={status === 'submitting'} className="min-h-11 flex-1 rounded-full bg-[#F16112] text-white hover:bg-[#d9540d]">
-                    {status === 'submitting' ? 'Sending…' : 'Send My Program Recommendation'}
+                    {status === 'submitting' ? 'Sending…' : 'Send My Request'}
                   </Button>
                 )}
               </div>

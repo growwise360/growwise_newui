@@ -241,7 +241,7 @@ const SATPage: React.FC = () => {
                 className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#d54f0a] hover:to-[#F16112] text-white rounded-full px-8 py-4 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
               >
                 <Target className="mr-2 w-5 h-5" />
-                Get My Program Recommendation
+                Get More Information
               </Button>
               <Button variant="outline" className="border-2 border-gray-400 text-gray-700 bg-white/60 hover:bg-white hover:text-[#1F396D] rounded-full px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 shadow-lg">
                 <Eye className="mr-2 w-5 h-5" />
@@ -442,7 +442,7 @@ const SATPage: React.FC = () => {
                             {/* Mobile button text or fallback for touch devices */}
                             <div className={`${!isTouchDevice ? 'flex md:hidden' : 'flex'} items-center justify-center`}>
                               <Target className="mr-2 w-4 h-4" />
-                              Get My Recommendation
+                              Get More Information
                             </div>
                           </Button>
                         </div>
@@ -511,7 +511,7 @@ const SATPage: React.FC = () => {
                               className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg`}
                             >
                               <Target className="mr-2 w-4 h-4" />
-                              Get My Recommendation
+                              Get More Information
                             </Button>
                           </div>
 

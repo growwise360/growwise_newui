@@ -96,7 +96,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"My child has been struggling and falling behind"',
     body: 'This is the most common presentation. The gap usually started 6–18 months ago and has been compounding ever since. The diagnostic finds the root concept; the Beginner track closes it systematically.',
     cta: 'assessment',
-    ctaLabel: 'Get my program recommendation',
+    ctaLabel: 'Get More Information',
     levelTag: 'Beginner level',
     levelColor: 'bg-green-100 text-green-700',
   },
@@ -105,7 +105,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"They\'re doing okay but I want them more consistent"',
     body: "Your child is at grade level but performance is uneven — good days and bad days, strong on some topics and shaky on others. The Champ track builds the consistency that makes math reliable.",
     cta: 'assessment',
-    ctaLabel: 'Get my program recommendation',
+    ctaLabel: 'Get More Information',
     levelTag: 'Champ level',
     levelColor: 'bg-blue-100 text-blue-700',
   },
@@ -123,7 +123,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"Teacher says they need more practice but I don\'t know of what"',
     body: '"More practice" applied to the wrong concept produces frustration, not progress. The free 30-minute assessment identifies exactly which concept needs work and whether Beginner or Champ is the right starting point.',
     cta: 'assessment',
-    ctaLabel: 'Get my program recommendation',
+    ctaLabel: 'Get More Information',
     levelTag: 'Beginner or Champ · assessment decides',
     levelColor: 'bg-gray-100 text-gray-600',
   },
@@ -334,7 +334,7 @@ const ElementaryMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Get my program recommendation
+              Get More Information
             </Button>
             <Link
               href={publicPath('/self-check', locale)}
@@ -449,7 +449,7 @@ const ElementaryMathPage: React.FC = () => {
             href={publicPath('/book-assessment', locale)}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
           >
-            Get my program recommendation
+            Get More Information
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
@@ -678,7 +678,7 @@ const ElementaryMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Get my program recommendation
+              Get More Information
             </Button>
             <Link
               href={publicPath('/self-check', locale)}

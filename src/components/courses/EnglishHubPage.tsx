@@ -343,7 +343,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               taught through diagnostic-based small-group instruction.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get My Program Recommendation" className="min-h-12 text-sm font-black" />
+              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get More Information" className="min-h-12 text-sm font-black" />
               <Link
                 href="#programs"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"
@@ -541,7 +541,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
                     <p className="font-heading text-lg font-black text-[#1F396D]">Best-fit program guidance</p>
                     <p className="mt-3 text-sm font-semibold text-slate-900">{option.schedule}</p>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600">{option.note}</p>
-                    <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" defaultGradeBand={option.id === 'young-authors' ? '3-5' : undefined} label={option.id === 'young-authors' ? 'Ask About Young Authors' : 'Get My Program Recommendation'} className={`mt-6 w-full rounded-lg text-sm font-black ${option.featured ? 'bg-[#F16112]' : 'bg-[#1F396D] hover:bg-[#142b45]'}`} />
+                    <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" defaultGradeBand={option.id === 'young-authors' ? '3-5' : undefined} label="Get More Information" className={`mt-6 w-full rounded-lg text-sm font-black ${option.featured ? 'bg-[#F16112]' : 'bg-[#1F396D] hover:bg-[#142b45]'}`} />
                   </div>
                 </article>
               ))}
@@ -626,7 +626,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               and gives you a concrete plan before you pay anything.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get My Program Recommendation" className="min-h-12 min-w-[210px] text-sm font-black" />
+              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get More Information" className="min-h-12 min-w-[210px] text-sm font-black" />
               <Link
                 href={publicPath('/readinesschecklist', locale)}
                 className="inline-flex min-h-12 min-w-[210px] items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"

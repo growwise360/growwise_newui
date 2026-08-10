@@ -27,7 +27,7 @@ export function MathHubCtaBlock({ locale }: MathHubCtaBlockProps) {
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-zinc-200 sm:text-base">{cta.body}</p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-          <ProgramRecommendationButton sourcePage="academic-math" defaultSubject="Math" label="Get My Program Recommendation" className="min-w-[200px] text-sm" />
+          <ProgramRecommendationButton sourcePage="academic-math" defaultSubject="Math" label="Get More Information" className="min-w-[200px] text-sm" />
           <Link
             href={publicPath(cta.secondary.href, locale)}
             className="inline-flex min-w-[200px] items-center justify-center rounded-full border-2 border-white/80 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"

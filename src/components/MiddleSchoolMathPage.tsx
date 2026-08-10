@@ -72,7 +72,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who fall behind in middle school almost always have an unresolved concept from late elementary — fractions, ratios, or early algebraic thinking. We find it in the assessment and start there, not at the current unit.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get my program recommendation',
+    primaryLabel: 'Get More Information',
   },
   {
     id: 'im-prep',
@@ -82,7 +82,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students placed in IM1 or IM2 are often technically eligible but not actually prepared for the pacing of week one. We run a prep sequence aligned to the exact concepts the course assumes on day one.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get my program recommendation',
+    primaryLabel: 'Get More Information',
     secondaryHref: '/camps/academic-summer-programs-dublin-ca',
     secondaryLabel: 'See IM1 Get Ready program',
   },
@@ -94,7 +94,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who understand concepts in class but lose points on tests usually have one of two problems: careless mistake patterns under time pressure, or gaps in the specific reasoning type the test requires. Both are fixable. Neither is fixed by more homework.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get my program recommendation',
+    primaryLabel: 'Get More Information',
   },
   {
     id: 'accelerated-ready',
@@ -104,7 +104,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'A student can score well enough to place into accelerated math and still not be ready for the pacing or reasoning demands of IM1. The assessment tells you which one is true for your child — and if there is a gap, we close it before the school year starts.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get my program recommendation',
+    primaryLabel: 'Get More Information',
   },
   {
     id: 'ahead',
@@ -176,7 +176,7 @@ function CourseLevelCard({
           onClick={onBookAssessment}
           className="mt-6 w-full rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white font-semibold shadow hover:shadow-md transition-shadow"
         >
-          Get my program recommendation
+          Get More Information
         </Button>
       </CardContent>
     </Card>
@@ -273,7 +273,7 @@ const MiddleSchoolMathPage: React.FC = () => {
                 className="h-auto min-h-12 w-full justify-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-5 py-3 text-sm font-semibold text-white shadow-md transition-shadow hover:shadow-lg"
               >
                 <Calculator className="mr-2 h-5 w-5" aria-hidden />
-                Get my program recommendation
+                Get More Information
               </Button>
               <Link
                 href={publicPath('/self-check', locale)}
@@ -506,7 +506,7 @@ const MiddleSchoolMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Get my program recommendation
+              Get More Information
             </Button>
             <Link
               href={publicPath('/self-check', locale)}

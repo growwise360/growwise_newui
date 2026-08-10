@@ -322,7 +322,7 @@ const AcademicPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Button onClick={() => setIsAssessmentModalOpen(true)} className="bg-[#F16112] hover:bg-[#F1894F] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Get My Program Recommendation</Button>
+                  <Button onClick={() => setIsAssessmentModalOpen(true)} className="bg-[#F16112] hover:bg-[#F1894F] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Get More Information</Button>
                   <Button onClick={() => setIsLearnMoreModalOpen(true)} className="bg-[#1F396D] hover:bg-[#29335C] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Explore Math &amp; English</Button>
                 </div>
               </div>
@@ -554,7 +554,7 @@ const AcademicPage: React.FC = () => {
                       onClick={() => setIsAssessmentModalOpen(true)}
                       className="bg-gradient-to-r from-[#1F396D] to-[#F16112] hover:from-[#29335C] hover:to-[#F1894F] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      Get My Program Recommendation
+                      Get More Information
                       <ChevronRight className="ml-2 w-5 h-5" />
                     </Button>
                   </CardContent>
@@ -726,7 +726,7 @@ const AcademicPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white px-10 py-4 rounded-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105" 
               size="lg"
             >
-              Get My Program Recommendation
+              Get More Information
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
             <Button 

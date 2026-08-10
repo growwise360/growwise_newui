@@ -20,7 +20,7 @@ export default function ProgramRecommendationButton({
   sourcePage,
   defaultSubject,
   defaultGradeBand,
-  label = 'Get My Program Recommendation',
+  label = 'Get More Information',
   className,
 }: ProgramRecommendationButtonProps) {
   const [open, setOpen] = useState(false)
