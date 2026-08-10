@@ -96,7 +96,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"My child has been struggling and falling behind"',
     body: 'This is the most common presentation. The gap usually started 6–18 months ago and has been compounding ever since. The diagnostic finds the root concept; the Beginner track closes it systematically.',
     cta: 'assessment',
-    ctaLabel: 'Get More Information',
+    ctaLabel: 'Book free assessment',
     levelTag: 'Beginner level',
     levelColor: 'bg-green-100 text-green-700',
   },
@@ -105,7 +105,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"They\'re doing okay but I want them more consistent"',
     body: "Your child is at grade level but performance is uneven — good days and bad days, strong on some topics and shaky on others. The Champ track builds the consistency that makes math reliable.",
     cta: 'assessment',
-    ctaLabel: 'Get More Information',
+    ctaLabel: 'Book free assessment',
     levelTag: 'Champ level',
     levelColor: 'bg-blue-100 text-blue-700',
   },
@@ -123,7 +123,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"Teacher says they need more practice but I don\'t know of what"',
     body: '"More practice" applied to the wrong concept produces frustration, not progress. The free 30-minute assessment identifies exactly which concept needs work and whether Beginner or Champ is the right starting point.',
     cta: 'assessment',
-    ctaLabel: 'Get More Information',
+    ctaLabel: 'Book free assessment',
     levelTag: 'Beginner or Champ · assessment decides',
     levelColor: 'bg-gray-100 text-gray-600',
   },
@@ -224,13 +224,13 @@ const ElementaryMathPage: React.FC = () => {
   const ctaForSituation = (situation: JTBDSituation) => {
     if (situation.cta === 'assessment') {
       return (
-        <button
-          onClick={openAssessment}
+        <Link
+          href={publicPath('/book-assessment', locale)}
           className="inline-flex items-center gap-1.5 rounded-full bg-[#F16112] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#d54f0a] transition-colors"
         >
           {situation.ctaLabel}
           <ArrowRight className="h-4 w-4" aria-hidden />
-        </button>
+        </Link>
       )
     }
     if (situation.cta === 'selfcheck') {
@@ -329,13 +329,10 @@ const ElementaryMathPage: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-xl">
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Get More Information
-            </Button>
+              Book free assessment
+            </Link>
             <Link
               href={publicPath('/self-check', locale)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-8 py-4 text-base font-semibold text-[#1F396D] hover:bg-[#1F396D]/5 transition-colors"
@@ -449,7 +446,7 @@ const ElementaryMathPage: React.FC = () => {
             href={publicPath('/book-assessment', locale)}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
           >
-            Get More Information
+            Book free 30-minute assessment
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
@@ -673,13 +670,10 @@ const ElementaryMathPage: React.FC = () => {
             The free 30-minute assessment does three things: identifies your child's specific gap, places them in the right level (Beginner, Champ, or Pro), and maps out what month one of their program will focus on. No charge. No commitment. Results you can act on immediately.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-xl">
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Get More Information
-            </Button>
+              Book free assessment
+            </Link>
             <Link
               href={publicPath('/self-check', locale)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-8 py-4 text-base font-semibold text-white hover:bg-white/10 transition-colors"

@@ -402,7 +402,7 @@ const SATPage: React.FC = () => {
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 <Target className="h-4 w-4 text-[#F16112]" aria-hidden />
-                                <span className="font-bold text-sm text-[#1F396D]">Personalized level recommendation</span>
+                                <span className="font-bold text-sm text-[#1F396D]">Relevant program details</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <Star className="w-4 h-4 fill-[#F1894F] text-[#F1894F]" />
@@ -410,7 +410,7 @@ const SATPage: React.FC = () => {
                               </div>
                             </div>
                             <div className="flex items-center mt-2 text-xs text-gray-600">
-                              <span>Current pricing sent with your recommendation</span>
+                              <span>Current pricing sent with your information</span>
                             </div>
                           </div>
 
@@ -617,13 +617,10 @@ const SATPage: React.FC = () => {
             Start your SAT preparation journey with GrowWise's proven methods
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              onClick={() => setIsAssessmentModalOpen(true)}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white px-10 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-10 py-4 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-[#F1894F] hover:to-[#F16112] hover:shadow-2xl">
               Free Assessment
               <ChevronRight className="ml-2 w-5 h-5" />
-            </Button>
+            </Link>
             <Button
               className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-[#1F396D] px-10 py-4 rounded-full transition-all duration-300 transform hover:scale-105"
             >

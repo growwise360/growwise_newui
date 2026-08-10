@@ -98,7 +98,7 @@ export const MATH_HUB_COPY = {
           'Word problem structure',
           'Intro geometry',
         ],
-        packageLine: 'Grade 1–2 Math · 75 minutes per week · Current pricing by recommendation',
+        packageLine: 'Grade 1–2 Math · 75 minutes per week · Current pricing available on request',
         ctaLabel: 'See elementary programs',
         imageSrc: '/assets/courses/math-band-elementary.webp',
         imageAlt:
@@ -120,7 +120,7 @@ export const MATH_HUB_COPY = {
           'Proportional reasoning',
           'Linear functions',
         ],
-        packageLine: '150 minutes per week · 3-month program · Current pricing by recommendation',
+        packageLine: '150 minutes per week · 3-month program · Current pricing available on request',
         ctaLabel: 'See middle school programs',
         imageSrc: '/assets/courses/math-band-middle-school.webp',
         imageAlt:
@@ -143,7 +143,7 @@ export const MATH_HUB_COPY = {
           'AP Precalculus',
           'Calculus',
         ],
-        packageLine: '150 minutes per week · 3-month program · Current pricing by recommendation',
+        packageLine: '150 minutes per week · 3-month program · Current pricing available on request',
         ctaLabel: 'See high school programs',
         imageSrc: '/assets/courses/math-band-high-school.webp',
         imageAlt:
@@ -229,7 +229,7 @@ export const MATH_HUB_COPY = {
     sectionLabel: 'Programs · 3-month commitment',
     heading: 'Defined programs. Not open-ended tutoring.',
     body: "Each package has a fixed curriculum scope, a start-point diagnostic, and a clear outcome by the end of three months. You know what's covered before you enroll.",
-    footnote: 'Current pricing is shared with each family’s best-fit program recommendation before enrollment.',
+    footnote: 'Current pricing is shared with each family before enrollment.',
     cards: [
       {
         id: 'elementary',
@@ -317,7 +317,7 @@ export const MATH_HUB_COPY = {
       {
         question: 'What math tutoring programs does GrowWise offer in Dublin, CA?',
         answer:
-          'Four tracks at our Dublin center serve Grades 1–12. Elementary Math builds foundations for the advanced middle school pathway. Middle School Math follows DUSD, PUSD, and SRVUSD pacing, with an accelerated IM1/IM2 track. High School Math covers IM3, Algebra 2, Precalculus, and Calculus. Groups are typically 6–10 students. Current pricing is shared with the family’s best-fit recommendation before enrollment.',
+          'Four tracks at our Dublin center serve Grades 1–12. Elementary Math builds foundations for the advanced middle school pathway. Middle School Math follows DUSD, PUSD, and SRVUSD pacing, with an accelerated IM1/IM2 track. High School Math covers IM3, Algebra 2, Precalculus, and Calculus. Groups are typically 6–10 students. Current pricing is available on request before enrollment.',
       },
       {
         question: 'Is GrowWise aligned with DUSD, PUSD, and SRVUSD math curriculum?',
@@ -399,7 +399,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
       'Number sense, fractions, and reasoning — before the gaps compound.',
     body: 'Most elementary math struggles trace back to one unaddressed concept from 6–12 months ago. We find it before it becomes a pattern. Live online small groups with a defined 3-month curriculum.',
     coursesIncluded: MATH_HUB_COPY.gradeBands.cards[0].coursesIncluded,
-    packageLine: 'Grade 1–2 Math · 75 minutes per week · Current pricing by recommendation',
+    packageLine: 'Grade 1–2 Math · 75 minutes per week · Current pricing available on request',
     schemaCourseName: 'Elementary Math Program — Grades 1–5',
     schemaDescription:
       '3-month structured math program for Grades 1–5. Covers number sense, fractions, operations, and word problem reasoning. Live online small groups.',
@@ -412,7 +412,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
     intro: 'Pre-Algebra, IM1, IM2 — including accelerated curriculum tracks.',
     body: 'The jump into Integrated Math catches many students off guard. We close the gaps before they compound across the year. Programs align with Common Core and local IM sequences.',
     coursesIncluded: MATH_HUB_COPY.gradeBands.cards[1].coursesIncluded,
-    packageLine: '150 minutes per week · 3-month program · Current pricing by recommendation',
+    packageLine: '150 minutes per week · 3-month program · Current pricing available on request',
     schemaCourseName: 'Middle School Math Program — Grades 6–8',
     schemaDescription:
       '3-month structured math program for Grades 6–8. Covers Pre-Algebra, Integrated Math 1, and Integrated Math 2. Live online small groups.',
@@ -425,7 +425,7 @@ export const MATH_GRADE_BAND_STUBS: Record<MathGradeBandId, MathGradeBandStubCop
     intro: 'Algebra 1 through Calculus — course-specific, not general review.',
     body: 'High school math moves at pace. Our programs are built around the course your child is actually in — not a broad review of everything.',
     coursesIncluded: MATH_HUB_COPY.gradeBands.cards[2].coursesIncluded,
-    packageLine: '150 minutes per week · 3-month program · Current pricing by recommendation',
+    packageLine: '150 minutes per week · 3-month program · Current pricing available on request',
     schemaCourseName: 'High School Math Program — Grades 9–12',
     schemaDescription:
       '3-month structured math program for Grades 9–12. Covers Algebra 1, Algebra 2, Advanced Algebra 2, Precalculus, AP Precalculus, and Calculus. Live online small groups.',

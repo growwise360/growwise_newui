@@ -5,7 +5,7 @@ import { sendEmail, type SendEmailResult } from '@/lib/email'
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit'
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits'
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard'
-import { syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm'
+import { isHubSpotFormsConfigured, submitHubSpotForm } from '@/lib/hubspot/submitForm'
 
 const MAX_BODY_BYTES = 8 * 1024
 const SUBJECTS = new Set(['Math', 'English', 'SAT Prep', 'Not sure'])
@@ -67,41 +67,46 @@ export async function POST(request: NextRequest) {
     }
 
     const safe = { email: escapeHtml(email), parentName: escapeHtml(parentName || 'Not provided'), grade: escapeHtml(grade), subject: escapeHtml(subject), sourcePage: escapeHtml(sourcePage), landingUrl: escapeHtml(landingUrl) }
-    const adminText = `New program recommendation request\n\nParent: ${parentName || 'Not provided'}\nEmail: ${email}\nGrade: ${grade}\nSubject: ${subject}\nSource: ${sourcePage}\nPage: ${landingUrl}`
-    // Capture the lead in CRM before attempting transactional notifications.
-    // Email providers may be unavailable in preview environments and should not
-    // make a valid parent request appear to have failed.
-    await syncHubSpotLeadIfConfigured(
-      [
+    const adminText = `New program information request\n\nParent: ${parentName || 'Not provided'}\nEmail: ${email}\nGrade: ${grade}\nSubject: ${subject}\nSource: ${sourcePage}\nPage: ${landingUrl}`
+    let crmCaptured = false
+    if (isHubSpotFormsConfigured()) {
+      const hubspot = await submitHubSpotForm([
         { name: 'firstname', value: parentName || 'Program' },
-        { name: 'lastname', value: parentName ? 'Recommendation' : 'Recommendation lead' },
+        { name: 'lastname', value: parentName ? 'Information request' : 'Information lead' },
         { name: 'email', value: email },
         { name: 'message', value: `${adminText}\nLocale: ${locale || 'unknown'}` },
       ],
-      { pageUri: landingUrl, pageName: `Program recommendation — ${sourcePage}` },
-      'program-recommendation',
-    )
+      { pageUri: landingUrl, pageName: `Program information — ${sourcePage}` })
+      crmCaptured = hubspot.ok
+      if (!hubspot.ok) console.error('[program-recommendation] HubSpot capture failed', hubspot.message, hubspot.status ?? '')
+    }
 
     let notificationMessageId: string | undefined
+    let notificationDelivered = false
     try {
       const admin = await deliver({
         to: CONTACT_INFO.email,
-        subject: `Program recommendation: Grade ${grade} ${subject}`.slice(0, 998),
+        subject: `Program information request: Grade ${grade} ${subject}`.slice(0, 998),
         text: adminText,
-        html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program recommendation request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
+        html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program information request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
         replyTo: email,
       })
       notificationMessageId = admin.messageId
+      notificationDelivered = admin.success
       if (!admin.success) console.error('[program-recommendation] notification failed', admin.error)
     } catch (notificationError) {
       console.error('[program-recommendation] notification threw', notificationError)
     }
 
+    if (!crmCaptured && !notificationDelivered) {
+      return NextResponse.json({ success: false, message: 'We could not save your request. Please try again or call (925) 456-4606.' }, { status: 502 })
+    }
+
     void deliver({
       to: email,
-      subject: 'We received your GrowWise program request',
-      text: `Thanks for telling us what your child needs. We’ll review the Grade ${grade} ${subject} options and email current program recommendations and pricing within one business day.`,
-      html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">Your GrowWise recommendation request is in</h2><p>Thanks for telling us what your child needs.</p><p>We’ll review the Grade ${safe.grade} ${safe.subject} options and email current program recommendations and pricing within one business day.</p><p>There is no commitment. You can also reply to this email with questions.</p></div>`,
+      subject: 'We received your GrowWise information request',
+      text: `Thanks for telling us what your child needs. We’ll email relevant Grade ${grade} ${subject} program details and current pricing within one business day.`,
+      html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">Your GrowWise information request is in</h2><p>Thanks for telling us what your child needs.</p><p>We’ll email relevant Grade ${safe.grade} ${safe.subject} program details and current pricing within one business day.</p><p>There is no commitment. You can also reply to this email with questions.</p></div>`,
       replyTo: CONTACT_INFO.email,
     }).catch((confirmationError) => {
       console.error('[program-recommendation] confirmation failed', confirmationError)

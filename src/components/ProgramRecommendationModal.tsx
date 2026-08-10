@@ -47,7 +47,14 @@ export default function ProgramRecommendationModal({
   useEffect(() => {
     if (!isOpen) return
     const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    setStep(0)
+    setGrade('')
     setSubject(defaultSubject ?? '')
+    setEmail('')
+    setParentName('')
+    setConsent(false)
+    setStatus('idle')
+    setError('')
     pushDataLayer({ event: 'program_recommendation_viewed', source_page: sourcePage })
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
@@ -114,7 +121,7 @@ export default function ProgramRecommendationModal({
         }),
       })
       const result = (await response.json()) as { success?: boolean; message?: string }
-      if (!response.ok || !result.success) throw new Error(result.message || 'Unable to send your recommendation request.')
+      if (!response.ok || !result.success) throw new Error(result.message || 'Unable to send your information request.')
       setStatus('success')
       pushDataLayer({
         event: 'program_recommendation_submitted',

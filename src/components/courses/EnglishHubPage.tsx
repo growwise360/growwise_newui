@@ -517,7 +517,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
             <SectionIntro
               eyebrow="Programs - 3-month commitment"
               title="Defined programs. Not open-ended tutoring."
-              body="Each program has a diagnostic, a clear curriculum scope, and a defined outcome. Current pricing is shared with your best-fit recommendation before enrollment."
+              body="Each program has a diagnostic, a clear curriculum scope, and a defined outcome. Current pricing is available on request before enrollment."
             />
             <div className="grid gap-5 lg:grid-cols-3">
               {pricingOptions.map((option) => (
@@ -626,7 +626,9 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               and gives you a concrete plan before you pay anything.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get More Information" className="min-h-12 min-w-[210px] text-sm font-black" />
+              <Link href={publicPath('/book-assessment', locale)} className="inline-flex min-h-12 min-w-[210px] items-center justify-center rounded-full bg-[#F16112] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#d64f0d]">
+                Book free assessment
+              </Link>
               <Link
                 href={publicPath('/readinesschecklist', locale)}
                 className="inline-flex min-h-12 min-w-[210px] items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"

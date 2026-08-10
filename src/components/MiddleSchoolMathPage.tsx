@@ -72,7 +72,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who fall behind in middle school almost always have an unresolved concept from late elementary — fractions, ratios, or early algebraic thinking. We find it in the assessment and start there, not at the current unit.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get More Information',
+    primaryLabel: 'Book free assessment',
   },
   {
     id: 'im-prep',
@@ -82,7 +82,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students placed in IM1 or IM2 are often technically eligible but not actually prepared for the pacing of week one. We run a prep sequence aligned to the exact concepts the course assumes on day one.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get More Information',
+    primaryLabel: 'Book free assessment',
     secondaryHref: '/camps/academic-summer-programs-dublin-ca',
     secondaryLabel: 'See IM1 Get Ready program',
   },
@@ -94,7 +94,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who understand concepts in class but lose points on tests usually have one of two problems: careless mistake patterns under time pressure, or gaps in the specific reasoning type the test requires. Both are fixable. Neither is fixed by more homework.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get More Information',
+    primaryLabel: 'Book free assessment',
   },
   {
     id: 'accelerated-ready',
@@ -104,7 +104,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'A student can score well enough to place into accelerated math and still not be ready for the pacing or reasoning demands of IM1. The assessment tells you which one is true for your child — and if there is a gap, we close it before the school year starts.',
     primaryCta: 'assessment',
-    primaryLabel: 'Get More Information',
+    primaryLabel: 'Book free assessment',
   },
   {
     id: 'ahead',
@@ -199,6 +199,16 @@ const MiddleSchoolMathPage: React.FC = () => {
         <Link
           href={publicPath('/contact', locale)}
           className="inline-flex items-center justify-center rounded-full border-2 border-[#1F396D] px-5 py-2.5 text-sm font-semibold text-[#1F396D] hover:bg-[#1F396D]/5"
+        >
+          {situation.primaryLabel}
+        </Link>
+      )
+    }
+    if (situation.primaryCta === 'assessment') {
+      return (
+        <Link
+          href={publicPath('/book-assessment', locale)}
+          className="inline-flex items-center justify-center rounded-full bg-[#F16112] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#d54f0a]"
         >
           {situation.primaryLabel}
         </Link>
@@ -500,13 +510,10 @@ const MiddleSchoolMathPage: React.FC = () => {
             focus on. No charge. No commitment.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-xl">
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Get More Information
-            </Button>
+              Book free assessment
+            </Link>
             <Link
               href={publicPath('/self-check', locale)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-8 py-4 text-base font-semibold text-white hover:bg-white/10 transition-colors"
