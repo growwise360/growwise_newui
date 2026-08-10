@@ -55,25 +55,24 @@ export async function POST(request: NextRequest) {
     const parentName = clip(body.parentName, FIELD_MAX.name)
     const grade = clip(body.grade, FIELD_MAX.shortText)
     const subject = clip(body.subject, FIELD_MAX.shortText)
-    const goal = clip(body.goal, FIELD_MAX.shortText)
     const sourcePage = clip(body.sourcePage, FIELD_MAX.shortText)
     const locale = clip(body.locale, FIELD_MAX.shortText)
     const landingUrl = clip(body.landingUrl, FIELD_MAX.longText)
 
-    if (!isValidEmailShape(email) || !GRADES.has(grade) || !SUBJECTS.has(subject) || !goal || !sourcePage) {
+    if (!isValidEmailShape(email) || !GRADES.has(grade) || !SUBJECTS.has(subject) || !sourcePage) {
       return NextResponse.json({ success: false, message: 'Please complete all required fields.' }, { status: 400 })
     }
-    if ([body.email, body.parentName, body.grade, body.subject, body.goal, body.sourcePage, body.locale, body.landingUrl].some((value) => typeof value === 'string' && exceedsMax(value, value === body.landingUrl ? FIELD_MAX.longText : FIELD_MAX.shortText))) {
+    if ([body.email, body.parentName, body.grade, body.subject, body.sourcePage, body.locale, body.landingUrl].some((value) => typeof value === 'string' && exceedsMax(value, value === body.landingUrl ? FIELD_MAX.longText : FIELD_MAX.shortText))) {
       return NextResponse.json({ success: false, message: 'One or more fields are too long.' }, { status: 400 })
     }
 
-    const safe = { email: escapeHtml(email), parentName: escapeHtml(parentName || 'Not provided'), grade: escapeHtml(grade), subject: escapeHtml(subject), goal: escapeHtml(goal), sourcePage: escapeHtml(sourcePage), landingUrl: escapeHtml(landingUrl) }
-    const adminText = `New program recommendation request\n\nParent: ${parentName || 'Not provided'}\nEmail: ${email}\nGrade: ${grade}\nSubject: ${subject}\nGoal: ${goal}\nSource: ${sourcePage}\nPage: ${landingUrl}`
+    const safe = { email: escapeHtml(email), parentName: escapeHtml(parentName || 'Not provided'), grade: escapeHtml(grade), subject: escapeHtml(subject), sourcePage: escapeHtml(sourcePage), landingUrl: escapeHtml(landingUrl) }
+    const adminText = `New program recommendation request\n\nParent: ${parentName || 'Not provided'}\nEmail: ${email}\nGrade: ${grade}\nSubject: ${subject}\nSource: ${sourcePage}\nPage: ${landingUrl}`
     const admin = await deliver({
       to: CONTACT_INFO.email,
       subject: `Program recommendation: Grade ${grade} ${subject}`.slice(0, 998),
       text: adminText,
-      html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program recommendation request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Goal:</strong> ${safe.goal}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
+      html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program recommendation request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
       replyTo: email,
     })
     if (!admin.success) {

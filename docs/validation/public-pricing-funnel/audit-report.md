@@ -37,7 +37,7 @@ Date: 2026-08-10
 ## UX and functional checks
 
 - Three-step recommendation flow works at a 390×844 mobile viewport.
-- Grade selection, contextual subject preselection, goal selection, email validation, consent, submission, and success states were exercised.
+- Grade selection, contextual subject preselection, email validation, compact consent, submission, and success states were exercised.
 - Submission was intercepted during browser validation; no external lead was created.
 - Success state provides a direct free-assessment CTA.
 - No horizontal overflow was detected.

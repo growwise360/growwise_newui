@@ -24,14 +24,6 @@ type ProgramRecommendationModalProps = {
 
 const GRADES = ['K', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'] as const
 const SUBJECTS: RecommendationSubject[] = ['Math', 'English', 'SAT Prep', 'Not sure']
-const GOALS = [
-  'Close learning gaps',
-  'Improve grades and confidence',
-  'Prepare for a harder class or test',
-  'Build advanced skills',
-  'Not sure yet',
-] as const
-
 export default function ProgramRecommendationModal({
   isOpen,
   onClose,
@@ -46,7 +38,6 @@ export default function ProgramRecommendationModal({
   const [step, setStep] = useState(0)
   const [grade, setGrade] = useState('')
   const [subject, setSubject] = useState<RecommendationSubject | ''>(defaultSubject ?? '')
-  const [goal, setGoal] = useState('')
   const [email, setEmail] = useState('')
   const [parentName, setParentName] = useState('')
   const [consent, setConsent] = useState(false)
@@ -91,7 +82,7 @@ export default function ProgramRecommendationModal({
   const advance = () => {
     setError('')
     if (step === 0 && !grade) return setError('Choose your child\'s grade to continue.')
-    if (step === 1 && (!subject || !goal)) return setError('Choose a subject and goal to continue.')
+    if (step === 1 && !subject) return setError('Choose a subject to continue.')
     pushDataLayer({
       event: 'program_recommendation_step_completed',
       recommendation_step: step + 1,
@@ -116,7 +107,6 @@ export default function ProgramRecommendationModal({
           parentName,
           grade,
           subject,
-          goal,
           sourcePage,
           locale,
           landingUrl: window.location.href,
@@ -141,7 +131,7 @@ export default function ProgramRecommendationModal({
   }
 
   const close = () => {
-    if (status !== 'success' && (grade || subject || goal || email)) {
+    if (status !== 'success' && (grade || subject || email)) {
       pushDataLayer({ event: 'program_recommendation_abandoned', source_page: sourcePage, recommendation_step: step + 1 })
     }
     onClose()
@@ -190,37 +180,37 @@ export default function ProgramRecommendationModal({
               ) : null}
 
               {step === 1 ? (
-                <div className="space-y-6">
-                  <fieldset>
-                    <legend className="text-lg font-bold text-gray-900">Which subject needs support?</legend>
-                    <div className="mt-3 grid grid-cols-2 gap-2">
-                      {SUBJECTS.map((item) => (
-                        <button key={item} type="button" onClick={() => setSubject(item)} className={`min-h-11 rounded-xl border px-3 py-2 text-sm font-semibold ${subject === item ? 'border-[#F16112] bg-orange-50 text-[#C44D0A]' : 'border-gray-200 text-gray-700 hover:border-[#F16112]/50'}`} aria-pressed={subject === item}>{item}</button>
-                      ))}
-                    </div>
-                  </fieldset>
-                  <fieldset>
-                    <legend className="text-lg font-bold text-gray-900">What is the main goal?</legend>
-                    <div className="mt-3 space-y-2">
-                      {GOALS.map((item) => (
-                        <button key={item} type="button" onClick={() => setGoal(item)} className={`min-h-11 w-full rounded-xl border px-4 py-2 text-left text-sm ${goal === item ? 'border-[#1F396D] bg-blue-50 font-semibold text-[#1F396D]' : 'border-gray-200 text-gray-700 hover:border-[#1F396D]/40'}`} aria-pressed={goal === item}>{item}</button>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
+                <fieldset>
+                  <legend className="text-lg font-bold text-gray-900">Which subject needs support?</legend>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    {SUBJECTS.map((item) => (
+                      <button key={item} type="button" onClick={() => setSubject(item)} className={`min-h-11 rounded-xl border px-3 py-2 text-sm font-semibold ${subject === item ? 'border-[#F16112] bg-orange-50 text-[#C44D0A]' : 'border-gray-200 text-gray-700 hover:border-[#F16112]/50'}`} aria-pressed={subject === item}>{item}</button>
+                    ))}
+                  </div>
+                </fieldset>
               ) : null}
 
               {step === 2 ? (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="recommendation-email">Where should we send your recommendation and current pricing? *</Label>
+                    <Label htmlFor="recommendation-email">Your email address *</Label>
                     <Input id="recommendation-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} className="mt-2 min-h-11" required />
+                    <p className="mt-1.5 text-xs text-gray-500">We&apos;ll email your program recommendation and current pricing.</p>
                   </div>
                   <div>
                     <Label htmlFor="recommendation-name">Parent name <span className="font-normal text-gray-500">(optional)</span></Label>
                     <Input id="recommendation-name" autoComplete="name" value={parentName} onChange={(event) => setParentName(event.target.value)} className="mt-2 min-h-11" />
                   </div>
-                  <FormPrivacyConsent checkboxId="program-recommendation-consent" checked={consent} onCheckedChange={setConsent} variant="compact" showSubmitDisclaimer agreeLabel="I agree that GrowWise may contact me about this program recommendation." />
+                  <FormPrivacyConsent
+                    checkboxId="program-recommendation-consent"
+                    checked={consent}
+                    onCheckedChange={setConsent}
+                    variant="compact"
+                    alignPrivacyWithConsent
+                    showSubmitDisclaimer={false}
+                    agreeLabel="GrowWise may email me about this request."
+                    className="[&_h3]:text-xs [&_p]:text-[10px] [&_p]:leading-4 [&_label]:text-xs [&_label]:leading-4"
+                  />
                 </div>
               ) : null}
 
