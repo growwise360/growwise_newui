@@ -61,9 +61,9 @@ export function MathProgramDetailsSection({
             </ul>
 
             <div className="rounded-xl border border-[#F16112]/20 bg-orange-50 p-5">
-              <p className="text-2xl font-bold text-[#1F396D] mb-2">Find the right program for your child</p>
+              <p className="text-2xl font-bold text-[#1F396D] mb-2">Get more program information</p>
               <p className="text-sm leading-relaxed text-gray-600 mb-4">
-                Tell us your child&apos;s grade, subject, and main goal. We&apos;ll recommend the best-fit option and send current pricing—no commitment.
+                Tell us your child&apos;s grade and subject. We&apos;ll send relevant program details and current pricing—no commitment.
               </p>
               <div className="mb-4 flex items-center gap-1.5">
                 <span className="inline-flex items-center gap-1 rounded-full border border-green-200 bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700">
