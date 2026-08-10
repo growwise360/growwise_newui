@@ -68,18 +68,9 @@ export async function POST(request: NextRequest) {
 
     const safe = { email: escapeHtml(email), parentName: escapeHtml(parentName || 'Not provided'), grade: escapeHtml(grade), subject: escapeHtml(subject), sourcePage: escapeHtml(sourcePage), landingUrl: escapeHtml(landingUrl) }
     const adminText = `New program recommendation request\n\nParent: ${parentName || 'Not provided'}\nEmail: ${email}\nGrade: ${grade}\nSubject: ${subject}\nSource: ${sourcePage}\nPage: ${landingUrl}`
-    const admin = await deliver({
-      to: CONTACT_INFO.email,
-      subject: `Program recommendation: Grade ${grade} ${subject}`.slice(0, 998),
-      text: adminText,
-      html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program recommendation request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
-      replyTo: email,
-    })
-    if (!admin.success) {
-      console.error('[program-recommendation] notification failed', admin.error)
-      return NextResponse.json({ success: false, message: 'We could not send your request. Please try again.' }, { status: 502 })
-    }
-
+    // Capture the lead in CRM before attempting transactional notifications.
+    // Email providers may be unavailable in preview environments and should not
+    // make a valid parent request appear to have failed.
     await syncHubSpotLeadIfConfigured(
       [
         { name: 'firstname', value: parentName || 'Program' },
@@ -91,15 +82,32 @@ export async function POST(request: NextRequest) {
       'program-recommendation',
     )
 
+    let notificationMessageId: string | undefined
+    try {
+      const admin = await deliver({
+        to: CONTACT_INFO.email,
+        subject: `Program recommendation: Grade ${grade} ${subject}`.slice(0, 998),
+        text: adminText,
+        html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program recommendation request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
+        replyTo: email,
+      })
+      notificationMessageId = admin.messageId
+      if (!admin.success) console.error('[program-recommendation] notification failed', admin.error)
+    } catch (notificationError) {
+      console.error('[program-recommendation] notification threw', notificationError)
+    }
+
     void deliver({
       to: email,
       subject: 'We received your GrowWise program request',
       text: `Thanks for telling us what your child needs. We’ll review the Grade ${grade} ${subject} options and email current program recommendations and pricing within one business day.`,
       html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">Your GrowWise recommendation request is in</h2><p>Thanks for telling us what your child needs.</p><p>We’ll review the Grade ${safe.grade} ${safe.subject} options and email current program recommendations and pricing within one business day.</p><p>There is no commitment. You can also reply to this email with questions.</p></div>`,
       replyTo: CONTACT_INFO.email,
+    }).catch((confirmationError) => {
+      console.error('[program-recommendation] confirmation failed', confirmationError)
     })
 
-    console.log('[program-recommendation] ok', { emailDomain: email.split('@')[1], grade, subject, sourcePage, messageId: admin.messageId })
+    console.log('[program-recommendation] accepted', { emailDomain: email.split('@')[1], grade, subject, sourcePage, messageId: notificationMessageId })
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('[program-recommendation] failed', error)
