@@ -397,13 +397,12 @@ const MiddleSchoolMathPage: React.FC = () => {
               {MIDDLE_SCHOOL_COURSE_CTA.heading}
             </h3>
             <p className="text-gray-600 leading-relaxed mb-6">{MIDDLE_SCHOOL_COURSE_CTA.body}</p>
-            <Button
-              type="button"
-              onClick={openAssessment}
-              className="rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white px-8 py-4 text-base font-semibold shadow-lg hover:shadow-md transition-shadow"
+            <Link
+              href={publicPath('/book-assessment', locale)}
+              className="inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-md"
             >
               {MIDDLE_SCHOOL_COURSE_CTA.buttonLabel}
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
