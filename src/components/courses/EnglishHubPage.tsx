@@ -22,6 +22,7 @@ import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { ENGLISH_COURSE_VISIBLE_FAQS } from '@/lib/schema/course-hub-jsonld-faqs'
 import { CONTACT_INFO } from '@/lib/constants'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
+import ProgramRecommendationButton from '@/components/ProgramRecommendationButton'
 
 type EnglishHubPageProps = {
   locale: string
@@ -49,7 +50,6 @@ const programCards = [
       'Literary analysis and inference',
       'Argumentative writing with evidence',
     ],
-    price: '$289/mo',
     detail: '120 min/week - 3-month program',
     featured: true,
   },
@@ -66,7 +66,6 @@ const programCards = [
       'Revision and editing habits',
       'Complete published piece at the end',
     ],
-    price: '$295 total',
     detail: '12 sessions - fixed cohort',
     featured: false,
   },
@@ -196,8 +195,6 @@ const pricingOptions = [
     name: 'English Mastery',
     grade: 'Grades 1-8',
     track: 'Reading - Writing - Grammar - Vocabulary - Essay Writing',
-    price: '$289',
-    per: '/month',
     schedule: '120 min/week - 3-month program',
     note: 'Best for students who need a complete English foundation or consistent ELA support.',
     featured: true,
@@ -207,8 +204,6 @@ const pricingOptions = [
     name: 'Essay Writing Focus',
     grade: 'Grades 4-8',
     track: 'Paragraphs - Essays - Evidence - Revision',
-    price: '$289',
-    per: '/month',
     schedule: '120 min/week - 3-month program',
     note: 'Best when reading is steady but written responses, paragraphs, or essays need direct structure.',
     featured: false,
@@ -218,8 +213,6 @@ const pricingOptions = [
     name: 'Young Authors',
     grade: 'Grades 3-5',
     track: 'Creative Writing - Story Structure - Voice - Publishing',
-    price: '$295',
-    per: 'total',
     schedule: '12 sessions - fixed cohort',
     note: 'Best for creative writers who want to complete and polish one full piece.',
     featured: false,
@@ -308,7 +301,6 @@ function SectionIntro({
 }
 
 export function EnglishHubPage({ locale }: EnglishHubPageProps) {
-  const assessmentHref = publicPath('/book-assessment', locale)
   const phoneHref = `tel:${CONTACT_INFO.phone.replace(/\D/g, '')}`
 
   return (
@@ -351,17 +343,12 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               taught through diagnostic-based small-group instruction.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href={assessmentHref}
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F16112] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#d64f0d]"
-              >
-                Book free assessment
-              </Link>
+              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get My Program Recommendation" className="min-h-12 text-sm font-black" />
               <Link
                 href="#programs"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"
               >
-                See programs and pricing
+                See English programs
               </Link>
             </div>
             <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Program highlights">
@@ -458,7 +445,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
                     ))}
                   </ul>
                   <div className="mt-6 flex items-center justify-between gap-4 rounded-lg border border-[#FED7AA] bg-[#FFF7ED] px-4 py-3">
-                    <span className="font-heading text-2xl font-black text-[#1F396D]">{program.price}</span>
+                    <span className="font-heading text-base font-black text-[#1F396D]">Program details</span>
                     <span className="text-right text-xs font-semibold leading-relaxed text-slate-600">{program.detail}</span>
                   </div>
                 </Link>
@@ -530,7 +517,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
             <SectionIntro
               eyebrow="Programs - 3-month commitment"
               title="Defined programs. Not open-ended tutoring."
-              body="Each program has a diagnostic, a clear curriculum scope, and a visible price before enrollment."
+              body="Each program has a diagnostic, a clear curriculum scope, and a defined outcome. Current pricing is shared with your best-fit recommendation before enrollment."
             />
             <div className="grid gap-5 lg:grid-cols-3">
               {pricingOptions.map((option) => (
@@ -551,31 +538,16 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
                     </p>
                   </div>
                   <div className="p-5">
-                    <div className="flex items-end gap-2">
-                      <span className="font-heading text-4xl font-black text-[#1F396D]">{option.price}</span>
-                      <span className="pb-1 text-sm font-bold text-slate-500">{option.per}</span>
-                    </div>
+                    <p className="font-heading text-lg font-black text-[#1F396D]">Best-fit program guidance</p>
                     <p className="mt-3 text-sm font-semibold text-slate-900">{option.schedule}</p>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600">{option.note}</p>
-                    <Link
-                      href={assessmentHref}
-                      className={`mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-black transition-colors ${
-                        option.featured
-                          ? 'bg-[#F16112] text-white hover:bg-[#d64f0d]'
-                          : 'bg-[#1F396D] text-white hover:bg-[#142b45]'
-                      }`}
-                    >
-                      {option.id === 'young-authors' ? 'Ask about Young Authors' : 'Book free assessment'}
-                    </Link>
+                    <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" defaultGradeBand={option.id === 'young-authors' ? '3-5' : undefined} label={option.id === 'young-authors' ? 'Ask About Young Authors' : 'Get My Program Recommendation'} className={`mt-6 w-full rounded-lg text-sm font-black ${option.featured ? 'bg-[#F16112]' : 'bg-[#1F396D] hover:bg-[#142b45]'}`} />
                   </div>
                 </article>
               ))}
             </div>
             <p className="mx-auto mt-5 max-w-3xl text-center text-xs leading-relaxed text-slate-500">
-              English Mastery and Essay Writing Focus are $289/month with a 3-month program and 120 minutes per week.
-              Young Authors is a fixed 12-session program at $295 total. Contact us for schedule and availability:
-              {' '}
-              {CONTACT_INFO.phone}
+              GrowWise pricing depends on grade, program fit, and format. Submit a short program-fit request to receive current options and pricing before enrollment, or call {CONTACT_INFO.phone}.
             </p>
           </div>
         </section>
@@ -654,12 +626,7 @@ export function EnglishHubPage({ locale }: EnglishHubPageProps) {
               and gives you a concrete plan before you pay anything.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-              <Link
-                href={assessmentHref}
-                className="inline-flex min-h-12 min-w-[210px] items-center justify-center rounded-full bg-[#F16112] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#d64f0d]"
-              >
-                Book free assessment
-              </Link>
+              <ProgramRecommendationButton sourcePage="academic-english" defaultSubject="English" label="Get My Program Recommendation" className="min-h-12 min-w-[210px] text-sm font-black" />
               <Link
                 href={publicPath('/readinesschecklist', locale)}
                 className="inline-flex min-h-12 min-w-[210px] items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-black text-white transition-colors hover:bg-white/10"

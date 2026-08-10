@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { CourseFAQ } from '@/components/seo/CourseFAQ'
-import FreeAssessmentModal from '@/components/FreeAssessmentModal'
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal'
 import { ELEMENTARY_MATH_VISIBLE_FAQS } from '@/lib/schema/elementary-math-faqs'
 import { ELEMENTARY_TRIAL } from '@/lib/math-program-trial-copy'
 import { MathTrialSection } from '@/components/courses/MathTrialSection'
@@ -96,7 +96,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"My child has been struggling and falling behind"',
     body: 'This is the most common presentation. The gap usually started 6–18 months ago and has been compounding ever since. The diagnostic finds the root concept; the Beginner track closes it systematically.',
     cta: 'assessment',
-    ctaLabel: 'Book free assessment',
+    ctaLabel: 'Get my program recommendation',
     levelTag: 'Beginner level',
     levelColor: 'bg-green-100 text-green-700',
   },
@@ -105,7 +105,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"They\'re doing okay but I want them more consistent"',
     body: "Your child is at grade level but performance is uneven — good days and bad days, strong on some topics and shaky on others. The Champ track builds the consistency that makes math reliable.",
     cta: 'assessment',
-    ctaLabel: 'Book free assessment',
+    ctaLabel: 'Get my program recommendation',
     levelTag: 'Champ level',
     levelColor: 'bg-blue-100 text-blue-700',
   },
@@ -123,7 +123,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
     heading: '"Teacher says they need more practice but I don\'t know of what"',
     body: '"More practice" applied to the wrong concept produces frustration, not progress. The free 30-minute assessment identifies exactly which concept needs work and whether Beginner or Champ is the right starting point.',
     cta: 'assessment',
-    ctaLabel: 'Book free assessment',
+    ctaLabel: 'Get my program recommendation',
     levelTag: 'Beginner or Champ · assessment decides',
     levelColor: 'bg-gray-100 text-gray-600',
   },
@@ -334,7 +334,7 @@ const ElementaryMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Book free assessment
+              Get my program recommendation
             </Button>
             <Link
               href={publicPath('/self-check', locale)}
@@ -449,7 +449,7 @@ const ElementaryMathPage: React.FC = () => {
             href={publicPath('/book-assessment', locale)}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-7 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
           >
-            Book free 30-minute assessment
+            Get my program recommendation
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
@@ -572,17 +572,6 @@ const ElementaryMathPage: React.FC = () => {
         heading="Elementary Math Foundation — 3-Month Program"
         includes={PROGRAM_INCLUDES}
         outcomes={PROGRAM_OUTCOMES}
-        fromMonthlyLabel="From $169/month"
-        tiers={[
-          { name: 'Grade 1&2 Math', schedule: '75 minutes per week', price: '$169/mo' },
-          { name: 'Grade 3-5 Math', schedule: '2 × 60 min/week', price: '$289/mo' },
-          {
-            name: 'Math + Coding',
-            schedule: '2 × 60 min/week',
-            price: '$295/mo',
-            bestFor: 'Scratch or Roblox',
-          },
-        ]}
         onBookAssessment={openAssessment}
       />
 
@@ -689,7 +678,7 @@ const ElementaryMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Book free assessment
+              Get my program recommendation
             </Button>
             <Link
               href={publicPath('/self-check', locale)}
@@ -704,14 +693,17 @@ const ElementaryMathPage: React.FC = () => {
           </div>
           {/* FIX 5 — trust line */}
           <p className="mt-6 text-white/50 text-xs">
-            No registration fee through July 2026. No long-term contract. Monthly enrollment — cancel anytime.
+            No long-term contract. We&apos;ll recommend the right starting level before enrollment.
           </p>
         </div>
       </section>
 
-      <FreeAssessmentModal
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic-math-elementary"
+        defaultSubject="Math"
+        defaultGradeBand="K-5"
       />
     </div>
   )

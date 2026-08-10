@@ -203,7 +203,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
       'Clear next-step plan after each 3-month assessment',
     ],
     footerMicro:
-      'No registration fee through July 2026 · No long-term contract · Monthly enrollment · Trial session $45 credited on enrollment within 7 days',
+      'No long-term contract · Diagnostic-first placement · Current pricing shared before enrollment',
   },
   faq: {
     title: 'Elementary English tutoring FAQs',
@@ -215,7 +215,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
       'The assessment identifies pillar gaps, places your child in Beginner, Champ, or Pro, and outlines month one — before any paid session. No charge and no commitment.',
     primaryLabel: 'Book free assessment',
     primaryPath: '/book-assessment',
-    secondaryLabel: 'Book trial session — $45',
+    secondaryLabel: 'Get a program recommendation',
     secondaryPath: '/enroll-academic',
   },
 } as const

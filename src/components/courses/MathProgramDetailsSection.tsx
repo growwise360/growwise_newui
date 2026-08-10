@@ -3,6 +3,7 @@
 import { CheckCircle, Sparkles, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+/** Retained for internal pricing configuration and checkout mapping. */
 export type MathProgramPricingTier = {
   readonly name: string;
   readonly schedule: string;
@@ -17,8 +18,6 @@ type MathProgramDetailsSectionProps = {
   readonly heading: string;
   readonly includes: readonly string[];
   readonly outcomes: readonly string[];
-  readonly fromMonthlyLabel: string;
-  readonly tiers: readonly MathProgramPricingTier[];
   readonly onBookAssessment: () => void;
   readonly ctaLabel?: string;
 };
@@ -28,10 +27,8 @@ export function MathProgramDetailsSection({
   heading,
   includes,
   outcomes,
-  fromMonthlyLabel,
-  tiers,
   onBookAssessment,
-  ctaLabel = 'Book free 45-min assessment',
+  ctaLabel = 'Get My Program Recommendation',
 }: MathProgramDetailsSectionProps) {
   return (
     <section className="bg-white py-16 lg:py-20">
@@ -64,38 +61,14 @@ export function MathProgramDetailsSection({
             </ul>
 
             <div className="rounded-xl border border-[#F16112]/20 bg-orange-50 p-5">
-              <p className="text-2xl font-bold text-[#F16112] mb-1">{fromMonthlyLabel}</p>
-              <p className="text-sm text-gray-600 mb-4">Billed monthly · 3-month minimum</p>
-
-              <div className="space-y-2 mb-4">
-                {tiers.map((tier) => (
-                  <div
-                    key={tier.name}
-                    className={`flex items-center justify-between bg-white rounded-lg px-4 py-3 border ${
-                      tier.featured ? 'border-[#F16112]/40 ring-1 ring-[#F16112]/20' : 'border-gray-100'
-                    }`}
-                  >
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">{tier.name}</p>
-                      {tier.subtitle ? (
-                        <p className="text-xs text-gray-500">{tier.subtitle}</p>
-                      ) : null}
-                      <p className="text-xs text-gray-500">{tier.schedule}</p>
-                      {tier.bestFor ? (
-                        <p className="mt-1 max-w-[220px] text-xs leading-snug text-gray-500">
-                          {tier.bestFor}
-                        </p>
-                      ) : null}
-                    </div>
-                    <p className="font-bold text-[#F16112] shrink-0 ml-3">{tier.price}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-1.5 mb-4">
-                <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
+              <p className="text-2xl font-bold text-[#1F396D] mb-2">Find the right program for your child</p>
+              <p className="text-sm leading-relaxed text-gray-600 mb-4">
+                Tell us your child&apos;s grade, subject, and main goal. We&apos;ll recommend the best-fit option and send current pricing—no commitment.
+              </p>
+              <div className="mb-4 flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-1 rounded-full border border-green-200 bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700">
                   <Sparkles className="h-3 w-3" aria-hidden />
-                  No registration fee through July 2026
+                  Takes about 30 seconds
                 </span>
               </div>
 

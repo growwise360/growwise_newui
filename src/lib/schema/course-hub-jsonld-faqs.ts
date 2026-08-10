@@ -56,7 +56,7 @@ export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   },
   {
     question: 'How much does math tutoring cost at GrowWise?',
-    answer: `Our math courses start at $35 per session. Pricing may vary based on the specific program, class size, and duration. We offer flexible scheduling options and packages. Contact us at ${CONTACT_INFO.phone} or ${CONTACT_INFO.email} for detailed pricing information.`,
+    answer: `GrowWise pricing depends on the student’s grade, recommended program, class format, and schedule. Families receive current options and pricing after a short program-fit request or free assessment. Contact us at ${CONTACT_INFO.phone} or ${CONTACT_INFO.email} for help.`,
   },
   {
     question: 'Do you offer online or in-person math tutoring?',
@@ -75,7 +75,7 @@ export const ENGLISH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What English and writing programs does GrowWise offer in Dublin, CA?',
     answer:
-      'GrowWise offers English Mastery for Grades 1–8, an Essay Writing focus track, and Young Authors, a creative writing cohort for Grades 3–5. Programs run in small groups and are school-supported — focused on reading comprehension, writing clarity, and the specific skills that show up in school assignments and assessments. The essay work targets the structured, evidence-based writing required in DUSD and PUSD middle school English classes. Elementary English is $289/month at 2 × 60 minutes per week. Start with a free assessment at growwiseschool.org/book-assessment.',
+      'GrowWise offers English Mastery for Grades 1–8, an Essay Writing focus track, and Young Authors, a creative writing cohort for Grades 3–5. Programs run in small groups and focus on reading comprehension, writing clarity, and school assignments. Families receive current options and pricing after a short program-fit request or free assessment.',
   },
   {
     question: 'Do I have to commit to 3 months upfront?',
@@ -90,7 +90,7 @@ export const ENGLISH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'How much does Young Authors cost?',
     answer:
-      'Young Authors is $295 total for a fixed 12-session cohort. Contact GrowWise for the current schedule and availability.',
+      'Young Authors is a fixed 12-session creative writing cohort for Grades 3–5. Contact GrowWise for the current schedule, availability, and pricing.',
   },
   {
     question: 'Can my child join English Mastery mid-year?',
@@ -128,7 +128,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Is the GrowWise academic assessment free?',
     answer:
-      'Yes. GrowWise offers a free 30-minute assessment for students in Grades 1-12. Families leave with the identified skill gap and a brief written next-step plan. A separate 60-minute Full Diagnostic is available for $49 when a family wants a deeper written report and analysis.',
+      'Yes. GrowWise offers a free assessment for students in Grades 1–12. Families receive the identified skill gap and a brief next-step plan. Ask the team about deeper diagnostic options when a more detailed written report and analysis is needed.',
   },
   {
     question: 'What happens after I book an assessment at GrowWise?',
@@ -148,12 +148,12 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How do I enroll my child at GrowWise School in Dublin, CA?',
     answer:
-      'Enrollment starts with a free assessment at our Dublin Blvd location: we identify where your child is, provide a brief written next-step plan, and explain whether GrowWise is the right fit. Families who want a deeper written review can add the 60-minute Full Diagnostic for $49. Programs run in 3-month cycles aligned to one full assessment period, with monthly tuition from $169 (Grade 1–2 math) or $289 for most programs. Book at growwiseschool.org/book-assessment or call (925) 456-4606.',
+      'Enrollment starts with a free assessment at our Dublin Blvd location: we identify where your child is, provide a brief next-step plan, and explain whether GrowWise is the right fit. Programs run in defined cycles, and current pricing is shared with the recommended program before enrollment. Book at growwiseschool.org/book-assessment or call (925) 456-4606.',
   },
   {
     question: 'How much does GrowWise cost compared to other tutoring centers?',
     answer:
-      'GrowWise monthly tuition is $289 for Grades 3–5 and middle school programs, $295 for advanced middle school math, and from $369 for high school; Grade 1–2 math starts at $169/month. Publicly listed rates for other Tri-Valley options typically range from about $140–$250 per subject per month for worksheet-based programs to $250–$500+ per month for method-based and accelerated centers — verify current rates with each provider. GrowWise sessions are teacher-led and follow your child\'s school curriculum week by week.',
+      'GrowWise pricing depends on grade, course level, instructional format, and the recommended program. Families receive current options and pricing after a short program-fit request or free assessment. GrowWise sessions are teacher-led and follow the student’s school curriculum week by week.',
   },
 ]
 

@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { MATH_HUB_COPY } from '@/lib/math-hub-copy';
 import { publicPath } from '@/lib/publicPath';
 import { MathHubSection } from './MathHubSection';
+import ProgramRecommendationButton from '@/components/ProgramRecommendationButton';
 
 type ProgramOptionCardsProps = {
   locale: string;
@@ -38,13 +39,7 @@ export function ProgramOptionCards({ locale }: ProgramOptionCardsProps) {
                   {option.subtitle ? (
                     <p className="mt-0.5 text-xs text-slate-500">{option.subtitle}</p>
                   ) : null}
-                  <p className="mt-0.5 text-sm text-slate-600">
-                    {option.schedule}
-                    <span className="mx-1.5 text-slate-300" aria-hidden>
-                      ·
-                    </span>
-                    <span className="font-semibold text-[#1F396D]">{option.price}</span>
-                  </p>
+                  <p className="mt-0.5 text-sm text-slate-600">{option.schedule}</p>
                   {option.bestFor ? (
                     <p className="mt-1 text-xs leading-relaxed text-slate-500">
                       {option.bestFor}
@@ -70,7 +65,12 @@ export function ProgramOptionCards({ locale }: ProgramOptionCardsProps) {
           </article>
         ))}
       </div>
-      <p className="mt-4 text-xs text-slate-500 italic">{programOptions.footnote}</p>
+      <div className="mt-8 text-center">
+        <p className="mx-auto mb-4 max-w-2xl text-sm leading-relaxed text-slate-600">
+          GrowWise pricing depends on grade, program fit, and format. Share a few details to receive the right options and current pricing before enrollment.
+        </p>
+        <ProgramRecommendationButton sourcePage="academic-math" defaultSubject="Math" />
+      </div>
     </MathHubSection>
   );
 }

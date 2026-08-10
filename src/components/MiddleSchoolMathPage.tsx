@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { CourseFAQ } from '@/components/seo/CourseFAQ'
-import FreeAssessmentModal from '@/components/FreeAssessmentModal'
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal'
 import { MIDDLE_SCHOOL_MATH_VISIBLE_FAQS } from '@/lib/schema/middle-school-math-faqs'
 import {
   MIDDLE_SCHOOL_COURSE_BADGE_LABELS,
@@ -38,8 +38,6 @@ import {
   MIDDLE_SCHOOL_PROGRAM_OUTCOMES,
 } from '@/lib/middle-school-math-program-copy'
 import { MiddleSchoolPlacementDiagram } from '@/components/courses/MiddleSchoolPlacementDiagram'
-import { mapHubOptionsToPricingTiers } from '@/lib/map-math-program-tiers'
-import { getMathHubMinMonthlyUsd } from '@/lib/math-pricing-display'
 import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection'
 import { MathTrialSection } from '@/components/courses/MathTrialSection'
 import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSection'
@@ -74,7 +72,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who fall behind in middle school almost always have an unresolved concept from late elementary — fractions, ratios, or early algebraic thinking. We find it in the assessment and start there, not at the current unit.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free assessment',
+    primaryLabel: 'Get my program recommendation',
   },
   {
     id: 'im-prep',
@@ -84,7 +82,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students placed in IM1 or IM2 are often technically eligible but not actually prepared for the pacing of week one. We run a prep sequence aligned to the exact concepts the course assumes on day one.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free assessment',
+    primaryLabel: 'Get my program recommendation',
     secondaryHref: '/camps/academic-summer-programs-dublin-ca',
     secondaryLabel: 'See IM1 Get Ready program',
   },
@@ -96,7 +94,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'Students who understand concepts in class but lose points on tests usually have one of two problems: careless mistake patterns under time pressure, or gaps in the specific reasoning type the test requires. Both are fixable. Neither is fixed by more homework.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free assessment',
+    primaryLabel: 'Get my program recommendation',
   },
   {
     id: 'accelerated-ready',
@@ -106,7 +104,7 @@ const JTBD_SITUATIONS: readonly JtbdSituation[] = [
     panelBody:
       'A student can score well enough to place into accelerated math and still not be ready for the pacing or reasoning demands of IM1. The assessment tells you which one is true for your child — and if there is a gap, we close it before the school year starts.',
     primaryCta: 'assessment',
-    primaryLabel: 'Book free assessment',
+    primaryLabel: 'Get my program recommendation',
   },
   {
     id: 'ahead',
@@ -178,7 +176,7 @@ function CourseLevelCard({
           onClick={onBookAssessment}
           className="mt-6 w-full rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white font-semibold shadow hover:shadow-md transition-shadow"
         >
-          Book free assessment
+          Get my program recommendation
         </Button>
       </CardContent>
     </Card>
@@ -275,7 +273,7 @@ const MiddleSchoolMathPage: React.FC = () => {
                 className="h-auto min-h-12 w-full justify-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-5 py-3 text-sm font-semibold text-white shadow-md transition-shadow hover:shadow-lg"
               >
                 <Calculator className="mr-2 h-5 w-5" aria-hidden />
-                Book free assessment
+                Get my program recommendation
               </Button>
               <Link
                 href={publicPath('/self-check', locale)}
@@ -472,8 +470,6 @@ const MiddleSchoolMathPage: React.FC = () => {
           heading={MIDDLE_SCHOOL_MATH_PROGRAM_DETAILS.heading}
           includes={MIDDLE_SCHOOL_PROGRAM_INCLUDES}
           outcomes={MIDDLE_SCHOOL_PROGRAM_OUTCOMES}
-          fromMonthlyLabel={`From $${getMathHubMinMonthlyUsd('middle-school')}/month`}
-          tiers={mapHubOptionsToPricingTiers(msMonthlyProgram.options)}
           onBookAssessment={openAssessment}
         />
       ) : null}
@@ -510,7 +506,7 @@ const MiddleSchoolMathPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
             >
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
-              Book free assessment
+              Get my program recommendation
             </Button>
             <Link
               href={publicPath('/self-check', locale)}
@@ -588,9 +584,12 @@ const MiddleSchoolMathPage: React.FC = () => {
         </div>
       </section>
 
-      <FreeAssessmentModal
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic-math-middle-school"
+        defaultSubject="Math"
+        defaultGradeBand="6-8"
       />
     </div>
   )

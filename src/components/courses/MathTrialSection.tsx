@@ -1,9 +1,8 @@
 'use client'
 
-import Link from 'next/link'
-import { ArrowRight, CheckCircle } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import type { MathTrialBandConfig } from '@/lib/math-program-trial-copy'
-import { publicPath } from '@/lib/publicPath'
+import ProgramRecommendationButton from '@/components/ProgramRecommendationButton'
 
 type MathTrialSectionProps = {
   config: MathTrialBandConfig
@@ -13,9 +12,10 @@ type MathTrialSectionProps = {
 
 export function MathTrialSection({
   config,
-  locale,
   className = 'bg-[#ebebeb] py-16 lg:py-20',
 }: MathTrialSectionProps) {
+  const subject = config.sessionTitle.includes('English') ? 'English' : 'Math'
+  const gradeBand = config.gradeLabel.includes('1–5') ? 'K-5' : config.gradeLabel.includes('6–8') ? '6-8' : '9-12'
   return (
     <section className={className}>
       <div className="max-w-4xl mx-auto px-4 lg:px-8">
@@ -31,11 +31,9 @@ export function MathTrialSection({
               <p className="font-bold text-gray-800 text-lg mb-1">{config.sessionTitle}</p>
               <p className="text-gray-500 text-sm">{config.durationLabel}</p>
             </div>
-            <div className="text-right shrink-0">
-              <p className="text-3xl font-bold text-[#1F396D]">$45</p>
-              <p className="text-xs text-green-600 font-semibold mt-0.5">
-                Fee fully waived when you enroll within 7 days.
-              </p>
+            <div className="shrink-0 text-left sm:text-right">
+              <p className="text-base font-bold text-[#1F396D]">Personalized program fit</p>
+              <p className="mt-0.5 text-xs font-semibold text-green-600">Current pricing shared before enrollment</p>
             </div>
           </div>
 
@@ -50,29 +48,14 @@ export function MathTrialSection({
           </ul>
 
           <p className="text-sm text-gray-700 font-semibold mb-4 border-l-4 border-[#F16112] pl-4">
-            {config.feeNote}
+            Tell us the grade and subject first. We&apos;ll recommend the right starting point and send current pricing—no commitment.
           </p>
           {config.extraNote ? (
             <p className="text-sm text-green-700 font-medium mb-6">{config.extraNote}</p>
           ) : null}
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href={publicPath(config.enrollPath, locale)}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-6 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
-            >
-              Book a trial session — $45
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              href={publicPath('/book-assessment', locale)}
-              className="inline-flex items-center justify-center text-sm font-medium text-[#1F396D] hover:text-[#F16112] underline underline-offset-4 px-4 py-3 transition-colors"
-            >
-              Or start with the free 45-min assessment first
-            </Link>
-          </div>
-
-          <p className="text-xs text-gray-400 mt-4">{config.footnote}</p>
+          <ProgramRecommendationButton sourcePage={`trial-${subject.toLowerCase()}-${gradeBand}`} defaultSubject={subject} defaultGradeBand={gradeBand} />
+          <p className="text-xs text-gray-400 mt-4">A free assessment is available after we identify the most relevant program.</p>
         </div>
       </div>
     </section>

@@ -4,7 +4,6 @@ import { MIDDLE_SCHOOL_MATH_VISIBLE_FAQS } from '@/lib/schema/middle-school-math
 import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
-import { getMathHubSchemaOfferPrice } from '@/lib/math-pricing-display'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -46,12 +45,6 @@ export default async function MiddleSchoolMathLayout({
     coursePrerequisites: 'Grades 6–8 middle school level',
     url: absoluteSiteUrl('/academic/math/middle-school', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
-    offers: {
-      price: getMathHubSchemaOfferPrice('middle-school'),
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-    },
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([
