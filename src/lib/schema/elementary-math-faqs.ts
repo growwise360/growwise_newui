@@ -50,7 +50,7 @@ export const ELEMENTARY_MATH_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What is the paid trial session?',
     answer:
-      'A single 60-minute instructional session where your child works with a GrowWise instructor on real grade-level problems. At the end we give you a debrief on what we found and which program fits. The $45 session fee is fully waived if you enroll within 7 days.',
+      'A single 60-minute instructional session where your child works with a GrowWise instructor on real grade-level problems. At the end we give you a debrief on what we found and which program fits. Current session and program pricing is shared before enrollment.',
   },
   {
     question: 'Is there a registration fee?',

@@ -205,7 +205,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <Link href={publicPath('/future-skills/python-certification', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Explore the Python certification pathway
                 </Link>{' '}
-                — Python, AI projects, and real portfolio-building for Grades 1–12 in Dublin, CA.
+                — Python, AI projects, and real portfolio-building for Grades 3–12 in Dublin, CA.
               </p>
             </div>
 

@@ -472,7 +472,7 @@ function NestedSubmenuPanel({
   const panelRef = useRef<HTMLDivElement>(null);
   const [flipLeft, setFlipLeft] = useState(false);
   const headerTitle = parentItem.submenuHeaderTitle ?? parentItem.title;
-  const headerSubtitle = parentItem.submenuHeaderSubtitle ?? 'Grades 1–12';
+  const headerSubtitle = parentItem.submenuHeaderSubtitle ?? 'Grades 3–12';
 
   useEffect(() => {
     const el = panelRef.current;

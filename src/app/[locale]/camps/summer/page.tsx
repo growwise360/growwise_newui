@@ -962,9 +962,9 @@ export default function SummerCampPage() {
                     href={publicPath('/academic/math', locale)}
                     className="font-semibold text-[#1F396D] underline hover:text-[#F16112]"
                   >
-                    K–12 Math Tutoring
+                    Grades 3–12 Math Tutoring
                   </Link>
-                  {' '}— Grades 1–12, ongoing enrollment
+                  {' '}— Grades 3–12, ongoing enrollment
                 </span>
               </li>
               <li className="flex items-start gap-2">

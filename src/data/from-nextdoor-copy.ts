@@ -18,7 +18,7 @@ export const FROM_NEXTDOOR_COPY = {
     subtext:
       'Parents on Nextdoor praise our structured classes, expert Python instructors, and hands-on projects that build confidence, curiosity, and real problem-solving skills.',
     intro:
-      'You found us through neighbors you trust — welcome. GrowWise is a local K-12 enrichment center at 4564 Dublin Blvd with small classes and caring educators, not a corporate chain.',
+      'You found us through neighbors you trust — welcome. GrowWise is a local Grades 3–12 enrichment center at 4564 Dublin Blvd with small classes and caring educators, not a corporate chain.',
     assessmentCta: 'Book Free Assessment',
     phoneLabel: 'Call',
     phone: CONTACT_INFO.phone,
@@ -33,7 +33,7 @@ export const FROM_NEXTDOOR_COPY = {
     cards: [
       {
         title: 'Academic Tutoring',
-        description: 'Math, English, and SAT support for Grades 1–12 in small-group and 1:1 formats.',
+        description: 'Math, English, and SAT support for Grades 3–12 in small-group and 1:1 formats.',
         href: '/academic',
       },
       {

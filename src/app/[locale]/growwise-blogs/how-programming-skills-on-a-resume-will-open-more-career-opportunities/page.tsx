@@ -209,7 +209,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <Link href={publicPath('/future-skills/python-certification', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Explore the Python certification pathway
                 </Link>{' '}
-                — from first lines of code to AI projects, for Grades 1–12 in Dublin, CA.
+                — from first lines of code to AI projects, for Grades 3–12 in Dublin, CA.
               </p>
             </div>
 

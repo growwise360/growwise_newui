@@ -72,7 +72,7 @@ export const SELF_CHECK_GAP_FAQS: Record<ParentPrediction, SelfCheckGapFaq> = {
     redFlag:
       'Q1: 3.215, "because it has more digits after the decimal" or "because 215 is bigger than 7."\nQ2: 1.2 or 12 — child didn\'t count decimal places in the result, or applied "multiplication makes bigger" thinking.',
     downstream:
-      'The comparison misconception (more digits = bigger) is documented as one of the most persistent errors in K–12 math. It directly affects percent calculations, scientific notation, unit conversions, and data interpretation. The multiplication error affects chemistry, physics, and any applied math. Neither resolves without explicit teaching — practice alone reinforces the wrong pattern.',
+      'The comparison misconception (more digits = bigger) is documented as one of the most persistent errors in Grades 3–12 math. It directly affects percent calculations, scientific notation, unit conversions, and data interpretation. The multiplication error affects chemistry, physics, and any applied math. Neither resolves without explicit teaching — practice alone reinforces the wrong pattern.',
   },
   fraction_comparison: {
     id: 'fraction_comparison',

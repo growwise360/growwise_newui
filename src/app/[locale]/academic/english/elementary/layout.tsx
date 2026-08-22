@@ -5,8 +5,6 @@ import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
-import { fetchPricingConfigServer } from '@/lib/pricing-config-server'
-import { getElementaryEnglishSchemaOfferPrice } from '@/lib/english-pricing-display'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -28,8 +26,6 @@ export default async function ElementaryEnglishLayout({
 }) {
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
-  const pricingConfig = await fetchPricingConfigServer()
-
   const courseSchema = generateCourseSchema({
     name: 'Elementary English — Grades 1–5',
     description:
@@ -40,12 +36,6 @@ export default async function ElementaryEnglishLayout({
     coursePrerequisites: 'Grades 1–5 elementary school level',
     url: absoluteSiteUrl('/academic/english/elementary', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
-    offers: {
-      price: getElementaryEnglishSchemaOfferPrice(pricingConfig),
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-    },
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([

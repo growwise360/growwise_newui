@@ -286,7 +286,7 @@ export default function About() {
               href={publicPath('/dublin-ca', locale)}
               className="text-base font-semibold text-[#F1894F] underline-offset-4 hover:text-[#ffb380] hover:underline sm:text-lg"
             >
-              Explore K-12 tutoring &amp; coding classes at our Dublin center →
+              Explore Grades 3–12 tutoring &amp; coding classes at our Dublin center →
             </Link>
           </p>
           <p className="mb-8">

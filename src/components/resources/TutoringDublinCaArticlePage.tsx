@@ -200,7 +200,7 @@ export function TutoringDublinCaArticlePage() {
       </p>
 
       <p>
-        <strong>Academic programs (Grades 1–12):</strong>{' '}
+        <strong>Academic programs (Grades 3–12):</strong>{' '}
         <ArticleLink href="/academic/math">Math Tutoring</ArticleLink> · English &amp; Writing · High School Math ·{' '}
         <ArticleLink href="/courses/sat-prep">SAT/PSAT Preparation</ArticleLink>
       </p>

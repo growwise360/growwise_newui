@@ -58,7 +58,7 @@ export const WHY_GRADES_RELATED = [
     href: '/resources/homework-independence',
   },
   {
-    title: 'Math Tutoring Programs — Grades 1–12',
+    title: 'Math Tutoring Programs — Grades 3–12',
     description: 'Diagnostic-first small-group math programs for every grade level.',
     href: '/academic/math',
   },

@@ -5,12 +5,12 @@ export const MATH_COURSE_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Does GrowWise offer math tutoring in Dublin CA?',
     answer:
-      'Yes. GrowWise offers in-person math tutoring for grades 1–12 at 4564 Dublin Blvd, Dublin, CA. Programs cover elementary math through AP Precalculus and SAT prep.',
+      'Yes. GrowWise offers in-person math tutoring for grades 3–12 at 4564 Dublin Blvd, Dublin, CA. Programs cover elementary math through AP Precalculus and SAT prep.',
   },
   {
     question: 'What math subjects does GrowWise tutor?',
     answer:
-      'GrowWise tutors all K-12 math subjects including elementary math, middle school math, Algebra 1, Algebra 2, Geometry, Precalculus, AP Precalculus, and SAT Math.',
+      'GrowWise tutors math for Grades 3–12, including elementary math, middle school math, Algebra 1, Algebra 2, Geometry, Precalculus, AP Precalculus, and SAT Math.',
   },
   {
     question: 'How is GrowWise math tutoring different?',
@@ -37,7 +37,7 @@ export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What math courses do you offer at GrowWise?',
     answer:
-      'We offer comprehensive Grades 1-12 math courses including grade-level math (aligned with California Common Core Standards), accelerated math programs, and integrated math 1 & 2. Our courses cover Algebra, Geometry, Pre-Calculus, and more. All programs are aligned with DUSD and PUSD curriculum standards.',
+      'We offer comprehensive Grades 3–12 math courses including grade-level math (aligned with California Common Core Standards), accelerated math programs, and integrated math 1 & 2. Our courses cover Algebra, Geometry, Pre-Calculus, and more. All programs are aligned with DUSD and PUSD curriculum standards.',
   },
   {
     question: 'How do I know which math course is right for my child?',
@@ -56,7 +56,7 @@ export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   },
   {
     question: 'How much does math tutoring cost at GrowWise?',
-    answer: `Our math courses start at $35 per session. Pricing may vary based on the specific program, class size, and duration. We offer flexible scheduling options and packages. Contact us at ${CONTACT_INFO.phone} or ${CONTACT_INFO.email} for detailed pricing information.`,
+    answer: `GrowWise pricing depends on the student’s grade, recommended program, class format, and schedule. Families receive current options and pricing after a short program-fit request or free assessment. Contact us at ${CONTACT_INFO.phone} or ${CONTACT_INFO.email} for help.`,
   },
   {
     question: 'Do you offer online or in-person math tutoring?',
@@ -75,7 +75,7 @@ export const ENGLISH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What English and writing programs does GrowWise offer in Dublin, CA?',
     answer:
-      'GrowWise offers English Mastery for Grades 1–8, an Essay Writing focus track, and Young Authors, a creative writing cohort for Grades 3–5. Programs run in small groups and are school-supported — focused on reading comprehension, writing clarity, and the specific skills that show up in school assignments and assessments. The essay work targets the structured, evidence-based writing required in DUSD and PUSD middle school English classes. Elementary English is $289/month at 2 × 60 minutes per week. Start with a free assessment at growwiseschool.org/book-assessment.',
+      'GrowWise offers English Mastery for Grades 1–8, an Essay Writing focus track, and Young Authors, a creative writing cohort for Grades 3–5. Programs run in small groups and focus on reading comprehension, writing clarity, and school assignments. Families receive current options and pricing after a short program-fit request or free assessment.',
   },
   {
     question: 'Do I have to commit to 3 months upfront?',
@@ -90,7 +90,7 @@ export const ENGLISH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'How much does Young Authors cost?',
     answer:
-      'Young Authors is $295 total for a fixed 12-session cohort. Contact GrowWise for the current schedule and availability.',
+      'Young Authors is a fixed 12-session creative writing cohort for Grades 3–5. Contact GrowWise for the current schedule, availability, and pricing.',
   },
   {
     question: 'Can my child join English Mastery mid-year?',
@@ -128,7 +128,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Is the GrowWise academic assessment free?',
     answer:
-      'Yes. GrowWise offers a free 30-minute assessment for students in Grades 1-12. Families leave with the identified skill gap and a brief written next-step plan. A separate 60-minute Full Diagnostic is available for $49 when a family wants a deeper written report and analysis.',
+      'Yes. GrowWise offers a free assessment for students in Grades 3–12. Families receive the identified skill gap and a brief next-step plan. Ask the team about deeper diagnostic options when a more detailed written report and analysis is needed.',
   },
   {
     question: 'What happens after I book an assessment at GrowWise?',
@@ -138,7 +138,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How long does a GrowWise assessment take?',
     answer:
-      'The free assessment takes about 30 minutes and is available for students in Grades 1-12. The separate 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a comprehensive written learning plan.',
+      'The free assessment takes about 30 minutes and is available for students in Grades 3–12. The separate 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a comprehensive written learning plan.',
   },
   {
     question: 'What subjects does the GrowWise assessment cover?',
@@ -148,12 +148,12 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How do I enroll my child at GrowWise School in Dublin, CA?',
     answer:
-      'Enrollment starts with a free assessment at our Dublin Blvd location: we identify where your child is, provide a brief written next-step plan, and explain whether GrowWise is the right fit. Families who want a deeper written review can add the 60-minute Full Diagnostic for $49. Programs run in 3-month cycles aligned to one full assessment period, with monthly tuition from $169 (Grade 1–2 math) or $289 for most programs. Book at growwiseschool.org/book-assessment or call (925) 456-4606.',
+      'Enrollment starts with a free assessment at our Dublin Blvd location: we identify where your child is, provide a brief next-step plan, and explain whether GrowWise is the right fit. Programs run in defined cycles, and current pricing is shared with the recommended program before enrollment. Book at growwiseschool.org/book-assessment or call (925) 456-4606.',
   },
   {
     question: 'How much does GrowWise cost compared to other tutoring centers?',
     answer:
-      'GrowWise monthly tuition is $289 for Grades 3–5 and middle school programs, $295 for advanced middle school math, and from $369 for high school; Grade 1–2 math starts at $169/month. Publicly listed rates for other Tri-Valley options typically range from about $140–$250 per subject per month for worksheet-based programs to $250–$500+ per month for method-based and accelerated centers — verify current rates with each provider. GrowWise sessions are teacher-led and follow your child\'s school curriculum week by week.',
+      'GrowWise pricing depends on grade, course level, instructional format, and the recommended program. Families receive current options and pricing after a short program-fit request or free assessment. GrowWise sessions are teacher-led and follow the student’s school curriculum week by week.',
   },
 ]
 
@@ -206,7 +206,7 @@ export const ML_AI_CODING_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'What age can students start ML/AI coding classes at GrowWise?',
     answer:
-      'Our ML/AI and Python coding courses welcome students from Grades 1 through 12 (ages 6–18). We group students by level — not just age — so beginners and advanced learners each get the right challenge. Most students starting AI-specific projects are in Grades 5 and up.',
+      'Our ML/AI and Python coding courses welcome students from Grades 3–12 (ages 6–18). We group students by level — not just age — so beginners and advanced learners each get the right challenge. Most students starting AI-specific projects are in Grades 5 and up.',
   },
   {
     question: 'Do students need prior coding experience to join your AI courses?',
@@ -245,7 +245,7 @@ export const GAME_DEVELOPMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'What age group is game development suitable for at GrowWise?',
     answer:
-      'We welcome students from Grades 1 through 12 (ages 6–18). Younger students (Grades 1–5) work with Scratch and Roblox; older students (Grades 6–12) tackle Minecraft modding, Unity, and Python game projects. Classes are always grouped by level and platform, not just age.',
+      'We welcome students from Grades 3–12 (ages 6–18). Younger students (Grades 1–5) work with Scratch and Roblox; older students (Grades 6–12) tackle Minecraft modding, Unity, and Python game projects. Classes are always grouped by level and platform, not just age.',
   },
   {
     question: 'Can students publish or share the games they build?',

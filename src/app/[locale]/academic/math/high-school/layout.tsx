@@ -5,7 +5,6 @@ import { generateMetadataFromPath } from '@/lib/seo/metadata'
 import { generateCourseSchema, generateBreadcrumbSchema } from '@/lib/seo/structuredData'
 import { absoluteSiteUrl } from '@/lib/publicPath'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
-import { getMathHubSchemaOfferPrice } from '@/lib/math-pricing-display'
 import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -43,12 +42,6 @@ export default async function HighSchoolMathLayout({
     coursePrerequisites: "High school level math foundation",
     url: absoluteSiteUrl(MATH_COURSE_PATHS.highSchool, locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
-    offers: {
-      price: getMathHubSchemaOfferPrice('high-school'),
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: absoluteSiteUrl('/book-assessment', locale, baseUrl),
-    }
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([

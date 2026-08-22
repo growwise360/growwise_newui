@@ -3,11 +3,30 @@ import { CONTACT_INFO } from '@/lib/constants';
 import { isBrevoTransactionalReady, sendBrevoTransactionalEmail } from '@/lib/brevo';
 import { sendEmail, type SendEmailResult } from '@/lib/email';
 import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit';
-import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits';
+import { clip, exceedsMax, FIELD_MAX, isAcceptableLeadEmail } from '@/lib/inputLimits';
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard';
 import { syncHubSpotLeadIfConfigured } from '@/lib/hubspot/submitForm';
 
 const MAX_BODY_BYTES = 4 * 1024;
+const EMAIL_DEDUPE_WINDOW_MS = 24 * 60 * 60_000;
+const recentEmails = new Map<string, number>();
+
+function wasRecentlySubmitted(email: string): boolean {
+  const now = Date.now();
+  const last = recentEmails.get(email);
+  return Boolean(last && now - last < EMAIL_DEDUPE_WINDOW_MS);
+}
+
+function rememberSubmittedEmail(email: string): void {
+  const now = Date.now();
+  recentEmails.set(email, now);
+  if (recentEmails.size > 10_000) {
+    const cutoff = now - EMAIL_DEDUPE_WINDOW_MS;
+    for (const [key, timestamp] of recentEmails) {
+      if (timestamp < cutoff) recentEmails.delete(key);
+    }
+  }
+}
 
 const ALLOWED_PAGE_CONTEXT_IDS = new Set([
   'default',
@@ -127,11 +146,16 @@ export async function POST(request: NextRequest) {
     }
 
     const email = clip(body.email, FIELD_MAX.email).toLowerCase();
-    if (!email || !isValidEmailShape(email)) {
+    if (!email || !isAcceptableLeadEmail(email)) {
       return NextResponse.json(
-        { success: false, message: 'Valid email is required' },
+        { success: false, message: 'Please use a valid, non-temporary email address' },
         { status: 400 },
       );
+    }
+    if (wasRecentlySubmitted(email)) {
+      // Do not send another notification or create another CRM lead. Return a
+      // generic success response so the endpoint cannot be used to enumerate emails.
+      return NextResponse.json({ success: true, duplicate: true });
     }
 
     const pageUri = clip(body.pageUri, FIELD_MAX.longText);
@@ -172,6 +196,8 @@ export async function POST(request: NextRequest) {
         { status: 502 },
       );
     }
+
+    rememberSubmittedEmail(email);
 
     const messageBlock = [
       'Growy chat email gate — conversation unlocked.',

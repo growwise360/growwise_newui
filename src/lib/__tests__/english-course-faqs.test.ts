@@ -9,11 +9,11 @@ describe('english course FAQs', () => {
       (faq) => `${faq.question} ${faq.answer}`,
     ).join(' ')
 
-    expect(visibleText).toContain('Young Authors is $295 total')
+    expect(visibleText).toContain('Contact GrowWise for the current schedule, availability, and pricing')
     expect(visibleText).toContain('English Mastery')
     expect(visibleText).toContain('separate creative writing program')
     expect(visibleText).not.toContain('$349')
-    expect(visibleText).not.toContain('grades 1-12')
+    expect(visibleText).not.toContain('grades 3–12')
   })
 
   it('includes English FAQs in JSON-LD source', () => {
@@ -22,6 +22,6 @@ describe('english course FAQs', () => {
     ).join(' ')
 
     expect(schemaText).toContain('two separate English programs')
-    expect(schemaText).toContain('Young Authors is $295 total')
+    expect(schemaText).toContain('Contact GrowWise for the current schedule, availability, and pricing')
   })
 })

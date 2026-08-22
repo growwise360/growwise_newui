@@ -69,8 +69,11 @@ export function ChatbotEmailGate({ onContinue, error, isSubmitting = false }: Ch
               if (validationError) setValidationError('');
             }}
             placeholder={t('emailPlaceholder')}
+            maxLength={254}
+            required
             className="min-h-[44px] pl-9"
             aria-invalid={Boolean(displayError)}
+            aria-describedby={displayError ? 'growy-chat-email-error' : undefined}
           />
         </div>
       </div>
@@ -83,7 +86,7 @@ export function ChatbotEmailGate({ onContinue, error, isSubmitting = false }: Ch
         showSubmitDisclaimer={false}
       />
       {displayError ? (
-        <p className="text-xs text-red-600" role="alert">
+        <p id="growy-chat-email-error" className="text-xs text-red-600" role="alert">
           {displayError}
         </p>
       ) : null}

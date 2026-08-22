@@ -143,7 +143,7 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           gradient: 'from-[#1F396D] to-[#29335C]',
           hasSubmenu: true,
           submenuHeaderTitle: 'Math',
-          submenuHeaderSubtitle: 'Grades 1–12 math programs',
+          submenuHeaderSubtitle: 'Grades 3–12 math programs',
           submenuItems: MATH_GRADE_BAND_NAV_ITEMS,
         },
         {
@@ -156,7 +156,7 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
           gradient: 'from-[#F16112] to-[#F1894F]',
           hasSubmenu: true,
           submenuHeaderTitle: 'English',
-          submenuHeaderSubtitle: 'Grades 1–12 English programs',
+          submenuHeaderSubtitle: 'Grades 3–12 English programs',
           submenuItems: ENGLISH_SUBMENU_NAV_ITEMS,
         },
         {

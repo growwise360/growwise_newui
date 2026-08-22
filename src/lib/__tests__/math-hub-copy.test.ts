@@ -4,9 +4,9 @@ describe('MATH_HUB_COPY pricing', () => {
   it('grade-band cards use current monthly from-prices', () => {
     const lines = MATH_HUB_COPY.gradeBands.cards.map((c) => c.packageLine);
     expect(lines).toEqual([
-      'From $169/month · Grade 1-2 Math · 75 minutes per week',
-      'From $289/month · 150 minutes per week · 3-month program',
-      'From $369/month · 150 minutes per week · 3-month program',
+      'Grade 1–2 Math · 75 minutes per week · Current pricing available on request',
+      '150 minutes per week · 3-month program · Current pricing available on request',
+      '150 minutes per week · 3-month program · Current pricing available on request',
     ]);
 
     const entrySchedules = MATH_HUB_COPY.programOptions.cards.map(

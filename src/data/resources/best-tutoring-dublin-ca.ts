@@ -9,7 +9,7 @@ export const BEST_TUTORING_DUBLIN_CA_META: ResourceArticleMeta = {
   h1: 'Best Tutoring in Dublin, CA — How to Compare Your Options',
   readTime: '5 min read',
   updated: 'Updated July 2026',
-  title: 'Best Tutoring in Dublin CA | K-12 Options Compared',
+  title: 'Best Tutoring in Dublin CA | Grades 3–12 Options Compared',
   description:
     'Compare Dublin, CA tutoring for SAT prep, middle school, and high school: class size, diagnostics, curriculum fit, and what questions to ask.',
   keywords:
@@ -52,7 +52,7 @@ export const BEST_TUTORING_DUBLIN_CA_JSONLD_FAQS: readonly ResourceArticleFaq[] 
 export const BEST_TUTORING_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] = [
   {
     href: '/resources/tutoring-dublin-ca',
-    title: 'K-12 Tutoring in Dublin, CA: How to Choose the Right Program',
+    title: 'Grades 3–12 Tutoring in Dublin, CA: How to Choose the Right Program',
     description: 'An honest comparison of programs serving the Tri-Valley area.',
   },
   {

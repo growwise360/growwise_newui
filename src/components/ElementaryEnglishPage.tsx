@@ -18,18 +18,12 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { VisibleCourseFAQ } from '@/components/seo/VisibleCourseFAQ'
-import FreeAssessmentModal from '@/components/FreeAssessmentModal'
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal'
 import { MathProgramDetailsSection } from '@/components/courses/MathProgramDetailsSection'
 import { MathTrialSection } from '@/components/courses/MathTrialSection'
 import { ELEMENTARY_ENGLISH_COPY as COPY } from '@/lib/elementary-english-copy'
 import { ELEMENTARY_ENGLISH_VISIBLE_FAQS } from '@/lib/schema/elementary-english-faqs'
 import { ELEMENTARY_ENGLISH_TRIAL } from '@/lib/english-program-trial-copy'
-import {
-  buildElementaryEnglishPricingTiers,
-  formatElementaryEnglishFromMonthly,
-  formatElementaryEnglishFromMonthlyLabel,
-} from '@/lib/english-pricing-display'
-import { usePricingConfig } from '@/hooks/usePricingConfig'
 import { CONTACT_INFO } from '@/lib/constants'
 import { MATH_COURSE_PATHS } from '@/lib/math-course-paths'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
@@ -52,13 +46,8 @@ const AUGUST_ENGLISH_READINESS = [
 
 export default function ElementaryEnglishPage() {
   const locale = useLocale()
-  const { data: pricingConfig } = usePricingConfig()
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false)
   const openAssessment = () => setIsAssessmentModalOpen(true)
-
-  const fromMonthlyLabel = formatElementaryEnglishFromMonthlyLabel(pricingConfig)
-  const pricingLine = formatElementaryEnglishFromMonthly(pricingConfig)
-  const pricingTiers = buildElementaryEnglishPricingTiers(pricingConfig)
 
   return (
     <div className="min-h-screen bg-[#ebebeb]" style={{ fontFamily: '"Nunito", "Inter", system-ui, sans-serif' }}>
@@ -320,11 +309,8 @@ export default function ElementaryEnglishPage() {
         heading={COPY.program.heading}
         includes={COPY.program.includes}
         outcomes={COPY.program.outcomes}
-        fromMonthlyLabel={fromMonthlyLabel}
-        tiers={pricingTiers}
         onBookAssessment={openAssessment}
       />
-      <p className="text-center text-sm text-gray-700 font-medium px-4 -mt-8 mb-4">{pricingLine}</p>
       <p className="text-center text-xs text-gray-500 px-4 pb-8 max-w-3xl mx-auto">{COPY.program.footerMicro}</p>
 
       <section className="bg-white py-12">
@@ -366,23 +352,24 @@ export default function ElementaryEnglishPage() {
               <PenTool className="h-5 w-5" aria-hidden />
               {COPY.cta.primaryLabel}
             </Link>
-            <Link
-              href={publicPath(COPY.cta.secondaryPath, locale)}
+            <Button
+              type="button"
+              onClick={openAssessment}
               className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-8 py-4 text-base font-semibold text-white hover:bg-white/10"
             >
               {COPY.cta.secondaryLabel}
-            </Link>
+            </Button>
           </div>
           <div className="mt-8 flex items-center justify-center gap-2 text-white/70 text-sm">
             <Phone className="h-4 w-4" aria-hidden />
             <span>
-              {CONTACT_INFO.phone} · No registration fee through July 2026 · No long-term contract
+              {CONTACT_INFO.phone} · No long-term contract · Current pricing shared before enrollment
             </span>
           </div>
         </div>
       </section>
 
-      <FreeAssessmentModal isOpen={isAssessmentModalOpen} onClose={() => setIsAssessmentModalOpen(false)} />
+      <ProgramRecommendationModal isOpen={isAssessmentModalOpen} onClose={() => setIsAssessmentModalOpen(false)} sourcePage="academic-english-elementary" defaultSubject="English" defaultGradeBand="K-5" />
     </div>
   )
 }

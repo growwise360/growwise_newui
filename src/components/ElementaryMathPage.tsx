@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs'
 import { CourseFAQ } from '@/components/seo/CourseFAQ'
-import FreeAssessmentModal from '@/components/FreeAssessmentModal'
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal'
 import { ELEMENTARY_MATH_VISIBLE_FAQS } from '@/lib/schema/elementary-math-faqs'
 import { ELEMENTARY_TRIAL } from '@/lib/math-program-trial-copy'
 import { MathTrialSection } from '@/components/courses/MathTrialSection'
@@ -224,13 +224,13 @@ const ElementaryMathPage: React.FC = () => {
   const ctaForSituation = (situation: JTBDSituation) => {
     if (situation.cta === 'assessment') {
       return (
-        <button
-          onClick={openAssessment}
+        <Link
+          href={publicPath('/book-assessment', locale)}
           className="inline-flex items-center gap-1.5 rounded-full bg-[#F16112] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#d54f0a] transition-colors"
         >
           {situation.ctaLabel}
           <ArrowRight className="h-4 w-4" aria-hidden />
-        </button>
+        </Link>
       )
     }
     if (situation.cta === 'selfcheck') {
@@ -329,13 +329,10 @@ const ElementaryMathPage: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-xl">
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
               Book free assessment
-            </Button>
+            </Link>
             <Link
               href={publicPath('/self-check', locale)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#1F396D] px-8 py-4 text-base font-semibold text-[#1F396D] hover:bg-[#1F396D]/5 transition-colors"
@@ -572,17 +569,6 @@ const ElementaryMathPage: React.FC = () => {
         heading="Elementary Math Foundation — 3-Month Program"
         includes={PROGRAM_INCLUDES}
         outcomes={PROGRAM_OUTCOMES}
-        fromMonthlyLabel="From $169/month"
-        tiers={[
-          { name: 'Grade 1&2 Math', schedule: '75 minutes per week', price: '$169/mo' },
-          { name: 'Grade 3-5 Math', schedule: '2 × 60 min/week', price: '$289/mo' },
-          {
-            name: 'Math + Coding',
-            schedule: '2 × 60 min/week',
-            price: '$295/mo',
-            bestFor: 'Scratch or Roblox',
-          },
-        ]}
         onBookAssessment={openAssessment}
       />
 
@@ -684,13 +670,10 @@ const ElementaryMathPage: React.FC = () => {
             The free 30-minute assessment does three things: identifies your child's specific gap, places them in the right level (Beginner, Champ, or Pro), and maps out what month one of their program will focus on. No charge. No commitment. Results you can act on immediately.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button
-              onClick={openAssessment}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] text-white rounded-full px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transition-shadow"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-8 py-4 text-base font-semibold text-white shadow-lg transition-shadow hover:shadow-xl">
               <Calculator className="mr-2 h-5 w-5" aria-hidden />
               Book free assessment
-            </Button>
+            </Link>
             <Link
               href={publicPath('/self-check', locale)}
               className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-8 py-4 text-base font-semibold text-white hover:bg-white/10 transition-colors"
@@ -704,14 +687,17 @@ const ElementaryMathPage: React.FC = () => {
           </div>
           {/* FIX 5 — trust line */}
           <p className="mt-6 text-white/50 text-xs">
-            No registration fee through July 2026. No long-term contract. Monthly enrollment — cancel anytime.
+            No long-term contract. We&apos;ll recommend the right starting level before enrollment.
           </p>
         </div>
       </section>
 
-      <FreeAssessmentModal
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic-math-elementary"
+        defaultSubject="Math"
+        defaultGradeBand="K-5"
       />
     </div>
   )

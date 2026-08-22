@@ -49,7 +49,7 @@ export default function ProgramsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <Link href={createLocaleUrl('/academic')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100 group">
             <div className="text-strong text-lg mb-2">Academic</div>
-            <div className="text-muted mb-4">Grades 1-12 Math and English programs</div>
+            <div className="text-muted mb-4">Grades 3–12 Math and English programs</div>
             <span className="text-[#F16112] font-semibold group-hover:underline">Explore academic programs →</span>
           </Link>
           <Link href={createLocaleUrl('/steam')} className="card-base card-padding hover:shadow-xl rounded-xl border border-gray-100 group">

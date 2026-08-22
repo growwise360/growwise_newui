@@ -58,7 +58,7 @@ export const HOW_TO_CHOOSE_CODING_SCHOOL_FOR_KIDS_RELATED: readonly ResourceArti
   },
   {
     href: '/resources/tutoring-dublin-ca',
-    title: 'K-12 Tutoring in Dublin, CA',
+    title: 'Grades 3–12 Tutoring in Dublin, CA',
     description: 'Compare academic programs including coding and STEAM in the Tri-Valley.',
   },
 ] as const

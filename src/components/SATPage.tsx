@@ -3,11 +3,10 @@ import Link from 'next/link';
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Target, GraduationCap, BookOpen, Calculator, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, PenTool, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, BookMarked, Star, Shield, ArrowRight, ShoppingCart } from "lucide-react";
+import { Target, GraduationCap, BookOpen, Calculator, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, PenTool, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, BookMarked, Star, Shield, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
-import { useCart } from './gw/CartContext';
-import FreeAssessmentModal from './FreeAssessmentModal';
+import ProgramRecommendationModal from './ProgramRecommendationModal';
 import { RelatedContent } from './seo/RelatedContent';
 import { AcademicSeoParentGuidesBlock } from '@/components/camps/AcademicSeoParentGuidesBlock';
 import { getParentGuidesForSatPrepPage } from '@/lib/academic-seo-parent-guides';
@@ -31,7 +30,6 @@ const SAT_FLOATING_SYMBOLS = [
 
 const SATPage: React.FC = () => {
   const locale = useLocale();
-  const { addItem } = useCart();
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
@@ -66,8 +64,6 @@ const SATPage: React.FC = () => {
       id: 'sat-level-1',
       name: 'Level 1 – Fix the Gap',
       description: 'Build strong Math and English foundations before diving into SAT prep. Identify and fill critical gaps in your knowledge.',
-      price: 1199,
-      priceRange: '$1,199',
       duration: '3 months',
       sessions: '2 hrs/session',
       level: 'Foundation Level',
@@ -86,8 +82,6 @@ const SATPage: React.FC = () => {
       id: 'sat-level-2',
       name: 'Level 2 – SAT Preparation',
       description: 'Master SAT-specific strategies and practice with timed sections. Learn test-taking techniques that boost your score.',
-      price: 1299,
-      priceRange: '$1,299',
       duration: '3 months',
       sessions: '2 hrs/session',
       level: 'SAT Strategy',
@@ -107,8 +101,6 @@ const SATPage: React.FC = () => {
       id: 'sat-level-3',
       name: 'Level 3 – Timed Practice & Accuracy',
       description: 'Intensive practice with real test conditions. Perfect your timing and accuracy with expert doubt clearing support.',
-      price: 75,
-      priceRange: '$75/session',
       duration: '1-3 months',
       sessions: '2 hrs/session',
       level: 'Test Mastery',
@@ -117,7 +109,6 @@ const SATPage: React.FC = () => {
       bgGradient: 'bg-gradient-to-br from-[#1F396D]/5 to-[#29335C]/10',
       iconColor: 'text-[#1F396D]',
       hoverBorder: 'border-[#1F396D]/30',
-      isPricePerSession: true,
       hoverContent: [
         'Simulate real SAT test conditions',
         'Speed + accuracy drills',
@@ -162,17 +153,6 @@ const SATPage: React.FC = () => {
       delay: '300ms'
     }
   ];
-
-  const handleAddToCart = (course: any) => {
-    addItem({
-      id: course.id,
-      name: course.name,
-      price: course.price,
-      quantity: 1,
-      image: '🎯',
-      category: 'SAT Prep'
-    });
-  };
 
   // Modified hover handlers to respect touch device detection
   const handleMouseEnter = (courseId: string) => {
@@ -261,7 +241,7 @@ const SATPage: React.FC = () => {
                 className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#d54f0a] hover:to-[#F16112] text-white rounded-full px-8 py-4 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
               >
                 <Target className="mr-2 w-5 h-5" />
-                Book a Free Assessment
+                Get More Information
               </Button>
               <Button variant="outline" className="border-2 border-gray-400 text-gray-700 bg-white/60 hover:bg-white hover:text-[#1F396D] rounded-full px-8 py-4 text-lg backdrop-blur-sm transition-all duration-300 shadow-lg">
                 <Eye className="mr-2 w-5 h-5" />
@@ -417,12 +397,12 @@ const SATPage: React.FC = () => {
                             </div>
                           </div>
 
-                          {/* Pricing & Rating */}
+                          {/* Program fit & rating */}
                           <div className="mb-3 p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <span className="text-sm text-gray-600">💰</span>
-                                <span className="font-bold text-lg text-[#1F396D]">{course.priceRange}</span>
+                                <Target className="h-4 w-4 text-[#F16112]" aria-hidden />
+                                <span className="font-bold text-sm text-[#1F396D]">Relevant program details</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <Star className="w-4 h-4 fill-[#F1894F] text-[#F1894F]" />
@@ -430,7 +410,7 @@ const SATPage: React.FC = () => {
                               </div>
                             </div>
                             <div className="flex items-center mt-2 text-xs text-gray-600">
-                              <span>📦 Quantity: 1</span>
+                              <span>Current pricing sent with your information</span>
                             </div>
                           </div>
 
@@ -449,7 +429,7 @@ const SATPage: React.FC = () => {
                         {/* Bottom Section - CTA */}
                         <div className="flex-shrink-0">
                           <Button 
-                            onClick={() => handleAddToCart(course)}
+                            onClick={() => setIsAssessmentModalOpen(true)}
                             className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg group-hover:scale-105`}
                           >
                             {/* Desktop button text - Only for non-touch devices */}
@@ -461,8 +441,8 @@ const SATPage: React.FC = () => {
                             )}
                             {/* Mobile button text or fallback for touch devices */}
                             <div className={`${!isTouchDevice ? 'flex md:hidden' : 'flex'} items-center justify-center`}>
-                              <ShoppingCart className="mr-2 w-4 h-4" />
-                              Add to Cart
+                              <Target className="mr-2 w-4 h-4" />
+                              Get More Information
                             </div>
                           </Button>
                         </div>
@@ -492,18 +472,16 @@ const SATPage: React.FC = () => {
                           
                           {/* Middle Section - Content */}
                           <div className="flex-grow">
-                            {/* Pricing */}
+                            {/* Program fit */}
                             <div className="mb-3 p-2.5 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
                               <div className="flex items-center justify-between mb-1">
-                                <span className="font-bold text-base text-[#1F396D]">{course.priceRange}</span>
+                                <span className="font-bold text-sm text-[#1F396D]">Best-fit SAT plan</span>
                                 <div className="flex items-center gap-1">
                                   <Star className="w-3 h-3 fill-[#F1894F] text-[#F1894F]" />
                                   <span className="text-xs text-gray-600">4.9/5</span>
                                 </div>
                               </div>
-                              {course.isPricePerSession && (
-                                <p className="text-[10px] text-gray-600 italic">Flexible pay-per-session</p>
-                              )}
+                              <p className="text-[10px] text-gray-600">Pricing depends on the recommended level and format.</p>
                             </div>
 
                             {/* What's Included Section */}
@@ -529,11 +507,11 @@ const SATPage: React.FC = () => {
                           {/* Bottom Section - CTA */}
                           <div className="flex-shrink-0">
                             <Button
-                              onClick={() => handleAddToCart(course)}
+                              onClick={() => setIsAssessmentModalOpen(true)}
                               className={`w-full bg-gradient-to-r ${courseGradients.gradient} text-white rounded-xl py-2.5 text-sm transition-all duration-300 shadow-md hover:shadow-lg`}
                             >
-                              <ShoppingCart className="mr-2 w-4 h-4" />
-                              Enroll Now
+                              <Target className="mr-2 w-4 h-4" />
+                              Get More Information
                             </Button>
                           </div>
 
@@ -639,13 +617,10 @@ const SATPage: React.FC = () => {
             Start your SAT preparation journey with GrowWise's proven methods
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              onClick={() => setIsAssessmentModalOpen(true)}
-              className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white px-10 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-10 py-4 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-[#F1894F] hover:to-[#F16112] hover:shadow-2xl">
               Free Assessment
               <ChevronRight className="ml-2 w-5 h-5" />
-            </Button>
+            </Link>
             <Button
               className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-[#1F396D] px-10 py-4 rounded-full transition-all duration-300 transform hover:scale-105"
             >
@@ -665,9 +640,12 @@ const SATPage: React.FC = () => {
       <RelatedContent locale={locale} currentPage="sat-prep" />
 
       {/* Free Assessment Modal */}
-      <FreeAssessmentModal 
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="courses-sat-prep"
+        defaultSubject="SAT Prep"
+        defaultGradeBand="9-12"
       />
     </div>
   );

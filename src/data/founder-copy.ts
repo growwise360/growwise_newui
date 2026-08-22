@@ -13,7 +13,7 @@ export const FOUNDER_COPY = {
     'That gap became GrowWise. Not a tutoring center. A lab built on 15 years of observation, 2+ years of direct research with kids, and one belief: teach a child how to learn and everything changes.',
   ],
   schemaDescription:
-    'Founder of GrowWise School, a K–12 learning lab in Dublin, CA. Software engineer and educator focused on teaching children how to learn.',
+    'Founder of GrowWise School, a Grades 3–12 learning lab in Dublin, CA. Software engineer and educator focused on teaching children how to learn.',
   expertise: ['English', 'Coding', 'AI'] as const,
   education: 'Software Engineering & Education Innovation',
 } as const

@@ -8,10 +8,10 @@ import { inter } from '@/lib/fonts';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://growwiseschool.org'),
-  title: "K-12 Online Tutoring & Coding Classes | GrowWise",
+  title: "Grades 3–12 Online Tutoring & Coding Classes | GrowWise",
   description:
-    "GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
-  keywords: "Grades 1-12 education, tutoring Dublin CA, STEAM programs, SAT prep, math courses, coding classes, personalized learning",
+    "GrowWise helps Grades 3–12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
+  keywords: "Grades 3–12 education, tutoring Dublin CA, STEAM programs, SAT prep, math courses, coding classes, personalized learning",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },

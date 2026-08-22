@@ -31,11 +31,9 @@ export function MathTrialSection({
               <p className="font-bold text-gray-800 text-lg mb-1">{config.sessionTitle}</p>
               <p className="text-gray-500 text-sm">{config.durationLabel}</p>
             </div>
-            <div className="text-right shrink-0">
+            <div className="shrink-0 text-left sm:text-right">
               <p className="text-3xl font-bold text-[#1F396D]">$45</p>
-              <p className="text-xs text-green-600 font-semibold mt-0.5">
-                Fee fully waived when you enroll within 7 days.
-              </p>
+              <p className="mt-0.5 text-xs font-semibold text-green-600">Fee fully waived when you enroll within 7 days.</p>
             </div>
           </div>
 
@@ -56,23 +54,16 @@ export function MathTrialSection({
             <p className="text-sm text-green-700 font-medium mb-6">{config.extraNote}</p>
           ) : null}
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href={publicPath(config.enrollPath, locale)}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-6 py-3 text-sm font-semibold text-white shadow hover:shadow-md transition-shadow"
-            >
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link href={publicPath(config.enrollPath, locale)} className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F16112] to-[#F1894F] px-6 py-3 text-sm font-semibold text-white shadow transition-shadow hover:shadow-md">
               Book a trial session — $45
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-            <Link
-              href={publicPath('/book-assessment', locale)}
-              className="inline-flex items-center justify-center text-sm font-medium text-[#1F396D] hover:text-[#F16112] underline underline-offset-4 px-4 py-3 transition-colors"
-            >
+            <Link href={publicPath('/book-assessment', locale)} className="inline-flex items-center justify-center px-4 py-3 text-sm font-medium text-[#1F396D] underline underline-offset-4 transition-colors hover:text-[#F16112]">
               Or start with the free 45-min assessment first
             </Link>
           </div>
-
-          <p className="text-xs text-gray-400 mt-4">{config.footnote}</p>
+          <p className="mt-4 text-xs text-gray-400">{config.footnote}</p>
         </div>
       </div>
     </section>

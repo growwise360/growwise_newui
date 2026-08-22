@@ -176,7 +176,7 @@ export const KUMON_VS_MATHNASIUM_VS_PRIVATE_TUTOR_DUBLIN_CA_RELATED: readonly Re
   {
     title: 'Math Tutoring in Dublin, CA',
     href: '/academic/math',
-    description: 'Structured math support for Grades 1-12.',
+    description: 'Structured math support for Grades 3–12.',
   },
 ]
 

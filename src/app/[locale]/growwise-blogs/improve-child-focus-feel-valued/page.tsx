@@ -392,7 +392,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     <li><strong>Daily reading:</strong> Read local event flyers or books together to spot vocabulary or comprehension issues.</li>
                   </ul>
                   <p className="text-gray-700 mt-3">
-                    GrowWise provides <strong>English tutoring for Grades 1-12 Students</strong> to strengthen reading skills.
+                    GrowWise provides <strong>English tutoring for Grades 3–12 Students</strong> to strengthen reading skills.
                   </p>
                 </div>
 

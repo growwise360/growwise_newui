@@ -14,7 +14,7 @@ export function buildFromNextdoorLocalBusinessSchema(baseUrl: string, pageUrl?: 
     '@id': `${resolvedPageUrl}${LOCAL_BUSINESS_ID_SUFFIX}`,
     name: 'GrowWise School — Dublin, CA',
     url: resolvedPageUrl,
-    description: 'Trusted by Dublin families for K-12 tutoring and STEAM enrichment.',
+    description: 'Trusted by Dublin families for Grades 3–12 tutoring and STEAM enrichment.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: CONTACT_INFO.street,

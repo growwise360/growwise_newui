@@ -20,10 +20,10 @@ export default function ProgramsLayout({
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Grades 1-12 Academic & STEAM Programs | GrowWise Dublin CA",
-    "description": "All GrowWise programs for Grades 1-12 students in Dublin, CA: Math tutoring, English tutoring, SAT prep, Future Skills certification pathways, ML/AI coding, game development, and summer camps.",
+    "name": "Grades 3–12 Academic & STEAM Programs | GrowWise Dublin CA",
+    "description": "All GrowWise programs for Grades 3–12 students in Dublin, CA: Math tutoring, English tutoring, SAT prep, Future Skills certification pathways, ML/AI coding, game development, and summer camps.",
     "url": `${baseUrl}/programs`,
-    "serviceType": "Grades 1-12 Educational Programs",
+    "serviceType": "Grades 3–12 Educational Programs",
     "provider": {
       "@type": "EducationalOrganization",
       "name": "GrowWise",

@@ -12,7 +12,7 @@ export async function generateMetadata({
   const metadata = generateMetadataFromPath(RESOURCES_PATH, locale)
   return (
     metadata ?? {
-      title: 'Parent Guides & Resources | K-12 Learning Tips | GrowWise',
+      title: 'Parent Guides & Resources | Grades 3–12 Learning Tips | GrowWise',
       description:
         'Free guides for parents on math mistakes, homework independence, SAT prep, coding for kids, and more. Research-backed advice from GrowWise educators.',
     }

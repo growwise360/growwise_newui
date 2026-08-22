@@ -80,7 +80,7 @@ export default async function TermsConditionsPage({ params }: { params: Promise<
                   <li>
                     <strong>Refund Policy:</strong>
                     <ul className="list-disc pl-6 mt-2 space-y-1">
-                      <li>There is no refund policy for Grades 1-12 Math and English subjects.</li>
+                      <li>There is no refund policy for Grades 3–12 Math and English subjects.</li>
                       <li>Coding courses have a refund policy if students withdraw within one week after enrollment.</li>
                       <li>
                         For recurring enrollments or ongoing subjects, a written 30-day advance notice is required for cancellation. Fees accrued or billed during this 30-day notice period are non-refundable, and the student may continue attending classes through the end of the paid notice period.

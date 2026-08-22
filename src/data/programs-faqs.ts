@@ -6,7 +6,7 @@ export const PROGRAMS_FAQS: readonly FAQItem[] = [
   {
     question: 'What programs does GrowWise offer?',
     answer:
-      'GrowWise offers Academic Programs (Grades 1-12 Math and English), STEAM Programs (ML/AI, Game Development, Python coding, and more), and Future Skills certification pathways (Grades 6-12 design, Python, AI/ML, and entrepreneurship). We also offer SAT Prep and specialized high school math programs.',
+      'GrowWise offers Academic Programs (Grades 3–12 Math and English), STEAM Programs (ML/AI, Game Development, Python coding, and more), and Future Skills certification pathways (Grades 6-12 design, Python, AI/ML, and entrepreneurship). We also offer SAT Prep and specialized high school math programs.',
   },
   {
     question: 'What is the difference between Academic and STEAM programs?',
@@ -21,7 +21,7 @@ export const PROGRAMS_FAQS: readonly FAQItem[] = [
   {
     question: 'Are the programs suitable for all grade levels?',
     answer:
-      'Yes, we offer programs for Grades 1-12 students. Academic programs are available for all grade levels, while STEAM programs are typically designed for elementary through high school students, with age-appropriate content for each level.',
+      'Yes, we offer programs for Grades 3–12 students. Academic programs are available for all grade levels, while STEAM programs are typically designed for elementary through high school students, with age-appropriate content for each level.',
   },
   {
     question: 'How do I choose the right program for my child?',

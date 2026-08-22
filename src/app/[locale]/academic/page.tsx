@@ -30,7 +30,7 @@ import {
   TrendingUp,
   X
 } from 'lucide-react';
-import FreeAssessmentModal from '@/components/FreeAssessmentModal';
+import ProgramRecommendationModal from '@/components/ProgramRecommendationModal';
 import { publicPath } from '@/lib/publicPath';
 import {
   Accordion,
@@ -44,7 +44,7 @@ import { generateFAQPageSchema } from '@/lib/seo/structuredData';
 const ACADEMIC_FAQS = [
   {
     question: "I can no longer help my child with their math homework — what should I do?",
-    answer: "When a parent can no longer explain the concept — not just the answer — it is time for structured support. GrowWise math programs cover grade-level math, accelerated tracks, and Integrated Math 1 and 2 for Grades 1 through 12. The free assessment identifies whether the issue is a current-grade gap or a missing skill from earlier years.",
+    answer: "When a parent can no longer explain the concept — not just the answer — it is time for structured support. GrowWise math programs cover grade-level math, accelerated tracks, and Integrated Math 1 and 2 for Grades 3–12. The free assessment identifies whether the issue is a current-grade gap or a missing skill from earlier years.",
   },
   {
     question: "How much time should a parent spend helping their child with homework each night?",
@@ -234,7 +234,7 @@ const AcademicPage: React.FC = () => {
   ];
 
   const pricingOptions = [
-    { id: 1, title: 'Affordable, Accessible Pricing', description: 'Small-Group $35/session • One-on-One from $45/session', icon: '💰', color: 'bg-white', borderColor: 'border-[#F16112]/30' },
+    { id: 1, title: 'Program Fit Before Pricing', description: 'Share your child’s grade and subject to receive the best-fit options and current pricing.', icon: '🎯', color: 'bg-white', borderColor: 'border-[#F16112]/30' },
     { id: 2, title: 'Study your way', description: 'Choose from online, in-person, or hybrid classes to fit your schedule.', icon: '📚', color: 'bg-[#F16112]', textColor: 'text-white' },
     { id: 3, title: 'Personalized Assistance', description: 'Receive dedicated support and personalized help to reach your goals.', icon: '🎯', color: 'bg-white', borderColor: 'border-[#F16112]/30' }
   ];
@@ -256,7 +256,7 @@ const AcademicPage: React.FC = () => {
   const whyChooseAcademic = [
     { icon: Target, title: 'Standards-Aligned Curriculum', description: "100% aligned with California Common Core, DUSD, and PUSD standards, ensuring your child's learning directly supports their classroom progress.", color: 'text-[#1F396D]', bgColor: 'bg-[#1F396D]/10' },
     { icon: UserCheck, title: 'Personalized Learning', description: 'Every student receives personalized academic programs tailored to their learning style and pace for maximum growth.', color: 'text-[#F16112]', bgColor: 'bg-[#F16112]/10' },
-    { icon: Award, title: 'Expert Instructors', description: 'Learn from certified Grades 1-12 teachers with years of experience in Math and English instruction.', color: 'text-[#F1894F]', bgColor: 'bg-[#F1894F]/10' },
+    { icon: Award, title: 'Expert Instructors', description: 'Learn from certified Grades 3–12 teachers with years of experience in Math and English instruction.', color: 'text-[#F1894F]', bgColor: 'bg-[#F1894F]/10' },
     { icon: TrendingUp, title: 'Proven Results', description: 'Our students consistently show measurable improvement in their academic performance and confidence.', color: 'text-[#1F396D]', bgColor: 'bg-[#1F396D]/10' }
   ];
 
@@ -265,7 +265,7 @@ const AcademicPage: React.FC = () => {
     return [
       {
         name: t[0].name,
-        grade: 'Grades 1–12 family',
+        grade: 'Grades 3–12 family',
         subject: 'Tutoring & enrichment',
         improvement: t[0].role,
         quote: t[0].content,
@@ -281,7 +281,7 @@ const AcademicPage: React.FC = () => {
       },
       {
         name: t[2].name,
-        grade: 'Grades 1–12 family',
+        grade: 'Grades 3–12 family',
         subject: 'Coding (Roblox)',
         improvement: t[2].role,
         quote: t[2].content,
@@ -304,12 +304,12 @@ const AcademicPage: React.FC = () => {
           <Card className="bg-white/80 backdrop-blur-xl rounded-[40px] shadow-[0px_30px_80px_0px_rgba(31,57,109,0.15)] border border-white/30 overflow-hidden">
             <CardContent className="p-12 lg:p-16">
               <div className="text-center">
-                <h1 className="text-4xl lg:text-6xl font-bold text-[#1F396D] mb-8 leading-tight">Grades 1–12 Math & English Tutoring in Dublin, CA</h1>
+                <h1 className="text-4xl lg:text-6xl font-bold text-[#1F396D] mb-8 leading-tight">Grades 3–12 Math & English Tutoring in Dublin, CA</h1>
                 <Badge className="bg-[#F16112] text-white mb-6 px-6 py-3 rounded-full text-lg">ACADEMIC PROGRAMS</Badge>
 
                 <div className="max-w-4xl mx-auto mb-10">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">GrowWise School: Dublin's Learning Hub for Grades 1-12 Excellence</h2>
-                  <p className="text-gray-700 text-xl leading-relaxed mb-6">Welcome to <span className="font-semibold text-[#1F396D]">GrowWise School</span>, your local destination for <span className="font-semibold">personalized academic programs</span>. Serving students from grades 1-12 in Dublin, Pleasanton, and the entire Tri-Valley area, we are committed to nurturing success.</p>
+                  <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">GrowWise School: Dublin's Learning Hub for Grades 3–12 Excellence</h2>
+                  <p className="text-gray-700 text-xl leading-relaxed mb-6">Welcome to <span className="font-semibold text-[#1F396D]">GrowWise School</span>, your local destination for <span className="font-semibold">personalized academic programs</span>. Serving students from grades 3–12 in Dublin, Pleasanton, and the entire Tri-Valley area, we are committed to nurturing success.</p>
                   <p className="text-gray-700 text-xl leading-relaxed mb-6">
                     Families also explore{' '}
                     <Link href={publicPath('/camps/summer', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
@@ -322,8 +322,8 @@ const AcademicPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Button onClick={() => setIsLearnMoreModalOpen(true)} className="bg-[#1F396D] hover:bg-[#29335C] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Book a Free Assessment</Button>
-                  <Button onClick={() => router.push(publicPath('/enroll', locale))} className="bg-[#F16112] hover:bg-[#F1894F] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Enroll Now</Button>
+                  <Button onClick={() => setIsAssessmentModalOpen(true)} className="bg-[#F16112] hover:bg-[#F1894F] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Get More Information</Button>
+                  <Button onClick={() => setIsLearnMoreModalOpen(true)} className="bg-[#1F396D] hover:bg-[#29335C] text-white rounded-full px-10 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300">Explore Math &amp; English</Button>
                 </div>
               </div>
             </CardContent>
@@ -358,7 +358,7 @@ const AcademicPage: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Our <span className="bg-gradient-to-r from-[#1F396D] to-[#F16112] bg-clip-text text-transparent">Academic Programs</span></h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Comprehensive Grades 1-12 academic support designed to help every student excel</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Comprehensive Grades 3–12 academic support designed to help every student excel</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -548,24 +548,13 @@ const AcademicPage: React.FC = () => {
                 </div>
                 <Card className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200">
                   <CardContent className="p-8 text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Session Pricing</h3>
-                    <div className="flex items-center justify-center gap-8 mb-6">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-[#1F396D] mb-2">FREE</div>
-                        <div className="text-sm text-gray-600">for GrowWisers</div>
-                      </div>
-                      <div className="w-px h-12 bg-gray-300"></div>
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-[#F16112] mb-2">$8</div>
-                        <div className="text-sm text-gray-600">for non-GrowWisers</div>
-                      </div>
-                    </div>
-                    <p className="text-gray-600 text-lg mb-6">Helps build speed, accuracy, and confidence under pressure.</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Find the Right Academic Program</h3>
+                    <p className="text-gray-600 text-lg mb-6">Tell us your child&apos;s grade, subject, and main goal. We&apos;ll recommend the best-fit option and send current pricing within one business day.</p>
                     <Button 
-                      onClick={() => router.push(publicPath('/enroll', locale))}
+                      onClick={() => setIsAssessmentModalOpen(true)}
                       className="bg-gradient-to-r from-[#1F396D] to-[#F16112] hover:from-[#29335C] hover:to-[#F1894F] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      Register for Practice Sessions
+                      Get More Information
                       <ChevronRight className="ml-2 w-5 h-5" />
                     </Button>
                   </CardContent>
@@ -581,7 +570,7 @@ const AcademicPage: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Why Choose Our <span className="bg-gradient-to-r from-[#F16112] to-[#F1894F] bg-clip-text text-transparent">Academic Programs</span>?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive support designed for Grades 1-12 academic excellence</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive support designed for Grades 3–12 academic excellence</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseAcademic.map((item, index) => (
@@ -737,7 +726,7 @@ const AcademicPage: React.FC = () => {
               className="bg-gradient-to-r from-[#F16112] to-[#F1894F] hover:from-[#F1894F] hover:to-[#F16112] text-white px-10 py-4 rounded-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105" 
               size="lg"
             >
-              Book a Free Assessment
+              Get More Information
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
             <Button 
@@ -914,15 +903,13 @@ const AcademicPage: React.FC = () => {
         : null}
 
       {/* Free Assessment Modal */}
-      <FreeAssessmentModal 
+      <ProgramRecommendationModal
         isOpen={isAssessmentModalOpen}
         onClose={() => setIsAssessmentModalOpen(false)}
+        sourcePage="academic"
       />
     </div>
   );
 };
 
 export default AcademicPage;
-
-
-

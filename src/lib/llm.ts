@@ -86,7 +86,7 @@ export class LLMService {
     }
   }
 
-  async generateResponse(messages: ChatMessage[]): Promise<LLMResponse> {
+  async generateResponse(messages: ChatMessage[], pageHint?: string): Promise<LLMResponse> {
     if (!this.apiKey) {
       return {
         content: `I'm sorry, but the AI service is not configured. Please email ${CHATBOT_PUBLIC_CONTACT_EMAIL} or call ${CONTACT_INFO.phone} for assistance.`,
@@ -102,7 +102,9 @@ export class LLMService {
       // Add system context to messages
       const systemMessage: ChatMessage = {
         role: 'system',
-        content: GROWWISE_CONTEXT
+        content: pageHint
+          ? `${GROWWISE_CONTEXT}\nCURRENT PAGE CONTEXT (trusted server context): ${pageHint}`
+          : GROWWISE_CONTEXT
       };
 
       const response = await fetch(`${this.baseUrl}/chat/completions`, {

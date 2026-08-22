@@ -57,7 +57,7 @@ function DublinCaFaqAnswer({ question, locale }: { question: string; locale: str
   if (question === 'What grade levels do you support in Dublin?') {
     return (
       <>
-        GrowWise supports students in Grades 1–12 at our Dublin center. Programs include{' '}
+        GrowWise supports students in Grades 3–12 at our Dublin center. Programs include{' '}
         <Link href={publicPath('/academic/math', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
           math tutoring
         </Link>
@@ -114,7 +114,7 @@ export function DublinCaLocationPage() {
               href={publicPath('/resources/tutoring-dublin-ca', locale)}
               className="font-semibold text-[#1F396D] underline-offset-2 hover:underline"
             >
-              parent guide to choosing a K-12 tutoring program in Dublin, CA
+              parent guide to choosing a Grades 3–12 tutoring program in Dublin, CA
             </Link>
             .{' '}
             <Link

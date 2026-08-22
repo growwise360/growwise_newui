@@ -15,6 +15,6 @@ describe('PartnerTrustStrip', () => {
       'href',
       expect.stringContaining('activityhero.com'),
     );
-    expect(screen.getByLabelText('Velp vendor partner')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Visit Velp (opens in new tab)' })).toHaveAttribute('href', 'https://thevelp.app/');
   });
 });
