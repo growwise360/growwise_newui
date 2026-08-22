@@ -13,7 +13,7 @@ test.describe('Math hub (grade-band router)', { tag: '@critical' }, () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Math Classes & Enrichment for Grades 1-12 in Dublin, CA',
+        name: 'Math Classes & Enrichment for Grades 3–12 in Dublin, CA',
       }),
     ).toBeVisible();
 
