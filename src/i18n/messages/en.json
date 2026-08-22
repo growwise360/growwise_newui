@@ -44,7 +44,7 @@
   "home": {
     "hero": {
       "title": "Empowering Young Minds for Tomorrow",
-      "subtitle": "Comprehensive Grades 1-12 Education & STEAM Programs",
+      "subtitle": "Comprehensive Grades 3–12 Education & STEAM Programs",
       "description": "Join 387+ students in our personalized learning journey with 98% parent satisfaction",
       "cta": "Start Your Journey"
     },
@@ -55,7 +55,7 @@
     },
     "programs": {
       "k12": {
-        "title": "Grades 1-12 Academic Programs",
+        "title": "Grades 3–12 Academic Programs",
         "subtitle": "Comprehensive academic support for all grade levels"
       }
     },
@@ -148,7 +148,7 @@
     "openChat": "Open chat",
     "closeChat": "Close chat",
     "sendMessage": "Send message",
-    "placeholder": "Ask me anything about our programs...",
+    "placeholder": "Ask about a GrowWise program, schedule, price, or enrollment...",
     "status": {
       "online": "Online now",
       "fallback": "Using fallback mode"
@@ -159,9 +159,9 @@
       "emailPlaceholder": "you@example.com",
       "continueCta": "Continue",
       "submitting": "Saving…",
-      "invalidEmail": "Please enter a valid email address.",
+      "invalidEmail": "Enter a real, deliverable email with the correct domain spelling (for example, name@gmail.com).",
       "consentRequired": "Please agree to be contacted so we can continue.",
-      "continueSuccess": "Thanks! You're all set — ask me anything about our programs.",
+      "continueSuccess": "Thanks! You're all set — ask about GrowWise programs, schedules, pricing, or enrollment.",
       "submitError": "We couldn't save your email right now. Please try again."
     },
     "suggestions": {
@@ -177,10 +177,10 @@
       "openCampForm": "I'd like to inquire about camp"
     },
     "pageWelcome": {
-      "default": "Hello! Welcome to GrowWise School! 🎓 We serve Tri-Valley families with these program areas: {categories}. How can we help today?",
+      "default": "Hello! Welcome to GrowWise School! 🎓 I can provide approved GrowWise information about these program areas: {categories}, plus schedules, pricing, assessments, enrollment, current offers, and locations. What GrowWise detail do you need?",
       "campsHub": "Hi! You're browsing our camps hub. We run summer and winter programs in coding, robotics, AI, math, and more. Which season or subject interests you?",
       "campsSummer": "Hi! You're looking at GrowWise Summer Camp in Dublin. I can help you pick a track—coding, robotics, AI, math, game dev, and more—or answer schedule and enrollment questions.",
-      "campsAcademicSummer": "Hi! You're on our Academic Summer Programs page. I can help with Read to Prove, Write to Explain, Bridge the Gap Math, or Get Ready tracks for grades 1–12.",
+      "campsAcademicSummer": "Hi! You're on our Academic Summer Programs page. I can help with Read to Prove, Write to Explain, Bridge the Gap Math, or Get Ready tracks for grades 3–12.",
       "campsWinter": "Hi! You're browsing GrowWise Winter Camp options. Tell me your child's grade and interests and I'll suggest a fit.",
       "campSlug": "Hi! You're viewing {pageLabel}. Ask me about schedules, ages, pricing, or how to request a seat.",
       "assessment": "Hi! Ready to book a free assessment? I can walk you through what to expect and help you submit a request.",
@@ -438,7 +438,7 @@
     "programs": {
       "titlePrefix": "Academic ",
       "titleHighlight": "Programs",
-      "subtitle": "Personalized learning for Grades 1–12 students in Math and English",
+      "subtitle": "Personalized learning for Grades 3–12 students in Math and English",
       "mathSessionTitle": "Math Session",
       "mathSessionDesc": "Practice math problems and concepts with step-by-step guidance and instant feedback.",
       "englishSessionTitle": "English Session",
@@ -453,7 +453,7 @@
     },
     "why": {
       "title": "Why Choose Our Academic Programs?",
-      "subtitle": "Comprehensive support designed for Grades 1–12 academic excellence"
+      "subtitle": "Comprehensive support designed for Grades 3–12 academic excellence"
     },
     "stories": {
       "title": "Student Success Stories",
@@ -511,7 +511,7 @@
   "about": {
     "hero": {
       "title": "About GrowWise",
-      "subtitle": "Since 2024, GrowWise has been transforming education in Dublin, CA, through personalized Grades 1-12 instruction and innovative STEAM programs. We empower every student with the skills, knowledge, and confidence they need to succeed."
+      "subtitle": "Since 2024, GrowWise has been transforming education in Dublin, CA, through personalized Grades 3–12 instruction and innovative STEAM programs. We empower every student with the skills, knowledge, and confidence they need to succeed."
     },
     "foundation": { 
       "title": "Our Foundation",
@@ -590,7 +590,7 @@
   "englishCourses": {
     "hero": {
       "title": "English Tutoring in Dublin, CA",
-      "subtitle": "Comprehensive English Language Arts programs for students in Grades 1–12. From reading enrichment to advanced writing, develop strong communication skills with expert instruction aligned to Dublin and Pleasanton school district standards.",
+      "subtitle": "Comprehensive English Language Arts programs for students in Grades 3–12. From reading enrichment to advanced writing, develop strong communication skills with expert instruction aligned to Dublin and Pleasanton school district standards.",
       "badge": "Master English with Excellence"
     },
     "cta": {
@@ -603,7 +603,7 @@
   "mathCourses": {
     "hero": {
       "title": "Math Tutoring in Dublin, CA",
-      "subtitle": "Comprehensive math programs for students in Grades 1–12. From basic arithmetic to advanced calculus, develop strong mathematical thinking with expert instruction aligned to Dublin and Pleasanton school district standards.",
+      "subtitle": "Comprehensive math programs for students in Grades 3–12. From basic arithmetic to advanced calculus, develop strong mathematical thinking with expert instruction aligned to Dublin and Pleasanton school district standards.",
       "badge": "Master Math with Excellence"
     },
     "whyChoose": {
@@ -776,7 +776,7 @@
     },
     "hero": {
       "h1": "This summer, your child builds something real.",
-      "subhead": "Coding, AI, Robotics, Game Dev & Math Camps · Grades 1–12 · Dublin CA · Limited seats",
+      "subhead": "Coding, AI, Robotics, Game Dev & Math Camps · Grades 3–12 · Dublin CA · Limited seats",
       "primaryCta": "Reserve a Spot →",
       "secondaryCta": "Get Camp Guide →",
       "brochurePdf": "/assets/camps/SummerCampBrochure.pdf",
@@ -919,7 +919,7 @@
     },
     "highlights": {
       "heading": "Summer STEAM & Coding Camps",
-      "intro": "GrowWise summer STEAM camp Dublin CA 2026 — weekly sessions from June through August for grades 1–12. Families across Dublin, Pleasanton, San Ramon, Danville, and Livermore trust our small-group, expert-led programs.",
+      "intro": "GrowWise summer STEAM camp Dublin CA 2026 — weekly sessions from June through August for grades 3–12. Families across Dublin, Pleasanton, San Ramon, Danville, and Livermore trust our small-group, expert-led programs.",
       "programs": [
         {
           "icon": "💻",
@@ -1302,7 +1302,7 @@
   },
   "enrollnow": {
     "h1": "Enroll at GrowWise School — Dublin, CA",
-    "metaDescription": "Enroll your child at GrowWise — grades 1–12 tutoring and STEAM programs in Dublin, CA. Fill out the form and we'll respond within 24 hours."
+    "metaDescription": "Enroll your child at GrowWise — grades 3–12 tutoring and STEAM programs in Dublin, CA. Fill out the form and we'll respond within 24 hours."
   },
   "notFound": {
     "title": "Page not found",

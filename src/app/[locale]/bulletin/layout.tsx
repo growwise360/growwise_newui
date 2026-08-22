@@ -14,7 +14,7 @@ export async function generateMetadata({
   const metadata = generateMetadataFromPath(BULLETIN_PATH, locale);
   return (
     metadata ?? {
-      title: "How to Support Your K–12 Child's Learning | GrowWise Bulletin",
+      title: "How to Support Your Child's Learning in Grades 3–12 | GrowWise Bulletin",
       description: BULLETIN_DESCRIPTION,
     }
   );

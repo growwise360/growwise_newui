@@ -10,7 +10,7 @@ import { RisingSymbols } from './RisingSymbols';
 const PROGRAM_TICKER_ITEMS = [
   'Summer Camps · Online + In-Person',
   '1:1 & Small Groups',
-  'Math Mastery · Grades 1–12',
+  'Math Mastery · Grades 3–12',
   'English & Writing',
   'SAT / ACT Prep',
   'Python & Coding · Ages 10–18',
@@ -56,7 +56,7 @@ export function HomeHero() {
 
       <div className="hero-carousel-content">
         <p className="pre-tag hero-trust-line hero-trust-line-top">
-          &lt; Grades 1–12 · Live Online · Across the US &gt;
+          &lt; Grades 3–12 · Live Online · Across the US &gt;
         </p>
 
         <div className="hero-slide-indicators" role="tablist" aria-label="Hero slides">

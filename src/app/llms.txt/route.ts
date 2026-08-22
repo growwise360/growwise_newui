@@ -2,7 +2,7 @@
 
 const BODY = `# GrowWise School
 
-> K-12 tutoring and STEAM enrichment in Dublin, CA. Math, English, coding, AI, robotics, SAT prep, and summer camps for Grades 1–12 in the Tri-Valley.
+> Grades 3–12 tutoring and STEAM enrichment in Dublin, CA. Math, English, coding, AI, robotics, SAT prep, and summer camps for Grades 3–12 in the Tri-Valley.
 
 ## Programs
 - [Book Free Math & English Assessment](https://growwiseschool.org/book-assessment)
@@ -62,7 +62,7 @@ const BODY = `# GrowWise School
 - [Careless Math Mistakes](https://growwiseschool.org/resources/careless-math-mistakes)
 - [Homework Independence](https://growwiseschool.org/resources/homework-independence)
 - [Kumon vs Mathnasium vs Private Tutor Dublin CA](https://growwiseschool.org/resources/math-tutoring-options-dublin-ca)
-- [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/resources/tutoring-dublin-ca)
+- [Grades 3–12 Tutoring in Dublin, CA](https://growwiseschool.org/resources/tutoring-dublin-ca)
 - [Reading Fluency vs Comprehension](https://growwiseschool.org/resources/reading-fluency-vs-comprehension)
 - [Reading Program Grades 1-2 Dublin CA](https://growwiseschool.org/resources/reading-program-grades-1-2-dublin-ca)
 - [California Math Standards by Grade](https://growwiseschool.org/resources/california-math-standards-by-grade)
@@ -87,7 +87,7 @@ const BODY = `# GrowWise School
 - [RSM Alternative in Dublin CA](https://growwiseschool.org/resources/rsm-alternative-dublin-ca)
 
 ## Info
-- [K-12 Tutoring in Dublin, CA](https://growwiseschool.org/dublin-ca)
+- [Grades 3–12 Tutoring in Dublin, CA](https://growwiseschool.org/dublin-ca)
 - [About](https://growwiseschool.org/about)
 - [Contact](https://growwiseschool.org/contact)
 - [Blog](https://growwiseschool.org/growwise-blogs)

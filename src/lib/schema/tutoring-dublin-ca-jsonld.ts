@@ -19,7 +19,7 @@ export function buildTutoringDublinCaArticleGraphSchema(baseUrl: string, locale:
     '@id': localBusinessId,
     email: CONTACT_INFO.email,
     description:
-      'K-12 academic tutoring and STEAM programs in Dublin, CA. Math, English, coding, AI, and SAT prep. In-person and live online.',
+      'Grades 3–12 academic tutoring and STEAM programs in Dublin, CA. Math, English, coding, AI, and SAT prep. In-person and live online.',
     priceRange: '$$',
     areaServed: ['Dublin CA', 'Pleasanton CA', 'San Ramon CA', 'Livermore CA', 'Tri-Valley CA'],
   }

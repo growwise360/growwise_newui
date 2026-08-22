@@ -399,7 +399,7 @@ export default async function ThinkingGapBlogPostPage({ params }: PageProps) {
 
               <div className="mt-10 text-sm text-gray-500 italic leading-relaxed">
                 <strong>References:</strong> Pew Research Center (2016) — The State of American Jobs; Gerlich, M. (2025) — AI tools and independent reasoning; Frontiers in Education —
-                Systematic review, analytical thinking in K–12 (2025); PMC — Determining factors for critical thinking development (2025); IE University — AI&apos;s cognitive implications
+                Systematic review, analytical thinking in Grades 3–12 (2025); PMC — Determining factors for critical thinking development (2025); IE University — AI&apos;s cognitive implications
                 (2024).
               </div>
 

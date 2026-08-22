@@ -50,8 +50,9 @@ const partnerConfig = {
     name: "Velp",
     displayName: "Welcome to the Velp Family!",
     code: "VELP1",
-    benefit: "10% OFF your first paid program after assessment confirmation",
-    benefitShort: "10% OFF",
+    websiteUrl: "https://thevelp.app/",
+    benefit: "A 10% credit will be applied toward the current month's fee after assessment confirmation",
+    benefitShort: "10% credit",
   },
   activityhero: {
     name: "ActivityHero",
@@ -112,7 +113,7 @@ const NEIGHBORHOODS: Record<string, { name: string; headline: string }> = {
 };
 
 const DEFAULT_ASSESSMENT_HEADLINE =
-  'Advanced Math & English Readiness Assessment for Grades 1-12.';
+  'Advanced Math & English Readiness Assessment for Grades 3–12.';
 
 const DEFAULT_ASSESSMENT_TYPE = 'Free 30-Minute Assessment';
 const FULL_DIAGNOSTIC_TYPE = 'Full Diagnostic';
@@ -678,7 +679,7 @@ export default function BookAssessmentPageClient() {
           </div>
           <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 md:px-12 md:py-12 lg:py-14">
             <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FED7AA]">
-              Free · 30 minutes · Grades 1–12
+              Free · 30 minutes · Grades 3–12
             </p>
             <h1
               id="book-assessment-hero-h1"
@@ -712,7 +713,7 @@ export default function BookAssessmentPageClient() {
               </button>
             </div>
             <ul className="mt-7 hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4" aria-label="Assessment highlights">
-              {['Grades 1-12', 'Math and English', 'In-person or online', 'No pressure to enroll'].map((stat) => (
+              {['Grades 3–12', 'Math and English', 'In-person or online', 'No pressure to enroll'].map((stat) => (
                 <li
                   key={stat}
                   className="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-3 text-sm font-semibold text-white ring-1 ring-white/20 backdrop-blur"

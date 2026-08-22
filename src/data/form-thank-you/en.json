@@ -14,7 +14,7 @@
       { "text": "Your data is secure" },
       { "text": "Welcome to GrowWise!" }
     ],
-    "primaryCta": { "label": "K–12 Math Tutoring", "path": "/academic/math" },
+    "primaryCta": { "label": "Grades 3–12 Math Tutoring", "path": "/academic/math" },
     "secondaryCta": { "label": "High School Math Tutoring", "path": "/academic/math/high-school" },
     "backLink": { "label": "Back to assessment", "path": "/book-assessment" }
   },

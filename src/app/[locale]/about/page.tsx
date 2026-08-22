@@ -25,15 +25,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    "name": "About GrowWise — K-12 Learning Lab in Dublin, CA",
-    "description": "Learn about GrowWise, a K-12 learning lab in Dublin, CA. Founder Anshika Verma built GrowWise to teach kids how to learn — through Math, English, coding, and STEAM programs.",
+    "name": "About GrowWise — Grades 3–12 Learning Lab in Dublin, CA",
+    "description": "Learn about GrowWise, a Grades 3–12 learning lab in Dublin, CA. Founder Anshika Verma built GrowWise to teach kids how to learn — through Math, English, coding, and STEAM programs.",
     "url": absoluteSiteUrl('/about', locale, baseUrl),
     "mainEntity": {
       "@type": "EducationalOrganization",
       "name": "GrowWise",
       "url": baseUrl,
       "foundingDate": "2024",
-      "description": "A K-12 learning lab in Dublin, CA helping students build confidence through personalized education and STEAM programs.",
+      "description": "A Grades 3–12 learning lab in Dublin, CA helping students build confidence through personalized education and STEAM programs.",
       "areaServed": [...TRI_VALLEY_AREA_SERVED],
       "founder": {
         "@type": "Person",

@@ -12,13 +12,6 @@ import { GrowyAvatar } from './GrowyAvatar';
 import { ChatbotEmailGate } from './ChatbotEmailGate';
 import ChatFormSlot from './forms/ChatFormSlot';
 import {
-  buildChatbotContactReplyBody,
-  CHATBOT_BRAND_NAME,
-  chatbotAssessmentContactIntent,
-  chatbotFormIntent,
-  chatbotGettingStartedContactIntent,
-  chatbotPricingContactIntent,
-  chatbotSchedulingContactIntent,
   formatChatbotApprovedCategoriesList,
   type ChatbotFormType,
 } from '@/lib/chatbotScope';
@@ -30,14 +23,6 @@ const CHAT_PANEL_CONFIG = {
   horizontalInset: 16,
   bottomInset: 24,
 } as const;
-
-const FORM_INTRO: Record<ChatbotFormType, string> = {
-  assessment: "Great — share a few details and our team will follow up to schedule your free assessment.",
-  trial: "Fill out this quick form and we'll coordinate a trial-style session where available.",
-  camp: "Share a few details about your camper and we'll follow up about schedules and placement.",
-  enroll: "Tell us what you're interested in and our team will help with enrollment next steps.",
-  contact: "Send us a message here and our team will get back to you within 24 hours.",
-};
 
 const ASSESSMENT_INTAKE_EMAIL_UNLOCK = 'assessment-intake@growwise.local';
 
@@ -255,129 +240,6 @@ export default function Chatbot() {
     setContactFieldErrors({});
   };
 
-  const getBotResponse = (userInput: string): { text: string; showContactForm?: boolean } => {
-    const input = userInput.toLowerCase();
-    const scopeLine = `Approved program areas at ${CHATBOT_BRAND_NAME}: ${formatChatbotApprovedCategoriesList()}.`;
-
-    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
-      return {
-        text: `Hello! Welcome to ${CHATBOT_BRAND_NAME}! 🎓 ${scopeLine} I'm here to help you learn how we support Tri-Valley families and what might fit your child. What would you like to know?`,
-      };
-    }
-
-    if (
-      input.includes('k-12') ||
-      input.includes('academic') ||
-      input.includes('math') ||
-      input.includes('english') ||
-      input.includes('ela') ||
-      input.includes('writing') ||
-      input.includes('sat') ||
-      input.includes('act')
-    ) {
-      return {
-        text: `${scopeLine}\n\n📚 **Tutoring & Accelerated Math**: Elementary through high school math, including accelerated tracks and calculus readiness\n\n📖 **English and Writing**: Reading enrichment, grammar, essay writing, and reflective writing workshops\n\n🎯 **Test readiness**: SAT/ACT-focused math and verbal support\n\nWe combine tutoring, workshops, and camps where it fits your goals. Would you like details about any specific focus?`,
-      };
-    }
-
-    if (
-      input.includes('steam') ||
-      input.includes('stem') ||
-      input.includes('coding') ||
-      input.includes('python') ||
-      input.includes('game') ||
-      input.includes('roblox') ||
-      input.includes('scratch') ||
-      input.includes('ai') ||
-      input.includes('ml') ||
-      input.includes('robot') ||
-      input.includes('workshop') ||
-      input.includes('entrepreneur')
-    ) {
-      return {
-        text: `${scopeLine}\n\n🎮 **Coding & game building**: Scratch, Roblox Studio, and Python paths\n\n🤖 **AI & STEM enrichment**: Introductory AI/ML explorations and project-based labs\n\n🔧 **Robotics & workshops**: Seasonal intensives and hands-on builds\n\nPrograms are hands-on and designed for Tri-Valley learners. Which area sounds like the best fit?`,
-      };
-    }
-
-    if (input.includes('popular') || input.includes('course') || input.includes('program')) {
-      return {
-        text: `${scopeLine}\n\nFamilies often start with **tutoring**, **Accelerated Math**, **English and Writing**, or **Coding / AI** tracks—and we run **workshops** and **camps** throughout the year. Tell me your child's grade or interests and I can narrow it down.`,
-      };
-    }
-
-    if (chatbotAssessmentContactIntent(userInput)) {
-      return {
-        text: `We offer FREE assessments and trial experiences for many tracks:\n\n🎓 **Tutoring & academics**: a structured assessment to place the right plan\n\n🚀 **STEM / coding / workshops**: shorter trial-style sessions where offered\n\n${scopeLine} To schedule the right next step, I'll need a few contact details.`,
-        showContactForm: true,
-      };
-    }
-
-    if (
-      input.includes('statistics') ||
-      input.includes('students') ||
-      input.includes('families') ||
-      input.includes('satisfaction') ||
-      input.includes('enrolled')
-    ) {
-      return {
-        text: `${CHATBOT_BRAND_NAME} is trusted by Tri-Valley families:\n\n👥 **387+ students** learning with us\n📚 **25+ course paths** across tutoring, STEM, and camps\n👍 **98% parent satisfaction** in recent surveys\n\nWe pair structured tutoring with modern STEM, AI, and robotics experiences.`,
-      };
-    }
-
-    if (input.includes('why') || input.includes('choose') || input.includes('benefit') || input.includes('advantage')) {
-      return {
-        text: `Why families choose ${CHATBOT_BRAND_NAME}:\n\n👨‍🏫 **Expert instructors** with deep K-12 and STEM backgrounds\n\n📈 **Measurable growth** for most learners within the first semester\n\n📋 **Curriculum aligned** to California learning expectations\n\n🔬 **Hands-on STEM, coding, AI, and robotics** alongside tutoring and writing support\n\n${scopeLine}`,
-      };
-    }
-
-    if (chatbotPricingContactIntent(userInput)) {
-      return {
-        text: `We offer fair, program-specific pricing across tutoring, accelerated courses, workshops, and camps. The fastest way to get accurate numbers is a quick consult after a free assessment. ${scopeLine} Share your contact information and our team will follow up with options tailored to your goals.`,
-        showContactForm: true,
-      };
-    }
-
-    if (chatbotSchedulingContactIntent(userInput)) {
-      return {
-        text: `I'd be happy to help you schedule an assessment, workshop, or camp consultation. ${scopeLine} Leave your contact information and we'll coordinate timing and next steps.`,
-        showContactForm: true,
-      };
-    }
-
-    if (input.includes('contact') || input.includes('phone') || input.includes('email') || input.includes('address') || input.includes('location')) {
-      return { text: buildChatbotContactReplyBody() };
-    }
-
-    if (input.includes('testimonial') || input.includes('review') || input.includes('feedback') || input.includes('parent') || input.includes('student')) {
-      return {
-        text: "Here's what families have shared on Google (5★):\n\n**Parent**: tutoring experience — patience, confidence, and tailored pacing.\n\n**Roger Jiang**: positive half-day Python camp (Levels 1–2), small classes, Hangman project, helpful feedback.\n\n**Parent**: Roblox/coding intro — engaging classes and motivated students.\n\nWe're grateful for this feedback!",
-      };
-    }
-
-    if (input.includes('age') || input.includes('grade') || input.includes('elementary') || input.includes('middle') || input.includes('high school')) {
-      return {
-        text: "We serve students across all grade levels:\n\n🏫 **Elementary**: Basic arithmetic, reading enrichment, creative writing\n\n🏫 **Middle School**: Algebra foundations, grammar boost, essay writing\n\n🏫 **High School**: Advanced math, SAT/ACT prep, ML/AI programs\n\nOur programs are designed to meet students where they are and help them excel at every level. What grade is your child in?",
-      };
-    }
-
-    if (input.includes('learning') || input.includes('style') || input.includes('personalized') || input.includes('individual') || input.includes('group')) {
-      return {
-        text: "We offer flexible learning options:\n\n👤 **1:1 Personal Attention**: Specially designed for homework help and targeted learning\n\n👥 **Small Group Learning**: Personalized instruction in small groups\n\n🎯 **Project-Based Learning**: Hands-on STEAM courses with real-world applications\n\nOur expert instructors adapt to your child's learning style and pace. We believe every child learns differently!",
-      };
-    }
-
-    if (chatbotGettingStartedContactIntent(userInput)) {
-      return {
-        text: `That's wonderful! I'd love to help you get started with ${CHATBOT_BRAND_NAME}. ${scopeLine} To personalize a plan, I'll need a few contact details.`,
-        showContactForm: true,
-      };
-    }
-
-    return {
-      text: `That's a great question! ${CHATBOT_BRAND_NAME} offers tutoring, accelerated math, English and writing, STEM enrichment, coding, AI, robotics, workshops, and camps. What grade is your child in, or which topic should we explore first?`,
-    };
-  };
-
   const processUserMessage = async (rawText: string, emailOverride?: string) => {
     const trimmed = rawText.trim();
     if (!trimmed) return;
@@ -400,45 +262,7 @@ export default function Chatbot() {
     setIsError(false);
     setErrorMessage('');
 
-    const formType = chatbotFormIntent(trimmed, pageContext.defaultFormType);
-    if (formType) {
-      const response: Message = {
-        id: (Date.now() + 1).toString(),
-        text: FORM_INTRO[formType],
-        sender: 'bot',
-        timestamp: new Date(),
-        chatForm: { type: formType, prefill: mergeFormPrefill(pageContext.prefill) },
-      };
-      setMessages((prev) => [...prev, response]);
-      setIsTyping(false);
-      return;
-    }
-
-    const botResponse = getBotResponse(trimmed);
-
-    if (botResponse.showContactForm) {
-      const response: Message = {
-        id: (Date.now() + 1).toString(),
-        text: botResponse.text,
-        sender: 'bot',
-        timestamp: new Date(),
-        showContactForm: true,
-      };
-
-      setMessages((prev) => [...prev, response]);
-      setIsTyping(false);
-      return;
-    }
-
     try {
-      const conversationHistory = [
-        ...messages.map((msg) => ({
-          role: msg.sender === 'user' ? ('user' as const) : ('assistant' as const),
-          content: msg.text,
-        })),
-        { role: 'user' as const, content: trimmed },
-      ];
-
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -446,9 +270,7 @@ export default function Chatbot() {
         },
         body: JSON.stringify({
           message: trimmed,
-          conversationHistory,
           pageContextId: pageContext.id,
-          pageContextHint: pageContext.llmHint,
         }),
       });
 
@@ -457,12 +279,18 @@ export default function Chatbot() {
       }
 
       const data = await response.json();
+      const authorizedFormType = ['assessment', 'trial', 'camp', 'enroll', 'contact'].includes(data.formType)
+        ? data.formType as ChatbotFormType
+        : undefined;
 
       const llmResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: data.message,
         sender: 'bot',
         timestamp: new Date(),
+        chatForm: authorizedFormType
+          ? { type: authorizedFormType, prefill: mergeFormPrefill(pageContext.prefill) }
+          : undefined,
       };
 
       setMessages((prev) => [...prev, llmResponse]);
@@ -561,6 +389,9 @@ export default function Chatbot() {
     const text = pendingUserMessage.text;
     clearPendingUserMessage();
     void processUserMessage(text);
+    // processUserMessage intentionally reads the latest chat state; adding it
+    // here would retrigger pending-message handling on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, pendingUserMessage, clearPendingUserMessage, userEmail, openAssessmentIntake]);
 
   useEffect(() => {

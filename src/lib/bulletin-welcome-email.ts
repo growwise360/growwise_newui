@@ -51,7 +51,7 @@ export function buildBulletinWelcomeEmail(siteUrl: string): BulletinWelcomeEmail
   const html = `
     <div style="font-family: Arial, Helvetica, sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b; line-height: 1.65;">
       <p style="margin: 0 0 16px;">Hi there,</p>
-      <p style="margin: 0 0 20px;">You're subscribed to the <strong>GrowWise Bulletin</strong> — free weekly insights for K–12 parents from our classrooms.</p>
+      <p style="margin: 0 0 20px;">You're subscribed to the <strong>GrowWise Bulletin</strong> — free weekly insights for Grades 3–12 parents from our classrooms.</p>
       <p style="margin: 0 0 12px; font-weight: bold; color: #1F396D;">What to expect (3× per week):</p>
       <p style="margin: 0 0 8px;"><strong>Tuesday</strong> — The Parent Insight: one practical lesson from our classrooms.</p>
       <p style="margin: 0 0 8px;"><strong>Thursday</strong> — The Student Spotlight: a real progress story, no fluff.</p>
@@ -74,7 +74,7 @@ export function buildBulletinWelcomeEmail(siteUrl: string): BulletinWelcomeEmail
   const text = [
     'Hi there,',
     '',
-    "You're subscribed to the GrowWise Bulletin — free weekly insights for K–12 parents from our classrooms.",
+    "You're subscribed to the GrowWise Bulletin — free weekly insights for Grades 3–12 parents from our classrooms.",
     '',
     'What to expect (3× per week):',
     'Tuesday — The Parent Insight: one practical lesson from our classrooms.',

@@ -4,7 +4,7 @@ export const WHY_GROWWISE_TITLE =
   'Why Families Choose GrowWise Over Traditional Tutoring Programs'
 
 export const WHY_GROWWISE_META_TITLE =
-  'Why GrowWise | Structured, School-Aligned Programs for Grades 1–12'
+  'Why GrowWise | Structured, School-Aligned Programs for Grades 3–12'
 
 export const WHY_GROWWISE_DESCRIPTION =
   'GrowWise uses a diagnostic-first, 3-level progression model with monthly progress reports and school-aligned curriculum. See how it compares to traditional tutoring programs.'

@@ -11,7 +11,7 @@ export function buildResourcesHubCollectionSchema(locale: string) {
     '@type': 'CollectionPage',
     name: 'Parent Guides & Resources',
     description:
-      'Free guides for parents on K-12 academic struggles, coding for kids, and SAT prep',
+      'Free guides for parents on Grades 3–12 academic struggles, coding for kids, and SAT prep',
     url: pageUrl,
     publisher: {
       '@type': 'EducationalOrganization',

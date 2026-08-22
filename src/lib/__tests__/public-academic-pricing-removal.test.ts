@@ -56,6 +56,27 @@ describe('public academic pricing removal', () => {
     expect(modal).toContain("setError('')")
   })
 
+  it('requires and validates a phone number in the information form and API', () => {
+    const modal = fs.readFileSync(path.join(root, 'src/components/ProgramRecommendationModal.tsx'), 'utf8')
+    const route = fs.readFileSync(path.join(root, 'src/app/api/program-recommendation/route.ts'), 'utf8')
+    expect(modal).toContain('id="recommendation-phone"')
+    expect(modal).toContain('maxLength={FIELD_MAX.phone}')
+    expect(modal).toContain('validatePhoneSimple(phone)')
+    expect(route).toContain('const phone = clip(body.phone, FIELD_MAX.phone)')
+    expect(route).toContain('!phoneValidation.isValid')
+    expect(route).toContain("{ name: 'phone', value: phone }")
+  })
+
+  it('requires a parent or guardian name in the information form and API', () => {
+    const modal = fs.readFileSync(path.join(root, 'src/components/ProgramRecommendationModal.tsx'), 'utf8')
+    const route = fs.readFileSync(path.join(root, 'src/app/api/program-recommendation/route.ts'), 'utf8')
+    expect(modal).toContain('Parent or guardian name *')
+    expect(modal).toContain("if (!parentName.trim())")
+    expect(modal).toContain('className="mt-2 min-h-11" required />')
+    expect(route).toContain('if (!parentName || !isValidEmailShape(email)')
+    expect(route).toContain("{ name: 'firstname', value: parentName }")
+  })
+
   it('does not report success unless CRM or notification capture succeeds', () => {
     const route = fs.readFileSync(path.join(root, 'src/app/api/program-recommendation/route.ts'), 'utf8')
     expect(route).toContain('if (!crmCaptured && !notificationDelivered)')

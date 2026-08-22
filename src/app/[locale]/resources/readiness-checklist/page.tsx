@@ -39,7 +39,7 @@ export default function ReadinessChecklistPage() {
               Free · No signup · Useful for families, schools, and aftercare programs
             </p>
             <p className="mt-2 text-sm text-white/75">
-              Grades 1–12 · Math, reading, writing, and readiness
+              Grades 3–12 · Math, reading, writing, and readiness
             </p>
           </div>
         </div>

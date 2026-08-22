@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     about: [
       { '@type': 'Thing', name: 'Learning gaps in mathematics' },
       { '@type': 'Thing', name: 'Academic performance vs conceptual understanding' },
-      { '@type': 'Thing', name: 'K-12 math enrichment' },
+      { '@type': 'Thing', name: 'Grades 3–12 math enrichment' },
     ],
     publisher: {
       '@type': 'Organization',

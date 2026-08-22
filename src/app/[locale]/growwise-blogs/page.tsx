@@ -52,6 +52,15 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: 'integrated-math-1-vs-algebra-1-2026',
+    category: 'academic',
+    title: 'Integrated Math 1 vs. Algebra 1: What’s the Difference?',
+    excerpt:
+      'A parent guide to what IM1 and Algebra 1 share, how the pathways are organized, and where a school transition can create a hidden gap.',
+    href: '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
+    readMore: 'Read parent guide »',
+  },
+  {
     id: 'stop-waiting-for-a-problem-2026',
     category: 'academic',
     title: 'Stop Waiting for a Problem Before Supporting Your Child',
@@ -350,7 +359,7 @@ export default async function GrowWiseBlogsPage({ params, searchParams }: PagePr
   const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "GrowWise Blog — Math, Coding & STEAM for Grades 1-12 Families",
+    "name": "GrowWise Blog — Math, Coding & STEAM for Grades 3–12 Families",
     "description": "Practical articles on tutoring, English, coding, and STEAM for Dublin and Tri-Valley families.",
     "url": absoluteSiteUrl('/growwise-blogs', locale, baseUrl),
     "publisher": {
@@ -375,7 +384,7 @@ export default async function GrowWiseBlogsPage({ params, searchParams }: PagePr
               GrowWise Blogs
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto">
-              Tips and blogs on math tutoring, English help, coding for kids, and STEAM Programs for Grades 1–12 in Dublin, Pleasanton, and San Ramon.
+              Tips and blogs on math tutoring, English help, coding for kids, and STEAM Programs for Grades 3–12 in Dublin, Pleasanton, and San Ramon.
             </p>
             <p className="text-base md:text-lg text-gray-200/95 max-w-2xl mx-auto mt-4">
               Looking ahead to summer?{' '}

@@ -20,7 +20,7 @@ export function HomeAssessmentOfferSection() {
   return (
     <section className="home-section-offer" aria-labelledby="home-offer-heading">
       <div className="home-section-inner home-offer-inner">
-        <p className="home-section-pre home-pre-offer">Academic Assessment Options · Grades 1–12</p>
+        <p className="home-section-pre home-pre-offer">Academic Assessment Options · Grades 3–12</p>
         <h2 id="home-offer-heading" className="home-offer-h2">
           Stop guessing what&apos;s holding your child back
         </h2>

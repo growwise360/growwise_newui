@@ -67,6 +67,6 @@ export const SUMMER_ACADEMIC_PROGRAM_CHECKLIST_RELATED: readonly ResourceArticle
   {
     href: '/camps/summer',
     title: 'Summer Academic Camps in Dublin, CA',
-    description: 'Structured summer programs in math, English, coding, and SAT prep for K–12 students in Dublin.',
+    description: 'Structured summer programs in math, English, coding, and SAT prep for Grades 3–12 students in Dublin.',
   },
 ]

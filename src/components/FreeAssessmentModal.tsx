@@ -20,7 +20,7 @@ import FormPrivacyConsent from '@/components/form/FormPrivacyConsent';
 import { validatePhoneWithCountryCode } from '@/lib/phoneValidation';
 import { trackGenerateLead } from '@/lib/analytics/gtmEvents';
 
-/** Matches `assessmentTypes` value on `src/app/[locale]/book-assessment/page.tsx` for general Grades 1–12 intake. */
+/** Matches `assessmentTypes` value on `src/app/[locale]/book-assessment/page.tsx` for general Grades 3–12 intake. */
 const DEFAULT_ASSESSMENT_TYPE = 'Complete Academic Assessment' as const;
 
 interface FreeAssessmentModalProps {

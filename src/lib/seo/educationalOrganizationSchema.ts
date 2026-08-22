@@ -30,7 +30,7 @@ export function buildEducationalOrganizationSchema() {
     logo: `${base}/assets/growwise-logo.png`,
     image: `${base}/og-image.jpg`,
     description:
-      'Grades 1-12 tutoring and STEAM programs in Dublin, CA. Math, English, coding, and SAT prep. Small groups, personalized lessons.',
+      'Grades 3–12 tutoring and STEAM programs in Dublin, CA. Math, English, coding, and SAT prep. Small groups, personalized lessons.',
     telephone: CONTACT_INFO.phone,
     email: CONTACT_INFO.email,
     address: {
@@ -52,7 +52,7 @@ export function buildEducationalOrganizationSchema() {
     currenciesAccepted: 'USD',
     paymentAccepted: 'Cash, Credit Card',
     knowsAbout: [
-      'STEAM Education for K-12',
+      'STEAM Education for Grades 3–12',
       'Math Tutoring Dublin CA',
       'Kids Coding Classes',
       'AI and Machine Learning for Kids',

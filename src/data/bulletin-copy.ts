@@ -16,10 +16,10 @@ export type BulletinScheduleItem = {
 }
 
 export const BULLETIN_COPY = {
-  eyebrow: 'Free for K–12 parents · 3× per week',
+  eyebrow: 'Free for Grades 3–12 parents · 3× per week',
   badge: 'Weekly Bulletin',
   hero: {
-    h1: "How to Support Your K–12 Child's Learning — Weekly Insights from a GrowWise Educator",
+    h1: "How to Support Your Child's Learning in Grades 3–12 — Weekly Insights from a GrowWise Educator",
     subtext:
       'What I learn teaching students every day, I share with you. Every Tuesday, Thursday and Saturday. Free.',
     submitLabel: 'Send me the GrowWise Bulletin →',
@@ -65,7 +65,7 @@ export const BULLETIN_COPY = {
     stats: [
       { value: 'Every day', label: 'GrowWise + schools I teach in' },
       { value: 'Top 5', label: 'Tutoring centers, Dublin CA' },
-      { value: 'K–12', label: 'Math · English · STEAM · AI' },
+      { value: 'Grades 3–12', label: 'Math · English · STEAM · AI' },
     ],
     quote: "My son actually looks forward to class now. I didn't think that was possible.",
     attribution: '— Verified parent review',
@@ -96,7 +96,7 @@ export const BULLETIN_COPY = {
   },
   featuredGuides: {
     label: 'More parent guides',
-    heading: 'Free guides for K–12 parents',
+    heading: 'Free guides for Grades 3–12 parents',
     subtext: 'Research-backed articles on math mistakes, homework habits, reading gaps, and more.',
     hubLinkLabel: 'Browse all parent guides',
     hubHref: RESOURCES_PATH,

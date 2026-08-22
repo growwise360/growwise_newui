@@ -220,7 +220,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <Link href={publicPath('/future-skills', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Explore Future Ready Skills pathways
                 </Link>{' '}
-                — real projects, small groups, Grades 1–12 in Dublin, CA.
+                — real projects, small groups, Grades 3–12 in Dublin, CA.
               </p>
             </div>
 

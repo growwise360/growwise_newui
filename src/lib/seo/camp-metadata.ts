@@ -42,7 +42,7 @@ export function buildCampIndexMetadata(): Metadata {
   const url = `${base}/camps`;
   const title = "STEAM & Academic Summer Camps in Dublin, CA | GrowWise School";
   const description =
-    "STEAM & academic summer camps in Dublin, CA. Coding, AI, robotics, math, and writing for Grades 1–12. Book a free assessment today.";
+    "STEAM & academic summer camps in Dublin, CA. Coding, AI, robotics, math, and writing for Grades 3–12. Book a free assessment today.";
 
   return {
     title,

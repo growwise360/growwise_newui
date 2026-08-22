@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label'
 import FormPrivacyConsent from '@/components/form/FormPrivacyConsent'
 import { publicPath } from '@/lib/publicPath'
 import { pushDataLayer } from '@/lib/analytics/gtmEvents'
+import { FIELD_MAX } from '@/lib/inputLimits'
+import { validatePhoneSimple } from '@/lib/phoneValidation'
 
 export type RecommendationSubject = 'Math' | 'English' | 'SAT Prep' | 'Not sure'
 export type RecommendationGradeBand = 'K-5' | 'K-2' | '3-5' | '6-8' | '9-12'
@@ -39,6 +41,7 @@ export default function ProgramRecommendationModal({
   const [grade, setGrade] = useState('')
   const [subject, setSubject] = useState<RecommendationSubject | ''>(defaultSubject ?? '')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [parentName, setParentName] = useState('')
   const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle')
@@ -51,6 +54,7 @@ export default function ProgramRecommendationModal({
     setGrade('')
     setSubject(defaultSubject ?? '')
     setEmail('')
+    setPhone('')
     setParentName('')
     setConsent(false)
     setStatus('idle')
@@ -102,7 +106,10 @@ export default function ProgramRecommendationModal({
   const submit = async (event: React.FormEvent) => {
     event.preventDefault()
     setError('')
+    if (!parentName.trim()) return setError('Enter the parent or guardian name.')
     if (!/^\S+@\S+\.\S+$/.test(email)) return setError('Enter a valid email address.')
+    const phoneValidation = validatePhoneSimple(phone)
+    if (!phoneValidation.isValid) return setError(phoneValidation.errorMessage || 'Enter a valid phone number.')
     if (!consent) return setError('Please confirm that we may contact you about this request.')
     setStatus('submitting')
     try {
@@ -111,6 +118,7 @@ export default function ProgramRecommendationModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
+          phone,
           parentName,
           grade,
           subject,
@@ -138,7 +146,7 @@ export default function ProgramRecommendationModal({
   }
 
   const close = () => {
-    if (status !== 'success' && (grade || subject || email)) {
+    if (status !== 'success' && (grade || subject || email || phone)) {
       pushDataLayer({ event: 'program_recommendation_abandoned', source_page: sourcePage, recommendation_step: step + 1 })
     }
     onClose()
@@ -201,12 +209,16 @@ export default function ProgramRecommendationModal({
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="recommendation-email">Your email address *</Label>
-                    <Input id="recommendation-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} className="mt-2 min-h-11" required />
+                    <Input id="recommendation-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} maxLength={FIELD_MAX.email} className="mt-2 min-h-11" required />
                     <p className="mt-1.5 text-xs text-gray-500">We&apos;ll email relevant program details and current pricing.</p>
                   </div>
                   <div>
-                    <Label htmlFor="recommendation-name">Parent name <span className="font-normal text-gray-500">(optional)</span></Label>
-                    <Input id="recommendation-name" autoComplete="name" value={parentName} onChange={(event) => setParentName(event.target.value)} className="mt-2 min-h-11" />
+                    <Label htmlFor="recommendation-phone">Phone number *</Label>
+                    <Input id="recommendation-phone" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(event.target.value)} maxLength={FIELD_MAX.phone} className="mt-2 min-h-11" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="recommendation-name">Parent or guardian name *</Label>
+                    <Input id="recommendation-name" autoComplete="name" value={parentName} onChange={(event) => setParentName(event.target.value)} maxLength={FIELD_MAX.name} className="mt-2 min-h-11" required />
                   </div>
                   <FormPrivacyConsent
                     checkboxId="program-recommendation-consent"
@@ -215,7 +227,7 @@ export default function ProgramRecommendationModal({
                     variant="compact"
                     alignPrivacyWithConsent
                     showSubmitDisclaimer={false}
-                    agreeLabel="GrowWise may email me about this request."
+                    agreeLabel="GrowWise may email or call me about this request."
                     className="[&_h3]:text-xs [&_p]:text-[10px] [&_p]:leading-4 [&_label]:text-xs [&_label]:leading-4"
                   />
                 </div>

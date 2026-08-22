@@ -13,7 +13,7 @@ export async function generateMetadata({
   const metadata = generateMetadataFromPath(DUBLIN_CA_PATH, locale)
   return (
     metadata ?? {
-      title: 'K-12 Tutoring & Coding Classes in Dublin, CA | GrowWise',
+      title: 'Grades 3–12 Tutoring & Coding Classes in Dublin, CA | GrowWise',
       description: DUBLIN_CA_DESCRIPTION,
     }
   )

@@ -25,7 +25,7 @@ export const READINESS_CHECKLIST_FAQS = [
   },
   {
     q: 'What grades does this checklist cover?',
-    a: 'The checklist is grade-aware for elementary and middle school readiness signs. GrowWise serves grades 1-12, but the checklist score uses only the sections relevant to the selected grade band.',
+    a: 'The checklist is grade-aware for elementary and middle school readiness signs. GrowWise serves grades 3–12, but the checklist score uses only the sections relevant to the selected grade band.',
   },
   {
     q: 'What if something in the report looks incorrect or unclear?',

@@ -46,7 +46,7 @@ export default async function SummerCampLayout({
   const { locale } = await params;
   const baseUrl = getCanonicalSiteUrl();
   const summerEventDescription =
-    'Weekly 2026 summer camps in Dublin, CA for Grades 1-12: Math, Robotics, Coding, AI, game development, and writing. Online and in-person options available June through August.';
+    'Weekly 2026 summer camps in Dublin, CA for Grades 3–12: Math, Robotics, Coding, AI, game development, and writing. Online and in-person options available June through August.';
 
   const eventSchema = generateEventSchema({
     name: 'Math, Robotics, Coding & AI Summer Camps 2026 — Dublin, CA',

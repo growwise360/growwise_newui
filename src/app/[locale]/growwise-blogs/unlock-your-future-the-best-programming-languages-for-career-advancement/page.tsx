@@ -178,7 +178,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <h2 className="text-3xl font-bold text-[#1F396D] mt-12 mb-6">How Parents Should Judge a Coding Path</h2>
 
               <p className="text-gray-700 mb-6">
-                Do not judge a student coding path only by adult job-market lists. For K-12 students, the better question is whether the program builds durable skills:
+                Do not judge a student coding path only by adult job-market lists. For Grades 3–12 students, the better question is whether the program builds durable skills:
               </p>
 
               <div className="bg-gradient-to-r from-[#1F396D] to-[#F16112] text-white p-6 rounded-lg my-6">

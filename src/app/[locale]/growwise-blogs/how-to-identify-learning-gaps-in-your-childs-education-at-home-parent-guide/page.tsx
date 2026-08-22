@@ -383,7 +383,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     <li><strong>Daily reading:</strong> Read local event flyers or books together to spot vocabulary or comprehension issues.</li>
                   </ul>
                   <p className="text-gray-700 mt-3">
-                    GrowWise provides <strong>English tutoring for Grades 1-12 Students</strong> to strengthen reading skills.
+                    GrowWise provides <strong>English tutoring for Grades 3–12 Students</strong> to strengthen reading skills.
                   </p>
                 </div>
 
@@ -484,7 +484,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <p className="text-gray-700 leading-relaxed">
                 Found a gap? Close it fast.{' '}
                 <Link href={publicPath('/academic/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
-                  Math tutoring for Grades 1–12
+                  Math tutoring for Grades 3–12
                 </Link>
                 {', '}
                 <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">

@@ -585,7 +585,7 @@ export default function Contact() {
                 href={publicPath('/dublin-ca', locale)}
                 className="font-semibold text-[#1F396D] underline-offset-4 hover:text-[#152a52] hover:underline"
               >
-                View in-person K-12 tutoring &amp; coding programs at our Dublin, CA center →
+                View in-person Grades 3–12 tutoring &amp; coding programs at our Dublin, CA center →
               </Link>
             </p>
           </div>

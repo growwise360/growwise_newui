@@ -12,6 +12,7 @@ interface PartnerReferralCardProps {
     displayName: string;
     code: string;
     benefit: string;
+    websiteUrl?: string;
   };
 }
 
@@ -44,12 +45,18 @@ export default function PartnerReferralCard({ partner }: PartnerReferralCardProp
     switch (partner.name.toLowerCase()) {
       case 'velp':
         return (
-          <div className="inline-flex items-center justify-center rounded-xl bg-[#21104F] px-7 py-3 text-2xl font-extrabold lowercase tracking-tight text-white shadow-md">
+          <a
+            href={partner.websiteUrl || 'https://thevelp.app/'}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+            className="relative inline-flex items-center justify-center rounded-xl bg-[#21104F] px-7 py-3 text-2xl font-extrabold lowercase tracking-tight text-white shadow-md"
+            aria-label="Visit Velp (opens in new tab)"
+          >
             velp
             <span className="absolute right-3 top-2 h-2 w-2 rounded-full bg-[#F16112]" aria-hidden />
             <span className="absolute right-2 top-4 h-1.5 w-1.5 rounded-full bg-[#35B6A5]" aria-hidden />
             <span className="absolute right-5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#F4C542]" aria-hidden />
-          </div>
+          </a>
         );
       case 'activityhero':
         return (

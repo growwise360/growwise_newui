@@ -21,10 +21,10 @@ const Footer = dynamic(() => import("@/components/layout/Footer/Footer"));
 
 // Default metadata - can be overridden by page-specific generateMetadata
 export const metadata: Metadata = {
-  title: "K-12 Online Tutoring & Coding Classes | GrowWise",
+  title: "Grades 3–12 Online Tutoring & Coding Classes | GrowWise",
   description:
-    "GrowWise helps Grades 1-12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
-  keywords: "tutoring Dublin CA, Grades 1-12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning",
+    "GrowWise helps Grades 3–12 students become confident, independent learners. Academic tutoring, Python & AI coding, and STEAM programs. Live online nationwide + in-person in Dublin, CA. Book a free assessment today.",
+  keywords: "tutoring Dublin CA, Grades 3–12 education, STEAM programs, math tutor, English tutor, coding classes, SAT prep Dublin, personalized learning",
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',

@@ -6,6 +6,7 @@ import { clientIpFrom, isAllowed } from '@/lib/chatRateLimit'
 import { clip, exceedsMax, FIELD_MAX, isValidEmailShape } from '@/lib/inputLimits'
 import { honeypotTriggered, isOriginAllowed } from '@/lib/requestGuard'
 import { isHubSpotFormsConfigured, submitHubSpotForm } from '@/lib/hubspot/submitForm'
+import { validatePhoneSimple } from '@/lib/phoneValidation'
 
 const MAX_BODY_BYTES = 8 * 1024
 const SUBJECTS = new Set(['Math', 'English', 'SAT Prep', 'Not sure'])
@@ -52,6 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     const email = clip(body.email, FIELD_MAX.email).toLowerCase()
+    const phone = clip(body.phone, FIELD_MAX.phone)
     const parentName = clip(body.parentName, FIELD_MAX.name)
     const grade = clip(body.grade, FIELD_MAX.shortText)
     const subject = clip(body.subject, FIELD_MAX.shortText)
@@ -59,21 +61,23 @@ export async function POST(request: NextRequest) {
     const locale = clip(body.locale, FIELD_MAX.shortText)
     const landingUrl = clip(body.landingUrl, FIELD_MAX.longText)
 
-    if (!isValidEmailShape(email) || !GRADES.has(grade) || !SUBJECTS.has(subject) || !sourcePage) {
+    const phoneValidation = validatePhoneSimple(phone)
+    if (!parentName || !isValidEmailShape(email) || !phoneValidation.isValid || !GRADES.has(grade) || !SUBJECTS.has(subject) || !sourcePage) {
       return NextResponse.json({ success: false, message: 'Please complete all required fields.' }, { status: 400 })
     }
-    if ([body.email, body.parentName, body.grade, body.subject, body.sourcePage, body.locale, body.landingUrl].some((value) => typeof value === 'string' && exceedsMax(value, value === body.landingUrl ? FIELD_MAX.longText : FIELD_MAX.shortText))) {
+    if (exceedsMax(body.email, FIELD_MAX.email) || exceedsMax(body.phone, FIELD_MAX.phone) || exceedsMax(body.parentName, FIELD_MAX.name) || [body.grade, body.subject, body.sourcePage, body.locale].some((value) => exceedsMax(value, FIELD_MAX.shortText)) || exceedsMax(body.landingUrl, FIELD_MAX.longText)) {
       return NextResponse.json({ success: false, message: 'One or more fields are too long.' }, { status: 400 })
     }
 
-    const safe = { email: escapeHtml(email), parentName: escapeHtml(parentName || 'Not provided'), grade: escapeHtml(grade), subject: escapeHtml(subject), sourcePage: escapeHtml(sourcePage), landingUrl: escapeHtml(landingUrl) }
-    const adminText = `New program information request\n\nParent: ${parentName || 'Not provided'}\nEmail: ${email}\nGrade: ${grade}\nSubject: ${subject}\nSource: ${sourcePage}\nPage: ${landingUrl}`
+    const safe = { email: escapeHtml(email), phone: escapeHtml(phone), parentName: escapeHtml(parentName), grade: escapeHtml(grade), subject: escapeHtml(subject), sourcePage: escapeHtml(sourcePage), landingUrl: escapeHtml(landingUrl) }
+    const adminText = `New program information request\n\nParent: ${parentName}\nEmail: ${email}\nPhone: ${phone}\nGrade: ${grade}\nSubject: ${subject}\nSource: ${sourcePage}\nPage: ${landingUrl}`
     let crmCaptured = false
     if (isHubSpotFormsConfigured()) {
       const hubspot = await submitHubSpotForm([
-        { name: 'firstname', value: parentName || 'Program' },
-        { name: 'lastname', value: parentName ? 'Information request' : 'Information lead' },
+        { name: 'firstname', value: parentName },
+        { name: 'lastname', value: 'Information request' },
         { name: 'email', value: email },
+        { name: 'phone', value: phone },
         { name: 'message', value: `${adminText}\nLocale: ${locale || 'unknown'}` },
       ],
       { pageUri: landingUrl, pageName: `Program information — ${sourcePage}` })
@@ -88,7 +92,7 @@ export async function POST(request: NextRequest) {
         to: CONTACT_INFO.email,
         subject: `Program information request: Grade ${grade} ${subject}`.slice(0, 998),
         text: adminText,
-        html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program information request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
+        html: `<div style="font-family:Arial,sans-serif;max-width:620px"><h2 style="color:#1F396D">New program information request</h2><p><strong>Parent:</strong> ${safe.parentName}</p><p><strong>Email:</strong> ${safe.email}</p><p><strong>Phone:</strong> ${safe.phone}</p><p><strong>Grade:</strong> ${safe.grade}</p><p><strong>Subject:</strong> ${safe.subject}</p><p><strong>Source:</strong> ${safe.sourcePage}</p><p><strong>Page:</strong> ${safe.landingUrl}</p></div>`,
         replyTo: email,
       })
       notificationMessageId = admin.messageId
