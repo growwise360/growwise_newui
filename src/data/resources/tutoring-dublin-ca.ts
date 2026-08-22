@@ -6,14 +6,14 @@ export const TUTORING_DUBLIN_CA_META: ResourceArticleMeta = {
   path: TUTORING_DUBLIN_CA_PATH,
   category: 'local',
   categoryLabel: 'LOCAL',
-  h1: "K-12 Tutoring in Dublin, CA: A Parent's Guide to Choosing the Right Program (2026)",
+  h1: "Grades 3–12 Tutoring in Dublin, CA: A Parent's Guide to Choosing the Right Program (2026)",
   readTime: '6 min read',
   updated: 'Updated May 2026',
-  title: 'K-12 Tutoring in Dublin, CA: How to Choose the Right Program (2026) | GrowWise',
+  title: 'Grades 3–12 Tutoring in Dublin, CA: How to Choose the Right Program (2026) | GrowWise',
   description:
-    'Looking for tutoring in Dublin, CA for your Grade 1–12 student? This guide helps Tri-Valley parents choose between program types — and the questions to ask before enrolling.',
+    'Looking for tutoring in Dublin, CA for your Grades 3–12 student? This guide helps Tri-Valley parents choose between program types — and the questions to ask before enrolling.',
   keywords:
-    'tutoring Dublin CA, tutoring Dublin California, K-12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
+    'tutoring Dublin CA, tutoring Dublin California, Grades 3–12 tutoring Dublin California, math tutoring Dublin CA, tutoring near me Dublin CA, after school tutoring Dublin CA Tri-Valley, tutoring Pleasanton CA, tutoring San Ramon CA, coding classes Dublin CA kids, SAT prep Dublin CA, academic programs Tri-Valley',
   datePublished: '2026-05-01',
   dateModified: '2026-05-01',
 }
@@ -22,7 +22,7 @@ export const TUTORING_DUBLIN_CA_FAQS: readonly ResourceArticleFaq[] = [
   {
     question: 'What subjects does GrowWise tutor in Dublin, CA?',
     answer:
-      'GrowWise offers tutoring in Math (Grades 1–12, including Integrated Math 1/2/3 and SAT prep), English and Writing, and STEAM programs including Python, AI, Game Development, and Robotics. Programs are available in-person at our Dublin, CA location and online nationwide.',
+      'GrowWise offers tutoring in Math (Grades 3–12, including Integrated Math 1/2/3 and SAT prep), English and Writing, and STEAM programs including Python, AI, Game Development, and Robotics. Programs are available in-person at our Dublin, CA location and online nationwide.',
   },
   {
     question: 'How is GrowWise different from Kumon or Mathnasium in Dublin?',

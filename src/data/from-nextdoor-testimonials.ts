@@ -35,7 +35,7 @@ export const FROM_NEXTDOOR_TESTIMONIALS: readonly FromNextdoorTestimonial[] = [
     quote:
       'We have seen noticeable progress in writing and math with 1:1 classes. The team is dedicated, encouraging, and clearly focused on each child’s growth.',
     parentName: 'Vivek Chaturvedi',
-    childContext: 'Grades 1–12 · Math & English',
+    childContext: 'Grades 3–12 · Math & English',
     source: 'google',
   },
 ]

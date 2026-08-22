@@ -54,7 +54,7 @@ export function KhanAcademySummerDoesntWorkPage() {
       <p>
         Self-paced online learning has a persistent completion problem. Across virtually every category — MOOCs,
         tutoring apps, academic platforms — studies show completion rates well under 15% for unsupervised learners.
-        For K–12 students during an unstructured summer, the number is lower still.
+        For Grades 3–12 students during an unstructured summer, the number is lower still.
       </p>
 
       <p>The reasons are predictable:</p>

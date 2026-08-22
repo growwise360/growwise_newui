@@ -13,7 +13,7 @@ export function HomeCampsStrip() {
     <section className="home-camps-strip home-camps-strip-top" aria-label="Back to school assessment offer">
       <div className="home-camps-strip-left">
         <span className="home-camps-badge">Back to School</span>
-        <span>Free Assessments Available Until July 31 · Grades 1–12</span>
+        <span>Free Assessments Available Until July 31 · Grades 3–12</span>
       </div>
       <div className="home-camps-strip-right">
         <Link

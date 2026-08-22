@@ -198,7 +198,7 @@ export function AffordableSummerAcademicProgramsDublinCaPage() {
         <div className="relative aspect-[16/9]">
         <Image
           src={ARTICLE_HERO_IMAGE}
-          alt="Small-group academic summer program for K-12 students in Dublin, CA"
+          alt="Small-group academic summer program for Grades 3–12 students in Dublin, CA"
           fill
           sizes="(max-width: 768px) 100vw, 672px"
           className="object-cover"

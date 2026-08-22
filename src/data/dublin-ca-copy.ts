@@ -3,7 +3,7 @@ import { CONTACT_INFO, OFFICE_HOURS } from '@/lib/constants'
 export const DUBLIN_CA_PATH = '/dublin-ca' as const
 
 export const DUBLIN_CA_DESCRIPTION =
-  'In-person K-12 tutoring and coding classes at GrowWise in Dublin, CA. Math, English, SAT prep, and summer camps. Serving Tri-Valley families. Book a free assessment.'
+  'In-person Grades 3–12 tutoring and coding classes at GrowWise in Dublin, CA. Math, English, SAT prep, and summer camps. Serving Tri-Valley families. Book a free assessment.'
 
 export type DublinCaProgramCard = {
   title: string
@@ -13,7 +13,7 @@ export type DublinCaProgramCard = {
 
 export const DUBLIN_CA_COPY = {
   hero: {
-    h1: 'K-12 Tutoring & Coding Classes in Dublin, CA',
+    h1: 'Grades 3–12 Tutoring & Coding Classes in Dublin, CA',
     subtext:
       'GrowWise School is a single in-person campus in Dublin where Tri-Valley families get expert math, English, coding, and SAT support in small groups.',
     intro:
@@ -34,12 +34,12 @@ export const DUBLIN_CA_COPY = {
     cards: [
       {
         title: 'Math Tutoring',
-        description: 'Grades 1–12 math support from foundations through high school and AP-level topics.',
+        description: 'Grades 3–12 math support from foundations through high school and AP-level topics.',
         href: '/academic/math',
       },
       {
         title: 'English & Writing',
-        description: 'Reading comprehension, grammar, and essay writing for Grades 1–12.',
+        description: 'Reading comprehension, grammar, and essay writing for Grades 3–12.',
         href: '/academic/english',
       },
       {
@@ -64,7 +64,7 @@ export const DUBLIN_CA_COPY = {
       },
       {
         title: 'Summer Camps',
-        description: 'Weekly STEAM and academic summer sessions for grades 1–12.',
+        description: 'Weekly STEAM and academic summer sessions for grades 3–12.',
         href: '/camps/summer',
       },
     ] satisfies DublinCaProgramCard[],

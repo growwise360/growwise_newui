@@ -5,7 +5,7 @@
     "width": 250,
     "height": 100
   },
-  "description": "Helping Grades 1–12 students become confident, independent learners — live online nationwide and in-person in Dublin, CA.",
+  "description": "Helping Grades 3–12 students become confident, independent learners — live online nationwide and in-person in Dublin, CA.",
   "contact": {
     "phone": "(925) 456-4606",
     "email": "contact@growwiseschool.org",
@@ -13,12 +13,12 @@
     "onlineNote": "🌐 Also available online — nationwide"
   },
   "curriculumAlignment": "Curriculum aligned with: Common Core Math · Common Core ELA · Integrated Math 1/2/3 · SAT/ACT · College Board AP · NWEA MAP",
-  "legalDisclaimer": "GrowWise School is a private supplemental tutoring and STEAM learning center. We are not an accredited K-12 diploma-granting institution.",
+  "legalDisclaimer": "GrowWise School is a private supplemental tutoring and STEAM learning center serving Grades 3–12. We are not an accredited diploma-granting institution.",
   "sections": [
     {
       "title": "Programs",
       "links": [
-        { "label": "Math Tutoring · Grades 1–12", "href": "/academic/math", "active": true },
+        { "label": "Math Tutoring · Grades 3–12", "href": "/academic/math", "active": true },
         { "label": "English & Writing", "href": "/academic/english", "active": true },
         { "label": "SAT / ACT Prep", "href": "/courses/sat-prep", "active": true },
         { "label": "Future Ready Skills · Grades 6–12", "href": "/future-skills", "active": true },
@@ -35,7 +35,7 @@
         { "label": "Why Kids Make Careless Math Mistakes", "href": "/resources/careless-math-mistakes", "active": true },
         { "label": "Reading Fluency vs. Comprehension", "href": "/resources/reading-fluency-vs-comprehension", "active": true },
         { "label": "How to Build Homework Independence", "href": "/resources/homework-independence", "active": true },
-        { "label": "K-12 Tutoring in Dublin, CA", "href": "/resources/tutoring-dublin-ca", "active": true },
+        { "label": "Grades 3–12 Tutoring in Dublin, CA", "href": "/resources/tutoring-dublin-ca", "active": true },
         { "label": "Summer Slide: Dublin Parent Guide", "href": "/resources/summer-slide-dublin-ca", "active": true }
       ]
     },

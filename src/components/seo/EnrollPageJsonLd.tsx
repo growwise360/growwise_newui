@@ -12,7 +12,7 @@ export function EnrollPageJsonLd() {
         '@type': 'WebPage',
         name: 'Enroll at GrowWise — Dublin CA',
         description:
-          'Enroll your child in K-12 tutoring, STEAM, or summer camp programs at GrowWise in Dublin, CA.',
+          'Enroll your child in Grades 3–12 tutoring, STEAM, or summer camp programs at GrowWise in Dublin, CA.',
         url: pageUrl,
         provider: {
           '@type': 'EducationalOrganization',
@@ -22,7 +22,7 @@ export function EnrollPageJsonLd() {
       },
       {
         '@type': 'Service',
-        name: 'K-12 Tutoring & STEAM Enrollment',
+        name: 'Grades 3–12 Tutoring & STEAM Enrollment',
         provider: {
           '@type': 'EducationalOrganization',
           name: 'GrowWise',

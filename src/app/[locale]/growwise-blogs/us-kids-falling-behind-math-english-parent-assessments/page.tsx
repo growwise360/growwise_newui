@@ -415,7 +415,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </p>
                 <Link href="/enroll-academic">
                   <Button className="bg-white text-[#1F396D] hover:bg-gray-100">
-                    Enroll Now - Grades 1-12 Courses
+                    Enroll Now - Grades 3–12 Courses
                   </Button>
                 </Link>
               </div>
@@ -533,7 +533,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <p className="text-gray-700 leading-relaxed">
                 Don&apos;t let your child fall further behind.{' '}
                 <Link href={publicPath('/academic/math', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
-                  Math tutoring for Grades 1–12
+                  Math tutoring for Grades 3–12
                 </Link>
                 {', '}
                 <Link href={publicPath('/academic/math/high-school', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">

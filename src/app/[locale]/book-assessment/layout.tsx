@@ -60,7 +60,7 @@ export default async function BookAssessmentLayout({
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         url: pageUrl,
-        description: 'Free 30-minute readiness assessment for Grades 1-12 with a brief written next-step plan',
+        description: 'Free 30-minute readiness assessment for Grades 3–12 with a brief written next-step plan',
       },
       {
         '@type': 'Offer',

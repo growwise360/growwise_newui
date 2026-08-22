@@ -14,7 +14,7 @@ export default function CampLandingIndexPage() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "STEAM & Academic Summer Camps in Dublin, CA",
-    "description": "Summer camp tracks for Grades 1-12 students in Dublin, CA. One campus. Families enroll from across the Tri-Valley.",
+    "description": "Summer camp tracks for Grades 3–12 students in Dublin, CA. One campus. Families enroll from across the Tri-Valley.",
     "url": `${baseUrl}/camps`,
     "itemListElement": pages.map((p, i) => ({
       "@type": "ListItem",

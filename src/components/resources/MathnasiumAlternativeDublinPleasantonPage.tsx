@@ -67,7 +67,7 @@ export function MathnasiumAlternativeDublinPleasantonPage() {
       <p>
         GrowWise aligns every session to the unit your child&apos;s school is covering that week across the{' '}
         <Link href={mathHref} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">
-          Grades 1–12 math programs
+          Grades 3–12 math programs
         </Link>
         . Sessions are teacher-led in small groups (typically 6–10 students), and middle and high school sessions run
         150 minutes each, ending with a guided practice block. Progress reports break down specific skills and recurring mistake patterns, with an objective

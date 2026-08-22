@@ -25,10 +25,10 @@ export default async function GameDevelopmentLayout({
   const courseSchema = generateCourseSchema({
     name: "Game Development Classes for Kids — Dublin, CA",
     description:
-      "Game development courses for kids in Dublin, CA. Learn to build games using Roblox Studio, Scratch, Minecraft, and Unity. For Grades 1-12.",
+      "Game development courses for kids in Dublin, CA. Learn to build games using Roblox Studio, Scratch, Minecraft, and Unity. For Grades 3–12.",
     provider: "GrowWise",
     courseCode: "GAME-DEV-K12",
-    educationalLevel: "Grades 1-12",
+    educationalLevel: "Grades 3–12",
     teaches: [
       "Game Design",
       "Game Programming",

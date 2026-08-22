@@ -194,7 +194,7 @@ export const RESOURCE_GUIDES: readonly ResourceGuide[] = [
     id: 'tutoring-dublin-ca',
     category: 'local',
     categoryLabel: 'LOCAL',
-    title: 'Best Tutoring Options in Dublin, CA for Grades 1–12 (2026)',
+    title: 'Best Tutoring Options in Dublin, CA for Grades 3–12 (2026)',
     description: 'An honest comparison of programs serving the Tri-Valley area.',
     readTime: '6 min read',
     href: '/resources/tutoring-dublin-ca',

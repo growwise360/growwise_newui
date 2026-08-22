@@ -144,7 +144,7 @@ const CAMP_TYPES = [
       'The interest is not there yet',
       'The program is mostly tutorials without independent building',
     ],
-    badge: 'GrowWise fit: STEAM camps, grades 1-12, June-August',
+    badge: 'GrowWise fit: STEAM camps, grades 3–12, June-August',
   },
   {
     title: 'Enrichment and Multi-Activity Camps',
@@ -545,7 +545,7 @@ export function HowToChooseSummerCampPage() {
             <div className="rounded-xl bg-[#EFF6FF] p-5">
               <ul className="space-y-3 text-sm text-slate-700">
                 <li><strong>Free assessment</strong> with no commitment required</li>
-                <li><strong>Grades 1-12</strong> academic and STEAM guidance</li>
+                <li><strong>Grades 3–12</strong> academic and STEAM guidance</li>
                 <li><strong>Dublin center</strong> at 4564 Dublin Blvd</li>
                 <li><strong>Parent takeaway</strong>: the next-step plan</li>
               </ul>

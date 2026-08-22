@@ -5,12 +5,12 @@ export const MATH_COURSE_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Does GrowWise offer math tutoring in Dublin CA?',
     answer:
-      'Yes. GrowWise offers in-person math tutoring for grades 1–12 at 4564 Dublin Blvd, Dublin, CA. Programs cover elementary math through AP Precalculus and SAT prep.',
+      'Yes. GrowWise offers in-person math tutoring for grades 3–12 at 4564 Dublin Blvd, Dublin, CA. Programs cover elementary math through AP Precalculus and SAT prep.',
   },
   {
     question: 'What math subjects does GrowWise tutor?',
     answer:
-      'GrowWise tutors all K-12 math subjects including elementary math, middle school math, Algebra 1, Algebra 2, Geometry, Precalculus, AP Precalculus, and SAT Math.',
+      'GrowWise tutors math for Grades 3–12, including elementary math, middle school math, Algebra 1, Algebra 2, Geometry, Precalculus, AP Precalculus, and SAT Math.',
   },
   {
     question: 'How is GrowWise math tutoring different?',
@@ -37,7 +37,7 @@ export const MATH_COURSE_VISIBLE_FAQS: FAQItem[] = [
   {
     question: 'What math courses do you offer at GrowWise?',
     answer:
-      'We offer comprehensive Grades 1-12 math courses including grade-level math (aligned with California Common Core Standards), accelerated math programs, and integrated math 1 & 2. Our courses cover Algebra, Geometry, Pre-Calculus, and more. All programs are aligned with DUSD and PUSD curriculum standards.',
+      'We offer comprehensive Grades 3–12 math courses including grade-level math (aligned with California Common Core Standards), accelerated math programs, and integrated math 1 & 2. Our courses cover Algebra, Geometry, Pre-Calculus, and more. All programs are aligned with DUSD and PUSD curriculum standards.',
   },
   {
     question: 'How do I know which math course is right for my child?',
@@ -128,7 +128,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'Is the GrowWise academic assessment free?',
     answer:
-      'Yes. GrowWise offers a free assessment for students in Grades 1–12. Families receive the identified skill gap and a brief next-step plan. Ask the team about deeper diagnostic options when a more detailed written report and analysis is needed.',
+      'Yes. GrowWise offers a free assessment for students in Grades 3–12. Families receive the identified skill gap and a brief next-step plan. Ask the team about deeper diagnostic options when a more detailed written report and analysis is needed.',
   },
   {
     question: 'What happens after I book an assessment at GrowWise?',
@@ -138,7 +138,7 @@ export const BOOK_ASSESSMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'How long does a GrowWise assessment take?',
     answer:
-      'The free assessment takes about 30 minutes and is available for students in Grades 1-12. The separate 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a comprehensive written learning plan.',
+      'The free assessment takes about 30 minutes and is available for students in Grades 3–12. The separate 60-minute Full Diagnostic is a deeper review with gap analysis, mistake-pattern review, and a comprehensive written learning plan.',
   },
   {
     question: 'What subjects does the GrowWise assessment cover?',
@@ -206,7 +206,7 @@ export const ML_AI_CODING_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'What age can students start ML/AI coding classes at GrowWise?',
     answer:
-      'Our ML/AI and Python coding courses welcome students from Grades 1 through 12 (ages 6–18). We group students by level — not just age — so beginners and advanced learners each get the right challenge. Most students starting AI-specific projects are in Grades 5 and up.',
+      'Our ML/AI and Python coding courses welcome students from Grades 3–12 (ages 6–18). We group students by level — not just age — so beginners and advanced learners each get the right challenge. Most students starting AI-specific projects are in Grades 5 and up.',
   },
   {
     question: 'Do students need prior coding experience to join your AI courses?',
@@ -245,7 +245,7 @@ export const GAME_DEVELOPMENT_FAQ_JSONLD: FAQItem[] = [
   {
     question: 'What age group is game development suitable for at GrowWise?',
     answer:
-      'We welcome students from Grades 1 through 12 (ages 6–18). Younger students (Grades 1–5) work with Scratch and Roblox; older students (Grades 6–12) tackle Minecraft modding, Unity, and Python game projects. Classes are always grouped by level and platform, not just age.',
+      'We welcome students from Grades 3–12 (ages 6–18). Younger students (Grades 1–5) work with Scratch and Roblox; older students (Grades 6–12) tackle Minecraft modding, Unity, and Python game projects. Classes are always grouped by level and platform, not just age.',
   },
   {
     question: 'Can students publish or share the games they build?',

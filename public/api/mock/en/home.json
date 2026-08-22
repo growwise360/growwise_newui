@@ -2,7 +2,7 @@
   "heroSlides": [
     {
       "id": 1,
-      "title": "Elite Grades 1–12 Academic Training\nin Dublin, CA",
+      "title": "Elite Grades 3–12 Academic Training\nin Dublin, CA",
       "subtitle": "Readiness Assessment. Personalized Mastery Plan. Math, English, coding, and SAT prep for ambitious Tri-Valley students.",
       "description": "",
       "cta": "Book Readiness Assessment",
@@ -61,7 +61,7 @@
       { "name": "High School Math", "icon": "🎯", "description": "Calculus and advanced topics" }
     ] },
     { "id": 2, "title": "ELA Courses", "description": "Develop comprehensive English language arts skills", "icon": "BookOpen", "gradient": "from-[#F16112] to-[#F1894F]", "bgGradient": "bg-gradient-to-br from-[#F16112]/5 to-[#F1894F]/10", "iconColor": "text-[#F16112]", "href": "/academic/english", "ctaText": "Explore English Pathways", "ctaUrl": "/academic/english", "subItems": [
-      { "name": "English Mastery: Grades 1-12", "icon": "📚", "description": "Complete language arts curriculum" },
+      { "name": "English Mastery: Grades 3–12", "icon": "📚", "description": "Complete language arts curriculum" },
       { "name": "Reading Enrichment", "icon": "📖", "description": "Improve reading comprehension" },
       { "name": "Grammar Boost", "icon": "✏️", "description": "Master grammar and mechanics" }
     ] },

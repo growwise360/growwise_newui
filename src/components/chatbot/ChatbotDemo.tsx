@@ -16,8 +16,8 @@ export default function ChatbotDemo({ onStartChat }: ChatbotDemoProps) {
     {
       id: 'k12',
       icon: BookOpen,
-      title: 'Grades 1-12 Programs',
-      question: 'What Grades 1-12 academic programs do you offer?',
+      title: 'Grades 3–12 Programs',
+      question: 'What Grades 3–12 academic programs do you offer?',
       color: 'from-[#1F396D] to-[#29335C]'
     },
     {

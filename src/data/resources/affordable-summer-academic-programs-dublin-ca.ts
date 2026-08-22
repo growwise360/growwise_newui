@@ -100,7 +100,7 @@ export const AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_RELATED: readonly Res
   {
     title: 'Best Tutoring Options in Dublin, CA',
     href: '/resources/tutoring-dublin-ca',
-    description: 'Compare K–12 tutoring and summer paths in Dublin.',
+    description: 'Compare Grades 3–12 tutoring and summer paths in Dublin.',
   },
   {
     title: 'GrowWise Academic Summer Programs',
@@ -115,6 +115,6 @@ export const AFFORDABLE_SUMMER_ACADEMIC_PROGRAMS_DUBLIN_CA_RELATED: readonly Res
   {
     href: '/camps/summer',
     title: 'Summer Academic Camps in Dublin, CA',
-    description: 'Structured summer programs in math, English, coding, and SAT prep for K–12 students in Dublin.',
+    description: 'Structured summer programs in math, English, coding, and SAT prep for Grades 3–12 students in Dublin.',
   },
 ]

@@ -160,6 +160,7 @@ const campLandingHub: SitemapEntry = {
 
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
+  '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
   '/growwise-blogs/stop-waiting-for-a-problem-proactive-academic-support',
   '/growwise-blogs/learning-triangle-teacher-student-parent',
   '/growwise-blogs/mentor-vs-teacher-critical-thinking',

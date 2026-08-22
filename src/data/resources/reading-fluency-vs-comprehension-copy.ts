@@ -71,7 +71,7 @@ export const READING_FLUENCY_VS_COMPREHENSION_RELATED: readonly ResourceArticleR
   },
   {
     href: '/academic/english',
-    title: 'English & Reading Programs for Grades 1–12',
+    title: 'English & Reading Programs for Grades 3–12',
     description: 'Structured reading, writing, and comprehension support after a diagnostic assessment.',
   },
   {

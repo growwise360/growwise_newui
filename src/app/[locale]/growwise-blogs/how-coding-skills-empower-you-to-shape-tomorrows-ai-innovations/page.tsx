@@ -229,7 +229,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <Link href={publicPath('/future-skills/ai-machine-learning', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Explore the AI &amp; ML certification pathway
                 </Link>{' '}
-                — hands-on machine learning projects for Grades 1–12 in Dublin, CA.
+                — hands-on machine learning projects for Grades 3–12 in Dublin, CA.
               </p>
             </div>
 

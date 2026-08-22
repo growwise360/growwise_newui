@@ -25,10 +25,10 @@ export default async function MLAICodingLayout({
   const courseSchema = generateCourseSchema({
     name: "ML/AI Coding Classes for Kids — Dublin, CA",
     description:
-      "Hands-on Machine Learning and AI coding classes for Grades 1-12 in Dublin, CA. Python programming, AI agents, and ML fundamentals taught in small groups.",
+      "Hands-on Machine Learning and AI coding classes for Grades 3–12 in Dublin, CA. Python programming, AI agents, and ML fundamentals taught in small groups.",
     provider: "GrowWise",
     courseCode: "ML-AI-K12",
-    educationalLevel: "Grades 1-12",
+    educationalLevel: "Grades 3–12",
     teaches: [
       "Machine Learning",
       "Artificial Intelligence",

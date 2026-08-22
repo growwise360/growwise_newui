@@ -11,13 +11,16 @@ describe('chatbotSession', () => {
   });
 
   it('validates email shape', () => {
-    expect(isValidChatbotEmail('parent@example.com')).toBe(true);
+    expect(isValidChatbotEmail('parent.family@gmail.com')).toBe(true);
     expect(isValidChatbotEmail('not-an-email')).toBe(false);
+    expect(isValidChatbotEmail('parent@gmial.com')).toBe(false);
+    expect(isValidChatbotEmail('123448294@gmail.com')).toBe(false);
+    expect(isValidChatbotEmail('a1b2c3d4e5f6@gmail.com')).toBe(false);
   });
 
   it('persists email for the browser session', () => {
-    writeChatbotSessionEmail('Parent@Example.com');
-    expect(readChatbotSessionEmail()).toBe('parent@example.com');
+    writeChatbotSessionEmail('Parent.Family@Gmail.com');
+    expect(readChatbotSessionEmail()).toBe('parent.family@gmail.com');
   });
 
   it('returns null when no email is stored', () => {
@@ -25,7 +28,7 @@ describe('chatbotSession', () => {
   });
 
   it('clears stored email', () => {
-    writeChatbotSessionEmail('parent@example.com');
+    writeChatbotSessionEmail('parent.family@gmail.com');
     clearChatbotSessionEmail();
     expect(readChatbotSessionEmail()).toBeNull();
   });

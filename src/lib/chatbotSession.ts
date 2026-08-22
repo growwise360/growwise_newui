@@ -1,12 +1,12 @@
 const CHATBOT_SESSION_EMAIL_KEY = 'growy_chat_email';
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { isAcceptableLeadEmail } from '@/lib/inputLimits';
 
 export function readChatbotSessionEmail(): string | null {
   if (typeof window === 'undefined') return null;
   try {
     const value = sessionStorage.getItem(CHATBOT_SESSION_EMAIL_KEY)?.trim().toLowerCase();
-    return value && EMAIL_REGEX.test(value) ? value : null;
+    return value && isAcceptableLeadEmail(value) ? value : null;
   } catch {
     return null;
   }
@@ -31,5 +31,5 @@ export function clearChatbotSessionEmail(): void {
 }
 
 export function isValidChatbotEmail(email: string): boolean {
-  return EMAIL_REGEX.test(email.trim());
+  return isAcceptableLeadEmail(email.trim().toLowerCase());
 }

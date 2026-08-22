@@ -343,7 +343,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 <Link href={publicPath('/steam/game-development', locale)} className="text-[#1F396D] font-semibold underline hover:text-[#F16112]">
                   Explore GrowWise Game Development classes
                 </Link>{' '}
-                — Roblox, Scratch, Minecraft, and Unity for Grades 1–12 in Dublin, CA.
+                — Roblox, Scratch, Minecraft, and Unity for Grades 3–12 in Dublin, CA.
               </p>
             </div>
 

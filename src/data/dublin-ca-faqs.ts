@@ -9,7 +9,7 @@ export const DUBLIN_CA_FAQS: ReadonlyArray<{
 }> = [
   {
     question: 'What is GrowWise School?',
-    answer: `GrowWise School is a K–12 enrichment and tutoring center at ${CONTACT_INFO.street}, ${CONTACT_INFO.city} ${CONTACT_INFO.zipCode}, serving families across Dublin, Pleasanton, San Ramon, Danville, and the Tri-Valley. We offer year-round Math, English, and writing programs in small teacher-led groups, plus summer camps in Math Olympiad, AI, coding, and creative writing. Book a free assessment at growwiseschool.org/book-assessment or call ${CONTACT_INFO.phone}.`,
+    answer: `GrowWise School is a Grades 3–12 enrichment and tutoring center at ${CONTACT_INFO.street}, ${CONTACT_INFO.city} ${CONTACT_INFO.zipCode}, serving families across Dublin, Pleasanton, San Ramon, Danville, and the Tri-Valley. We offer year-round Math, English, and writing programs in small teacher-led groups, plus summer camps in Math Olympiad, AI, coding, and creative writing. Book a free assessment at growwiseschool.org/book-assessment or call ${CONTACT_INFO.phone}.`,
   },
   {
     question: 'Where is GrowWise located in Dublin, CA?',
@@ -33,7 +33,7 @@ export const DUBLIN_CA_FAQS: ReadonlyArray<{
   {
     question: 'What grade levels do you support in Dublin?',
     answer:
-      'GrowWise supports students in Grades 1–12 at our Dublin center. Programs include elementary and middle school math and English, high school math and SAT prep, and STEAM coding paths for ages 10–18.',
+      'GrowWise supports students in Grades 3–12 at our Dublin center. Programs include elementary and middle school math and English, high school math and SAT prep, and STEAM coding paths for ages 10–18.',
   },
   {
     question: 'Is parking available at your Dublin location?',

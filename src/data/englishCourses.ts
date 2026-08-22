@@ -53,7 +53,7 @@ export const englishCourses = [
   },
   {
     id: 'english-mastery-k-12',
-    name: 'English Mastery Grades 1-12',
+    name: 'English Mastery Grades 3–12',
     description: 'Comprehensive English program covering Reading, Brainstorming, Vocabulary, Grammar, and Writing for complete language arts mastery. Prepare for academic success at all levels.',
     level: 'All Grades',
     duration: 'Flexible',

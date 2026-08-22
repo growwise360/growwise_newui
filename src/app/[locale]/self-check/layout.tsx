@@ -110,7 +110,7 @@ export default async function SelfCheckLayout({
         audience: {
           '@type': 'EducationalAudience',
           educationalRole: 'student',
-          audienceType: 'Parents of K-12 students, Grades 3-8',
+          audienceType: 'Parents of Grades 3–12 students, Grades 3-8',
         },
         offers: {
           '@type': 'Offer',

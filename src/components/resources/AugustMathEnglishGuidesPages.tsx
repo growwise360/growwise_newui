@@ -377,7 +377,7 @@ export function KumonVsMathnasiumVsPrivateTutorDublinCAPage() {
 
       <p>
         Explore{' '}
-        <Link href={mathHref}>GrowWise math programs for Grades 1–12</Link> or{' '}
+        <Link href={mathHref}>GrowWise math programs for Grades 3–12</Link> or{' '}
         <Link href={assessmentHref}>book a free assessment</Link> to get a precise picture before the school year
         begins.
       </p>

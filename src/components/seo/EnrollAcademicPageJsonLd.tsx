@@ -12,7 +12,7 @@ export function EnrollAcademicPageJsonLd() {
         '@type': 'WebPage',
         name: 'Enroll in Academic Programs — GrowWise Dublin CA',
         description:
-          'Enroll in K-12 math, English, and SAT prep programs at GrowWise in Dublin, CA.',
+          'Enroll in Grades 3–12 math, English, and SAT prep programs at GrowWise in Dublin, CA.',
         url: pageUrl,
         provider: {
           '@type': 'EducationalOrganization',

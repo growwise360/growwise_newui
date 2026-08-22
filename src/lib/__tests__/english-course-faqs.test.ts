@@ -13,7 +13,7 @@ describe('english course FAQs', () => {
     expect(visibleText).toContain('English Mastery')
     expect(visibleText).toContain('separate creative writing program')
     expect(visibleText).not.toContain('$349')
-    expect(visibleText).not.toContain('grades 1-12')
+    expect(visibleText).not.toContain('grades 3–12')
   })
 
   it('includes English FAQs in JSON-LD source', () => {
