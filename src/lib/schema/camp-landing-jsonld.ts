@@ -40,6 +40,19 @@ const SOLD_OUT = 'https://schema.org/SoldOut';
 const EVENT_SCHEDULED = 'https://schema.org/EventScheduled';
 const OFFLINE_MODE = 'https://schema.org/OfflineEventAttendanceMode';
 
+const CAMP_EVENT_IMAGE_BY_SLUG: Record<string, string> = {
+  'ai-studio-dublin-ca': '/images/camps/banners/ai-entrepreneur-banner.webp',
+  'game-development-camp-dublin-ca': '/images/camps/banners/roblox-banner.webp',
+  'math-olympiad-camp-dublin-ca': '/images/camps/banners/olympiad-banner.webp',
+  'robotics-camp-dublin-ca': '/images/camps/banners/robotics-banner.webp',
+  'robotics-full-day-dublin-ca': '/images/camps/banners/robotics-banner.webp',
+  'young-authors-camp-dublin-ca': '/images/camps/banners/young-authors-banner.webp',
+};
+
+function resolveCampEventImage(page: CampLandingPage, baseUrl: string): string {
+  return `${baseUrl}${CAMP_EVENT_IMAGE_BY_SLUG[page.slug] ?? '/og-image.jpg'}`;
+}
+
 function stripJsonLdContext(node: Record<string, unknown>): Record<string, unknown> {
   const { '@context': _ctx, ...rest } = node;
   return rest;
@@ -127,6 +140,7 @@ function buildEventNode({
   price,
   pageUrl,
   baseUrl,
+  image,
   availability,
 }: {
   name: string;
@@ -136,6 +150,7 @@ function buildEventNode({
   price: number;
   pageUrl: string;
   baseUrl: string;
+  image: string;
   availability?: string;
 }): Record<string, unknown> {
   return stripJsonLdContext(
@@ -146,6 +161,7 @@ function buildEventNode({
       endDate,
       location: growWiseEventLocation(),
       organizer: { name: 'GrowWise', url: baseUrl },
+      image,
       offers: {
         price: String(price),
         priceCurrency: 'USD',
@@ -186,6 +202,7 @@ function buildWeeklySlotEvents(
           price,
           pageUrl,
           baseUrl,
+          image: resolveCampEventImage(page, baseUrl),
           availability: offerAvailabilityForProgram(program.id),
         }),
       );
@@ -219,6 +236,7 @@ function buildMathOlympiadEvents(
           price: tier1.priceByFormat['In-Person'],
           pageUrl,
           baseUrl,
+          image: resolveCampEventImage(page, baseUrl),
         }),
       );
     }
@@ -237,6 +255,7 @@ function buildMathOlympiadEvents(
           price: tier2.priceByFormat['In-Person'],
           pageUrl,
           baseUrl,
+          image: resolveCampEventImage(page, baseUrl),
         }),
       );
     }
