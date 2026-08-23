@@ -67,6 +67,7 @@ const CORE_PAGE_PATHS = [
 ] as const;
 
 const BLOG_PAGE_PATHS = [
+  '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
   '/growwise-blogs/tell-tale-heart-reading-comprehension-cite-evidence',
   '/growwise-blogs/child-reads-but-doesnt-understand-passage',
   '/growwise-blogs/why-is-my-child-struggling-with-fractions',
