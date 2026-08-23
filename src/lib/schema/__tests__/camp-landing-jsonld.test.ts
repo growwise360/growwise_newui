@@ -74,7 +74,7 @@ describe('camp-landing-jsonld', () => {
       expect(Number((course.offers as Record<string, unknown>).price)).toBeGreaterThan(0);
     });
 
-    it('Event nodes include startDate, endDate, price, availability, and location', () => {
+    it('Event nodes include image, dates, price, availability, and location', () => {
       const page = getCampPage('young-authors-camp-dublin-ca');
       expect(page).toBeDefined();
       const graph = buildCampLandingJsonLdGraph(page!, LOCALE) as Record<string, unknown>;
@@ -82,6 +82,9 @@ describe('camp-landing-jsonld', () => {
       const event = nodes.find((n) => n['@type'] === 'Event')!;
       expect(event.startDate).toMatch(/^2026-/);
       expect(event.endDate).toMatch(/^2026-/);
+      expect(event.image).toBe(
+        `${BASE_URL}/images/camps/banners/young-authors-banner.webp`,
+      );
       expect(event.location).toMatchObject({ '@type': 'Place', name: 'GrowWise' });
       expect(event.offers).toMatchObject({
         '@type': 'Offer',

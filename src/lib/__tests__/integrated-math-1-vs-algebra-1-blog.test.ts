@@ -12,6 +12,7 @@ const indexSource = fs.readFileSync(
   'utf8',
 )
 const sitemapSource = fs.readFileSync(path.join(ROOT, 'src/lib/seo/sitemapData.ts'), 'utf8')
+const publicPathsSource = fs.readFileSync(path.join(ROOT, 'src/lib/seo/public-paths.ts'), 'utf8')
 
 describe('Integrated Math 1 vs. Algebra 1 parent guide', () => {
   it('uses the requested search metadata and canonical slug', () => {
@@ -43,10 +44,11 @@ describe('Integrated Math 1 vs. Algebra 1 parent guide', () => {
     expect(pageSource).not.toContain("publicPath('/courses/high-school-math'")
   })
 
-  it('is listed in both the blog index and blog sitemap source', () => {
+  it('is listed in the blog index, sitemap, and middleware public-path source', () => {
     const path = `/growwise-blogs/${BLOG_SLUG}`
     expect(indexSource).toContain(`href: '${path}'`)
     expect(sitemapSource).toContain(`'${path}'`)
+    expect(publicPathsSource).toContain(`'${path}'`)
   })
 
   it('avoids unsupported superiority and outcome claims', () => {

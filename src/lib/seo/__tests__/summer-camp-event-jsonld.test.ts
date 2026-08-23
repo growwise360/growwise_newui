@@ -55,6 +55,7 @@ describe('summer camp hub Event JSON-LD', () => {
       '@type': 'Organization',
       name: 'GrowWise School',
     });
+    expect(event.image).toBe(`${baseUrl}/og-image.jpg`);
     expect(minPrice).toBeGreaterThan(0);
   });
 });

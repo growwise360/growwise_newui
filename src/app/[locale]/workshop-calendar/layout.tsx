@@ -83,6 +83,7 @@ async function WorkshopCalendarStructuredData({
         name: 'GrowWise',
         url: baseUrl,
       },
+      image: `${baseUrl}/og-image.jpg`,
       offers: {
         price: '0',
         priceCurrency: 'USD',
