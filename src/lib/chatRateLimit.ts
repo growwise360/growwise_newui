@@ -6,7 +6,13 @@
  * Resets on cold start, but email deduplication (C-4) provides the real abuse protection.
  */
 
-export type RateLimitNamespace = 'chat' | 'contact' | 'assessment' | 'enroll' | 'rating';
+export type RateLimitNamespace =
+  | 'chat'
+  | 'contact'
+  | 'assessment'
+  | 'enroll'
+  | 'rating'
+  | 'resource';
 
 const CHAT_DEFAULT_MAX = 20;
 const CHAT_DEFAULT_WINDOW_MS = 15 * 60_000;

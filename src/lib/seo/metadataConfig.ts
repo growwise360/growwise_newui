@@ -158,6 +158,15 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
     path: '/contact',
   },
 
+  '/free-resources': {
+    title: 'Free Learning Resources for K–12 | GrowWise',
+    description:
+      'Download free GrowWise learning guides and program resources for K–12 families.',
+    keywords:
+      'free learning guides, parent guides, summer programs, K-12 resources, GrowWise downloads',
+    path: '/free-resources',
+  },
+
   '/programs': {
     title: 'Programs | Academic & STEAM | GrowWise',
     description:

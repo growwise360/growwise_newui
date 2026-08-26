@@ -73,6 +73,7 @@ const corePages: SitemapEntry[] = [
   { path: '/why-growwise', priority: 0.85, changefreq: 'monthly' },
   { path: '/academic', priority: 0.9, changefreq: 'monthly' },
   { path: '/contact', priority: 0.8, changefreq: 'monthly' },
+  { path: '/free-resources', priority: 0.75, changefreq: 'monthly' },
   { path: '/dublin-ca', priority: 0.9, changefreq: 'monthly' },
   { path: '/middle-school-tutoring-dublin-ca', priority: 0.9, changefreq: 'monthly' },
   { path: '/from-nextdoor', priority: 0.9, changefreq: 'monthly' },
