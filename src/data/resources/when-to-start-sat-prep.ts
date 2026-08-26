@@ -11,9 +11,9 @@ export const WHEN_TO_START_SAT_PREP_META: ResourceArticleMeta = {
   updated: 'Updated May 2026',
   title: 'SAT Prep Timeline by Grade | Parent Guide',
   description:
-    'Grade 8, 9, or 10? See when SAT prep should start, what to fix first, and how parents can plan a smarter test prep timeline.',
+    'Grade 8, 9, 10, or already in 11th grade? See when SAT prep should start, what to fix first, and how parents can plan a smarter test prep timeline.',
   keywords:
-    'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
+    'when to start SAT prep, what grade to start SAT preparation, when should my child start SAT prep, SAT prep grade 8 9 10, SAT prep for 11th graders, how early to start SAT prep, digital SAT prep 2026, SAT preparation timeline high school, PSAT preparation grades 8-10, SAT math foundation gaps',
   datePublished: '2026-05-01',
   dateModified: '2026-05-01',
 }
