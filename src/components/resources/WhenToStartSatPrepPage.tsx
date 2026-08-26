@@ -233,7 +233,7 @@ export function WhenToStartSatPrepPage() {
         <Link href={satPrepHref}>SAT prep program</Link> that checks foundations first.
       </p>
 
-      <h3>Grade 11: Focused and Urgent</h3>
+      <h3>SAT Prep for 11th Graders: Focused and Urgent</h3>
 
       <p>
         Grade 11 is the most common entry point — and it&apos;s still workable, but the timeline is compressed.

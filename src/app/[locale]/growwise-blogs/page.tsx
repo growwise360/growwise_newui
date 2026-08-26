@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
+import { PARENT_PAIN_GUIDES } from '@/data/parent-pain-guides'
 
 export async function generateMetadata({
   params,
@@ -51,6 +52,14 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  ...PARENT_PAIN_GUIDES.map((guide) => ({
+    id: `parent-pain-${guide.slug}`,
+    category: 'academic' as const,
+    title: guide.headline,
+    excerpt: guide.excerpt,
+    href: `/growwise-blogs/${guide.slug}`,
+    readMore: 'Read parent guide »',
+  })),
   {
     id: 'integrated-math-1-vs-algebra-1-2026',
     category: 'academic',

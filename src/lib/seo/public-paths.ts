@@ -67,6 +67,21 @@ const CORE_PAGE_PATHS = [
 ] as const;
 
 const BLOG_PAGE_PATHS = [
+  '/growwise-blogs/homework-grades-good-but-fails-tests',
+  '/growwise-blogs/gifted-underachiever-bright-child-not-lazy',
+  '/growwise-blogs/twice-exceptional-2e-child-learning-gaps',
+  '/growwise-blogs/math-anxiety-in-children-signs-help',
+  '/growwise-blogs/homework-nightly-fight-how-to-stop',
+  '/growwise-blogs/report-card-fine-child-actually-behind',
+  '/growwise-blogs/how-many-ap-classes-too-many-dublin-tri-valley',
+  '/growwise-blogs/middle-school-math-cliff-pre-algebra',
+  '/growwise-blogs/understand-child-psat-score-report',
+  '/growwise-blogs/test-anxiety-vs-content-gap',
+  '/growwise-blogs/executive-function-smart-kids-missing-assignments',
+  '/growwise-blogs/is-my-child-behind-grade-level-diagnostic',
+  '/growwise-blogs/screen-time-homework-focus-distractions',
+  '/growwise-blogs/private-vs-public-school-dublin-pleasanton',
+  '/growwise-blogs/child-hates-reading-motivation-help',
   '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
   '/growwise-blogs/tell-tale-heart-reading-comprehension-cite-evidence',
   '/growwise-blogs/child-reads-but-doesnt-understand-passage',

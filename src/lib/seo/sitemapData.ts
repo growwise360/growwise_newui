@@ -9,6 +9,7 @@
  * The public `/sitemap.xml` URL rewrites to the internal sitemap index route.
  */
 
+import { PARENT_PAIN_GUIDE_SLUGS } from '@/data/parent-pain-guides'
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources'
 import { RESOURCES_PATH } from '@/data/resources-hub'
 import { locales } from '@/i18n/config'
@@ -160,6 +161,7 @@ const campLandingHub: SitemapEntry = {
 
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
+  ...PARENT_PAIN_GUIDE_SLUGS.map((slug) => `/growwise-blogs/${slug}` as const),
   '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
   '/growwise-blogs/stop-waiting-for-a-problem-proactive-academic-support',
   '/growwise-blogs/learning-triangle-teacher-student-parent',
