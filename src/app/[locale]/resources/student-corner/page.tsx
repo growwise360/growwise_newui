@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Code2, PenLine, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, Code2, PenLine, Sparkles, UploadCloud } from 'lucide-react'
 
 const showcaseSections = [
   {
@@ -46,6 +46,13 @@ export default function StudentCornerPage() {
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
             Student Corner will showcase articles, short stories, creative writing, coding projects, and portfolio work from GrowWise students.
           </p>
+          <Link
+            href="/resources/student-corner/submit"
+            className="mt-7 inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[#F16112] px-6 text-sm font-bold text-white transition-colors hover:bg-[#d54f0a] sm:text-base"
+          >
+            <UploadCloud className="mr-2 h-5 w-5" aria-hidden />
+            Submit an Article or Story
+          </Link>
         </div>
       </section>
 
@@ -107,17 +114,18 @@ export default function StudentCornerPage() {
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
+              href="/resources/student-corner/submit"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-white px-6 text-sm font-bold text-[#1F396D] transition-colors hover:bg-slate-100 sm:text-base"
+            >
+              Submit Student Writing
+              <UploadCloud className="ml-2 h-4 w-4" aria-hidden />
+            </Link>
+            <Link
               href="/book-assessment"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[#F16112] px-6 text-sm font-bold text-white transition-colors hover:bg-[#d54f0a] sm:text-base"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-white/40 px-6 text-sm font-bold text-white transition-colors hover:bg-white/10 sm:text-base"
             >
               Book an Assessment
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              href="/resources"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-white/40 px-6 text-sm font-bold text-white transition-colors hover:bg-white/10 sm:text-base"
-            >
-              Back to Resources
             </Link>
           </div>
         </div>
