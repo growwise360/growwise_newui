@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, UploadCloud } from 'lucide-react'
 
 const articles = [
   {
@@ -43,6 +43,10 @@ export default function StudentArticlesPage() {
             <p className="mt-4 text-base leading-relaxed text-slate-700 sm:text-lg">
               Opinion pieces, research reflections, explainers, and student perspectives from GrowWise students.
             </p>
+            <Link href="/resources/student-corner/submit" className="mt-6 inline-flex min-h-11 items-center rounded-lg bg-[#F16112] px-5 text-sm font-bold text-white hover:bg-[#d54f0a]">
+              <UploadCloud className="mr-2 h-4 w-4" aria-hidden />
+              Submit an article
+            </Link>
           </div>
         </div>
       </section>

@@ -6,6 +6,7 @@ type LeadSource =
   | 'contact_form'
   | 'enroll'
   | 'enroll_academic'
+  | 'referral'
   | 'summer_camp_guide'
   | 'math_finals_practice'
 
