@@ -1,4 +1,4 @@
-import { thirdBillingCycleDate } from '@/lib/referrals'
+import { minimumCommitmentCompletionDate } from '@/lib/referrals'
 
 const BREVO_API_BASE = 'https://api.brevo.com/v3'
 const REFERRAL_DEAL_PREFIX = 'GrowWise referral'
@@ -140,7 +140,7 @@ export async function createBrevoReferralDeal(
     REFERRED_EMAIL: input.referred.email,
     SUBMITTED_DATE: input.submittedAt.slice(0, 10),
     START_DATE: input.newStudentStartDate.toISOString().slice(0, 10),
-    CREDIT_DUE_DATE: thirdBillingCycleDate(input.newStudentStartDate).toISOString().slice(0, 10),
+    CREDIT_DUE_DATE: minimumCommitmentCompletionDate(input.newStudentStartDate).toISOString().slice(0, 10),
   })
   const deal = await brevoRequest<{ id: string }>('/crm/deals', {
     method: 'POST',
@@ -162,7 +162,7 @@ export async function createBrevoReferralDeal(
     return { ok: true, data: { dealId: deal.data.id, duplicate: false, reminderCreated: false } }
   }
 
-  const due = thirdBillingCycleDate(input.newStudentStartDate)
+  const due = minimumCommitmentCompletionDate(input.newStudentStartDate)
   const task = await brevoRequest<{ id: string }>('/crm/tasks', {
     method: 'POST',
     body: JSON.stringify({
@@ -177,8 +177,8 @@ export async function createBrevoReferralDeal(
         `Referred family: ${input.referred.fullName} (${input.referred.email})`,
         `New student: ${input.referred.studentName}`,
         `Reported start date: ${input.newStudentStartDate.toISOString().slice(0, 10)}`,
-        `Third billing cycle: ${due.toISOString().slice(0, 10)}`,
-        'Before applying credit, verify the start date, active enrollment, successful payments, and that no credit was already applied.',
+        `Minimum three-month commitment completed: ${due.toISOString().slice(0, 10)}`,
+        'Before applying credit, verify the start date, three completed months, active enrollment, successful payments, and that no credit was already applied for this referred family.',
       ].join('\n'),
       reminder: { value: 1, unit: 'days', types: ['email', 'push'] },
     }),
@@ -243,7 +243,7 @@ export async function markBrevoReferralEnrolled(input: {
   )
   if (!deal) return { ok: false, error: 'No referral deal found for this enrollment', status: 404 }
 
-  const due = thirdBillingCycleDate(input.enrollmentDate)
+  const due = minimumCommitmentCompletionDate(input.enrollmentDate)
   const optionalAttributes = configuredAttributes({
     ENROLLMENT_DATE: input.enrollmentDate.toISOString().slice(0, 10),
     CREDIT_DUE_DATE: due.toISOString().slice(0, 10),
@@ -265,10 +265,10 @@ export async function markBrevoReferralEnrolled(input: {
       notes: [
         `Referred family: ${input.referredEmail}`,
         `Enrollment date: ${input.enrollmentDate.toISOString().slice(0, 10)}`,
-        `Third billing cycle: ${due.toISOString().slice(0, 10)}`,
+        `Minimum three-month commitment completed: ${due.toISOString().slice(0, 10)}`,
         input.enrollmentId ? `Enrollment ID: ${input.enrollmentId}` : '',
         input.creditAmount !== undefined ? `Expected credit: $${input.creditAmount.toFixed(2)}` : '',
-        'Before applying credit, verify active enrollment, successful payments, and that no credit was already applied.',
+        'Before applying credit, verify three completed months, active enrollment, successful payments, and that no credit was already applied for this referred family.',
       ].filter(Boolean).join('\n'),
       reminder: { value: 1, unit: 'days', types: ['email', 'push'] },
   }
