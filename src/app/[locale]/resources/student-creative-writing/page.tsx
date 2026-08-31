@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, PenLine } from 'lucide-react'
+import { ArrowLeft, PenLine, UploadCloud } from 'lucide-react'
 
 export default function CreativeWritingPage() {
   return (
@@ -21,6 +21,10 @@ export default function CreativeWritingPage() {
             <p className="mt-4 text-base leading-relaxed text-slate-700 sm:text-lg">
               Short stories, personal narratives, creative scenes, and polished drafts from GrowWise writing students.
             </p>
+            <Link href="/resources/student-corner/submit" className="mt-6 inline-flex min-h-11 items-center rounded-lg bg-[#F16112] px-5 text-sm font-bold text-white hover:bg-[#d54f0a]">
+              <UploadCloud className="mr-2 h-4 w-4" aria-hidden />
+              Submit creative writing
+            </Link>
           </div>
         </div>
       </section>
