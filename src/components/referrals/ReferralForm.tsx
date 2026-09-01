@@ -62,7 +62,7 @@ export function ReferralForm() {
           </p>
         )}
         <p className="mt-4 text-sm leading-6 text-slate-600">
-          If the new student enrolls, we will track eligibility and review the credit during their third monthly billing cycle.
+          Credit is applied after the referred family completes a minimum three-month commitment. Credit applies once per family, not per student.
         </p>
         <div className="mx-auto mt-5 max-w-lg rounded-xl border border-amber-200 bg-amber-50 p-4 text-left text-sm leading-6 text-amber-950">
           We sent a confirmation to <strong>{state.confirmationEmail}</strong>. If it does not arrive within a few minutes, check Spam, Junk, or Promotions and mark the message as “Not spam.”
@@ -139,7 +139,7 @@ export function ReferralForm() {
         </label>
 
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
-          Referral credit is reviewed during the new student’s third monthly billing cycle. The new student must remain actively enrolled and in good standing. Credits have no cash value and cannot exceed the referring family’s invoice balance.
+          Credit is applied after the referred family completes a minimum three-month commitment and remains active and in good standing. Credit applies once per family, not per student. Credits have no cash value and cannot exceed the referring family’s invoice balance.
         </div>
 
         {state.status === 'error' && <p className="rounded-xl bg-red-50 p-4 text-sm font-medium text-red-800" role="alert">{state.message}</p>}

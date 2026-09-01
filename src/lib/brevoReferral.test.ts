@@ -43,7 +43,7 @@ describe('Brevo referral CRM automation', () => {
     jest.restoreAllMocks()
   })
 
-  test('creates one deal and a third-cycle reminder from the required student start date', async () => {
+  test('creates one family deal and a reminder after the three-month commitment', async () => {
     const result = await createBrevoReferralDeal({
       referralId: 'REF-20260901-ABC12345',
       submittedAt: '2026-09-01T12:00:00.000Z',
@@ -68,7 +68,7 @@ describe('Brevo referral CRM automation', () => {
         duplicate: false,
         reminderCreated: true,
         taskId: 'task-1',
-        creditDueDate: '2026-11-12T17:00:00.000Z',
+        creditDueDate: '2026-12-12T17:00:00.000Z',
       },
     })
 
@@ -76,13 +76,15 @@ describe('Brevo referral CRM automation', () => {
     const taskCall = calls.find(([url, init]) => String(url).endsWith('/crm/tasks') && init?.method === 'POST')
     const taskBody = JSON.parse(taskCall[1].body)
     expect(taskBody).toMatchObject({
-      date: '2026-11-12T17:00:00.000Z',
+      date: '2026-12-12T17:00:00.000Z',
       dealsIds: ['deal-1'],
       contactsIds: [22],
       reminder: { value: 1, unit: 'days', types: ['email', 'push'] },
     })
     expect(taskBody.notes).toContain('New student: New Student')
     expect(taskBody.notes).toContain('Reported start date: 2026-09-12')
+    expect(taskBody.notes).toContain('Minimum three-month commitment completed: 2026-12-12')
+    expect(taskBody.notes).toContain('no credit was already applied for this referred family')
 
     const taskIdSave = calls.find(([url, init]) => String(url).endsWith('/crm/deals/deal-1') && init?.method === 'PATCH')
     expect(JSON.parse(taskIdSave[1].body)).toEqual({ attributes: { referral_task_id: 'task-1' } })

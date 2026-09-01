@@ -1,8 +1,8 @@
 # GrowWise referral automation setup
 
 The website route is `/referral`. A successful submission upserts both family contacts,
-creates one Brevo deal associated with the referred family, calculates the third billing
-cycle from the required new-student start date, and creates a Brevo task due on that date.
+creates one Brevo deal associated with the referred family, calculates completion of the
+minimum three-month commitment, and creates a Brevo task due on that date.
 The task sends email and push reminders one day before it is due.
 
 ## Brevo configuration
@@ -60,8 +60,9 @@ date instead of creating a duplicate reminder.
 - Submit a referral using two Brevo test contacts.
 - Confirm exactly one deal is created in the referral pipeline.
 - Confirm the new student's name and start date appear in the linked task.
-- Confirm the task due date is two calendar months after the start date.
+- Confirm the task due date is three calendar months after the start date.
 - Confirm duplicate submissions for the referred email return HTTP 409.
+- Confirm only one credit is applied per referred family, not per student.
 - Confirm the referring family receives the confirmation email.
 - In Brevo, confirm the configured `BREVO_SENDER_EMAIL` uses `@growwiseschool.org`
   and shows green DKIM and DMARC checks.

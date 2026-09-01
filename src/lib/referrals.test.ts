@@ -1,4 +1,4 @@
-import { createReferralId, normalizeReferralEmail, referralEmailFingerprint, thirdBillingCycleDate } from './referrals'
+import { createReferralId, minimumCommitmentCompletionDate, normalizeReferralEmail, referralEmailFingerprint } from './referrals'
 
 describe('referral workflow helpers', () => {
   test('normalizes email used for referral matching', () => {
@@ -16,15 +16,15 @@ describe('referral workflow helpers', () => {
   })
 
   test.each([
-    ['2026-09-12T08:00:00Z', '2026-11-12'],
-    ['2026-01-31T08:00:00Z', '2026-03-31'],
-    ['2026-12-31T08:00:00Z', '2027-02-28'],
-    ['2028-12-31T08:00:00Z', '2029-02-28'],
-  ])('calculates cycle three for %s', (enrollment, expected) => {
-    expect(thirdBillingCycleDate(new Date(enrollment)).toISOString().slice(0, 10)).toBe(expected)
+    ['2026-09-12T08:00:00Z', '2026-12-12'],
+    ['2026-01-31T08:00:00Z', '2026-04-30'],
+    ['2026-12-31T08:00:00Z', '2027-03-31'],
+    ['2028-12-31T08:00:00Z', '2029-03-31'],
+  ])('calculates three-month commitment completion for %s', (enrollment, expected) => {
+    expect(minimumCommitmentCompletionDate(new Date(enrollment)).toISOString().slice(0, 10)).toBe(expected)
   })
 
   test('rejects invalid enrollment dates', () => {
-    expect(() => thirdBillingCycleDate(new Date('invalid'))).toThrow('Invalid enrollment date')
+    expect(() => minimumCommitmentCompletionDate(new Date('invalid'))).toThrow('Invalid enrollment date')
   })
 })
