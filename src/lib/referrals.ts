@@ -15,16 +15,16 @@ export function referralEmailFingerprint(email: string): string {
 }
 
 /**
- * Month one is the enrollment billing cycle, so credit becomes due two calendar
- * months later. Days that do not exist in the target month clamp to month-end.
+ * Credit becomes eligible after the referred family completes three calendar
+ * months. Days that do not exist in the target month clamp to month-end.
  */
-export function thirdBillingCycleDate(enrollmentDate: Date): Date {
+export function minimumCommitmentCompletionDate(enrollmentDate: Date): Date {
   if (Number.isNaN(enrollmentDate.getTime())) throw new Error('Invalid enrollment date')
 
   const year = enrollmentDate.getUTCFullYear()
   const month = enrollmentDate.getUTCMonth()
   const day = enrollmentDate.getUTCDate()
-  const targetMonthStart = new Date(Date.UTC(year, month + 2, 1, 17, 0, 0))
+  const targetMonthStart = new Date(Date.UTC(year, month + 3, 1, 17, 0, 0))
   const lastDay = new Date(Date.UTC(
     targetMonthStart.getUTCFullYear(),
     targetMonthStart.getUTCMonth() + 1,

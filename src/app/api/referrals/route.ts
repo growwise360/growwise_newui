@@ -55,9 +55,9 @@ async function sendReferralConfirmation(input: {
     `We received your referral for ${input.referredParentName}.`,
     `Referral ID: ${input.referralId}`,
     `New student start date: ${input.newStudentStartDate}`,
-    ...(input.creditDueDate ? [`Expected third billing cycle: ${input.creditDueDate}`] : []),
+    ...(input.creditDueDate ? [`Expected three-month commitment completion: ${input.creditDueDate}`] : []),
     '',
-    'If the new student enrolls, the referral credit becomes eligible in their third monthly billing cycle, provided the account remains active and in good standing.',
+    'Credit is applied after the referred family completes a minimum three-month commitment and remains active and in good standing. Credit applies once per family, not per student.',
     '',
     'We will verify eligibility before applying the credit.',
     '',
@@ -83,7 +83,7 @@ async function sendReferralConfirmation(input: {
                 </table>
               </td></tr>
               <tr><td style="padding:0 32px 30px;font-size:14px;line-height:1.65;color:#526174">
-                <p>The referral credit is reviewed during the new student’s third monthly billing cycle, provided the account remains active and in good standing.</p>
+                <p>Credit is applied after the referred family completes a minimum three-month commitment and remains active and in good standing. Credit applies once per family, not per student.</p>
                 <p>We will verify eligibility before applying the credit. Please keep this email for your records.</p>
                 <p style="margin-top:24px;color:#172033">Warmly,<br><strong>The GrowWise Team</strong></p>
               </td></tr>

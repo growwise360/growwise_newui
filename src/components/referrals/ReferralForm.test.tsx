@@ -11,6 +11,8 @@ describe('ReferralForm', () => {
     expect(screen.getByLabelText('New student’s name *')).toBeRequired()
     expect(screen.getByLabelText('New student’s start date *')).toBeRequired()
     expect(screen.getByText('For two or more families, submit one form per family.')).toBeInTheDocument()
+    expect(screen.getByText(/minimum three-month commitment/)).toBeInTheDocument()
+    expect(screen.getByText(/Credit applies once per family, not per student/)).toBeInTheDocument()
   })
 
   test('shows the confirmation email and spam-folder guidance after submission', async () => {

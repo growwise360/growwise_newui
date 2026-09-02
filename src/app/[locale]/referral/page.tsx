@@ -22,7 +22,7 @@ export default function ReferralPage() {
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-orange-300">GrowWise family referrals</p>
           <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">Help another student grow</h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-100">
-            Introduce a family to GrowWise. If their student enrolls and remains active, your referral credit is reviewed during their third monthly billing cycle.
+            Introduce a family to GrowWise. Credit is applied after the referred family completes a minimum three-month commitment and remains eligible. Credit applies once per family, not per student.
           </p>
         </div>
       </section>
@@ -34,7 +34,7 @@ export default function ReferralPage() {
             {[
               { icon: UserPlus, title: 'Submit the referral', text: 'Enter your account email and the new family’s enrollment email.' },
               { icon: ShieldCheck, title: 'We match enrollment', text: 'GrowWise matches the referred email after the new student enrolls.' },
-              { icon: Gift, title: 'Credit review', text: 'During billing cycle three, we verify eligibility and apply the approved credit.' },
+              { icon: Gift, title: 'Credit review', text: 'After the family completes three months, we verify eligibility and apply one approved credit for that family.' },
             ].map(({ icon: Icon, title, text }, index) => (
               <div key={title} className="flex gap-4 rounded-2xl bg-white p-5 shadow-sm">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F16112]/10 text-[#F16112]">
