@@ -61,7 +61,7 @@ describe('editorial blog collection', () => {
     }
   })
 
-  test('renders all ten submitted article URLs in sitemap-blogs XML', () => {
+  test('renders all editorial and supporting article URLs in sitemap-blogs XML', () => {
     const submittedSlugs = [
       ...EDITORIAL_BLOG_POSTS.map((post) => post.slug),
       'tutoring-vs-teaching-what-parents-should-pay-for',
@@ -74,6 +74,15 @@ describe('editorial blog collection', () => {
     for (const slug of submittedSlugs) {
       const loc = `<loc>https://growwiseschool.org/growwise-blogs/${slug}</loc>`
       expect(xml.match(new RegExp(loc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'))).toHaveLength(1)
+    }
+  })
+
+  test('linked supporting articles have route implementations', () => {
+    for (const slug of [
+      'tutoring-vs-teaching-what-parents-should-pay-for',
+      'how-to-tell-if-tutoring-is-working',
+    ]) {
+      expect(fs.existsSync(path.join(ROOT, 'src/app/[locale]/growwise-blogs', slug, 'page.tsx'))).toBe(true)
     }
   })
 
@@ -108,12 +117,14 @@ describe('editorial blog collection', () => {
   test('all editorial routes are registered for discovery', () => {
     const publicPaths = fs.readFileSync(path.join(ROOT, 'src/lib/seo/public-paths.ts'), 'utf8')
     const lastmod = fs.readFileSync(path.join(ROOT, 'src/lib/seo/sitemap-lastmod.json'), 'utf8')
+    const blogIndex = fs.readFileSync(path.join(ROOT, 'src/app/[locale]/growwise-blogs/page.tsx'), 'utf8')
     const sitemap = fs.readFileSync(path.join(ROOT, 'src/lib/seo/sitemapData.ts'), 'utf8')
 
     for (const post of EDITORIAL_BLOG_POSTS) {
       expect(publicPaths).toContain(`/growwise-blogs/${post.slug}`)
       expect(lastmod).toContain(`/growwise-blogs/${post.slug}`)
     }
-    expect(sitemap).toContain('SEO_MANAGER_BLOG_POSTS')
+    expect(blogIndex).toContain('EDITORIAL_BLOG_POSTS.map')
+    expect(sitemap).toContain('EDITORIAL_BLOG_POSTS.map')
   })
 })

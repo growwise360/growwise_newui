@@ -26,3 +26,11 @@ Generated 2026-09-27 after application integration.
 ## Automated validation
 - `npx jest src/lib/seo/__tests__/robots.seo.test.ts src/lib/seo/__tests__/seo-jsonld-route-audit.test.ts src/lib/seo/__tests__/metadata-length-limits.test.ts src/lib/__tests__/seo-manager-blog-posts.test.ts src/lib/__tests__/editorial-blog-posts.test.ts --runInBand` — 5 suites, 86 tests passed.
 - Repository-wide `next build`, `tsc`, lint, and dev-server smoke tests were attempted but exceeded the available execution window without emitting diagnostics; they are not counted as passes.
+
+## PR #407 clean-checkout correction (2026-09-28)
+
+The initial focused results above were obtained from the shared working tree. The PR omitted four referenced image assets, the blog-index integration, sitemap integration, and two linked supporting article routes. CI exposed three editorial test failures; the HubSpot 400 log was expected output from a passing test, not the failure cause.
+
+The missing assets and integrations are included in the corrected PR. Sitemap paths now derive from the full editorial collection. The blog-index discovery assertions are restored, with an additional check that the two supporting routes exist. The HubSpot rejection test asserts its expected error log while preserving production logging.
+
+Targeted validation runs from `/private/tmp/growwise-seo-pr`, the isolated PR checkout. Full production build and smoke results are reported by the PR Gate workflow.

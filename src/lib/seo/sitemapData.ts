@@ -10,7 +10,7 @@
  */
 
 import { PARENT_PAIN_GUIDE_SLUGS } from '@/data/parent-pain-guides'
-import { SEO_MANAGER_BLOG_POSTS } from '@/data/seo-manager-blog-posts'
+import { EDITORIAL_BLOG_POSTS } from '@/data/editorial-blog-posts'
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources'
 import { RESOURCES_PATH } from '@/data/resources-hub'
 import { locales } from '@/i18n/config'
@@ -165,14 +165,7 @@ const campLandingHub: SitemapEntry = {
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
   ...PARENT_PAIN_GUIDE_SLUGS.map((slug) => `/growwise-blogs/${slug}` as const),
-  ...SEO_MANAGER_BLOG_POSTS.map((post) => `/growwise-blogs/${post.slug}` as const),
-  `/growwise-blogs/is-ai-doing-childs-homework-or-helping-learn`,
-  `/growwise-blogs/new-homework-problem-answers-without-learning`,
-  `/growwise-blogs/should-kids-use-chatgpt-for-homework`,
-  `/growwise-blogs/ai-can-write-essay-cannot-build-writing-skills`,
-  `/growwise-blogs/correct-math-answer-does-not-mean-understanding`,
-  `/growwise-blogs/good-grades-hide-math-learning-gaps`,
-  `/growwise-blogs/reading-fluency-vs-reading-comprehension`,
+  ...EDITORIAL_BLOG_POSTS.map((post) => `/growwise-blogs/${post.slug}` as const),
   `/growwise-blogs/tutoring-vs-teaching-what-parents-should-pay-for`,
   `/growwise-blogs/how-to-tell-if-tutoring-is-working`,
   '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
