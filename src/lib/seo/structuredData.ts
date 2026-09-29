@@ -362,6 +362,10 @@ export function generateArticleSchema({
   author,
   datePublished,
   dateModified,
+  articleSection,
+  keywords,
+  inLanguage = 'en-US',
+  isAccessibleForFree = true,
 }: {
   headline: string
   description: string
@@ -373,6 +377,10 @@ export function generateArticleSchema({
   }
   datePublished?: string
   dateModified?: string
+  articleSection?: string
+  keywords?: readonly string[]
+  inLanguage?: string
+  isAccessibleForFree?: boolean
 }) {
   return {
     "@context": "https://schema.org",
@@ -396,6 +404,10 @@ export function generateArticleSchema({
     ...(image && { "image": image }),
     ...(datePublished && { "datePublished": datePublished }),
     ...(dateModified && { "dateModified": dateModified }),
+    "inLanguage": inLanguage,
+    "isAccessibleForFree": isAccessibleForFree,
+    ...(articleSection && { "articleSection": articleSection }),
+    ...(keywords && keywords.length > 0 && { "keywords": [...keywords] }),
   }
 }
 
@@ -468,4 +480,3 @@ export function generateFormThankYouJsonLd({
     '@graph': [breadcrumb, webPage],
   };
 }
-
