@@ -85,6 +85,16 @@ const BODY = `# GrowWise School
 - [Kumon Alternative in Dublin CA](https://growwiseschool.org/resources/kumon-alternative-dublin-ca)
 - [Mathnasium Alternative in Dublin & Pleasanton](https://growwiseschool.org/resources/mathnasium-alternative-dublin-pleasanton)
 - [RSM Alternative in Dublin CA](https://growwiseschool.org/resources/rsm-alternative-dublin-ca)
+- [Can Your Child Explain It Without AI?](https://growwiseschool.org/growwise-blogs/can-your-child-explain-it-without-ai)
+- [Is AI Weakening Your Child's Writing?](https://growwiseschool.org/growwise-blogs/is-ai-weakening-your-childs-writing)
+- [Algebra 1 in 8th Grade: Tri-Valley Parent Guide](https://growwiseschool.org/growwise-blogs/algebra-1-8th-grade-math-placement-tri-valley)
+- [California Phone-Free Schools Law](https://growwiseschool.org/growwise-blogs/california-phone-free-schools-law-focus-homework)
+- [Is UC Bringing Back the SAT?](https://growwiseschool.org/growwise-blogs/is-uc-bringing-back-the-sat-tri-valley)
+- [Is Tutoring Worth It?](https://growwiseschool.org/growwise-blogs/is-tutoring-worth-it)
+- [Kumon vs Mathnasium vs RSM](https://growwiseschool.org/growwise-blogs/kumon-vs-mathnasium-vs-rsm)
+- [Online vs In-Person Tutoring](https://growwiseschool.org/growwise-blogs/online-vs-in-person-tutoring)
+- [Questions to Ask a Tutor Before Hiring](https://growwiseschool.org/growwise-blogs/questions-to-ask-a-tutor-before-hiring)
+- [Math Olympiad by Grade](https://growwiseschool.org/growwise-blogs/math-olympiad-by-grade)
 
 ## Info
 - [Grades 3–12 Tutoring in Dublin, CA](https://growwiseschool.org/dublin-ca)

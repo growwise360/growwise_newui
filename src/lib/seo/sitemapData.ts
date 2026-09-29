@@ -10,6 +10,7 @@
  */
 
 import { PARENT_PAIN_GUIDE_SLUGS } from '@/data/parent-pain-guides'
+import { EDITORIAL_BLOG_POSTS } from '@/data/editorial-blog-posts'
 import { RESOURCE_ARTICLE_PATHS } from '@/data/resources'
 import { RESOURCES_PATH } from '@/data/resources-hub'
 import { locales } from '@/i18n/config'
@@ -164,6 +165,9 @@ const campLandingHub: SitemapEntry = {
 /** Blog post paths (same slugs as under `src/app/[locale]/growwise-blogs/`). */
 const blogPostPaths = [
   ...PARENT_PAIN_GUIDE_SLUGS.map((slug) => `/growwise-blogs/${slug}` as const),
+  ...EDITORIAL_BLOG_POSTS.map((post) => `/growwise-blogs/${post.slug}` as const),
+  `/growwise-blogs/tutoring-vs-teaching-what-parents-should-pay-for`,
+  `/growwise-blogs/how-to-tell-if-tutoring-is-working`,
   '/growwise-blogs/integrated-math-1-vs-algebra-1-difference',
   '/growwise-blogs/stop-waiting-for-a-problem-proactive-academic-support',
   '/growwise-blogs/learning-triangle-teacher-student-parent',
