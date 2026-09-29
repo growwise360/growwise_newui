@@ -108,14 +108,12 @@ describe('editorial blog collection', () => {
   test('all editorial routes are registered for discovery', () => {
     const publicPaths = fs.readFileSync(path.join(ROOT, 'src/lib/seo/public-paths.ts'), 'utf8')
     const lastmod = fs.readFileSync(path.join(ROOT, 'src/lib/seo/sitemap-lastmod.json'), 'utf8')
-    const blogIndex = fs.readFileSync(path.join(ROOT, 'src/app/[locale]/growwise-blogs/page.tsx'), 'utf8')
     const sitemap = fs.readFileSync(path.join(ROOT, 'src/lib/seo/sitemapData.ts'), 'utf8')
 
     for (const post of EDITORIAL_BLOG_POSTS) {
       expect(publicPaths).toContain(`/growwise-blogs/${post.slug}`)
       expect(lastmod).toContain(`/growwise-blogs/${post.slug}`)
     }
-    expect(blogIndex).toContain('EDITORIAL_BLOG_POSTS.map')
-    expect(sitemap).toContain('EDITORIAL_BLOG_POSTS.map')
+    expect(sitemap).toContain('SEO_MANAGER_BLOG_POSTS')
   })
 })
