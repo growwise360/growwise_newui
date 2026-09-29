@@ -82,18 +82,28 @@ describe('submitHubSpotForm', () => {
   });
 
   it('returns failure when HubSpot rejects the submission', async () => {
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: false,
-      status: 400,
-      text: async () => '{"message":"Invalid field"}',
-    }) as typeof fetch;
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      global.fetch = jest.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        text: async () => '{"message":"Invalid field"}',
+      }) as typeof fetch;
 
-    const result = await submitHubSpotForm([{ name: 'email', value: 'bad' }]);
-    expect(result).toEqual({
-      ok: false,
-      message: 'HubSpot submission failed',
-      status: 400,
-    });
+      const result = await submitHubSpotForm([{ name: 'email', value: 'bad' }]);
+      expect(result).toEqual({
+        ok: false,
+        message: 'HubSpot submission failed',
+        status: 400,
+      });
+      expect(errorSpy).toHaveBeenCalledWith(
+        '[hubspot] Form submission rejected:',
+        400,
+        '{"message":"Invalid field"}',
+      );
+    } finally {
+      errorSpy.mockRestore();
+    }
   });
 });
 
