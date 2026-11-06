@@ -58,7 +58,7 @@ export default async function OnlineTutoringPage({ params }: { params: Promise<{
           <div className="max-w-3xl">
             <p className="text-sm font-bold uppercase tracking-wide text-[#A83E05]">Free parent resources</p>
             <h2 id="free-resources-title" className="mt-2 text-2xl font-bold text-[#1F396D]">Get a worksheet before choosing a course</h2>
-            <p className="mt-3 leading-7 text-slate-700">Browse the existing Math and English practice resources. On the downloads page, click Download PDF to open the available worksheet. The PDF download does not require course enrollment or a student profile.</p>
+            <p className="mt-3 leading-7 text-slate-700">Browse the existing Math and English practice resources. On the downloads page, click Download PDF to download the available worksheet directly. No course enrollment or student profile is required.</p>
             <Link className="mt-5 inline-flex min-h-12 items-center rounded-lg border border-[#1F396D] bg-white px-5 py-3 font-bold text-[#1F396D] hover:bg-blue-50" href={publicPath('/resources/downloads', locale)}>Browse free worksheets</Link>
           </div>
         </section>
