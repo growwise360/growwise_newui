@@ -9,6 +9,7 @@
 - Confirm the video classroom, payment flow, USD billing, cancellation/refund terms, trial eligibility, and enrollment confirmation process.
 - Pilot the parent/guardian intake through assessment, teacher placement, confirmed schedule, and enrollment.
 - Keep student profiles, consent, parent dashboard, and retention in Omnix360. Do not create a duplicate student record in the website or bypass the Omnix360 parent flow.
+- Preserve the existing free-download path: parents open `/resources/downloads` and click **Download PDF** for the available worksheet. That direct PDF download requires no course enrollment or student profile. Keep this self-serve resource path separate from assessment and profile intake. The current page has one downloadable PDF; other worksheet cards are marked as upcoming.
 - Resolve the homework add-on price conflict before displaying its price: the supplied `$85` conflicts with the site rule that displayed prices end in `7`.
 - Do not issue or expire promotional credits until the credit terms and receipt/dashboard presentation receive the required legal review.
 
