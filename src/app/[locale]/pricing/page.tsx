@@ -46,7 +46,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8" aria-labelledby="plan-pricing-title">
         <div className="mx-auto max-w-6xl">
           <h2 id="plan-pricing-title" className="text-3xl font-bold text-[#1F396D]">Choose a grade band</h2>
-          <p className="mt-2 max-w-3xl text-slate-600">All prices are in US dollars, per subject, per month, on a three-month term. The four-week trial is a separate one-time purchase per student and subject.</p>
+          <p className="mt-2 max-w-3xl text-slate-600">Prices are per subject, per month, on a three-month term. The four-week trial is a separate one-time purchase per student and subject.</p>
           <OnlinePricingTabs />
         </div>
       </section>

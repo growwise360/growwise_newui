@@ -106,6 +106,10 @@ export const ONLINE_CATALOG_CONFIG = {
       question: 'Are Chemistry and Physics classes online?',
       answer: 'Online science classes use simulations. Hands-on labs remain with the student’s school.',
     },
+    {
+      question: 'What currency are the prices in?',
+      answer: 'All prices are in US dollars.',
+    },
   ],
 } as const
 
