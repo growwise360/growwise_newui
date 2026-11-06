@@ -9,7 +9,7 @@ type CommercialValueOffer = {
 
 export const COMMERCIAL_VALUE_ROUTES = {
   '/': {
-    outcome: 'Find the right academic or technology starting point for your child.',
+    outcome: 'Find the right learning support for your child.',
     firstResult: 'Written next-step plan after a 30-minute assessment',
     actionLabel: 'Find the Right Starting Point',
     actionHref: '/book-assessment',
