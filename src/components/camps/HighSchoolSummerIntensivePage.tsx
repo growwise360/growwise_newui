@@ -802,21 +802,10 @@ export function HighSchoolSummerIntensivePage() {
         </div>
       </section>
 
-      {/* 2. Trust Bar */}
-      <section className="bg-gray-50 py-6 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-700">
-            <div className="flex items-center gap-1">
-              <span className="text-lg font-bold">{PAGE.trustBar.rating}</span>
-              <span>{PAGE.trustBar.ratingLabel}</span>
-            </div>
-            <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div className="hidden sm:block">{PAGE.trustBar.reviews}</div>
-            <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div className="hidden sm:block">{PAGE.trustBar.enrolled}</div>
-            <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
-            <div className="hidden sm:block">{PAGE.trustBar.classSize}</div>
-          </div>
+      {/* 2. Program details */}
+      <section aria-label="Program details" className="bg-gray-50 py-6 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 text-center text-sm text-gray-700">
+          {PAGE.trustBar.classSize}
         </div>
       </section>
 
