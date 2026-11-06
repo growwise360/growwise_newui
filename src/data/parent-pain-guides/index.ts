@@ -497,6 +497,7 @@ const GUIDES: readonly ParentPainGuide[] = [
       { label: 'Test anxiety vs. not knowing the material', href: '/growwise-blogs/test-anxiety-vs-content-gap' },
       { label: 'Why careless math mistakes happen', href: '/resources/careless-math-mistakes' },
       { label: 'Why children struggle with fractions', href: '/growwise-blogs/why-is-my-child-struggling-with-fractions' },
+      { label: 'Why pre-algebra can suddenly feel difficult', href: '/growwise-blogs/middle-school-math-cliff-pre-algebra' },
     ],
     cta: assessmentCta,
   },

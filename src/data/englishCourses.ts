@@ -1,8 +1,8 @@
 export const englishCourses = [
   {
     id: 'reading-enrichment-k-5',
-    name: 'Elementary English Grades 1-5',
-    description: 'Structured elementary English program for reading fluency, comprehension, vocabulary, grammar, and writing. Built for Grades 1-5 students who need stronger ELA foundations.',
+    name: 'Elementary English Grades 3-5',
+    description: 'Structured elementary English program for reading fluency, comprehension, vocabulary, grammar, and writing. Built for Grades 3-5 students who need stronger ELA foundations.',
     level: 'Elementary',
     duration: 'Flexible',
     gradeLevel: ['Elementary'],
@@ -23,7 +23,7 @@ export const englishCourses = [
       'Progress tracking and assessment',
       'Small group collaborative learning'
     ],
-    detailedDescription: 'Our Elementary English program for Grades 1-5 builds the core ELA skills students need before middle school: reading fluency, comprehension, vocabulary, grammar, and writing. Students start with a diagnostic-first placement and progress through structured 3-month programs.',
+    detailedDescription: 'Our Elementary English program for Grades 3-5 builds the core ELA skills students need before middle school: reading fluency, comprehension, vocabulary, grammar, and writing. Students start with a diagnostic-first placement and progress through structured programs.',
     image: '/assets/photos/photo-1481627834876-b7833e8f5570.jpg'
   },
   {

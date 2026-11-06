@@ -1,14 +1,4 @@
-export const SITE_PROOF = {
-  students: '387+ Students',
-  googleRating: '4.9★ Google',
-  parentSatisfaction: '98% Parent Satisfaction',
-} as const;
-
-export const SITE_PROOF_LINE = [
-  SITE_PROOF.students,
-  SITE_PROOF.googleRating,
-  SITE_PROOF.parentSatisfaction,
-].join(' · ');
+export const SITE_PROOF_LINE = 'Diagnostic-led placement · Parent-visible next steps';
 
 type CommercialValueOffer = {
   outcome: string;

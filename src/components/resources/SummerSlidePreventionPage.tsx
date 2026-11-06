@@ -199,6 +199,9 @@ export function SummerSlidePreventionPage() {
         The goal isn't a transformational summer. It's a maintenance summer — keeping the skills sharp so your
         child doesn't have to re-learn them in September.
       </p>
+      <p>
+        Families in Dublin and the Tri-Valley can also read our <Link href={publicPath('/resources/summer-slide-dublin-ca', locale)}>local summer learning guide</Link>, which focuses on area school transitions and local program options.
+      </p>
     </ResourceArticlePage>
   )
 }

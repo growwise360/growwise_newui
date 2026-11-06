@@ -4,8 +4,6 @@ import { Card, CardContent } from '../../ui/card';
 import { SectionError } from '../../ui/SectionError';
 import { OptimizedImage } from '../../gw/OptimizedImage';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { StructuredDataScript } from '../../seo/StructuredDataScript';
-import { generateReviewSchema } from '@/lib/seo/structuredData';
 import { useTestimonials } from '@/hooks/useTestimonials';
 
 export interface TestimonialVM {
@@ -209,27 +207,6 @@ export function TestimonialsSection({
     }
   };
   
-  // Review JSON-LD only — no AggregateRating: self-serving aggregate ratings on the
-  // org's own pages violate Google's review-snippet policy (SEO audit 2026-07-08).
-  const structuredData = useMemo(() => {
-    return testimonials.map((testimonial) =>
-      generateReviewSchema({
-        itemReviewed: {
-          "@type": "EducationalOrganization",
-          name: "GrowWise"
-        },
-        reviewRating: {
-          ratingValue: testimonial.rating,
-        },
-        author: {
-          name: testimonial.name,
-          type: "Person"
-        },
-        reviewBody: testimonial.content,
-      })
-    )
-  }, [testimonials])
-
   const getCurrentTestimonials = () => {
     const startIndex = currentSet * cardsPerSet;
     return testimonials.slice(startIndex, startIndex + cardsPerSet);
@@ -245,7 +222,6 @@ export function TestimonialsSection({
 
   return (
     <section className="py-12 md:py-20 px-4 lg:px-8 relative overflow-hidden">
-      <StructuredDataScript data={structuredData} id="testimonials-structured-data" />
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">

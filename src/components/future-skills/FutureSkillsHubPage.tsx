@@ -70,20 +70,12 @@ export function FutureSkillsHubPage() {
         </div>
       </section>
 
-      <section className="border-b border-[#1F396D]/10 bg-white px-4 py-4" aria-label="GrowWise trust signals">
+      <section className="border-b border-[#1F396D]/10 bg-white px-4 py-4" aria-label="Pathway details">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center text-sm font-semibold text-[#1F396D]">
-          <span>387+ students enrolled</span>
-          <span className="hidden text-gray-300 sm:inline" aria-hidden>
-            ·
-          </span>
-          <span>4.9★ Google reviews</span>
-          <span className="hidden text-gray-300 sm:inline" aria-hidden>
-            ·
-          </span>
-          <span>98% parent satisfaction</span>
-          <span className="hidden text-gray-300 sm:inline" aria-hidden>
-            ·
-          </span>
+          <span>Project-based pathways</span>
+          <span className="hidden text-gray-300 sm:inline" aria-hidden>·</span>
+          <span>Assessment-informed placement</span>
+          <span className="hidden text-gray-300 sm:inline" aria-hidden>·</span>
           <span>{CERTIPORT_ATC_DISPLAY}</span>
         </div>
       </section>

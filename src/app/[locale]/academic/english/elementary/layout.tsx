@@ -10,9 +10,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   return (
     generateMetadataFromPath('/academic/english/elementary', locale) ?? {
-      title: 'Elementary English Tutoring Online — Grades 1–5 | GrowWise',
+      title: 'Elementary English Tutoring Online — Grades 3–5 | GrowWise',
       description:
-        'Structured English program for Grades 1–5. Reading fluency, vocabulary, grammar, and writing. Live online small groups. Diagnostic-first. 3-month programs. Dublin, CA.',
+        'Structured English program for Grades 3–5. Reading fluency, vocabulary, grammar, and writing. Diagnostic-first with teacher-confirmed placement.',
     }
   )
 }
@@ -27,13 +27,13 @@ export default async function ElementaryEnglishLayout({
   const { locale } = await params
   const baseUrl = getCanonicalSiteUrl()
   const courseSchema = generateCourseSchema({
-    name: 'Elementary English — Grades 1–5',
+    name: 'Elementary English — Grades 3–5',
     description:
-      'Structured 3-month English Language Arts program for Grades 1–5. Reading fluency, vocabulary, grammar, and writing. Live online small groups. Diagnostic-first. California Common Core ELA aligned.',
+      'Structured English Language Arts program for Grades 3–5. Reading fluency, vocabulary, grammar, and writing. Diagnostic-first. California Common Core ELA aligned.',
     provider: 'GrowWise',
-    educationalLevel: 'Grades 1–5',
+    educationalLevel: 'Grades 3–5',
     teaches: ['Reading fluency', 'Vocabulary', 'Grammar', 'Writing'],
-    coursePrerequisites: 'Grades 1–5 elementary school level',
+    coursePrerequisites: 'Grades 3–5 elementary school level',
     url: absoluteSiteUrl('/academic/english/elementary', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
   })

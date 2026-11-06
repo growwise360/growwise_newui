@@ -35,25 +35,13 @@ import { useLocale } from 'next-intl'
 // ─────────────────────────────────────────────
 
 const TRUST_CHIPS = [
-  { icon: BookOpen, label: 'Grades 1–5' },
+  { icon: BookOpen, label: 'Grades 3–5' },
   { icon: Users, label: 'Live online nationwide + in-person Dublin CA' },
   { icon: Target, label: '6–10 students per group' },
   { icon: Clock, label: 'Starts monthly' },
 ]
 
 const GRADE_SIGNS = [
-  {
-    grades: 'Grade 1–2',
-    color: 'border-[#1F396D]',
-    badgeColor: 'bg-[#1F396D]',
-    signs: [
-      'Can count but struggles to compose and decompose numbers',
-      "Knows addition facts but can't explain what addition means",
-      'Confuses tens and ones place value under pressure',
-    ],
-    meaning:
-      "Number sense isn't concrete yet. The student is relying on memorization, not understanding.",
-  },
   {
     grades: 'Grade 3–4',
     color: 'border-[#F16112]',
@@ -130,7 +118,7 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
   {
     label: 'New grade prep',
     heading: '"Going into a new grade, want the foundation solid"',
-    body: 'Transition prep for rising Grade 2–5 students. We assess where they are and build forward so they start the new year from a position of strength, not catch-up.',
+    body: 'Transition prep for rising Grade 4–6 students. We assess where they are and build forward so they start the new year ready for the next sequence.',
     cta: 'summer',
     ctaLabel: 'See summer programs',
     levelTag: 'Champ level',
@@ -139,16 +127,6 @@ const JTBD_SITUATIONS: JTBDSituation[] = [
 ]
 
 const CURRICULUM_BANDS = [
-  {
-    label: 'Grade 1–2 focus',
-    color: 'bg-[#1F396D]',
-    topics: [
-      'Number sense and place value — tens, ones, composing and decomposing numbers',
-      'Addition and subtraction with understanding — not just fact memorization',
-      'Measuring and comparing — early geometric thinking',
-      'Introduction to repeated addition as multiplication foundation',
-    ],
-  },
   {
     label: 'Grade 3–4 focus',
     color: 'bg-[#F16112]',
@@ -194,11 +172,6 @@ const NOT_ITEMS = [
 ]
 
 const AUGUST_ELEMENTARY_READINESS = [
-  {
-    grade: 'Grades 1-2',
-    focus: 'Place value, composing and decomposing numbers, addition/subtraction meaning',
-    redFlag: 'Your child can count or calculate but cannot explain what the numbers mean.',
-  },
   {
     grade: 'Grades 3-4',
     focus: 'Multiplication, division, early fractions, and two-step word problems',
@@ -302,7 +275,7 @@ const ElementaryMathPage: React.FC = () => {
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 lg:px-8 py-16 lg:py-24 text-center">
           <Badge className="mb-4 bg-[#F16112]/10 text-[#F16112] border-[#F16112]/20 hover:bg-[#F16112]/20">
-            Elementary Math · Grades 1–5
+            Elementary Math · Grades 3–5
           </Badge>
           <h1 className="text-3xl lg:text-5xl font-bold text-gray-800 mb-5 leading-tight">
             Most elementary math struggles trace back to one gap.
@@ -461,7 +434,7 @@ const ElementaryMathPage: React.FC = () => {
           </h2>
           <div className="space-y-4 text-gray-600 leading-relaxed text-base lg:text-lg">
             <p>
-              Each new math concept in Grades 1–5 builds on what came before. Fractions assume multiplication fluency. Multi-step word problems assume solid operations. Decimals assume fraction understanding.
+              Each new math concept in Grades 3–5 builds on what came before. Fractions assume multiplication fluency. Multi-step word problems assume solid operations. Decimals assume fraction understanding.
             </p>
             <p>
               When one concept doesn't land fully — and the class moves on — the gap doesn't disappear. It compounds. The student arrives at the next unit slightly behind, the unit after that a little more behind, and by Grade 4 or 5 the problem is visible everywhere even though it started in one narrow place.
@@ -537,7 +510,7 @@ const ElementaryMathPage: React.FC = () => {
       {/* ── SECTION 4: Curriculum ────────────────────── */}
       <section className="bg-[#ebebeb] py-16 lg:py-20">
         <div className="max-w-5xl mx-auto px-4 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">Curriculum scope — Grades 1–5</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#F16112] mb-3">Curriculum scope — Grades 3–5</p>
           <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-3">
             What we cover and why the order matters.
           </h2>
@@ -653,7 +626,7 @@ const ElementaryMathPage: React.FC = () => {
           <CourseFAQ
             faqs={ELEMENTARY_MATH_VISIBLE_FAQS}
             title="Elementary Math FAQs"
-            subtitle="Common questions about the Grades 1–5 program."
+            subtitle="Common questions about the Grades 3–5 program."
             includeStructuredData={false}
           />
         </div>

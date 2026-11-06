@@ -238,7 +238,6 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     },
     trustHighlights: [
       'Small-group live instruction with project feedback',
-      '387+ students enrolled · 4.9★ Google · 98% parent satisfaction',
       'Certiport Authorized Testing Center in Dublin for eligible Adobe exams',
       'GrowWise level certificates at each completed stage',
     ],
@@ -408,7 +407,6 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     },
     trustHighlights: [
       'Project-first Python — not test-only cramming',
-      '387+ students enrolled · 4.9★ Google · 98% parent satisfaction',
       'Certiport ITS Python available on-site at GrowWise Dublin',
       'PCEP/OpenEDG pathway clearly described as in process',
     ],
@@ -564,7 +562,6 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     },
     trustHighlights: [
       'Project-based AI literacy — not prompt tricks only',
-      '387+ students enrolled · 4.9★ Google · 98% parent satisfaction',
       'Microsoft AI-900 available on-site at GrowWise Dublin (Certiport)',
       'Capstone presentations families can understand',
     ],
@@ -724,7 +721,6 @@ export const futureSkillsPathways: FutureSkillsPathway[] = [
     },
     trustHighlights: [
       'Build real pitch assets — not vocabulary worksheets',
-      '387+ students enrolled · 4.9★ Google · 98% parent satisfaction',
       'ESB and Meta Certification available on-site at GrowWise Dublin (Certiport)',
       'Presentation coaching with live instructor feedback',
     ],

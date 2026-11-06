@@ -4,6 +4,10 @@ const BODY = `# GrowWise School
 
 > Grades 3–12 tutoring and STEAM enrichment in Dublin, CA. Math, English, coding, AI, robotics, SAT prep, and summer camps for Grades 3–12 in the Tri-Valley.
 
+## Online Learning
+- [Online tutoring and subject packages](https://growwiseschool.org/online-tutoring) — live small-group English-language classes; class times, placement, and USD tuition are confirmed by a teacher after a parent/guardian inquiry. Published cohort times depend on confirmed instructor capacity and are shown in Pacific Time.
+- Online offerings are being introduced while the Dublin center remains open through February 4, 2027. The planned online-only transition date is February 5, 2027.
+
 ## Programs
 - [Book Free Math & English Assessment](https://growwiseschool.org/book-assessment)
 - [Academic (Math & English)](https://growwiseschool.org/academic)

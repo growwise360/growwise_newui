@@ -117,6 +117,8 @@ const DEFAULT_ASSESSMENT_HEADLINE =
 
 const DEFAULT_ASSESSMENT_TYPE = 'Free 30-Minute Assessment';
 const FULL_DIAGNOSTIC_TYPE = 'Full Diagnostic';
+const VALID_ASSESSMENT_SUBJECTS = ['Math', 'English', 'Chemistry', 'Physics', 'Both', 'SAT/PSAT', 'Coding / AI / Game Development', 'Robotics'];
+const VALID_ASSESSMENT_GRADES = Array.from({ length: 12 }, (_, i) => `Grade ${i + 1}`);
 
 const ASSESSMENT_PROCESS_STEPS = [
   {
@@ -151,6 +153,10 @@ export default function BookAssessmentPageClient() {
   const { openChatbot } = useChatbot();
   const communitySlug = searchParams.get('community') || '';
   const partnerParam = searchParams.get('partner') || '';
+  const requestedSubject = searchParams.get('subject') || '';
+  const requestedGrade = searchParams.get('grade') || '';
+  const requestedGoal = searchParams.get('goal') || '';
+  const requestedPackage = searchParams.get('package') || '';
   const validPartner = partnerParam && partnerConfig[partnerParam as keyof typeof partnerConfig] ? partnerConfig[partnerParam as keyof typeof partnerConfig] : null;
   const neighborhood = NEIGHBORHOODS[communitySlug] || {
     name: 'Dublin',
@@ -189,9 +195,9 @@ export default function BookAssessmentPageClient() {
       countryCode: '+1',
       phone: '',
       studentName: '',
-      grade: '',
-      subjectInterest: '',
-      mainConcern: '',
+      grade: VALID_ASSESSMENT_GRADES.includes(requestedGrade) ? requestedGrade : '',
+      subjectInterest: VALID_ASSESSMENT_SUBJECTS.includes(requestedSubject) ? requestedSubject : '',
+      mainConcern: [requestedGoal, requestedPackage ? `Package interest: ${requestedPackage}` : ''].filter(Boolean).join(' · '),
       assessmentType: DEFAULT_ASSESSMENT_TYPE,
       mode: '',
       scheduleDay: '',
@@ -205,7 +211,7 @@ export default function BookAssessmentPageClient() {
       utm_campaign: validPartner ? partnerParam : undefined,
       landingUrl: typeof window !== 'undefined' ? window.location.href : undefined,
     }),
-    [validPartner, partnerParam]
+    [validPartner, partnerParam, requestedSubject, requestedGrade, requestedGoal, requestedPackage]
   );
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -832,7 +838,7 @@ export default function BookAssessmentPageClient() {
           <div id="assessment-booking-form" suppressHydrationWarning>
             <Card className="bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl rounded-xl md:rounded-3xl overflow-hidden" suppressHydrationWarning>
               <CardContent className="p-4 sm:p-6 md:p-8" suppressHydrationWarning>
-                  <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6" suppressHydrationWarning noValidate>
+                  <form id="parent-enrollment-form" onSubmit={handleSubmit} className="space-y-5 md:space-y-6" suppressHydrationWarning noValidate>
                     <div className="rounded-2xl border border-[#F16112]/20 bg-[#FFF7ED] px-4 py-3">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div>
@@ -953,7 +959,12 @@ export default function BookAssessmentPageClient() {
                           <SelectContent className="bg-white/95 backdrop-blur-xl border-2 border-white/60 rounded-xl shadow-2xl">
                             <SelectItem value="Math" className="hover:bg-[#F16112]/10 py-3">Math</SelectItem>
                             <SelectItem value="English" className="hover:bg-[#F16112]/10 py-3">English</SelectItem>
+                            <SelectItem value="Chemistry" className="hover:bg-[#F16112]/10 py-3">Chemistry</SelectItem>
+                            <SelectItem value="Physics" className="hover:bg-[#F16112]/10 py-3">Physics</SelectItem>
                             <SelectItem value="Both" className="hover:bg-[#F16112]/10 py-3">Both</SelectItem>
+                            <SelectItem value="SAT/PSAT" className="hover:bg-[#F16112]/10 py-3">SAT / PSAT</SelectItem>
+                            <SelectItem value="Coding / AI / Game Development" className="hover:bg-[#F16112]/10 py-3">Coding / AI / Game Development</SelectItem>
+                            <SelectItem value="Robotics" className="hover:bg-[#F16112]/10 py-3">Robotics</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -1000,6 +1011,9 @@ export default function BookAssessmentPageClient() {
                       </div>
                     </div>
 
+                    <p className="text-sm leading-6 text-slate-600">
+                      A parent or guardian provides student details for assessment follow-up and learning services. If an online student profile is created, GrowWise manages it in Omnix360, the system used for student profiles, consent, the parent dashboard, and data retention. See our <Link href={publicPath('/privacy-policy', locale)} className="font-semibold text-[#1F396D] underline">privacy notice</Link>.
+                    </p>
                     <FormPrivacyConsent
                       checkboxId="agreeToCommunications"
                       checked={agreeToCommunications}
@@ -1158,7 +1172,7 @@ export default function BookAssessmentPageClient() {
                   Why families choose GrowWise after comparing options
                 </h2>
                 <p className="mt-3 text-sm font-black text-[#F16112]">
-                  98% parent satisfaction from GrowWise families.
+                  Parent-led assessment with teacher-confirmed next steps.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
                   The earlier we identify the gap, the easier it is to fix before the next test, unit, or school transition.

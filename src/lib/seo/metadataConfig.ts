@@ -187,11 +187,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/math/elementary': {
-    title: 'Elementary Math Tutoring Dublin CA | Grades 1-5',
+    title: 'Elementary Math Tutoring Dublin CA | Grades 3-5',
     description:
-      'Elementary math tutoring in Dublin, CA for Grades 1-5. Number sense, fractions, word problems, and August readiness assessment.',
+      'Elementary math tutoring in Dublin, CA for Grades 3-5. Number sense, fractions, word problems, and diagnostic-first placement.',
     keywords:
-      'elementary math tutoring Dublin CA, elementary math tutor near me, grade 1-5 math help, fractions tutoring grade 4, math word problem help elementary, common core math help, place value tutoring, August math readiness',
+      'elementary math tutoring Dublin CA, elementary math tutor near me, grade 3-5 math help, fractions tutoring grade 4, math word problem help elementary, common core math help, place value tutoring',
     path: '/academic/math/elementary',
   },
 
@@ -213,11 +213,11 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   },
 
   '/academic/english/elementary': {
-    title: 'Elementary English Tutoring Dublin CA | Grades 1-5',
+    title: 'Elementary English Tutoring Dublin CA | Grades 3-5',
     description:
-      'Elementary English tutoring in Dublin, CA for Grades 1-5. Reading fluency, comprehension, grammar, writing, and August readiness.',
+      'Elementary English tutoring in Dublin, CA for Grades 3-5. Reading fluency, comprehension, grammar, and writing support.',
     keywords:
-      'elementary English tutoring Dublin CA, English tutor near me, reading tutor near me, writing tutor near me, reading below grade level grades 1-5, child reads but does not understand, grammar tutoring, English writing classes near me',
+      'elementary English tutoring Dublin CA, English tutor near me, reading tutor near me, writing tutor near me, reading below grade level grades 3-5, child reads but does not understand, grammar tutoring, English writing classes near me',
     path: '/academic/english/elementary',
   },
 

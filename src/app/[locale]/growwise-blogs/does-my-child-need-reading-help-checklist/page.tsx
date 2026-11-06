@@ -56,6 +56,11 @@ const BLOG_FAQS = [
 
 const RELATED_READING_GUIDES = [
   {
+    title: 'When a Child Avoids Reading',
+    href: '/growwise-blogs/child-hates-reading-motivation-help',
+    description: 'Separate a motivation slump from persistent reading difficulty and choose a useful next step.',
+  },
+  {
     title: 'Reading Fluency vs. Comprehension',
     href: '/resources/reading-fluency-vs-comprehension',
     description: 'A parent guide for telling whether the gap is accuracy, pace, or understanding.',
