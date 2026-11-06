@@ -38,7 +38,7 @@ export default async function OnlineTutoringPage({ params }: { params: Promise<{
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <section className="bg-gradient-to-br from-[#F8FAFC] to-blue-50 px-4 py-14 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-bold uppercase tracking-wide text-[#C44B0A]">Online learning · Grades 3–12 · USD tuition</p>
+          <p className="text-sm font-bold uppercase tracking-wide text-[#C44B0A]">Live online classes · Grades 3–12</p>
           <h1 className="mt-3 max-w-4xl text-4xl font-black tracking-tight text-[#1F396D] sm:text-5xl">One learning system for the gap behind the grade</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-700">Start with an assessment. A teacher confirms the subject, level, available class schedule, and enrollment details with the parent or guardian.</p>
           <div className="mt-7 flex flex-wrap gap-3">

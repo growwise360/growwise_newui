@@ -26,7 +26,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <FAQSchema faqs={faqs} />
       <section className="bg-gradient-to-br from-[#F8FAFC] to-blue-50 px-4 py-14 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-bold uppercase tracking-wide text-[#C44B0A]">Online learning · Grades 3–12 · USD</p>
+          <p className="text-sm font-bold uppercase tracking-wide text-[#C44B0A]">Online tutoring · Grades 3–12</p>
           <h1 className="mt-3 max-w-4xl text-4xl font-black tracking-tight text-[#1F396D] sm:text-5xl">One learning system. One monthly price per subject.</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-700">Start with an assessment. A GrowWise teacher confirms the subject, level, available schedule, and price before enrollment.</p>
         </div>
@@ -46,7 +46,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8" aria-labelledby="plan-pricing-title">
         <div className="mx-auto max-w-6xl">
           <h2 id="plan-pricing-title" className="text-3xl font-bold text-[#1F396D]">Choose a grade band</h2>
-          <p className="mt-2 max-w-3xl text-slate-600">Prices are per subject, per month, on a three-month term. The four-week trial is a separate one-time purchase per student and subject.</p>
+          <p className="mt-2 max-w-3xl text-slate-600">All prices are in US dollars, per subject, per month, on a three-month term. The four-week trial is a separate one-time purchase per student and subject.</p>
           <OnlinePricingTabs />
         </div>
       </section>
