@@ -30,6 +30,25 @@ test.describe('Online launch regression checks', { tag: '@critical' }, () => {
     }
   });
 
+  test('assessment offers Grades 3–12 and rejects Grade 1 and 2 prefills', async ({ page }) => {
+    await page.route('**/api/**', (route) => route.request().method() === 'GET' ? route.continue() : route.abort());
+    await page.goto('/book-assessment');
+    const grade = page.locator('#main-content').getByTestId('assessment-grade-trigger');
+    await grade.click();
+    await expect(page.getByRole('option')).toHaveCount(10);
+    await expect(page.getByRole('option', { name: 'Grade 1', exact: true })).toHaveCount(0);
+    await expect(page.getByRole('option', { name: 'Grade 2', exact: true })).toHaveCount(0);
+    await expect(page.getByRole('option', { name: 'Grade 3', exact: true })).toBeVisible();
+    await expect(page.getByRole('option', { name: 'Grade 12', exact: true })).toBeVisible();
+    await page.keyboard.press('Escape');
+    for (const invalid of ['Grade 1', 'Grade 2']) {
+      await page.goto(`/book-assessment?grade=${encodeURIComponent(invalid)}`);
+      await expect(grade).toContainText('Select grade');
+    }
+    await page.goto('/book-assessment?grade=Grade%2012');
+    await expect(grade).toContainText('Grade 12');
+  });
+
   for (const [mode, viewport] of [
     ['desktop', { width: 1440, height: 1000 }],
     ['mobile', { width: 390, height: 844 }],

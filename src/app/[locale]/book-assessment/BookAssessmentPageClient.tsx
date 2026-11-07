@@ -118,7 +118,7 @@ const DEFAULT_ASSESSMENT_HEADLINE =
 const DEFAULT_ASSESSMENT_TYPE = 'Free 30-Minute Assessment';
 const FULL_DIAGNOSTIC_TYPE = 'Full Diagnostic';
 const VALID_ASSESSMENT_SUBJECTS = ['Math', 'English', 'Chemistry', 'Physics', 'Both', 'SAT/PSAT', 'Coding / AI / Game Development', 'Robotics'];
-const VALID_ASSESSMENT_GRADES = Array.from({ length: 12 }, (_, i) => `Grade ${i + 1}`);
+const VALID_ASSESSMENT_GRADES = Array.from({ length: 10 }, (_, i) => `Grade ${i + 3}`);
 
 const ASSESSMENT_PROCESS_STEPS = [
   {
@@ -298,10 +298,7 @@ export default function BookAssessmentPageClient() {
     trackAssessmentIntakeEvent('assessment_intake_prompt_viewed');
   }, [showGrowyIntakePrompt]);
 
-  const grades = [
-    'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5',
-    'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
-  ];
+  const grades = VALID_ASSESSMENT_GRADES;
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -367,8 +364,8 @@ export default function BookAssessmentPageClient() {
     }
 
     // Validate grade
-    if (!formData.grade.trim()) {
-      errors.grade = 'Grade level is required';
+    if (!VALID_ASSESSMENT_GRADES.includes(formData.grade)) {
+      errors.grade = 'Please select a grade from Grade 3 to Grade 12';
     }
 
     if (!formData.subjectInterest.trim()) {

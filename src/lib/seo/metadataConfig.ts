@@ -413,9 +413,9 @@ export const metadataConfig: Record<string, PageMetadataConfig> = {
   '/book-assessment': {
     title: 'Free Back-to-School Assessment Dublin CA | GrowWise',
     description:
-      'Book a free 30-minute Grades 1-4 assessment in Dublin, CA. Find math or English gaps before August classes and choose the right next step.',
+      'Book a free 30-minute Grades 3-12 assessment in Dublin, CA. Find math or English gaps before August classes and choose the right next step.',
     keywords:
-      'free academic assessment Dublin CA, back to school assessment, elementary math assessment, Grades 1-4 assessment, math English evaluation, diagnostic learning plan',
+      'free academic assessment Dublin CA, back to school assessment, elementary math assessment, Grades 3-12 assessment, math English evaluation, diagnostic learning plan',
     path: '/book-assessment',
     image: `${canonicalSiteUrl}/images/resources/growwise-back-to-school-math-assessment.webp`,
   },
