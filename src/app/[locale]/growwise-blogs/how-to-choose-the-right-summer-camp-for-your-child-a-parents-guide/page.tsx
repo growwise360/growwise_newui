@@ -368,6 +368,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           locale={locale}
           programHref="/camps/summer"
           programLabel="View Summer Camp Programs"
+          relatedPosts={[{ title: 'Interactive Summer Camp Selector', href: '/resources/how-to-choose-summer-camp', description: 'Use the interactive parent guide to compare academic, STEAM, transition-prep, and enrichment goals.' }]}
         />
       </div>
     </>

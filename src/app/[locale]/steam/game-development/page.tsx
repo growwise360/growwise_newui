@@ -8,7 +8,7 @@ import { publicPath } from '@/lib/publicPath';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Gamepad2, Code, Monitor, Joystick, Clock, Users, Star, Filter, ShoppingCart, CheckCircle, Award, BookOpen, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, Smartphone, Zap, Lightbulb, Rocket, Palette, Music, Bot, Brain, Cpu, Database, Network } from "lucide-react";
+import { Gamepad2, Code, Monitor, Joystick, Clock, Users, Filter, ShoppingCart, CheckCircle, Award, BookOpen, Target, GraduationCap, TrendingUp, Shield, ChevronRight, DollarSign, Eye, Sparkles, ArrowRight, HelpCircle, MessageCircle, Phone, Mail, Calendar, X, Smartphone, Zap, Lightbulb, Rocket, Palette, Music, Bot, Brain, Cpu, Database, Network } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import { GAME_DEVELOPMENT_FAQ_JSONLD } from "@/lib/schema/course-hub-jsonld-faqs";
@@ -34,8 +34,6 @@ interface GameDevCourse {
   image: string;
   originalPrice?: number;
   instructor: string;
-  rating: number;
-  studentsEnrolled: number;
   tags: string[];
 }
 
@@ -63,8 +61,6 @@ const gameDevCourses: GameDevCourse[] = [
     ],
     image: '/assets/photos/photo-1493711662062-fa541adb3fc8.jpg',
     instructor: 'Maya Rodriguez',
-    rating: 4.9,
-    studentsEnrolled: 312,
     tags: ['Scratch', 'Visual Programming', 'Game Design', 'STEAM']
   },
   {
@@ -89,8 +85,6 @@ const gameDevCourses: GameDevCourse[] = [
     ],
     image: '/assets/photos/photo-1541996275315-1f66f1a222b7.jpg',
     instructor: 'Priya Shah',
-    rating: 4.8,
-    studentsEnrolled: 205,
     tags: ['Robotics', 'Engineering', 'STEAM']
   },
   {
@@ -116,8 +110,6 @@ const gameDevCourses: GameDevCourse[] = [
     ],
     image: '/assets/photos/photo-1556438064-2d7646166914.jpg',
     instructor: 'Alex Thompson',
-    rating: 4.8,
-    studentsEnrolled: 234,
     tags: ['Roblox', 'Lua', 'Game Design', 'STEAM']
   },
   {
@@ -143,8 +135,6 @@ const gameDevCourses: GameDevCourse[] = [
     ],
     image: '/assets/photos/photo-1606092195730-5d7b9af1efc5.jpg',
     instructor: 'Jordan Kim',
-    rating: 4.7,
-    studentsEnrolled: 189,
     tags: ['Minecraft', 'Engineering', 'Programming', 'STEAM']
   }
 ];
@@ -717,16 +707,12 @@ const GameDevelopmentPage: React.FC = () => {
                               </div>
                             </div>
 
-                            {/* Pricing & Rating */}
+                            {/* Pricing */}
                             <div className="mb-3 p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className="text-sm text-gray-600">💰</span>
                                   <span className="font-bold text-lg text-[#1F396D]">{course.priceRange}</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Star className="w-4 h-4 fill-[#F1894F] text-[#F1894F]" />
-                                  <span className="text-sm font-semibold text-gray-700">{course.rating}</span>
                                 </div>
                               </div>
                               <div className="flex items-center mt-2 text-xs text-gray-600">

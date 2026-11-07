@@ -184,22 +184,8 @@ export default function EnrollAcademicPageClient() {
               Start Your Academic Journey Today
             </Badge>
             <p className="text-white/90 max-w-3xl mx-auto text-lg">
-              Join 387+ students. Register today for our comprehensive academic programs and unlock your child's full potential.
+              Choose an academic program and complete a parent-led assessment to find the right starting point.
             </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center justify-items-center">
-            {[
-              { number: "387+", label: "Students Enrolled" },
-              { number: "98%", label: "Parent Satisfaction" },
-              { number: "4.9/5", label: "Average Rating" },
-            ].map((s, i) => (
-              <Card key={i} className="bg-white/10 backdrop-blur-xl border-2 border-white/20 shadow-2xl">
-                <CardContent className="p-6">
-                  <div className="text-4xl font-bold text-white mb-1">{s.number}</div>
-                  <div className="text-sm text-white/80">{s.label}</div>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0">

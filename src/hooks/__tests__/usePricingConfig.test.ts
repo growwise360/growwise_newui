@@ -75,10 +75,10 @@ describe('usePricingConfig data and helpers', () => {
     expect(programs.map((p) => p.name)).toContain('Robotics');
   });
 
-  it('robotics program has studio_only: true', () => {
+  it('robotics program is available for live online classes', () => {
     const robotics = config.programs.find((p) => p.id === 'robotics');
     expect(robotics).toBeDefined();
-    expect(robotics!.studio_only).toBe(true);
+    expect(robotics!.studio_only).toBe(false);
   });
 
   it('getTierPrice returns studio price for studio mode', () => {

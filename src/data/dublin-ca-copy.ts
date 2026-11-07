@@ -77,7 +77,7 @@ export const DUBLIN_CA_COPY = {
   },
   testimonials: {
     heading: 'What parents say about GrowWise Dublin',
-    googleRatingLine: '4.9★ average on Google · Verified reviews from families at our Dublin campus',
+    googleRatingLine: '',
   },
   faq: {
     heading: 'Frequently Asked',

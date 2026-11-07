@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   return (
     generateMetadataFromPath('/academic/math/elementary', locale) ?? {
-      title: 'Elementary Math Tutoring Grades 1–5 | GrowWise',
-      description: 'Structured math programs for Grades 1–5. Diagnostic-first. Live online small groups.',
+      title: 'Elementary Math Tutoring Grades 3–5 | GrowWise',
+      description: 'Structured math programs for Grades 3–5. Diagnostic-first instruction with teacher-confirmed placement.',
     }
   )
 }
@@ -27,11 +27,11 @@ export default async function ElementaryMathLayout({
   const baseUrl = getCanonicalSiteUrl()
 
   const courseSchema = generateCourseSchema({
-    name: 'Elementary Math Foundation — Grades 1–5',
+    name: 'Elementary Math Foundation — Grades 3–5',
     description:
-      'Structured 3-month math programs for Grades 1–5. Covers number sense, place value, fractions, decimal operations, and multi-step word problem reasoning. Live online small groups of 6–10 students. Diagnostic-first.',
+      'Structured math programs for Grades 3–5. Covers number sense, place value, fractions, decimal operations, and multi-step word problem reasoning. Diagnostic-first.',
     provider: 'GrowWise',
-    educationalLevel: 'Grades 1–5',
+    educationalLevel: 'Grades 3–5',
     teaches: [
       'Number sense and place value',
       'Addition and subtraction with understanding',
@@ -42,7 +42,7 @@ export default async function ElementaryMathLayout({
       'Decimal operations',
       'Order of operations',
     ],
-    coursePrerequisites: 'Grades 1–5 elementary school level',
+    coursePrerequisites: 'Grades 3–5 elementary school level',
     url: absoluteSiteUrl('/academic/math/elementary', locale, baseUrl),
     image: `${baseUrl}/assets/growwise-logo.png`,
   })

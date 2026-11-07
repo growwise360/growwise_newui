@@ -43,4 +43,14 @@ export const LEGACY_PATH_REDIRECTS = [
     to: '/dublin-ca',
     note: 'Spec geo link; Dublin location page is canonical',
   },
+  {
+    from: '/growwise-blogs/reading-fluency-vs-reading-comprehension',
+    to: '/resources/reading-fluency-vs-comprehension',
+    note: 'Duplicate legacy article consolidated into the canonical resource guide',
+  },
+  {
+    from: '/growwise-blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide',
+    to: '/resources/how-to-choose-summer-camp',
+    note: 'Duplicate legacy summer-camp guide consolidated into the canonical resource guide',
+  },
 ] as const;

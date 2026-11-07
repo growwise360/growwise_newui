@@ -586,16 +586,12 @@ const MLAICoursesPage: React.FC = () => {
                               </div>
                             </div>
 
-                            {/* Pricing & Rating */}
+                            {/* Pricing */}
                             <div className="mb-3 p-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className="text-sm text-gray-600">💰</span>
                                   <span className="font-bold text-lg text-[#1F396D]">{course.priceRange}</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <Star className="w-4 h-4 fill-[#F1894F] text-[#F1894F]" />
-                                  <span className="text-sm font-semibold text-gray-700">{course.rating}</span>
                                 </div>
                               </div>
                               <div className="flex items-center mt-2 text-xs text-gray-600">

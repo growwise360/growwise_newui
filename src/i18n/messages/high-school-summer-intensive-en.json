@@ -16,10 +16,6 @@
     ]
   },
   "trustBar": {
-    "rating": "4.9★",
-    "ratingLabel": "Google Reviews",
-    "reviews": "40+ parent reviews",
-    "enrolled": "387+ students enrolled",
     "classSize": "Max 8 per class"
   },
   "howItWorks": {
@@ -32,7 +28,7 @@
   },
   "socialProof": {
     "title": "Real Results Parents Trust",
-    "subtitle": "Rated 4.9⭐ on Google · 40+ reviews",
+    "subtitle": "",
     "reviewAttribution": "· Google review"
   },
   "courses": {
