@@ -36,10 +36,6 @@ import { MathParentGuidesSection } from '@/components/courses/MathParentGuidesSe
 import { useLocale } from 'next-intl';
 import { publicPath } from '@/lib/publicPath';
 import { siteGoogleTrustReviewCards } from '@/lib/siteGoogleTrustReviews';
-import {
-  AGGREGATE_RATING_VALUE,
-  AGGREGATE_REVIEW_COUNT_LABEL,
-} from '@/lib/seo/socialProof';
 
 const hsMonthlyProgram = MATH_HUB_COPY.programOptions.cards.find((c) => c.id === 'high-school');
 const hsGradeBandCard = MATH_HUB_COPY.gradeBands.cards.find((c) => c.id === 'high-school');
@@ -556,7 +552,6 @@ const HighSchoolMathPage: React.FC = () => {
                 Parents choose GrowWise when high school math needs a real plan.
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                {AGGREGATE_RATING_VALUE}/5 average rating across {AGGREGATE_REVIEW_COUNT_LABEL} published reviews.
                 Students get course-aligned instruction, clear next steps, and parent-visible progress.
               </p>
             </div>

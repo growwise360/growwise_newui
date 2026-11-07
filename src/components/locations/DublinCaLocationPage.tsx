@@ -123,7 +123,8 @@ export function DublinCaLocationPage() {
             >
               See what Dublin families say on Nextdoor
             </Link>
-            .
+            . Online small-group classes are also available for local families;{' '}
+            <Link href={publicPath('/online-tutoring', locale)} className="font-semibold text-[#1F396D] underline-offset-2 hover:underline">explore online tutoring options</Link>. The Dublin center remains open through February 4, 2027.
           </p>
 
           <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:gap-6">
@@ -268,9 +269,11 @@ export function DublinCaLocationPage() {
           <h2 id="dublin-testimonials-heading" className="font-heading text-center text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
             {copy.testimonials.heading}
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm font-medium text-slate-600 md:text-base">
-            {copy.testimonials.googleRatingLine}
-          </p>
+          {copy.testimonials.googleRatingLine ? (
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm font-medium text-slate-600 md:text-base">
+              {copy.testimonials.googleRatingLine}
+            </p>
+          ) : null}
           <ul className="mt-10 grid list-none items-stretch gap-4 p-0 md:grid-cols-3 md:gap-5" role="list">
             {DUBLIN_CA_LOCAL_TESTIMONIALS.map((review, index) => (
               <li

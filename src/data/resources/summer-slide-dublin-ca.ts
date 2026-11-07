@@ -50,7 +50,7 @@ export const SUMMER_SLIDE_DUBLIN_CA_RELATED: readonly ResourceArticleRelated[] =
   {
     title: 'How to Prevent Summer Slide: What Actually Works',
     href: '/resources/summer-slide-prevention',
-    description: 'Evidence-based strategies to prevent summer learning loss.',
+    description: 'A general, location-independent maintenance plan for families; this Dublin guide focuses on local school transitions and Tri-Valley program options.',
   },
   {
     title: 'Grades 3–12 Tutoring in Dublin, CA: How to Choose the Right Program',

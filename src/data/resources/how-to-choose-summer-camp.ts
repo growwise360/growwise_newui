@@ -63,6 +63,11 @@ export const HOW_TO_CHOOSE_SUMMER_CAMP_FAQS: readonly ResourceArticleFaq[] = [
 
 export const HOW_TO_CHOOSE_SUMMER_CAMP_RELATED: readonly ResourceArticleRelated[] = [
   {
+    title: 'A Parent’s Guide to Choosing a Summer Camp',
+    href: '/resources/how-to-choose-summer-camp',
+    description: 'Read the broader guide to camp types, supervision, age fit, and questions to ask providers.',
+  },
+  {
     title: 'The Summer Slide Is Real: What Dublin Parents Need to Know',
     href: '/resources/summer-slide-dublin-ca',
     description: 'Understanding how students lose progress over summer and why timing matters.',

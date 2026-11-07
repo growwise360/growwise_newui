@@ -86,23 +86,6 @@ const KNOWLEDGE_BASE: KnowledgeBaseEntry[] = [
     value: 'FREE 30-minute trial class for STEAM courses',
   },
   
-  // Statistics
-  {
-    category: 'statistics',
-    key: 'students',
-    value: '387+ students enrolled',
-  },
-  {
-    category: 'statistics',
-    key: 'courses',
-    value: '25+ courses offered',
-  },
-  {
-    category: 'statistics',
-    key: 'satisfaction',
-    value: '98% parent satisfaction rate',
-  },
-  
   // Popular Courses
   {
     category: 'courses',

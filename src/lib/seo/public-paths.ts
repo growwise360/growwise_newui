@@ -1,3 +1,5 @@
+import { ONLINE_SCIENCE_COURSES } from '@/data/online-science-courses';
+
 const CORE_PAGE_PATHS = [
   '/',
   '/about',
@@ -12,6 +14,8 @@ const CORE_PAGE_PATHS = [
   '/enroll',
   '/enroll-academic',
   '/book-assessment',
+  '/online-tutoring',
+  '/pricing',
   '/readinesschecklist',
   '/self-check',
   '/math-finals-practice-session',
@@ -32,6 +36,7 @@ const CORE_PAGE_PATHS = [
   '/academic/math/high-school',
   '/academic/english',
   '/academic/english/elementary',
+  ...ONLINE_SCIENCE_COURSES.map(({ slug }) => `/academic/science/${slug}`),
   '/courses/sat-prep',
   '/courses/integrated-math-1-dublin-ca',
   '/steam',

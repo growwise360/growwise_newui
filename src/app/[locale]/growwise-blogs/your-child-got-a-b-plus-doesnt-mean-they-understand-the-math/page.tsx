@@ -272,6 +272,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 compensate.
               </p>
 
+              <p className="text-gray-700 mb-6">
+                For a broader checklist of signals across math and reading, see our{' '}
+                <Link className="font-semibold text-[#A83E05] underline" href={publicPath('/resources/why-grades-hide-learning-gaps', locale)}>parent guide to grades that hide learning gaps</Link>.
+                This article focuses specifically on how a strong math grade can mask fragile understanding.
+              </p>
+
               <p className="text-gray-700 mb-8">
                 A student who doesn&apos;t understand <em>why</em> fractions work the way they do can still score
                 well on a fractions test. They memorize the steps. They pattern-match from examples. They get the

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Target, GraduationCap, BookOpen, Calculator, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, PenTool, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, BookMarked, Star, Shield, ArrowRight } from "lucide-react";
+import { Target, GraduationCap, BookOpen, Calculator, CheckCircle, Clock, Users, Award, TrendingUp, Brain, FileText, PenTool, Sparkles, Eye, ChevronRight, Lightbulb, Trophy, BookMarked, Shield, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { getDefaultOpenFaqValues } from "@/lib/faq-accordion";
 import ProgramRecommendationModal from './ProgramRecommendationModal';
@@ -404,10 +404,6 @@ const SATPage: React.FC = () => {
                                 <Target className="h-4 w-4 text-[#F16112]" aria-hidden />
                                 <span className="font-bold text-sm text-[#1F396D]">Relevant program details</span>
                               </div>
-                              <div className="flex items-center gap-1">
-                                <Star className="w-4 h-4 fill-[#F1894F] text-[#F1894F]" />
-                                <span className="text-sm font-semibold text-gray-700">4.9</span>
-                              </div>
                             </div>
                             <div className="flex items-center mt-2 text-xs text-gray-600">
                               <span>Current pricing sent with your information</span>
@@ -476,10 +472,6 @@ const SATPage: React.FC = () => {
                             <div className="mb-3 p-2.5 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl">
                               <div className="flex items-center justify-between mb-1">
                                 <span className="font-bold text-sm text-[#1F396D]">Best-fit SAT plan</span>
-                                <div className="flex items-center gap-1">
-                                  <Star className="w-3 h-3 fill-[#F1894F] text-[#F1894F]" />
-                                  <span className="text-xs text-gray-600">4.9/5</span>
-                                </div>
                               </div>
                               <p className="text-[10px] text-gray-600">Pricing depends on the recommended level and format.</p>
                             </div>
