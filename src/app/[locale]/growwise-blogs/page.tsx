@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { BookOpen, ArrowRight, ArrowLeft } from 'lucide-react'
 import { BlogPostConversionSection } from '@/components/blogs/BlogPostConversionSection'
 import { PARENT_PAIN_GUIDES } from '@/data/parent-pain-guides'
+import { EDITORIAL_BLOG_POSTS } from '@/data/editorial-blog-posts'
 
 export async function generateMetadata({
   params,
@@ -52,6 +53,14 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  ...EDITORIAL_BLOG_POSTS.map((post) => ({
+    id: `editorial-${post.slug}`,
+    category: 'academic' as const,
+    title: post.headline,
+    excerpt: post.description,
+    href: `/growwise-blogs/${post.slug}`,
+    readMore: 'Read parent guide »',
+  })),
   ...PARENT_PAIN_GUIDES.map((guide) => ({
     id: `parent-pain-${guide.slug}`,
     category: 'academic' as const,
@@ -95,6 +104,24 @@ const blogPosts: BlogPost[] = [
       'Why the difference between a teacher and a mentor shows up years later, not on the report card, and how the learning flywheel builds real critical thinking.',
     href: '/growwise-blogs/mentor-vs-teacher-critical-thinking',
     readMore: 'Read article »',
+  },
+  {
+    id: 'tutoring-vs-teaching-2026',
+    category: 'academic',
+    title: 'Tutoring vs. Teaching: What Should Parents Actually Be Paying For?',
+    excerpt:
+      'Learn what separates immediate homework help from structured teaching built around assessment, mastery, and lasting independence.',
+    href: '/growwise-blogs/tutoring-vs-teaching-what-parents-should-pay-for',
+    readMore: 'Compare the approaches »',
+  },
+  {
+    id: 'tutoring-progress-2026',
+    category: 'academic',
+    title: 'How Can You Tell Whether Tutoring Is Actually Working?',
+    excerpt:
+      'The baselines, assessments, progress measures, and independence signals that show whether tutoring is creating lasting improvement.',
+    href: '/growwise-blogs/how-to-tell-if-tutoring-is-working',
+    readMore: 'Measure tutoring progress »',
   },
   {
     id: 'first-30-days-2026',
