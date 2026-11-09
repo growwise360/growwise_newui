@@ -17,6 +17,7 @@ import { locales } from '@/i18n/config'
 import { DEFAULT_LOCALE } from '@/i18n/localeConfig'
 import { getCampSlugs } from '@/lib/camps/get-camp-page'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
+import { normalizeCanonicalPathAlias } from '@/lib/seo/canonical-path-aliases'
 import SITEMAP_LASTMOD from '@/lib/seo/sitemap-lastmod.json'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
@@ -209,7 +210,7 @@ const blogPostPaths = [
   '/growwise-blogs/us-kids-falling-behind-math-english-parent-assessments',
   '/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile',
   '/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers',
-] as const
+].filter((path) => normalizeCanonicalPathAlias(path) === path)
 
 const XML_ESCAPE: Record<string, string> = {
   '&': '&amp;',

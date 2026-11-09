@@ -47,7 +47,11 @@ jobs:
         if: failure()
         run: |
           echo "Server logs:"
-          cat /tmp/server.log
+          if [ -f /tmp/server.log ]; then
+            cat /tmp/server.log
+          else
+            echo "Server log unavailable: the server start step did not create it. Check earlier failed steps."
+          fi
 
       - name: Run Playwright smoke E2E (@critical)
         env:
