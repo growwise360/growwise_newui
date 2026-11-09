@@ -75,6 +75,17 @@ describe('sitemapData', () => {
     expect(new Set(allLocs).size).toBe(allLocs.length);
   });
 
+  it('lists consolidated blog articles only at their canonical resource URLs', () => {
+    const locs = buildBlogUrls(BASE, LASTMOD).map((u) => u.loc);
+    for (const [legacy, canonical] of [
+      ['/growwise-blogs/reading-fluency-vs-reading-comprehension', '/resources/reading-fluency-vs-comprehension'],
+      ['/growwise-blogs/how-to-choose-the-right-summer-camp-for-your-child-a-parents-guide', '/resources/how-to-choose-summer-camp'],
+    ]) {
+      expect(locs).not.toContain(`${BASE}${legacy}`);
+      expect(locs.filter((loc) => loc === `${BASE}${canonical}`)).toHaveLength(1);
+    }
+  });
+
   it('excludes expired winter camp pages until a current schedule is published', () => {
     const pageLocs = buildPagesUrls(BASE, LASTMOD).map((u) => u.loc);
     expect(pageLocs).not.toContain(`${BASE}/camps/winter`);

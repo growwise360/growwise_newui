@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calculator, Star, ShoppingCart, Eye, ChevronRight } from "lucide-react";
+import { Calculator, ShoppingCart, Eye, ChevronRight } from "lucide-react";
 import { useTouchDetection } from '@/hooks/useHydration';
 import DynamicWrapper from './DynamicWrapper';
 
@@ -112,10 +112,6 @@ export default function CourseCard({
                   <span className="text-xs text-gray-600">💰</span>
                   <span className="font-bold text-sm text-[#1F396D]">{course.priceRange}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Star className="w-3.5 h-3.5 fill-[#F1894F] text-[#F1894F]" />
-                  <span className="text-xs font-semibold text-gray-700">4.9</span>
-                </div>
               </div>
             </div>
 
@@ -180,10 +176,6 @@ export default function CourseCard({
                   <div className="mb-1.5 p-1.5 bg-white/70 backdrop-blur-sm border border-white/50 rounded-lg">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-sm text-[#1F396D]">{course.priceRange}</span>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-[#F1894F] text-[#F1894F]" />
-                        <span className="text-[10px] text-gray-600">4.9/5</span>
-                      </div>
                     </div>
                   </div>
 

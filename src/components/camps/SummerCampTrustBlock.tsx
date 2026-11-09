@@ -36,9 +36,11 @@ export function SummerCampTrustBlock({
         >
           {heading}
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-center text-sm font-medium text-slate-600 md:text-base">
-          {googleRatingLine}
-        </p>
+        {googleRatingLine ? (
+          <p className="mx-auto mt-3 max-w-2xl text-center text-sm font-medium text-slate-600 md:text-base">
+            {googleRatingLine}
+          </p>
+        ) : null}
 
         <ul className="mt-10 grid list-none items-stretch gap-4 p-0 md:grid-cols-3 md:gap-5" role="list">
           {reviews.map((review, index) => (

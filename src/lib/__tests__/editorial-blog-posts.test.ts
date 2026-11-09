@@ -6,6 +6,8 @@ import { EDITORIAL_BLOG_POSTS } from '@/data/editorial-blog-posts'
 import { generateArticleSchema, generateFAQPageSchema } from '@/lib/seo/structuredData'
 import { buildBlogUrls, renderUrlset } from '@/lib/seo/sitemapData'
 import { PUBLIC_SITEMAP_PATHS } from '@/lib/seo/public-paths'
+import { absoluteSiteUrl } from '@/lib/publicPath'
+import { DEFAULT_LOCALE } from '@/i18n/localeConfig'
 
 const ROOT = process.cwd()
 
@@ -61,7 +63,7 @@ describe('editorial blog collection', () => {
     }
   })
 
-  test('renders all editorial and supporting article URLs in sitemap-blogs XML', () => {
+  test('renders each canonical editorial and supporting article URL once in sitemap-blogs XML', () => {
     const submittedSlugs = [
       ...EDITORIAL_BLOG_POSTS.map((post) => post.slug),
       'tutoring-vs-teaching-what-parents-should-pay-for',
@@ -72,7 +74,7 @@ describe('editorial blog collection', () => {
 
     expect(xml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
     for (const slug of submittedSlugs) {
-      const loc = `<loc>https://growwiseschool.org/growwise-blogs/${slug}</loc>`
+      const loc = `<loc>${absoluteSiteUrl(`/growwise-blogs/${slug}`, DEFAULT_LOCALE)}</loc>`
       expect(xml.match(new RegExp(loc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'))).toHaveLength(1)
     }
   })

@@ -13,7 +13,7 @@ describe('CommercialValueProofSlot', () => {
     render(<CommercialValueProofSlot />);
 
     expect(screen.getByTestId('commercial-value-proof')).toHaveTextContent(
-      '387+ Students · 4.9★ Google · 98% Parent Satisfaction',
+      'Diagnostic-led placement · Parent-visible next steps',
     );
     expect(screen.getByText('No pressure to enroll')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Find the Math Gap' })).toHaveAttribute(

@@ -86,6 +86,12 @@ export function MathHubPage({ locale }: MathHubPageProps) {
             </div>
           </div>
         </section>
+        <section className="px-5 py-10 md:px-12" aria-label="Related math learning guides">
+          <div className="mx-auto max-w-6xl rounded-2xl border border-blue-100 bg-blue-50 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-[#1F396D]">When fractions are the sticking point</h2>
+            <p className="mt-3 max-w-3xl leading-7 text-slate-700">Fraction comparison, equivalent fractions, and fraction operations often reveal a deeper number-sense gap. Read the <Link className="font-semibold text-[#A83E05] underline" href={publicPath('/growwise-blogs/why-is-my-child-struggling-with-fractions', locale)}>parent guide to common fraction struggles</Link>, or explore the <Link className="font-semibold text-[#A83E05] underline" href={publicPath('/courses/integrated-math-1-dublin-ca', locale)}>Integrated Math 1 readiness program</Link> for the next course transition.</p>
+          </div>
+        </section>
         <MathHubJtbdSelector locale={locale} />
         <HowItWorksSteps />
         <ProgramOptionCards locale={locale} />

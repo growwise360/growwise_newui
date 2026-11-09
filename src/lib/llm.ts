@@ -30,8 +30,6 @@ Approved program categories you may discuss (do not invent offerings outside thi
 ${formatChatbotApprovedCategoriesList()}
 
 About ${CHATBOT_BRAND_NAME}:
-- We serve 387+ students with 25+ courses
-- 98% parent satisfaction rate
 - Expert instructors with years of experience
 - Personalized tutoring, small groups, workshops, and camps
 

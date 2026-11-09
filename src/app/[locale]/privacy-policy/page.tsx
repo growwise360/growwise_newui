@@ -34,7 +34,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
             <h1 className="text-4xl md:text-5xl font-bold text-[#1F396D] mb-4">Privacy Policy</h1>
             <p className="text-gray-600 mb-8">
-              <strong>Effective Date: 25-May-2026</strong>
+              <strong>Last Updated: 5-Nov-2026</strong>
             </p>
 
             <div className="prose prose-lg max-w-none">
@@ -47,6 +47,9 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
                 <ul className="list-disc pl-6 space-y-2 text-gray-700">
                   <li>
                     <strong>Personal Information:</strong> We may collect personal information such as your name, email address, phone number, and address when you register for courses, programs, or events.
+                  </li>
+                  <li>
+                    <strong>Student Profile Information:</strong> A parent or guardian may provide a student&apos;s name, grade, learning goals, and assessment details when requesting educational services or accessing a resource. We use these details to respond to the parent&apos;s request and support the student&apos;s learning profile. Online student profiles are managed in Omnix360, which is the system used for student profiles, consent, the parent dashboard, and data retention. The relevant form explains when student details are requested and how they are used.
                   </li>
                   <li>
                     <strong>Onsite &amp; Camp Registration Information:</strong> For in-person programs at our Dublin, CA campus and summer camps, we may collect emergency contact details, authorized pickup contacts, student health or allergy notifications, and related safety information provided by a parent or legal guardian during registration.

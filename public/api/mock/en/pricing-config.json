@@ -906,7 +906,7 @@
       "tagline": "From first build to competition team",
       "age_min": 8,
       "age_max": 16,
-      "studio_only": true,
+      "studio_only": false,
       "active": true,
       "sort_order": 4,
       "journey_levels": [

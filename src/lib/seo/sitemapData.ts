@@ -17,6 +17,7 @@ import { locales } from '@/i18n/config'
 import { DEFAULT_LOCALE } from '@/i18n/localeConfig'
 import { getCampSlugs } from '@/lib/camps/get-camp-page'
 import { absoluteSiteUrl, publicPath } from '@/lib/publicPath'
+import { normalizeCanonicalPathAlias } from '@/lib/seo/canonical-path-aliases'
 import SITEMAP_LASTMOD from '@/lib/seo/sitemap-lastmod.json'
 import { getCanonicalSiteUrl } from '@/lib/seo/siteUrl'
 
@@ -87,6 +88,8 @@ const corePages: SitemapEntry[] = [
   { path: '/workshop-calendar', priority: 0.8, changefreq: 'weekly' },
   { path: '/programs', priority: 0.8, changefreq: 'monthly' },
   { path: '/growwise-blogs', priority: 0.85, changefreq: 'weekly' },
+  { path: '/online-tutoring', priority: 0.95, changefreq: 'weekly' },
+  { path: '/pricing', priority: 0.9, changefreq: 'monthly' },
   { path: '/resources', priority: 0.85, changefreq: 'weekly' },
   { path: '/resources/student-corner', priority: 0.75, changefreq: 'monthly' },
   { path: '/resources/student-corner/submit', priority: 0.65, changefreq: 'monthly' },
@@ -116,6 +119,13 @@ const coursePages: SitemapEntry[] = [
   { path: '/academic/english/elementary', priority: 0.92, changefreq: 'weekly' },
   { path: '/courses/sat-prep', priority: 0.9, changefreq: 'weekly' },
   { path: '/courses/integrated-math-1-dublin-ca', priority: 0.85, changefreq: 'monthly' },
+  { path: '/academic/science/chemistry', priority: 0.85, changefreq: 'monthly' },
+  { path: '/academic/science/physics', priority: 0.85, changefreq: 'monthly' },
+  { path: '/academic/science/ap-chemistry', priority: 0.8, changefreq: 'monthly' },
+  { path: '/academic/science/ap-physics-1', priority: 0.8, changefreq: 'monthly' },
+  { path: '/academic/science/ap-physics-2', priority: 0.8, changefreq: 'monthly' },
+  { path: '/academic/science/ap-physics-c-mechanics', priority: 0.8, changefreq: 'monthly' },
+  { path: '/academic/science/ap-physics-c-electricity-and-magnetism', priority: 0.8, changefreq: 'monthly' },
 ]
 
 const steamPages: SitemapEntry[] = [
@@ -200,7 +210,7 @@ const blogPostPaths = [
   '/growwise-blogs/us-kids-falling-behind-math-english-parent-assessments',
   '/growwise-blogs/why-learning-java-coding-is-impressive-on-your-linkedin-profile',
   '/growwise-blogs/why-learning-python-is-your-fast-track-to-in-demand-job-offers',
-] as const
+].filter((path) => normalizeCanonicalPathAlias(path) === path)
 
 const XML_ESCAPE: Record<string, string> = {
   '&': '&amp;',

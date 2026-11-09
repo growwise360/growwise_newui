@@ -11,10 +11,10 @@ export const ELEMENTARY_ENGLISH_COPY = {
     elementary: 'Elementary English',
   },
   hero: {
-    eyebrow: 'Elementary English · Grades 1–5 · Dublin, CA + Live online nationwide',
+    eyebrow: 'Elementary English · Grades 3–5 · Dublin, CA + Live online nationwide',
     h1: 'Your child can read the words. But can they understand them, write about them, or explain them? That gap is what we fix.',
     subhead:
-      'Most parents notice the problem in homework or report cards — but the gap usually started six to eighteen months earlier. Reading fluency, vocabulary, grammar, and writing all move together in Grades 1–5. When one pillar slips, the others stall.',
+      'Most parents notice the problem in homework or report cards — but the gap usually started six to eighteen months earlier. Reading fluency, vocabulary, grammar, and writing all move together in Grades 3–5. When one pillar slips, the others stall.',
     tldr: {
       title: 'At a glance — what each pillar gap looks like',
       items: [
@@ -54,15 +54,15 @@ export const ELEMENTARY_ENGLISH_COPY = {
           'It usually means fluency, vocabulary, or comprehension — not ability — is below the band expected for their grade. The label is a snapshot; our free assessment breaks it into the four pillars so you know exactly which skills to close and at which level to start.',
       },
       {
-        question: 'Is elementary English tutoring in Grades 1–5 worth it, or should I wait and see?',
+        question: 'Is elementary English tutoring in Grades 3–5 worth it, or should I wait and see?',
         answer:
-          'Waiting often widens the gap because Grades 1–5 skills stack — weak vocabulary in Grade 2 makes Grade 4 essays harder. Early targeted support is worth it when you see pillar signals. A free assessment shows whether action is needed now or later.',
+          'Waiting often widens the gap because Grades 3–5 skills stack — weak vocabulary and reading comprehension can make later essays harder. Targeted support is worth considering when you see persistent difficulty. A free assessment helps identify what to address.',
       },
     ],
   },
   compounding: {
     eyebrow: 'Why it compounds',
-    heading: 'Reading below grade level in Grades 1–5 often starts long before parents notice',
+    heading: 'Reading below grade level in Grades 3–5 often starts long before parents notice',
     paragraphs: [
       'The chain is predictable: a phonics or fluency gap limits vocabulary exposure → comprehension fails on grade-level texts → writing stalls because students lack words and sentence patterns → by Grade 5, multi-paragraph essays feel impossible.',
       'The dangerous signal is a B or C in Grades 2–3 that looks okay when actual skill is a year behind — the class moved on, but the pillar never fully landed.',
@@ -103,7 +103,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
   ],
   pillars: {
     eyebrow: 'The four pillars',
-    heading: 'Grades 1–5 English program — reading fluency, vocabulary, grammar, and writing',
+    heading: 'Grades 3–5 English program — reading fluency, vocabulary, grammar, and writing',
     subheading: 'Every level works all four pillars simultaneously. Observable signals parents can watch for at home.',
     items: [
       {
@@ -127,7 +127,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
       {
         number: '4',
         name: 'Writing',
-        why: 'School success increasingly depends on organized written responses — from sentences in Grade 1 to multi-paragraph essays in Grade 5.',
+        why: 'School success increasingly depends on organized written responses — from clear sentences to multi-paragraph essays by Grade 5.',
         signal: 'Stares at a blank page; very short responses; no structure or detail; resists writing tasks.',
       },
     ],
@@ -151,14 +151,14 @@ export const ELEMENTARY_ENGLISH_COPY = {
     headers: ['Reading fluency', 'Vocabulary', 'Grammar', 'Writing'] as const,
     bands: [
       {
-        label: 'Grades 1–2',
+        label: 'Grade 3 foundations',
         fluency: 'Letter-sound links, blends and digraphs, short and long vowel patterns, sight-word automaticity, basic phrasing when reading aloud.',
         vocabulary: 'High-frequency word meanings, concrete nouns and verbs, simple synonyms and antonyms, picture clues, basic prefixes like un- and re-.',
         grammar: 'Singular and plural nouns, present and past tense verbs, adjectives, capitals and end punctuation, complete sentences vs. fragments.',
         writing: 'Complete sentences, adding who/what/where detail, responding to a prompt, spacing and capitals, telling vs. asking sentences.',
       },
       {
-        label: 'Grades 3–4',
+        label: 'Grade 4 pathways',
         fluency: 'Multisyllabic decoding, steady reading pace with accuracy, expression in longer texts, self-correction, purposeful reading of informational texts.',
         vocabulary: 'Tier 2 academic words (analyze, contrast, summarize), common prefixes and suffixes, multiple-meaning words, dictionary and glossary use.',
         grammar: 'Compound sentences with conjunctions, pronoun agreement, possessives and contractions, commas in lists, subject-verb agreement, paragraph conventions.',
@@ -207,7 +207,7 @@ export const ELEMENTARY_ENGLISH_COPY = {
   },
   faq: {
     title: 'Elementary English tutoring FAQs',
-    subtitle: 'Direct answers for Grades 1–5 parents in Dublin, Pleasanton, San Ramon, and the Tri-Valley.',
+    subtitle: 'Direct answers for Grades 3–5 parents in Dublin, Pleasanton, San Ramon, and the Tri-Valley.',
   },
   cta: {
     heading: 'Start with a free assessment.',

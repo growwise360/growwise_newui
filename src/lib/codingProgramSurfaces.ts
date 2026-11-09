@@ -30,8 +30,6 @@ export interface CodingProgramSurface {
   features: string[];
   image: string;
   instructor: string;
-  rating: number;
-  studentsEnrolled: number;
   tags: string[];
   learningPathSteps: string[];
 }
@@ -63,8 +61,6 @@ export const CODING_SURFACES: readonly CodingProgramSurface[] = [
     ],
     image: '/assets/photos/photo-1526379095098-d400fd0bf935.jpg',
     instructor: 'Dr. Alex Martinez',
-    rating: 4.9,
-    studentsEnrolled: 156,
     tags: ['Python', 'Programming', 'STEAM'],
     learningPathSteps: [
       'Master Python fundamentals',
@@ -100,8 +96,6 @@ export const CODING_SURFACES: readonly CodingProgramSurface[] = [
     ],
     image: '/assets/photos/photo-1555949963-aa79dcee981c.jpg',
     instructor: 'Dr. Priya Patel',
-    rating: 4.9,
-    studentsEnrolled: 124,
     tags: ['Machine Learning', 'AI', 'Generative AI', 'STEAM'],
     learningPathSteps: [
       'Learn AI/ML concepts',
@@ -136,8 +130,6 @@ export const CODING_SURFACES: readonly CodingProgramSurface[] = [
     ],
     image: '/assets/photos/photo-1551650975-87deedd944c3.jpg',
     instructor: 'Sarah Chen',
-    rating: 4.8,
-    studentsEnrolled: 89,
     tags: ['App Development', 'Mobile', 'Programming', 'STEAM'],
     learningPathSteps: [
       'Design app interfaces',
@@ -163,8 +155,6 @@ export interface CatalogCourseDisplay {
   features: string[];
   image: string;
   instructor: string;
-  rating: number;
-  studentsEnrolled: number;
   tags: string[];
   learningPathSteps: string[];
 }
@@ -244,8 +234,6 @@ export function buildCatalogCoursesFromPricing(programs: Program[]): CatalogCour
       features: surface.features,
       image: surface.image,
       instructor: surface.instructor,
-      rating: surface.rating,
-      studentsEnrolled: surface.studentsEnrolled,
       tags: surface.tags,
       learningPathSteps: surface.learningPathSteps,
     };

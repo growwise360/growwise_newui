@@ -45,7 +45,7 @@
     "hero": {
       "title": "Empowering Young Minds for Tomorrow",
       "subtitle": "Comprehensive Grades 3–12 Education & STEAM Programs",
-      "description": "Join 387+ students in our personalized learning journey with 98% parent satisfaction",
+      "description": "Explore assessment-led learning pathways for Math, English, and future skills",
       "cta": "Start Your Journey"
     },
     "statistics": {
@@ -305,7 +305,7 @@
     },
     "cta": {
       "title": "Ready to Start Your STEAM Journey?",
-      "subtitle": "Join 387+ students who are already building the future with our innovative programs",
+      "subtitle": "Explore project-based programs that help students build practical skills",
       "primaryCta": "Book a Free Assessment",
       "secondaryCta": "Join Free Saturday Workshop"
     },
@@ -481,7 +481,7 @@
     },
     "cta": {
       "title": "Ready to Excel in Academics?",
-      "subtitle": "Join 387+ students who have improved their academic performance with our personalized programs.",
+      "subtitle": "Explore personalized academic pathways matched to a student's learning needs.",
       "primary": "Book a Free Assessment",
       "secondary": "Learn More"
     },
@@ -595,7 +595,7 @@
     },
     "cta": {
       "title": "Ready to Excel in English?",
-      "subtitle": "Join 387+ students who have transformed their writing and reading skills with GrowWise English programs.",
+      "subtitle": "Explore reading and writing programs matched to a student's learning needs.",
       "primaryButton": "Get Started",
       "secondaryButton": "Contact Us"
     }
@@ -620,7 +620,7 @@
     },
     "cta": {
       "title": "Ready to Master Math?",
-      "subtitle": "Join 387+ students who have transformed their mathematical skills with GrowWise Math programs.",
+      "subtitle": "Explore Math programs matched to a student's learning needs.",
       "primaryButton": "Get Started",
       "secondaryButton": "Contact Us"
     }
@@ -670,7 +670,7 @@
     },
     "cta": {
       "title": "Ready to Start Your STEAM Journey?",
-      "subtitle": "Join 387+ students learning cutting-edge technology skills",
+      "subtitle": "Explore technology programs through guided projects and pathways",
       "primaryCta": "Book a Free Assessment",
       "secondaryCta": "Join Free Saturday Workshop"
     }
@@ -780,7 +780,7 @@
       "primaryCta": "Reserve a Spot →",
       "secondaryCta": "Get Camp Guide →",
       "brochurePdf": "/assets/camps/SummerCampBrochure.pdf",
-      "trustMicro": "98% parent satisfaction · Max 8 students per class · Expert instructors",
+      "trustMicro": "Parent progress updates · Expert instructors",
       "urgencyLine": "Limited seats per week — popular weeks fill first",
       "downloadBrochure": "View 2026 brochure PDF (new tab)"
     },
@@ -806,8 +806,8 @@
         }
       ],
       "trustBlockHeading": "Real Results Parents Trust",
-      "trustGoogleRatingLine": "Rated 4.9⭐ on Google · 40+ reviews",
-      "trustProofStrip": "387+ students enrolled · 98% parent satisfaction · 40+ student projects showcased",
+      "trustGoogleRatingLine": "",
+      "trustProofStrip": "Math, reading, writing, and future-skills pathways",
       "trustBullets": [
         "Max 8 students per class — personalized attention",
         "Experienced instructors in coding, math & robotics",
@@ -964,7 +964,7 @@
         {
           "icon": "📈",
           "title": "Proven Results",
-          "description": "98% parent satisfaction — students return year after year and build skills that last well beyond summer."
+          "description": "Families can review progress and next steps throughout the program."
         },
         {
           "icon": "📅",

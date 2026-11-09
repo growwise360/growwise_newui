@@ -18,14 +18,6 @@ const PROGRAM_TICKER_ITEMS = [
   'Robotics & STEAM',
 ] as const;
 
-const META_ITEMS = [
-  '387+ Students',
-  '4.9★ Google',
-  '98% Satisfaction',
-  'Live Online',
-  'In-person · Dublin, CA',
-] as const;
-
 type SlideIndex = 0 | 1;
 
 export function HomeHero() {
@@ -177,16 +169,6 @@ export function HomeHero() {
           </div>
         </div>
 
-        <div className="hero-proof-row">
-          <div className="hero-meta-row">
-            {META_ITEMS.map((item, i) => (
-              <React.Fragment key={item}>
-                {i > 0 ? <span className="hero-meta-sep" aria-hidden /> : null}
-                <span className={`hero-meta-item${i < 3 ? ' hero-meta-stat' : ''}`}>{item}</span>
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

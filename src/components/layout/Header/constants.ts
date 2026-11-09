@@ -124,6 +124,13 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
     variant: 'blue',
   },
   {
+    key: 'online-tutoring',
+    label: 'Online Tutoring',
+    href: '/online-tutoring',
+    type: 'simple',
+    variant: 'orange',
+  },
+  {
     key: 'academic',
     label: 'Academic',
     href: '/academic',
