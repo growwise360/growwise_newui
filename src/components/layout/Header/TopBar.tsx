@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { Phone, Mail, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, Facebook, Instagram, Linkedin, LogIn } from 'lucide-react';
 
 interface TopBarProps {
+  studentLoginHref: string;
   phone: string;
   email: string;
   address: string;
@@ -13,14 +14,14 @@ interface TopBarProps {
   };
 }
 
-export default function TopBar({ phone, email, address, followLabel, social }: TopBarProps) {
+export default function TopBar({ phone, email, address, followLabel, social, studentLoginHref }: TopBarProps) {
   // Clean phone number for tel: link (remove spaces, parentheses, etc.)
   const cleanPhoneNumber = phone.replace(/[\s\(\)\-]/g, '');
   
   return (
     <div className="header-topbar" suppressHydrationWarning>
       <div className="container-7xl">
-        <div className="header-toprow">
+        <div className="header-toprow max-md:justify-end">
           {/* Contact Info */}
           <div className="header-contact-group">
             <div className="header-contact-item">
@@ -62,6 +63,14 @@ export default function TopBar({ phone, email, address, followLabel, social }: T
               </div>
             </div>
             <div className="header-address" suppressHydrationWarning>{address}</div>
+            <Link
+              href={studentLoginHref}
+              prefetch={false}
+              className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/60 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[#1E3A5F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E3A5F]"
+            >
+              <LogIn className="h-4 w-4" aria-hidden />
+              Student Login
+            </Link>
           </div>
         </div>
       </div>

@@ -85,16 +85,15 @@ export default function Header() {
 
   return (
     <header className="header-root">
-      {/* Top Header Bar — desktop/tablet only; reduces mobile header stack height */}
-      <div className="max-md:hidden">
-        <TopBar
-          phone={topPhone}
-          email={topEmail}
-          address={topAddress}
-          followLabel={followLabel}
-          social={social}
-        />
-      </div>
+      {/* Keep student login visible at the top right on every screen size. */}
+      <TopBar
+        studentLoginHref={createLocaleUrlHelper('/student-login')}
+        phone={topPhone}
+        email={topEmail}
+        address={topAddress}
+        followLabel={followLabel}
+        social={social}
+      />
 
       {/* Main Navigation */}
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 overflow-x-clip">
