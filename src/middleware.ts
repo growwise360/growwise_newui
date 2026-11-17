@@ -213,6 +213,25 @@ export default function middleware(request: NextRequest) {
   if (wwwRedirect) return wwwRedirect;
 
   const pathname = request.nextUrl.pathname;
+  // In local Next 16 dev, next-intl's clean-URL rewrites re-enter middleware.
+  // Let known internal locale routes through so nested pages such as
+  // `/student-login` do not redirect back to their public URL indefinitely.
+  const host = request.headers.get('host') || '';
+  const localePrefix = `/${DEFAULT_LOCALE}`;
+  const localPublicPath = pathname === localePrefix
+    ? '/'
+    : pathname.startsWith(`${localePrefix}/`)
+      ? pathname.slice(localePrefix.length)
+      : null;
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host) &&
+    localPublicPath !== null &&
+    (localPublicPath === '/' || KNOWN_PUBLIC_PATHS.has(localPublicPath))
+  ) {
+    return NextResponse.next();
+  }
+
   // Non-localized App Router segments (`app/camp/...` at repo root). Running next-intl on these
   // can fight with `[locale]/camp/[slug]` and caused redirect loops to the same URL.
   if (pathname === '/camp' || pathname.startsWith('/camp/')) {
