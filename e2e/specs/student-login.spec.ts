@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { localePath } from '../localePath';
 
-const STUDENT_LOGIN_URL = 'https://thegrowwise.com/student-login';
+const STUDENT_LOGIN_URL = 'https://thegrowwise.com/tutor-login-5/?utm_source=gwstudents';
 
 test.describe('Student login redirect', { tag: '@critical' }, () => {
   test('redirects the existing login URL to the external portal', async ({ request }) => {
